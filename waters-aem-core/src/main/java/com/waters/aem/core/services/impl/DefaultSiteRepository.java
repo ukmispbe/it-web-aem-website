@@ -47,38 +47,14 @@ public final class DefaultSiteRepository implements SiteRepository {
     }
 
     @Override
-    public List<PageDecorator> getLiveCopyPages(final PageDecorator blueprintPage) {
-        final Resource blueprintPageContentResource = blueprintPage.getContentResource();
+	public List<PageDecorator> getLiveCopyPages(final PageDecorator blueprintPage) {
+		final List<PageDecorator> liveCopyPages = new ArrayList<>();
+		
+		liveCopyPages.addAll(getDomainLiveCopyPages(blueprintPage, WatersConstants.ROOT_PATH));
+		liveCopyPages.addAll(getDomainLiveCopyPages(blueprintPage, WatersConstants.ORDER_ROOT_PATH));
 
-        final LiveRelationshipManager liveRelationshipManager = blueprintPageContentResource.getResourceResolver()
-            .adaptTo(LiveRelationshipManager.class);
-
-        final List<PageDecorator> liveCopyPages = new ArrayList<>();
-
-        try {
-            final RangeIterator liveRelationships = liveRelationshipManager.getLiveRelationships(
-                blueprintPageContentResource, WatersConstants.ROOT_PATH, null);
-
-            final PageManagerDecorator pageManager = blueprintPage.getPageManager();
-
-            while (liveRelationships.hasNext()) {
-                final LiveRelationship liveRelationship = (LiveRelationship) liveRelationships.next();
-                final String targetPath = liveRelationship.getTargetPath();
-
-                final PageDecorator targetPage = pageManager.getContainingPage(targetPath);
-
-                if (targetPage != null) {
-                    liveCopyPages.add(targetPage);
-                }
-            }
-        } catch (WCMException e) {
-            LOG.error("error getting live relationships for blueprint : " + blueprintPageContentResource, e);
-        }
-
-        LOG.info("found {} live copy pages for blueprint page : {}", liveCopyPages.size(), blueprintPage.getPath());
-
-        return liveCopyPages;
-    }
+		return liveCopyPages;
+	}
 
     @Override
     public List<PageDecorator> getCountryRootPages(final ResourceResolver resourceResolver) {
@@ -148,4 +124,34 @@ public final class DefaultSiteRepository implements SiteRepository {
 
         return liveCopy;
     }
+    
+	public List<PageDecorator> getDomainLiveCopyPages(final PageDecorator blueprintPage, final String rootPath) {
+		final Resource blueprintPageContentResource = blueprintPage.getContentResource();
+
+		final LiveRelationshipManager liveRelationshipManager = blueprintPageContentResource.getResourceResolver()
+				.adaptTo(LiveRelationshipManager.class);
+
+		final List<PageDecorator> liveCopyPages = new ArrayList<>();
+		try {
+			final RangeIterator liveRelationships = liveRelationshipManager
+					.getLiveRelationships(blueprintPageContentResource, rootPath, null);
+
+			final PageManagerDecorator pageManager = blueprintPage.getPageManager();
+
+			while (liveRelationships.hasNext()) {
+				final LiveRelationship liveRelationship = (LiveRelationship) liveRelationships.next();
+				final String targetPath = liveRelationship.getTargetPath();
+
+				final PageDecorator targetPage = pageManager.getContainingPage(targetPath);
+
+				if (targetPage != null) {
+					liveCopyPages.add(targetPage);
+				}
+			}
+		} catch (WCMException e) {
+			LOG.error("error getting live relationships for blueprint : " + blueprintPageContentResource, e);
+		}
+
+		return liveCopyPages;
+	}
 }
