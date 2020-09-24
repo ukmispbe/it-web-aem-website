@@ -258,8 +258,8 @@ public final class Footer extends AbstractComponent implements ComponentExporter
             Resource footerResource = resourceResolver.getResource(resource.getPath());
             ModifiableValueMap modifiableValueMap = footerResource.adaptTo(ModifiableValueMap.class);
             modifiableValueMap.put(PROPERTY_COUNTRY_NAME, getCountryName());
-            modifiableValueMap.put(PROPERTY_COUNTRY_LIST_JSON,
-                    isEprocurement() ? "" : StringUtils.isNotBlank(countryPagesJson) ? countryPagesJson : "");
+            String countryPagesJsonVal = StringUtils.isNotBlank(countryPagesJson) ? countryPagesJson : "";
+            modifiableValueMap.put(PROPERTY_COUNTRY_LIST_JSON, isEprocurement() ? "" : countryPagesJsonVal);
             List<CountryLanguageSelectorItem> languagePageList = getLanguagePages();
             if (!languagePageList.isEmpty()) {
                 Map jsonMap = new LinkedHashMap();
