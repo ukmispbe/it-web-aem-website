@@ -24,6 +24,11 @@
                         sling:orderBefore="cloudservices"
                         sling:resourceType="granite/ui/components/foundation/include"
                         path="waters/components/structure/page/thumbnail/content"/>
+                    <errorPages
+                        jcr:primaryType="nt:unstructured"
+                        sling:orderBefore="thumbnail"
+                        sling:resourceType="granite/ui/components/foundation/include"
+                        path="foundation/components/redirect/errorpages/content"/>
                 </items>
             </tabs>
         </items>
