@@ -17,6 +17,7 @@ import { mainCartContext } from "../analytics";
 import { getAvailability, getPricing, matchListItems } from "./services/index";
 import SignIn from '../scripts/signIn';
 import DigitalData from '../scripts/DigitalData';
+import { getHttpStatusFromErrors } from '../utils/eCommerceFunctions';
 import {
     BAD_REQUEST_CODE,
     SERVER_ERROR_CODE,
@@ -158,7 +159,7 @@ class SkuDetails extends React.Component {
             } else {
                 // Add Error Object to State
                 this.setState({
-                    errorPriceType: [BAD_REQUEST_CODE, SERVER_ERROR_CODE].includes(response.status) ?
+                    errorPriceType: [BAD_REQUEST_CODE, SERVER_ERROR_CODE].includes(getHttpStatusFromErrors(response.errors, response.status)) ?
                         (isEprocurementApp() ? UNAVAILABLE_PRICE_WITH_ADD_TO_CART : LIST_PRICE_WITH_ADD_TO_CART) : NO_PRICE_NO_ADD_TO_CART,
                     loading: false
                 });
