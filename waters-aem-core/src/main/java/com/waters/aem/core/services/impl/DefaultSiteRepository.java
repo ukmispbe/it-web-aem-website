@@ -48,12 +48,12 @@ public final class DefaultSiteRepository implements SiteRepository {
 
     @Override
 	public List<PageDecorator> getLiveCopyPages(final PageDecorator blueprintPage) {
-		final List<PageDecorator> liveCopyPages = new ArrayList<>();
+		final List<PageDecorator> liveCopyPagesList = new ArrayList<>();
 		
-		liveCopyPages.addAll(getDomainLiveCopyPages(blueprintPage, WatersConstants.ROOT_PATH));
-		liveCopyPages.addAll(getDomainLiveCopyPages(blueprintPage, WatersConstants.ORDER_ROOT_PATH));
+		liveCopyPagesList.addAll(getDomainLiveCopyPages(blueprintPage, WatersConstants.ROOT_PATH));
+		liveCopyPagesList.addAll(getDomainLiveCopyPages(blueprintPage, WatersConstants.ORDER_ROOT_PATH));
 
-		return liveCopyPages;
+		return liveCopyPagesList;
 	}
 
     @Override
