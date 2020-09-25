@@ -14,7 +14,8 @@
             </div>
             <div class="cmp-footer__logo">
                 <a href="${footer.logoLink.href}" target="${footer.external ? '_blank' : ''}">
-                    <img src="${footer.logoImage.fileReference}" alt="${footer.logoAltText}"  data-locator="footer-waters-logo"/>
+                    <img class="inline-svg" src="${footer.logoImage.fileReference}" alt="${footer.logoAltText}"
+                        data-locator="footer-waters-logo" />
                 </a>
             </div>
             <div data-sly-test="${footer.eprocurement && footer.contactLink}" class="cmp-button--reverse" id="contactWatersLink" data-locator="contact-waters-link"></div>
