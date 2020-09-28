@@ -64,7 +64,7 @@ public class PageRedirectServlet
         Resource resource = request.getResource();
         Resource contentResource = resource.getChild("jcr:content");
         if (contentResource != null) {
-            String redirectTarget = getRedirectTarget(contentResource);
+            String redirectTarget = getRedirectTarget(request, contentResource);
             String redirectType = getRedirectType(contentResource);
             if ((isRedirectRequest(request, redirectTarget)) && (!isExcludedResourceType(contentResource))) {
                 if (!isExternalRedirect(redirectTarget)) {
@@ -130,11 +130,11 @@ public class PageRedirectServlet
         return externalRedirect;
     }
 
-    private String getRedirectTarget(Resource resource) {
+    private String getRedirectTarget(final SlingHttpServletRequest request,Resource resource) {
         ValueMap valueMap = resource.adaptTo(ValueMap.class);
         String redirectTarget = "";
         if (valueMap != null) {
-            redirectTarget = getExternalizedUrl((String) valueMap.get("cq:redirectTarget", ""));
+            redirectTarget = getExternalizedUrl(request, (String) valueMap.get("cq:redirectTarget", ""));
         }
         return redirectTarget;
     }
@@ -153,12 +153,24 @@ public class PageRedirectServlet
         return (StringUtils.isNotEmpty(redirectTarget)) && (wcmMode.equals(WCMMode.DISABLED));
     }
 
-    private String getExternalizedUrl(final String path) {
+    private String getExternalizedUrl(final SlingHttpServletRequest request, final String path) {
+        final int protocolIndex = path.indexOf(":/");
+        final int queryIndex = path.indexOf('?');
+        String redirectPath;
         try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(null)) {
-            return externalizer.externalLink(resourceResolver, Externalizer.PUBLISH,
-                    path + "." + PathConstants.EXTENSION_HTML);
+            if (protocolIndex > -1 && (queryIndex == -1 || queryIndex > protocolIndex)) {
+                redirectPath = path;
+            }else if(protocolIndex == -1 && queryIndex > -1) {
+                redirectPath = externalizer.externalLink(resourceResolver, request.getResource().getPath().contains("/content/order") ? "order" : Externalizer.PUBLISH,
+                        path);
+            }else {
+                redirectPath = externalizer.externalLink(resourceResolver, request.getResource().getPath().contains("/content/order") ? "order" : Externalizer.PUBLISH,
+                        path + "." + PathConstants.EXTENSION_HTML);
+            }
         } catch (LoginException e) {
             throw new RuntimeException(e);
         }
+        return redirectPath;
     }
+
 }
