@@ -77,7 +77,10 @@
             
             svg {
                 margin-right: $space-xxs;
-                width: $icon-m;
+                max-width: $icon-m;
+                max-height: $icon-m;
+                height: 100%;
+                width: 100%;
                 fill: $color-error;
                 .st0,
                 .st1 {
@@ -704,5 +707,5 @@
 }
 
 .sku-error-code {
-    justify-content: left;
+    justify-content: flex-start;
   }
