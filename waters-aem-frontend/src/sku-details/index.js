@@ -291,7 +291,7 @@ class SkuDetails extends React.Component {
         if (errorObjCart) {
             isErrorModal = (Object.keys(errorObjCart).length !== 0);
         }
-        const isHiddenAddToCart = (errorPriceType !== '' && isStickyAvailable) ? true : false;
+        const isHiddenAddToCart = (errorPriceType === NO_PRICE_NO_ADD_TO_CART && isStickyAvailable) ? true : false;
         return (
             <div className="cmp-sku-details__buyinfo" data-locator="sku-details-buyinfo">
                 {LoginStatus.state() && typeof custPrice !== 'undefined'
