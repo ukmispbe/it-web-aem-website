@@ -71,6 +71,24 @@
             margin-top: 0;
         }
 
+        &__unavailable {
+            display: flex;
+            margin-top: $space-xxs;
+            
+            svg {
+                margin-right: $space-xxs;
+                max-width: $icon-m;
+                max-height: $icon-m;
+                height: 100%;
+                width: 100%;
+                fill: $color-error;
+                .st0,
+                .st1 {
+                    stroke: $color-error;
+                }
+            }
+        }
+
         &__availability {
             display: flex;
             align-items: center;
@@ -360,6 +378,10 @@
             @include mobile {
                 width: 100%;
             }
+        }
+
+        .cmp-sku-details__add-to-cart-hide{
+            display: none;
         }
 
         .cmp-sku-details__quote {
@@ -683,3 +705,7 @@
         }
     }
 }
+
+.sku-error-code {
+    justify-content: flex-start;
+  }
