@@ -14,7 +14,8 @@
             </div>
             <div class="cmp-footer__logo">
                 <a href="${footer.logoLink.href}" target="${footer.external ? '_blank' : ''}">
-                    <img src="${footer.logoImage.fileReference}" alt="${footer.logoAltText}"  data-locator="footer-waters-logo"/>
+                    <img class="inline-svg" src="${footer.logoImage.fileReference}" alt="${footer.logoAltText}"
+                        data-locator="footer-waters-logo" />
                 </a>
             </div>
             <div data-sly-test="${footer.eprocurement && footer.contactLink}" class="cmp-button--reverse" id="contactWatersLink" data-locator="contact-waters-link"></div>
@@ -184,7 +185,28 @@
             "signInText1": "${'Sign in' @ i18n, context='text'}",
             "signInText2": "${'to view ' @ i18n, context='text'}",
             "signInText3": "${'Your Price' @ i18n, context='text'}",
-            "signinIcon": "/content/dam/waters/en/brand-assets/icons/user.svg"
+            "signinIcon": "/content/dam/waters/en/brand-assets/icons/user.svg",
+            "unavailablePriceLabel": "${'Unavailable' @ i18n, context='text'}",
+            "skuErrorMessage": [
+                {
+                    "type": "text",
+                    "text": "${'This item is not available for sale.' @ i18n, context='text'}",
+                    "rightSpace": "true"
+                },
+                {
+                    "type": "link",
+                    "label": "${'Contact Waters' @ i18n, context='text'}",
+                    "title": "${'Contact Waters' @ i18n, context='text'}",
+                    "url": "${footer.contactLink.href @ context='unsafe'}",
+                    "blank": true,
+                    "rightSpace": "true"
+                },
+                {
+                    "type": "text",
+                    "text": "${'for more information.' @ i18n, context='text'}",
+                    "rightSpace": "false"
+                }
+            ]
         },
         "modalInfo": {
             "icon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",

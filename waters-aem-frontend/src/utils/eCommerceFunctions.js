@@ -52,3 +52,16 @@ export const elementLocator = str => {
         return str;
     }
 }
+
+export const getHttpStatusFromErrors = (arrErrors, defaultCode) => {
+    try {
+        return Array.isArray(arrErrors) ? arrErrors.reduce((acc, item) => {
+            if (item.hasOwnProperty('code')) {
+                acc = parseInt(item.code.substring(item.code.lastIndexOf('_') + 1), 10);
+            }
+            return acc;
+        }, defaultCode) : defaultCode;
+    } catch (e) {
+        return defaultCode;
+    }
+}

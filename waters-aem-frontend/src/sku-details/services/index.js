@@ -36,7 +36,7 @@ const addToCartUrlRequest = (url, partNo, quantity, cartId) => {
         .replace('{userType}', userId)
         .replace('{guid}', cartId ? cartId : 'null')
         .concat('', '?successWithCart=true');
-    url = cartId ? url : url.concat('', '&createCart=true');
+    url = cartId ? url : url.concat('', `&createCart=${!isEprocurementUser()}`);
 
     return url;
 }

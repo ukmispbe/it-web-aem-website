@@ -82,7 +82,7 @@ public final class DefaultLibraryPageManager implements LibraryPageManager {
     }
 
     @Override
-    @SuppressWarnings({ "squid:RedundantThrowsDeclarationCheck" })
+    @SuppressWarnings({ "squid:RedundantThrowsDeclarationCheck", "squid:S2259" })
     public PageDecorator createOrUpdateLibraryPage(final LibraryAsset asset)
         throws PersistenceException, WCMException {
         final ResourceResolver resourceResolver = asset.adaptTo(Resource.class).getResourceResolver();
@@ -242,6 +242,7 @@ public final class DefaultLibraryPageManager implements LibraryPageManager {
         return JcrUtil.createValidName(title.replaceAll("[^\\p{L}0-9\\-/ ]+", ""), JcrUtil.HYPHEN_LABEL_CHAR_MAPPING);
     }
 
+    @SuppressWarnings({ "squid:S2259" })
     private PageManagerDecorator getPageManager(final LibraryAsset asset) {
         final ResourceResolver resourceResolver = asset.adaptTo(Resource.class).getResourceResolver();
 
