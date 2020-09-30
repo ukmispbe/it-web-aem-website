@@ -74,12 +74,12 @@ class SkuDetails extends React.Component {
 
     componentDidMount() {
         const { availabilityUrl, custPriceApiDisabled, isGlobal,
-                pricingUrl, skuNumber, userCountry } = this.state;
+            pricingUrl, skuNumber, userCountry } = this.state;
 
         if (!isGlobal) {
             if (LoginStatus.state()) {
                 let userInfo = callCustomerPriceApi(custPriceApiDisabled);
-                if (Object.keys(userInfo).length > 0 && userInfo.callCustApi){
+                if (Object.keys(userInfo).length > 0 && userInfo.callCustApi) {
                     this.setState({
                         userInfo: userInfo
                     }, () => {
@@ -93,24 +93,24 @@ class SkuDetails extends React.Component {
             }
 
             getAvailability(availabilityUrl, userCountry, skuNumber)
-            .then(response => {
-                this.setState({
-                    skuAvailability: response,
-                    modalInfo: {
-                        ...this.props.config.modalInfo,
-                        textHeading: this.props.skuNumber,
-                        text: this.props.titleText
-                    },
-                    analyticsConfig: {
-                        ...this.state.analyticsConfig,
-                        ...response
-                    }
+                .then(response => {
+                    this.setState({
+                        skuAvailability: response,
+                        modalInfo: {
+                            ...this.props.config.modalInfo,
+                            textHeading: this.props.skuNumber,
+                            text: this.props.titleText
+                        },
+                        analyticsConfig: {
+                            ...this.state.analyticsConfig,
+                            ...response
+                        }
+                    });
+                })
+                .catch(err => {
+                    // Add Error Object to State
+                    this.setState({ errorObjAvailability: err });
                 });
-            })
-            .catch(err => {
-                // Add Error Object to State
-                this.setState({ errorObjAvailability: err });
-            });
         }
         window.addEventListener('scroll', this.handleScroll);
     }
@@ -141,37 +141,37 @@ class SkuDetails extends React.Component {
         }
     };
 
-//Note: getCustPricing Method should be an exact match between SKU Details and SKU List
+    //Note: getCustPricing Method should be an exact match between SKU Details and SKU List
     getCustPricing = (pricingUrl, skuNumber, userInfo, propListPrice) => {
         getPricing(pricingUrl, skuNumber, userInfo.dynamicSoldTo, userInfo.salesOrg)
-        .then(response => {
-            if (response.status && response.status === 200) {
-                let match = matchListItems(skuNumber, response);
-                let listPriceValue = (match.listPrice !== '' && match.listPrice != undefined) ? match.listPrice : propListPrice;
-                this.setState({
-                    skuData: match,
-                    custPrice: match.custPrice,
-                    listPrice: listPriceValue,
-                    loading: false
-                }, () => {
-                    //this.checkPricingAnalytics();
-                });
-            } else {
+            .then(response => {
+                if (response.status && response.status === 200) {
+                    let match = matchListItems(skuNumber, response);
+                    let listPriceValue = (match.listPrice !== '' && match.listPrice != undefined) ? match.listPrice : propListPrice;
+                    this.setState({
+                        skuData: match,
+                        custPrice: match.custPrice,
+                        listPrice: listPriceValue,
+                        loading: false
+                    }, () => {
+                        //this.checkPricingAnalytics();
+                    });
+                } else {
+                    // Add Error Object to State
+                    this.setState({
+                        errorPriceType: [BAD_REQUEST_CODE, SERVER_ERROR_CODE].includes(getHttpStatusFromErrors(response.errors, response.status)) ?
+                            (isEprocurementApp() ? UNAVAILABLE_PRICE_WITH_ADD_TO_CART : LIST_PRICE_WITH_ADD_TO_CART) : NO_PRICE_NO_ADD_TO_CART,
+                        loading: false
+                    });
+                }
+            })
+            .catch(() => {
                 // Add Error Object to State
                 this.setState({
-                    errorPriceType: [BAD_REQUEST_CODE, SERVER_ERROR_CODE].includes(getHttpStatusFromErrors(response.errors, response.status)) ?
-                        (isEprocurementApp() ? UNAVAILABLE_PRICE_WITH_ADD_TO_CART : LIST_PRICE_WITH_ADD_TO_CART) : NO_PRICE_NO_ADD_TO_CART,
+                    errorPriceType: NO_PRICE_NO_ADD_TO_CART,
                     loading: false
                 });
-            }
-        })
-        .catch(() => {
-            // Add Error Object to State
-            this.setState({
-                errorPriceType: NO_PRICE_NO_ADD_TO_CART,
-                loading: false
             });
-        });
     }
 
     toggleModal = () => {
@@ -299,9 +299,9 @@ class SkuDetails extends React.Component {
                         <div className="cmp-sku-details__list-price">
                             {`${skuInfo.listPriceLabel} ${listPrice}`}
                         </div>
-                )}
+                    )}
                 <div className="cmp-sku-details__priceinfo" data-locator="sku-details-priceinfo">
-                    {loading ? ( <Spinner loading={loading} type='inline' /> ) : this.renderPricing()}
+                    {loading ? (<Spinner loading={loading} type='inline' />) : this.renderPricing()}
                 </div>
                 <div className="cmp-sku-details__availability" data-locator="sku-details-availability">
                     <Stock
@@ -361,16 +361,16 @@ class SkuDetails extends React.Component {
                 (!Ecommerce.isPartialState() && !Ecommerce.isDisabledState())
             ) {
                 return <>
-                        {!LoginStatus.state() && (<SignIn
-                                signInUrl={this.props.config.baseSignInUrl}
-                                signInIcon={this.state.skuInfo.signinIcon}
-                                signInText1={this.state.skuInfo.signInText1}
-                                signInText2={this.state.skuInfo.signInText2}
-                                signInText3={this.state.skuInfo.signInText3}
-                            />)
-                            || LoginStatus.state() && (<div className="cmp-sku-signin-wrapper-not-displayed"></div>)}
-                        {this.renderBuyInfo()}
-                    </>;
+                    {!LoginStatus.state() && (<SignIn
+                        signInUrl={this.props.config.baseSignInUrl}
+                        signInIcon={this.state.skuInfo.signinIcon}
+                        signInText1={this.state.skuInfo.signInText1}
+                        signInText2={this.state.skuInfo.signInText2}
+                        signInText3={this.state.skuInfo.signInText3}
+                    />)
+                        || LoginStatus.state() && (<div className="cmp-sku-signin-wrapper-not-displayed"></div>)}
+                    {this.renderBuyInfo()}
+                </>;
             } else {
                 return this.renderEcommercePartialDisabled();
             }
@@ -382,6 +382,15 @@ class SkuDetails extends React.Component {
             <SkuMessage
                 icon={this.props.config.commerceConfig.disabledIcon}
                 message={this.props.config.commerceConfig.eProcurementRestrictedText}
+            />
+        )
+    };
+
+    renderSkuPriceErrorMsg = () => {
+        return (
+            <SkuMessage
+                icon={this.props.config.skuInfo.lowStockIcon}
+                message={this.props.config.skuInfo.skuErrorMessage}
             />
         );
     }
@@ -398,7 +407,7 @@ class SkuDetails extends React.Component {
     render() {
         if (this.state.isEProcurementUserRestricted) {
             return this.renderEProcurementUserRestricted();
-        } else if (!this.state.listPrice || this.state.isGlobal){
+        } else if (!this.state.listPrice || this.state.isGlobal) {
             return this.renderCountryRestricted();
         } else if (this.state.discontinued) {
             return this.renderDiscontinued();

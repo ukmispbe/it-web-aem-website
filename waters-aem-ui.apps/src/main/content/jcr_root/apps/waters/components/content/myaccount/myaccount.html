@@ -492,6 +492,10 @@
                         "validation": {
                             "required": true,
                             "validateFnName": "password",
+                            "maxLength": {
+                                "value": 30,
+                                "message": "${'Maximum 30 characters allowed' @i18n, context='unsafe'}"
+                            },
                             "validationMsg": "${'Please enter a valid password.' @ i18n, context='unsafe'}",
                             "requiredMsg": "${'Please enter a password.' @ i18n, context='unsafe'}",
                             "requiredMatchMsg": "${'Please confirm your password.' @ i18n, context='unsafe'}",

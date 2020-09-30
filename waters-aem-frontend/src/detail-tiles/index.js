@@ -22,9 +22,25 @@ const DetailTiles = ({
     form,
     icons,
     submitFn,
-    editText
+    editText,
+    profileData,
+    profileTiles,
+    data
 }) => {
-    const { tiles, setData } = useProfile(userDetailsUrl, soldToDetailsUrl, type, icons.refresh);
+
+
+    let tiles = [];
+    let setData;
+
+    if (!data)
+    {
+        const profileReturnData = useProfile(userDetailsUrl, soldToDetailsUrl, type, icons.refresh);
+        tiles = profileReturnData.tiles;
+        setData = profileReturnData.setData;
+    } else {
+        tiles = profileTiles;
+        setData = profileData;
+    }
 
     const swapFirstAndLastNames = () => {
         const indexofFirstName = form.fields.map(e => e.name).indexOf('firstName');
