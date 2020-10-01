@@ -85,6 +85,12 @@
         top: $space-s;
         right: $space-m;
 
+        button.search-icon, button.clear-icon {
+            background-color: transparent;
+            border: none;
+            padding: 0;
+        }
+
         &-search {
             svg {
                 width: $icon-l;
