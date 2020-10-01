@@ -40,6 +40,16 @@ class SkuMessage extends React.Component {
         )
     }
 
+    displaySkuMsg = () => {
+        return (
+            <React.Fragment>
+                {this.props.message}
+                {(this.props.linkMessage && this.props.link) &&
+                    <a href={this.props.link}>{this.props.linkMessage}</a>}
+            </React.Fragment>
+        );
+    }
+
     render() {
         return (
             <div className={`cmp-notification-wrapper ${Array.isArray(this.props.message) ? 'sku-error-code' : ''}`} data-locator="sku-msg-notification-wrapper">
@@ -50,11 +60,7 @@ class SkuMessage extends React.Component {
                 />
                 <div className="cmp-notification-body" data-locator="sku-msg-notification-body">
                     <div className="cmp-notification-description" data-locator="sku-msg-notification-description">
-                        {Array.isArray(this.props.message) ? this.displayError() : (
-                            this.props.message
-                            (this.props.linkMessage && this.props.link) &&
-                            <a href={this.props.link}>{this.props.linkMessage}</a>
-                        )}
+                        {Array.isArray(this.props.message) ? this.displayError() : this.displaySkuMsg()}
                     </div>
                 </div>
             </div>

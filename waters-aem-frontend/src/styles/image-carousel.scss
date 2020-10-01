@@ -267,11 +267,11 @@ html.modalOpen .image-carousel {
     }
 
     .image-viewer-container__image-display {
-        display: static;
+        display: inherit;
     }
 
     .image-thumbnails-placeholder {
-        display: static;
+        display: inherit;
     }
 }
 

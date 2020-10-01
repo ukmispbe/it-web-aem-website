@@ -710,7 +710,7 @@ if (contactusContainer) {
     let label;
     let url;
 
-    if(Object.keys(config.commerceConfig).length > 0) {
+    if (Object.keys(config.commerceConfig).length > 0) {
         label = config.commerceConfig.contactSupportLinkLabel;
         url = config.commerceConfig.contactSupportHref;
     }
