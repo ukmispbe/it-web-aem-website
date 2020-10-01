@@ -5,9 +5,9 @@
         <img class="${notification.svg ? 'inline-svg' : ''}" data-sly-test="${notification.icon}" src="${notification.icon}"/>
     </div>
     <div class="cmp-notification-body">
-        <div class="cmp-notification-title">${notification.title}</div>
+        <div class="cmp-notification-title">${notification.title @ context='html'}</div>
         <div class="cmp-notification-description">
-            ${notification.description}
+            ${notification.description @ context='html'}
             <ul class="cmp-notification-links" data-sly-test="${notification.linkItems}" data-sly-list.item="${notification.linkItems}">
                 <li>
                     <a href="${item.link.href}" target="${item.external ? '_blank' : ''}" rel="${item.external ? 'noopener noreferrer' : ''}">${item.text}</a>
