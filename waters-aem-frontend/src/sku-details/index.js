@@ -243,6 +243,7 @@ class SkuDetails extends React.Component {
 
     renderListOrUnavailablePrice = () => {
         const { listPrice, skuInfo, errorPriceType, isStickyAvailable } = this.state;
+        const isHiddenListPrice = (errorPriceType === NO_PRICE_NO_ADD_TO_CART && isStickyAvailable && isEprocurementApp()) ? true : false;
         if (errorPriceType === UNAVAILABLE_PRICE_WITH_ADD_TO_CART && !isStickyAvailable) {
             return (
                 <UnavailablePrice
@@ -251,13 +252,15 @@ class SkuDetails extends React.Component {
                     text={skuInfo.unavailablePriceLabel}
                 />);
         } else {
-            if (typeof listPrice !== 'undefined') {
+            if (typeof listPrice !== 'undefined' && !isHiddenListPrice) {
                 return (
                     <Price
                         label={skuInfo.listPriceLabel}
                         price={listPrice}
                         isListPrice={true}
                     />);
+            } else {
+                return <></>;
             }
         }
     }
