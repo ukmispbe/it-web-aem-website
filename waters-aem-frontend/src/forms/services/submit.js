@@ -5,6 +5,7 @@ import DigitalData from '../../scripts/DigitalData';
 import UserDetails from '../../my-account/services/UserDetails';
 import { signInRedirect } from '../../utils/redirectFunctions';
 import { getNamedHeaderLink } from '../../utils/redirectFunctions';
+import { matchAddresses } from '../../utils/userFunctions';
 
 const postData = async (url, data) => {
     const response = await fetch(url, {
@@ -227,7 +228,9 @@ export async function personalSubmit(data) {
         const store = new SessionStore();
         store.setUserDetails(responseBody);
         store.setPersonalDetailsUpdated();
-        this.setProfileData(responseBody);
+        const soldToDetails = store.getSoldToDetails();
+        const mergedResponse = matchAddresses(responseBody, soldToDetails);
+        this.setProfileData(mergedResponse);
         const model = {
             "communications":data.communications 
         }
