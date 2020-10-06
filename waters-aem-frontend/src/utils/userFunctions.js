@@ -309,3 +309,16 @@ export const getEprocUserLanguage = () => {
     const userDetails = store.getUserDetails();
     return userDetails.localeLanguage || '';
 }
+
+export const matchAddresses = (userDetailsAPIDetails, soldToAPIDetails) => {
+    userDetailsAPIDetails.soldToAccounts.forEach(account => {
+        for (let i = 0; i < soldToAPIDetails.length; i++) {
+            if(account.soldTo === soldToAPIDetails[i].soldTo) {
+                account.company = soldToAPIDetails[i].company;
+                account.addresses = soldToAPIDetails[i].partnerAddress;
+            } 
+        }
+    });
+    
+    return userDetailsAPIDetails;
+}
