@@ -182,16 +182,6 @@
                 }
             }
 
-            &:placeholder-shown,
-            &:focus {
-                & ~ .cmp-form-field--icons .valid-icon {
-                    display: none;
-                    svg {
-                        display: none;
-                    }
-                }
-            }
-
             &::-moz-placeholder {
                 & ~ .cmp-form-field--icons .valid-icon {
                     display: none;
@@ -432,6 +422,14 @@
                 @include font-small;
             }
         }
+        
+        &-label {
+            label{
+                margin-top: 0;
+                @include font-small;
+                font-weight: $font-weight-light;
+            }
+        }
 
         &-label {
             label{
@@ -619,8 +617,8 @@
     }
 }
 
-.cmp-trouble-signing-in-form {
+.cmp-trouble-signing-in-form,#js-contact-support-form {
     .cmp-form {
-        margin-bottom: 0px;
+        margin-bottom: 0;
     }
 }

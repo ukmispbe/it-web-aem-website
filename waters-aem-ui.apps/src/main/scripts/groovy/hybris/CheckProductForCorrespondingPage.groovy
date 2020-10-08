@@ -15,7 +15,7 @@ def productCodeMap = skuRepository.getSkuCodeToPagePathMap(currentPage)
 
  // Iterate through products and check the map for existing pages based on the product code and print code for products
  // with non-existing pages
-getNode("/etc/commerce/products").nodes.each { folderNode ->
+getNode("/var/commerce/products").nodes.each { folderNode ->
     folderNode.nodes.each { productNode ->
         if (productNode.hasProperty("hybris:code")) {
 

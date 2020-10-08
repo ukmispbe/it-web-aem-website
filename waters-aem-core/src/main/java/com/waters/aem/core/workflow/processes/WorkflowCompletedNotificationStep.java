@@ -20,7 +20,7 @@ import org.osgi.service.component.annotations.Reference;
 })
 public class WorkflowCompletedNotificationStep extends AbstractNotificationWorkflowProcess implements WorkflowProcess {
 
-    private static final String TEMPLATE_PATH = "/etc/notification/email/waters/workflow-completed-email-template.txt";
+    private static final String TEMPLATE_PATH = "/apps/settings/notification-templates/email/waters/workflow-completed-email-template.txt";
 
     @Reference
     private EmailService emailService;

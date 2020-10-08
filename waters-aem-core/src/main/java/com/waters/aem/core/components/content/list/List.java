@@ -37,6 +37,8 @@ import java.util.Collection;
     defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME,
     extensions = ExporterConstants.SLING_MODEL_EXTENSION)
+
+@SuppressWarnings({"squid:S2176"})
 public final class List implements com.adobe.cq.wcm.core.components.models.List {
 
     static final String RESOURCE_TYPE = "waters/components/content/list";
@@ -77,7 +79,7 @@ public final class List implements com.adobe.cq.wcm.core.components.models.List 
     public Collection<ListItem> getListItems() {
         final Collection<ListItem> listItems = new ArrayList<>();
 
-        for (final ListItem listItem : delegate.getListItems()) {
+        for (final Page listItem : delegate.getItems()) {
             final PageDecorator page = pageManager.getPage(listItem.getPath());
 
             if (page != null) {
@@ -119,5 +121,10 @@ public final class List implements com.adobe.cq.wcm.core.components.models.List 
     @Override
     public String getDateFormatString() {
         return delegate.getDateFormatString();
+    }
+
+    @Override
+    public String getId() {
+        return delegate.getId();
     }
 }

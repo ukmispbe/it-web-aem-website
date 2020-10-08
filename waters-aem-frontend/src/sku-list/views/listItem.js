@@ -3,6 +3,7 @@ import ReactSVG from 'react-svg';
 import PropTypes from 'prop-types';
 import Stock from '../../sku-details/views/stock';
 import Price from '../../sku-details/views/price';
+import UnavailablePrice from '../../sku-details/views/unavailablePrice';
 import { getAvailability, getPricing, matchListItems } from '../../sku-details/services';
 import AddToCart from '../../sku-details/views/addToCart';
 import AddToCartBody from '../../sku-details/views/addToCartModal';
@@ -15,7 +16,15 @@ import Ecommerce from '../../scripts/ecommerce';
 import SkuDetails from '../../scripts/sku-details';
 import Sticky from '../../scripts/stickyService';
 import Analytics, { analyticTypes, searchCartContext, relatedCartContext } from '../../analytics';
-import {isEprocurementUser as isEprocurementApp, isEprocurementUserRole} from '../../utils/userFunctions'
+import { isEprocurementUser } from '../../utils/userFunctions';
+import { getHttpStatusFromErrors } from '../../utils/eCommerceFunctions';
+import {
+    BAD_REQUEST_CODE,
+    SERVER_ERROR_CODE,
+    UNAVAILABLE_PRICE_WITH_ADD_TO_CART,
+    LIST_PRICE_WITH_ADD_TO_CART,
+    NO_PRICE_NO_ADD_TO_CART,
+} from '../../constants';
 
 class ListItem extends React.Component {
     constructor(props) {
@@ -55,7 +64,7 @@ class ListItem extends React.Component {
             },
             errorObjCart: {},
             errorObjAvailability: {},
-            errorObjPrice: {}
+            errorPriceType: ''
         };
     }
 
@@ -90,15 +99,16 @@ class ListItem extends React.Component {
             } else {
                 // Add Error Object to State
                 this.setState({
-                    errorObjPrice: response.errors,
+                    errorPriceType: [BAD_REQUEST_CODE, SERVER_ERROR_CODE].includes(getHttpStatusFromErrors(response.errors, response.status)) ?
+                        (isEprocurementUser() ? UNAVAILABLE_PRICE_WITH_ADD_TO_CART : LIST_PRICE_WITH_ADD_TO_CART) : NO_PRICE_NO_ADD_TO_CART,
                     loading: false
                 });
             }
         })
-        .catch(err => {
+        .catch(() => {
             // Add Error Object to State
             this.setState({
-                errorObjPrice: err,
+                errorPriceType: NO_PRICE_NO_ADD_TO_CART,
                 loading: false
             });
         });
@@ -179,18 +189,15 @@ class ListItem extends React.Component {
         }
     };
 
-    renderPricing = () => {
-        const { custPrice, listPrice, skuInfo } = this.state;
-
-        if (LoginStatus.state()){
-            let price = typeof custPrice !== 'undefined' ? custPrice : listPrice;
+    renderListOrUnavailablePrice = () => {
+        const { listPrice, skuInfo, errorPriceType } = this.state;
+        if (errorPriceType === UNAVAILABLE_PRICE_WITH_ADD_TO_CART) {
             return (
-                <Price
+                <UnavailablePrice
                     label={skuInfo.custPriceLabel}
-                    price={price}
-                    isListPrice={false}
-                />
-            )
+                    icon={skuInfo.lowStockIcon}
+                    text={skuInfo.unavailablePriceLabel}
+                />);
         } else {
             if (typeof listPrice !== 'undefined') {
                 return (
@@ -198,9 +205,28 @@ class ListItem extends React.Component {
                         label={skuInfo.listPriceLabel}
                         price={listPrice}
                         isListPrice={true}
-                    />
-                )
+                    />);
             }
+        }
+    }
+
+    renderPricing = () => {
+        const { custPrice, listPrice, skuInfo, errorPriceType } = this.state;
+
+        if (LoginStatus.state()) {
+            let price = typeof custPrice !== 'undefined' ? custPrice : listPrice;
+            if (errorPriceType !== '') {
+                return this.renderListOrUnavailablePrice();
+            } else {
+                return (
+                    <Price
+                        label={skuInfo.custPriceLabel}
+                        price={price}
+                        isListPrice={false}
+                    />);
+            }
+        } else {
+            return this.renderListOrUnavailablePrice();
         }
     }
 
@@ -216,7 +242,7 @@ class ListItem extends React.Component {
             <div className="cmp-sku-details__buyinfo">
                 {LoginStatus.state() && typeof custPrice !== 'undefined'
                     && custPrice !== listPrice && (
-                    <div className="cmp-sku-list__list-price">
+                    <div className="cmp-sku-list__list-price" data-locator="list-price-label" aria-label={`${skuInfo.listPriceLabel} ${listPrice}`}>
                         {`${skuInfo.listPriceLabel} ${listPrice}`}
                     </div>
                 )}
@@ -257,6 +283,7 @@ class ListItem extends React.Component {
                                     skuConfig.skuInfo
                                         .refreshIcon
                                 }
+                                data-locator="check-availability"
                             />
                         </span>
                     )}
@@ -271,6 +298,7 @@ class ListItem extends React.Component {
                         isCommerceApiMigrated={skuConfig.isCommerceApiMigrated}
                         toggleErrorModal={this.toggleErrorModal}
                         analyticsConfig={this.state.analyticsConfig}
+                        qtyLabel={skuConfig.qtyAriaLabel}
                     />
                     <Modal isOpen={this.state.modalShown} onClose={this.toggleModal} className='cmp-add-to-cart-modal'>
                         {!isErrorModal && (
@@ -317,8 +345,7 @@ class ListItem extends React.Component {
     }
 
     renderBuyInfo = () => {
-
-        if (!isEprocurementApp() && isEprocurementUserRole()) {
+        if (this.props.isEProcurementUserRestricted) {
             return (null);
         }
 
@@ -339,6 +366,13 @@ class ListItem extends React.Component {
                     linkMessage={relatedSku.replacementskucode}
                 />
             );
+        } else if (this.state.errorPriceType === NO_PRICE_NO_ADD_TO_CART) {
+            return (
+                <SkuMessage
+                    icon={skuConfig.skuInfo.lowStockIcon}
+                    message={skuConfig.skuInfo.skuErrorMessage}
+                />
+            );
         } else {
             return buyInfoCommerceView;
         }
@@ -348,10 +382,10 @@ class ListItem extends React.Component {
         const { relatedSku, skuConfig } = this.props;
         if (skuConfig.showBreadcrumbs) {
             return (
-                <div className="cmp-search__results-item-breadcrumb skuitem">
-                    <div>{relatedSku.category_facet}</div>
-                    <ReactSVG src={skuConfig.skuInfo.nextIcon} />
-                    <div>{relatedSku.contenttype_facet}</div>
+                <div className="cmp-search__results-item-breadcrumb skuitem" data-locator="search-results-breadcrumb">
+                    <div aria-label={relatedSku.category_facet}>{relatedSku.category_facet}</div>
+                    <ReactSVG src={skuConfig.skuInfo.nextIcon} aria-hidden="true" />
+                    <div aria-label={relatedSku.contenttype_facet}>{relatedSku.contenttype_facet}</div>
                 </div>
             );
         }
@@ -383,10 +417,11 @@ class ListItem extends React.Component {
                 <img
                         src={relatedSku.primaryImageThumbnail}
                         alt={relatedSku.title}
+                        data-locator="product-image"
                     />
                 </div>
                 <div className="cmp-sku-details__left">
-                    <div className="cmp-sku-list__code">
+                    <div className="cmp-sku-list__code" data-locator="product-number" aria-label={skuConfig.skuInfo.partNumberLabel + " " + relatedSku.code}>
                         {skuConfig.skuInfo.partNumberLabel + " " + relatedSku.code}
                     </div>
                     <a
@@ -397,7 +432,7 @@ class ListItem extends React.Component {
                                 : null
                         }
                     >
-                        <div className="cmp-sku-details__title">
+                        <div className="cmp-sku-details__title" data-locator="product-title">
                             {relatedSku.title}
                         </div>
                     </a>
@@ -417,7 +452,8 @@ ListItem.propTypes = {
     skuConfig: PropTypes.object.isRequired,
     baseSignInUrl: PropTypes.string.isRequired,
     onItemClick: PropTypes.func.isRequired,
-    userInfo: PropTypes.object.isRequired
+    userInfo: PropTypes.object.isRequired,
+    isEProcurementUserRestricted: PropTypes.bool.isRequired
 };
 
 ListItem.defaultProps = {
@@ -426,7 +462,8 @@ ListItem.defaultProps = {
     skuConfig: {},
     baseSignInUrl: '',
     onItemClick: () => {},
-    userInfo: {}
+    userInfo: {},
+    isEProcurementUserRestricted: false
 };
 
 export default ListItem;

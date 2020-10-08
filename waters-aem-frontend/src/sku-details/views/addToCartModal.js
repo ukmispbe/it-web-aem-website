@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import ErrorMessages from '../../scripts/ErrorMessages';
 import { useModalApi } from '../../utils/modal'
+import { elementLocator } from '../../utils/eCommerceFunctions';
 
 const keys = {
     AddToCartPrefix: 'cmp-atc-modal',
@@ -60,7 +61,7 @@ const AddToCartModalBody = props => {
         if (!props.text) return <></>;
     
         return (
-            <div className={props.className}>
+            <div className={props.className} data-locator='modal-information-text'>
                 {props.text}
             </div>
         );
@@ -74,6 +75,8 @@ const AddToCartModalBody = props => {
                 <button
                     onClick={() => onClose()}
                     className={keys.AltButton}
+                    data-locator={elementLocator(btn.text)}
+                    aria-label={btn.text}
                 >
                     {btn.text}
                 </button>
@@ -88,6 +91,9 @@ const AddToCartModalBody = props => {
                     className={keys.MainButton}
                     target={btn.target || ''}
                     {...(btn.callback && { onClick: (e)=>btn.callback(e) })}
+                    data-locator={elementLocator(btn.text)}
+                    role="button"
+                    aria-label={btn.text}
                 >
                     {btn.text}
                 </a>
@@ -105,6 +111,7 @@ const AddToCartModalBody = props => {
                         <div
                             className={keys.FullWidthButton}
                             key={`modal-btn-${index}`}
+                            data-locator={`modal-btn-${index}`}
                         >
                             {btn.text ? buttonType(btn) : null}
                         </div>

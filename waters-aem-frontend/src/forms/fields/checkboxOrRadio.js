@@ -3,6 +3,7 @@ import ReactSVG from 'react-svg';
 
 import { useFormApi, useFieldApi } from '../form';
 import { useErrorsContext } from './utils/stateWatcher';
+import { elementLocator } from '../../utils/eCommerceFunctions';
 import { renderFormattedLabelText } from '../../utils/labelFunctions';
 
 const CheckboxOrRadio = ({}) => {
@@ -120,7 +121,8 @@ const CheckboxOrRadio = ({}) => {
                 <a
                     href={thisState.link}
                     target={thisState ? '_blank' : ''}
-                    rel="noopener"
+                    rel="noopener noreferrer"
+                    data-locator={elementLocator(thisState.text || 'add-on-link')}
                 >
                     {thisState.text}
                 </a>
@@ -147,6 +149,7 @@ const CheckboxOrRadio = ({}) => {
                     className={hasError(thisName) ? 'error' : 'valid'}
                     ref={register(thisState.required ? { required: true } : {})}
                     readOnly
+                    data-locator={elementLocator(thisName || 'input-type')}
                 />
                 <a
                     className={

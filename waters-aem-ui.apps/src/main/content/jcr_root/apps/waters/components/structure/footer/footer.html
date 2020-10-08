@@ -1,8 +1,8 @@
 <!--  this anchor has a fix position and will show on the page when the footer is not yet visible during scrolling -->
-<a class="cmp-back-to-top" href="#" title="${'Back To Top' @ i18n}"><img alt="${'Back To Top' @ i18n}" src="/content/dam/waters/en/brand-assets/icons/up.svg" class="inline-svg"></a>
+<a class="cmp-back-to-top" href="#" title="${'Back To Top' @ i18n}" aria-label="${'Back To Top' @ i18n}"><img alt="${'Back To Top' @ i18n}" src="/content/dam/waters/en/brand-assets/icons/up.svg" class="inline-svg"></a>
 
 <!-- this second anchor has a relative position and will show on the page when the footer is visible during scrolling -->
-<a class="cmp-back-to-top--relative" href="#" title="${'Back To Top' @ i18n}"><img alt="${'Back To Top' @ i18n}" src="/content/dam/waters/en/brand-assets/icons/up.svg" class="inline-svg"></a>
+<a class="cmp-back-to-top--relative" href="#" title="${'Back To Top' @ i18n}" aria-label="${'Back To Top' @ i18n}"><img alt="${'Back To Top' @ i18n}" src="/content/dam/waters/en/brand-assets/icons/up.svg" class="inline-svg"></a>
 
 <div data-sly-use.footer="com.waters.aem.core.components.structure.Footer" id="footer" class="cmp-footer" data-ecommerce-state="${footer.commerceConfig}">
     <sly data-sly-test.isChinaPage="${footer.chinaPage}"/>
@@ -14,15 +14,16 @@
             </div>
             <div class="cmp-footer__logo">
                 <a href="${footer.logoLink.href}" target="${footer.external ? '_blank' : ''}">
-                    <img src="${footer.logoImage.fileReference}" alt="${footer.logoAltText}" />
+                    <img class="inline-svg" src="${footer.logoImage.fileReference}" alt="${footer.logoAltText}"
+                        data-locator="footer-waters-logo" />
                 </a>
             </div>
-            <div data-sly-test="${footer.eprocurement && footer.contactLink}" class="cmp-button--reverse" id="contactWatersLink"></div>
+            <div data-sly-test="${footer.eprocurement && footer.contactLink}" class="cmp-button--reverse" id="contactWatersLink" data-locator="contact-waters-link"></div>
             <div class="cmp-footer__social-links" data-sly-test="${footer.socialLinks && !footer.eprocurement}">
                 <div class="social-links-text">${'Follow our channels' @ i18n}</div>
                 <ul>
                     <li data-sly-repeat="${footer.socialLinks}" class="cmp-footer__social-links__item">
-                        <a class="cmp-footer-social-links__link" href="${item.link.href}" target="_blank">
+                        <a class="cmp-footer-social-links__link" href="${item.link.href}" target="_blank" rel="noopener noreferrer">
                             <img class="${item.svg ? 'inline-svg' : ''}" data-sly-test="${item.linkIcon}"
                                 src="${item.linkIcon}" />
                         </a>
@@ -47,7 +48,7 @@
     </div>
     <div class="container2_wrapper">
         <div class="container2">
-            <div class="cmp-footer__copyright">
+            <div class="cmp-footer__copyright" data-locator="footer-copyright">
                 <p>${footer.copyrightText}</p>
             </div>
             <div data-sly-test="${!footer.eprocurement}" class="cmp-footer__selector ${footer.languagePages.size == 1 ? 'one-link' : ''}">
@@ -56,25 +57,25 @@
                     <img class="inline-svg" src="/content/dam/waters/en/brand-assets/icons/modal.svg"
                         alt="${'Country' @ i18n}" />
                 </div>
-                <div class="cmp-footer__selector__language ${footer.languagePages.size == 1 ? 'one-link' : ''}">
-                    <a href="${footer.languagePages[0].page.href}">${footer.languagePages[0].languageTitle}</a>
+                <div class="cmp-footer__selector__language ${footer.languagePages.size == 1 ? 'one-link' : ''}" data-locator="footer-language-selector">
+                    <a href="${footer.languagePages[0].page.href}" data-locator="footer-language-link">${footer.languagePages[0].languageTitle}</a>
                     <div class="cmp-footer__selector__language--options"
                         data-sly-list.languageLink="${footer.languagePages}">
                         <a data-sly-test="${!languageLinkList.first}"
-                            href="${languageLink.page.href}">${languageLink.languageTitle} </a>
+                            href="${languageLink.page.href}" data-locator="footer-language-options">${languageLink.languageTitle} </a>
                     </div>
                 </div>
             </div>
             <div class="cmp-footer__links ${isChinaPage ? 'china-legal' : ''}">
                 <nav data-sly-test="${footer.footerLinks || isChinaPage}">
                     <a data-sly-repeat="${footer.footerLinks}" href="${item.link.href}"
-                        target="${item.external ? '_blank' : ''}">
+                        target="${item.external ? '_blank' : ''}" rel="${item.external ? 'noopener noreferrer' : ''}" data-locator="${item.text}">
                         ${item.text}
                         <sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
                             data-sly-call="${patterns.linkIcon @ linkItem=item}" />
                     </a>
-                    <a data-sly-test="${footer.cookiesLink}" href="${footer.cookiesLink.href}">${'Cookies' @ i18n}</a>
-                    <a class="optanon-toggle-display dl_Anchor" href="#">${'Cookie Preferences' @ i18n}</a>
+                    <a data-sly-test="${footer.cookiesLink}" href="${footer.cookiesLink.href}" data-locator="link-cookies">${'Cookies' @ i18n}</a>
+                    <a class="optanon-toggle-display dl_Anchor" href="#" data-locator="link-cookie-preferences">${'Cookie Preferences' @ i18n}</a>
                     <div data-sly-test="${isChinaPage}" class="cmp-footer__china-legal">
                         <a href="${footer.cBLegalLink.href}" class="cmp-footer__china-legal-cB">
                             <img data-sly-test="${footer.cBLegalIcon}" src="${footer.cBLegalIcon}" alt="${'Commercial Bureau Legal Icon' @ i18n}" />
@@ -96,8 +97,14 @@
 <div id="country-selector-root"></div>
 <div id="modal-root"></div>
 
-<script type="text/javascript" id="datalayer">
-    var parsedData = JSON.parse('${footer.dataLayer @ context="unsafe"}');
+<script type="application/json" id="datalayer">
+    ${footer.dataLayer @ context='unsafe'}
+</script>
+
+<script type="text/javascript" id="datalayer-json">
+    const script = document.getElementById('datalayer');
+    const innerHtml = script ? script.innerHTML : '';
+    const parsedData = innerHtml ? JSON.parse(innerHtml) : {};
 
     if (parsedData.page) {
         parsedData.page.serverName = window.location.hostname;
@@ -133,7 +140,7 @@
             "partialDisabledLinkText": "${'contact your sales representative.' @ i18n, context='text'}",
             "partialDisabledHref": "${footer.contactLink.href @ context='unsafe'}",
             "eProcurementRestrictedText": "${'Online ordering is not available for your account. Please order through your procurement system.' @ i18n, context='text'}",
-            "contactSupportLinkLabel": "${'CONTACT WATERS' @ i18n, context='text'}",
+            "contactSupportLinkLabel": "${'Contact Waters' @ i18n, context='text'}",
             "contactSupportHref": "${footer.contactLink.href @ context='unsafe'}"
         },
         "availabilityUrl": "${footer.skuAvailabilityUrl @ context='unsafe'}",
@@ -148,6 +155,7 @@
         "isoCode": "${footer.isoCode @ context='scriptString'}",
         "addToCartLabel": "${'Add to Cart' @ i18n, context='text'}",
         "qtyLabel": "${'Qty' @ i18n, context='scriptString'}",
+        "qtyAriaLabel": "${'Quantity' @ i18n, context='unsafe'}",
         "defaultSkuQty": 1,
         "showBreadcrumbs": false,
         "skuInfo": {
@@ -177,7 +185,28 @@
             "signInText1": "${'Sign in' @ i18n, context='text'}",
             "signInText2": "${'to view ' @ i18n, context='text'}",
             "signInText3": "${'Your Price' @ i18n, context='text'}",
-            "signinIcon": "/content/dam/waters/en/brand-assets/icons/user.svg"
+            "signinIcon": "/content/dam/waters/en/brand-assets/icons/user.svg",
+            "unavailablePriceLabel": "${'Unavailable' @ i18n, context='text'}",
+            "skuErrorMessage": [
+                {
+                    "type": "text",
+                    "text": "${'This item is not available for sale.' @ i18n, context='text'}",
+                    "rightSpace": "true"
+                },
+                {
+                    "type": "link",
+                    "label": "${'Contact Waters' @ i18n, context='text'}",
+                    "title": "${'Contact Waters' @ i18n, context='text'}",
+                    "url": "${footer.contactLink.href @ context='unsafe'}",
+                    "blank": true,
+                    "rightSpace": "true"
+                },
+                {
+                    "type": "text",
+                    "text": "${'for more information.' @ i18n, context='text'}",
+                    "rightSpace": "false"
+                }
+            ]
         },
         "modalInfo": {
             "icon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
@@ -211,7 +240,7 @@
             "sessionTimeoutMessage": "${'Please return to your procurement system and start a new session.' @ i18n, context='text'}",
             "buttons": [
                 {
-                    "text": "${'RETURN TO PROCUREMENT SYSTEM' @ i18n, context='text'}",
+                    "text": "${'Return to procurement system' @ i18n, context='text'}",
                     "action": ""
                 }
             ]

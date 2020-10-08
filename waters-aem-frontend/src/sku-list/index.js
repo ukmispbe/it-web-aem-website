@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import ListItem from './views/listItem';
 import LoginStatus from '../scripts/loginStatus';
 import SignIn from '../scripts/signIn';
+import {isEprocurementUser as isEprocurementApp, isEprocurementUserRole} from '../utils/userFunctions';
 import { callCustomerPriceApi } from '../utils/userFunctions';
 
 class SkuList extends React.Component {
@@ -16,6 +17,7 @@ class SkuList extends React.Component {
             addToCartQty: undefined,
             skuInfo: this.props.skuConfig.skuInfo,
             userCountry: this.props.skuConfig.countryCode,
+            isEProcurementUserRestricted: (!isEprocurementApp() && isEprocurementUserRole()),
             userInfo: callCustomerPriceApi(this.props.skuConfig.isCustomerPriceApiDisabled)
         };
     }
@@ -60,6 +62,7 @@ class SkuList extends React.Component {
                                 baseSignInUrl={this.props.baseSignInUrl}
                                 onItemClick={this.props.onItemClick}
                                 userInfo={this.state.userInfo}
+                                isEProcurementUserRestricted={this.state.isEProcurementUserRestricted}
                             />
                         ))}
                     </>

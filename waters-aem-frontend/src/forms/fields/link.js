@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { useFieldApi } from '../form';
+import { elementLocator } from '../../utils/eCommerceFunctions';
 
 const Link = ({}) => {
 
@@ -13,7 +14,8 @@ const Link = ({}) => {
                         <a
                             href={link}
                             target={blank ? "_blank" : ""}
-                            rel="noopener">
+                            rel="noopener noreferrer"
+                            data-locator={elementLocator(text)}>
                             {text}
                         </a>
                     </div>

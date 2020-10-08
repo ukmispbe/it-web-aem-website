@@ -41,7 +41,7 @@ abstract class AbstractHybrisImporterSpec extends AemLibrarySpec {
     }
 
     def setup() {
-        nodeBuilder.etc {
+        nodeBuilder.var {
             commerce {
                 products()
             }

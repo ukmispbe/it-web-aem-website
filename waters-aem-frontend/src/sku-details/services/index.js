@@ -3,11 +3,12 @@ import LocalStore from '../../stores/localStore';
 import loginStatus from '../../scripts/loginStatus';
 import { fetchData } from '../../utils/serviceFunctions';
 import { getCountryCode, getLanguage, getUserId } from '../../utils/userFunctions';
+import { isEprocurementUser, getEprocUserCountryCode, getEprocUserLanguage } from '../../utils/userFunctions';
 
 const availabilityUrlRequest = (url, countryCode, partNo) => {
     url = url
             .replace('{partnumber}', partNo)
-            .replace('{countryCode}', countryCode);
+            .replace('{countryCode}', isEprocurementUser() ? getEprocUserCountryCode().toUpperCase() : countryCode);
 
     return url;
 }
@@ -30,12 +31,12 @@ const addToCartUrlRequest = (url, partNo, quantity, cartId) => {
     userId = userId !== '' ? userId : 'anonymous';
 
     url = url
-        .replace('{localeCountry}', getCountryCode())
-        .replace('{localeLanguage}', getLanguage())
+        .replace('{localeCountry}', isEprocurementUser() ? getEprocUserCountryCode().toLowerCase() : getCountryCode())
+        .replace('{localeLanguage}', isEprocurementUser() ? getEprocUserLanguage().toLowerCase() : getLanguage())
         .replace('{userType}', userId)
         .replace('{guid}', cartId ? cartId : 'null')
         .concat('', '?successWithCart=true');
-    url = cartId ? url : url.concat('', '&createCart=true');
+    url = cartId ? url : url.concat('', `&createCart=${!isEprocurementUser()}`);
 
     return url;
 }

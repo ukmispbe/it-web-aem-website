@@ -77,7 +77,7 @@ function LegalLinkModal(props) {
                 <AddToCartBody
                     config={{
                         isOrderDetails: true,
-                        text: ReactHtmlParser(bodyContent)
+                        text: ReactHtmlParser(`<main>${bodyContent}</main>`)
                     }}
                     errorObjCart={{}}
                     onClose={() => { }}

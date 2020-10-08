@@ -34,6 +34,7 @@ import CountrySelector from './country-selector';
 import SessionStore from './stores/sessionStore';
 import LoginStatus from "./scripts/loginStatus";
 import CreateAccountForm from './create-account-form';
+import Spinner from './utils/spinner';
 
 if (process.env.NODE_ENV !== 'production') {
     const whyDidYouRender = require('@welldone-software/why-did-you-render');
@@ -61,7 +62,10 @@ function getAuthoredDataForSearchBar(c, h) {
         iconSearch: c.dataset.iconSearch,
         iconClear: c.dataset.iconClear,
         isocode: c.dataset.isocode,
-        customStyle: c.dataset.customStyle || ''
+        customStyle: c.dataset.customStyle || '',
+        clearLabel: c.dataset.clearLabel || '',
+        searchLabel: c.dataset.searchLabel || '',
+        autoSuggestLabel: c.dataset.autoSuggestLabel || ''
     };
 }
 function getAuthoredDataForSearchApp(c, s) {
@@ -94,11 +98,39 @@ function getAuthoredDataForChat(c) {
     };
 }
 
+// Bind Loader component on Demand
+const spinnerContainer = document.getElementById("cmp-header--loader");
+if (spinnerContainer) {
+    const bindLoaderToDom = (container, showLoader = false) => {
+        const props = {
+            loading: showLoader,
+            color: '#ffffff',
+        }
+        ReactDOM.render(
+            showLoader ? <Spinner {...props} /> : null,
+            container
+        );
+    }
+    window.addEventListener(
+        "showLoaderEproc",
+        ({ detail: data }) => {
+            bindLoaderToDom(spinnerContainer, data.showLoader);
+        },
+        false
+    ); 
+}
+// End Bind Loader component on Demand
+
 const searchBarContainer = document.getElementById('js-search-bar');
 const header = document.querySelector('.cmp-header');
 
 if (searchBarContainer && header) {
     const data = getAuthoredDataForSearchBar(searchBarContainer, header);
+    const searchLabels = {
+        clear: data.clearLabel,
+        search: data.searchLabel,
+        autoSuggest: data.autoSuggestLabel,
+    }
     ReactDOM.render(
         <SearchBar
             iconSearch={data.iconSearch}
@@ -108,6 +140,7 @@ if (searchBarContainer && header) {
             placeholderMobile={data.placeholderMobile}
             baseUrl={data.baseUrl}
             isocode={data.isocode}
+            labels={searchLabels}
         />,
         searchBarContainer
     );
@@ -116,7 +149,12 @@ if (searchBarContainer && header) {
 const headerSearchBarContainer = document.getElementById('header-search-bar');
 
 if (headerSearchBarContainer && header) {
-    const data = getAuthoredDataForSearchBar(headerSearchBarContainer, header)
+    const data = getAuthoredDataForSearchBar(headerSearchBarContainer, header);
+    const searchLabels = {
+        clear: data.clearLabel,
+        search: data.searchLabel,
+        autoSuggest: data.autoSuggestLabel,
+    }
     ReactDOM.render(
         <SearchBar
             iconSearch={data.iconSearch}
@@ -127,6 +165,7 @@ if (headerSearchBarContainer && header) {
             baseUrl={data.baseUrl}
             isocode={data.isocode}
             customStyle={data.customStyle}
+            labels={searchLabels}
         />,
         headerSearchBarContainer
     );
@@ -453,6 +492,7 @@ const contactSupportFormContainer = document.getElementById('js-contact-support-
 
 if (contactSupportFormContainer) {
     const config = JSON.parse(document.getElementById('cmp-contact-support-form').innerHTML);
+    const objData = config.fields.find(x => (x.type === 'dropdown' && x.name === 'formCategoryType' && Object.keys(x).includes('defaultValue')));
 
     ReactDOM.render(
         <>
@@ -461,6 +501,7 @@ if (contactSupportFormContainer) {
                 submitFn={contactSupportSubmit}
                 callback={headerData.userDetailsUrl}
                 isocode={DigitalData.language}
+                defaultValues={{ formCategoryType: objData.defaultValue || '' }}
             />
             <LegalLinkModal docIcon={config.icons.docIcon || ''} />
         </>,
@@ -516,6 +557,8 @@ if (resetPasswordContainer) {
     const config = JSON.parse(
         document.getElementById('cmp-reset-password-form').innerHTML
     );
+
+    config.submitEndpoint = `${config.submitEndpoint}${config.isEproc === "true" ? '?isEproc=true' : ''}`;
 
     ReactDOM.render(
         <Form config={config} submitFn={resetPasswordSubmit} callback={headerData.userDetailsUrl} />,

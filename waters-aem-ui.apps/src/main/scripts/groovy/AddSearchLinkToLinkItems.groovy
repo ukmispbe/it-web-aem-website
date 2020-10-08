@@ -1,4 +1,4 @@
-final def page = getPage('/content/waters/language-masters/en/application-notes')
+final def page = getPage('/content/waters/language-masters/en/library/application-notes')
 final def resourceType= 'waters/components/structure/header'
 final def initialIndex = '0'
 final def query = buildQuery(page, resourceType)

@@ -40,7 +40,7 @@ public final class Iframe implements ComponentExporter {
 
     @DialogField(fieldLabel = "Source",
         fieldDescription = "Enter the source for the iframe",
-        required = true)
+        required = false)
     @TextField
     @Inject
     private String source;

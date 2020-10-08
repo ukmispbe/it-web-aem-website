@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { useFieldApi } from '../form';
+import { elementLocator } from '../../utils/eCommerceFunctions';
 
 const TextWithLinks = ({}) => {
 
@@ -10,10 +11,11 @@ const TextWithLinks = ({}) => {
             <a
                 href={url}
                 target={blank ? "_blank" : ""}
-                rel="noopener"
+                rel="noopener noreferrer"
                 className={className}
                 id={id}
-                title={title}>
+                title={title}
+                data-locator={elementLocator(label)}>
                 {label}
             </a>
             )

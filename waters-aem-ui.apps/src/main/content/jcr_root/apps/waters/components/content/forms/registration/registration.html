@@ -5,7 +5,7 @@
             "formName": "checkEmail",
             "customFormClass": "cmp-form--check-email",
             "submitEndpoint": "${registration.passwordResetUrl @ context='unsafe'}",
-            "redirectUrl": "${registration.redirectResetPasswordLink.href @ context='unsafe'}",
+            "redirectUrl": "${registration.redirectEcommLink.href @ context='unsafe'}",
             "buttonText": "${'CONTINUE' @ i18n, context='text'}",
             "elementLocator": "check-email-form",
             "needsToBeSignedOut": true,
@@ -23,7 +23,7 @@
                     "type": "label",
                     "name": "requiredLabel",
                     "label": "${'*Required field' @ i18n, context='unsafe'}"
-                },                   
+                },                
                 {
                     "type": "email",
                     "name": "email",
@@ -32,7 +32,7 @@
                     "emailValidationEndpoint": "${registration.emailValidationUrl @ context='unsafe'}",
                     "validation": {
                         "required": true,
-                        "requiredMsg": "${'Please enter a valid email address.' @ i18n, context='text'}",
+                        "requiredMsg": "${'Please enter an email address.' @ i18n, context='text'}",
                         "validateFnName": "email",
                         "validationMsg": "${'Please enter a valid email address.' @ i18n, context='text'}",
 						"alreadyRegisteredMsg": "${'There is an existing account with that email address.' @ i18n, context='text'}",
@@ -75,7 +75,7 @@
                     "disabled": ${registration.twoStepRegistrationForm @ context='unsafe'},
                     "validation": {
                         "required": true,
-                        "requiredMsg": "${'Please enter a valid email address.' @ i18n, context='text'}",
+                        "requiredMsg": "${'Please enter an email address.' @ i18n, context='text'}",
                         "validateFnName": "email",
                         "validationMsg": "${'Please enter a valid email address.' @ i18n, context='text'}",
                         "alreadyRegisteredMsg": "${'There is an existing account with that email address.' @ i18n, context='text'}",
@@ -206,7 +206,8 @@
                     "name": "captcha",
                     "siteKey": "${registration.captchaSiteKey @ context='unsafe'}",
                     "validation": {
-                        "required": true
+                        "required": true,
+                        "requiredMsg": "${'Please check the captcha.' @ i18n, context='text'}"
                     }
                 },
                 {

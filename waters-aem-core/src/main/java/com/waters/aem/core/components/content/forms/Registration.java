@@ -96,6 +96,15 @@ public class Registration implements ComponentExporter {
     @LinkInject
     private Link redirectLink;
 
+    @DialogField(fieldLabel = "Redirect Link (eProc User)",
+            fieldDescription = "Select or enter the redirect link URL. The destination page the user will be redirected " +
+                    "to after successful submission",
+            required  = true,
+            ranking = 5)
+    @PathField(rootPath = WatersConstants.ROOT_PATH)
+    @LinkInject
+    private Link redirectEcommLink;
+
     @DialogField(fieldLabel = "Open in New Window",
         fieldDescription = "Select this option to open 'Privacy Notice' in new window",
         ranking = 5)
@@ -144,6 +153,10 @@ public class Registration implements ComponentExporter {
         return termsOfUseLink;
     }
 
+    public Link getRedirectEcommLink() {
+        return redirectEcommLink;
+    }
+
     public Link getPrivacyDisclosuresLink() {
         return privacyDisclosuresLink;
     }
@@ -172,6 +185,10 @@ public class Registration implements ComponentExporter {
         return captchaService.getSiteKey();
     }
 
+    public String getPasswordResetUrl() {
+        return accountService.getPasswordResetUrl();
+    }
+    
     public Boolean isTwoStepRegistrationForm() {
         return twoStepRegistrationForm;
     }

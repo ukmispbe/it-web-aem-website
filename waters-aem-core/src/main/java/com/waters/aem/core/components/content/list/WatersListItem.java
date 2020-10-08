@@ -1,6 +1,7 @@
 package com.waters.aem.core.components.content.list;
 
 import com.adobe.cq.wcm.core.components.models.ListItem;
+import com.day.cq.wcm.api.Page;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.waters.aem.core.components.structure.page.Thumbnail;
 
@@ -9,11 +10,11 @@ import java.util.Calendar;
 
 public final class WatersListItem implements ListItem {
 
-    private final ListItem listItem;
+    private final Page listItem;
 
     private final PageDecorator page;
 
-    WatersListItem(final ListItem listItem, final PageDecorator page) {
+    WatersListItem(final Page listItem, final PageDecorator page) {
         this.listItem = listItem;
         this.page = page;
     }
@@ -27,7 +28,17 @@ public final class WatersListItem implements ListItem {
     @Override
     @Nullable
     public String getTitle() {
-        return listItem.getTitle();
+        String title = listItem.getNavigationTitle();
+        if (title == null) {
+            title = listItem.getPageTitle();
+        }
+        if (title == null) {
+            title = listItem.getTitle();
+        }
+        if (title == null) {
+            title = listItem.getName();
+        }
+        return title;
     }
 
     @Override

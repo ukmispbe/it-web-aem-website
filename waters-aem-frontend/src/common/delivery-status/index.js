@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactSVG from 'react-svg';
 import { setClickAnalytics } from '../../analytics';
+import { elementLocator } from '../../utils/eCommerceFunctions';
 
 class DeliveryStatus extends Component {
     constructor(props) {
@@ -23,11 +24,13 @@ class DeliveryStatus extends Component {
                     <a className="tracking-link"
                         href={shipped.carrierUrl} target="_blank" title={labels.trackShipmentText}
                         onClick={() => setClickAnalytics("Order Details", "Track Shipment", shipped.carrierUrl)}
+                        data-locator={elementLocator(labels.trackShipmentText)}
                     >
                         {labels.trackShipmentText}
                         <ReactSVG 
                             src="/content/dam/waters/en/brand-assets/icons/externallink.svg"
                             className="tracking-link__icon"
+                            data-locator="tracking-link-icon"
                         />
                     </a>
                 </div>
@@ -83,11 +86,11 @@ class DeliveryStatus extends Component {
     render() {
         return (
             <>
-                <div className="delivery-status">          
+                <div className="delivery-status" data-locator="delivery-status">          
                     <div className={this.state.iconClassName}>
                         <ReactSVG src={this.state.icon} />
                     </div>
-                    <div className="delivery-text">
+                    <div className="delivery-text" data-locator="delivery-text">
                         {this.state.deliveryStatus}
                     </div>
                     {this.renderTrackingLink()}

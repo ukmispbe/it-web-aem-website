@@ -17,6 +17,7 @@ import SessionStore from '../stores/sessionStore';
 import loginStatus from '../scripts/loginStatus';
 import { homePageRedirect } from '../utils/redirectFunctions';
 import Spinner from "../utils/spinner";
+import { elementLocator } from '../utils/eCommerceFunctions';
 
 const FormApi = createContext(null);
 FormApi.displayName = 'FormApi';
@@ -56,7 +57,7 @@ const Form = ({
         reset
     } = useForm({
         mode: 'onBlur',
-        reValidateMode: 'onBlur',
+        reValidateMode: 'onSubmit',
         defaultValues: {
             country: DigitalData.default,
             ...defaultValues
@@ -148,6 +149,31 @@ const Form = ({
             setDisplayForm(true);
         }
     }, []);
+ 
+    // Hook to add error styles if there are errors on Submitting
+    useEffect(() => {
+        if (Object.keys(errors).length !== 0) {
+            for (var name in errors) {
+                if (errors.hasOwnProperty(name)) {
+                    if (name !== "captcha") {
+                        const control = document.getElementById(name);
+                        if (control) {
+                            const mainControlDiv = control.parentElement.parentElement;
+                            if (mainControlDiv) {
+                                mainControlDiv.classList.add("cmp-form-field--invalid");
+                            }
+                        }
+                    }
+                    else {
+                        const captchaControl = document.getElementsByClassName("cmp-form-field-captcha")[0];
+                        if (captchaControl) {
+                            captchaControl.classList.add("cmp-form-field--invalid");
+                        }
+                    }
+                }
+            }
+        }
+    });
 
     useEffect(() => {
         setFormAnalytics('load');
@@ -155,7 +181,7 @@ const Form = ({
 
     useEffect(() => {
         // Configure Registration Form on "Loading"
-        if (config.formName === "registration") {
+        if (config.formName === "registration" ) {
             const countryRegion = digitalData.page.country.toLowerCase();
             // Get Regional config 
             const countryOptionsConfig = regionalConfig;
@@ -308,11 +334,8 @@ const Form = ({
                 </FormApi.Provider>
                 <button
                     type="submit"
-                    className={
-                        'cmp-button cmp-button--no-border cmp-form--submit' +
-                        (checkIfDisabled() ? ' cmp-button--disabled' : '')
-                    }
-                    disabled={checkIfDisabled()}
+                    className={"cmp-button cmp-button--no-border cmp-form--submit"}
+                    data-locator={elementLocator(config.buttonText || 'form-submit')}
                 >
                     {config.buttonText}
                 </button>
@@ -320,6 +343,7 @@ const Form = ({
                     <a
                         className="cmp-button cmp-button--cancel"
                         onClick={cancelHandler}
+                        data-locator={elementLocator(config.cancelText || 'form-cancel')}
                     >
                         {config.cancelText}
                     </a>

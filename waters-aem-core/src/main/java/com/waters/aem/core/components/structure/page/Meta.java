@@ -61,6 +61,8 @@ public final class Meta extends AbstractComponent {
 
     private static final String DEFAULT_OG_TYPE = "none";
 
+    private static final String PROPERTY_TYPE = "@type";
+
     private static final String DEFAULT_HREF_LANG_PATH = WatersConstants.ROOT_PATH + "/us/en";
 
     @Inject
@@ -171,7 +173,7 @@ public final class Meta extends AbstractComponent {
         final Map<String, Object> properties = new HashMap<>();
 
         properties.put("@context", "http://schema.org");
-        properties.put("@type", "TechArticle");
+        properties.put(PROPERTY_TYPE, "TechArticle");
         properties.put("author", getAuthor());
         properties.put("datePublished", applicationNotes.getFormattedPublishDate());
         properties.put("description", getDescription());
@@ -187,7 +189,7 @@ public final class Meta extends AbstractComponent {
         final Map<String, Object> properties = new HashMap<>();
 
         properties.put("@context", "https://schema.org/");
-        properties.put("@type", "Product");
+        properties.put(PROPERTY_TYPE, "Product");
         properties.put("url", externalize(currentPage.getHref(true)));
         properties.put("description", getDescription());
         properties.put("name", getTitle());
@@ -199,11 +201,11 @@ public final class Meta extends AbstractComponent {
         }
 
         final Map<String, Object> authorProperties = new HashMap<>();
-        authorProperties.put("@type", "Person");
+        authorProperties.put(PROPERTY_TYPE, "Person");
         authorProperties.put("name", "");
 
         final Map<String, Object> reviewProperties = new HashMap<>();
-        reviewProperties.put("@type", "review");
+        reviewProperties.put(PROPERTY_TYPE, "review");
         reviewProperties.put("reviewBody", "");
         reviewProperties.put("author", authorProperties);
 

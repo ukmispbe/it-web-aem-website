@@ -26,9 +26,9 @@ import org.osgi.service.metatype.annotations.Designate;
 @Designate(ocd = AkamaiPurgeJobCancelledEventHandlerConfiguration.class)
 public final class AkamaiPurgeJobCancelledEventHandler extends AbstractJobCancelledEventHandler {
 
-    private static final String TEMPLATE_INVALIDATE = "/etc/notification/email/waters/akamai-invalidate.txt";
+    private static final String TEMPLATE_INVALIDATE = "/apps/settings/notification-templates/email/waters/akamai-invalidate.txt";
 
-    private static final String TEMPLATE_DELETE = "/etc/notification/email/waters/akamai-delete.txt";
+    private static final String TEMPLATE_DELETE = "/apps/settings/notification-templates/email/waters/akamai-delete.txt";
 
     @Reference
     private EmailService emailService;

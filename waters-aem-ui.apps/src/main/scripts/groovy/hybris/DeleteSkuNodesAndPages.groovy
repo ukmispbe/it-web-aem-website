@@ -55,7 +55,7 @@ if (!dryRun) {
 def getProductResourceForCode(skuCode) {
     def lowerCasedSkuCode = skuCode.toLowerCase()
     def substr = lowerCasedSkuCode.substring(0, 3)
-    return getResource("/etc/commerce/products/$substr/$lowerCasedSkuCode")
+    return getResource("/var/commerce/products/$substr/$lowerCasedSkuCode")
 }
 
 def getLiveCopies(siteRepo, path) {

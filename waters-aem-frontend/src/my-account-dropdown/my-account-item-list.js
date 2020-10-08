@@ -2,6 +2,7 @@ import React from 'react';
 import CheckOutStatus from '../scripts/checkOutStatus';
 import Ecommerce from '../scripts/ecommerce';
 import { setClickAnalytics } from "../analytics";
+import SessionStore from '../stores/sessionStore';
 
 const MyOrderClass = 'dropdown__item-list__my-orders';
 const MyAccountItemList = props => {
@@ -19,6 +20,14 @@ const MyAccountItemList = props => {
         return true;
     };
 
+    const saveUrlToSession = (e, linkName, url) => {
+        e.preventDefault();
+        const store = new SessionStore();
+        store.setSignInRedirect(url);
+        setClickAnalytics('Account Dropdown', linkName, url);
+        window.location.href = url;
+    }
+
     const listItems = Object.keys(list).map(key => {
         let text = list[key].text;
         let linkName = list[key].linkName ? list[key].linkName : list[key].text;
@@ -26,7 +35,7 @@ const MyAccountItemList = props => {
         let target = list[key].target || '_self';
         let listItemClass = list[key].class;
         return (
-            <div key={key} className="my-account-dropdown__item-list">
+            <div key={key} className="my-account-dropdown__item-list" data-locator="my-account-dropdown-list">
                 {shouldRender(listItemClass) && (
                     <a
                         className={
@@ -35,7 +44,8 @@ const MyAccountItemList = props => {
                         }
                         href={url}
                         target={target}
-                        onClick={()=> setClickAnalytics('Account Dropdown', linkName, url)}
+                        onClick={(e)=> saveUrlToSession(e, linkName, url)}
+                        data-locator="my-account-dropdown-list-items"
                     >
                         <span>{text}</span>
                     </a>

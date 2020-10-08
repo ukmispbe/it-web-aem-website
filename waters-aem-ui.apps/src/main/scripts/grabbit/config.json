@@ -46,7 +46,7 @@
       ]
     },
     {
-      "path" : "/etc/tags/waters",
+      "path" : "/content/cq:tags/waters",
       "batchSize" : 150,
       "deltaContent" : false
     },
