@@ -6,7 +6,7 @@ const removeError = (...refs) => {
     refs.forEach(ref => {
         if (ref) {
             ref.classList.remove("error");
-            ref.classList.add("valid");
+            ref.value && ref.classList.add("valid");
         }
     });
 
