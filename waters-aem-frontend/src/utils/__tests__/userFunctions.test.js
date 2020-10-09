@@ -415,7 +415,6 @@ document.body.innerHTML = mockBodyHTML;
         describe('When Provided With Sold To Account Data', () => {
             it('Then it should return only the Default Sold To Addresses', () => {
                 const getDefaultSoldToAddresses = userFunctions.getDefaultSoldToAddresses(soldToAccounts);
-                console.log(getDefaultSoldToAddresses.debug());
                 expect(getDefaultSoldToAddresses.addresses.billToInfo).toStrictEqual(soldToAccounts.billToInfo);
             });
         });

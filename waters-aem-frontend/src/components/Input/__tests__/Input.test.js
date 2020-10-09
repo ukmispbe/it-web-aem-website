@@ -21,7 +21,6 @@ describe('<Input />', () => {
     it('should not display input label', () => {
         enzymeWrapper.setProps({ showLabel: false });
         enzymeWrapper.update();
-        console.log(enzymeWrapper.debug());
         expect(enzymeWrapper.find('label')).toHaveLength(0);
         expect(enzymeWrapper.find('input')).toHaveLength(1);
     });

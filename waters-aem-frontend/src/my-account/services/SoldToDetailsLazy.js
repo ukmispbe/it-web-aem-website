@@ -27,8 +27,6 @@ export default async (
         currentPage.indexOf("reset-password") !== -1 ) &&
         currentPage.indexOf('choose-account') !== -1
     ) {
-        console.log("currentPage", currentPage.indexOf("choose-account"));
-        console.log("loginStatus.state()", loginStatus.state());
         return [];
     }
 
@@ -57,6 +55,5 @@ export default async (
         return response;
     }
 
-    console.log("response", response);
     return [];
 };

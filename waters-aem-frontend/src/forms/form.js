@@ -11,7 +11,6 @@ import { ErrorsProvider, FormStateProvider } from './fields/utils/stateWatcher';
 import DigitalData from '../scripts/DigitalData';
 import ErrorBoundary from '../search/ErrorBoundary';
 import Field from './fields';
-import { retrieveData } from '../forms/services/retrieve';
 import Analytics, { analyticTypes } from "../analytics";
 import SessionStore from '../stores/sessionStore';
 import loginStatus from '../scripts/loginStatus';
@@ -206,22 +205,16 @@ const Form = ({
             return;
         }
 
-        // if (config.formName === "chooseAccount") {
-        // }
-
-
         // Only put this logic in for formName ==="chooseAccount"
         if (config.formName === "chooseAccount") {
             const store = new SessionStore();
             const userDetails = store.getUserDetails();
 
             SoldToDetailsLazy(config.optionsEndpoint, userDetails.userId, userDetails.salesOrg).then((resp) => {
-            console.log(resp);
                 const store = new SessionStore();
                 store.setSoldToDetails(resp);
 
                 const tempArray = resp.map((item) => {
-                    console.log(item);
                     let tempOption = {};
                     tempOption.name = item.customerNumber;
                     tempOption.label = item.name;
@@ -239,28 +232,6 @@ const Form = ({
                 setNewConfig(config);
             });
         }
-
-        
-    //     if (config.formName !== "chooseAccount") {
-    //         retrieveData(config.optionsEndpoint).then(resp => {
-    //             const tempArray = resp.map((item) => {
-    //                 let tempOption = {};
-    //                 tempOption.name = item.soldTo;
-    //                 tempOption.label = item.company;
-    //                 tempOption.accountStreet = item.partnerAddress[0].street;
-    //                 tempOption.accountCity = item.partnerAddress[0].city;
-    //                 tempOption.accountZip = item.partnerAddress[0].postalCd;
-    //                 tempOption.region = item.partnerAddress[0].regio;
-    //                 return tempOption;
-    //             });
-
-    //             config.options = tempArray;
-    //             config.fields[1].options = tempArray;
-    //             setDisplayForm(true);
-    //             // Setting newConfig to trigger a reload
-    //             setNewConfig(config);
-    //         });
-    //     }
     }, []);
 
     useEffect(() => {
