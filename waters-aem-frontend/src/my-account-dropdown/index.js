@@ -270,16 +270,17 @@ class MyAccountDropDown extends React.Component {
                 let priorityAccount;
                 let accountName = "";
 
-                soldToDetails.map((soldTo) => {
-                    if(soldTo.soldToFlag === 1) {
-                        priorityAccount = soldTo;
-                    }
-                });
-
-                if (priorityAccount){
-                    accountName = priorityAccount.name ? `${priorityAccount.name} ` : '';
+                if (Object.keys(soldToDetails).length) {
+                    soldToDetails.map((soldTo) => {
+                        if(soldTo.soldToFlag === 1) {
+                            priorityAccount = soldTo;
+                        }
+                    });
                 }
-                else {
+
+                if (Object.keys(priorityAccount).length){
+                    accountName = priorityAccount.name ? `${priorityAccount.name} ` : '';
+                } else {
                     accountName = userDetails.company
                 }
 
