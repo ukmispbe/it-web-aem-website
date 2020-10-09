@@ -18,6 +18,7 @@ import loginStatus from '../scripts/loginStatus';
 import { homePageRedirect } from '../utils/redirectFunctions';
 import Spinner from "../utils/spinner";
 import { elementLocator } from '../utils/eCommerceFunctions';
+import SoldToDetailsLazy from '../my-account/services/SoldToDetailsLazy';
 
 const FormApi = createContext(null);
 FormApi.displayName = 'FormApi';
@@ -135,7 +136,7 @@ const Form = ({
         config.fields = [...fields];
     };
 
-    // Hook to check the users's Authentication Status and redirect if needed
+    // Hook to check the user's Authentication Status and redirect if needed
     useEffect(() => {
         if (!isInEditMode) {
             
@@ -149,7 +150,7 @@ const Form = ({
             setDisplayForm(true);
         }
     }, []);
- 
+
     // Hook to add error styles if there are errors on Submitting
     useEffect(() => {
         if (Object.keys(errors).length !== 0) {
@@ -182,7 +183,7 @@ const Form = ({
     useEffect(() => {
         // Configure Registration Form on "Loading"
         if (config.formName === "registration" ) {
-            const countryRegion = digitalData.page.country.toLowerCase();
+            const countryRegion = DigitalData.page.country.toLowerCase();
             // Get Regional config 
             const countryOptionsConfig = regionalConfig;
             // Hide all country configurable fields
@@ -205,31 +206,61 @@ const Form = ({
             return;
         }
 
-        retrieveData(config.optionsEndpoint).then(resp => {
+        if (config.formName === "chooseAccount") {
+        }
 
-            // Only put this logic in for formName ==="chooseAccount"
-            if (config.formName === "chooseAccount") {
+
+        // Only put this logic in for formName ==="chooseAccount"
+        if (config.formName === "chooseAccount") {
+            const store = new SessionStore();
+            const userDetails = store.getUserDetails();
+
+            SoldToDetailsLazy(config.optionsEndpoint, userDetails.userId, userDetails.salesOrg).then((resp) => {
+            console.log(resp);
                 const store = new SessionStore();
                 store.setSoldToDetails(resp);
-            }
 
-            const tempArray = resp.map((item) => {
-                let tempOption = {};
-                tempOption.name = item.soldTo;
-                tempOption.label = item.company;
-                tempOption.accountStreet = item.partnerAddress[0].street;
-                tempOption.accountCity = item.partnerAddress[0].city;
-                tempOption.accountZip = item.partnerAddress[0].postalCd;
-                tempOption.region = item.partnerAddress[0].regio;
-                return tempOption;
+                const tempArray = resp.map((item) => {
+                    console.log(item);
+                    let tempOption = {};
+                    tempOption.name = item.customerNumber;
+                    tempOption.label = item.name;
+                    tempOption.accountStreet = item.soldToInfo[0].street;
+                    tempOption.accountCity = item.soldToInfo[0].city;
+                    tempOption.accountZip = item.soldToInfo[0].postalCode;
+                    tempOption.state = item.soldToInfo[0].state;
+                    return tempOption;
+                });
+
+                config.options = tempArray;
+                config.fields[1].options = tempArray;
+                setDisplayForm(true);
+                // Setting newConfig to trigger a reload
+                setNewConfig(config);
             });
+        }
 
-            config.options = tempArray;
-            config.fields[1].options = tempArray;
-            setDisplayForm(true);
-            // PB Setting newConfig to triiger a reload
-            setNewConfig(config);
-        });
+        
+        if (config.formName !== "chooseAccount") {
+            retrieveData(config.optionsEndpoint).then(resp => {
+                const tempArray = resp.map((item) => {
+                    let tempOption = {};
+                    tempOption.name = item.soldTo;
+                    tempOption.label = item.company;
+                    tempOption.accountStreet = item.partnerAddress[0].street;
+                    tempOption.accountCity = item.partnerAddress[0].city;
+                    tempOption.accountZip = item.partnerAddress[0].postalCd;
+                    tempOption.region = item.partnerAddress[0].regio;
+                    return tempOption;
+                });
+
+                config.options = tempArray;
+                config.fields[1].options = tempArray;
+                setDisplayForm(true);
+                // Setting newConfig to trigger a reload
+                setNewConfig(config);
+            });
+        }
     }, []);
 
     useEffect(() => {

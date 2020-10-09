@@ -4,6 +4,10 @@ import { soldToDetailsJSON } from "../__mocks__/en_US/mock-services-json";
 import SessionStore from "../../stores/sessionStore";
 
 describe("Feature: UserDetailsLazy Service", () => {
+    const url = 'https://api-sbox.waters.com/dev-waters-user-exp-api-v1/api/users';
+    const userId = '9ETRLcbBXOBS9iLEefW-Vw==';
+    const salesOrg = 'US01';
+    
     afterEach(() => {
         jest.restoreAllMocks();
     });
@@ -27,7 +31,7 @@ describe("Feature: UserDetailsLazy Service", () => {
 
                 sessionStore.getSoldToDetails = jest.fn(() => soldToDetailsJSON);
 
-                const response = await SoldToDetailsLazy('', sessionStore);
+                const response = await SoldToDetailsLazy(url, userId, salesOrg, sessionStore);
 
                 expect(response).toEqual(soldToDetailsJSON);
             });
@@ -46,7 +50,7 @@ describe("Feature: UserDetailsLazy Service", () => {
                 sessionStore.getSoldToDetails = jest.fn(() => null);
                 sessionStore.setSoldToDetails = jest.fn();
 
-                const response = await SoldToDetailsLazy('', sessionStore, serviceMock);
+                const response = await SoldToDetailsLazy(url, userId, salesOrg, sessionStore, serviceMock);
 
                 expect(serviceMock).toHaveBeenCalled();
                 expect(sessionStore.setSoldToDetails).toHaveBeenCalled();
@@ -68,7 +72,7 @@ describe("Feature: UserDetailsLazy Service", () => {
                 sessionStore.getSoldToDetails = jest.fn(() => null);
                 sessionStore.setSoldToDetails = jest.fn();
 
-                const response = await SoldToDetailsLazy('', sessionStore, serviceMock);
+                const response = await SoldToDetailsLazy(url, userId, salesOrg, sessionStore, serviceMock);
 
                 expect(response).toEqual([]);
                 expect(sessionStore.setSoldToDetails).not.toHaveBeenCalled();

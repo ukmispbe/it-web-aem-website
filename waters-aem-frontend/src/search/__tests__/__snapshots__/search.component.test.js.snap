@@ -15,12 +15,14 @@ Array [
     />
     <div
       className="container__left cmp-search__sort-filter"
+      data-locator="left-container-filter"
     >
       <div
         className="cmp-search-hide-btn clearfix"
       >
         <a
           className="btn-hide-sort-filter"
+          data-locator="link-hide-search-button"
           href="javascript:void(0);"
           onClick={[MockFunction]}
         >
@@ -33,6 +35,7 @@ Array [
       >
         <a
           className="btn-apply-sort-filter"
+          data-locator="link-search-apply-button"
           href="javascript:void(0);"
           onClick={[Function]}
         >
@@ -44,6 +47,7 @@ Array [
       >
         <a
           className="btn-done-sort-filter"
+          data-locator="link-done-sort-filter"
           href="javascript:void(0);"
           onClick={[Function]}
         >
@@ -55,52 +59,58 @@ Array [
       >
         <div
           className="cmp-search-sortby"
+          data-locator="sortby-label"
         >
           <h3>
             Sort By
           </h3>
           <div
-            className="css-1pcexqc-container"
-            onKeyDown={[Function]}
+            aria-describedby="cmp-custom-dropdown__single-value"
+            tabindex="0"
           >
             <div
-              className="css-xov0tq-control cmp-custom-dropdown__control"
-              onMouseDown={[Function]}
-              onTouchEnd={[Function]}
+              className="css-1pcexqc-container"
+              onKeyDown={[Function]}
             >
               <div
-                className="css-1hwfws3 cmp-custom-dropdown__value-container cmp-custom-dropdown__value-container--has-value"
+                className="css-xov0tq-control cmp-custom-dropdown__control"
+                onMouseDown={[Function]}
+                onTouchEnd={[Function]}
               >
                 <div
-                  className="css-0 cmp-custom-dropdown__single-value"
+                  className="css-1hwfws3 cmp-custom-dropdown__value-container cmp-custom-dropdown__value-container--has-value"
                 >
-                  Most Recent
+                  <div
+                    className="css-0 cmp-custom-dropdown__single-value"
+                  >
+                    Most Recent
+                  </div>
+                  <input
+                    className="css-gj7qu5-dummyInput"
+                    disabled={false}
+                    id="react-select-2-input"
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    onFocus={[Function]}
+                    readOnly={true}
+                    tabIndex="-1"
+                    value=""
+                  />
                 </div>
-                <input
-                  className="css-gj7qu5-dummyInput"
-                  disabled={false}
-                  id="react-select-2-input"
-                  onBlur={[Function]}
-                  onChange={[Function]}
-                  onFocus={[Function]}
-                  readOnly={true}
-                  tabIndex="0"
-                  value=""
-                />
-              </div>
-              <div
-                className="css-1wy0on6 cmp-custom-dropdown__indicators"
-              >
-                <span
-                  className="css-1hyfx7x cmp-custom-dropdown__indicator-separator"
-                />
                 <div
-                  aria-hidden="true"
-                  className="css-16pqwjk-indicatorContainer cmp-custom-dropdown__indicator cmp-custom-dropdown__dropdown-indicator"
-                  onMouseDown={[Function]}
-                  onTouchEnd={[Function]}
+                  className="css-1wy0on6 cmp-custom-dropdown__indicators"
                 >
-                  <div />
+                  <span
+                    className="css-1hyfx7x cmp-custom-dropdown__indicator-separator"
+                  />
+                  <div
+                    aria-hidden="true"
+                    className="css-16pqwjk-indicatorContainer cmp-custom-dropdown__indicator cmp-custom-dropdown__dropdown-indicator"
+                    onMouseDown={[Function]}
+                    onTouchEnd={[Function]}
+                  >
+                    <div />
+                  </div>
                 </div>
               </div>
             </div>
@@ -157,9 +167,11 @@ Array [
       >
         <div
           className="cmp-search__resultsCount-container"
+          data-locator="results-count-container"
         >
           <h2
             className="cmp-search__resultsCount"
+            data-locator="results-count"
           >
             Showing 1-0 of 0 results 
             <span>
@@ -206,12 +218,14 @@ Array [
     />
     <div
       className="container__left cmp-search__sort-filter"
+      data-locator="left-container-filter"
     >
       <div
         className="cmp-search-hide-btn clearfix"
       >
         <a
           className="btn-hide-sort-filter"
+          data-locator="link-hide-search-button"
           href="javascript:void(0);"
           onClick={[MockFunction]}
         >
@@ -224,6 +238,7 @@ Array [
       >
         <a
           className="btn-apply-sort-filter"
+          data-locator="link-search-apply-button"
           href="javascript:void(0);"
           onClick={[Function]}
         >
@@ -235,6 +250,7 @@ Array [
       >
         <a
           className="btn-done-sort-filter"
+          data-locator="link-done-sort-filter"
           href="javascript:void(0);"
           onClick={[Function]}
         >
@@ -246,52 +262,58 @@ Array [
       >
         <div
           className="cmp-search-sortby"
+          data-locator="sortby-label"
         >
           <h3>
             Sort By
           </h3>
           <div
-            className="css-1pcexqc-container"
-            onKeyDown={[Function]}
+            aria-describedby="cmp-custom-dropdown__single-value"
+            tabindex="0"
           >
             <div
-              className="css-xov0tq-control cmp-custom-dropdown__control"
-              onMouseDown={[Function]}
-              onTouchEnd={[Function]}
+              className="css-1pcexqc-container"
+              onKeyDown={[Function]}
             >
               <div
-                className="css-1hwfws3 cmp-custom-dropdown__value-container cmp-custom-dropdown__value-container--has-value"
+                className="css-xov0tq-control cmp-custom-dropdown__control"
+                onMouseDown={[Function]}
+                onTouchEnd={[Function]}
               >
                 <div
-                  className="css-0 cmp-custom-dropdown__single-value"
+                  className="css-1hwfws3 cmp-custom-dropdown__value-container cmp-custom-dropdown__value-container--has-value"
                 >
-                  Most Recent
+                  <div
+                    className="css-0 cmp-custom-dropdown__single-value"
+                  >
+                    Most Recent
+                  </div>
+                  <input
+                    className="css-gj7qu5-dummyInput"
+                    disabled={false}
+                    id="react-select-3-input"
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    onFocus={[Function]}
+                    readOnly={true}
+                    tabIndex="-1"
+                    value=""
+                  />
                 </div>
-                <input
-                  className="css-gj7qu5-dummyInput"
-                  disabled={false}
-                  id="react-select-3-input"
-                  onBlur={[Function]}
-                  onChange={[Function]}
-                  onFocus={[Function]}
-                  readOnly={true}
-                  tabIndex="0"
-                  value=""
-                />
-              </div>
-              <div
-                className="css-1wy0on6 cmp-custom-dropdown__indicators"
-              >
-                <span
-                  className="css-1hyfx7x cmp-custom-dropdown__indicator-separator"
-                />
                 <div
-                  aria-hidden="true"
-                  className="css-16pqwjk-indicatorContainer cmp-custom-dropdown__indicator cmp-custom-dropdown__dropdown-indicator"
-                  onMouseDown={[Function]}
-                  onTouchEnd={[Function]}
+                  className="css-1wy0on6 cmp-custom-dropdown__indicators"
                 >
-                  <div />
+                  <span
+                    className="css-1hyfx7x cmp-custom-dropdown__indicator-separator"
+                  />
+                  <div
+                    aria-hidden="true"
+                    className="css-16pqwjk-indicatorContainer cmp-custom-dropdown__indicator cmp-custom-dropdown__dropdown-indicator"
+                    onMouseDown={[Function]}
+                    onTouchEnd={[Function]}
+                  >
+                    <div />
+                  </div>
                 </div>
               </div>
             </div>
@@ -299,20 +321,24 @@ Array [
         </div>
         <div
           className="facet-menu-container"
+          data-locator="facet-menu-container"
         >
           <div
             className="facet-menu-container__heading"
+            data-locator="facet-menu-container-heading"
           >
             <div
               className="cmp-search-filters__emptytags"
             />
             <div
               className="heading--with-selected-value"
+              data-locator="heading-with-selected-value"
             >
               <div
                 className="back-btn"
               >
                 <a
+                  data-locator="link-back-button"
                   href="javascript:void(0)"
                   onClick={[MockFunction]}
                 >
@@ -328,6 +354,7 @@ Array [
           </div>
           <div
             className="facet-menu-container__body"
+            data-locator="facet-menu-container-body"
           >
             <div
               className="cmp-search-filters"
@@ -376,9 +403,11 @@ Array [
       >
         <div
           className="cmp-search__resultsCount-container"
+          data-locator="results-count-container"
         >
           <h2
             className="cmp-search__resultsCount"
+            data-locator="results-count"
           >
             Showing 1-0 of 0 results 
             <span>

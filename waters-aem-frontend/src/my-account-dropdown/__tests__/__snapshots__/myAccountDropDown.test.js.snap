@@ -34,9 +34,11 @@ exports[`Feature: My Account Dropdown Component Scenario: Rendering My Account D
   />
   <div
     className="my-account-dropdown__item-list"
+    data-locator="my-account-dropdown-list"
   >
     <a
       className="my-account-dropdown__item-list--link dropdown__item-list__my-profile"
+      data-locator="my-account-dropdown-list-items"
       href="/content/waters/language-masters/en/search.html"
       onClick={[Function]}
       target="_self"
@@ -48,9 +50,11 @@ exports[`Feature: My Account Dropdown Component Scenario: Rendering My Account D
   </div>
   <div
     className="my-account-dropdown__item-list"
+    data-locator="my-account-dropdown-list"
   >
     <a
       className="my-account-dropdown__item-list--link dropdown__item-list__my-orders"
+      data-locator="my-account-dropdown-list-items"
       href="/content/waters/language-masters/en/library.html"
       onClick={[Function]}
       target="_self"
@@ -65,6 +69,7 @@ exports[`Feature: My Account Dropdown Component Scenario: Rendering My Account D
   />
   <a
     className="my-account-dropdown__sign-in-out"
+    data-locator="my-account-dropdown-sign-in-out"
     href="/content/waters/language-masters/en/signout.html"
     onClick={[Function]}
   >
@@ -94,9 +99,11 @@ exports[`Feature: My Account Dropdown Component Scenario: Rendering My Account D
   />
   <div
     className="my-account-dropdown__item-list"
+    data-locator="my-account-dropdown-list"
   >
     <a
       className="my-account-dropdown__item-list--link dropdown__item-list__my-profile"
+      data-locator="my-account-dropdown-list-items"
       href="/content/waters/language-masters/en/search.html"
       onClick={[Function]}
       target="_self"
@@ -108,9 +115,11 @@ exports[`Feature: My Account Dropdown Component Scenario: Rendering My Account D
   </div>
   <div
     className="my-account-dropdown__item-list"
+    data-locator="my-account-dropdown-list"
   >
     <a
       className="my-account-dropdown__item-list--link dropdown__item-list__my-orders"
+      data-locator="my-account-dropdown-list-items"
       href="/content/waters/language-masters/en/library.html"
       onClick={[Function]}
       target="_self"
@@ -125,6 +134,7 @@ exports[`Feature: My Account Dropdown Component Scenario: Rendering My Account D
   />
   <a
     className="my-account-dropdown__sign-in-out"
+    data-locator="my-account-dropdown-sign-in-out"
     href="/content/waters/language-masters/en/signout.html"
     onClick={[Function]}
   >
@@ -163,9 +173,11 @@ exports[`Feature: My Account Dropdown Component Scenario: Rendering My Account D
   />
   <div
     className="my-account-dropdown__item-list"
+    data-locator="my-account-dropdown-list"
   >
     <a
       className="my-account-dropdown__item-list--link dropdown__item-list__my-profile"
+      data-locator="my-account-dropdown-list-items"
       href="/content/waters/language-masters/en/search.html"
       onClick={[Function]}
       target="_self"
@@ -177,9 +189,11 @@ exports[`Feature: My Account Dropdown Component Scenario: Rendering My Account D
   </div>
   <div
     className="my-account-dropdown__item-list"
+    data-locator="my-account-dropdown-list"
   >
     <a
       className="my-account-dropdown__item-list--link dropdown__item-list__my-orders"
+      data-locator="my-account-dropdown-list-items"
       href="/content/waters/language-masters/en/library.html"
       onClick={[Function]}
       target="_self"
@@ -194,6 +208,7 @@ exports[`Feature: My Account Dropdown Component Scenario: Rendering My Account D
   />
   <a
     className="my-account-dropdown__sign-in-out"
+    data-locator="my-account-dropdown-sign-in-out"
     href="/content/waters/language-masters/en/signout.html"
     onClick={[Function]}
   >
@@ -211,9 +226,11 @@ exports[`Feature: My Account Dropdown Component Scenario: Rendering My Account D
 >
   <div
     className="my-account-dropdown__item-list"
+    data-locator="my-account-dropdown-list"
   >
     <a
       className="my-account-dropdown__item-list--link dropdown__item-list__my-profile"
+      data-locator="my-account-dropdown-list-items"
       href="/content/waters/language-masters/en/search.html"
       onClick={[Function]}
       target="_self"
@@ -225,9 +242,11 @@ exports[`Feature: My Account Dropdown Component Scenario: Rendering My Account D
   </div>
   <div
     className="my-account-dropdown__item-list"
+    data-locator="my-account-dropdown-list"
   >
     <a
       className="my-account-dropdown__item-list--link dropdown__item-list__my-orders"
+      data-locator="my-account-dropdown-list-items"
       href="/content/waters/language-masters/en/library.html"
       onClick={[Function]}
       target="_self"
@@ -242,6 +261,7 @@ exports[`Feature: My Account Dropdown Component Scenario: Rendering My Account D
   />
   <a
     className="my-account-dropdown__sign-in-out"
+    data-locator="my-account-dropdown-sign-in-out"
     href="/content/waters/language-masters/en/signIn.html"
     onClick={[Function]}
     rel="nofollow"
@@ -253,10 +273,12 @@ exports[`Feature: My Account Dropdown Component Scenario: Rendering My Account D
   </a>
   <div
     className="my-account-dropdown__create-account"
+    data-locator="my-account-dropdown-not-registered"
   >
     Not registered yet?
     <a
       class="cmp-button"
+      data-locator="link-my-account-dropdown-create-account"
       href="/content/waters/language-masters/en/test.html"
       onClick={[Function]}
     >

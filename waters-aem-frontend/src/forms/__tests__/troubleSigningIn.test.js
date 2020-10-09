@@ -10,6 +10,7 @@ import { checkRenderInput,
         checkRenderSubmitButton,
         checkEventsReCAPTCHA,
         checkEventsInput } from '../__utils__/utils';
+import mockBodyHTML from '../../__mocks__/en_US/html/mock-body-html';
 
 const mockSubmitFn = jest.fn();
 const isocode = 'en_us';
@@ -29,6 +30,8 @@ afterEach(() => {
 });
 
 describe('Feature:Trouble Signing In Form', () => {
+    document.body.innerHTML = mockBodyHTML;
+
     describe('Scenario: Rendering', () => {
         describe('When initial render', () => {
             it('Then the snapshot should match', async () => {

@@ -3,12 +3,14 @@
 exports[`Feature: Aside Component Scenario: Rendering When children are provided Then it should match snapshot 1`] = `
 <div
   className="container__left cmp-search__sort-filter"
+  data-locator="left-container-filter"
 >
   <div
     className="cmp-search-hide-btn clearfix"
   >
     <a
       className="btn-hide-sort-filter"
+      data-locator="link-hide-search-button"
       href="javascript:void(0);"
       onClick={[MockFunction]}
     >
@@ -21,6 +23,7 @@ exports[`Feature: Aside Component Scenario: Rendering When children are provided
   >
     <a
       className="btn-apply-sort-filter"
+      data-locator="link-search-apply-button"
       href="javascript:void(0);"
       onClick={[Function]}
     >
@@ -32,6 +35,7 @@ exports[`Feature: Aside Component Scenario: Rendering When children are provided
   >
     <a
       className="btn-done-sort-filter"
+      data-locator="link-done-sort-filter"
       href="javascript:void(0);"
       onClick={[Function]}
     >
@@ -43,52 +47,58 @@ exports[`Feature: Aside Component Scenario: Rendering When children are provided
   >
     <div
       className="cmp-search-sortby"
+      data-locator="sortby-label"
     >
       <h3>
         Sort By
       </h3>
       <div
-        className="css-1pcexqc-container"
-        onKeyDown={[Function]}
+        aria-describedby="cmp-custom-dropdown__single-value"
+        tabindex="0"
       >
         <div
-          className="css-xov0tq-control cmp-custom-dropdown__control"
-          onMouseDown={[Function]}
-          onTouchEnd={[Function]}
+          className="css-1pcexqc-container"
+          onKeyDown={[Function]}
         >
           <div
-            className="css-1hwfws3 cmp-custom-dropdown__value-container cmp-custom-dropdown__value-container--has-value"
+            className="css-xov0tq-control cmp-custom-dropdown__control"
+            onMouseDown={[Function]}
+            onTouchEnd={[Function]}
           >
             <div
-              className="css-0 cmp-custom-dropdown__single-value"
+              className="css-1hwfws3 cmp-custom-dropdown__value-container cmp-custom-dropdown__value-container--has-value"
             >
-              Most Recent
+              <div
+                className="css-0 cmp-custom-dropdown__single-value"
+              >
+                Most Recent
+              </div>
+              <input
+                className="css-gj7qu5-dummyInput"
+                disabled={false}
+                id="react-select-3-input"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                readOnly={true}
+                tabIndex="-1"
+                value=""
+              />
             </div>
-            <input
-              className="css-gj7qu5-dummyInput"
-              disabled={false}
-              id="react-select-3-input"
-              onBlur={[Function]}
-              onChange={[Function]}
-              onFocus={[Function]}
-              readOnly={true}
-              tabIndex="0"
-              value=""
-            />
-          </div>
-          <div
-            className="css-1wy0on6 cmp-custom-dropdown__indicators"
-          >
-            <span
-              className="css-1hyfx7x cmp-custom-dropdown__indicator-separator"
-            />
             <div
-              aria-hidden="true"
-              className="css-16pqwjk-indicatorContainer cmp-custom-dropdown__indicator cmp-custom-dropdown__dropdown-indicator"
-              onMouseDown={[Function]}
-              onTouchEnd={[Function]}
+              className="css-1wy0on6 cmp-custom-dropdown__indicators"
             >
-              <div />
+              <span
+                className="css-1hyfx7x cmp-custom-dropdown__indicator-separator"
+              />
+              <div
+                aria-hidden="true"
+                className="css-16pqwjk-indicatorContainer cmp-custom-dropdown__indicator cmp-custom-dropdown__dropdown-indicator"
+                onMouseDown={[Function]}
+                onTouchEnd={[Function]}
+              >
+                <div />
+              </div>
             </div>
           </div>
         </div>
@@ -104,12 +114,14 @@ exports[`Feature: Aside Component Scenario: Rendering When children are provided
 exports[`Feature: Aside Component Scenario: Rendering When no children are provided Then it should match snapshot 1`] = `
 <div
   className="container__left cmp-search__sort-filter"
+  data-locator="left-container-filter"
 >
   <div
     className="cmp-search-hide-btn clearfix"
   >
     <a
       className="btn-hide-sort-filter"
+      data-locator="link-hide-search-button"
       href="javascript:void(0);"
       onClick={[MockFunction]}
     >
@@ -122,6 +134,7 @@ exports[`Feature: Aside Component Scenario: Rendering When no children are provi
   >
     <a
       className="btn-apply-sort-filter"
+      data-locator="link-search-apply-button"
       href="javascript:void(0);"
       onClick={[Function]}
     >
@@ -133,6 +146,7 @@ exports[`Feature: Aside Component Scenario: Rendering When no children are provi
   >
     <a
       className="btn-done-sort-filter"
+      data-locator="link-done-sort-filter"
       href="javascript:void(0);"
       onClick={[Function]}
     >
@@ -144,52 +158,58 @@ exports[`Feature: Aside Component Scenario: Rendering When no children are provi
   >
     <div
       className="cmp-search-sortby"
+      data-locator="sortby-label"
     >
       <h3>
         Sort By
       </h3>
       <div
-        className="css-1pcexqc-container"
-        onKeyDown={[Function]}
+        aria-describedby="cmp-custom-dropdown__single-value"
+        tabindex="0"
       >
         <div
-          className="css-xov0tq-control cmp-custom-dropdown__control"
-          onMouseDown={[Function]}
-          onTouchEnd={[Function]}
+          className="css-1pcexqc-container"
+          onKeyDown={[Function]}
         >
           <div
-            className="css-1hwfws3 cmp-custom-dropdown__value-container cmp-custom-dropdown__value-container--has-value"
+            className="css-xov0tq-control cmp-custom-dropdown__control"
+            onMouseDown={[Function]}
+            onTouchEnd={[Function]}
           >
             <div
-              className="css-0 cmp-custom-dropdown__single-value"
+              className="css-1hwfws3 cmp-custom-dropdown__value-container cmp-custom-dropdown__value-container--has-value"
             >
-              Most Recent
+              <div
+                className="css-0 cmp-custom-dropdown__single-value"
+              >
+                Most Recent
+              </div>
+              <input
+                className="css-gj7qu5-dummyInput"
+                disabled={false}
+                id="react-select-2-input"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                readOnly={true}
+                tabIndex="-1"
+                value=""
+              />
             </div>
-            <input
-              className="css-gj7qu5-dummyInput"
-              disabled={false}
-              id="react-select-2-input"
-              onBlur={[Function]}
-              onChange={[Function]}
-              onFocus={[Function]}
-              readOnly={true}
-              tabIndex="0"
-              value=""
-            />
-          </div>
-          <div
-            className="css-1wy0on6 cmp-custom-dropdown__indicators"
-          >
-            <span
-              className="css-1hyfx7x cmp-custom-dropdown__indicator-separator"
-            />
             <div
-              aria-hidden="true"
-              className="css-16pqwjk-indicatorContainer cmp-custom-dropdown__indicator cmp-custom-dropdown__dropdown-indicator"
-              onMouseDown={[Function]}
-              onTouchEnd={[Function]}
+              className="css-1wy0on6 cmp-custom-dropdown__indicators"
             >
-              <div />
+              <span
+                className="css-1hyfx7x cmp-custom-dropdown__indicator-separator"
+              />
+              <div
+                aria-hidden="true"
+                className="css-16pqwjk-indicatorContainer cmp-custom-dropdown__indicator cmp-custom-dropdown__dropdown-indicator"
+                onMouseDown={[Function]}
+                onTouchEnd={[Function]}
+              >
+                <div />
+              </div>
             </div>
           </div>
         </div>
@@ -202,9 +222,12 @@ exports[`Feature: Aside Component Scenario: Rendering When no children are provi
 exports[`Feature: FilterTagList Component Scenario: Rendering When content type filter is specified Then is should match snapshot 1`] = `
 <div
   className="cmp-search-filters__tags clearfix"
+  data-locator="search-filters-tags"
 >
   <a
+    aria-label="Clear All"
     className="cmp-search-filters__tags__clear"
+    data-locator="link-search-filters-tag-clear"
     href="javascript:void(0);"
     onClick={[Function]}
   >
@@ -214,6 +237,7 @@ exports[`Feature: FilterTagList Component Scenario: Rendering When content type 
     </span>
   </a>
   <a
+    data-locator="content-type-tag-hide"
     href="javascript:void(0);"
     onClick={[Function]}
   >
@@ -228,9 +252,12 @@ exports[`Feature: FilterTagList Component Scenario: Rendering When content type 
 exports[`Feature: FilterTagList Component Scenario: Rendering When keyword filter is specified Then it should match spapshot 1`] = `
 <div
   className="cmp-search-filters__tags clearfix"
+  data-locator="search-filters-tags"
 >
   <a
+    aria-label="Clear All"
     className="cmp-search-filters__tags__clear"
+    data-locator="link-search-filters-tag-clear"
     href="javascript:void(0);"
     onClick={[Function]}
   >
@@ -240,6 +267,7 @@ exports[`Feature: FilterTagList Component Scenario: Rendering When keyword filte
     </span>
   </a>
   <a
+    aria-label="Keyword: hplc"
     href="javascript:void(0);"
     onClick={[Function]}
   >
@@ -254,9 +282,12 @@ exports[`Feature: FilterTagList Component Scenario: Rendering When keyword filte
 exports[`Feature: FilterTagList Component Scenario: Rendering When keyword spelling suggestion is specified Then it should match spapshot 1`] = `
 <div
   className="cmp-search-filters__tags clearfix"
+  data-locator="search-filters-tags"
 >
   <a
+    aria-label="Clear All"
     className="cmp-search-filters__tags__clear"
+    data-locator="link-search-filters-tag-clear"
     href="javascript:void(0);"
     onClick={[Function]}
   >
@@ -266,6 +297,7 @@ exports[`Feature: FilterTagList Component Scenario: Rendering When keyword spell
     </span>
   </a>
   <a
+    aria-label="Keyword: HPLC"
     href="javascript:void(0);"
     onClick={[Function]}
   >
@@ -286,9 +318,12 @@ exports[`Feature: FilterTagList Component Scenario: Rendering When no filters ar
 exports[`Feature: FilterTagList Component Scenario: Rendering When sub facet filters are specified Then it should match snapshot 1`] = `
 <div
   className="cmp-search-filters__tags clearfix"
+  data-locator="search-filters-tags"
 >
   <a
+    aria-label="Clear All"
     className="cmp-search-filters__tags__clear"
+    data-locator="link-search-filters-tag-clear"
     href="javascript:void(0);"
     onClick={[Function]}
   >
@@ -298,6 +333,7 @@ exports[`Feature: FilterTagList Component Scenario: Rendering When sub facet fil
     </span>
   </a>
   <a
+    data-locator="content-type-tag-hide"
     href="javascript:void(0);"
     onClick={[Function]}
   >
@@ -312,20 +348,24 @@ exports[`Feature: FilterTagList Component Scenario: Rendering When sub facet fil
 exports[`Feature: Menu Component Scenario: Rendering When showing facet menu Then it should match snapshot 1`] = `
 <div
   className="facet-menu-container"
+  data-locator="facet-menu-container"
 >
   <div
     className="facet-menu-container__heading"
+    data-locator="facet-menu-container-heading"
   >
     <div
       className="cmp-search-filters__emptytags"
     />
     <div
       className="heading--with-selected-value"
+      data-locator="heading-with-selected-value"
     >
       <div
         className="back-btn"
       >
         <a
+          data-locator="link-back-button"
           href="javascript:void(0)"
           onClick={[MockFunction]}
         >
@@ -341,6 +381,7 @@ exports[`Feature: Menu Component Scenario: Rendering When showing facet menu The
   </div>
   <div
     className="facet-menu-container__body"
+    data-locator="facet-menu-container-body"
   >
     <div
       className="cmp-search-filters"
@@ -405,9 +446,11 @@ exports[`Feature: ResultsBody Component Scenario: Rendering When sorting by best
   >
     <div
       className="cmp-search__resultsCount-container"
+      data-locator="results-count-container"
     >
       <h2
         className="cmp-search__resultsCount"
+        data-locator="results-count"
       >
         Showing 1-0 of 0 results 
         <span>
@@ -475,9 +518,11 @@ exports[`Feature: ResultsBody Component Scenario: Rendering When sorting by most
   >
     <div
       className="cmp-search__resultsCount-container"
+      data-locator="results-count-container"
     >
       <h2
         className="cmp-search__resultsCount"
+        data-locator="results-count"
       >
         Showing 1-0 of 0 results 
         <span>
@@ -512,31 +557,38 @@ Array [
   "",
   <div
     className="cmp-sku-signin-wrapper"
+    data-locator="sku-signin-wrapper"
   >
     <div
       className="cmp-sku-signin"
+      data-locator="sku-signin"
     >
       <a
         className="signin-link"
+        data-locator="signin-link"
         onClick={[Function]}
         rel="nofollow"
       >
         <div
           className="signin-icon"
+          data-locator="signin-icon"
         />
         <span
           className="signin-part1"
+          data-locator="signin-part1"
         >
           Sign in
         </span>
       </a>
       <span
         className="signin-part2"
+        data-locator="signin-part2"
       >
         to view 
       </span>
       <span
         className="signin-part3"
+        data-locator="signin-part3"
       >
         Your Price
       </span>
@@ -550,6 +602,7 @@ Array [
     >
       <img
         alt="Comprehensive Guide to HILIC: Hydrophilic Interaction Chromatography"
+        data-locator="product-image"
         src="https://test-www.waters.com/content/dam/waters/en/Photography/Products/skus/reagents/primer-hydrophilic-interaction-chromatography.jpg/_jcr_content/renditions/cq5dam.thumbnail.319.319.png"
       />
     </div>
@@ -557,7 +610,9 @@ Array [
       className="cmp-sku-details__left"
     >
       <div
+        aria-label="SKU: 715002531"
         className="cmp-sku-list__code"
+        data-locator="product-number"
       >
         SKU: 715002531
       </div>
@@ -567,6 +622,7 @@ Array [
       >
         <div
           className="cmp-sku-details__title"
+          data-locator="product-title"
         >
           Comprehensive Guide to HILIC: Hydrophilic Interaction Chromatography
         </div>
@@ -578,12 +634,16 @@ Array [
           className="cmp-sku-list__priceinfo"
         >
           <div
+            aria-label="List Price"
             className="cmp-sku-list__list-price-label"
+            data-locator="sku-price-label"
           >
             List Price
           </div>
           <div
+            aria-label="$25.00"
             className="cmp-sku__price"
+            data-locator="sku-price"
           >
             $25.00
           </div>
@@ -598,6 +658,7 @@ Array [
             See Availability
             <div
               alt="See Availability"
+              data-locator="check-availability"
             />
           </span>
         </div>
@@ -606,7 +667,9 @@ Array [
         >
           <form>
             <input
+              aria-label=""
               className="cmp-sku-details__quantity"
+              data-locator="input-sku-qty"
               onChange={[Function]}
               onKeyPress={[Function]}
               placeholder="Qty"
@@ -615,6 +678,7 @@ Array [
           </form>
           <a
             className="cmp-button false"
+            data-locator="link-add-to-cart"
             onClick={[Function]}
           >
             Add to Cart
@@ -631,6 +695,7 @@ Array [
     >
       <img
         alt="AccQ-Tag Method Manual"
+        data-locator="product-image"
         src="https://test-www.waters.com/content/dam/waters/en/brand-assets/thumbnails/product-thumbnail.png/_jcr_content/renditions/original"
       />
     </div>
@@ -638,7 +703,9 @@ Array [
       className="cmp-sku-details__left"
     >
       <div
+        aria-label="SKU: WAT052874"
         className="cmp-sku-list__code"
+        data-locator="product-number"
       >
         SKU: WAT052874
       </div>
@@ -648,6 +715,7 @@ Array [
       >
         <div
           className="cmp-sku-details__title"
+          data-locator="product-title"
         >
           AccQ-Tag Method Manual
         </div>
@@ -659,12 +727,16 @@ Array [
           className="cmp-sku-list__priceinfo"
         >
           <div
+            aria-label="List Price"
             className="cmp-sku-list__list-price-label"
+            data-locator="sku-price-label"
           >
             List Price
           </div>
           <div
+            aria-label="$144.00"
             className="cmp-sku__price"
+            data-locator="sku-price"
           >
             $144.00
           </div>
@@ -679,6 +751,7 @@ Array [
             See Availability
             <div
               alt="See Availability"
+              data-locator="check-availability"
             />
           </span>
         </div>
@@ -687,7 +760,9 @@ Array [
         >
           <form>
             <input
+              aria-label=""
               className="cmp-sku-details__quantity"
+              data-locator="input-sku-qty"
               onChange={[Function]}
               onKeyPress={[Function]}
               placeholder="Qty"
@@ -696,6 +771,7 @@ Array [
           </form>
           <a
             className="cmp-button false"
+            data-locator="link-add-to-cart"
             onClick={[Function]}
           >
             Add to Cart
@@ -712,6 +788,7 @@ Array [
     >
       <img
         alt="The Mass Spectrometry Primer"
+        data-locator="product-image"
         src="https://test-www.waters.com/content/dam/waters/en/Photography/Products/skus/reagents/primer-mass-spectrometry.jpg/_jcr_content/renditions/cq5dam.thumbnail.319.319.png"
       />
     </div>
@@ -719,7 +796,9 @@ Array [
       className="cmp-sku-details__left"
     >
       <div
+        aria-label="SKU: 715001940"
         className="cmp-sku-list__code"
+        data-locator="product-number"
       >
         SKU: 715001940
       </div>
@@ -729,6 +808,7 @@ Array [
       >
         <div
           className="cmp-sku-details__title"
+          data-locator="product-title"
         >
           The Mass Spectrometry Primer
         </div>
@@ -740,12 +820,16 @@ Array [
           className="cmp-sku-list__priceinfo"
         >
           <div
+            aria-label="List Price"
             className="cmp-sku-list__list-price-label"
+            data-locator="sku-price-label"
           >
             List Price
           </div>
           <div
+            aria-label="$53.00"
             className="cmp-sku__price"
+            data-locator="sku-price"
           >
             $53.00
           </div>
@@ -760,6 +844,7 @@ Array [
             See Availability
             <div
               alt="See Availability"
+              data-locator="check-availability"
             />
           </span>
         </div>
@@ -768,7 +853,9 @@ Array [
         >
           <form>
             <input
+              aria-label=""
               className="cmp-sku-details__quantity"
+              data-locator="input-sku-qty"
               onChange={[Function]}
               onKeyPress={[Function]}
               placeholder="Qty"
@@ -777,6 +864,7 @@ Array [
           </form>
           <a
             className="cmp-button false"
+            data-locator="link-add-to-cart"
             onClick={[Function]}
           >
             Add to Cart
@@ -793,6 +881,7 @@ Array [
     >
       <img
         alt="Beginners Guide to UPLC: Ultra-Performance Liquid Chromatography"
+        data-locator="product-image"
         src="https://test-www.waters.com/content/dam/waters/en/Photography/Products/skus/reagents/primer-ultra-performance-liquid-chromatography.jpg/_jcr_content/renditions/cq5dam.thumbnail.319.319.png"
       />
     </div>
@@ -800,7 +889,9 @@ Array [
       className="cmp-sku-details__left"
     >
       <div
+        aria-label="SKU: 715002099"
         className="cmp-sku-list__code"
+        data-locator="product-number"
       >
         SKU: 715002099
       </div>
@@ -810,6 +901,7 @@ Array [
       >
         <div
           className="cmp-sku-details__title"
+          data-locator="product-title"
         >
           Beginners Guide to UPLC: Ultra-Performance Liquid Chromatography
         </div>
@@ -821,12 +913,16 @@ Array [
           className="cmp-sku-list__priceinfo"
         >
           <div
+            aria-label="List Price"
             className="cmp-sku-list__list-price-label"
+            data-locator="sku-price-label"
           >
             List Price
           </div>
           <div
+            aria-label="$25.00"
             className="cmp-sku__price"
+            data-locator="sku-price"
           >
             $25.00
           </div>
@@ -841,6 +937,7 @@ Array [
             See Availability
             <div
               alt="See Availability"
+              data-locator="check-availability"
             />
           </span>
         </div>
@@ -849,7 +946,9 @@ Array [
         >
           <form>
             <input
+              aria-label=""
               className="cmp-sku-details__quantity"
+              data-locator="input-sku-qty"
               onChange={[Function]}
               onKeyPress={[Function]}
               placeholder="Qty"
@@ -858,6 +957,7 @@ Array [
           </form>
           <a
             className="cmp-button false"
+            data-locator="link-add-to-cart"
             onClick={[Function]}
           >
             Add to Cart
@@ -874,6 +974,7 @@ Array [
     >
       <img
         alt="Beginners Guide to Liquid Chromatography"
+        data-locator="product-image"
         src="https://test-www.waters.com/content/dam/waters/en/Photography/Products/skus/reagents/primer-liquid-chromatography.jpg/_jcr_content/renditions/cq5dam.thumbnail.319.319.png"
       />
     </div>
@@ -881,7 +982,9 @@ Array [
       className="cmp-sku-details__left"
     >
       <div
+        aria-label="SKU: 715001531"
         className="cmp-sku-list__code"
+        data-locator="product-number"
       >
         SKU: 715001531
       </div>
@@ -891,6 +994,7 @@ Array [
       >
         <div
           className="cmp-sku-details__title"
+          data-locator="product-title"
         >
           Beginners Guide to Liquid Chromatography
         </div>
@@ -902,12 +1006,16 @@ Array [
           className="cmp-sku-list__priceinfo"
         >
           <div
+            aria-label="List Price"
             className="cmp-sku-list__list-price-label"
+            data-locator="sku-price-label"
           >
             List Price
           </div>
           <div
+            aria-label="$25.00"
             className="cmp-sku__price"
+            data-locator="sku-price"
           >
             $25.00
           </div>
@@ -922,6 +1030,7 @@ Array [
             See Availability
             <div
               alt="See Availability"
+              data-locator="check-availability"
             />
           </span>
         </div>
@@ -930,7 +1039,9 @@ Array [
         >
           <form>
             <input
+              aria-label=""
               className="cmp-sku-details__quantity"
+              data-locator="input-sku-qty"
               onChange={[Function]}
               onKeyPress={[Function]}
               placeholder="Qty"
@@ -939,6 +1050,7 @@ Array [
           </form>
           <a
             className="cmp-button false"
+            data-locator="link-add-to-cart"
             onClick={[Function]}
           >
             Add to Cart
@@ -955,6 +1067,7 @@ Array [
     >
       <img
         alt="The Beginner's Guide to Size-Exclusion Chromatography"
+        data-locator="product-image"
         src="https://test-www.waters.com/content/dam/waters/en/Photography/Products/skus/reagents/primer-size-exclusion-chromatography.jpg/_jcr_content/renditions/cq5dam.thumbnail.319.319.png"
       />
     </div>
@@ -962,7 +1075,9 @@ Array [
       className="cmp-sku-details__left"
     >
       <div
+        aria-label="SKU: 715004398"
         className="cmp-sku-list__code"
+        data-locator="product-number"
       >
         SKU: 715004398
       </div>
@@ -972,6 +1087,7 @@ Array [
       >
         <div
           className="cmp-sku-details__title"
+          data-locator="product-title"
         >
           The Beginner's Guide to Size-Exclusion Chromatography
         </div>
@@ -983,12 +1099,16 @@ Array [
           className="cmp-sku-list__priceinfo"
         >
           <div
+            aria-label="List Price"
             className="cmp-sku-list__list-price-label"
+            data-locator="sku-price-label"
           >
             List Price
           </div>
           <div
+            aria-label="$25.00"
             className="cmp-sku__price"
+            data-locator="sku-price"
           >
             $25.00
           </div>
@@ -1003,6 +1123,7 @@ Array [
             See Availability
             <div
               alt="See Availability"
+              data-locator="check-availability"
             />
           </span>
         </div>
@@ -1011,7 +1132,9 @@ Array [
         >
           <form>
             <input
+              aria-label=""
               className="cmp-sku-details__quantity"
+              data-locator="input-sku-qty"
               onChange={[Function]}
               onKeyPress={[Function]}
               placeholder="Qty"
@@ -1020,6 +1143,7 @@ Array [
           </form>
           <a
             className="cmp-button false"
+            data-locator="link-add-to-cart"
             onClick={[Function]}
           >
             Add to Cart
@@ -1036,6 +1160,7 @@ Array [
     >
       <img
         alt="Beginner's Guide to SPE: Solid-Phase Extraction"
+        data-locator="product-image"
         src="https://test-www.waters.com/content/dam/waters/en/Photography/Products/skus/reagents/primer-solid-phase-extraction.jpg/_jcr_content/renditions/cq5dam.thumbnail.319.319.png"
       />
     </div>
@@ -1043,7 +1168,9 @@ Array [
       className="cmp-sku-details__left"
     >
       <div
+        aria-label="SKU: 715003405"
         className="cmp-sku-list__code"
+        data-locator="product-number"
       >
         SKU: 715003405
       </div>
@@ -1053,6 +1180,7 @@ Array [
       >
         <div
           className="cmp-sku-details__title"
+          data-locator="product-title"
         >
           Beginner's Guide to SPE: Solid-Phase Extraction
         </div>
@@ -1064,12 +1192,16 @@ Array [
           className="cmp-sku-list__priceinfo"
         >
           <div
+            aria-label="List Price"
             className="cmp-sku-list__list-price-label"
+            data-locator="sku-price-label"
           >
             List Price
           </div>
           <div
+            aria-label="$105.00"
             className="cmp-sku__price"
+            data-locator="sku-price"
           >
             $105.00
           </div>
@@ -1084,6 +1216,7 @@ Array [
             See Availability
             <div
               alt="See Availability"
+              data-locator="check-availability"
             />
           </span>
         </div>
@@ -1092,7 +1225,9 @@ Array [
         >
           <form>
             <input
+              aria-label=""
               className="cmp-sku-details__quantity"
+              data-locator="input-sku-qty"
               onChange={[Function]}
               onKeyPress={[Function]}
               placeholder="Qty"
@@ -1101,6 +1236,7 @@ Array [
           </form>
           <a
             className="cmp-button false"
+            data-locator="link-add-to-cart"
             onClick={[Function]}
           >
             Add to Cart
@@ -1117,6 +1253,7 @@ Array [
     >
       <img
         alt="Practical Approaches to Peptide Isolation"
+        data-locator="product-image"
         src="https://test-www.waters.com/content/dam/waters/en/Photography/Products/skus/reagents/primer-peptide-isolation.jpg/_jcr_content/renditions/cq5dam.thumbnail.319.319.png"
       />
     </div>
@@ -1124,7 +1261,9 @@ Array [
       className="cmp-sku-details__left"
     >
       <div
+        aria-label="SKU: 715005429"
         className="cmp-sku-list__code"
+        data-locator="product-number"
       >
         SKU: 715005429
       </div>
@@ -1134,6 +1273,7 @@ Array [
       >
         <div
           className="cmp-sku-details__title"
+          data-locator="product-title"
         >
           Practical Approaches to Peptide Isolation
         </div>
@@ -1145,12 +1285,16 @@ Array [
           className="cmp-sku-list__priceinfo"
         >
           <div
+            aria-label="List Price"
             className="cmp-sku-list__list-price-label"
+            data-locator="sku-price-label"
           >
             List Price
           </div>
           <div
+            aria-label="$26.00"
             className="cmp-sku__price"
+            data-locator="sku-price"
           >
             $26.00
           </div>
@@ -1165,6 +1309,7 @@ Array [
             See Availability
             <div
               alt="See Availability"
+              data-locator="check-availability"
             />
           </span>
         </div>
@@ -1173,7 +1318,9 @@ Array [
         >
           <form>
             <input
+              aria-label=""
               className="cmp-sku-details__quantity"
+              data-locator="input-sku-qty"
               onChange={[Function]}
               onKeyPress={[Function]}
               placeholder="Qty"
@@ -1182,6 +1329,7 @@ Array [
           </form>
           <a
             className="cmp-button false"
+            data-locator="link-add-to-cart"
             onClick={[Function]}
           >
             Add to Cart
@@ -1198,6 +1346,7 @@ Array [
     >
       <img
         alt="Beginner's Guide to Preparative SFC"
+        data-locator="product-image"
         src="https://test-www.waters.com/content/dam/waters/en/Photography/Products/skus/reagents/primer-preparative-sfc.jpg/_jcr_content/renditions/cq5dam.thumbnail.319.319.png"
       />
     </div>
@@ -1205,7 +1354,9 @@ Array [
       className="cmp-sku-details__left"
     >
       <div
+        aria-label="SKU: 715005427"
         className="cmp-sku-list__code"
+        data-locator="product-number"
       >
         SKU: 715005427
       </div>
@@ -1215,6 +1366,7 @@ Array [
       >
         <div
           className="cmp-sku-details__title"
+          data-locator="product-title"
         >
           Beginner's Guide to Preparative SFC
         </div>
@@ -1226,12 +1378,16 @@ Array [
           className="cmp-sku-list__priceinfo"
         >
           <div
+            aria-label="List Price"
             className="cmp-sku-list__list-price-label"
+            data-locator="sku-price-label"
           >
             List Price
           </div>
           <div
+            aria-label="$26.00"
             className="cmp-sku__price"
+            data-locator="sku-price"
           >
             $26.00
           </div>
@@ -1246,6 +1402,7 @@ Array [
             See Availability
             <div
               alt="See Availability"
+              data-locator="check-availability"
             />
           </span>
         </div>
@@ -1254,7 +1411,9 @@ Array [
         >
           <form>
             <input
+              aria-label=""
               className="cmp-sku-details__quantity"
+              data-locator="input-sku-qty"
               onChange={[Function]}
               onKeyPress={[Function]}
               placeholder="Qty"
@@ -1263,6 +1422,7 @@ Array [
           </form>
           <a
             className="cmp-button false"
+            data-locator="link-add-to-cart"
             onClick={[Function]}
           >
             Add to Cart
@@ -1279,6 +1439,7 @@ Array [
     >
       <img
         alt="Beginner's Guide to Preparative Liquid Chromatography"
+        data-locator="product-image"
         src="https://test-www.waters.com/content/dam/waters/en/Photography/Products/skus/reagents/primer-preparative-liquid-chromatography.jpg/_jcr_content/renditions/cq5dam.thumbnail.319.319.png"
       />
     </div>
@@ -1286,7 +1447,9 @@ Array [
       className="cmp-sku-details__left"
     >
       <div
+        aria-label="SKU: 715005428"
         className="cmp-sku-list__code"
+        data-locator="product-number"
       >
         SKU: 715005428
       </div>
@@ -1296,6 +1459,7 @@ Array [
       >
         <div
           className="cmp-sku-details__title"
+          data-locator="product-title"
         >
           Beginner's Guide to Preparative Liquid Chromatography
         </div>
@@ -1307,12 +1471,16 @@ Array [
           className="cmp-sku-list__priceinfo"
         >
           <div
+            aria-label="List Price"
             className="cmp-sku-list__list-price-label"
+            data-locator="sku-price-label"
           >
             List Price
           </div>
           <div
+            aria-label="$26.00"
             className="cmp-sku__price"
+            data-locator="sku-price"
           >
             $26.00
           </div>
@@ -1327,6 +1495,7 @@ Array [
             See Availability
             <div
               alt="See Availability"
+              data-locator="check-availability"
             />
           </span>
         </div>
@@ -1335,7 +1504,9 @@ Array [
         >
           <form>
             <input
+              aria-label=""
               className="cmp-sku-details__quantity"
+              data-locator="input-sku-qty"
               onChange={[Function]}
               onKeyPress={[Function]}
               placeholder="Qty"
@@ -1344,6 +1515,7 @@ Array [
           </form>
           <a
             className="cmp-button false"
+            data-locator="link-add-to-cart"
             onClick={[Function]}
           >
             Add to Cart
@@ -1360,6 +1532,7 @@ Array [
     >
       <img
         alt="HPLC COL THEORY TECH/PRACTICE  BOOK"
+        data-locator="product-image"
         src="https://test-www.waters.com/content/dam/waters/en/brand-assets/thumbnails/product-thumbnail.png/_jcr_content/renditions/original"
       />
     </div>
@@ -1367,7 +1540,9 @@ Array [
       className="cmp-sku-details__left"
     >
       <div
+        aria-label="SKU: WAT038216"
         className="cmp-sku-list__code"
+        data-locator="product-number"
       >
         SKU: WAT038216
       </div>
@@ -1377,6 +1552,7 @@ Array [
       >
         <div
           className="cmp-sku-details__title"
+          data-locator="product-title"
         >
           HPLC COL THEORY TECH/PRACTICE  BOOK
         </div>
@@ -1388,12 +1564,16 @@ Array [
           className="cmp-sku-list__priceinfo"
         >
           <div
+            aria-label="List Price"
             className="cmp-sku-list__list-price-label"
+            data-locator="sku-price-label"
           >
             List Price
           </div>
           <div
+            aria-label="$158.00"
             className="cmp-sku__price"
+            data-locator="sku-price"
           >
             $158.00
           </div>
@@ -1408,6 +1588,7 @@ Array [
             See Availability
             <div
               alt="See Availability"
+              data-locator="check-availability"
             />
           </span>
         </div>
@@ -1416,7 +1597,9 @@ Array [
         >
           <form>
             <input
+              aria-label=""
               className="cmp-sku-details__quantity"
+              data-locator="input-sku-qty"
               onChange={[Function]}
               onKeyPress={[Function]}
               placeholder="Qty"
@@ -1425,6 +1608,7 @@ Array [
           </form>
           <a
             className="cmp-button false"
+            data-locator="link-add-to-cart"
             onClick={[Function]}
           >
             Add to Cart
@@ -1441,6 +1625,7 @@ Array [
     >
       <img
         alt="Beginner's Guide to Convergence Chromatography"
+        data-locator="product-image"
         src="https://test-www.waters.com/content/dam/waters/en/Photography/Products/skus/reagents/primer-convergence-chromatography.jpg/_jcr_content/renditions/cq5dam.thumbnail.319.319.png"
       />
     </div>
@@ -1448,7 +1633,9 @@ Array [
       className="cmp-sku-details__left"
     >
       <div
+        aria-label="SKU: 715004472"
         className="cmp-sku-list__code"
+        data-locator="product-number"
       >
         SKU: 715004472
       </div>
@@ -1458,6 +1645,7 @@ Array [
       >
         <div
           className="cmp-sku-details__title"
+          data-locator="product-title"
         >
           Beginner's Guide to Convergence Chromatography
         </div>
@@ -1469,12 +1657,16 @@ Array [
           className="cmp-sku-list__priceinfo"
         >
           <div
+            aria-label="List Price"
             className="cmp-sku-list__list-price-label"
+            data-locator="sku-price-label"
           >
             List Price
           </div>
           <div
+            aria-label="$25.00"
             className="cmp-sku__price"
+            data-locator="sku-price"
           >
             $25.00
           </div>
@@ -1489,6 +1681,7 @@ Array [
             See Availability
             <div
               alt="See Availability"
+              data-locator="check-availability"
             />
           </span>
         </div>
@@ -1497,7 +1690,9 @@ Array [
         >
           <form>
             <input
+              aria-label=""
               className="cmp-sku-details__quantity"
+              data-locator="input-sku-qty"
               onChange={[Function]}
               onKeyPress={[Function]}
               placeholder="Qty"
@@ -1506,6 +1701,7 @@ Array [
           </form>
           <a
             className="cmp-button false"
+            data-locator="link-add-to-cart"
             onClick={[Function]}
           >
             Add to Cart
@@ -1522,6 +1718,7 @@ Array [
     >
       <img
         alt="NuGenesis LMS SampleShare Named User License  Subscription (1 YR)- 1 Named User License"
+        data-locator="product-image"
         src="https://test-www.waters.com/content/dam/waters/en/brand-assets/thumbnails/product-thumbnail.png/_jcr_content/renditions/original"
       />
     </div>
@@ -1529,7 +1726,9 @@ Array [
       className="cmp-sku-details__left"
     >
       <div
+        aria-label="SKU: 667005060"
         className="cmp-sku-list__code"
+        data-locator="product-number"
       >
         SKU: 667005060
       </div>
@@ -1539,6 +1738,7 @@ Array [
       >
         <div
           className="cmp-sku-details__title"
+          data-locator="product-title"
         >
           NuGenesis LMS SampleShare Named User License  Subscription (1 YR)- 1 Named User License
         </div>
@@ -1550,12 +1750,16 @@ Array [
           className="cmp-sku-list__priceinfo"
         >
           <div
+            aria-label="List Price"
             className="cmp-sku-list__list-price-label"
+            data-locator="sku-price-label"
           >
             List Price
           </div>
           <div
+            aria-label="$290.00"
             className="cmp-sku__price"
+            data-locator="sku-price"
           >
             $290.00
           </div>
@@ -1570,6 +1774,7 @@ Array [
             See Availability
             <div
               alt="See Availability"
+              data-locator="check-availability"
             />
           </span>
         </div>
@@ -1578,7 +1783,9 @@ Array [
         >
           <form>
             <input
+              aria-label=""
               className="cmp-sku-details__quantity"
+              data-locator="input-sku-qty"
               onChange={[Function]}
               onKeyPress={[Function]}
               placeholder="Qty"
@@ -1587,6 +1794,7 @@ Array [
           </form>
           <a
             className="cmp-button false"
+            data-locator="link-add-to-cart"
             onClick={[Function]}
           >
             Add to Cart
@@ -1603,6 +1811,7 @@ Array [
     >
       <img
         alt="Beginner's Guide to SPE: Solid-Phase Extraction"
+        data-locator="product-image"
         src="https://test-www.waters.com/content/dam/waters/en/Photography/Products/skus/reagents/primer-solid-phase-extraction.jpg/_jcr_content/renditions/cq5dam.thumbnail.319.319.png"
       />
     </div>
@@ -1610,7 +1819,9 @@ Array [
       className="cmp-sku-details__left"
     >
       <div
+        aria-label="SKU: 715003405"
         className="cmp-sku-list__code"
+        data-locator="product-number"
       >
         SKU: 715003405
       </div>
@@ -1620,6 +1831,7 @@ Array [
       >
         <div
           className="cmp-sku-details__title"
+          data-locator="product-title"
         >
           Beginner's Guide to SPE: Solid-Phase Extraction
         </div>
@@ -1631,12 +1843,16 @@ Array [
           className="cmp-sku-list__priceinfo"
         >
           <div
+            aria-label="List Price"
             className="cmp-sku-list__list-price-label"
+            data-locator="sku-price-label"
           >
             List Price
           </div>
           <div
+            aria-label="$105.00"
             className="cmp-sku__price"
+            data-locator="sku-price"
           >
             $105.00
           </div>
@@ -1651,6 +1867,7 @@ Array [
             See Availability
             <div
               alt="See Availability"
+              data-locator="check-availability"
             />
           </span>
         </div>
@@ -1659,7 +1876,9 @@ Array [
         >
           <form>
             <input
+              aria-label=""
               className="cmp-sku-details__quantity"
+              data-locator="input-sku-qty"
               onChange={[Function]}
               onKeyPress={[Function]}
               placeholder="Qty"
@@ -1668,6 +1887,7 @@ Array [
           </form>
           <a
             className="cmp-button false"
+            data-locator="link-add-to-cart"
             onClick={[Function]}
           >
             Add to Cart
@@ -1688,31 +1908,38 @@ Array [
   "",
   <div
     className="cmp-sku-signin-wrapper"
+    data-locator="sku-signin-wrapper"
   >
     <div
       className="cmp-sku-signin"
+      data-locator="sku-signin"
     >
       <a
         className="signin-link"
+        data-locator="signin-link"
         onClick={[Function]}
         rel="nofollow"
       >
         <div
           className="signin-icon"
+          data-locator="signin-icon"
         />
         <span
           className="signin-part1"
+          data-locator="signin-part1"
         >
           Sign in
         </span>
       </a>
       <span
         className="signin-part2"
+        data-locator="signin-part2"
       >
         to view 
       </span>
       <span
         className="signin-part3"
+        data-locator="signin-part3"
       >
         Your Price
       </span>
@@ -1726,6 +1953,7 @@ Array [
     >
       <img
         alt="Comprehensive Guide to HILIC: Hydrophilic Interaction Chromatography"
+        data-locator="product-image"
         src="https://test-www.waters.com/content/dam/waters/en/Photography/Products/skus/reagents/primer-hydrophilic-interaction-chromatography.jpg/_jcr_content/renditions/cq5dam.thumbnail.319.319.png"
       />
     </div>
@@ -1733,7 +1961,9 @@ Array [
       className="cmp-sku-details__left"
     >
       <div
+        aria-label="SKU: 715002531"
         className="cmp-sku-list__code"
+        data-locator="product-number"
       >
         SKU: 715002531
       </div>
@@ -1743,6 +1973,7 @@ Array [
       >
         <div
           className="cmp-sku-details__title"
+          data-locator="product-title"
         >
           Comprehensive Guide to HILIC: Hydrophilic Interaction Chromatography
         </div>
@@ -1754,12 +1985,16 @@ Array [
           className="cmp-sku-list__priceinfo"
         >
           <div
+            aria-label="List Price"
             className="cmp-sku-list__list-price-label"
+            data-locator="sku-price-label"
           >
             List Price
           </div>
           <div
+            aria-label="$25.00"
             className="cmp-sku__price"
+            data-locator="sku-price"
           >
             $25.00
           </div>
@@ -1774,6 +2009,7 @@ Array [
             See Availability
             <div
               alt="See Availability"
+              data-locator="check-availability"
             />
           </span>
         </div>
@@ -1782,7 +2018,9 @@ Array [
         >
           <form>
             <input
+              aria-label=""
               className="cmp-sku-details__quantity"
+              data-locator="input-sku-qty"
               onChange={[Function]}
               onKeyPress={[Function]}
               placeholder="Qty"
@@ -1791,6 +2029,7 @@ Array [
           </form>
           <a
             className="cmp-button false"
+            data-locator="link-add-to-cart"
             onClick={[Function]}
           >
             Add to Cart
@@ -1807,6 +2046,7 @@ Array [
     >
       <img
         alt="AccQ-Tag Method Manual"
+        data-locator="product-image"
         src="https://test-www.waters.com/content/dam/waters/en/brand-assets/thumbnails/product-thumbnail.png/_jcr_content/renditions/original"
       />
     </div>
@@ -1814,7 +2054,9 @@ Array [
       className="cmp-sku-details__left"
     >
       <div
+        aria-label="SKU: WAT052874"
         className="cmp-sku-list__code"
+        data-locator="product-number"
       >
         SKU: WAT052874
       </div>
@@ -1824,6 +2066,7 @@ Array [
       >
         <div
           className="cmp-sku-details__title"
+          data-locator="product-title"
         >
           AccQ-Tag Method Manual
         </div>
@@ -1835,12 +2078,16 @@ Array [
           className="cmp-sku-list__priceinfo"
         >
           <div
+            aria-label="List Price"
             className="cmp-sku-list__list-price-label"
+            data-locator="sku-price-label"
           >
             List Price
           </div>
           <div
+            aria-label="$144.00"
             className="cmp-sku__price"
+            data-locator="sku-price"
           >
             $144.00
           </div>
@@ -1855,6 +2102,7 @@ Array [
             See Availability
             <div
               alt="See Availability"
+              data-locator="check-availability"
             />
           </span>
         </div>
@@ -1863,7 +2111,9 @@ Array [
         >
           <form>
             <input
+              aria-label=""
               className="cmp-sku-details__quantity"
+              data-locator="input-sku-qty"
               onChange={[Function]}
               onKeyPress={[Function]}
               placeholder="Qty"
@@ -1872,6 +2122,7 @@ Array [
           </form>
           <a
             className="cmp-button false"
+            data-locator="link-add-to-cart"
             onClick={[Function]}
           >
             Add to Cart
@@ -1888,6 +2139,7 @@ Array [
     >
       <img
         alt="The Mass Spectrometry Primer"
+        data-locator="product-image"
         src="https://test-www.waters.com/content/dam/waters/en/Photography/Products/skus/reagents/primer-mass-spectrometry.jpg/_jcr_content/renditions/cq5dam.thumbnail.319.319.png"
       />
     </div>
@@ -1895,7 +2147,9 @@ Array [
       className="cmp-sku-details__left"
     >
       <div
+        aria-label="SKU: 715001940"
         className="cmp-sku-list__code"
+        data-locator="product-number"
       >
         SKU: 715001940
       </div>
@@ -1905,6 +2159,7 @@ Array [
       >
         <div
           className="cmp-sku-details__title"
+          data-locator="product-title"
         >
           The Mass Spectrometry Primer
         </div>
@@ -1916,12 +2171,16 @@ Array [
           className="cmp-sku-list__priceinfo"
         >
           <div
+            aria-label="List Price"
             className="cmp-sku-list__list-price-label"
+            data-locator="sku-price-label"
           >
             List Price
           </div>
           <div
+            aria-label="$53.00"
             className="cmp-sku__price"
+            data-locator="sku-price"
           >
             $53.00
           </div>
@@ -1936,6 +2195,7 @@ Array [
             See Availability
             <div
               alt="See Availability"
+              data-locator="check-availability"
             />
           </span>
         </div>
@@ -1944,7 +2204,9 @@ Array [
         >
           <form>
             <input
+              aria-label=""
               className="cmp-sku-details__quantity"
+              data-locator="input-sku-qty"
               onChange={[Function]}
               onKeyPress={[Function]}
               placeholder="Qty"
@@ -1953,6 +2215,7 @@ Array [
           </form>
           <a
             className="cmp-button false"
+            data-locator="link-add-to-cart"
             onClick={[Function]}
           >
             Add to Cart
@@ -1969,6 +2232,7 @@ Array [
     >
       <img
         alt="Beginners Guide to UPLC: Ultra-Performance Liquid Chromatography"
+        data-locator="product-image"
         src="https://test-www.waters.com/content/dam/waters/en/Photography/Products/skus/reagents/primer-ultra-performance-liquid-chromatography.jpg/_jcr_content/renditions/cq5dam.thumbnail.319.319.png"
       />
     </div>
@@ -1976,7 +2240,9 @@ Array [
       className="cmp-sku-details__left"
     >
       <div
+        aria-label="SKU: 715002099"
         className="cmp-sku-list__code"
+        data-locator="product-number"
       >
         SKU: 715002099
       </div>
@@ -1986,6 +2252,7 @@ Array [
       >
         <div
           className="cmp-sku-details__title"
+          data-locator="product-title"
         >
           Beginners Guide to UPLC: Ultra-Performance Liquid Chromatography
         </div>
@@ -1997,12 +2264,16 @@ Array [
           className="cmp-sku-list__priceinfo"
         >
           <div
+            aria-label="List Price"
             className="cmp-sku-list__list-price-label"
+            data-locator="sku-price-label"
           >
             List Price
           </div>
           <div
+            aria-label="$25.00"
             className="cmp-sku__price"
+            data-locator="sku-price"
           >
             $25.00
           </div>
@@ -2017,6 +2288,7 @@ Array [
             See Availability
             <div
               alt="See Availability"
+              data-locator="check-availability"
             />
           </span>
         </div>
@@ -2025,7 +2297,9 @@ Array [
         >
           <form>
             <input
+              aria-label=""
               className="cmp-sku-details__quantity"
+              data-locator="input-sku-qty"
               onChange={[Function]}
               onKeyPress={[Function]}
               placeholder="Qty"
@@ -2034,6 +2308,7 @@ Array [
           </form>
           <a
             className="cmp-button false"
+            data-locator="link-add-to-cart"
             onClick={[Function]}
           >
             Add to Cart
@@ -2050,6 +2325,7 @@ Array [
     >
       <img
         alt="Beginners Guide to Liquid Chromatography"
+        data-locator="product-image"
         src="https://test-www.waters.com/content/dam/waters/en/Photography/Products/skus/reagents/primer-liquid-chromatography.jpg/_jcr_content/renditions/cq5dam.thumbnail.319.319.png"
       />
     </div>
@@ -2057,7 +2333,9 @@ Array [
       className="cmp-sku-details__left"
     >
       <div
+        aria-label="SKU: 715001531"
         className="cmp-sku-list__code"
+        data-locator="product-number"
       >
         SKU: 715001531
       </div>
@@ -2067,6 +2345,7 @@ Array [
       >
         <div
           className="cmp-sku-details__title"
+          data-locator="product-title"
         >
           Beginners Guide to Liquid Chromatography
         </div>
@@ -2078,12 +2357,16 @@ Array [
           className="cmp-sku-list__priceinfo"
         >
           <div
+            aria-label="List Price"
             className="cmp-sku-list__list-price-label"
+            data-locator="sku-price-label"
           >
             List Price
           </div>
           <div
+            aria-label="$25.00"
             className="cmp-sku__price"
+            data-locator="sku-price"
           >
             $25.00
           </div>
@@ -2098,6 +2381,7 @@ Array [
             See Availability
             <div
               alt="See Availability"
+              data-locator="check-availability"
             />
           </span>
         </div>
@@ -2106,7 +2390,9 @@ Array [
         >
           <form>
             <input
+              aria-label=""
               className="cmp-sku-details__quantity"
+              data-locator="input-sku-qty"
               onChange={[Function]}
               onKeyPress={[Function]}
               placeholder="Qty"
@@ -2115,6 +2401,7 @@ Array [
           </form>
           <a
             className="cmp-button false"
+            data-locator="link-add-to-cart"
             onClick={[Function]}
           >
             Add to Cart
@@ -2131,6 +2418,7 @@ Array [
     >
       <img
         alt="The Beginner's Guide to Size-Exclusion Chromatography"
+        data-locator="product-image"
         src="https://test-www.waters.com/content/dam/waters/en/Photography/Products/skus/reagents/primer-size-exclusion-chromatography.jpg/_jcr_content/renditions/cq5dam.thumbnail.319.319.png"
       />
     </div>
@@ -2138,7 +2426,9 @@ Array [
       className="cmp-sku-details__left"
     >
       <div
+        aria-label="SKU: 715004398"
         className="cmp-sku-list__code"
+        data-locator="product-number"
       >
         SKU: 715004398
       </div>
@@ -2148,6 +2438,7 @@ Array [
       >
         <div
           className="cmp-sku-details__title"
+          data-locator="product-title"
         >
           The Beginner's Guide to Size-Exclusion Chromatography
         </div>
@@ -2159,12 +2450,16 @@ Array [
           className="cmp-sku-list__priceinfo"
         >
           <div
+            aria-label="List Price"
             className="cmp-sku-list__list-price-label"
+            data-locator="sku-price-label"
           >
             List Price
           </div>
           <div
+            aria-label="$25.00"
             className="cmp-sku__price"
+            data-locator="sku-price"
           >
             $25.00
           </div>
@@ -2179,6 +2474,7 @@ Array [
             See Availability
             <div
               alt="See Availability"
+              data-locator="check-availability"
             />
           </span>
         </div>
@@ -2187,7 +2483,9 @@ Array [
         >
           <form>
             <input
+              aria-label=""
               className="cmp-sku-details__quantity"
+              data-locator="input-sku-qty"
               onChange={[Function]}
               onKeyPress={[Function]}
               placeholder="Qty"
@@ -2196,6 +2494,7 @@ Array [
           </form>
           <a
             className="cmp-button false"
+            data-locator="link-add-to-cart"
             onClick={[Function]}
           >
             Add to Cart
@@ -2212,6 +2511,7 @@ Array [
     >
       <img
         alt="Beginner's Guide to SPE: Solid-Phase Extraction"
+        data-locator="product-image"
         src="https://test-www.waters.com/content/dam/waters/en/Photography/Products/skus/reagents/primer-solid-phase-extraction.jpg/_jcr_content/renditions/cq5dam.thumbnail.319.319.png"
       />
     </div>
@@ -2219,7 +2519,9 @@ Array [
       className="cmp-sku-details__left"
     >
       <div
+        aria-label="SKU: 715003405"
         className="cmp-sku-list__code"
+        data-locator="product-number"
       >
         SKU: 715003405
       </div>
@@ -2229,6 +2531,7 @@ Array [
       >
         <div
           className="cmp-sku-details__title"
+          data-locator="product-title"
         >
           Beginner's Guide to SPE: Solid-Phase Extraction
         </div>
@@ -2240,12 +2543,16 @@ Array [
           className="cmp-sku-list__priceinfo"
         >
           <div
+            aria-label="List Price"
             className="cmp-sku-list__list-price-label"
+            data-locator="sku-price-label"
           >
             List Price
           </div>
           <div
+            aria-label="$105.00"
             className="cmp-sku__price"
+            data-locator="sku-price"
           >
             $105.00
           </div>
@@ -2260,6 +2567,7 @@ Array [
             See Availability
             <div
               alt="See Availability"
+              data-locator="check-availability"
             />
           </span>
         </div>
@@ -2268,7 +2576,9 @@ Array [
         >
           <form>
             <input
+              aria-label=""
               className="cmp-sku-details__quantity"
+              data-locator="input-sku-qty"
               onChange={[Function]}
               onKeyPress={[Function]}
               placeholder="Qty"
@@ -2277,6 +2587,7 @@ Array [
           </form>
           <a
             className="cmp-button false"
+            data-locator="link-add-to-cart"
             onClick={[Function]}
           >
             Add to Cart
@@ -2293,6 +2604,7 @@ Array [
     >
       <img
         alt="Practical Approaches to Peptide Isolation"
+        data-locator="product-image"
         src="https://test-www.waters.com/content/dam/waters/en/Photography/Products/skus/reagents/primer-peptide-isolation.jpg/_jcr_content/renditions/cq5dam.thumbnail.319.319.png"
       />
     </div>
@@ -2300,7 +2612,9 @@ Array [
       className="cmp-sku-details__left"
     >
       <div
+        aria-label="SKU: 715005429"
         className="cmp-sku-list__code"
+        data-locator="product-number"
       >
         SKU: 715005429
       </div>
@@ -2310,6 +2624,7 @@ Array [
       >
         <div
           className="cmp-sku-details__title"
+          data-locator="product-title"
         >
           Practical Approaches to Peptide Isolation
         </div>
@@ -2321,12 +2636,16 @@ Array [
           className="cmp-sku-list__priceinfo"
         >
           <div
+            aria-label="List Price"
             className="cmp-sku-list__list-price-label"
+            data-locator="sku-price-label"
           >
             List Price
           </div>
           <div
+            aria-label="$26.00"
             className="cmp-sku__price"
+            data-locator="sku-price"
           >
             $26.00
           </div>
@@ -2341,6 +2660,7 @@ Array [
             See Availability
             <div
               alt="See Availability"
+              data-locator="check-availability"
             />
           </span>
         </div>
@@ -2349,7 +2669,9 @@ Array [
         >
           <form>
             <input
+              aria-label=""
               className="cmp-sku-details__quantity"
+              data-locator="input-sku-qty"
               onChange={[Function]}
               onKeyPress={[Function]}
               placeholder="Qty"
@@ -2358,6 +2680,7 @@ Array [
           </form>
           <a
             className="cmp-button false"
+            data-locator="link-add-to-cart"
             onClick={[Function]}
           >
             Add to Cart
@@ -2374,6 +2697,7 @@ Array [
     >
       <img
         alt="Beginner's Guide to Preparative SFC"
+        data-locator="product-image"
         src="https://test-www.waters.com/content/dam/waters/en/Photography/Products/skus/reagents/primer-preparative-sfc.jpg/_jcr_content/renditions/cq5dam.thumbnail.319.319.png"
       />
     </div>
@@ -2381,7 +2705,9 @@ Array [
       className="cmp-sku-details__left"
     >
       <div
+        aria-label="SKU: 715005427"
         className="cmp-sku-list__code"
+        data-locator="product-number"
       >
         SKU: 715005427
       </div>
@@ -2391,6 +2717,7 @@ Array [
       >
         <div
           className="cmp-sku-details__title"
+          data-locator="product-title"
         >
           Beginner's Guide to Preparative SFC
         </div>
@@ -2402,12 +2729,16 @@ Array [
           className="cmp-sku-list__priceinfo"
         >
           <div
+            aria-label="List Price"
             className="cmp-sku-list__list-price-label"
+            data-locator="sku-price-label"
           >
             List Price
           </div>
           <div
+            aria-label="$26.00"
             className="cmp-sku__price"
+            data-locator="sku-price"
           >
             $26.00
           </div>
@@ -2422,6 +2753,7 @@ Array [
             See Availability
             <div
               alt="See Availability"
+              data-locator="check-availability"
             />
           </span>
         </div>
@@ -2430,7 +2762,9 @@ Array [
         >
           <form>
             <input
+              aria-label=""
               className="cmp-sku-details__quantity"
+              data-locator="input-sku-qty"
               onChange={[Function]}
               onKeyPress={[Function]}
               placeholder="Qty"
@@ -2439,6 +2773,7 @@ Array [
           </form>
           <a
             className="cmp-button false"
+            data-locator="link-add-to-cart"
             onClick={[Function]}
           >
             Add to Cart
@@ -2455,6 +2790,7 @@ Array [
     >
       <img
         alt="Beginner's Guide to Preparative Liquid Chromatography"
+        data-locator="product-image"
         src="https://test-www.waters.com/content/dam/waters/en/Photography/Products/skus/reagents/primer-preparative-liquid-chromatography.jpg/_jcr_content/renditions/cq5dam.thumbnail.319.319.png"
       />
     </div>
@@ -2462,7 +2798,9 @@ Array [
       className="cmp-sku-details__left"
     >
       <div
+        aria-label="SKU: 715005428"
         className="cmp-sku-list__code"
+        data-locator="product-number"
       >
         SKU: 715005428
       </div>
@@ -2472,6 +2810,7 @@ Array [
       >
         <div
           className="cmp-sku-details__title"
+          data-locator="product-title"
         >
           Beginner's Guide to Preparative Liquid Chromatography
         </div>
@@ -2483,12 +2822,16 @@ Array [
           className="cmp-sku-list__priceinfo"
         >
           <div
+            aria-label="List Price"
             className="cmp-sku-list__list-price-label"
+            data-locator="sku-price-label"
           >
             List Price
           </div>
           <div
+            aria-label="$26.00"
             className="cmp-sku__price"
+            data-locator="sku-price"
           >
             $26.00
           </div>
@@ -2503,6 +2846,7 @@ Array [
             See Availability
             <div
               alt="See Availability"
+              data-locator="check-availability"
             />
           </span>
         </div>
@@ -2511,7 +2855,9 @@ Array [
         >
           <form>
             <input
+              aria-label=""
               className="cmp-sku-details__quantity"
+              data-locator="input-sku-qty"
               onChange={[Function]}
               onKeyPress={[Function]}
               placeholder="Qty"
@@ -2520,6 +2866,7 @@ Array [
           </form>
           <a
             className="cmp-button false"
+            data-locator="link-add-to-cart"
             onClick={[Function]}
           >
             Add to Cart
@@ -2536,6 +2883,7 @@ Array [
     >
       <img
         alt="HPLC COL THEORY TECH/PRACTICE  BOOK"
+        data-locator="product-image"
         src="https://test-www.waters.com/content/dam/waters/en/brand-assets/thumbnails/product-thumbnail.png/_jcr_content/renditions/original"
       />
     </div>
@@ -2543,7 +2891,9 @@ Array [
       className="cmp-sku-details__left"
     >
       <div
+        aria-label="SKU: WAT038216"
         className="cmp-sku-list__code"
+        data-locator="product-number"
       >
         SKU: WAT038216
       </div>
@@ -2553,6 +2903,7 @@ Array [
       >
         <div
           className="cmp-sku-details__title"
+          data-locator="product-title"
         >
           HPLC COL THEORY TECH/PRACTICE  BOOK
         </div>
@@ -2564,12 +2915,16 @@ Array [
           className="cmp-sku-list__priceinfo"
         >
           <div
+            aria-label="List Price"
             className="cmp-sku-list__list-price-label"
+            data-locator="sku-price-label"
           >
             List Price
           </div>
           <div
+            aria-label="$158.00"
             className="cmp-sku__price"
+            data-locator="sku-price"
           >
             $158.00
           </div>
@@ -2584,6 +2939,7 @@ Array [
             See Availability
             <div
               alt="See Availability"
+              data-locator="check-availability"
             />
           </span>
         </div>
@@ -2592,7 +2948,9 @@ Array [
         >
           <form>
             <input
+              aria-label=""
               className="cmp-sku-details__quantity"
+              data-locator="input-sku-qty"
               onChange={[Function]}
               onKeyPress={[Function]}
               placeholder="Qty"
@@ -2601,6 +2959,7 @@ Array [
           </form>
           <a
             className="cmp-button false"
+            data-locator="link-add-to-cart"
             onClick={[Function]}
           >
             Add to Cart
@@ -2617,6 +2976,7 @@ Array [
     >
       <img
         alt="Beginner's Guide to Convergence Chromatography"
+        data-locator="product-image"
         src="https://test-www.waters.com/content/dam/waters/en/Photography/Products/skus/reagents/primer-convergence-chromatography.jpg/_jcr_content/renditions/cq5dam.thumbnail.319.319.png"
       />
     </div>
@@ -2624,7 +2984,9 @@ Array [
       className="cmp-sku-details__left"
     >
       <div
+        aria-label="SKU: 715004472"
         className="cmp-sku-list__code"
+        data-locator="product-number"
       >
         SKU: 715004472
       </div>
@@ -2634,6 +2996,7 @@ Array [
       >
         <div
           className="cmp-sku-details__title"
+          data-locator="product-title"
         >
           Beginner's Guide to Convergence Chromatography
         </div>
@@ -2645,12 +3008,16 @@ Array [
           className="cmp-sku-list__priceinfo"
         >
           <div
+            aria-label="List Price"
             className="cmp-sku-list__list-price-label"
+            data-locator="sku-price-label"
           >
             List Price
           </div>
           <div
+            aria-label="$25.00"
             className="cmp-sku__price"
+            data-locator="sku-price"
           >
             $25.00
           </div>
@@ -2665,6 +3032,7 @@ Array [
             See Availability
             <div
               alt="See Availability"
+              data-locator="check-availability"
             />
           </span>
         </div>
@@ -2673,7 +3041,9 @@ Array [
         >
           <form>
             <input
+              aria-label=""
               className="cmp-sku-details__quantity"
+              data-locator="input-sku-qty"
               onChange={[Function]}
               onKeyPress={[Function]}
               placeholder="Qty"
@@ -2682,6 +3052,7 @@ Array [
           </form>
           <a
             className="cmp-button false"
+            data-locator="link-add-to-cart"
             onClick={[Function]}
           >
             Add to Cart
@@ -2698,6 +3069,7 @@ Array [
     >
       <img
         alt="NuGenesis LMS SampleShare Named User License  Subscription (1 YR)- 1 Named User License"
+        data-locator="product-image"
         src="https://test-www.waters.com/content/dam/waters/en/brand-assets/thumbnails/product-thumbnail.png/_jcr_content/renditions/original"
       />
     </div>
@@ -2705,7 +3077,9 @@ Array [
       className="cmp-sku-details__left"
     >
       <div
+        aria-label="SKU: 667005060"
         className="cmp-sku-list__code"
+        data-locator="product-number"
       >
         SKU: 667005060
       </div>
@@ -2715,6 +3089,7 @@ Array [
       >
         <div
           className="cmp-sku-details__title"
+          data-locator="product-title"
         >
           NuGenesis LMS SampleShare Named User License  Subscription (1 YR)- 1 Named User License
         </div>
@@ -2726,12 +3101,16 @@ Array [
           className="cmp-sku-list__priceinfo"
         >
           <div
+            aria-label="List Price"
             className="cmp-sku-list__list-price-label"
+            data-locator="sku-price-label"
           >
             List Price
           </div>
           <div
+            aria-label="$290.00"
             className="cmp-sku__price"
+            data-locator="sku-price"
           >
             $290.00
           </div>
@@ -2746,6 +3125,7 @@ Array [
             See Availability
             <div
               alt="See Availability"
+              data-locator="check-availability"
             />
           </span>
         </div>
@@ -2754,7 +3134,9 @@ Array [
         >
           <form>
             <input
+              aria-label=""
               className="cmp-sku-details__quantity"
+              data-locator="input-sku-qty"
               onChange={[Function]}
               onKeyPress={[Function]}
               placeholder="Qty"
@@ -2763,6 +3145,7 @@ Array [
           </form>
           <a
             className="cmp-button false"
+            data-locator="link-add-to-cart"
             onClick={[Function]}
           >
             Add to Cart
@@ -2779,6 +3162,7 @@ Array [
     >
       <img
         alt="Beginner's Guide to SPE: Solid-Phase Extraction"
+        data-locator="product-image"
         src="https://test-www.waters.com/content/dam/waters/en/Photography/Products/skus/reagents/primer-solid-phase-extraction.jpg/_jcr_content/renditions/cq5dam.thumbnail.319.319.png"
       />
     </div>
@@ -2786,7 +3170,9 @@ Array [
       className="cmp-sku-details__left"
     >
       <div
+        aria-label="SKU: 715003405"
         className="cmp-sku-list__code"
+        data-locator="product-number"
       >
         SKU: 715003405
       </div>
@@ -2796,6 +3182,7 @@ Array [
       >
         <div
           className="cmp-sku-details__title"
+          data-locator="product-title"
         >
           Beginner's Guide to SPE: Solid-Phase Extraction
         </div>
@@ -2807,12 +3194,16 @@ Array [
           className="cmp-sku-list__priceinfo"
         >
           <div
+            aria-label="List Price"
             className="cmp-sku-list__list-price-label"
+            data-locator="sku-price-label"
           >
             List Price
           </div>
           <div
+            aria-label="$105.00"
             className="cmp-sku__price"
+            data-locator="sku-price"
           >
             $105.00
           </div>
@@ -2827,6 +3218,7 @@ Array [
             See Availability
             <div
               alt="See Availability"
+              data-locator="check-availability"
             />
           </span>
         </div>
@@ -2835,7 +3227,9 @@ Array [
         >
           <form>
             <input
+              aria-label=""
               className="cmp-sku-details__quantity"
+              data-locator="input-sku-qty"
               onChange={[Function]}
               onKeyPress={[Function]}
               placeholder="Qty"
@@ -2844,6 +3238,7 @@ Array [
           </form>
           <a
             className="cmp-button false"
+            data-locator="link-add-to-cart"
             onClick={[Function]}
           >
             Add to Cart

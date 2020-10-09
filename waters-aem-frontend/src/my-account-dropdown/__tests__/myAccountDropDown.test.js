@@ -58,11 +58,9 @@ describe('Feature: My Account Dropdown Component', () => {
 		const props = {
 			userName: DefaultProps.config.userDetails.userName,
 			accountName: DefaultProps.config.userDetails.accountName,
-			accountNumber: DefaultProps.config.userDetails.accountNumber,
 			switchAccount: DefaultProps.config.switchAccount,
 		};
 
-		
 		describe('When there is a User Name', () => {
 			it('Then it should render', () => {
 				const wrapper = buildShallowWrapper(
@@ -73,7 +71,7 @@ describe('Feature: My Account Dropdown Component', () => {
 				expect(indexLink.text()).toEqual(props.userName);
 			});
         });
-        
+
 		describe('When there is not a User Name', () => {
 			it('Then it should not render', () => {
 				const wrapper = buildShallowWrapper(
@@ -86,49 +84,32 @@ describe('Feature: My Account Dropdown Component', () => {
 
 		describe('Given that there is at least one valid SoldToAccount Account from SAP', () => {
 
-			describe('When there is an Account Name & Number', () => {
-				it('Then both should render', () => {
+			describe('When there is an Account Name', () => {
+				it('Then an Account Name should render', () => {
 					const spy = jest.spyOn(CheckOutStatus, 'length', 'get').mockReturnValue(1);
 					const wrapper = buildShallowWrapper(
 						UserDetailFuncs.renderAccountDetails,
 						props
 					);
 					const AccountName = wrapper.find(keys.accountName);
-					const AccountNumber = wrapper.find(keys.accountNumber);
 					expect(AccountName.text()).toEqual(props.accountName);
-					expect(AccountNumber.text()).toEqual(props.accountNumber);
 					spy.mockClear();
 				});
 			});
-			
+
 			describe('When there is not an Account Name ', () => {
-				it('Then only the Account Name should render', () => {
+				it('Then no Account Name should render', () => {
 					const spy = jest.spyOn(CheckOutStatus, 'length', 'get').mockReturnValue(1);
 					const wrapper = buildShallowWrapper(
 						UserDetailFuncs.renderAccountDetails,
 						buildNewProps(props, { accountName: '' })
 						);
 					expect(wrapper.exists(keys.accountName)).toEqual(false);
-					expect(wrapper.exists(keys.accountNumber)).toEqual(true);
 					spy.mockClear();
 				});
-			});
-			
-			describe('When there is not an Account Number ', () => {
-				it('Then only the Account Number should render', () => {
-					const spy = jest.spyOn(CheckOutStatus, 'length', 'get').mockReturnValue(2);
-					const wrapper = buildShallowWrapper(
-						UserDetailFuncs.renderAccountDetails,
-						buildNewProps(props, { accountNumber: '' })
-					);
-					expect(wrapper.exists(keys.accountName)).toEqual(true);
-					expect(wrapper.exists(keys.accountNumber)).toEqual(false);
-					spy.mockClear();
-				});
-			});			
+			});	
 		});
 
-		
 		describe('Given that there is more than one SoldToAccount Account from SAP', () => {
 			describe('When there is an authored Switch Account URL & text', () => {
 				it('Then the link should render', () => {
@@ -159,7 +140,6 @@ describe('Feature: My Account Dropdown Component', () => {
 			});
 		});
 
-		
 		describe('When there is no authored Switch Account URL ', () => {
 			it('Then the link should not render', () => {
 				const spy = jest.spyOn(CheckOutStatus, 'length', 'get').mockReturnValue(3);
@@ -176,7 +156,7 @@ describe('Feature: My Account Dropdown Component', () => {
 				spy.mockClear()
 			});
 		});
-		
+
 		describe('When there is no authored Switch Account text ', () => {
 			it('Then the link should not render', () => {
 				const spy = jest.spyOn(CheckOutStatus, 'length', 'get').mockReturnValue(4);

@@ -3,6 +3,7 @@ import renderer from 'react-test-renderer';
 import { mount } from 'enzyme';
 import { act } from 'react-dom/test-utils';
 import Form from '../form';
+import mockBodyHTML from '../../__mocks__/en_US/html/mock-body-html';
 
 import { changePasswordConfig } from '../__mocks__/en_US/mockData';
 import { checkRenderInput,
@@ -28,6 +29,8 @@ afterEach(() => {
 });
 
 describe('Feature: Change Password Form', () => {
+    document.body.innerHTML = mockBodyHTML;
+
     describe('Scenario: Rendering', () => {
         describe('When initial render', () => {
             it('Then the snapshot should match', async () => {

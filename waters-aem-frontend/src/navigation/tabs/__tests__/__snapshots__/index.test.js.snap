@@ -23,6 +23,7 @@ exports[`Feature: Tabs Component Scenario: Rendering Tabs When tabs are provided
     >
       <span
         className="cmp-tabs__tab-label"
+        data-locator="tab-one"
       >
         Tab One
       </span>
@@ -33,6 +34,7 @@ exports[`Feature: Tabs Component Scenario: Rendering Tabs When tabs are provided
     >
       <span
         className="cmp-tabs__tab-label"
+        data-locator="tab-two"
       >
         Tab Two
       </span>

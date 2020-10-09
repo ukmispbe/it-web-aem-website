@@ -27,7 +27,7 @@ const config = document.getElementById(
             .innerHTML
     )
     : '';
-
+//soldToInfo billToInfo shipToInfo payerInfo carrierInfo
 export default (data, type, icon) => {
     if (!data) return [];
 
@@ -82,8 +82,8 @@ export default (data, type, icon) => {
                 }
             ];
 
-        case 'shipping':
-        case 'billing':
+        case 'shipToInfo':
+        case 'billToInfo':
             let defaultSoldToAddresses = getDefaultSoldToAddresses(data.soldToAccounts);
             return [
                 ...getAddressesByType(defaultSoldToAddresses, type).map(address => {

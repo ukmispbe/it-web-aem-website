@@ -3,17 +3,21 @@
 exports[`Feature: FacetMenu Component Scenario: Rendering When content type has been specified Then it should match snapshot 1`] = `
 <div
   className="facet-menu-container"
+  data-locator="facet-menu-container"
 >
   <div
     className="facet-menu-container__heading"
+    data-locator="facet-menu-container-heading"
   >
     <div
       className="heading--with-selected-value"
+      data-locator="heading-with-selected-value"
     >
       <div
         className="back-btn"
       >
         <a
+          data-locator="link-back-button"
           href="javascript:void(0)"
           onClick={[MockFunction]}
         >
@@ -29,6 +33,7 @@ exports[`Feature: FacetMenu Component Scenario: Rendering When content type has 
   </div>
   <div
     className="facet-menu-container__body"
+    data-locator="facet-menu-container-body"
   />
 </div>
 `;

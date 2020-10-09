@@ -5,9 +5,10 @@ export default {
         "type": "password",
         "title": "Change Password",
         "editText": "Edit",
-        "canCreate": false,
+        "canCreate": true,
         "form": {
-            "submitEndpoint": "waters.com",
+            "formName": "changepassword",
+            "submitEndpoint": "https://devservices.waters.com:8443/api/waters/user/v1/update/password",
             "buttonText": "Change Password",
             "cancelText": "Cancel",
             "icons": {
@@ -19,6 +20,11 @@ export default {
                 "signInIcon": "/content/dam/waters/en/brand-assets/icons/user.svg"
             },
             "fields": [
+                {
+                    "type": "label",
+                    "name": "requiredLabel",
+                    "label": "*Required field"
+                },
                 {
                     "type": "password",
                     "name": "currentPassword",
@@ -38,6 +44,10 @@ export default {
                     "validation": {
                         "required": true,
                         "validateFnName": "password",
+                        "maxLength": {
+                            "value": 30,
+                            "message": "Maximum 30 characters allowed"
+                        },
                         "validationMsg": "Please enter a valid password.",
                         "requiredMsg": "Please enter a password.",
                         "requiredMatchMsg": "Please confirm your password.",
