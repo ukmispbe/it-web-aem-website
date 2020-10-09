@@ -3,7 +3,7 @@ import loginStatus from "../../scripts/loginStatus";
 import { soldToDetailsJSON } from "../__mocks__/en_US/mock-services-json";
 import SessionStore from "../../stores/sessionStore";
 
-describe("Feature: UserDetailsLazy Service", () => {
+describe("Feature: SoldToDetailsLazy Service", () => {
     const url = 'https://api-sbox.waters.com/dev-waters-user-exp-api-v1/api/users';
     const userId = '9ETRLcbBXOBS9iLEefW-Vw==';
     const salesOrg = 'US01';

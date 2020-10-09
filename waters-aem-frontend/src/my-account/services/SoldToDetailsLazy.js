@@ -14,8 +14,6 @@ export default async (
     service = SoldToDetails
 ) => {
     const currentPage = window.location.href;
-
-    //soldToDetailsUrl = 'https://api-sbox.waters.com/dev-waters-user-exp-api-v1/api/users/9ETRLcbBXOBS9iLEefW-Vw==?salesOrg=US01'
     let soldToUrl = `${soldToDetailsUrl}/${userId}?salesOrg=${salesOrg}`;
 
     if (

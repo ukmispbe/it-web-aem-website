@@ -11,7 +11,7 @@
           changePwUrl="https://stgservices.waters.com/api/waters/user/v1/change/password"
           updatePwUrl="https://stgservices.waters.com/api/waters/user/v1/update/password"
           userDetailsUrl="https://stgservices.waters.com/api/waters/user/v1/details"
-          soldToDetailsUrl="https://api-sbox.waters.com/dev-waters-user-exp-api-v1/api/users"
+          soldToDetailsUrl="https://api-sbox.waters.com/uat-waters-user-exp-api-v1/api/users"
           signInEndpoint="https://stgservices.waters.com/api/waters/user/v1/login"
           signOutEndpoint="https://stgservices.waters.com/api/waters/user/v1/logout"
           updateProfileUrl="https://stgservices.waters.com/api/waters/user/v1/update/profile"
