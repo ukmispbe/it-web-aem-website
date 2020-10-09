@@ -427,7 +427,7 @@ if (registrationFormContainer) {
         document.getElementById('cmp-registration-form').innerHTML
     );
 
-    const country = digitalData.page.country.toLowerCase();
+    const country = DigitalData.page.country.toLowerCase();
 
     const swapFirstAndLastNames = () => {
         const indexofFirstName = configRegistrationForm.fields.map(e => e.name).indexOf('firstName');

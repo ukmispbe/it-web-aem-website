@@ -5,8 +5,11 @@ import Aside from "../aside";
 import props from "../__mocks__/en_US/my-account-json";
 import routes from "../routes";
 import Ecommerce from "../../scripts/ecommerce";
+import mockBodyHTML from '../../__mocks__/en_US/html/mock-body-html'
 
 describe("Feature: Aside Component for my account", () => {
+    document.body.innerHTML = mockBodyHTML;
+    
     beforeAll(() => {
         console.warn = jest.fn();
     });

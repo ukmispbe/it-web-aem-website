@@ -3,9 +3,11 @@
 exports[`Feature: ResultsCount React Component Scenario: Rendering When keyword is not provided Then the snapshot should match 1`] = `
 <div
   className="cmp-search__resultsCount-container"
+  data-locator="results-count-container"
 >
   <h2
     className="cmp-search__resultsCount"
+    data-locator="results-count"
   >
     Showing 1-24 of 24 results 
   </h2>
@@ -15,9 +17,11 @@ exports[`Feature: ResultsCount React Component Scenario: Rendering When keyword 
 exports[`Feature: ResultsCount React Component Scenario: Rendering When keyword is provided with spelling suggestion Then the snapshot should match 1`] = `
 <div
   className="cmp-search__resultsCount-container"
+  data-locator="results-count-container"
 >
   <h2
     className="cmp-search__resultsCount"
+    data-locator="results-count"
   >
     Showing 1-24 of 24 results 
     <span>
@@ -44,9 +48,11 @@ exports[`Feature: ResultsCount React Component Scenario: Rendering When keyword 
 exports[`Feature: ResultsCount React Component Scenario: Rendering When keyword is provided without spelling suggestion Then the snapshot should match 1`] = `
 <div
   className="cmp-search__resultsCount-container"
+  data-locator="results-count-container"
 >
   <h2
     className="cmp-search__resultsCount"
+    data-locator="results-count"
   >
     Showing 1-24 of 24 results 
     <span>
@@ -67,9 +73,11 @@ exports[`Feature: ResultsCount React Component Scenario: Rendering When keyword 
 exports[`Feature: ResultsCount React Component Scenario: Rendering When more than one related keyword is provided Then the snapshot should match 1`] = `
 <div
   className="cmp-search__resultsCount-container"
+  data-locator="results-count-container"
 >
   <h2
     className="cmp-search__resultsCount"
+    data-locator="results-count"
   >
     Showing 1-24 of 24 results 
     <span>
@@ -118,9 +126,11 @@ exports[`Feature: ResultsCount React Component Scenario: Rendering When more tha
 exports[`Feature: ResultsCount React Component Scenario: Rendering When one related keyword is provided Then the snapshot should match 1`] = `
 <div
   className="cmp-search__resultsCount-container"
+  data-locator="results-count-container"
 >
   <h2
     className="cmp-search__resultsCount"
+    data-locator="results-count"
   >
     Showing 1-24 of 24 results 
     <span>
@@ -158,9 +168,11 @@ exports[`Feature: ResultsCount React Component Scenario: Rendering When one rela
 exports[`Feature: ResultsCount React Component Scenario: Rendering When the number of results is higher than the allowed page count Then the snapshot should match 1`] = `
 <div
   className="cmp-search__resultsCount-container"
+  data-locator="results-count-container"
 >
   <h2
     className="cmp-search__resultsCount"
+    data-locator="results-count"
   >
     Showing 1-25 of 26 results 
   </h2>
@@ -170,9 +182,11 @@ exports[`Feature: ResultsCount React Component Scenario: Rendering When the numb
 exports[`Feature: ResultsCount React Component Scenario: Rendering When the number of results is less than the allowed page count Then the snapshot should match 1`] = `
 <div
   className="cmp-search__resultsCount-container"
+  data-locator="results-count-container"
 >
   <h2
     className="cmp-search__resultsCount"
+    data-locator="results-count"
   >
     Showing 1-24 of 24 results 
   </h2>

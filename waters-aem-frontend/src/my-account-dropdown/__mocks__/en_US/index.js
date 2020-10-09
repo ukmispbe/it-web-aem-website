@@ -39,8 +39,7 @@ const DefaultProps = {
         loginState: true,
         userDetails: {
             userName: 'Susan Corman',
-            accountName: 'Pfizer Randolf,',
-            accountNumber: 'NJ 28264019282'
+            accountName: 'Pfizer Randolf,'
         }
     }
 };

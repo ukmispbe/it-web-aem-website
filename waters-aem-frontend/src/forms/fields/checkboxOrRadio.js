@@ -204,7 +204,7 @@ const CheckboxOrRadio = ({}) => {
                                 {option.accountStreet &&
                                     <div className={`cmp-form-field-${type}--address1`}>{option.accountStreet}</div>}
                                 {option.accountCity &&
-                                    <div className={`cmp-form-field-${type}--address1`}>{option.accountCity + ", " + option.region + " " + option.accountZip}</div>}
+                                    <div className={`cmp-form-field-${type}--address1`}>{option.accountCity + ", " + option.state + " " + option.accountZip}</div>}
                             </>
                         );
                     })}

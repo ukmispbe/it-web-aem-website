@@ -11,7 +11,7 @@
           changePwUrl="https://preprodservices.waters.com/api/waters/user/v1/change/password"
           updatePwUrl="https://preprodservices.waters.com/api/waters/user/v1/update/password"
           userDetailsUrl="https://preprodservices.waters.com/api/waters/user/v1/details"
-          soldToDetailsUrl="https://preprodservices.waters.com/api/waters/user/v1/retrievesoldto"
+          soldToDetailsUrl="https://api-sbox.waters.com/uat-waters-user-exp-api-v1/api/users"
           signInEndpoint="https://preprodservices.waters.com/api/waters/user/v1/login"
           signOutEndpoint="https://preprodservices.waters.com/api/waters/user/v1/logout"
           updateProfileUrl="https://preprodservices.waters.com/api/waters/user/v1/update/profile"
@@ -20,4 +20,3 @@
           orderListUrl="https://preprodservices.waters.com/api/waters/order/v1/list"
           chooseAccountEndpoint="https://preprodservices.waters.com/api/waters/user/v1/switchaccount"
           contactSupportUrl="https://preprodservices.waters.com/api/waters/contact/v1/support"/>
-

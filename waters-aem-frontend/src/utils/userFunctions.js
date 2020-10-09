@@ -130,22 +130,16 @@ export const getFullCompanyAddress = (address, includeCountryName) => {
 
     let addressArray = [];
     const city = address.city ? trimAndCapitalize(address.city) + ', ' : '';
-    const region = address.region ? trimAndCapitalize(address.region) + ' ' : '';
-    const postalCd = address.postalCd ? trimAndCapitalize(address.postalCd) : '';
+    const state = address.state ? trimAndCapitalize(address.state) + ' ' : '';
+    const postalCode = address.postalCode ? trimAndCapitalize(address.postalCode) : '';
 
-    if (address.partnerName) {
-        address.partnerName ? addressArray.push(trimAndCapitalize(address.partnerName)) : null;
-    }
-
-    if (address.addr1) {
-        address.addr1 ? addressArray.push(trimAndCapitalize(address.addr1)) : null;
-    }
-
-    address.addr2 ? addressArray.push(trimAndCapitalize(address.addr2)) : null;
-    address.addr3 ? addressArray.push(trimAndCapitalize(address.addr3)) : null;
-    address.addr4 ? addressArray.push(trimAndCapitalize(address.addr4)) : null;
+    address.name ? addressArray.push(trimAndCapitalize(address.name)) : null;
+    address.address1 ? addressArray.push(trimAndCapitalize(address.address1)) : null;
+    address.address2 ? addressArray.push(trimAndCapitalize(address.address2)) : null;
+    address.address3 ? addressArray.push(trimAndCapitalize(address.address3)) : null;
     address.street ? addressArray.push(trimAndCapitalize(address.street)) : null;
-    addressArray.push((city + region + postalCd));
+    address.street2 ? addressArray.push(trimAndCapitalize(address.street2)) : null;
+    addressArray.push((city + state + postalCode));
 
     if (includeCountryName) {
         address.countryName ? addressArray.push(trimAndCapitalize(address.countryName)) : address.country;
@@ -186,10 +180,16 @@ export const getFullName = data => {
     }
 };
 
+//soldToInfo billToInfo shipToInfo payerInfo carrierInfo
 export const getAddressesByType = (addresses, type) => {
-    return addresses.length
-        ? addresses.filter(address => address.addressType === type)
-        : [];
+    let addressTypeData = [];
+    for (let key of Object.keys(addresses)) {
+        if (key === type) {
+            addressTypeData = addresses[key];
+        }
+    }
+
+    return addressTypeData;
 };
 
 export const getDefaultSoldTo = (soldToAccounts) => {
@@ -199,19 +199,19 @@ export const getDefaultSoldTo = (soldToAccounts) => {
         let defaultSoldTo = soldToAccounts.filter(function(i) {
             return i.defaultFlag === 1;
         })[0];
-    
+
         return defaultSoldTo;
     }
 }
 
 export const getDefaultSoldToAddresses = (soldToAccounts) => {
     if (Array.isArray(soldToAccounts) && !soldToAccounts.length){
-        return [];  
+        return {};
     } else {
         let defaultSoldTo = getDefaultSoldTo(soldToAccounts);
 
-        if (defaultSoldTo.addresses === null || defaultSoldTo.addresses === undefined || !defaultSoldTo.addresses.length) {
-            return [];  
+        if (defaultSoldTo.addresses === null || defaultSoldTo.addresses === undefined) {
+            return {};
         } else {
             return defaultSoldTo.addresses;
         }
@@ -310,15 +310,21 @@ export const getEprocUserLanguage = () => {
     return userDetails.localeLanguage || '';
 }
 
+//soldToInfo billToInfo shipToInfo payerInfo carrierInfo
 export const matchAddresses = (userDetailsAPIDetails, soldToAPIDetails) => {
     userDetailsAPIDetails.soldToAccounts.forEach(account => {
         for (let i = 0; i < soldToAPIDetails.length; i++) {
-            if(account.soldTo === soldToAPIDetails[i].soldTo) {
-                account.company = soldToAPIDetails[i].company;
-                account.addresses = soldToAPIDetails[i].partnerAddress;
+            if(account.soldTo === soldToAPIDetails[i].customerNumber) {
+                account.company = soldToAPIDetails[i].name;
+                account.addresses = {
+                    'soldToInfo': soldToAPIDetails[i].soldToInfo || [],
+                    'billToInfo': soldToAPIDetails[i].billToInfo || [],
+                    'shipToInfo': soldToAPIDetails[i].shipToInfo || [],
+                    'payerInfo': soldToAPIDetails[i].payerInfo || []
+                };
             } 
         }
     });
-    
+
     return userDetailsAPIDetails;
 }
