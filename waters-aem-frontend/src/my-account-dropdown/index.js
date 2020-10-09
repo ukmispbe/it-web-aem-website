@@ -267,7 +267,7 @@ class MyAccountDropDown extends React.Component {
                 const soldToDetails = await SoldToDetailsLazy(soldToDetailsUrl, userDetails.userId, userDetails.salesOrg);
                 const userName = this.formatUserName(userDetails);
 
-                let priorityAccount;
+                let priorityAccount = {};
                 let accountName = "";
 
                 if (Object.keys(soldToDetails).length) {
