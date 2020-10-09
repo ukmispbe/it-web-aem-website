@@ -5,7 +5,11 @@ import getUserDetails from './../my-account/services/UserDetailsLazy';
 
 async function textModifier() {
     const detailsUrl = document.getElementById('header').dataset.userDetailsUrl;
-    const checkSessionStore = false;
+    let checkSessionStore = true;
+    if (Array.from(document.querySelectorAll('.text-replace')).length !== 0) {
+        checkSessionStore = false;
+    }
+    
     const userDetails = await getUserDetails(detailsUrl, checkSessionStore, session);
 
     const objMapping = {
