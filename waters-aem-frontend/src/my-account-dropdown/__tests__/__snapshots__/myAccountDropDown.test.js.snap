@@ -93,6 +93,15 @@ exports[`Feature: My Account Dropdown Component Scenario: Rendering My Account D
     >
       Susan Corman
     </div>
+    <div
+      className="my-account-dropdown__user-details__account"
+    >
+      <span
+        className="my-account-dropdown__user-details__account__name"
+      >
+        Pfizer Randolf,
+      </span>
+    </div>
   </div>
   <hr
     className="my-account-dropdown__hr"

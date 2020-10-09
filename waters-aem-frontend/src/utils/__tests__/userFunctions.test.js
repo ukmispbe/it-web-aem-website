@@ -148,8 +148,9 @@ document.body.innerHTML = mockBodyHTML;
             "partnerNumber": "aDVt-zwHgDPsb3a-3P6r4Q==",
             "isDefault": false,
             "name": "Astrazeneca",
-            "address1": "Address Line 2",
-            "address2": "Address Line 3",
+            "address1": "Address Line 1",
+            "address2": "Address Line 2",
+            "address3": "Address Line 3",
             "street": "50 Otis St",
             "city": "Westborough",
             "state": "MA",
@@ -163,6 +164,7 @@ document.body.innerHTML = mockBodyHTML;
         describe('When Address is Complete', () => {
             const expectedAddress = [
                 "Astrazeneca",
+                "Address Line 1",
                 "Address Line 2",
                 "Address Line 3",
                 "50 Otis St",
@@ -179,6 +181,51 @@ document.body.innerHTML = mockBodyHTML;
             it('Then it should only return part of the address', () => {
                 let tmpAddress, expectedAddress, newAddress;
 
+                // No Address 1
+                tmpAddress = {
+                    ...address
+                };
+                delete tmpAddress.address1;
+                expectedAddress = [
+                    "Astrazeneca",
+                    "Address Line 2",
+                    "Address Line 3",
+                    "50 Otis St",
+                    "Westborough, MA 01581-3323"
+                ];
+                newAddress = userFunctions.getFullCompanyAddress(tmpAddress);
+                expect(newAddress).toStrictEqual(expectedAddress);
+
+                // No Address 2
+                tmpAddress = {
+                    ...address
+                };
+                delete tmpAddress.address2;
+                expectedAddress = [
+                    "Astrazeneca",
+                    "Address Line 1",
+                    "Address Line 3",
+                    "50 Otis St",
+                    "Westborough, MA 01581-3323"
+                ];
+                newAddress = userFunctions.getFullCompanyAddress(tmpAddress);
+                expect(newAddress).toStrictEqual(expectedAddress);
+
+                // No Address 3
+                tmpAddress = {
+                    ...address
+                };
+                delete tmpAddress.address3;
+                expectedAddress = [
+                    "Astrazeneca",
+                    "Address Line 1",
+                    "Address Line 2",
+                    "50 Otis St",
+                    "Westborough, MA 01581-3323"
+                ];
+                newAddress = userFunctions.getFullCompanyAddress(tmpAddress);
+                expect(newAddress).toStrictEqual(expectedAddress);
+
                 // No City
                 tmpAddress = {
                     ...address
@@ -186,6 +233,7 @@ document.body.innerHTML = mockBodyHTML;
                 delete tmpAddress.city;
                 expectedAddress = [
                     "Astrazeneca",
+                    "Address Line 1",
                     "Address Line 2",
                     "Address Line 3",
                     "50 Otis St",
@@ -201,6 +249,7 @@ document.body.innerHTML = mockBodyHTML;
                 delete tmpAddress.state;
                 expectedAddress = [
                     "Astrazeneca",
+                    "Address Line 1",
                     "Address Line 2",
                     "Address Line 3",
                     "50 Otis St",
@@ -216,6 +265,7 @@ document.body.innerHTML = mockBodyHTML;
                 delete tmpAddress.street;
                 expectedAddress = [
                     "Astrazeneca",
+                    "Address Line 1",
                     "Address Line 2",
                     "Address Line 3",
                     "Westborough, MA 01581-3323"
@@ -230,6 +280,7 @@ document.body.innerHTML = mockBodyHTML;
                 delete tmpAddress.postalCode;
                 expectedAddress = [
                     "Astrazeneca",
+                    "Address Line 1",
                     "Address Line 2",
                     "Address Line 3",
                     "50 Otis St",
@@ -246,6 +297,7 @@ document.body.innerHTML = mockBodyHTML;
                 delete tmpAddress.street;
                 expectedAddress = [
                     "Astrazeneca",
+                    "Address Line 1",
                     "Address Line 2",
                     "Address Line 3",
                     "Westborough, MA "
@@ -341,7 +393,7 @@ document.body.innerHTML = mockBodyHTML;
             it('Then it should return only the Default Sold To Data', () => {
                 const defaultSoldTo = userFunctions.getDefaultSoldTo(soldToAccounts);
 
-                expect(defaultSoldTo).toStrictEqual(soldToAccounts[0]);
+                expect(defaultSoldTo).toStrictEqual(soldToAccounts.customers[0]);
             });
         });
 

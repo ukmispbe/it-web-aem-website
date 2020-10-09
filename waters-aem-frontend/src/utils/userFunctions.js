@@ -136,6 +136,7 @@ export const getFullCompanyAddress = (address, includeCountryName) => {
     address.name ? addressArray.push(trimAndCapitalize(address.name)) : null;
     address.address1 ? addressArray.push(trimAndCapitalize(address.address1)) : null;
     address.address2 ? addressArray.push(trimAndCapitalize(address.address2)) : null;
+    address.address3 ? addressArray.push(trimAndCapitalize(address.address3)) : null;
     address.street ? addressArray.push(trimAndCapitalize(address.street)) : null;
     address.street2 ? addressArray.push(trimAndCapitalize(address.street2)) : null;
     addressArray.push((city + state + postalCode));
