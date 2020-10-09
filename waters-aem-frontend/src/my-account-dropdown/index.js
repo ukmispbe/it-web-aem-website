@@ -157,7 +157,7 @@ class MyAccountDropDown extends React.Component {
                 this.retrieveUserDetails();
             }
 
-            let updatedAccountName = "";
+            let updatedAccountName = savedUserDetails.company;
 
             // Check that Sold to Exists
             if (savedSoldToDetails && savedSoldToDetails.length !== 0) {
@@ -279,6 +279,9 @@ class MyAccountDropDown extends React.Component {
                 if (priorityAccount){
                     accountName = priorityAccount.name ? `${priorityAccount.name} ` : '';
                 }
+                else {
+                    accountName = userDetails.company
+                }
 
                 this.setState({
                     ... this.state,
@@ -307,7 +310,7 @@ class MyAccountDropDown extends React.Component {
         const userName = this.formatUserName(userDetails);
 
         const priorityAccount = soldToDetails && soldToDetails.length !== 0 ? soldToDetails[0] : {};
-        const accountName = priorityAccount.name ? `${priorityAccount.name} ` : '';
+        const accountName = priorityAccount.company ? `${priorityAccount.company} ` : userDetails.company;
 
         return {
             ... this.props.config, 

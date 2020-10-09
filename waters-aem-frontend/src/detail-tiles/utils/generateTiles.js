@@ -87,7 +87,6 @@ export default (data, type, icon) => {
             let defaultSoldToAddresses = getDefaultSoldToAddresses(data.soldToAccounts);
             return [
                 ...getAddressesByType(defaultSoldToAddresses, type).map(address => {
-                    address.region = address.regio;
                     let tile = {
                         name: type,
                         columns: [

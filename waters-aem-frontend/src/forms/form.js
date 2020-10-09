@@ -206,8 +206,8 @@ const Form = ({
             return;
         }
 
-        if (config.formName === "chooseAccount") {
-        }
+        // if (config.formName === "chooseAccount") {
+        // }
 
 
         // Only put this logic in for formName ==="chooseAccount"
@@ -241,26 +241,26 @@ const Form = ({
         }
 
         
-        if (config.formName !== "chooseAccount") {
-            retrieveData(config.optionsEndpoint).then(resp => {
-                const tempArray = resp.map((item) => {
-                    let tempOption = {};
-                    tempOption.name = item.soldTo;
-                    tempOption.label = item.company;
-                    tempOption.accountStreet = item.partnerAddress[0].street;
-                    tempOption.accountCity = item.partnerAddress[0].city;
-                    tempOption.accountZip = item.partnerAddress[0].postalCd;
-                    tempOption.region = item.partnerAddress[0].regio;
-                    return tempOption;
-                });
+    //     if (config.formName !== "chooseAccount") {
+    //         retrieveData(config.optionsEndpoint).then(resp => {
+    //             const tempArray = resp.map((item) => {
+    //                 let tempOption = {};
+    //                 tempOption.name = item.soldTo;
+    //                 tempOption.label = item.company;
+    //                 tempOption.accountStreet = item.partnerAddress[0].street;
+    //                 tempOption.accountCity = item.partnerAddress[0].city;
+    //                 tempOption.accountZip = item.partnerAddress[0].postalCd;
+    //                 tempOption.region = item.partnerAddress[0].regio;
+    //                 return tempOption;
+    //             });
 
-                config.options = tempArray;
-                config.fields[1].options = tempArray;
-                setDisplayForm(true);
-                // Setting newConfig to trigger a reload
-                setNewConfig(config);
-            });
-        }
+    //             config.options = tempArray;
+    //             config.fields[1].options = tempArray;
+    //             setDisplayForm(true);
+    //             // Setting newConfig to trigger a reload
+    //             setNewConfig(config);
+    //         });
+    //     }
     }, []);
 
     useEffect(() => {
