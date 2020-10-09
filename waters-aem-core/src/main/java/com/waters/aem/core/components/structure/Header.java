@@ -203,7 +203,7 @@ public final class Header extends AbstractComponent implements ComponentExporter
     }
 
     public Link getSearchPath() {
-        return searchPath;
+        return LinkUtils.getExternalizedLink(pageManager, searchPath);
     }
 
     public Image getLogo() {

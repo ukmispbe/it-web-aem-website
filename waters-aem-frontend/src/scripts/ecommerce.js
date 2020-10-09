@@ -22,5 +22,4 @@ const isFullState = () => {
 const isDisabledState = () => {
     return currentState() == disabled;
 };
-    
 export default {currentState, partial, full, disabled, isPartialState, isFullState, isDisabledState};

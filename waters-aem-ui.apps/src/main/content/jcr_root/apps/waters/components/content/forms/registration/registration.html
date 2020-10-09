@@ -9,6 +9,7 @@
             "buttonText": "${'CONTINUE' @ i18n, context='text'}",
             "elementLocator": "check-email-form",
             "needsToBeSignedOut": true,
+            "isTwoStepRegistrationForm" : ${registration.twoStepRegistrationForm @ context='unsafe'},
             "icons": {
                 "checkmarkIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
                 "validIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
@@ -71,7 +72,7 @@
                     "label": "${'Email Address' @ i18n, context='text'}",
                     "description": "${'This will be your username.' @ i18n, context='text'}",
                     "emailValidationEndpoint": "${registration.emailValidationUrl @ context='unsafe'}",
-                    "disabled": true,
+                    "disabled": ${registration.twoStepRegistrationForm @ context='unsafe'},
                     "validation": {
                         "required": true,
                         "requiredMsg": "${'Please enter an email address.' @ i18n, context='text'}",

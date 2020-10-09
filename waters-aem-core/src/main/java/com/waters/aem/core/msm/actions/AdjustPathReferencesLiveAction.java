@@ -98,7 +98,7 @@ public class AdjustPathReferencesLiveAction implements LiveAction {
     }
 
     private boolean isPossiblePath(final String value) {
-        return value.startsWith(WatersConstants.ROOT_PATH);
+        return (value.startsWith(WatersConstants.ROOT_PATH)||(value.contains("/content/experience-fragments")));
     }
 
     private void adjustMultiValuedProperties(final Property prop, final String destinationLanguageCode, final String destinationUrl)

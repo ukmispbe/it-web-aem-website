@@ -37,6 +37,8 @@ import java.util.Collection;
     defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME,
     extensions = ExporterConstants.SLING_MODEL_EXTENSION)
+
+@SuppressWarnings({"squid:S2176"})
 public final class List implements com.adobe.cq.wcm.core.components.models.List {
 
     static final String RESOURCE_TYPE = "waters/components/content/list";

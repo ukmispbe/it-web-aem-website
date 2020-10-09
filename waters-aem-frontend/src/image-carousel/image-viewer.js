@@ -4,8 +4,8 @@ import ReactSVG from 'react-svg';
 import Hammer from 'hammerjs';
 
 class ImageViewer extends React.Component {
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
 
         this.touchActionPolyfill = null;
 
