@@ -6,9 +6,9 @@ import { OrderDetails } from '../index';
 import * as getOrderDetails from '../orderDetails.services';
 import props from '../__mocks__/en_US/index';
 import { orderDetailsJSON } from '../__mocks__/en_US/services-json.test';
+import mockBodyHTML from '../../__mocks__/en_US/html/mock-body-html'
 
 describe('Feature: Order Details Component', () => {
-
     let wrapper;
 
     beforeAll(async () => {
@@ -31,9 +31,9 @@ describe('Feature: Order Details Component', () => {
     });
 
     describe('Scenario: Rendering', () => {
+        document.body.innerHTML = mockBodyHTML;
 
         describe("When component is mounted", () => {
-
             it("It should get order id from url", async () => {
                 expect(window.location.hash).toEqual("#orderdetails?id=15740002");
             });
@@ -68,6 +68,5 @@ describe('Feature: Order Details Component', () => {
             });
 
         })
-
     })
 })

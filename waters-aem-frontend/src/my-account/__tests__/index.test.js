@@ -4,11 +4,7 @@ import { MemoryRouter } from "react-router-dom";
 import MyAccountRouter from "../";
 import props from "../__mocks__/en_US/my-account-json";
 import routes from "../routes";
-import personalDetailsTile from "../__mocks__/en_US/personal-details-tile";
-import addressConfig from "../__mocks__/en_US/addressConfig";
-import shipping from "../__mocks__/en_US/shipping";
-import billing from "../__mocks__/en_US/billing";
-import changepassword from "../__mocks__/en_US/changepassword";
+import mockBodyHTML from '../../__mocks__/en_US/html/mock-body-html'
 
 const buildRouter = initialEntries => <MemoryRouter initialEntries={initialEntries}><MyAccountRouter {...props} /></MemoryRouter>
 
@@ -23,27 +19,7 @@ describe("Feature: MyAccountRouter", () => {
         jest.restoreAllMocks();
     });
 
-    document.body.innerHTML = `
-        <script id="json-config--cmp-detail-tiles--personal">
-        ${JSON.stringify(personalDetailsTile)}
-        </script>
-        
-        <script id="json-config--cmp-detail-tiles--billing">
-        ${JSON.stringify(billing)}
-        </script>
-
-        <script id="json-config--cmp-detail-tiles--shipping">
-        ${JSON.stringify(shipping)}
-        </script>
-
-        <script id="json-config--cmp-detail-tiles--address">
-        ${JSON.stringify(addressConfig)}
-        </script>
-
-        <script id="json-config--cmp-detail-tiles--changePassword">
-        ${JSON.stringify(changepassword)}
-        </script>
-    `;
+    document.body.innerHTML = mockBodyHTML;
 
     describe("Scenario: Routing", () => {
         describe("When the path matches the my account route", () => {

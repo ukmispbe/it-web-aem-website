@@ -27,7 +27,6 @@ const DetailTiles = ({
     profileTiles,
     data
 }) => {
-
     let tiles = [];
     let setData;
 
@@ -70,10 +69,10 @@ const DetailTiles = ({
             case 'password':
                 submitFn = changePasswordSubmit;
                 break;
-            case 'shipping':
+            case 'shipToInfo':
                 // Assign shipping submit function when done
                 break;
-            case 'billing':
+            case 'billToInfo':
                 // Assign billing submit function when done
                 break;
             default:
@@ -128,14 +127,14 @@ const DetailTiles = ({
         }
 
         return tiles.map((tile, key) => {
-           if(tile.name === 'personalDetailsTile'){
-            const mailingAddress = tile.defaultValues.userAddress && tile.defaultValues.userAddress.filter(address => address.addressType === 'mailingAddress');
-            const userCountry = mailingAddress.length ? mailingAddress[0].countryCode.toLowerCase() : '';
-            if(userCountry === 'kr' || userCountry === 'jp' || userCountry === 'tw' || userCountry === 'cn') {
-                swapFirstAndLastNames();
+            if(tile.name === 'personalDetailsTile'){
+                const mailingAddress = tile.defaultValues.userAddress && tile.defaultValues.userAddress.filter(address => address.addressType === 'mailingAddress');
+                const userCountry = mailingAddress.length ? mailingAddress[0].countryCode.toLowerCase() : '';
+                if(userCountry === 'kr' || userCountry === 'jp' || userCountry === 'tw' || userCountry === 'cn') {
+                    swapFirstAndLastNames();
+                }
+                processFormData();
             }
-            processFormData();
-        }
 
             return <ErrorBoundary>
                     <Tile

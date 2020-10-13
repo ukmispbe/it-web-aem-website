@@ -175,6 +175,7 @@ class OrderDetails extends Component {
                     data.account.map(account => {
                         const countryName = getCountryName(account.country, this.config);
                         account.countryName = countryName;
+                        account.state = account.region;
                     });
                     this.setState({
                         isLoading: false,

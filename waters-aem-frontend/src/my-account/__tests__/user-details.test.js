@@ -1,5 +1,5 @@
 import UserDetails from "../services/UserDetails";
-import { userDetailsJSON } from "../__mocks__/en_US/mock-services-json";
+import { userDetailsJSON } from '../../__mocks__/en_US/services/mock-services-json'
 import loginStatus from "../../scripts/loginStatus";
 
 describe("Feature: User Details Service", () => {

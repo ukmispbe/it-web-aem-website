@@ -143,7 +143,6 @@ class MyAccountDropDown extends React.Component {
     }
 
     willShow = (newState, caller = 'default') => {
-
         // Check if Personal Details have been updated
         const store = new SessionStore();
         const hasBeenUpdated = store.getPersonalDetailsUpdated() === 'Y' ? true : false;
@@ -153,20 +152,18 @@ class MyAccountDropDown extends React.Component {
 
             let updatedUserName = '';
             if(Object.keys(savedUserDetails).length !== 0) {
-
                 updatedUserName = this.formatUserName(savedUserDetails);
-
             } else {
                 this.retrieveUserDetails();
             }
 
-            let updatedAccountName = "";
+            let updatedAccountName = savedUserDetails.company;
 
             // Check that Sold to Exists
             if (savedSoldToDetails && savedSoldToDetails.length !== 0) {
                 let updatedAccount;
                 savedSoldToDetails.map((soldTo) => {
-                    if(soldTo.default_soldTo === 1) {
+                    if(soldTo.soldToFlag === 1) {
                         updatedAccount = soldTo;
                     }
                 });
@@ -261,35 +258,45 @@ class MyAccountDropDown extends React.Component {
 
     retrieveUserDetails = async () => {
         const checkSessionStore = true;
-        const userDetails = await UserDetailsLazy(this.props.config.userDetailsUrl, checkSessionStore);
-        const soldToDetails = await SoldToDetailsLazy(this.props.config.soldToDetailsUrl);
+        const userDetailsUrl = (this.props.config && this.props.config.userDetailsUrl) || '';
+        const soldToDetailsUrl = (this.props.config && this.props.config.soldToDetailsUrl) || '';
 
-        const userName = this.formatUserName(userDetails);
+        if (userDetailsUrl && soldToDetailsUrl) {
+            const userDetails = await UserDetailsLazy(userDetailsUrl, checkSessionStore);
+            if (Object.keys(userDetails).length && userDetails.userId && userDetails.salesOrg) {
+                const soldToDetails = await SoldToDetailsLazy(soldToDetailsUrl, userDetails.userId, userDetails.salesOrg);
+                const userName = this.formatUserName(userDetails);
 
-        // Fix to correct first soldTo being selected. It should be the default_soldTo === 1 selected
-        let priorityAccount;
-        let accountName = "";
-        soldToDetails.map((soldTo) => {
-            if(soldTo.default_soldTo === 1) {
-                priorityAccount = soldTo;
-            }
-        });
+                let priorityAccount = {};
+                let accountName = "";
 
-        if (priorityAccount){
-            accountName = priorityAccount.company ? `${priorityAccount.company} ` : '';
-        }
-
-        this.setState({
-            ... this.state,
-            config: {
-                ... this.props.config,
-                loginState: loginStatus.state(),
-                userDetails: {
-                    userName,
-                    accountName
+                if (Object.keys(soldToDetails).length) {
+                    soldToDetails.map((soldTo) => {
+                        if(soldTo.soldToFlag === 1) {
+                            priorityAccount = soldTo;
+                        }
+                    });
                 }
+
+                if (Object.keys(priorityAccount).length){
+                    accountName = priorityAccount.name ? `${priorityAccount.name} ` : '';
+                } else {
+                    accountName = userDetails.company
+                }
+
+                this.setState({
+                    ... this.state,
+                    config: {
+                        ... this.props.config,
+                        loginState: loginStatus.state(),
+                        userDetails: {
+                            userName,
+                            accountName
+                        }
+                    }
+                });
             }
-        });
+        }
     }
 
     getConfig = () => {
@@ -304,7 +311,7 @@ class MyAccountDropDown extends React.Component {
         const userName = this.formatUserName(userDetails);
 
         const priorityAccount = soldToDetails && soldToDetails.length !== 0 ? soldToDetails[0] : {};
-        const accountName = priorityAccount.company ? `${priorityAccount.company} ` : '';
+        const accountName = priorityAccount.company ? `${priorityAccount.company} ` : userDetails.company;
 
         return {
             ... this.props.config, 
@@ -369,8 +376,8 @@ class MyAccountDropDown extends React.Component {
                     sessionStore.removeSoldToDetails();
                     if (userDetailsUrl && soldToDetailsUrl) {
                         const userDetails = await UserDetailsLazy(userDetailsUrl, false);
-                        if (Object.keys(userDetails).length) {
-                            await SoldToDetailsLazy(soldToDetailsUrl);
+                        if (Object.keys(userDetails).length && userDetails.userId && userDetails.salesOrg) {
+                            await SoldToDetailsLazy(soldToDetailsUrl, userDetails.userId, userDetails.salesOrg);
                         } else {
                             await checkAndSetError();
                         }

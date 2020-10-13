@@ -6,7 +6,7 @@ const removeError = (...refs) => {
     refs.forEach(ref => {
         if (ref) {
             ref.classList.remove("error");
-            ref.classList.add("valid");
+            ref.value && ref.classList.add("valid");
         }
     });
 
@@ -122,7 +122,7 @@ export const functions = {
         }
 
         // Check for special character
-        if (!test(value, /^.*\W+.*$/)) {
+        if (!test(value, /^.*[^a-zA-Z0-9]+.*$/)) {
             newErrors.push({
                 name: "noSpecial",
                 type: "missingSpecial",
