@@ -445,8 +445,8 @@ div.cmp-search__no-results {
 }
 
 .cmp-search__related-suggestions {
-    @include font-body;
-    color: $color-font-medium;
+    // @include font-body;
+    // color: $color-font-medium;
 
     .item {
         color: $color-link;
@@ -464,7 +464,7 @@ div.cmp-search__no-results {
     }
 }
 
-.cmp-search__sorted-container{
+.cmp-search__sorted-container {
     @include mobile {
         display: flex;
         flex-wrap: wrap;
@@ -477,6 +477,10 @@ div.cmp-search__no-results {
         .cmp-search-filters__tag {
             order: 1;
         }
+    }
+
+    .text-strike {
+        text-decoration: line-through;
     }
 }
 .cmp-search__sorted-by {

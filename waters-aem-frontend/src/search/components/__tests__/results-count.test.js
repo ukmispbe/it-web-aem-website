@@ -15,7 +15,8 @@ describe('Feature: ResultsCount React Component', () => {
         spell_suggestion: '',
         onRelatedSuggestionClick: jest.fn(() => {}),
         text: {
-          resultsText: 'Showing {startResults}-{endResults} of {count} results '
+            resultsText: 'Showing {count} results for',
+            relatedSearchesText: 'Related Searches'
         }
     };
 

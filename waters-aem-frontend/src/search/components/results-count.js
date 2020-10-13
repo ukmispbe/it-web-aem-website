@@ -1,36 +1,18 @@
 import React from 'react';
 
 const ResultsCount = (props) => {
-    const endResults = props.count > props.current * props.rows ? props.current * props.rows : props.count;
-    const startResults = props.current * props.rows - props.rows + 1;
     const maxLength = 120;
     const searchQuery = (props.query && props.query.toString().length > maxLength) ? props.query.substring(0,maxLength) + '...' : props.query;
 
-    const renderSearchTerm = () => (props.spell_suggestion) ? getSuggestedQueryInfo() : getSearchQuery();
-
-    const getSuggestedQueryInfo = () => {
-        return <span>
-            for&nbsp;
-            <span className="text-strike">{searchQuery}</span>
-            &nbsp;
-            <strong>
-                <q className="query">{props.spell_suggestion}</q>.
-            </strong>
-        </span>;
-    }
-
-    const getSearchQuery = () => {
-        return <span>
-            for&nbsp;
-            <strong>
-                <q className="query">{searchQuery}</q>.
-            </strong>
-        </span>;
-    }
+    const getResultsText = (resultsText) => resultsText.replace(/[{]count[}]/, "&lt;b&gt;" + props.count.toLocaleString(undefined, {maximumFractionDigits:0}) + "&lt;/b&gt;");
+    const renderSuggestedSearchTerm = () => (props.spell_suggestion) ? getSuggestedQueryInfo() : '';
+    const getSuggestedQueryInfo = () => <span>&nbsp;<span className="text-strike">{searchQuery}</span></span>;
+    const getSearchQuery = (searchQuery) => <span className="query">{searchQuery}</span>;
+    const renderSearchTerm = () => (props.spell_suggestion) ? getSearchQuery(props.spell_suggestion) : getSearchQuery(searchQuery);
 
     const renderRelatedSuggestions = () => {
         return (props.spell_related_suggestions.length !== 0) 
-            ? <div className='cmp-search__related-suggestions'>Related Searches {getRelatedSuggestions()}</div> 
+            ? <div className='cmp-search__related-suggestions'>{props.text.relatedSearchesText} {getRelatedSuggestions()}</div> 
             : <></>;
     }
 
@@ -39,16 +21,14 @@ const ResultsCount = (props) => {
         : getRelatedSuggestionLinks(props.spell_related_suggestions).reduce((prev, curr) => <>{prev}<span className="vertical-bar">&#124;</span>{curr}</>);
 
     const getRelatedSuggestionLink = word => <a className="item" onClick={e => props.onRelatedSuggestionClick(word)}>{word}</a>;
-
     const getRelatedSuggestionLinks = words => words.map(word => getRelatedSuggestionLink(word));
 
-    const getResultsText = () => props.text.resultsText.replace(/[{]startResults[}]/, startResults.toLocaleString(undefined, {maximumFractionDigits:0})).replace(/[{]endResults[}]/, endResults.toLocaleString(undefined, {maximumFractionDigits:0})).replace(/[{]count[}]/, props.count.toLocaleString(undefined, {maximumFractionDigits:0}));
-
     return <div className="cmp-search__resultsCount-container" data-locator="results-count-container">
-        <h2 className="cmp-search__resultsCount" data-locator="results-count">
-            {getResultsText()}
+        {props.noQuery || props.query === '*:*' ? getResultsText(props.text.resultsText) : getResultsText(props.text.resultsForText)}
+		{renderSuggestedSearchTerm()}
+        <h1 className="cmp-search__resultsCount" data-locator="results-count">
             {props.noQuery || props.query === '*:*' ? null : renderSearchTerm()}
-        </h2>
+        </h1>
         {renderRelatedSuggestions()}
     </div>
 };
