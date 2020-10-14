@@ -138,7 +138,7 @@ public class Registration implements ComponentExporter {
     private Link consentDisclosuresLink;
 
     public Link getLoginLink() {
-        return loginLink;
+        return LinkUtils.getExternalizedLink(pageManager, loginLink);
     }
 
     public Link getPrivacyNoticeLink() {
@@ -154,7 +154,7 @@ public class Registration implements ComponentExporter {
     }
 
     public Link getRedirectEcommLink() {
-        return redirectEcommLink;
+        return LinkUtils.getExternalizedLink(pageManager, redirectEcommLink);
     }
 
     public Link getPrivacyDisclosuresLink() {

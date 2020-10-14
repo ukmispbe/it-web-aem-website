@@ -27,8 +27,6 @@ const DetailTiles = ({
     profileTiles,
     data
 }) => {
-
-
     let tiles = [];
     let setData;
 
