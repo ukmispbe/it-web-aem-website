@@ -1306,13 +1306,10 @@ class SearchContainer extends Component {
 		}
 
 		if (this.state.noResults) {
-			return ( <
-				NoResults searchText = {
-					this.props.searchText
-				}
-				query = {
-					this.state.keyword
-				}
+			return ( 
+				<NoResults 
+					searchText={this.props.searchText}
+					query={this.state.keyword}
 				/>
 			);
 		}
