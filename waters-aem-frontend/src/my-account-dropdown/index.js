@@ -167,7 +167,7 @@ class MyAccountDropDown extends React.Component {
                         updatedAccount = soldTo;
                     }
                 });
-                updatedAccountName = updatedAccount.company ? updatedAccount.company : "";
+                updatedAccountName = updatedAccount.name ? updatedAccount.name : "";
             }
 
             let currentState = this.state;
