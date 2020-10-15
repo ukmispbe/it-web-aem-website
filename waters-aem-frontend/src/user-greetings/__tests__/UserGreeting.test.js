@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import ReactHtmlParser from 'react-html-parser';
 
 //Mocked Props
 import UserGreeting from '../UserGreeting';
@@ -73,5 +74,12 @@ describe('<UserGreeting />', () => {
         expect(enzymeWrapper.find('h2').text()).toBe('Welcome!');
         expect(enzymeWrapper.find('h3').text()).toBe('');
         expect(enzymeWrapper.find('h4').text()).toBe('');
+    });
+    it('should display no greeting and company without HTML entity', () => {
+        window.sessionStorage.setItem('waters.userDetails', JSON.stringify({ company: 'Johnson &amp; Johnson BE' }));
+        enzymeWrapper.setProps({ greetings: '' });
+        enzymeWrapper.update();
+        expect(enzymeWrapper.find('h2').text()).toBe('');
+        expect(enzymeWrapper.find('h4').text()).toBe(ReactHtmlParser('Johnson &amp; Johnson BE').toString());
     });
 });
