@@ -23,7 +23,7 @@
                 <div class="social-links-text">${'Follow our channels' @ i18n}</div>
                 <ul>
                     <li data-sly-repeat="${footer.socialLinks}" class="cmp-footer__social-links__item">
-                        <a class="cmp-footer-social-links__link" href="${item.link.href}" target="_blank" rel="noopener noreferrer">
+                        <a class="cmp-footer-social-links__link" href="${item.link.href}" target="_blank" rel="noopener noreferrer nofollow">
                             <img class="${item.svg ? 'inline-svg' : ''}" data-sly-test="${item.linkIcon}"
                                 src="${item.linkIcon}" />
                         </a>
@@ -69,7 +69,7 @@
             <div class="cmp-footer__links ${isChinaPage ? 'china-legal' : ''}">
                 <nav data-sly-test="${footer.footerLinks || isChinaPage}">
                     <a data-sly-repeat="${footer.footerLinks}" href="${item.link.href}"
-                        target="${item.external ? '_blank' : ''}" rel="${item.external ? 'noopener noreferrer' : ''}" data-locator="${item.text}">
+                        target="${item.external ? '_blank' : ''}" rel="${item.external ? 'noopener noreferrer nofollow' : ''}" data-locator="${item.text}">
                         ${item.text}
                         <sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
                             data-sly-call="${patterns.linkIcon @ linkItem=item}" />
