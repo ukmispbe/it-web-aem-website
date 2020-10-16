@@ -2,11 +2,17 @@ import React from 'react';
 import { propTypes, defaultProps } from './search.component.props';
 import { Aside, Menu, ResultsBody } from './search.component.helpers';
 import Tabs from '../navigation/tabs';
-import ResultsCount from './components/results-count';
+import SearchBreadcrumb from '../common/search-breadcrumb';
 
 const SearchComponent = props => {
+    // Append Facet Description & spelling of keyword
+    props.searchParams.contentTypeSelected = props.filterTagsProps.contentTypeSelected;
+    props.searchParams.spell_suggestion = props.filterTagsProps.spell_suggestion;
     return (
         <>
+            <SearchBreadcrumb 
+                text={props.text}
+                searchParams={props.searchParams} />
             {!props.isEprocurementUser && <Tabs className="cmp-search__categories-tabs"
                 items={props.categoryProps.categories}
                 activeIndex={props.categoryProps.activeIndex}
