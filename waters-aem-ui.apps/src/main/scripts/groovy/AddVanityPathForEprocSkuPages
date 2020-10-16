@@ -1,0 +1,24 @@
+final def page = getPage('/content/order/en')
+final def query = buildQuery(page)
+final def result = query.execute()
+
+def buildQuery(page){
+    def queryManager = session.workspace.queryManager
+    def queryString = "SELECT * FROM [nt:base] WHERE ISDESCENDANTNODE([$page.path]) and ([sling:resourceType] = 'waters/components/structure/page' and [cq:template] = '/conf/waters/settings/wcm/templates/sku-page')"
+    queryManager.createQuery(queryString, "JCR-SQL2")
+}
+
+def count =0;
+result.nodes.each { node ->
+	if(node.hasProperty('hybris:code')){
+		node.setProperty('sling:vanityPath', '/content/order/sku/'+ node.getProperty('hybris:code').string)
+		node.setProperty('sling:redirect', 'true')
+		activate(node.getPath());
+		println "Updated " + node.getPath() + "\n"
+		node.getProperty('sling:vanityPath').remove();
+		node.getProperty('sling:redirect').remove();
+		session.save()
+		count++
+	}
+}
+println count
