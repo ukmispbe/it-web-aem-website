@@ -31,7 +31,7 @@ public @interface WatersAccountServiceConfiguration {
     String userDetailsUrl() default "https://devservices.waters.com:8443/api/waters/user/v1/details";
 
     @AttributeDefinition(name = "Sold To Details API Url", description = "Url for Sold To Details API")
-    String soldToDetailsUrl() default "https://devservices.waters.com:8443/api/waters/user/v1/retrievesoldto";
+    String soldToDetailsUrl() default "https://api-sbox.waters.com/dev-waters-user-exp-api-v1/api/users";
 
     @AttributeDefinition(name = "Update Password API Url", description = "Url for update password API")
     String updatePwUrl() default "https://devservices.waters.com:8443/api/waters/user/v1/update/password";

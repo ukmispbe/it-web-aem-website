@@ -329,7 +329,7 @@
     <script type="application/json" id="cmp-detail-tiles--billing">
         {
             "name": "billingAddresses",
-            "type": "billing",
+            "type": "billToInfo",
             "title": "Billing Addresses",
             "addAddressMessage": "For a faster checkout experience, add your billing address now.",
             "noAddressMessage": "There are no addresses associated with your account.",
@@ -340,7 +340,7 @@
     <script type="application/json" id="cmp-detail-tiles--shipping">
         {
             "name": "shippingAddresses",
-            "type": "shipping",
+            "type": "shipToInfo",
             "title": "Shipping Addresses",
             "addAddressMessage": "For a faster checkout experience, add your shipping address now.",
             "noAddressMessage": "There are no addresses associated with your account.",
@@ -568,7 +568,8 @@
                 ],
                 "myProfile": {
                     "userDetailsUrl": "https://stgservices.waters.com/api/waters/user/v1/details",
-                    "soldToDetailsUrl": "https://stgservices.waters.com/api/waters/user/v1/retrievesoldto","submitEndpoint": "waters.com",
+                    "soldToDetailsUrl": "https://api-sbox.waters.com/dev-waters-user-exp-api-v1/api/users",
+                    "submitEndpoint": "waters.com",
                     "personalConfigId": "cmp-detail-tiles--personal",
                     "addressConfig": {
                         "abstractConfig": "cmp-detail-tiles--address",

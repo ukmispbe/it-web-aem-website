@@ -38,7 +38,7 @@ To be refactored and delete
         class="wAuthoredList__listItemAnchor"
         href="${link.linkUrl}"
         target="${link.newTab && link.linkUrl ? '_blank' : ''}"
-        rel="${link.newTab && link.linkUrl ? 'noopener noreferrer':''}">
+        rel="${link.newTab && link.linkUrl ? 'noopener noreferrer nofollow':''}">
         <sly
           data-sly-test="authoredList.icon && authoredList.iconStyle == 'wAuthoredList__list--icon'"
           data-sly-call="${templates.svg @ spriteName=authoredList.icon, className='wAuthoredList__svg'}"></sly>

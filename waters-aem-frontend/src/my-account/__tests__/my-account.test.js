@@ -3,8 +3,11 @@ import renderer from 'react-test-renderer';
 import MyAccount from '../myaccount';
 import props from '../__mocks__/en_US/my-account-json';
 import Ecommerce from "../../scripts/ecommerce";
+import mockBodyHTML from '../../__mocks__/en_US/html/mock-body-html'
 
 describe('Feature: My Account Component', () => {
+    document.body.innerHTML = mockBodyHTML;
+
     afterEach(() => {
         jest.restoreAllMocks();
     });

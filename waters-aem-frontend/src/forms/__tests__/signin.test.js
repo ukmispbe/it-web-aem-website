@@ -4,6 +4,7 @@ import { mount } from 'enzyme';
 import { act } from 'react-dom/test-utils';
 import Form from '../form';
 import { signInConfig } from '../__mocks__/en_US/mockData';
+import mockBodyHTML from '../../__mocks__/en_US/html/mock-body-html';
 
 import { checkRenderInput, 
     checkRenderPassword, 
@@ -26,6 +27,8 @@ afterEach(() => {
 });
 
 describe('Feature: Sign In Form', () => {
+    document.body.innerHTML = mockBodyHTML;
+
     describe('Scenario: Rendering', () => {
         describe('When initial render', ()=>{
 

@@ -427,7 +427,7 @@ if (registrationFormContainer) {
         document.getElementById('cmp-registration-form').innerHTML
     );
 
-    const country = digitalData.page.country.toLowerCase();
+    const country = DigitalData.page.country.toLowerCase();
 
     const swapFirstAndLastNames = () => {
         const indexofFirstName = configRegistrationForm.fields.map(e => e.name).indexOf('firstName');
@@ -710,7 +710,7 @@ if (contactusContainer) {
     let label;
     let url;
 
-    if(Object.keys(config.commerceConfig).length > 0) {
+    if (Object.keys(config.commerceConfig).length > 0) {
         label = config.commerceConfig.contactSupportLinkLabel;
         url = config.commerceConfig.contactSupportHref;
     }

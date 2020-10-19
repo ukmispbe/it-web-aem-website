@@ -3,17 +3,21 @@
 exports[`Feature: Aside Component for my account Scenario: Rendering When ecommerce is disabled Then it should match snapshot 1`] = `
 <div
   className="cmp-my-account__aside-wrapper"
+  data-locator="my-account-wrapper"
 >
   <div
     className="cmp-title"
+    data-locator="title"
   >
     <h1
       className="cmp-title__text"
+      data-locator="title-text"
     >
       
     </h1>
     <div
       className="cmp-title__print"
+      data-locator="title-print"
     >
       
     </div>
@@ -25,25 +29,31 @@ exports[`Feature: Aside Component for my account Scenario: Rendering When ecomme
   </div>
   <div
     className="cmp-my-account__aside-links"
+    data-locator="my-account-links"
   >
     <div
       className="tile"
+      data-locator="my-account-tile"
     >
       <div
         className="tile__title"
+        data-locator="my-account-title-tile"
       >
         Account Information
       </div>
       <div
         className="tile__links"
+        data-locator="my-account-tile-links"
       >
         <a
+          data-locator="profile"
           href="/profile"
           onClick={[Function]}
         >
           Profile
         </a>
         <a
+          data-locator="password"
           href="/changepassword"
           onClick={[Function]}
         >
@@ -53,32 +63,59 @@ exports[`Feature: Aside Component for my account Scenario: Rendering When ecomme
     </div>
     <div
       className="tile"
+      data-locator="my-account-tile"
     >
       <div
         className="tile__title"
+        data-locator="my-account-title-tile"
+      >
+        Orders
+      </div>
+      <div
+        className="tile__links"
+        data-locator="my-account-tile-links"
+      >
+        <a
+          data-locator="order-history"
+          href="/orderhistory"
+          onClick={[Function]}
+        >
+          Order History
+        </a>
+      </div>
+    </div>
+    <div
+      className="tile"
+      data-locator="my-account-tile"
+    >
+      <div
+        className="tile__title"
+        data-locator="my-account-title-tile"
       >
         Additional Links
       </div>
       <div
         className="tile__links"
+        data-locator="my-account-tile-links"
       >
         <a
-          href="https://www.waters.com/waters/nav.htm?cid=10006027"
+          data-locator="my-implementations"
+          href="https://www.waters.com/waters/nav.htm?cid=2243096"
+          onClick={[Function]}
         >
-          Request Technical Support
+          My Implementations
         </a>
         <a
-          href="https://www.waters.com/waters/nav.htm?cid=134614448"
+          data-locator="support-plans"
+          href="https://www.waters.com/waters/nav.htm?cid=2243124"
+          onClick={[Function]}
         >
-          Waters Knowledgebase
+          Support Plans
         </a>
         <a
-          href="https://www.waters.com/waters/nav.htm?cid=513247"
-        >
-          Training Courses
-        </a>
-        <a
+          data-locator="contact-waters"
           href="https://www.waters.com/waters/localeRedirect.htm?type=contact_us"
+          onClick={[Function]}
         >
           Contact Waters
         </a>
@@ -87,6 +124,7 @@ exports[`Feature: Aside Component for my account Scenario: Rendering When ecomme
   </div>
   <div
     className="cmp-my-account__aside-content"
+    data-locator="my-account-aside-content"
   />
 </div>
 `;
@@ -94,17 +132,21 @@ exports[`Feature: Aside Component for my account Scenario: Rendering When ecomme
 exports[`Feature: Aside Component for my account Scenario: Rendering When no link is active Then it should match snapshot 1`] = `
 <div
   className="cmp-my-account__aside-wrapper"
+  data-locator="my-account-wrapper"
 >
   <div
     className="cmp-title"
+    data-locator="title"
   >
     <h1
       className="cmp-title__text"
+      data-locator="title-text"
     >
       
     </h1>
     <div
       className="cmp-title__print"
+      data-locator="title-print"
     >
       
     </div>
@@ -116,25 +158,31 @@ exports[`Feature: Aside Component for my account Scenario: Rendering When no lin
   </div>
   <div
     className="cmp-my-account__aside-links"
+    data-locator="my-account-links"
   >
     <div
       className="tile"
+      data-locator="my-account-tile"
     >
       <div
         className="tile__title"
+        data-locator="my-account-title-tile"
       >
         Account Information
       </div>
       <div
         className="tile__links"
+        data-locator="my-account-tile-links"
       >
         <a
+          data-locator="profile"
           href="/profile"
           onClick={[Function]}
         >
           Profile
         </a>
         <a
+          data-locator="password"
           href="/changepassword"
           onClick={[Function]}
         >
@@ -144,16 +192,20 @@ exports[`Feature: Aside Component for my account Scenario: Rendering When no lin
     </div>
     <div
       className="tile"
+      data-locator="my-account-tile"
     >
       <div
         className="tile__title"
+        data-locator="my-account-title-tile"
       >
         Orders
       </div>
       <div
         className="tile__links"
+        data-locator="my-account-tile-links"
       >
         <a
+          data-locator="order-history"
           href="/orderhistory"
           onClick={[Function]}
         >
@@ -163,32 +215,36 @@ exports[`Feature: Aside Component for my account Scenario: Rendering When no lin
     </div>
     <div
       className="tile"
+      data-locator="my-account-tile"
     >
       <div
         className="tile__title"
+        data-locator="my-account-title-tile"
       >
         Additional Links
       </div>
       <div
         className="tile__links"
+        data-locator="my-account-tile-links"
       >
         <a
-          href="https://www.waters.com/waters/nav.htm?cid=10006027"
+          data-locator="my-implementations"
+          href="https://www.waters.com/waters/nav.htm?cid=2243096"
+          onClick={[Function]}
         >
-          Request Technical Support
+          My Implementations
         </a>
         <a
-          href="https://www.waters.com/waters/nav.htm?cid=134614448"
+          data-locator="support-plans"
+          href="https://www.waters.com/waters/nav.htm?cid=2243124"
+          onClick={[Function]}
         >
-          Waters Knowledgebase
+          Support Plans
         </a>
         <a
-          href="https://www.waters.com/waters/nav.htm?cid=513247"
-        >
-          Training Courses
-        </a>
-        <a
+          data-locator="contact-waters"
           href="https://www.waters.com/waters/localeRedirect.htm?type=contact_us"
+          onClick={[Function]}
         >
           Contact Waters
         </a>
@@ -197,6 +253,7 @@ exports[`Feature: Aside Component for my account Scenario: Rendering When no lin
   </div>
   <div
     className="cmp-my-account__aside-content"
+    data-locator="my-account-aside-content"
   />
 </div>
 `;
@@ -204,17 +261,21 @@ exports[`Feature: Aside Component for my account Scenario: Rendering When no lin
 exports[`Feature: Aside Component for my account Scenario: Rendering When password link is active Then it should match snapshot 1`] = `
 <div
   className="cmp-my-account__aside-wrapper"
+  data-locator="my-account-wrapper"
 >
   <div
     className="cmp-title"
+    data-locator="title"
   >
     <h1
       className="cmp-title__text"
+      data-locator="title-text"
     >
       
     </h1>
     <div
       className="cmp-title__print"
+      data-locator="title-print"
     >
       
     </div>
@@ -226,25 +287,31 @@ exports[`Feature: Aside Component for my account Scenario: Rendering When passwo
   </div>
   <div
     className="cmp-my-account__aside-links"
+    data-locator="my-account-links"
   >
     <div
       className="tile"
+      data-locator="my-account-tile"
     >
       <div
         className="tile__title"
+        data-locator="my-account-title-tile"
       >
         Account Information
       </div>
       <div
         className="tile__links"
+        data-locator="my-account-tile-links"
       >
         <a
+          data-locator="profile"
           href="/profile"
           onClick={[Function]}
         >
           Profile
         </a>
         <a
+          data-locator="password"
           href="/changepassword"
           onClick={[Function]}
         >
@@ -254,16 +321,20 @@ exports[`Feature: Aside Component for my account Scenario: Rendering When passwo
     </div>
     <div
       className="tile"
+      data-locator="my-account-tile"
     >
       <div
         className="tile__title"
+        data-locator="my-account-title-tile"
       >
         Orders
       </div>
       <div
         className="tile__links"
+        data-locator="my-account-tile-links"
       >
         <a
+          data-locator="order-history"
           href="/orderhistory"
           onClick={[Function]}
         >
@@ -273,32 +344,36 @@ exports[`Feature: Aside Component for my account Scenario: Rendering When passwo
     </div>
     <div
       className="tile"
+      data-locator="my-account-tile"
     >
       <div
         className="tile__title"
+        data-locator="my-account-title-tile"
       >
         Additional Links
       </div>
       <div
         className="tile__links"
+        data-locator="my-account-tile-links"
       >
         <a
-          href="https://www.waters.com/waters/nav.htm?cid=10006027"
+          data-locator="my-implementations"
+          href="https://www.waters.com/waters/nav.htm?cid=2243096"
+          onClick={[Function]}
         >
-          Request Technical Support
+          My Implementations
         </a>
         <a
-          href="https://www.waters.com/waters/nav.htm?cid=134614448"
+          data-locator="support-plans"
+          href="https://www.waters.com/waters/nav.htm?cid=2243124"
+          onClick={[Function]}
         >
-          Waters Knowledgebase
+          Support Plans
         </a>
         <a
-          href="https://www.waters.com/waters/nav.htm?cid=513247"
-        >
-          Training Courses
-        </a>
-        <a
+          data-locator="contact-waters"
           href="https://www.waters.com/waters/localeRedirect.htm?type=contact_us"
+          onClick={[Function]}
         >
           Contact Waters
         </a>
@@ -307,6 +382,7 @@ exports[`Feature: Aside Component for my account Scenario: Rendering When passwo
   </div>
   <div
     className="cmp-my-account__aside-content"
+    data-locator="my-account-aside-content"
   />
 </div>
 `;
@@ -314,17 +390,21 @@ exports[`Feature: Aside Component for my account Scenario: Rendering When passwo
 exports[`Feature: Aside Component for my account Scenario: Rendering When profile link is active Then it should match snapshot 1`] = `
 <div
   className="cmp-my-account__aside-wrapper"
+  data-locator="my-account-wrapper"
 >
   <div
     className="cmp-title"
+    data-locator="title"
   >
     <h1
       className="cmp-title__text"
+      data-locator="title-text"
     >
       
     </h1>
     <div
       className="cmp-title__print"
+      data-locator="title-print"
     >
       
     </div>
@@ -336,25 +416,31 @@ exports[`Feature: Aside Component for my account Scenario: Rendering When profil
   </div>
   <div
     className="cmp-my-account__aside-links"
+    data-locator="my-account-links"
   >
     <div
       className="tile"
+      data-locator="my-account-tile"
     >
       <div
         className="tile__title"
+        data-locator="my-account-title-tile"
       >
         Account Information
       </div>
       <div
         className="tile__links"
+        data-locator="my-account-tile-links"
       >
         <a
+          data-locator="profile"
           href="/profile"
           onClick={[Function]}
         >
           Profile
         </a>
         <a
+          data-locator="password"
           href="/changepassword"
           onClick={[Function]}
         >
@@ -364,16 +450,20 @@ exports[`Feature: Aside Component for my account Scenario: Rendering When profil
     </div>
     <div
       className="tile"
+      data-locator="my-account-tile"
     >
       <div
         className="tile__title"
+        data-locator="my-account-title-tile"
       >
         Orders
       </div>
       <div
         className="tile__links"
+        data-locator="my-account-tile-links"
       >
         <a
+          data-locator="order-history"
           href="/orderhistory"
           onClick={[Function]}
         >
@@ -383,32 +473,36 @@ exports[`Feature: Aside Component for my account Scenario: Rendering When profil
     </div>
     <div
       className="tile"
+      data-locator="my-account-tile"
     >
       <div
         className="tile__title"
+        data-locator="my-account-title-tile"
       >
         Additional Links
       </div>
       <div
         className="tile__links"
+        data-locator="my-account-tile-links"
       >
         <a
-          href="https://www.waters.com/waters/nav.htm?cid=10006027"
+          data-locator="my-implementations"
+          href="https://www.waters.com/waters/nav.htm?cid=2243096"
+          onClick={[Function]}
         >
-          Request Technical Support
+          My Implementations
         </a>
         <a
-          href="https://www.waters.com/waters/nav.htm?cid=134614448"
+          data-locator="support-plans"
+          href="https://www.waters.com/waters/nav.htm?cid=2243124"
+          onClick={[Function]}
         >
-          Waters Knowledgebase
+          Support Plans
         </a>
         <a
-          href="https://www.waters.com/waters/nav.htm?cid=513247"
-        >
-          Training Courses
-        </a>
-        <a
+          data-locator="contact-waters"
           href="https://www.waters.com/waters/localeRedirect.htm?type=contact_us"
+          onClick={[Function]}
         >
           Contact Waters
         </a>
@@ -417,6 +511,7 @@ exports[`Feature: Aside Component for my account Scenario: Rendering When profil
   </div>
   <div
     className="cmp-my-account__aside-content"
+    data-locator="my-account-aside-content"
   />
 </div>
 `;

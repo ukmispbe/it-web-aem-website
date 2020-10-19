@@ -65,7 +65,13 @@ const Input = ({
                 break;
             }
             case "password": {
-                if (inputRef.current.name === "password") {
+                if (inputRef.current.name === "currentPassword") {
+                    // Not the standard password validation use text validation
+                    setValue(name, inputRef.current.value, true);
+                    break;                    
+                }
+                if (inputRef.current.name === "password" || inputRef.current.name === "newPassword") {
+
                     // password: (value, ref, setError, clearError, throwErrors=true)
                     if (validator[validation.validateFnName](inputRef.current.value, inputRef.current, setError, clearError) === false) {
                         // Hide the Tick Icon as not a valid password and don't validate using react-hook-form mechanism
@@ -77,10 +83,14 @@ const Input = ({
                         hideShowValidIcon(name, false);
                         setValue(name, inputRef.current.value, true);
                     }
-
                 }
-                if (inputRef.current.name === "confirmPassword") {
-                    const passwordControl =document.getElementById("password"); 
+                if (inputRef.current.name === "confirmPassword" || inputRef.current.name === "confirmNewPassword") {
+                    let passwordId = "password";
+                    if (inputRef.current.name === "confirmNewPassword") {
+                        passwordId = "newPassword";
+                    }
+
+                    const passwordControl = document.getElementById(passwordId); 
                     // matching: (value, matchRef, ref) 
                     if (validator[validation.validateFnName](inputRef.current.value, passwordControl, inputRef.current) === false) {
                         // Hide the Tick Icon as not a valid confirm password and don't validate using react-hook-form mechanism

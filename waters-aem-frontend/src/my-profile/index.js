@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import useProfile from  '../detail-tiles/hooks/useProfile';
 import DetailTiles from "../detail-tiles";
-import generateTiles from '../detail-tiles/utils/generateTiles'
+import generateTiles from '../detail-tiles/utils/generateTiles';
 
 const MyProfile = ({ configs }) => {
     const [userDetailsUrl, setUserDetailsUrl] = useState(configs.userDetailsUrl);
@@ -22,7 +22,6 @@ const MyProfile = ({ configs }) => {
     const renderDetailTiles = () => {
         const detailTiles = [];
         const personalConfig = setupConfig(configs.personalConfigId);
-
         const profileReturnData =  useProfile(userDetailsUrl, soldToDetailsUrl, personalConfig.type, personalConfig.icons ? personalConfig.icons.refresh : {});
         if (profileReturnData && profileReturnData.data && profileReturnData.tiles.length !== 0 ) {
             personalConfig.profileTiles = profileReturnData.tiles;
@@ -39,7 +38,7 @@ const MyProfile = ({ configs }) => {
                 detailTiles.push(addressConfig);
             }
         );
-               
+    
             return detailTiles.map((config, key) => (<DetailTiles {...config} key={key} />));
         }
     };
