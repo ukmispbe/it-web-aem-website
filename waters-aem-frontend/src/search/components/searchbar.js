@@ -57,7 +57,7 @@ class SearchBar extends Component {
     render() {
         return (
             <>
-                <OverLay isOpen={this.state.openOverlay} />
+                {!this.props.disableOverlay && <OverLay isOpen={this.state.openOverlay} />}
                 <div ref={this.searchBarRef} className={`cmp-search-bar ${this.props.customStyle}`} id="notesSearch" onClick={this.handleAutosuggestClick}>
                     {this.renderAutoSuggest()}
                     <div className="cmp-search-bar__icons">
@@ -251,13 +251,15 @@ SearchBar.propTypes = {
     maxSuggestions: PropTypes.number.isRequired,
     minSearchCharacters: PropTypes.number.isRequired,
     customStyle: PropTypes.string,
+    disableOverlay: PropTypes.bool,
     labels: PropTypes.objectOf(PropTypes.string)
 }
 
 SearchBar.defaultProps = {
     maxSuggestions: 10,
     minSearchCharacters: 1,
-    customStyle: ''
+    customStyle: '',
+    disableOverlay: false,
 }
 
 export default SearchBar;
