@@ -37,7 +37,7 @@
             >
                 <ul class="cmp-header__top-bar__nav__ul">
                     <li class="top-bar__nav__search top-bar__nav__item" data-locator="header-section-search">
-                        <div data-sly-test="${header.eprocurement}" id="header-search-bar"
+                        <div id="header-search-bar"
                             data-base-url="${header.searchUrl}"
                             data-icon-clear="/content/dam/waters/en/brand-assets/icons/close.svg"
                             data-icon-search="/content/dam/waters/en/brand-assets/icons/search.svg"
@@ -49,20 +49,6 @@
                             data-clear-label="${'Clear' @ i18n}"
                             data-search-label="${'Search' @ i18n}">
                         </div>
-                        
-                        <a  data-sly-test="${!header.eprocurement}"
-                            class="cmp-header-links__link"
-                            href="${header.legacySearchUrl}"
-                            data-locator="link-header-my-account-search"
-                        >
-                            <span>${'Search' @ i18n}</span>
-                            <img
-                                alt="${'Search' @ i18n}"
-                                src="/content/dam/waters/en/brand-assets/icons/search.svg"
-                                class="inline-svg"
-                                data-locator="header-search-icon"
-                            />
-                        </a>
                     </li>
                     <li class="top-bar__nav__user${header.eprocurement ? '--hide':''} top-bar__nav__item">
                         <a
