@@ -1,1 +1,1 @@
-export { default } from './HeaderSearchBar';
+export { default } from './header-search-bar';

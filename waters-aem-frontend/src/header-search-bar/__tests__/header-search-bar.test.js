@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import HeaderSearchBar from '../HeaderSearchBar';
-import props from '../HeaderSearchBar.mock';
+import HeaderSearchBar from '../header-search-bar';
+import props from '../header-search-bar.mock';
 import SearchBar from "../../search/components/searchbar";
 import screenSizes from "../../scripts/screenSizes";
 

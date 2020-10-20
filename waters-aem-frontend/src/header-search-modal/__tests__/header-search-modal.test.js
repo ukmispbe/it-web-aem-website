@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import HeaderSearchModal from '../HeaderSearchModal';
-import props from '../HeaderSearchModal.mock';
+import HeaderSearchModal from '../header-search-modal';
+import props from '../header-search-modal.mock';
 
 describe('<HeaderSearchModal />', () => {
     let enzymeWrapper;

@@ -1,1 +1,1 @@
-export { default } from './HeaderSearchModal';
+export { default } from './header-search-modal';
