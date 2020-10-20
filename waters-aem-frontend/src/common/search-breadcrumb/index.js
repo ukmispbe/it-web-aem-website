@@ -1,39 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import ReactSVG from 'react-svg';
-import ReactDOM from 'react-dom';
 import ScreenSizes from '../../scripts/screenSizes'
 import { getNamedHeaderLink } from '../../utils/redirectFunctions';
 import EllipsisText from "react-ellipsis-text";
 
 const SearchBreadcrumb = (props) => {
-
-    const breadcrumbList = document.querySelector('.cmp-breadcrumb__list');
+    
     const [isMobile, setIsMobile] = useState(ScreenSizes.isMobile());
 
     useEffect(() => {
-        // const breadcrumb = document.querySelector('.cmp-breadcrumb-my-account');
-        // breadcrumb && breadcrumb.classList.add('show');
-
-        const handleResize = () => setIsMobile(ScreenSizes.isMobile());
-        window.addEventListener('resize', handleResize);
-        return () => {
-            window.removeEventListener('resize', handleResize);
-            //breadcrumb.classList.remove('show');
-        };
-    }, []);
-
-    const renderBackToLink = (linkInfo => {
-        return (
-            <li className="cmp-breadcrumb-back">
-                <a className="cmp-breadcrumb-back__link cmp-button--secondary cmp-button--no-border cmp-button--with-icon"
-                        href={linkInfo.path}
-                        title={linkInfo.title}>
-                    <ReactSVG src={props.text.previousIcon}/>
-                    <span>{linkInfo.title}</span>
-                </a>
-            </li>
-        )
-    });
+        const breadcrumb = document.querySelector('#searchBreadcrumb');
+        isMobile && breadcrumb && breadcrumb.classList.add('fader-fade--right');
+        !isMobile && breadcrumb && breadcrumb.classList.remove('fader-fade--right');
+    }, [props.searchParams]);
 
     const renderBreadcrumbLink = (linkInfo => {
         return (
@@ -118,20 +97,14 @@ const SearchBreadcrumb = (props) => {
     }
 
     const linkData = createLinkData();
-
-    // return ReactDOM.createPortal(
-    //     isMobile ? renderBackToLink(linkData) : renderBreadcrumb(linkData),
-    //     breadcrumbList
-    // )
-    // return (
-    //     <ol class="cmp-breadcrumb__list" itemscope="" itemtype="http://schema.org/BreadcrumbList">
-    //         {isMobile ? renderBackToLink(linkData) : renderBreadcrumb(linkData)}
-    //     </ol>         
-    // ) 
     return (
-        <ol class="cmp-breadcrumb__list" itemscope="" itemtype="http://schema.org/BreadcrumbList">
-            {renderBreadcrumb(linkData)}
-        </ol>         
+        <nav class="cmp-breadcrumb">
+           <ol id="searchBreadcrumb" class="cmp-breadcrumb__list fader-fade" itemscope="" itemtype="http://schema.org/BreadcrumbList">
+               <div class="fader-container fader-container--left" style={{width: 0 + "px"}}></div>
+                    {renderBreadcrumb(linkData)}
+                <div class="fader-container fader-container--right" style={{width: 65 + "px"}}></div>
+            </ol>        
+        </nav>    
     )
 }
 
