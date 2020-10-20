@@ -1,0 +1,56 @@
+
+.mobile-search-icon, .mobile-clear-icon {
+    @include font-utility;
+    display: inline-block;
+    border: none;
+    background: transparent;
+    padding: 0;
+    outline: none;
+
+    svg, div {
+      height: $icon-m;
+      width: $icon-m;
+      cursor: pointer;
+    }
+
+    svg .st0,
+    svg .st1 {
+        stroke: $color-gray-50;
+    }
+
+    &:hover {
+        color: $color-icon;
+        & svg .st0,
+        & svg .st1 {
+            stroke: $color-icon;
+        }
+    }
+    &:active {
+        @include font-utility;
+        & svg .st0,
+        & svg .st1 {
+            stroke: $color-icon;
+        }
+    }
+}
+.mobile-header-search-bar {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  background: $color-white;
+  height: 100vh;
+  width: 100vw;
+  z-index: $cmp-search-overlay-z-index;
+
+  .mobile-header-search-bar__title {
+    display: flex;
+    justify-content: space-between;
+    padding: $space-xs $space-m;
+    box-shadow: $shadow;
+  }
+
+  .cmp-search-bar {
+    width: auto;
+    margin: $space-xs $space-m;
+  }
+}

@@ -42,7 +42,7 @@
                             data-icon-clear="/content/dam/waters/en/brand-assets/icons/close.svg"
                             data-icon-search="/content/dam/waters/en/brand-assets/icons/search.svg"
                             data-isocode="${header.isocode}"
-                            data-placeholder-mobile="${'Search' @ i18n}"
+                            data-placeholder-mobile="${'What are you looking for?' @ i18n}"
                             data-placeholder-tablet="${'What are you looking for?' @ i18n}"
                             data-custom-style="cmp-header-search-bar"
                             data-auto-suggest-label="${'Search Box' @ i18n}"
@@ -171,5 +171,6 @@
             data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"
         ></div>
     </div>
+    <div id="mobile-header-search-container"></div>
     <div data-sly-test="${header.eprocurement}" id="cmp-header--loader"></div>
 </header>
