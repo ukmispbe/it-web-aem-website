@@ -89,14 +89,25 @@
     }
 
     &Count {
+        margin-bottom: 0;
+
         .count {
             color: $color-font-dark;
             font-weight: $font-weight-bold;
         }
-        .query {
-            color: $color-font-dark;
+
+        .query-box {
+            margin-bottom: $space-xs;
+
+            .query {
+                color: $color-font-dark;
+                margin-bottom: 0;
+                display: inline-block;
+            }
+            .category {
+                font-size: $font-size-small;
+            }
         }
-        margin-bottom: 0;
     
         &.noresults {
             width: 70%;

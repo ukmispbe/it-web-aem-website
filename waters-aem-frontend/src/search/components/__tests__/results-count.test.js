@@ -16,10 +16,19 @@ describe('Feature: ResultsCount React Component', () => {
         onRelatedSuggestionClick: jest.fn(() => {}),
         text: {
             resultsText: 'Showing {count} results',
-            resultsForText: 'Showing {count} results for',
+            resultsForText: 'Showing {count} results for ',
             noResultsText: 'Showing 0 results',
-            relatedSearchesText: 'Related Searches'
-        }
+            relatedSearchesText: 'Related Searches',
+            inCategoryText: 'in ',
+        },
+        categoryOptions: [
+            {
+                translation: "Shop",
+                name: "Shop",
+                count: 633
+            }
+        ],
+        categoryValue: 0
     };
 
     describe('Scenario: Rendering', () => {
