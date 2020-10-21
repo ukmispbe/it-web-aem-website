@@ -22,5 +22,15 @@ export default {
         name: "orderDetails",
         path: "/orderdetails",
         parentTrail: ['/', '/orderhistory']
+    },
+    quoteHistory: {
+        name: "quoteHistory",
+        path: "/quotehistory",
+        parentTrail: ['/'],
+    },
+    quoteDetails: {
+        name: "quoteDetails",
+        path: "/quotedetails",
+        parentTrail: ['/', '/quotehistory']
     }
 }
