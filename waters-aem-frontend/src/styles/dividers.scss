@@ -26,6 +26,15 @@ hr,
     }
 }
 
+hr.small-accent-rule {
+    margin: 0 0 $space-xs 0;
+    width: 5em;
+    background-color: $color-accent;
+    height: 4px;
+    border: none;
+}
+
+
 // Spacers
 .cmp-spacer--xxs hr {
     margin: 0;

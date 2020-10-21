@@ -1,6 +1,5 @@
 import React from 'react';
-import ReactSVG from 'react-svg';
-import Dropdown from './dropdown';
+import Dropdown from '../../utils/dropdown';
 
 const getOptions = text => {
     return [

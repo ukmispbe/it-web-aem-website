@@ -149,7 +149,9 @@ const defaultProps = {
         spell_suggestion: '',
         items: [],
         isSkuList: false,
-        pagination: {}
+        pagination: {},
+        categoryOptions: [],
+        categoryValue: 0
     },
     resultsEvents: {
         onRelatedSuggestionClick: () => {},

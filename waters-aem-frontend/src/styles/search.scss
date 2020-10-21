@@ -87,9 +87,51 @@
             display: none;
         }
     }
+
     &Count {
-        .query {
+        margin-bottom: 0;
+
+        .count {
             color: $color-font-dark;
+            font-weight: $font-weight-bold;
+        }
+
+        .query-box {
+            margin-bottom: $space-xs;
+
+            .query {
+                color: $color-font-dark;
+                margin-bottom: 0;
+                display: inline-block;
+            }
+            .category {
+                font-size: $font-size-small;
+            }
+        }
+    
+        &.noresults {
+            width: 70%;
+            margin-left: 0;
+            margin-bottom: $space-s;
+            overflow: visible;
+            height: auto;
+        }
+        @include tablet-and-under {
+            margin: unset;
+            padding-bottom: $space-s;
+            overflow: visible;
+            text-overflow: unset;
+            white-space: normal;
+            overflow: visible;
+            height: auto;
+            &.noresults {
+                width: 100%;
+                margin: 0;
+            }
+        }
+    
+        @include mobile {
+            padding-bottom: $space-s;
         }
     }
 }
@@ -411,42 +453,11 @@ div.cmp-search__no-results {
     }
 }
 
-.cmp-search__resultsCount {
-    margin-bottom: 0;
 
-    &.noresults {
-        width: 70%;
-        margin-left: 0;
-        margin-bottom: $space-s;
-        overflow: visible;
-        height: auto;
-    }
-    @include tablet-and-under {
-        margin: unset;
-        padding-bottom: $space-s;
-        overflow: visible;
-        text-overflow: unset;
-        white-space: normal;
-        overflow: visible;
-        height: auto;
-        &.noresults {
-            width: 100%;
-            margin: 0;
-        }
-    }
-
-    @include mobile {
-        padding-bottom: $space-s;
-    }
-
-    .text-strike {
-        text-decoration: line-through;
-    }
-}
 
 .cmp-search__related-suggestions {
-    @include font-body;
-    color: $color-font-medium;
+    // @include font-body;
+    // color: $color-font-medium;
 
     .item {
         color: $color-link;
@@ -464,7 +475,9 @@ div.cmp-search__no-results {
     }
 }
 
-.cmp-search__sorted-container{
+.cmp-search__sorted-container {
+    color: $color-font-medium;
+
     @include mobile {
         display: flex;
         flex-wrap: wrap;
@@ -478,7 +491,12 @@ div.cmp-search__no-results {
             order: 1;
         }
     }
+
+    .text-strike {
+        text-decoration: line-through;
+    }
 }
+
 .cmp-search__sorted-by {
     @include font-small;
     display: none;
