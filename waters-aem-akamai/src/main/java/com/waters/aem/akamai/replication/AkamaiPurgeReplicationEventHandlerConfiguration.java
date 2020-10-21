@@ -7,7 +7,7 @@ import org.osgi.service.metatype.annotations.ObjectClassDefinition;
 public @interface AkamaiPurgeReplicationEventHandlerConfiguration {
 
     @AttributeDefinition(name = "Included Paths", description = "List of paths that should be purged.")
-    String[] includedPaths() default { "/content/waters" };
+    String[] includedPaths() default { "/content/waters","/content/order" };
 
     @AttributeDefinition(name = "Excluded Paths", description = "List of paths to exclude from purges.")
     String[] excludedPaths() default { "/content/waters/language-masters" };
