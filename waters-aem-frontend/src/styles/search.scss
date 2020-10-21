@@ -99,13 +99,19 @@
         .query-box {
             margin-bottom: $space-xs;
 
+            .results {
+                @include font-utility-large;
+            }
+
             .query {
                 color: $color-font-dark;
                 margin-bottom: 0;
                 display: inline-block;
             }
+
             .category {
                 font-size: $font-size-small;
+                margin-left: $space-xxxs;
             }
         }
     
