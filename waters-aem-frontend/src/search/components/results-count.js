@@ -4,7 +4,7 @@ function ResultsCount(props) {
     const maxLength = 120;
     const searchQuery = (props.query && props.query.toString().length > maxLength) ? props.query.substring(0,maxLength) + '...' : props.query;
     const getSearchQuery = (query) => <h1 className="query">{query}</h1>;
-    const getSuggestedQuery = () => <span className="text-strike">{searchQuery}</span>;
+    const getSuggestedQuery = (query) => <span className="text-strike">{query}</span>;
     const getRelatedSuggestions = () => (props.spell_related_suggestions.length === 1) 
         ? getRelatedSuggestionLink(props.spell_related_suggestions[0])
         : getRelatedSuggestionLinks(props.spell_related_suggestions).reduce((prev, curr) => <>{prev}<span className="vertical-bar">&#124;</span>{curr}</>);
@@ -33,7 +33,7 @@ function ResultsCount(props) {
     const getResultsText = (resultsText) => resultsText.replace(/[{]count[}]/, "<span class='count'>" + props.count.toLocaleString(undefined, {maximumFractionDigits:0}) + "</span>");
     const renderSearchQuery = () => (props.spell_suggestion) ? getSearchQuery(props.spell_suggestion) : getSearchQuery(searchQuery);
     const renderSuggestedSearchQuery = () => (props.spell_suggestion) ? getSuggestedQuery() : '';
-    const renderCategoryText = (selectedCategory) => <span class='category'>{props.text.inCategoryText + selectedCategory}</span>;
+    const renderCategoryText = (selectedCategory) => (selectedCategory !=="") ? <span class='category'>{props.text.inCategoryText + selectedCategory}</span> : '';
     const renderRelatedSuggestions = () => {
         return (props.spell_related_suggestions.length !== 0) 
             ? <div className='cmp-search__related-suggestions'>{props.text.relatedSearchesText} {getRelatedSuggestions()}</div> 
@@ -45,7 +45,7 @@ function ResultsCount(props) {
                 {props.noQuery || props.query === '*:*' && (
                     <>
                         <div class='query-box'>
-                            <span dangerouslySetInnerHTML={{__html: getResultsText(props.text.resultsText)}} />
+                            <span class='results' dangerouslySetInnerHTML={{__html: getResultsText(props.text.resultsText)}} />
                         </div>
                         <hr className="small-accent-rule" />
                     </>
@@ -53,9 +53,9 @@ function ResultsCount(props) {
 
                 {!props.noQuery && props.query !== '*:*' && (
                     <>	
-                        <span dangerouslySetInnerHTML={{__html: getResultsText(props.text.resultsForText)}} />
-                        {renderSuggestedSearchQuery()}
                         <div class='query-box'>
+                            <span class='results' dangerouslySetInnerHTML={{__html: getResultsText(props.text.resultsForText)}} />
+                            {renderSuggestedSearchQuery()}
                             {renderSearchQuery()} {" "} {renderCategoryText(categoryLabel)}
                         </div>
                         <hr className="small-accent-rule" />
