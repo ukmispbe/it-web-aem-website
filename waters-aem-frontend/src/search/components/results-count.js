@@ -53,8 +53,8 @@ function ResultsCount(props) {
 
                 {!props.noQuery && props.query !== '*:*' && (
                     <>	
+                        <span class='results' dangerouslySetInnerHTML={{__html: getResultsText(props.text.resultsForText)}} />
                         <div class='query-box'>
-                            <span class='results' dangerouslySetInnerHTML={{__html: getResultsText(props.text.resultsForText)}} />
                             {renderSuggestedSearchQuery()}
                             {renderSearchQuery()} {" "} {renderCategoryText(categoryLabel)}
                         </div>
