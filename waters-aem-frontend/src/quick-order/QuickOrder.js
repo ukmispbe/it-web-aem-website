@@ -87,12 +87,10 @@ function QuickOrder(props) {
 
     // Reset SKU and Qty
     useEffect(() => {
-        if (!modalShown) {
-            if (childRef.current) {
-                childRef.current.onChangeSku('');
-                childRef.current.skuQuantityInput({ target: { value: 1 } });
-                setSku(() => '');
-            }
+        if (!modalShown && childRef.current) {
+            childRef.current.onChangeSku('');
+            childRef.current.skuQuantityInput({ target: { value: 1 } });
+            setSku(() => '');
         }
     }, [modalShown]);
 
