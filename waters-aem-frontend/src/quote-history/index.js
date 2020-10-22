@@ -14,7 +14,7 @@ import Analytics, { analyticTypes, setClickAnalytics, setSelectDropdownAnalytics
 class QuoteHistory extends Component {
     constructor(props) {
         super(props);
-        let today = new Date();
+        const today = new Date();
         this.state = {
             orderList: "",
             fromDate: new Date(today.setDate(today.getDate() - 30)),
@@ -82,11 +82,15 @@ class QuoteHistory extends Component {
         const selectedTimeframe = e.value;
         const currentDate = new Date();
         let now = new Date();
+        const day = 30;
+        const sixMonth = 6;
+        const twelveMonth = 12;
+        const allTime = 15;
 
         switch (selectedTimeframe) {
             case 1:
                 setSelectDropdownAnalytics('Quote Period Selected', 'Quote History Last 30 Days');
-                let thirtyDaysAgo = new Date(now.setDate(now.getDate() - 30));
+                let thirtyDaysAgo = new Date(now.setDate(now.getDate() - day));
                 this.setState({
                     fromDate: thirtyDaysAgo.toISOString(),
                     activeTimePeriod: selectedTimeframe
@@ -97,8 +101,8 @@ class QuoteHistory extends Component {
                 break;
 
             case 2:
-                setSelectDropdownAnalytics('Order Period Selected', 'Order History Last 6 Months');
-                let sixMonthsAgo = new Date(now.setMonth(now.getMonth() - 6));
+                setSelectDropdownAnalytics('Quote Period Selected', 'Quote History Last 6 Months');
+                let sixMonthsAgo = new Date(now.setMonth(now.getMonth() - sixMonth));
                 this.setState({
                     fromDate: sixMonthsAgo.toISOString(),
                     activeTimePeriod: selectedTimeframe
@@ -109,8 +113,8 @@ class QuoteHistory extends Component {
                 break;
 
             case 3:
-                setSelectDropdownAnalytics('Order Period Selected', 'Order History Last 12 Months');
-                let twelveMonthsAgo = new Date(now.setMonth(now.getMonth() - 12));
+                setSelectDropdownAnalytics('Quote Period Selected', 'Quote History Last 12 Months');
+                let twelveMonthsAgo = new Date(now.setMonth(now.getMonth() - twelveMonth));
                 this.setState({
                     fromDate: twelveMonthsAgo.toISOString(),
                     activeTimePeriod: selectedTimeframe
@@ -121,8 +125,8 @@ class QuoteHistory extends Component {
                 break;
 
             case 4:
-                setSelectDropdownAnalytics('Order Period Selected', 'Order History Show All');
-                let showAllTimeframe = new Date(now.setMonth(now.getMonth() - 15));
+                setSelectDropdownAnalytics('Quote Period Selected', 'Quote History Show All');
+                let showAllTimeframe = new Date(now.setMonth(now.getMonth() - allTime));
                 this.setState({
                     fromDate: showAllTimeframe.toISOString(),
                     activeTimePeriod: selectedTimeframe
