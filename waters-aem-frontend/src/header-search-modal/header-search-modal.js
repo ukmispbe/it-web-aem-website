@@ -3,6 +3,7 @@ import ReactSVG from "react-svg";
 import domElements from "../scripts/domElements";
 import screenSizes from "../scripts/screenSizes";
 import SearchBar from "../search/components/searchbar";
+import { debounce } from "throttle-debounce";
 
 class HeaderSearchModal extends Component {
   constructor(props) {
@@ -11,18 +12,22 @@ class HeaderSearchModal extends Component {
       isMobile: screenSizes.isMobile(),
       mobileSearchOpen: false,
     };
+    this.prevWindowWidth = window.innerWidth;
+    // Debouncing functions to reduce frequency of execution
+    this.hideSearchModalDebounce = debounce(100, this.hideSearchModal);
+    this.elementNoScrollDebounce = debounce(100, domElements.noScroll);
   }
 
   showSearchModal = () => {
     this.setState({ mobileSearchOpen: !this.state.mobileSearchOpen }, () =>
-      domElements.noScroll(this.state.mobileSearchOpen)
+      this.elementNoScrollDebounce(this.state.mobileSearchOpen)
     );
   };
 
   hideSearchModal = (e) => {
     if (this.state.mobileSearchOpen) {
       this.setState({ mobileSearchOpen: false });
-      domElements.noScroll(false);
+      this.elementNoScrollDebounce(false);
     }
   };
 
@@ -30,16 +35,27 @@ class HeaderSearchModal extends Component {
     window.addEventListener("showMobileSearch", this.showSearchModal, false);
 
     // this is for desktop
-    window.addEventListener("resize", this.hideSearchModal);
+    window.addEventListener("resize", () => {
+      // Trigger the action only when screen width changes
+      if (this.prevWindowWidth === window.innerWidth) {
+        this.elementNoScrollDebounce(true);
+        return;
+      }
+      this.prevWindowWidth = window.innerWidth;
+      this.hideSearchModalDebounce();
+    });
 
     // this is for iPad orientation
-    window.addEventListener("orientationchange", this.hideSearchModal);
+    window.addEventListener("orientationchange", this.hideSearchModalDebounce);
   }
 
   componentWillUnmount() {
     window.removeEventListener("showMobileSearch", this.showSearchModal);
-    window.removeEventListener("resize", this.hideSearchModal);
-    window.removeEventListener("orientationchange", this.hideSearchModal);
+    window.removeEventListener("resize", this.hideSearchModalDebounce);
+    window.removeEventListener(
+      "orientationchange",
+      this.hideSearchModalDebounce
+    );
   }
 
   render() {
