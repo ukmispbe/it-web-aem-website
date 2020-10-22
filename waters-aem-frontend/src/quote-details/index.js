@@ -19,7 +19,6 @@ import { getFullCompanyAddress, getCountryName } from '../utils/userFunctions'
 class QuoteDetails extends Component {
     constructor({setErrorBoundaryToTrue, resetErrorBoundaryToFalse, removeNotifications, ...props}) {
         super({setErrorBoundaryToTrue, resetErrorBoundaryToFalse, removeNotifications, ...props});
-        console.log("props =====", props)
         this.state = {
             orderId: this.getUrlParameter("id"),
             userLocale: GetLocale.getLocale(),
