@@ -6,7 +6,7 @@ import GetLocale from '../../utils/get-locale'
 import { setClickAnalytics } from '../../analytics';
 import { elementLocator } from '../../utils/eCommerceFunctions';
 
-class OrderListItem extends Component {
+class QuoteListItem extends Component {
     constructor(props) {
         super(props);
         this.userLocale = GetLocale.getLocale()
@@ -44,11 +44,11 @@ class OrderListItem extends Component {
     }
 }
 
-OrderListItem.propTypes = {
+QuoteListItem.propTypes = {
     data: PropTypes.array.isRequired,
     orderText: PropTypes.string.isRequired,
     shipment: PropTypes.object.isRequired,
     icons: PropTypes.object.isRequired
 };
 
-export default OrderListItem;
+export default QuoteListItem;

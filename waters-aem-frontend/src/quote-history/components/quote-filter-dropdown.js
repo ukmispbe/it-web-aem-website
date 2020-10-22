@@ -14,7 +14,7 @@ const getOptions = text => {
     ];
 };
 
-const OrderFilterDropdown = props => {
+const QuoteFilterDropdown = props => {
     return (
         <div className="cmp-order-list-orderfilters">
             <Dropdown
@@ -28,4 +28,4 @@ const OrderFilterDropdown = props => {
     );
 };
 
-export default OrderFilterDropdown;
+export default QuoteFilterDropdown;

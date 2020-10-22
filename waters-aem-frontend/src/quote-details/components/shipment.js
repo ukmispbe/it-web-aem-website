@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import DeliveryStatus from '../../common/delivery-status'
-import OrderDetailsListItem from './order-details-list-item';
+import QuoteDetailsListItem from './quote-details-list-item';
 import DateFormatter from '../../utils/date-formatter'
 import GetLocale from '../../utils/get-locale'
 import Modal, { Header, keys } from '../../utils/modal';
@@ -93,7 +93,7 @@ class Shipment extends Component {
                 </div>
                 <div className="">
                     {this.props.data.map((record, index) => (
-                        <OrderDetailsListItem
+                        <QuoteDetailsListItem
                             key={index}
                             relatedSku={record}
                             skuConfig={this.skuConfig}

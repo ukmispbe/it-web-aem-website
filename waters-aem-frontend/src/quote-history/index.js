@@ -3,10 +3,10 @@ import ReactPaginate from 'react-paginate';
 import ReactSVG from 'react-svg';
 import PropTypes from 'prop-types';
 import QuoteHistoryService from'./quoteHistory.services';
-import OrderListItem from './components/order-list-item';
+import QuoteListItem from './components/quote-list-item';
 import CountHeader from '../common/count-header'
 import TimePeriodDropdown from './components/time-period-dropdown';
-import OrderFilterDropdown from './components/order-filter-dropdown';
+import QuoteFilterDropdown from './components/quote-filter-dropdown';
 import Tabs from '../navigation/tabs';
 import Spinner from '../utils/spinner';
 import Analytics, { analyticTypes, setClickAnalytics, setSelectDropdownAnalytics } from '../analytics';
@@ -204,7 +204,7 @@ class QuoteHistory extends Component {
     renderDropDowns = () => {
         return (
             <div className="cmp-order-list__dropdowns">
-                <OrderFilterDropdown
+                <QuoteFilterDropdown
                     onChange={e => this.handleCategorySelected(e)}
                     orderFilters={this.props.configs.orderfilters}
                 />
@@ -301,7 +301,7 @@ class QuoteHistory extends Component {
                         {this.state.noResults && this.renderNoResults()}
 
                         {this.state.listCount > 0 && this.renderPaginatedResults().map((item, index) => (               
-                            <OrderListItem
+                            <QuoteListItem
                                 data={item}
                                 orderText={this.props.configs.orderText}
                                 itemsText={this.props.configs.itemsText}

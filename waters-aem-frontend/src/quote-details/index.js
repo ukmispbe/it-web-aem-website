@@ -131,7 +131,6 @@ class QuoteDetails extends Component {
                 this.setError(response);
                 this.setState({ errorServiceError: false });
             }
-            //this.addToCartAnalytics(response);
         })
         .catch(err => {
             this.toggleModal();
