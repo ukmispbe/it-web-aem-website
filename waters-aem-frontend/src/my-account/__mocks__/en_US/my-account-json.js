@@ -243,6 +243,7 @@ export default {
         {
             name: "Close Quotes"
         }],
+        blankItemTabs:[{name: "All Quotes"}],
         orderfilters: {
             allOrders: "All Quotes",
             openOrders: "Open Quotes",

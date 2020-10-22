@@ -189,9 +189,11 @@ class QuoteHistory extends Component {
     }
 
     renderTabs = () => {
+        const {tabs = [], blankItemTabs=[]} = this.props.configs || {};
+        const currentTabs = this.state.noResults ? blankItemTabs : tabs;
         return (                     
             <Tabs className="cmp-search__categories-tabs"
-                items={this.props.configs.tabs}
+                items={currentTabs}
                 activeIndex={this.state.activeIndex}
                 onClick={e => this.handleCategorySelected(e)}
                 enableFading={true}
@@ -292,7 +294,7 @@ class QuoteHistory extends Component {
                     <>   
                     {this.renderTabs()}
                         <div className="cmp-order-list__header clearfix" data-locator="order-list-header-clearfix">
-                            {this.renderDropDowns()}
+                            {!this.state.noResults && this.renderDropDowns()}
                             {this.renderOrderCountHeader()}
                         </div>
 
