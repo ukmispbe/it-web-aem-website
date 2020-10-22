@@ -2,7 +2,7 @@ const eventTypes = {
     cart: {
         name: 'cart',
         event: 'scAddAEM',
-        context: ['Part Detail Page', 'Search: Global', 'Related Products']
+        context: ['Part Detail Page', 'Search: Global', 'Related Products', 'Shop All Products: Quick Add']
     },
     reOrder: {
         name: 'reOrder',
