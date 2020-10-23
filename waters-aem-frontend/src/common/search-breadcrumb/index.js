@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import ReactSVG from 'react-svg';
 import ScreenSizes from '../../scripts/screenSizes'
 import { getNamedHeaderLink } from '../../utils/redirectFunctions';
 import EllipsisText from "react-ellipsis-text";
@@ -48,14 +47,14 @@ const SearchBreadcrumb = (props) => {
 
     const createLinkData = () => {
         let links = []; 
-        const homeURL = getNamedHeaderLink("data-homepage-url");
+        const homeUrl = getNamedHeaderLink("data-homepage-url");
         const baseSearchUrl = getNamedHeaderLink("data-search-path");
         let correctKeyword = props.searchParams.keyword;
         if (props.searchParams.spell_suggestion) {
             correctKeyword = props.searchParams.spell_suggestion;
         }
 
-        const homeLink = {"title": props.text.homeLinkText, "path": homeURL} ;
+        const homeLink = {"title": props.text.homeLinkText, "path": homeUrl} ;
         links.push(homeLink);
 
         const searchLink = {"title": props.text.searchLinkText, "path": baseSearchUrl} ;
