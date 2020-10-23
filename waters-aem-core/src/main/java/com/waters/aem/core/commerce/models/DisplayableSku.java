@@ -55,7 +55,8 @@ public final class DisplayableSku {
     public String getFormattedPrice() {
         final BigDecimal price = getPrice();
 
-        return price == null ? null : NumberFormat.getCurrencyInstance(siteContext.getCurrencyLocale()).format(price);
+        return price == null ? null : price + " " + sku.getCurrencyCode(siteContext.getLocaleWithCountry().getCountry(),
+                siteContext.getCurrencyIsoCode());
     }
 
     public String getPrimaryImageAlt() {
