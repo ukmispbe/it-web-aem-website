@@ -2,7 +2,7 @@
 <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0"
           xmlns:jcr="http://www.jcp.org/jcr/1.0"
           jcr:primaryType="sling:OsgiConfig"
-          baseUrl="http://solrpreprodmaster.waters.com:8983/solr"
+          zookeeperUrl="[]"
           collection="waters"
           hardCommit="{Boolean}false"
           connectionTimeout="{Long}20000"

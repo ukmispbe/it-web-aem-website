@@ -8,9 +8,6 @@ import org.osgi.service.metatype.annotations.ObjectClassDefinition;
 public @interface SolrIndexClientConfiguration {
 	@AttributeDefinition(name = "Zookeeper host url",  type = AttributeType.STRING)
     String[] zookeeperUrl() default {"localhost:2181","localhost:2182","localhost:2183"};
-	
-    @AttributeDefinition(name = "Solr Base URL")
-    String baseUrl() default "http://solrdevmaster.waters.com:8983/solr";
 
     @AttributeDefinition(name = "Solr Collection")
     String collection() default "waters";
