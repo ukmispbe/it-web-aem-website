@@ -2,16 +2,20 @@
 
 exports[`Feature: SkuMessage React Component Scenario: Rendering When the component renders with props Then the snapshot should match 1`] = `
 <div
-  className="cmp-notification-wrapper"
+  className="cmp-notification-wrapper "
+  data-locator="sku-msg-notification-wrapper"
 >
   <div
     className="cmp-notification-icon"
+    data-locator="sku-msg-notification-icon"
   />
   <div
     className="cmp-notification-body"
+    data-locator="sku-msg-notification-body"
   >
     <div
       className="cmp-notification-description"
+      data-locator="sku-msg-notification-description"
     >
       message
       <a

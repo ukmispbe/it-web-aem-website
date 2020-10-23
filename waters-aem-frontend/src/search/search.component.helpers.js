@@ -370,7 +370,6 @@ const ResultsBody = ({
         <div className="cmp-search__container">
             <div className="cmp-search__container__header clearfix">
                 {!isEprocurementUser && <CategoryDropdown
-
                     categoryDownIcon={text.downIcon}
                     categoryIsSearchable={false}
                     categoryOnChange={categoryEvents.onCategoryDropdownChange}
@@ -394,6 +393,8 @@ const ResultsBody = ({
                 <ResultsCount
                     {...resultsProps}
                     text={text}
+                    categoryOptions={categoryProps.categories}
+                    categoryValue={categoryProps.activeIndex}
                     onRelatedSuggestionClick={resultsEvents.onRelatedSuggestionClick}  />
 
                 <FilterTagList 
