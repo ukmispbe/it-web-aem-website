@@ -7,8 +7,6 @@ import MyProfile from '../my-profile';
 import ChangePassword from "../change-password";
 import OrderHistory from "../order-history";
 import OrderDetails from "../order-details";
-import QuoteHistory from "../quote-history";
-import QuoteDetails from "../quote-details";
 
 const MyAccountRouter = (props) => {
     return (
@@ -35,16 +33,6 @@ const MyAccountRouter = (props) => {
                 <Route exact path={routes.orderDetails.path}>
                     <Aside tiles={props.tiles} breadcrumbs={props.breadcrumbs}>
                         <OrderDetails config={props.orderDetails} />
-                    </Aside>
-                </Route>
-                <Route exact path={routes.quoteHistory.path} >
-                    <Aside tiles={props.tiles} breadcrumbs={props.breadcrumbs}>
-                        <QuoteHistory configs={props.quoteHistory} />
-                    </Aside>
-                </Route>
-                <Route exact path={routes.quoteDetails.path} >
-                    <Aside tiles={props.tiles} breadcrumbs={props.breadcrumbs}>
-                        <QuoteDetails config={props.quoteDetails} />
                     </Aside>
                 </Route>
             </Switch>
