@@ -3,9 +3,14 @@ package com.waters.aem.solr.client.impl;
 import com.waters.aem.solr.client.SolrIndexClient;
 import com.waters.aem.solr.client.SolrIndexClientConfiguration;
 import com.waters.aem.solr.index.impl.DefaultSolrIndexService;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
-import org.apache.solr.client.solrj.impl.HttpSolrClient;
+import org.apache.solr.client.solrj.impl.CloudSolrClient;
 import org.apache.solr.client.solrj.response.UpdateResponse;
 import org.apache.solr.common.SolrInputDocument;
 import org.osgi.service.component.annotations.Activate;
@@ -15,8 +20,6 @@ import org.osgi.service.component.annotations.Modified;
 import org.osgi.service.metatype.annotations.Designate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
 
 @Component(immediate = true, service = SolrIndexClient.class)
 @Designate(ocd = SolrIndexClientConfiguration.class)
@@ -42,18 +45,17 @@ public class DefaultSolrIndexClient implements SolrIndexClient {
         return processResponse(solrClient.deleteById(collection, id, commitWithinMs));
     }
 
-    @Activate
+	@Activate
     @Modified
     protected void activate(final SolrIndexClientConfiguration configuration) {
         commitWithinMs = configuration.commitWithinMs();
         hardCommit = configuration.hardCommit();
         collection = configuration.collection();
-
-        solrClient = new HttpSolrClient.Builder(configuration.baseUrl())
-            .withConnectionTimeout(configuration.connectionTimeout())
-            .withSocketTimeout(configuration.socketTimeout())
-            .build();
-
+        final List<String> zkServers = Arrays.asList(configuration.zookeeperUrl());
+        solrClient = new CloudSolrClient.Builder(zkServers, Optional.empty())
+        		.withConnectionTimeout(configuration.connectionTimeout())
+        		.withSocketTimeout(configuration.socketTimeout()) .build();
+        
         LOG.info("created solr client, commit within : {}ms, hard commit : {}, collection : {}", commitWithinMs,
             hardCommit, collection);
     }
