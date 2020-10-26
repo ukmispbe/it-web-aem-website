@@ -105,7 +105,7 @@ public final class WatersConstants {
 
     public static final String SEARCH_PAGE_PATH = ROOT_PATH_LANGUAGE_MASTERS + "/en/search.html";
 
-    public static final String DEFAULT_ROLLOUT_CONFIG_PATH = "/apps/msm/wcm/rolloutconfigs/default";
+    public static final String DEFAULT_ROLLOUT_CONFIG_PATH = "/libs/msm/wcm/rolloutconfigs/default";
     
     public static final int ORDER_LANGUAGE_ROOT = 2;
 
