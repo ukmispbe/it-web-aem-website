@@ -55,10 +55,7 @@ public final class DisplayableSku {
     public String getFormattedPrice() {
         final BigDecimal price = getPrice();
 
-        NumberFormat numberFormat = NumberFormat.getInstance();
-        numberFormat.setMinimumFractionDigits(2);
-
-        return price == null ? null : numberFormat.format(price) + " " + sku.getCurrencyCode(siteContext.getLocaleWithCountry().getCountry(),
+        return price == null ? null : price + " " + sku.getCurrencyCode(siteContext.getLocaleWithCountry().getCountry(),
                 siteContext.getCurrencyIsoCode());
     }
 
