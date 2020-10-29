@@ -97,7 +97,7 @@ const Aside = ({
     asideEvents,
     children
 }) => {
-    console.log("text", text);
+
     return (
         <div className="container__left cmp-search__sort-filter" data-locator="left-container-filter">
             <BtnHideSortFilter
@@ -114,14 +114,13 @@ const Aside = ({
                 text={text}
                 collapseFilters={asideEvents.onCollapseFilters} />
 
-            {/* {screenSizes.isMobile() && ( */}
                 <div className="cmp-search__sort-filter__container">
                     <Sort
                         sortValue={asideProps.sortByValue}
                         sortHandler={asideEvents.onSort}
                         text={text} />
+                        {children}
                 </div>
-            {/* )} */}
 
         </div>
     );
