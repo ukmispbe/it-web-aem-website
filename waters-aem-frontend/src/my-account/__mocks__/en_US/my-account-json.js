@@ -108,8 +108,8 @@ export default {
         fetchEndPoint: "https://devservices.waters.com:8443/api/waters/order/v1/list",
         title: "Order History",
         resultsText: "Showing {startResults}-{endResults} of {count} Orders",
-        noOrdersFoundTitle: "Sorry, no orders found.",
-        noOrdersFoundText: "Check back after you shop on Waters.com for order information and shipment tracking.",
+        noResultsFoundTitle: "Sorry, no orders found.",
+        noResultsFoundText: "Check back after you shop on Waters.com for order information and shipment tracking.",
         shopAllTitle: "Shop All Products",
         shopAllHref: "/content/waters/us/en/shop/shop-all-products.html",
         orderText: "Order Number: ",
@@ -132,9 +132,9 @@ export default {
         }, {
             name: "Open Orders"
         }],
-        orderfilters: {
-            allOrders: "All Orders",
-            openOrders: "Open Orders",
+        dropdownfilters: {
+            all: "All Orders",
+            opens: "Open Orders",
             downIcon: "/content/dam/waters/en/brand-assets/icons/down.svg",
         },
         timeperiod: {
@@ -151,7 +151,7 @@ export default {
         orderHistory: "Order History",
         orderDetails: "Order Details",
         resultsText: "Showing {startResults}-{endResults} of {count} Shipments",
-        orderNotFoundErrorTitle: "Sorry, order not found.",
+        resultNotFoundErrorTitle: "Sorry, order not found.",
         serviceErrorNotificationTitle: "Sorry, something went wrong.",
         serviceErrorNotificationText: "Please try again.",
         serviceErrorNotificationIcon: "/content/dam/waters/en/brand-assets/icons/attention.svg",
@@ -216,8 +216,8 @@ export default {
         fetchEndPoint: "https://devservices.waters.com:8443/api/waters/order/v1/list",
         title: "Quote History",
         resultsText: "Showing {startResults}-{endResults} of {count} Quotes",
-        noOrdersFoundTitle: "Sorry, no quotes found.",
-        noOrdersFoundText: "Check back after you shop on Waters.com for order information and shipment tracking.",
+        noResultsFoundTitle: "Sorry, no quotes found.",
+        noResultsFoundText: "Check back after you shop for quote information.",
         shopAllTitle: "Shop All Products",
         shopAllHref: "/content/waters/us/en/shop/shop-all-products.html",
         orderText: "Quote Number: ",
@@ -241,13 +241,13 @@ export default {
             name: "Open Quotes"
         },
         {
-            name: "Close Quotes"
+            name: "Closed Quotes"
         }],
         blankItemTabs:[{name: "All Quotes"}],
-        orderfilters: {
-            allOrders: "All Quotes",
-            openOrders: "Open Quotes",
-            closeOrders: "Close Quotes",
+        dropdownfilters: {
+            all: "All Quotes",
+            open: "Open Quotes",
+            closed: "Closed Quotes",
             downIcon: "/content/dam/waters/en/brand-assets/icons/down.svg",
         },
         timeperiod: {
@@ -261,10 +261,10 @@ export default {
     quoteDetails: {
         fetchDetailsEndPoint: "https://devservices.waters.com:8443/api/waters/order/v1/details",
         fetchItemsEndPoint: "https://devservices.waters.com:8443/api/waters/search",
-        orderHistory: "Quote History",
+        quoteHistory: "Quote History",
         orderDetails: "Quote Details",
         resultsText: "Showing {startResults}-{endResults} of {count} Shipments",
-        orderNotFoundErrorTitle: "Sorry, Quotes not found.",
+        resultNotFoundErrorTitle: "Sorry, Quotes not found.",
         serviceErrorNotificationTitle: "Sorry, something went wrong.",
         serviceErrorNotificationText: "Please try again.",
         serviceErrorNotificationIcon: "/content/dam/waters/en/brand-assets/icons/attention.svg",

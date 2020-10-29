@@ -5,10 +5,10 @@ import Aside from "./aside";
 import MyAccount from "./myaccount";
 import MyProfile from '../my-profile';
 import ChangePassword from "../change-password";
-import OrderHistory from "../order-history";
-import OrderDetails from "../order-details";
-import QuoteHistory from "../quote-history";
-import QuoteDetails from "../quote-details";
+import OrderHistory from "../history/order-history";
+import OrderDetails from "../details/order-details";
+import QuoteHistory from "../history/quote-history";
+import QuoteDetails from "../details/quote-details";
 
 const MyAccountRouter = (props) => {
     return (

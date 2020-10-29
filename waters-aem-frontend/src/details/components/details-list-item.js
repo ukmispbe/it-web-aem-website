@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-class QuoteDetailsListItem extends React.Component {
+class DetailsListItem extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -53,13 +53,13 @@ class QuoteDetailsListItem extends React.Component {
 }
 
 
-QuoteDetailsListItem.propTypes = {
+DetailsListItem.propTypes = {
     key: PropTypes.string.isRequired,
     relatedSku: PropTypes.object.isRequired,
     skuConfig: PropTypes.object.isRequired
 };
 
-QuoteDetailsListItem.defaultProps = {
+DetailsListItem.defaultProps = {
     key: 1,
     relatedSku: {},
     skuConfig: {}
@@ -67,4 +67,4 @@ QuoteDetailsListItem.defaultProps = {
 
 
 
-export default QuoteDetailsListItem;
+export default DetailsListItem;

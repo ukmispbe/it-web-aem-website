@@ -2,21 +2,21 @@ import React, { Component } from 'react';
 import ReactPaginate from 'react-paginate';
 import ReactSVG from 'react-svg';
 import PropTypes from 'prop-types';
-import QuoteHistoryService from'./quoteHistory.services';
-import QuoteListItem from './components/quote-list-item';
-import CountHeader from '../common/count-header'
-import TimePeriodDropdown from './components/time-period-dropdown';
-import QuoteFilterDropdown from './components/quote-filter-dropdown';
-import Tabs from '../navigation/tabs';
-import Spinner from '../utils/spinner';
-import Analytics, { analyticTypes, setClickAnalytics, setSelectDropdownAnalytics } from '../analytics';
+import HistoryService from'../history.services';
+import OrderListItem from '../components/order-list-item';
+import CountHeader from '../../common/count-header'
+import TimePeriodDropdown from '../components/time-period-dropdown';
+import FilterDropdown from '../components/filter-dropdown';
+import Tabs from '../../navigation/tabs';
+import Spinner from '../../utils/spinner';
+import Analytics, { analyticTypes, setClickAnalytics, setSelectDropdownAnalytics } from '../../analytics';
 
-class QuoteHistory extends Component {
+class OrderHistory extends Component {
     constructor(props) {
         super(props);
         const today = new Date();
         this.state = {
-            orderList: "",
+            listItems: "",
             fromDate: new Date(today.setDate(today.getDate() - 30)),
             poNumber: "",
             orderNumber: "",
@@ -28,6 +28,16 @@ class QuoteHistory extends Component {
             noResults: false,
             error: false,
             initialPageLoad: true
+        }
+
+        this.page = {
+            name: "Order History",
+            type: "Orders",
+            analytics: {
+                reference: "orderHistory",
+                timePeriod: "Order Period Selected",
+                timePeriodOptions: ['Last 30 Days', 'Last 6 Months', 'Last 12 Months', 'Show All']
+            }
         }
 
         this.paginationDefaults = {
@@ -49,7 +59,7 @@ class QuoteHistory extends Component {
             detail,
             event
         };
-        Analytics.setAnalytics(analyticTypes['orderHistory'].name, model);
+        Analytics.setAnalytics(analyticTypes[this.page.analytics.reference].name, model);
     }
 
     setError = (error) => {
@@ -65,10 +75,10 @@ class QuoteHistory extends Component {
 
         if (tabId === 1) {
             activeTabFilter = "Open";
-            setClickAnalytics('Quote History', 'Quote History Open Orders', '#');
-        } else {
-            setClickAnalytics('Quote History', 'Quote History All Orders', '#');
         }
+
+        setClickAnalytics(this.page.title, `${this.page.title} ${activeTabFilter} ${this.page.type}`, '#');
+
         this.setState({
             activeTabFilter: activeTabFilter,
             activeIndex: tabId
@@ -79,69 +89,48 @@ class QuoteHistory extends Component {
     }
 
     timePeriodHandler(e) {
+        const { timePeriod, timePeriodOptions } = this.page.analytics;
         const selectedTimeframe = e.value;
-        const currentDate = new Date();
         let now = new Date();
-        const day = 30;
-        const sixMonth = 6;
-        const twelveMonth = 12;
+        let timeValue ='';
+        const days = 30;
+        const sixMonths = 6;
+        const twelveMonths = 12;
         const allTime = 15;
+
+        setSelectDropdownAnalytics(timePeriod, `${this.page.title} ${timePeriodOptions[selectedTimeframe]}`);
 
         switch (selectedTimeframe) {
             case 1:
-                setSelectDropdownAnalytics('Quote Period Selected', 'Quote History Last 30 Days');
-                let thirtyDaysAgo = new Date(now.setDate(now.getDate() - day));
-                this.setState({
-                    fromDate: thirtyDaysAgo.toISOString(),
-                    activeTimePeriod: selectedTimeframe
-                },() => {
-                    const {fromDate, poNumber, orderNumber, activeTabFilter} = this.state 
-                    this.retrieveData(fromDate, poNumber, orderNumber, activeTabFilter);
-                });
+                timeValue = new Date(now.setDate(now.getDate() - days));
                 break;
 
             case 2:
-                setSelectDropdownAnalytics('Quote Period Selected', 'Quote History Last 6 Months');
-                let sixMonthsAgo = new Date(now.setMonth(now.getMonth() - sixMonth));
-                this.setState({
-                    fromDate: sixMonthsAgo.toISOString(),
-                    activeTimePeriod: selectedTimeframe
-                },() => {
-                    const {fromDate, poNumber, orderNumber, activeTabFilter} = this.state 
-                    this.retrieveData(fromDate, poNumber, orderNumber, activeTabFilter);
-                });
+                timeValue = new Date(now.setMonth(now.getMonth() - sixMonths));
                 break;
 
             case 3:
-                setSelectDropdownAnalytics('Quote Period Selected', 'Quote History Last 12 Months');
-                let twelveMonthsAgo = new Date(now.setMonth(now.getMonth() - twelveMonth));
-                this.setState({
-                    fromDate: twelveMonthsAgo.toISOString(),
-                    activeTimePeriod: selectedTimeframe
-                },() => {
-                    const {fromDate, poNumber, orderNumber, activeTabFilter} = this.state 
-                    this.retrieveData(fromDate, poNumber, orderNumber, activeTabFilter);
-                });
+                timeValue = new Date(now.setMonth(now.getMonth() - twelveMonths));
                 break;
 
             case 4:
-                setSelectDropdownAnalytics('Quote Period Selected', 'Quote History Show All');
-                let showAllTimeframe = new Date(now.setMonth(now.getMonth() - allTime));
-                this.setState({
-                    fromDate: showAllTimeframe.toISOString(),
-                    activeTimePeriod: selectedTimeframe
-                },() => {
-                    const {fromDate, poNumber, orderNumber, activeTabFilter} = this.state 
-                    this.retrieveData(fromDate,poNumber, orderNumber, activeTabFilter);
-                });
+                timeValue = new Date(now.setMonth(now.getMonth() - allTime));
                 break;
             default:
         }
+
+        this.setState({
+            fromDate: timeValue.toISOString(),
+            activeTimePeriod: selectedTimeframe
+        },() => {
+            const {fromDate, poNumber, orderNumber, activeTabFilter} = this.state 
+            this.retrieveData(fromDate, poNumber, orderNumber, activeTabFilter);
+        });
     }
 
     setNoResultsState = () => {
         this.setState({ 
-            orderList: null,
+            listItems: null,
             pageCount: 0,
             listCount: 0,
             currentPage: 1,
@@ -150,11 +139,11 @@ class QuoteHistory extends Component {
         }); 
     }
 
-    setResultsState = (filteredOrders) => {
+    setResultsState = (filteredListItems) => {
         this.setState({ 
-            orderList: filteredOrders,
-            pageCount: Math.ceil(filteredOrders.length / this.paginationDefaults.visibleRows),
-            listCount: filteredOrders.length,
+            listItems: filteredListItems,
+            pageCount: Math.ceil(filteredListItems.length / this.paginationDefaults.visibleRows),
+            listCount: filteredListItems.length,
             currentPage: 1,
             noResults: false,
             loading: false
@@ -162,23 +151,23 @@ class QuoteHistory extends Component {
     }
 
     retrieveData = async (fromDate, poNumber, orderNumber, activeTabFilter) => {
-        const QuoteHistoryServiceObj = new QuoteHistoryService();
+        const HistoryServiceObj = new HistoryService();
         const fetchEndPoint = this.props.configs.fetchEndPoint;
-        const orders = await QuoteHistoryServiceObj.getOrderListPost(fetchEndPoint, fromDate, poNumber, orderNumber, this.setError);
+        const orders = await HistoryServiceObj.getOrderListPost(fetchEndPoint, fromDate, poNumber, orderNumber, this.setError);
 
         if(orders && orders.length > 0){
-            let filteredOrders = orders;
+            let filteredListItems = orders;
             if (activeTabFilter !== undefined && activeTabFilter !== "All" && activeTabFilter === "Open"){
-                filteredOrders = orders.filter(function(i) {
+                filteredListItems = orders.filter(function(i) {
                     return i.deliveryStatus === "Open" || i.deliveryStatus === "Partial";
                 })
-                if (filteredOrders.length > 0){
-                    this.setResultsState(filteredOrders)
+                if (filteredListItems.length > 0){
+                    this.setResultsState(filteredListItems)
                 } else {
                     this.setNoResultsState()
                 }
             } else {
-                this.setResultsState(filteredOrders)
+                this.setResultsState(filteredListItems)
             }
         } else {
             this.setNoResultsState()
@@ -189,11 +178,9 @@ class QuoteHistory extends Component {
     }
 
     renderTabs = () => {
-        const {tabs = [], blankItemTabs=[]} = this.props.configs || {};
-        const currentTabs = this.state.noResults ? blankItemTabs : tabs;
         return (                     
             <Tabs className="cmp-search__categories-tabs"
-                items={currentTabs}
+                items={this.props.configs.tabs}
                 activeIndex={this.state.activeIndex}
                 onClick={e => this.handleCategorySelected(e)}
                 enableFading={true}
@@ -204,9 +191,9 @@ class QuoteHistory extends Component {
     renderDropDowns = () => {
         return (
             <div className="cmp-order-list__dropdowns">
-                <QuoteFilterDropdown
+                <FilterDropdown
                     onChange={e => this.handleCategorySelected(e)}
-                    orderFilters={this.props.configs.orderfilters}
+                    dropdownfilters={this.props.configs.dropdownfilters}
                 />
                 <TimePeriodDropdown 
                     onChange={e => this.timePeriodHandler(e)}
@@ -216,14 +203,14 @@ class QuoteHistory extends Component {
         );
     }
 
-    renderOrderCountHeader = () => {
+    renderCountHeader = () => {
         return (
             <CountHeader
                 rows={this.paginationDefaults.visibleRows}
                 count={this.state.listCount}
                 current={this.state.currentPage}
                 resultsText={this.props.configs.resultsText}
-                noResultsText={this.props.configs.noOrdersFoundTitle}
+                noResultsText={this.props.configs.noResultsFoundTitle}
             />
         );
     }
@@ -234,7 +221,7 @@ class QuoteHistory extends Component {
         const current = this.state.currentPage;
         const endResults = count > current * rows ? current * rows : count;
         const startResults = current * rows - rows;
-        let itemsToRender = this.state.orderList.slice(startResults, endResults);
+        let itemsToRender = this.state.listItems.slice(startResults, endResults);
         return itemsToRender;
     }
 
@@ -279,7 +266,7 @@ class QuoteHistory extends Component {
         return (
             <>
                 <div className="cmp-order-list__no-results">
-                    <p data-locator="no-results">{this.props.configs.noOrdersFoundText}</p>
+                    <p data-locator="no-results">{this.props.configs.noResultsFoundText}</p>
                     <p><a href={this.props.configs.shopAllHref} data-locator="shop-all">{this.props.configs.shopAllTitle}</a></p>
                 </div>
             </>
@@ -294,16 +281,16 @@ class QuoteHistory extends Component {
                     <>   
                     {this.renderTabs()}
                         <div className="cmp-order-list__header clearfix" data-locator="order-list-header-clearfix">
-                            {!this.state.noResults && this.renderDropDowns()}
-                            {this.renderOrderCountHeader()}
+                            {this.renderDropDowns()}
+                            {this.renderCountHeader()}
                         </div>
 
                         {this.state.noResults && this.renderNoResults()}
 
                         {this.state.listCount > 0 && this.renderPaginatedResults().map((item, index) => (               
-                            <QuoteListItem
+                            <OrderListItem
                                 data={item}
-                                orderText={this.props.configs.orderText}
+                                numberText={this.props.configs.numberText}
                                 itemsText={this.props.configs.itemsText}
                                 shipment={this.props.configs.shipment}
                                 icons={this.props.configs.icons}
@@ -317,8 +304,8 @@ class QuoteHistory extends Component {
     }
 }
 
-QuoteHistory.propTypes = {
+OrderHistory.propTypes = {
     configs: PropTypes.object.isRequired
 };
 
-export default QuoteHistory;
+export default OrderHistory;

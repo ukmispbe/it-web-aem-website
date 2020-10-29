@@ -96,8 +96,8 @@ const myAccountJSON = {
 			fetchEndPoint: "https://devservices.waters.com:8443/api/waters/order/v1/list",
 			title: "Order History",
 			resultsText: "Showing {startResults}-{endResults} of {count} Orders",
-			noOrdersFoundTitle: "Sorry, no orders found.",
-			noOrdersFoundText: "Check back after you shop on Waters.com for order information and shipment tracking.",
+			noResultsFoundTitle: "Sorry, no orders found.",
+			noResultsFoundText: "Check back after you shop on Waters.com for order information and shipment tracking.",
 			shopAllTitle: "Shop All Products",
 			shopAllHref: "/content/waters/us/en/shop/shop-all-products.html",
 			orderText: "Order Number: ",
@@ -120,9 +120,9 @@ const myAccountJSON = {
 			}, {
 				name: "Open Orders"
 			}],
-			orderfilters: {
-				allOrders: "All Orders",
-				openOrders: "Open Orders",
+			dropdownfilters: {
+				all: "All Orders",
+				open: "Open Orders",
 				downIcon: "/content/dam/waters/en/brand-assets/icons/down.svg",
 			},
 			timeperiod: {
@@ -139,7 +139,7 @@ const myAccountJSON = {
 			orderHistory: "Order History",
 			orderDetails: "Order Details",
 			resultsText: "Showing {startResults}-{endResults} of {count} Shipments",
-			orderNotFoundErrorTitle: "Sorry, order not found.",
+			resultNotFoundErrorTitle: "Sorry, order not found.",
 			serviceErrorNotificationTitle: "Sorry, something went wrong.",
 			serviceErrorNotificationText: "Please try again.",
 			serviceErrorNotificationIcon: "/content/dam/waters/en/brand-assets/icons/attention.svg",

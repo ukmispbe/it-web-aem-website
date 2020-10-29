@@ -3,6 +3,7 @@ import ReactPaginate from 'react-paginate';
 import ReactSVG from 'react-svg';
 import PropTypes from 'prop-types';
 import { parameterDefaults } from './services/index';
+import screenSizes from '../scripts/screenSizes';
 import ContentTypeMenu from './components/content-type-menu';
 import FacetMenu from './components/facet-menu';
 import Filter from './components/filter';
@@ -96,6 +97,7 @@ const Aside = ({
     asideEvents,
     children
 }) => {
+    console.log("text", text);
     return (
         <div className="container__left cmp-search__sort-filter" data-locator="left-container-filter">
             <BtnHideSortFilter
@@ -111,13 +113,16 @@ const Aside = ({
             <BtnDoneSortFilter
                 text={text}
                 collapseFilters={asideEvents.onCollapseFilters} />
-            <div className="cmp-search__sort-filter__container">
-                <Sort
-                    sortValue={asideProps.sortByValue}
-                    sortHandler={asideEvents.onSort}
-                    text={text} />
-                {children}
-            </div>
+
+            {/* {screenSizes.isMobile() && ( */}
+                <div className="cmp-search__sort-filter__container">
+                    <Sort
+                        sortValue={asideProps.sortByValue}
+                        sortHandler={asideEvents.onSort}
+                        text={text} />
+                </div>
+            {/* )} */}
+
         </div>
     );
 }
@@ -409,8 +414,6 @@ const ResultsBody = ({
                     searchParams={searchParams}
                     resultsProps={resultsProps}
                     resultsEvents={resultsEvents} />
-
-
             </div>
 
             <Pagination

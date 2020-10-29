@@ -6,7 +6,7 @@ import GetLocale from '../../utils/get-locale'
 import { setClickAnalytics } from '../../analytics';
 import { elementLocator } from '../../utils/eCommerceFunctions';
 
-class QuoteListItem extends Component {
+class OrderListItem extends Component {
     constructor(props) {
         super(props);
         this.userLocale = GetLocale.getLocale()
@@ -17,11 +17,11 @@ class QuoteListItem extends Component {
                 <div className="cmp-order-list__left">
                     <div className="cmp-order-list__order-number">
                         <a
-                            href={'#quotedetails?id=' + this.props.data.orderNumber}
-                            onClick={() => setClickAnalytics("Quote History", "Quote Details, " + this.props.data.orderNumber, '#quotedetails?id=' + this.props.data.orderNumber)}
-                            data-locator={elementLocator(`${this.props.orderText} ${this.props.data.orderNumber}`)}
+                            href={'#orderdetails?id=' + this.props.data.orderNumber}
+                            onClick={() => setClickAnalytics("Order History", "Order Details, " + this.props.data.orderNumber, '#orderdetails?id=' + this.props.data.orderNumber)}
+                            data-locator={elementLocator(`${this.props.numberText} ${this.props.data.orderNumber}`)}
                         >
-                            {this.props.orderText + " " + this.props.data.orderNumber}
+                            {this.props.numberText + " " + this.props.data.orderNumber}
                         </a>
                     </div>
                     <div className="cmp-order-list__date" data-locator="order-list-date">
@@ -40,15 +40,15 @@ class QuoteListItem extends Component {
                     {this.props.data.orderTotal}
                 </div>
             </div>
-        );
+        );s
     }
 }
 
-QuoteListItem.propTypes = {
+OrderListItem.propTypes = {
     data: PropTypes.array.isRequired,
-    orderText: PropTypes.string.isRequired,
+    numberText: PropTypes.string.isRequired,
     shipment: PropTypes.object.isRequired,
     icons: PropTypes.object.isRequired
 };
 
-export default QuoteListItem;
+export default OrderListItem;
