@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactSVG from 'react-svg';
 import { getOrderDetails, getItemDetails, matchLineItems } from '../details.services';
-import Shipment from './components/shipment'
+import Shipment from '../components/shipment'
 import DateFormatter from '../../utils/date-formatter'
 import GetLocale from "../../utils/get-locale";
 import GetIsocode from "../../utils/get-isocode";
