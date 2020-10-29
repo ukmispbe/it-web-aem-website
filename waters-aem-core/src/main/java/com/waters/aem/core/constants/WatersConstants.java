@@ -1,8 +1,11 @@
 package com.waters.aem.core.constants;
 
 import com.google.common.base.Predicate;
+import com.google.common.collect.ImmutableMap;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import org.apache.commons.lang3.time.FastDateFormat;
+
+import java.util.Map;
 
 @SuppressWarnings("squid:S1195")
 public final class WatersConstants {
@@ -108,6 +111,8 @@ public final class WatersConstants {
     public static final String DEFAULT_ROLLOUT_CONFIG_PATH = "/libs/msm/wcm/rolloutconfigs/default";
     
     public static final int ORDER_LANGUAGE_ROOT = 2;
+
+    public static final Map<String,String> CURRENCY_FORMATS = ImmutableMap.<String, String>builder() .put("JPY","#,##0") .put("WON","#,##0") .build();
 
     private WatersConstants() {
 
