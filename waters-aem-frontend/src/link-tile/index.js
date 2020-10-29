@@ -7,9 +7,11 @@ import { elementLocator } from '../utils/eCommerceFunctions';
 const LinkTile = ({
     title,
     icon,
-    links
+    links,
+	tilesName,
+	datalocator
 }) => (
-    <div className="cmp-linktile">
+    <div className="cmp-linktile" data-locator={elementLocator(tilesName)}>
         <div className="cmp-linktile-column">
             <ReactSVG src={icon} className="cmp-linktile--icon" data-locator={elementLocator(`${title} icon`)} />
         </div>
@@ -18,7 +20,7 @@ const LinkTile = ({
             {links.map((link, key) => (
                 <div key={key} className="cmp-linktile--links">
                     {!link.isHidden &&
-                        <Link {...link} />
+                        <Link {...link} context={datalocator} />
                     }
                 </div>
             ))}

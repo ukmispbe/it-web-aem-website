@@ -337,7 +337,7 @@ const Form = ({
                 <button
                     type="submit"
                     className={"cmp-button cmp-button--no-border cmp-form--submit"}
-                    data-locator={elementLocator(config.buttonText || 'form-submit')}
+                    data-locator={elementLocator(config.buttonName || 'form-submit')}
                 >
                     {config.buttonText}
                 </button>
