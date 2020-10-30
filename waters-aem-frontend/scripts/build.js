@@ -19,6 +19,15 @@ const clientlibPrintPath =
 const clientlibHeadPath =
     'waters-aem-ui.apps/src/main/content/jcr_root/apps/waters/clientlibs/clientlib-head';
 
+const clientlibGlobalPath =
+    'waters-aem-ui.apps/src/main/content/jcr_root/apps/waters/clientlibs/clientlib-global';
+
+const clientlibNodeVendorsPath =
+    'waters-aem-ui.apps/src/main/content/jcr_root/apps/waters/clientlibs/clientlib-node_vendors';
+
+const clientlibUtilityPath =
+    'waters-aem-ui.apps/src/main/content/jcr_root/apps/waters/clientlibs/clientlib-utility';
+
 compiler.run((err, stats) => {
     if (err) {
         console.log(err);
@@ -36,6 +45,9 @@ compiler.run((err, stats) => {
     const js = path.resolve(__dirname, '../', 'build', 'main.js');
     const printJs = path.resolve(__dirname, '../', 'build', 'print.js');
     const headJs = path.resolve(__dirname, '../', 'build', 'head.js');
+    const globalJs = path.resolve(__dirname, '../', 'build', 'global.js');
+    const nodeVendorsJs = path.resolve(__dirname, '../', 'build', 'node_vendors.js');
+    const utilityJs = path.resolve(__dirname, '../', 'build', 'utility.js');
     const aemCssPath = path.resolve(
         __dirname,
         '../../',
@@ -65,6 +77,27 @@ compiler.run((err, stats) => {
         '../../',
         clientlibHeadPath + '/js',
         'head.js'
+    );
+
+        const aemGlobalJsPath = path.resolve(
+        __dirname,
+        '../../',
+        clientlibGlobalPath + '/js',
+        'global.js'
+    );
+
+    const aemNodeVendorsJsPath = path.resolve(
+        __dirname,
+        '../../',
+        clientlibNodeVendorsPath + '/js',
+        'node_vendors.js'
+    );
+
+    const aemUtilityJsPath = path.resolve(
+        __dirname,
+        '../../',
+        clientlibUtilityPath + '/js',
+        'utility.js'
     );
 
     fs.rename(css, aemCssPath, err => {
@@ -110,5 +143,32 @@ compiler.run((err, stats) => {
         }
 
         console.log('Head JS Moved to AEM');
+    });
+
+    fs.rename(globalJs, aemGlobalJsPath, err => {
+        if (err) {
+            console.log(err);
+            return;
+        }
+
+        console.log('Global JS Moved to AEM');
+    });
+
+    fs.rename(nodeVendorsJs, aemNodeVendorsJsPath, err => {
+        if (err) {
+            console.log(err);
+            return;
+        }
+
+        console.log('Node Vendors JS Moved to AEM');
+    });
+
+    fs.rename(utilityJs, aemUtilityJsPath, err => {
+        if (err) {
+            console.log(err);
+            return;
+        }
+
+        console.log('Utility JS Moved to AEM');
     });
 });

@@ -1,11 +1,9 @@
 import './polyfills';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import SearchBar from './search/components/searchbar';
 import Search from './search/index';
 import TagCloud from './search/components/tagcloud';
 import ImageCarousel from './image-carousel';
-import MyAccountDropDown from './my-account-dropdown/index';
 import UserGreeting from './user-greetings/UserGreeting';
 import QuickOrder from './quick-order/QuickOrder';
 import LinkButton from './link-button/LinkButton';
@@ -53,21 +51,6 @@ const headerData = headerRef
         userDetailsUrl: ""
     };
 
-function getAuthoredDataForSearchBar(c, h) {
-    return {
-        baseUrl: c.dataset.baseUrl,
-        searchPath: h.dataset.searchPath,
-        placeholderTablet: c.dataset.placeholderTablet,
-        placeholderMobile: c.dataset.placeholderMobile,
-        iconSearch: c.dataset.iconSearch,
-        iconClear: c.dataset.iconClear,
-        isocode: c.dataset.isocode,
-        customStyle: c.dataset.customStyle || '',
-        clearLabel: c.dataset.clearLabel || '',
-        searchLabel: c.dataset.searchLabel || '',
-        autoSuggestLabel: c.dataset.autoSuggestLabel || ''
-    };
-}
 function getAuthoredDataForSearchApp(c, s) {
     return {
         searchPath: c.dataset.baseUrl,
@@ -120,56 +103,6 @@ if (spinnerContainer) {
     ); 
 }
 // End Bind Loader component on Demand
-
-const searchBarContainer = document.getElementById('js-search-bar');
-const header = document.querySelector('.cmp-header');
-
-if (searchBarContainer && header) {
-    const data = getAuthoredDataForSearchBar(searchBarContainer, header);
-    const searchLabels = {
-        clear: data.clearLabel,
-        search: data.searchLabel,
-        autoSuggest: data.autoSuggestLabel,
-    }
-    ReactDOM.render(
-        <SearchBar
-            iconSearch={data.iconSearch}
-            iconClear={data.iconClear}
-            searchPath={data.searchPath}
-            placeholderTablet={data.placeholderTablet}
-            placeholderMobile={data.placeholderMobile}
-            baseUrl={data.baseUrl}
-            isocode={data.isocode}
-            labels={searchLabels}
-        />,
-        searchBarContainer
-    );
-}
-
-const headerSearchBarContainer = document.getElementById('header-search-bar');
-
-if (headerSearchBarContainer && header) {
-    const data = getAuthoredDataForSearchBar(headerSearchBarContainer, header);
-    const searchLabels = {
-        clear: data.clearLabel,
-        search: data.searchLabel,
-        autoSuggest: data.autoSuggestLabel,
-    }
-    ReactDOM.render(
-        <SearchBar
-            iconSearch={data.iconSearch}
-            iconClear={data.iconClear}
-            searchPath={data.searchPath}
-            placeholderTablet={data.placeholderTablet}
-            placeholderMobile={data.placeholderMobile}
-            baseUrl={data.baseUrl}
-            isocode={data.isocode}
-            customStyle={data.customStyle}
-            labels={searchLabels}
-        />,
-        headerSearchBarContainer
-    );
-}
 
 const searchAppContainer = document.getElementById('js-search-app');
 
@@ -321,27 +254,6 @@ if (skuListContainer) {
             title={skuListTitle}
         />,
         skuListContainer
-    );
-}
-
-const MyAccountDropDownContainer = document.querySelector(
-    '.top-bar__nav__user__dropdown'
-);
-
-if (header && MyAccountDropDownContainer) {
-    const config = JSON.parse(
-        document.getElementById('account-modal-configs-json').innerHTML
-    );
-    const commerceConfigs = document.getElementById('commerce-configs-json');
-    const isEditMode = document.getElementById("header") ? document.getElementById("header").hasAttribute("data-is-edit-mode") : false;
-    let eProcSetupFailure = {};
-    if (commerceConfigs) {
-        eProcSetupFailure = JSON.parse(commerceConfigs.innerHTML);
-    }
-
-    ReactDOM.render(
-        <MyAccountDropDown config={config} eProcSetupFailure={eProcSetupFailure.setupFailure || {}} isEditMode={isEditMode} />,
-        MyAccountDropDownContainer
     );
 }
 

@@ -16,7 +16,8 @@ module.exports = {
     entry: {
         main: './src/entry.js',
         print: './src/printEntry.js',
-        head: './src/headEntry.js'
+        head: './src/headEntry.js',
+        global: './src/globalEntry.js'
     },
     output: {
         path: path.resolve(__dirname, '../', 'build')
@@ -44,6 +45,19 @@ module.exports = {
                     m.constructor.name === 'CssModule' && recursiveIssuer(m) === entry,
                     chunks: 'all',
                     enforce: true,
+                },
+                node_vendors: {
+                    name: 'node_vendors',
+                    // test: /[\\/]node_modules[\\/]/,
+                    test: /[\\/]node_modules[\\/](react|react-dom|prop-types|query-string|react-svg|react-router-dom|validator|react-paginate|whatwg-fetch)[\\/]/,
+                    chunks: 'all',
+                    priority: 1
+                },
+                utility: {
+                    name: 'utility',
+                    test: /[\\/]utils[\\/]/,
+                    chunks: 'all',
+                    priority: 1
                 }
             },
         },
