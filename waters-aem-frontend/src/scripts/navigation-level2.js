@@ -14,8 +14,8 @@ const navigationLevel2 = function () {
 
         if (level1Group) {
             let numberOfLinks = level1Group.children.length;
-            if (level1Group.classList.contains("cmp-navigation__group-all") && screenSizes.isMobile()) {
-                level1Group.classList.remove("cmp-navigation__group-all");
+            if (level1Group.classList.contains("cmp-navigation__group-all-mobile") && screenSizes.isMobile()) {
+                level1Group.classList.remove("cmp-navigation__group-all-mobile");
                 numberOfLinks--;
             }  
 
