@@ -39,10 +39,31 @@ if (elem) {
       }
    }
 
+   // Contains links only displayed on Mobile
+   const mobileOnlyLinks = document.getElementById("cmp-navigation-mobileList");
+   let mobileOnlyLinksJson = "";
+   if (mobileOnlyLinks) {
+      mobileOnlyLinksJson = JSON.parse(mobileOnlyLinks.innerHTML);
+   }
+   
    Array.from(document.querySelector('.navigation .cmp-navigation .cmp-navigation__group').children).forEach(function(e){
       const level2Links = e.querySelector('.cmp-navigation__group');
 
       const level2LinksCount = (level2Links) ? level2Links.children.length : 0;
+
+      if (level2Links && mobileOnlyLinksJson.mobileList) {
+         if (mobileOnlyLinksJson.mobileList !== "[]") {
+            // All Products, All Applications etc
+            const allArrayLevel2Links = Array.from(level2Links.children);
+               allArrayLevel2Links.map((li) => {
+               const anchor = li.querySelector('.cmp-navigation__container > a')
+               //const anchorBasePathName = anchor.pathname.substr(0, anchor.pathname.length - 5);
+               if (mobileOnlyLinksJson.mobileList.includes(anchor.pathname)) {
+                  li.classList.add("cmp-navigation__group-all-mobile")
+               }
+            });
+         }
+      }
 
       if (level2LinksCount !== 0) {
          e.addEventListener('mouseover', openOverlay);
@@ -52,7 +73,9 @@ if (elem) {
       const level1Link = e.querySelector('.cmp-navigation__container .cmp-navigation__item-link');
 
       if (level1Link) {
-         level1Link.addEventListener('click', event => event.preventDefault());
+         if (screenSizes.isMobile()) {
+            level1Link.addEventListener('click', event => event.preventDefault());
+         }   
       }
    });
 
