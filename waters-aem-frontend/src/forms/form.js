@@ -17,6 +17,7 @@ import loginStatus from '../scripts/loginStatus';
 import { homePageRedirect } from '../utils/redirectFunctions';
 import Spinner from "../utils/spinner";
 import { elementLocator } from '../utils/eCommerceFunctions';
+import { getAddressesByType, getFullCompanyAddress } from '../utils/userFunctions';
 import SoldToDetailsLazy from '../my-account/services/SoldToDetailsLazy';
 
 const FormApi = createContext(null);
@@ -216,12 +217,12 @@ const Form = ({
 
                 const tempArray = resp.map((item) => {
                     let tempOption = {};
+                    let tempAddress;
                     tempOption.name = item.customerNumber;
                     tempOption.label = item.name;
-                    tempOption.accountStreet = item.soldToInfo[0].street;
-                    tempOption.accountCity = item.soldToInfo[0].city;
-                    tempOption.accountZip = item.soldToInfo[0].postalCode;
-                    tempOption.state = item.soldToInfo[0].state;
+                    tempAddress = getAddressesByType(item, "soldToInfo")[0];
+                    delete tempAddress.name;
+                    tempOption.address = getFullCompanyAddress(tempAddress, false);
                     return tempOption;
                 });
 
