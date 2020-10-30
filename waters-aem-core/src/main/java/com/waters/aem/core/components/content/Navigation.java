@@ -54,7 +54,13 @@ public class Navigation implements com.adobe.cq.wcm.core.components.models.Navig
     private String[] mobileList = new String[0];
 
     public String getMobileList() throws JsonProcessingException {
-            return MAPPER.writeValueAsString(Arrays.asList(mobileList));
+        List mobilePageList = new ArrayList();
+        for (final String mobilePage : mobileList) {
+            String mobilePageUpdated = mobilePage.replaceAll("/content/waters","/nextgen");
+            mobilePageUpdated = mobilePageUpdated.concat(".html");
+            mobilePageList.add(mobilePageUpdated);
+        }
+            return MAPPER.writeValueAsString(mobilePageList);
     }
 
     @Override
