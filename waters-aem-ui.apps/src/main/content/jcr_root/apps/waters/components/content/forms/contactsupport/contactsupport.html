@@ -5,6 +5,7 @@
             "formName": "contactsupport",
             "submitEndpoint": "${contactSupport.contactSupportUrl @ context='unsafe'}",
             "buttonText": "${'SEND MESSAGE' @ i18n, context='text'}",
+			"buttonLocator": "send-message",
             "redirectUrl": "${contactSupport.redirectLink.href @ context='unsafe'}",
             "icons": {
                 "checkmarkIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
@@ -95,8 +96,8 @@
                     "rows": 5,
                     "validation": {
                         "maxLength": {
-                            "value": 100,
-                            "message": "${'Maximum 100 characters allowed' @i18n, context='unsafe'}"
+                            "value": 1000,
+                            "message": "${'Maximum 1000 characters allowed' @i18n, context='unsafe'}"
                         },
                         "required": true,
                         "requiredMsg": "${'Please enter a message.' @ i18n, context='unsafe'}"
