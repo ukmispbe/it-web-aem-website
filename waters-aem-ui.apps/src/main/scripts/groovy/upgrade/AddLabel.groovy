@@ -12,7 +12,8 @@ sites.each { site ->
             item.setProperty("labelKey", labelKey)
             item.setProperty("labelValue", labels.get(labelKey))
             save()
-            activate(item.getPath())
+            if (!nodePath.contains("language-masters"))
+                activate(item.getPath())
             data.add([nodePath, item.getPath()])
         }
     }
