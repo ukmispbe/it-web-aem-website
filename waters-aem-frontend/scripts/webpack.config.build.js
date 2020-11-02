@@ -58,8 +58,23 @@ module.exports = {
                     test: /[\\/]utils[\\/]/,
                     chunks: 'all',
                     priority: 1
+                },
+                componentChunks: {
+                    test: (module, chunks) => {
+                        const regexp = /[\\/]scripts[\\/]/i;
+                        const result = module.identifier().match(regexp) || chunks.some(chunk => `${chunk.name || ''}`.match(regexp));
+                        return result;
+                    },
+                    name: module => {
+                        const list = module.identifier().split('\\');
+                        console.log(list);
+                        list.pop();
+                        return list.pop();
+                    },
+                    chunks: 'all',
+                    enforce: true
                 }
-            },
+            }
         },
         minimizer: [
             new OptimizeCSSAssetsPlugin({})
