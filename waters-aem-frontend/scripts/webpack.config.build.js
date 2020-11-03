@@ -24,55 +24,25 @@ module.exports = {
     },
     optimization: {
         splitChunks: {
+            maxInitialRequests: Infinity,
             cacheGroups: {
-                mainStyles: {
-                    name: 'main',
-                    test: (m, c, entry = 'main') =>
-                    m.constructor.name === 'CssModule' && recursiveIssuer(m) === entry,
+                reactVendor: {
+                    name: 'react_vendors',
+                    test: /[\\/]node_modules[\\/](react|react-dom|prop-types|query-string|react-svg|react-router|react-router-dom|validator|react-paginate|whatwg-fetch|react-autosuggest|react-autowhatever|react-html-parser|react-spinners|es6-promise|react-hook-form)[\\/]/,
                     chunks: 'all',
-                    enforce: true,
+                    priority: 3
                 },
-                printStyles: {
-                    name: 'print',
-                    test: (m, c, entry = 'print') =>
-                    m.constructor.name === 'CssModule' && recursiveIssuer(m) === entry,
-                    chunks: 'all',
-                    enforce: true,
-                },
-                headStyles: {
-                    name: 'head',
-                    test: (m, c, entry = 'head') =>
-                    m.constructor.name === 'CssModule' && recursiveIssuer(m) === entry,
-                    chunks: 'all',
-                    enforce: true,
-                },
-                node_vendors: {
+                vendor: {
                     name: 'node_vendors',
-                    // test: /[\\/]node_modules[\\/]/,
-                    test: /[\\/]node_modules[\\/](react|react-dom|prop-types|query-string|react-svg|react-router-dom|validator|react-paginate|whatwg-fetch)[\\/]/,
+                    test: /[\\/]node_modules[\\/]/,
                     chunks: 'all',
-                    priority: 1
+                    priority: 2
                 },
                 utility: {
                     name: 'utility',
                     test: /[\\/]utils[\\/]/,
                     chunks: 'all',
-                    priority: 1
-                },
-                componentChunks: {
-                    test: (module, chunks) => {
-                        const regexp = /[\\/]scripts[\\/]/i;
-                        const result = module.identifier().match(regexp) || chunks.some(chunk => `${chunk.name || ''}`.match(regexp));
-                        return result;
-                    },
-                    name: module => {
-                        const list = module.identifier().split('\\');
-                        console.log(list);
-                        list.pop();
-                        return list.pop();
-                    },
-                    chunks: 'all',
-                    enforce: true
+                    priority: 3
                 }
             }
         },
