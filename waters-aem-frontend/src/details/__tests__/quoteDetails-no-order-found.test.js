@@ -8,7 +8,6 @@ import props from '../__mocks__/en_US/index';
 import mockBodyHTML from '../../__mocks__/en_US/html/mock-body-html'
 
 describe('Feature: Quote Details Component', () => {
-
     let wrapper;
 
     beforeAll(async () => {

@@ -9,11 +9,11 @@ import { elementLocator } from '../../utils/eCommerceFunctions';
 const getShipmentStatus = (data, index) => {
     let status = data;
     if(index == 1){
-     status = "Expired";
+        status = "Expired";
     }
     if(index == 2){
         status = "Order Placed";
-       }
+    }
     return status;
 }
 

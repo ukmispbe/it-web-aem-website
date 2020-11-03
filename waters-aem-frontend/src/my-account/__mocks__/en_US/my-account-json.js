@@ -19,7 +19,7 @@ export default {
             ],
         },
         {
-            title: "Orders and Quotes",
+            title: "Orders",
             icon: "/content/dam/waters/en/brand-assets/icons/package.svg",
             requiresEcommerce: "true",
             isHiddenForEprocUser: "true",
@@ -31,16 +31,6 @@ export default {
                 {
                     text: "Order History",
                     url: "#orderdetails",
-                    isHidden: "true",
-                },
-                {
-                    text: "Quote History",
-                    url: "#quotehistory",
-                    linkName: "Order History",
-                },
-                {
-                    text: "Quote History",
-                    url: "#quotedetails",
                     isHidden: "true",
                 }
             ],
@@ -78,10 +68,6 @@ export default {
                 title: "Change Password",
             },
             orderHistory: {
-                title: "Order History",
-                backLinkTitle: "Back to Order History",
-            },
-            quoteHistory: {
                 title: "Order History",
                 backLinkTitle: "Back to Order History",
             },

@@ -10,6 +10,7 @@
                     "icon": "/content/dam/waters/en/brand-assets/icons/user.svg",
                     "requiresEcommerce": "false",
                     "isHiddenForEprocUser": "false",
+					"tilesName": "Account Information",
                     "links": [
                         {
                             "text": "${'Profile' @ i18n, context='unsafe'}",
@@ -24,10 +25,11 @@
                     ]
                 },
                 {
-                    "title": "${'Orders and Quotes' @ i18n, context='unsafe'}",
+                    "title": "${'Orders' @ i18n, context='unsafe'}",
                     "icon": "/content/dam/waters/en/brand-assets/icons/package.svg",
                     "requiresEcommerce": "true",
                     "isHiddenForEprocUser": "true",
+					"tilesName": "Orders",
                     "links": [
                         {
                             "text": "${'Order History' @ i18n, context='unsafe'}",
@@ -38,16 +40,6 @@
                             "text": "${'Order History' @ i18n, context='unsafe'}",
                             "url": "${'#orderdetails' @ context='unsafe'}",
                             "isHidden": "true"
-                        },
-                        {
-                            "text": "${'Quote History' @ i18n, context='unsafe'}",
-                            "url": "${'#quotehistory' @ context='unsafe'}",
-                            "linkName": "Order History"
-                        },
-                        {
-                            "text": "${'Quote History' @ i18n, context='unsafe'}",
-                            "url": "${'#quotedetails' @ context='unsafe'}",
-                            "isHidden": "true"
                         }
                     ]
                 },
@@ -56,6 +48,7 @@
                     "icon": "/content/dam/waters/en/brand-assets/icons/link.svg",
                     "requiresEcommerce": "false",
                     "isHiddenForEprocUser": "false",
+					"tilesName": "Additional Links",
                     "links": ${myaccount.additionalResources @ context="unsafe"}
                 }
             ],
@@ -74,10 +67,6 @@
                     "orderHistory": {
                         "title": "${'Order History' @ i18n, context='unsafe'}",
                         "backLinkTitle": "${'Back to Order History' @ i18n, context='unsafe'}"
-                    },
-                    "quoteHistory": {
-                        "title": "${'Quote History' @ i18n, context='unsafe'}",
-                        "backLinkTitle": "${'Back to Quote History' @ i18n, context='unsafe'}"
                     }
                 },
                 "backIcon": "/content/dam/waters/en/brand-assets/icons/left.svg"
@@ -354,6 +343,7 @@
                 "formName": "personaldetails",
                 "submitEndpoint": "${myaccount.myAccountUpdateUrl @ context='unsafe'}",
                 "buttonText": "${'Save Changes' @ i18n, context='unsafe'}",
+				"buttonLocator": "save-changes",
                 "cancelText": "${'Cancel' @ i18n, context='unsafe'}",
                 "icons": {
                     "checkmarkIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
@@ -595,7 +585,8 @@
             "form": {
                 "formName": "changepassword",
                 "submitEndpoint": "${myaccount.updatePasswordUrl @ context='unsafe'}",
-                "buttonText": "${'Change Password' @ i18n, context='unsafe'}",
+                "buttonText": "${'Change Password' @ i18n, context='unsafe'}",				
+				"buttonLocator": "change-password",
                 "cancelText": "${'Cancel' @ i18n, context='unsafe'}",
                 "icons": {
                     "checkmarkIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",

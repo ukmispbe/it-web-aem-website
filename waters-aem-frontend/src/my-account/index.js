@@ -27,7 +27,7 @@ const MyAccountRouter = (props) => {
                         <ChangePassword configId={props.changePassword.config} configs={props.myProfile} />
                     </Aside>
                 </Route>
-                <Route exact path={routes.orderHistory.path} >
+                <Route exact path={routes.orderHistory.path}>
                     <Aside tiles={props.tiles} breadcrumbs={props.breadcrumbs}>
                         <OrderHistory configs={props.orderHistory} />
                     </Aside>
@@ -37,12 +37,12 @@ const MyAccountRouter = (props) => {
                         <OrderDetails config={props.orderDetails} />
                     </Aside>
                 </Route>
-                <Route exact path={routes.quoteHistory.path} >
+                <Route exact path={routes.quoteHistory.path}>
                     <Aside tiles={props.tiles} breadcrumbs={props.breadcrumbs}>
                         <QuoteHistory configs={props.quoteHistory} />
                     </Aside>
                 </Route>
-                <Route exact path={routes.quoteDetails.path} >
+                <Route exact path={routes.quoteDetails.path}>
                     <Aside tiles={props.tiles} breadcrumbs={props.breadcrumbs}>
                         <QuoteDetails config={props.quoteDetails} />
                     </Aside>
