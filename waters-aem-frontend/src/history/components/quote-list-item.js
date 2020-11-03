@@ -6,12 +6,33 @@ import GetLocale from '../../utils/get-locale'
 import { setClickAnalytics } from '../../analytics';
 import { elementLocator } from '../../utils/eCommerceFunctions';
 
+const getShipmentStatus = (data, index) => {
+    let status = data;
+    if(index == 1){
+     status = "Expired";
+    }
+    if(index == 2){
+        status = "Order Placed";
+       }
+    return status;
+}
+
 class QuoteListItem extends Component {
     constructor(props) {
         super(props);
         this.userLocale = GetLocale.getLocale()
     }
+
+    renderQuoteAgainButton = () => {
+        return (
+            <a className="cmp-button" href="/#" >
+                {this.props.quoteAgainTitle}
+            </a>
+        )
+    }
+    
     render() {
+        const deliveryStatus = getShipmentStatus(this.props.data.deliveryStatus, this.props.index);
         return (
             <div className='cmp-order-list__container'>
                 <div className="cmp-order-list__left">
@@ -31,14 +52,20 @@ class QuoteListItem extends Component {
                 <div className="cmp-order-list__right" data-locator="order-list-right">
                     <hr className="cmp-order-list_hr"/>
                     <DeliveryStatus
-                        status={this.props.data.deliveryStatus}
+                        status={deliveryStatus}
                         labels={this.props.shipment}
                         icons={this.props.icons}
                     />            
                 </div>
-                <div className="cmp-order-list__total" data-locator="order-list-total">
+                <div className="cmp-order-list__total cmp-order-list__left" data-locator="order-list-total">
                     {this.props.data.orderTotal}
                 </div>
+                {this.props.index == 1 && (
+                    <div className="cmp-order-list__right quote-again-section" data-locator="quote-history-quote-again">
+                        {this.renderQuoteAgainButton()}
+                    </div>
+                )}
+
             </div>
         );
     }

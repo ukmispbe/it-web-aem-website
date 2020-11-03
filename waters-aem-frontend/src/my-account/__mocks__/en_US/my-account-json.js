@@ -229,11 +229,15 @@ export default {
             partialLabel: "Partially Shipped",
             completeLabel: "Shipped",
             completeShippedLabel: "Shipped on ",
+            expiredLabel: "Expired",
+            orderPlacedLabel: "Order Placed",
         },
         icons: {
             openIcon: "/content/dam/waters/en/brand-assets/icons/refresh.svg",
             partialIcon: "/content/dam/waters/en/brand-assets/icons/success.svg",
             completeIcon: "/content/dam/waters/en/brand-assets/icons/success.svg",
+            expiredIcon: "/content/dam/waters/en/brand-assets/icons/close.svg",
+            orderPlacedIcon: "/content/dam/waters/en/brand-assets/icons/success.svg",
         },
         tabs: [{
             name: "All Quotes"
@@ -302,11 +306,15 @@ export default {
             partialLabel: "Partially Shipped",
             completeLabel: "Shipped",
             completeShippedLabel: "Shipped on ",
+            expiredLabel: "Expired",
+            orderPlacedLabel: "Order Placed",
         },
         icons: {
             openIcon: "/content/dam/waters/en/brand-assets/icons/refresh.svg",
             partialIcon: "/content/dam/waters/en/brand-assets/icons/success.svg",
             completeIcon: "/content/dam/waters/en/brand-assets/icons/success.svg",
+            expiredIcon: "/content/dam/waters/en/brand-assets/icons/close.svg",
+            orderPlacedIcon: "/content/dam/waters/en/brand-assets/icons/success.svg",
         },
         modalInfo: {
             icon: "/content/dam/waters/en/brand-assets/icons/cart.svg",

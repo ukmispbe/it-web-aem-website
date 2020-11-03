@@ -298,6 +298,8 @@ class QuoteHistory extends Component {
                                 itemsText={this.props.configs.itemsText}
                                 shipment={this.props.configs.shipment}
                                 icons={this.props.configs.icons}
+                                quoteAgainTitle={this.props.configs.quoteAgainTitle}
+                                index={index}
                             />
                         ))}
                         {this.state.listCount > 0 && this.renderPagination()}           
