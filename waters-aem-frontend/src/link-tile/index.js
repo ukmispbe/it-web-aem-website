@@ -11,7 +11,7 @@ const LinkTile = ({
 	tilesName,
 	datalocator
 }) => (
-    <div className="cmp-linktile" data-locator={elementLocator(tilesName || 'my-account-tile')}>
+    <div className="cmp-linktile" data-locator={`${elementLocator(tilesName || 'my-account-tile')}-linktile`}>
         <div className="cmp-linktile-column">
             <ReactSVG src={icon} className="cmp-linktile--icon" data-locator={elementLocator(`${title} icon`)} />
         </div>
