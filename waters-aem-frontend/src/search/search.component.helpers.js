@@ -3,7 +3,6 @@ import ReactPaginate from 'react-paginate';
 import ReactSVG from 'react-svg';
 import PropTypes from 'prop-types';
 import { parameterDefaults } from './services/index';
-import screenSizes from '../scripts/screenSizes';
 import ContentTypeMenu from './components/content-type-menu';
 import FacetMenu from './components/facet-menu';
 import Filter from './components/filter';
