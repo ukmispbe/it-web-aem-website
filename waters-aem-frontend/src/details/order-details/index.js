@@ -307,29 +307,29 @@ class OrderDetails extends Component {
                         </div>
                     </div>
                 </div>
-                <div className={`${this.rootStyle}__order-summary`} data-locator="order-summary">
+                <div className="cmp-order-details__order-summary" data-locator="order-summary">
                     <h4>{config.summaryTitle}</h4>
-                    <div className={`${this.rootStyle}__order-subtotal`}>
-                        <div className={`${this.rootStyle}__order-subtotal_left`} data-locator="order-subtotal-left">{config.subTotal} {this.renderItemCount()}</div>
-                        <div className={`${this.rootStyle}__order-subtotal_right`} data-locator="order-subtotal-right">{orderDetails.itemsSubTotal}</div>
+                    <div className="cmp-order-details__order-subtotal">
+                        <div className="cmp-order-details__order-subtotal_left" data-locator="order-summary-label-sub-total">{config.subTotal} {this.renderItemCount()}</div>
+                        <div className="cmp-order-details__order-subtotal_right" data-locator="order-summary-price-sub-total">{orderDetails.itemsSubTotal}</div>
                     </div>
                     {notZeroDiscountFlag && 
-                        <div className={`${this.rootStyle}__order-savings`}>
-                            <div className={`${this.rootStyle}__order-savings_left`} data-locator="order-savings-left">{config.savings}</div>
-                            <div className={`${this.rootStyle}__order-savings_right`} data-locator="order-savings-right">{config.minusSign}{orderDetails.orderDiscount}</div>
+                        <div className="cmp-order-details__order-savings">
+                            <div className="cmp-order-details__order-savings_left" data-locator="order-summary-label-total-discount">{config.savings}</div>
+                            <div className="cmp-order-details__order-savings_right" data-locator="order-summary-price-total-discount">{this.props.config.minusSign}{orderDetails.orderDiscount}</div>
                         </div>
                     }
-                    <div className={`${this.rootStyle}__order-shipping`}>
-                        <div className={`${this.rootStyle}__order-shipping_left`} data-locator="order-shipping-left">{config.shipping}</div>
-                        <div className={`${this.rootStyle}__order-shipping_right`} data-locator="order-shipping-right">{orderDetails.shippingAmount}</div>
+                    <div className="cmp-order-details__order-shipping">
+                        <div className="cmp-order-details__order-shipping_left" data-locator="order-summary-label-total-shipping-handling">{config.shipping}</div>
+                        <div className="cmp-order-details__order-shipping_right" data-locator="order-summary-price-total-shipping-handling">{orderDetails.shippingAmount}</div>
                     </div>
-                    <div className={`${this.rootStyle}__order-tax`}>
-                        <div className={`${this.rootStyle}__order-tax_left`} data-locator="order-tax-left">{config.tax}</div>
-                        <div className={`${this.rootStyle}__order-tax_right`} data-locator="order-tax-right">{orderDetails.taxAmount}</div>
+                    <div className="cmp-order-details__order-tax">
+                        <div className="cmp-order-details__order-tax_left" data-locator="order-summary-label-estimated-tax">{config.tax}</div>
+                        <div className="cmp-order-details__order-tax_right" data-locator="order-summary-price-estimated-tax">{orderDetails.taxAmount}</div>
                     </div>
-                    <div className={`${this.rootStyle}__order-total`}>
-                        <div className={`${this.rootStyle}__order-total_left`} data-locator="order-total-left">{config.totalLabel}</div>
-                        <div className={`${this.rootStyle}__order-total_right`} data-locator="order-total-right"><h1>{orderDetails.orderTotal}</h1></div>
+                    <div className="cmp-order-details__order-total">
+                        <div className="cmp-order-details__order-total_left" data-locator="order-summary-label-total-price">{config.totalLabel}</div>
+                        <div className="cmp-order-details__order-total_right" data-locator="order-summary-price-total-price"><h1>{orderDetails.orderTotal}</h1></div>
                     </div>
                     {this.state.isCommerceApiMigrated && (
                         <div className={`${this.rootStyle}__reorder`} data-locator="order-details-reorder">
