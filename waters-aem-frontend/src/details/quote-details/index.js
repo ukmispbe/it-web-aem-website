@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactSVG from 'react-svg';
-import { getOrderDetails, getItemDetails, matchLineItems } from '../details.services';
+import { getQuoteDetails, getItemDetails, matchLineItems } from '../details.services';
 import Shipment from '../components/shipment'
 import DateFormatter from '../../utils/date-formatter'
 import GetLocale from "../../utils/get-locale";
@@ -20,13 +20,13 @@ class QuoteDetails extends Component {
     constructor({setErrorBoundaryToTrue, resetErrorBoundaryToFalse, removeNotifications, ...props}) {
         super({setErrorBoundaryToTrue, resetErrorBoundaryToFalse, removeNotifications, ...props});
         this.state = {
-            orderId: this.getUrlParameter("id"),
+            quoteId: this.getUrlParameter("id"),
             userLocale: GetLocale.getLocale(),
             userIsocode: GetIsocode.getIsocode(),
             detailsUrl: props.config.fetchDetailsEndPoint,
             itemsUrl: props.config.fetchItemsEndPoint,
             reorderUrl: props.config.fetchReorderUrlEndPoint,
-            orderDetails: {},
+            quoteDetails: {},
             reorderData: [],
             airbills: {},
             skusSoldCount: 0,
@@ -72,7 +72,7 @@ class QuoteDetails extends Component {
         }
     }
 
-    getShipmentList = (airbills, orderDetails) => {
+    getShipmentList = (airbills, quoteDetails) => {
         let shipments = [];
         for (let i = 0; i < Object.keys(airbills).length; i++) {
             const values = Object.values(airbills)[i];
@@ -84,7 +84,7 @@ class QuoteDetails extends Component {
                     shipmentNumber={i+1}
                     totalShipments={Object.keys(airbills).length}
                     addToCartReorder= {this.addToCartReorder}
-                    totalItemsOrdered={orderDetails.totalItemsOrdered}
+                    totalItemsOrdered={quoteDetails.totalItemsOrdered}
                 />
             )
         }
@@ -167,8 +167,8 @@ class QuoteDetails extends Component {
             }
         }
 
-        const { detailsUrl, itemsUrl, orderId, userIsocode } = this.state;
-        getOrderDetails(detailsUrl, orderId, this.setError)
+        const { detailsUrl, itemsUrl, quoteId, userIsocode } = this.state;
+        getQuoteDetails(detailsUrl, quoteId, this.setError)
             .then((data) => {
                 if(data && data.account && data.account.length) {
                     // Add Country Names to data
@@ -179,7 +179,7 @@ class QuoteDetails extends Component {
                     });
                     this.setState({
                         isLoading: false,
-                        orderDetails: data
+                        quoteDetails: data
                     });
                     const reorderData = data.lineItems.map(item => {
                         return {code: item.materialNumber, quantity: item.orderedQuantity};
@@ -220,9 +220,9 @@ class QuoteDetails extends Component {
         ? JSON.parse(document.getElementById('json-config--cmp-detail-tiles--personal').innerHTML) : '';
 
     renderAddress = (addressType) => {
-        const {orderDetails} = this.state;
-        if (orderDetails.account){
-            const account = orderDetails.account.filter(item => item.partnerType === addressType )[0];
+        const {quoteDetails} = this.state;
+        if (quoteDetails.account){
+            const account = quoteDetails.account.filter(item => item.partnerType === addressType )[0];
             if (account) {
                 const includeCountryName = true;
                 const addressArray = getOrderDetailsAddress(account, includeCountryName);
@@ -237,16 +237,16 @@ class QuoteDetails extends Component {
     }
 
     renderItemCount = () => {
-        const { orderDetails } = this.state;
+        const { quoteDetails } = this.state;
         let label = "";
-        if (orderDetails && orderDetails.totalItemsOrdered) {
-            if (parseInt(orderDetails.totalItemsOrdered) > 1) {
+        if (quoteDetails && quoteDetails.totalItemsOrdered) {
+            if (parseInt(quoteDetails.totalItemsOrdered) > 1) {
                 label = this.props.config.items;
-            } else if (parseInt(orderDetails.totalItemsOrdered) === 1) {
+            } else if (parseInt(quoteDetails.totalItemsOrdered) === 1) {
                 label = this.props.config.item;
             }
 
-            let itemCountLabel =  " (" + orderDetails.totalItemsOrdered + " " + label + ")";
+            let itemCountLabel =  " (" + quoteDetails.totalItemsOrdered + " " + label + ")";
             return itemCountLabel;
 
         } else {
@@ -263,20 +263,20 @@ class QuoteDetails extends Component {
     }
 
     renderDetailsSection = () => {
-        const { orderDetails, userLocale } = this.state;
+        const { quoteDetails, userLocale } = this.state;
         const { config } = this.props;
-        const notZeroDiscountFlag = parseFloat(orderDetails.orderDiscountValue) !== 0 ? true : false;
+        const notZeroDiscountFlag = parseFloat(quoteDetails.orderDiscountValue) !== 0 ? true : false;
         return (<>
             <div className={`${this.rootStyle}__container`}>
                 <h2 className={`${this.rootStyle}__title`} data-locator="product-title">
-                {config.orderDetails}
+                {config.quoteDetails}
                 </h2>
                 <div className={`${this.rootStyle}__order-info`}>
                     <h3 className={`${this.rootStyle}__order-number`} data-locator="product-number">
-                        {config.numberLabel + ": " + orderDetails.orderNumber}
+                        {config.numberLabel + ": " + quoteDetails.orderNumber}
                     </h3>
                     <div className={`${this.rootStyle}__order-date`} data-locator="order-date">
-                        {DateFormatter.dateFormatter(orderDetails.date, userLocale)}
+                        {DateFormatter.dateFormatter(quoteDetails.date, userLocale)}
                     </div>
                     <div className={`${this.rootStyle}__address-container`}>
                         <div className={`${this.rootStyle}__ship-to`} data-locator="ship-to">
@@ -291,16 +291,16 @@ class QuoteDetails extends Component {
                     <div className={`${this.rootStyle}__payment-container`}>
                         <div className={`${this.rootStyle}__payment-method`} data-locator="payment-method">
                             <h4>{config.paymentMethod}</h4>
-                            {orderDetails.ccNum && (
+                            {quoteDetails.ccNum && (
                                 <>
                                 <ReactSVG src={config.paymentType.creditCard.icon}/>
                                 <div className="text">{config.paymentType.creditCard.label}</div>
                                 </>
                             )}
-                            {!orderDetails.ccNum && orderDetails.purchaseOrderNumber && (
+                            {!quoteDetails.ccNum && quoteDetails.purchaseOrderNumber && (
                                 <>
                                 <ReactSVG src={config.paymentType.purchaseOrder.icon}/>
-                                <div className="text">{config.paymentType.purchaseOrder.label}: {orderDetails.purchaseOrderNumber}</div>
+                                <div className="text">{config.paymentType.purchaseOrder.label}: {quoteDetails.purchaseOrderNumber}</div>
                                 </>
                             )}
                         </div>
@@ -310,25 +310,25 @@ class QuoteDetails extends Component {
                     <h4>{config.summaryTitle}</h4>
                     <div className={`${this.rootStyle}__order-subtotal`}>
                         <div className={`${this.rootStyle}__order-subtotal_left`} data-locator="order-subtotal-left">{config.subTotal} {this.renderItemCount()}</div>
-                        <div className={`${this.rootStyle}__order-subtotal_right`} data-locator="order-subtotal-right">{orderDetails.itemsSubTotal}</div>
+                        <div className={`${this.rootStyle}__order-subtotal_right`} data-locator="order-subtotal-right">{quoteDetails.itemsSubTotal}</div>
                     </div>
                     {notZeroDiscountFlag && 
                         <div className={`${this.rootStyle}__order-savings`}>
                             <div className={`${this.rootStyle}__order-savings_left`} data-locator="order-savings-left">{config.savings}</div>
-                            <div className={`${this.rootStyle}__order-savings_right`} data-locator="order-savings-right">{config.minusSign}{orderDetails.orderDiscount}</div>
+                            <div className={`${this.rootStyle}__order-savings_right`} data-locator="order-savings-right">{config.minusSign}{quoteDetails.orderDiscount}</div>
                         </div>
                     }
                     <div className={`${this.rootStyle}__order-shipping`}>
                         <div className={`${this.rootStyle}__order-shipping_left`} data-locator="order-shipping-left">{config.shipping}</div>
-                        <div className={`${this.rootStyle}__order-shipping_right`} data-locator="order-shipping-right">{orderDetails.shippingAmount}</div>
+                        <div className={`${this.rootStyle}__order-shipping_right`} data-locator="order-shipping-right">{quoteDetails.shippingAmount}</div>
                     </div>
                     <div className={`${this.rootStyle}__order-tax`}>
                         <div className={`${this.rootStyle}__order-tax_left`} data-locator="order-tax-left">{config.tax}</div>
-                        <div className={`${this.rootStyle}__order-tax_right`} data-locator="order-tax-right">{orderDetails.taxAmount}</div>
+                        <div className={`${this.rootStyle}__order-tax_right`} data-locator="order-tax-right">{quoteDetails.taxAmount}</div>
                     </div>
                     <div className={`${this.rootStyle}__order-total`}>
                         <div className={`${this.rootStyle}__order-total_left`} data-locator="order-total-left">{config.totalLabel}</div>
-                        <div className={`${this.rootStyle}__order-total_right`} data-locator="order-total-right"><h1>{orderDetails.orderTotal}</h1></div>
+                        <div className={`${this.rootStyle}__order-total_right`} data-locator="order-total-right"><h1>{quoteDetails.orderTotal}</h1></div>
                     </div>
                     {this.state.isCommerceApiMigrated && (
                         <div className={`${this.rootStyle}__reorder`} data-locator="order-details-reorder">
@@ -352,11 +352,11 @@ class QuoteDetails extends Component {
     }
 
     renderOrderShipmentList = () => {
-        const { airbills, orderDetails } = this.state;
+        const { airbills, quoteDetails } = this.state;
         return (
             <>
                 <div className="cmp-order-details__order-shipment-list" data-locator="order-shipment-list">
-                    {Object.keys(airbills).length > 0 && this.getShipmentList(airbills, orderDetails)}
+                    {Object.keys(airbills).length > 0 && this.getShipmentList(airbills, quoteDetails)}
                 </div>
                 {this.state.isCommerceApiMigrated && (
                     <div className="order-shipment__reorder" data-locator="order-shipment-reorder">

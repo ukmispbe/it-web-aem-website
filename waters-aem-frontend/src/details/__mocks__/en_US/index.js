@@ -8,7 +8,7 @@ const props = {
                "serviceErrorNotificationTitle": "Sorry, something went wrong.",
                "serviceErrorNotificationText": "Please try again.",
                "serviceErrorNotificationIcon": "/content/dam/waters/en/brand-assets/icons/attention.svg",
-               "orderNumber": "Order Number",
+               "numberLabel": "Order Number",
                "shipTo": "Ship to",
                "billTo": "Bill to",
                "summaryTitle": "Order Summary",

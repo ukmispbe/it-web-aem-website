@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Feature: Order Details Component Scenario: Rendering When component is mounted Then the snapshot should match 1`] = `
+exports[`Feature: Quote Details Component Scenario: Rendering When component is mounted Then the snapshot should match 1`] = `
 <div
   className="cmp-order-details__no-results"
   data-locator="order-details-no-results"
 >
   <p>
-    Sorry, order not found.
+    Sorry, Quotes not found.
   </p>
 </div>
 `;

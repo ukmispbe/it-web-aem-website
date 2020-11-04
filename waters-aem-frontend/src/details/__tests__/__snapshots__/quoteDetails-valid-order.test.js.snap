@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Feature: Order Details Component Scenario: Rendering When component is mounted Then the snapshot should match 1`] = `
+exports[`Feature: Quote Details Component Scenario: Rendering When component is mounted Then the snapshot should match 1`] = `
 Array [
   <div
     className="cmp-order-details__container"
@@ -8,9 +8,7 @@ Array [
     <h2
       className="cmp-order-details__title"
       data-locator="product-title"
-    >
-      Order Details
-    </h2>
+    />
     <div
       className="cmp-order-details__order-info"
     >
@@ -18,7 +16,7 @@ Array [
         className="cmp-order-details__order-number"
         data-locator="product-number"
       >
-        Order Number: 15740002
+        Quote Number: 15740002
       </h3>
       <div
         className="cmp-order-details__order-date"
@@ -209,7 +207,7 @@ Array [
       >
         <a
           className="cmp-button"
-          onClick={[Function]}
+          href="/#"
         >
           Reorder
         </a>
@@ -226,7 +224,7 @@ Array [
   >
     <a
       className="cmp-button"
-      onClick={[Function]}
+      href="/#"
     >
       Reorder
     </a>

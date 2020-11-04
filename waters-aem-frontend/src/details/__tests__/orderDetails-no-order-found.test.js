@@ -4,12 +4,13 @@ import { shallow } from 'enzyme';
 
 import { OrderDetails } from '../order-details/index';
 import * as getOrderDetails from '../details.services';
-import props from '../__mocks__/en_US/index';
-import mockBodyHTML from '../../__mocks__/en_US/html/mock-body-html'
+import { myAccountJSON } from '../../__mocks__/en_US/html/mock-html-json';
+import mockBodyHTML from '../../__mocks__/en_US/html/mock-body-html';
 
 describe('Feature: Order Details Component', () => {
-
     let wrapper;
+    let props = {config: myAccountJSON.html.orderDetails};
+    document.body.innerHTML = mockBodyHTML;
 
     beforeAll(async () => {
         delete window.location;
@@ -31,8 +32,6 @@ describe('Feature: Order Details Component', () => {
     });
 
     describe('Scenario: Rendering', () => {
-        document.body.innerHTML = mockBodyHTML;
-
         describe("When component is mounted", () => {
             it("It should get order id from url", async () => {
                 expect(window.location.hash).toEqual("#orderdetails?id=15740002");

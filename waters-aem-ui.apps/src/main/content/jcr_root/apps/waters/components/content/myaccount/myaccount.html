@@ -25,7 +25,7 @@
                     ]
                 },
                 {
-                    "title": "${'Orders' @ i18n, context='unsafe'}",
+                    "title": "${'Orders and Quotes' @ i18n, context='unsafe'}",
                     "icon": "/content/dam/waters/en/brand-assets/icons/package.svg",
                     "requiresEcommerce": "true",
                     "isHiddenForEprocUser": "true",
@@ -39,6 +39,16 @@
                         {
                             "text": "${'Order History' @ i18n, context='unsafe'}",
                             "url": "${'#orderdetails' @ context='unsafe'}",
+                            "isHidden": "true"
+                        },
+                        {
+                            "text": "${'Quote History' @ i18n, context='unsafe'}",
+                            "url": "${'#quotehistory' @ context='unsafe'}",
+                            "linkName": "Quote History"
+                        },
+                        {
+                            "text": "${'Quote History' @ i18n, context='unsafe'}",
+                            "url": "${'#quotedetails' @ context='unsafe'}",
                             "isHidden": "true"
                         }
                     ]
@@ -67,6 +77,10 @@
                     "orderHistory": {
                         "title": "${'Order History' @ i18n, context='unsafe'}",
                         "backLinkTitle": "${'Back to Order History' @ i18n, context='unsafe'}"
+                    },
+                    "quoteHistory": {
+                        "title": "${'Quote History' @ i18n, context='unsafe'}",
+                        "backLinkTitle": "${'Back to Quote History' @ i18n, context='unsafe'}"
                     }
                 },
                 "backIcon": "/content/dam/waters/en/brand-assets/icons/left.svg"

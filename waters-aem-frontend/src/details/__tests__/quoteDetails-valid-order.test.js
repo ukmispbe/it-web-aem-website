@@ -3,13 +3,15 @@ import renderer from 'react-test-renderer';
 import { shallow } from 'enzyme';
 
 import { QuoteDetails } from '../quote-details/index';
-import * as getOrderDetails from '../details.services';
-import props from '../__mocks__/en_US/index';
-import { orderDetailsJSON } from '../__mocks__/en_US/services-json.test';
-import mockBodyHTML from '../../__mocks__/en_US/html/mock-body-html'
+import * as getQuoteDetails from '../details.services';
+import { myAccountJSON } from '../../__mocks__/en_US/html/mock-html-json';
+import { quoteDetailsJSON } from '../__mocks__/en_US/services-json.test';
+import mockBodyHTML from '../../__mocks__/en_US/html/mock-body-html';
 
 describe('Feature: Quote Details Component', () => {
     let wrapper;
+    let props = {config: myAccountJSON.html.quoteDetails};
+    document.body.innerHTML = mockBodyHTML;
 
     beforeAll(async () => {
         delete window.location;
@@ -31,27 +33,24 @@ describe('Feature: Quote Details Component', () => {
     });
 
     describe('Scenario: Rendering', () => {
-        document.body.innerHTML = mockBodyHTML;
-
         describe("When component is mounted", () => {
-            it("It should get order id from url", async () => {
-                expect(window.location.hash).toEqual("#orderdetails?id=15740002");
+            it("It should get quote id from url", async () => {
+                expect(window.location.hash).toEqual("#quotedetails?id=15740002");
             });
 
-            it('should fetch data from server and set orderDetails state', done => { // 1
-
+            it('should fetch data from server and set quoteDetails state', done => { // 1
                 const spyDidMount = jest.spyOn(QuoteDetails.prototype,"componentDidMount");
-                const spyGetOrderDetails = jest.spyOn(getOrderDetails, 'getOrderDetails').mockImplementation(() => {
-                    return Promise.resolve(orderDetailsJSON);
+                const spyGetQuoteDetails = jest.spyOn(getQuoteDetails, 'getQuoteDetails').mockImplementation(() => {
+                    return Promise.resolve(quoteDetailsJSON);
                 });
                 const didMount = wrapper.instance().componentDidMount();
                 expect(spyDidMount).toHaveBeenCalled();
 
                 didMount.then(() => {
                     wrapper.update();
-                    expect(spyGetOrderDetails).toHaveBeenCalled();
-                    expect(wrapper.state('orderId')).toBe('15740002');
-                    expect(wrapper.state('orderDetails')).toBe(orderDetailsJSON);
+                    expect(spyGetQuoteDetails).toHaveBeenCalled();
+                    expect(wrapper.state('quoteId')).toBe('15740002');
+                    expect(wrapper.state('quoteDetails')).toBe(quoteDetailsJSON);
 
                     spyDidMount.mockRestore();
                     fetch.mockClear();

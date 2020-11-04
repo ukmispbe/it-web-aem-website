@@ -32,6 +32,16 @@ export default {
                     text: "Order History",
                     url: "#orderdetails",
                     isHidden: "true",
+                },
+                {
+                    text: "Quote History",
+                    url: "#quotehistory",
+                    linkName: "Quote History",
+                },
+                {
+                    text: "Quote History",
+                    url: "#quotedetails",
+                    isHidden: "true",
                 }
             ],
         },
@@ -71,6 +81,10 @@ export default {
                 title: "Order History",
                 backLinkTitle: "Back to Order History",
             },
+            quoteHistory: {
+                title: "Quote History",
+                backLinkTitle: "Back to Quote History",
+            }
         },
         backIcon: "/content/dam/waters/en/brand-assets/icons/left.svg",
     },
@@ -141,7 +155,7 @@ export default {
         serviceErrorNotificationTitle: "Sorry, something went wrong.",
         serviceErrorNotificationText: "Please try again.",
         serviceErrorNotificationIcon: "/content/dam/waters/en/brand-assets/icons/attention.svg",
-        orderNumber: "Order Number",
+        numberLabel: "Order Number",
         shipTo: "Ship to",
         billTo: "Bill to",
         orderSummary: "Order Summary",
@@ -258,7 +272,7 @@ export default {
         serviceErrorNotificationTitle: "Sorry, something went wrong.",
         serviceErrorNotificationText: "Please try again.",
         serviceErrorNotificationIcon: "/content/dam/waters/en/brand-assets/icons/attention.svg",
-        orderNumber: "Quote Number",
+        numberLabel: "Quote Number",
         shipTo: "Ship to",
         billTo: "Bill to",
         orderSummary: "Quotes Summary",
