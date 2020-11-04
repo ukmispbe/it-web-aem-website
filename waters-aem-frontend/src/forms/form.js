@@ -220,7 +220,7 @@ const Form = ({
                     let tempAddress;
                     tempOption.name = item.customerNumber;
                     tempOption.label = item.name;
-                    tempAddress = item.soldToInfo[0];
+                    tempAddress = getAddressesByType(item, "soldToInfo")[0];
                     delete tempAddress.name;
                     tempOption.address = getFullCompanyAddress(tempAddress, false);
                     return tempOption;
