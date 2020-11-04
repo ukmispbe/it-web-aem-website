@@ -57,7 +57,7 @@ public class Navigation implements com.adobe.cq.wcm.core.components.models.Navig
         List mobilePageList = new ArrayList();
         for (final String mobilePage : mobileList) {
             String mobilePageUpdated = mobilePage.replaceAll("/content/waters","/nextgen");
-            mobilePageUpdated = mobilePage.concat(".html");
+            mobilePageUpdated = mobilePageUpdated.concat(".html");
             mobilePageList.add(mobilePageUpdated);
         }
             return MAPPER.writeValueAsString(mobilePageList);
