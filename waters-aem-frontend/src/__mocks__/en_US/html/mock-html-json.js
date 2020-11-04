@@ -238,7 +238,7 @@ const myAccountJSON = {
 				openIcon: "/content/dam/waters/en/brand-assets/icons/refresh.svg",
 				partialIcon: "/content/dam/waters/en/brand-assets/icons/success.svg",
 				completeIcon: "/content/dam/waters/en/brand-assets/icons/success.svg",
-				expiredIcon: "/content/dam/waters/en/brand-assets/icons/close.svg",
+				expiredIcon: "/content/dam/waters/en/brand-assets/icons/x.svg",
 				orderPlacedIcon: "/content/dam/waters/en/brand-assets/icons/success.svg",
 			},
 			tabs: [{
@@ -315,7 +315,7 @@ const myAccountJSON = {
 				openIcon: "/content/dam/waters/en/brand-assets/icons/refresh.svg",
 				partialIcon: "/content/dam/waters/en/brand-assets/icons/success.svg",
 				completeIcon: "/content/dam/waters/en/brand-assets/icons/success.svg",
-				expiredIcon: "/content/dam/waters/en/brand-assets/icons/close.svg",
+				expiredIcon: "/content/dam/waters/en/brand-assets/icons/x.svg",
 				orderPlacedIcon: "/content/dam/waters/en/brand-assets/icons/success.svg",
 			},
 			modalInfo: {
