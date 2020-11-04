@@ -13,7 +13,7 @@ describe("Feature: UserDetailsLazy Service", () => {
             it("Then is should return an empty response", async () => {
                 loginStatus.state = jest.fn(() => false);
 
-                const response = await UserDetailsLazy();
+                const response = await UserDetailsLazy('', false);
 
                 expect(response).toEqual({});
             });
@@ -27,7 +27,7 @@ describe("Feature: UserDetailsLazy Service", () => {
 
                 sessionStore.getUserDetails = jest.fn(() => userDetailsJSON);
 
-                const response = await UserDetailsLazy('', sessionStore);
+                const response = await UserDetailsLazy('', true, sessionStore);
 
                 expect(response).toEqual(userDetailsJSON);
             });
@@ -46,7 +46,7 @@ describe("Feature: UserDetailsLazy Service", () => {
                 sessionStore.getUserDetails = jest.fn(() => null);
                 sessionStore.setUserDetails = jest.fn();
 
-                const response = await UserDetailsLazy('', sessionStore, serviceMock);
+                const response = await UserDetailsLazy('', true, sessionStore, serviceMock);
 
                 expect(serviceMock).toHaveBeenCalled();
                 expect(sessionStore.setUserDetails).toHaveBeenCalled();
@@ -68,7 +68,7 @@ describe("Feature: UserDetailsLazy Service", () => {
                 sessionStore.getUserDetails = jest.fn(() => null);
                 sessionStore.setUserDetails = jest.fn();
 
-                const response = await UserDetailsLazy('', sessionStore, serviceMock);
+                const response = await UserDetailsLazy('', true, sessionStore, serviceMock);
 
                 expect(response).toEqual({});
                 expect(sessionStore.setUserDetails).not.toHaveBeenCalled();

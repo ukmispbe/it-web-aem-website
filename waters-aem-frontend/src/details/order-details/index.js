@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
 import ReactSVG from 'react-svg';
-import { getOrderDetails, getItemDetails, matchLineItems } from './orderDetails.services';
-import Shipment from './components/shipment'
-import DateFormatter from '../utils/date-formatter'
-import GetLocale from "../utils/get-locale";
-import GetIsocode from "../utils/get-isocode";
-import Spinner from "../utils/spinner";
-import GroupBy from '../utils/group-by'
-import ErrorBoundary from '../search/ErrorBoundary';
-import Modal, { Header, keys } from '../utils/modal';
-import AddToCartBody from '../sku-details/views/addToCartModal';
-import { addToCart } from '../sku-details/services';
-import Analytics, { analyticTypes, setClickAnalytics, setSelectDropdownAnalytics } from '../analytics';
-import LocalStore from '../stores/localStore';
-import loginStatus from '../scripts/loginStatus';
-import { getOrderDetailsAddress, getCountryName } from '../utils/userFunctions'
+import { getOrderDetails, getItemDetails, matchLineItems } from '../details.services';
+import Shipment from '../components/shipment'
+import DateFormatter from '../../utils/date-formatter'
+import GetLocale from "../../utils/get-locale";
+import GetIsocode from "../../utils/get-isocode";
+import Spinner from "../../utils/spinner";
+import GroupBy from '../../utils/group-by'
+import ErrorBoundary from '../../search/ErrorBoundary';
+import Modal, { Header, keys } from '../../utils/modal';
+import AddToCartBody from '../../sku-details/views/addToCartModal';
+import { addToCart } from '../../sku-details/services';
+import Analytics, { analyticTypes } from '../../analytics';
+import LocalStore from '../../stores/localStore';
+import loginStatus from '../../scripts/loginStatus';
+import { getOrderDetailsAddress, getCountryName } from '../../utils/userFunctions'
 
 class OrderDetails extends Component {
     constructor({setErrorBoundaryToTrue, resetErrorBoundaryToFalse, removeNotifications, ...props}) {
@@ -41,7 +41,7 @@ class OrderDetails extends Component {
             errorCartErrors: []
         }
     }
-
+    rootStyle = "cmp-order-details";
     setAnalytics = (event, detail={}) => {
         const model = {
             detail,
@@ -228,7 +228,7 @@ class OrderDetails extends Component {
                 const addressArray = getOrderDetailsAddress(account, includeCountryName);
                 return (
                     <>
-                        {addressArray.map((addressLine) => <div className="cmp-order-details-address1" data-locator="order-details-address">{addressLine}</div>)}
+                        {addressArray.map((addressLine) => <div className={`${this.rootStyle}-address1`} data-locator="order-details-address">{addressLine}</div>)}
                     </>
                 );
             }
@@ -238,12 +238,13 @@ class OrderDetails extends Component {
 
     renderItemCount = () => {
         const { orderDetails } = this.state;
+        const { config } = this.props;
         let label = "";
         if (orderDetails && orderDetails.totalItemsOrdered) {
             if (parseInt(orderDetails.totalItemsOrdered) > 1) {
-                label = this.props.config.items;
+                label = config.items;
             } else if (parseInt(orderDetails.totalItemsOrdered) === 1) {
-                label = this.props.config.item;
+                label = config.item;
             }
 
             let itemCountLabel =  " (" + orderDetails.totalItemsOrdered + " " + label + ")";
@@ -262,88 +263,90 @@ class OrderDetails extends Component {
         )
     }
 
-    renderOrderDetails = () => {
+    renderDetailsSection = () => {
         const { orderDetails, userLocale } = this.state;
+        const { config } = this.props;
         const notZeroDiscountFlag = parseFloat(orderDetails.orderDiscountValue) !== 0 ? true : false;
-        return (
-            <div className="cmp-order-details__container">
-                <h2 className="cmp-order-details__title" data-locator="product-title">
-                {this.props.config.orderDetails}
+        return (<>
+            <div className={`${this.rootStyle}__container`}>
+                <h2 className={`${this.rootStyle}__title`} data-locator="product-title">
+                {config.orderDetails}
                 </h2>
-                <div className="cmp-order-details__order-info">
-                    <h3 className="cmp-order-details__order-number" data-locator="product-number">
-                        {this.props.config.orderNumber + ": " + orderDetails.orderNumber}
+                <div className={`${this.rootStyle}__order-info`}>
+                    <h3 className={`${this.rootStyle}__order-number`} data-locator="product-number">
+                        {config.numberLabel + ": " + orderDetails.orderNumber}
                     </h3>
-                    <div className="cmp-order-details__order-date" data-locator="order-date">
+                    <div className={`${this.rootStyle}__order-date`} data-locator="order-date">
                         {DateFormatter.dateFormatter(orderDetails.date, userLocale)}
                     </div>
-                    <div className="cmp-order-details__address-container">
-                        <div className="cmp-order-details__ship-to" data-locator="ship-to">
-                            <h4>{this.props.config.shipTo}</h4>
+                    <div className={`${this.rootStyle}__address-container`}>
+                        <div className={`${this.rootStyle}__ship-to`} data-locator="ship-to">
+                            <h4>{config.shipTo}</h4>
                             {this.renderAddress("shipping")}
                         </div>
-                        <div className="cmp-order-details__bill-to" data-locator="bill-to">
-                            <h4>{this.props.config.billTo}</h4>
+                        <div className={`${this.rootStyle}__bill-to`} data-locator="bill-to">
+                            <h4>{config.billTo}</h4>
                             {this.renderAddress("billing")}
                         </div>
                     </div>
-                    <div className="cmp-order-details__payment-container">
-                        <div className="cmp-order-details__payment-method" data-locator="payment-method">
-                            <h4>{this.props.config.paymentMethod}</h4>
+                    <div className={`${this.rootStyle}__payment-container`}>
+                        <div className={`${this.rootStyle}__payment-method`} data-locator="payment-method">
+                            <h4>{config.paymentMethod}</h4>
                             {orderDetails.ccNum && (
                                 <>
-                                <ReactSVG src={this.props.config.paymentType.creditCard.icon}/>
-                                <div className="text">{this.props.config.paymentType.creditCard.label}</div>
+                                <ReactSVG src={config.paymentType.creditCard.icon}/>
+                                <div className="text">{config.paymentType.creditCard.label}</div>
                                 </>
                             )}
                             {!orderDetails.ccNum && orderDetails.purchaseOrderNumber && (
                                 <>
-                                <ReactSVG src={this.props.config.paymentType.purchaseOrder.icon}/>
-                                <div className="text">{this.props.config.paymentType.purchaseOrder.label}: {orderDetails.purchaseOrderNumber}</div>
+                                <ReactSVG src={config.paymentType.purchaseOrder.icon}/>
+                                <div className="text">{config.paymentType.purchaseOrder.label}: {orderDetails.purchaseOrderNumber}</div>
                                 </>
                             )}
                         </div>
                     </div>
                 </div>
                 <div className="cmp-order-details__order-summary" data-locator="order-summary">
-                    <h4>{this.props.config.orderSummary}</h4>
+                    <h4>{config.summaryTitle}</h4>
                     <div className="cmp-order-details__order-subtotal">
-                        <div className="cmp-order-details__order-subtotal_left" data-locator="order-summary-label-sub-total">{this.props.config.subTotal} {this.renderItemCount()}</div>
+                        <div className="cmp-order-details__order-subtotal_left" data-locator="order-summary-label-sub-total">{config.subTotal} {this.renderItemCount()}</div>
                         <div className="cmp-order-details__order-subtotal_right" data-locator="order-summary-price-sub-total">{orderDetails.itemsSubTotal}</div>
                     </div>
                     {notZeroDiscountFlag && 
                         <div className="cmp-order-details__order-savings">
-                            <div className="cmp-order-details__order-savings_left" data-locator="order-summary-label-total-discount">{this.props.config.savings}</div>
+                            <div className="cmp-order-details__order-savings_left" data-locator="order-summary-label-total-discount">{config.savings}</div>
                             <div className="cmp-order-details__order-savings_right" data-locator="order-summary-price-total-discount">{this.props.config.minusSign}{orderDetails.orderDiscount}</div>
                         </div>
                     }
                     <div className="cmp-order-details__order-shipping">
-                        <div className="cmp-order-details__order-shipping_left" data-locator="order-summary-label-total-shipping-handling">{this.props.config.shipping}</div>
+                        <div className="cmp-order-details__order-shipping_left" data-locator="order-summary-label-total-shipping-handling">{config.shipping}</div>
                         <div className="cmp-order-details__order-shipping_right" data-locator="order-summary-price-total-shipping-handling">{orderDetails.shippingAmount}</div>
                     </div>
                     <div className="cmp-order-details__order-tax">
-                        <div className="cmp-order-details__order-tax_left" data-locator="order-summary-label-estimated-tax">{this.props.config.tax}</div>
+                        <div className="cmp-order-details__order-tax_left" data-locator="order-summary-label-estimated-tax">{config.tax}</div>
                         <div className="cmp-order-details__order-tax_right" data-locator="order-summary-price-estimated-tax">{orderDetails.taxAmount}</div>
                     </div>
                     <div className="cmp-order-details__order-total">
-                        <div className="cmp-order-details__order-total_left" data-locator="order-summary-label-total-price">{this.props.config.orderTotal}</div>
+                        <div className="cmp-order-details__order-total_left" data-locator="order-summary-label-total-price">{config.totalLabel}</div>
                         <div className="cmp-order-details__order-total_right" data-locator="order-summary-price-total-price"><h1>{orderDetails.orderTotal}</h1></div>
                     </div>
                     {this.state.isCommerceApiMigrated && (
-                        <div className="cmp-order-details__reorder" data-locator="order-details-reorder">
+                        <div className={`${this.rootStyle}__reorder`} data-locator="order-details-reorder">
                             {this.renderReorderButton()}
                         </div>
                     )}
                 </div>
             </div>
+            </>
         )
     }
 
-    renderOrderNotFoundError = () => {
+    renderNotFoundError = () => {
         return (
             <>
-                <div className="cmp-order-details__no-results" data-locator="order-details-no-results">
-                    <p>{this.props.config.orderNotFoundErrorTitle}</p>
+                <div className={`${this.rootStyle}__no-results`} data-locator="order-details-no-results">
+                    <p>{this.props.config.resultNotFoundErrorTitle}</p>
                 </div>
             </>
         );
@@ -353,7 +356,7 @@ class OrderDetails extends Component {
         const { airbills, orderDetails } = this.state;
         return (
             <>
-                <div className="cmp-order-details__order-shipment-list" data-locator="order-shipment-list">
+                <div className={`${this.rootStyle}__order-shipment-list`} data-locator="order-shipment-list">
                     {Object.keys(airbills).length > 0 && this.getShipmentList(airbills, orderDetails)}
                 </div>
                 {this.state.isCommerceApiMigrated && (
@@ -370,8 +373,8 @@ class OrderDetails extends Component {
         return (
             <>
                 {isLoading && (<Spinner loading={isLoading} />)}
-                {!isLoading && errorOrderNotFound && this.renderOrderNotFoundError()}
-                {!errorOrderNotFound && !errorServiceError && !isLoading && this.renderOrderDetails()}
+                {!isLoading && errorOrderNotFound && this.renderNotFoundError()}
+                {!errorOrderNotFound && !errorServiceError && !isLoading && this.renderDetailsSection()}
                 {!errorOrderNotFound && !errorServiceError && !isLoading && this.renderOrderShipmentList()}
                 <Modal isOpen={this.state.modalShown} onClose={this.toggleModal} className='cmp-add-to-cart-modal'>
                     <Header

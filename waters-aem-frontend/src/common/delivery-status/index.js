@@ -12,7 +12,8 @@ class DeliveryStatus extends Component {
         this.state = {
             deliveryStatus: "",
             icon: "",
-            iconClassName: ""
+            iconClassName: "",
+            deliveryStatusClass: ""
         }
     }
 
@@ -45,8 +46,19 @@ class DeliveryStatus extends Component {
         let deliveryStatus = "";
         let icon = "";
         let iconClassName = "delivery-icon";
+        let deliveryStatusClass = '';
 
         switch(status) {
+            case "Expired":
+                deliveryStatus = labels.expiredLabel;
+                icon = icons.expiredIcon;
+                deliveryStatusClass = "disabled";
+            break;
+            case "Order Placed":
+                deliveryStatus = labels.orderPlacedLabel;
+                icon = icons.orderPlacedIcon;
+                iconClassName = "delivery-icon-complete";
+            break; 
             case "Open":
                 deliveryStatus = labels.openLabel;
                 icon = icons.openIcon;
@@ -63,14 +75,15 @@ class DeliveryStatus extends Component {
                 }
                 icon = icons.completeIcon;
                 iconClassName = "delivery-icon-complete";
-            break;
+            break;     
             default:
                 deliveryStatus = labels.openLabel;
         }
         this.setState({
             deliveryStatus: deliveryStatus,
             icon: icon,
-            iconClassName: iconClassName
+            iconClassName: iconClassName,
+            deliveryStatusClass,
         });
     }
     componentDidMount() {
@@ -86,7 +99,7 @@ class DeliveryStatus extends Component {
     render() {
         return (
             <>
-                <div className="delivery-status" data-locator="delivery-status">          
+                <div className={`delivery-status ${this.state.deliveryStatusClass}`} data-locator="delivery-status">          
                     <div className={this.state.iconClassName}>
                         <ReactSVG src={this.state.icon} />
                     </div>

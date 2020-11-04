@@ -7,6 +7,14 @@
         text-align: left;
     } 
 
+    &.disabled {
+        color: $color-disabled;
+        cursor: default;
+        svg .st0 {
+                stroke: $color-disabled;
+        }
+    }
+
     .delivery-icon {
         display: inline-block;  
         line-height: $icon-m; 
@@ -33,7 +41,7 @@
             .st0,
             .st1 {
                 stroke-width: 1.5px;
-                stroke: $color-teal-30;
+                stroke: $color-success;
             }
         }
         margin-right: $space-xxs;
