@@ -52,6 +52,7 @@ class DeliveryStatus extends Component {
             case "Expired":
                 deliveryStatus = labels.expiredLabel;
                 icon = icons.expiredIcon;
+                iconClassName= "delivery-icon-disabled";
                 deliveryStatusClass = "disabled";
             break;
             case "Order Placed":
