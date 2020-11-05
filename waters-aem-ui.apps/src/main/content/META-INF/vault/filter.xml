@@ -4,6 +4,7 @@
     <filter root="/apps/waters">
         <exclude pattern="/apps/waters/i18n(/.*)?"/>
     </filter>
+    <filter root="/apps/granite/sightly/templates"/>
     <filter root="/apps/sling"/>
     <filter root="/apps/foundation/components/redirect"/>
     <filter root="/apps/settings/wcm/designs/waters"/>
