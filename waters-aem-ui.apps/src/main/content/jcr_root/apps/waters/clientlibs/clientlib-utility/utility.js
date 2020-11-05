@@ -1,5 +1,111 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[2],{
 
+/***/ 11:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return isCartHidden; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return isSignInHidden; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return elementLocator; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return getHttpStatusFromErrors; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return htmlParser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return getCompanyLogo; });
+/* harmony import */ var react_html_parser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(90);
+/* harmony import */ var react_html_parser__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_html_parser__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _stores_sessionStore__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
+/* harmony import */ var _scripts_loginStatus__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(16);
+
+
+ // This function determines the eCommerce Status of the User / Country combination
+// The eCommerce status is determined from the "data-ecommerce-state" which is returned in the header Navigation
+
+var isCartHidden = function isCartHidden() {
+  var eCommStatus;
+  var headerNavigation_cartLI = document.querySelector('.top-bar__nav__cart');
+
+  if (headerNavigation_cartLI) {
+    eCommStatus = headerNavigation_cartLI.attributes["data-ecommerce-state"].value.toUpperCase();
+  }
+
+  if (eCommStatus === "DISABLED") {
+    return true;
+  }
+
+  if (eCommStatus === "FULL_ENABLED") {
+    return false;
+  }
+
+  if (eCommStatus === "PARTIAL_ENABLED") {
+    if (_scripts_loginStatus__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"].state()) {
+      var store = new _stores_sessionStore__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"]();
+      var soldToDetails = store.getSoldToDetails();
+
+      if (!soldToDetails || soldToDetails.length === 0) {
+        return true;
+      }
+    } else {
+      return true;
+    }
+  }
+
+  return false;
+}; // Hide Sign In Component if If Partial or Disabled
+
+var isSignInHidden = function isSignInHidden() {
+  var eCommStatus;
+  var headerNavigation_cartLI = document.querySelector('.top-bar__nav__cart');
+
+  if (headerNavigation_cartLI) {
+    eCommStatus = headerNavigation_cartLI.attributes["data-ecommerce-state"].value.toUpperCase();
+  }
+
+  if (eCommStatus === "DISABLED" || eCommStatus === "PARTIAL_ENABLED") {
+    return true;
+  }
+
+  if (eCommStatus === "FULL_ENABLED") {
+    return false;
+  }
+
+  return false;
+};
+var elementLocator = function elementLocator(str) {
+  try {
+    return str ? str.trim().replace(/ /g, '-').toLowerCase() : '';
+  } catch (e) {
+    return str;
+  }
+};
+var getHttpStatusFromErrors = function getHttpStatusFromErrors(arrErrors, defaultCode) {
+  try {
+    return Array.isArray(arrErrors) ? arrErrors.reduce(function (acc, item) {
+      if (item.hasOwnProperty('code')) {
+        acc = parseInt(item.code.substring(item.code.lastIndexOf('_') + 1), 10);
+      }
+
+      return acc;
+    }, defaultCode) : defaultCode;
+  } catch (e) {
+    return defaultCode;
+  }
+};
+var htmlParser = function htmlParser() {
+  var text = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+
+  try {
+    return react_html_parser__WEBPACK_IMPORTED_MODULE_0___default()(text.trim()).toString();
+  } catch (err) {
+    return text;
+  }
+};
+var getCompanyLogo = function getCompanyLogo(dir, company) {
+  var logoDir = dir.replace(/\/$/, '');
+  var logo = company.replace(/[\|#%{}?&-]/g, '').replace(/\s+/g, "-").toLowerCase();
+  return "".concat(logoDir, "/").concat(logo, ".png");
+};
+
+/***/ }),
+
 /***/ 116:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -54,93 +160,6 @@ function getIsocode() {
 
 /***/ }),
 
-/***/ 13:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return isCartHidden; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return isSignInHidden; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return elementLocator; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return getHttpStatusFromErrors; });
-/* harmony import */ var _stores_sessionStore__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(11);
-/* harmony import */ var _scripts_loginStatus__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(16);
-
- // This function determines the eCommerce Status of the User / Country combination
-// The eCommerce status is determined from the "data-ecommerce-state" which is returned in the header Navigation
-
-var isCartHidden = function isCartHidden() {
-  var eCommStatus;
-  var headerNavigation_cartLI = document.querySelector('.top-bar__nav__cart');
-
-  if (headerNavigation_cartLI) {
-    eCommStatus = headerNavigation_cartLI.attributes["data-ecommerce-state"].value.toUpperCase();
-  }
-
-  if (eCommStatus === "DISABLED") {
-    return true;
-  }
-
-  if (eCommStatus === "FULL_ENABLED") {
-    return false;
-  }
-
-  if (eCommStatus === "PARTIAL_ENABLED") {
-    if (_scripts_loginStatus__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"].state()) {
-      var store = new _stores_sessionStore__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"]();
-      var soldToDetails = store.getSoldToDetails();
-
-      if (!soldToDetails || soldToDetails.length === 0) {
-        return true;
-      }
-    } else {
-      return true;
-    }
-  }
-
-  return false;
-}; // Hide Sign In Component if If Partial or Disabled
-
-var isSignInHidden = function isSignInHidden() {
-  var eCommStatus;
-  var headerNavigation_cartLI = document.querySelector('.top-bar__nav__cart');
-
-  if (headerNavigation_cartLI) {
-    eCommStatus = headerNavigation_cartLI.attributes["data-ecommerce-state"].value.toUpperCase();
-  }
-
-  if (eCommStatus === "DISABLED" || eCommStatus === "PARTIAL_ENABLED") {
-    return true;
-  }
-
-  if (eCommStatus === "FULL_ENABLED") {
-    return false;
-  }
-
-  return false;
-};
-var elementLocator = function elementLocator(str) {
-  try {
-    return str ? str.trim().replace(/ /g, '-').toLowerCase() : '';
-  } catch (e) {
-    return str;
-  }
-};
-var getHttpStatusFromErrors = function getHttpStatusFromErrors(arrErrors, defaultCode) {
-  try {
-    return Array.isArray(arrErrors) ? arrErrors.reduce(function (acc, item) {
-      if (item.hasOwnProperty('code')) {
-        acc = parseInt(item.code.substring(item.code.lastIndexOf('_') + 1), 10);
-      }
-
-      return acc;
-    }, defaultCode) : defaultCode;
-  } catch (e) {
-    return defaultCode;
-  }
-};
-
-/***/ }),
-
 /***/ 14:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -172,7 +191,7 @@ var getHttpStatusFromErrors = function getHttpStatusFromErrors(arrErrors, defaul
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return getEprocUserLanguage; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return matchAddresses; });
 /* harmony import */ var whatwg_fetch__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(36);
-/* harmony import */ var _stores_sessionStore__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(11);
+/* harmony import */ var _stores_sessionStore__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
 /* harmony import */ var _scripts_loginStatus__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(16);
 /* harmony import */ var _scripts_DigitalData__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(19);
 
@@ -568,7 +587,7 @@ var matchAddresses = function matchAddresses(userDetailsAPIDetails, soldToAPIDet
 
 /***/ }),
 
-/***/ 164:
+/***/ 165:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -671,7 +690,7 @@ var feedbackSurvey = __webpack_require__(53);
 var domElements = __webpack_require__(25);
 
 // EXTERNAL MODULE: ./src/utils/eCommerceFunctions.js
-var eCommerceFunctions = __webpack_require__(13);
+var eCommerceFunctions = __webpack_require__(11);
 
 // CONCATENATED MODULE: ./src/utils/modal/index.js
 
@@ -857,7 +876,7 @@ modal_Header.defaultProps = {
 
 /***/ }),
 
-/***/ 207:
+/***/ 222:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1198,7 +1217,7 @@ var stateWatcher_useFormStateContext = function useFormStateContext() {
 
 /***/ }),
 
-/***/ 394:
+/***/ 435:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1484,7 +1503,7 @@ function getLocale() {
 
 /***/ }),
 
-/***/ 68:
+/***/ 67:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1495,7 +1514,7 @@ function getLocale() {
 /* harmony import */ var C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
 /* harmony import */ var C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6);
-/* harmony import */ var C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(12);
+/* harmony import */ var C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(13);
 /* harmony import */ var whatwg_fetch__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(36);
 /* harmony import */ var _redirectFunctions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(26);
 
@@ -1657,7 +1676,7 @@ function _postDataRedirect() {
 
 /***/ }),
 
-/***/ 79:
+/***/ 78:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1753,7 +1772,7 @@ var getAttributes = function getAttributes(ref, validation, matchRef, emailValid
 
 /***/ }),
 
-/***/ 80:
+/***/ 79:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1871,7 +1890,7 @@ var config = document.getElementById('json-config--cmp-detail-tiles--personal') 
 
 /***/ }),
 
-/***/ 81:
+/***/ 80:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1981,7 +2000,7 @@ Dropdown.defaultProps = {
 
 /***/ }),
 
-/***/ 84:
+/***/ 83:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

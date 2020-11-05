@@ -155,7 +155,7 @@
 /************************************************************************/
 /******/ ({
 
-/***/ 11:
+/***/ 12:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -402,7 +402,7 @@ var inlineSVG = __webpack_require__(45);
 var DigitalData = __webpack_require__(19);
 
 // EXTERNAL MODULE: ./src/stores/sessionStore.js
-var sessionStore = __webpack_require__(11);
+var sessionStore = __webpack_require__(12);
 
 // EXTERNAL MODULE: ./src/stores/cookieStore.js
 var cookieStore = __webpack_require__(30);
@@ -844,7 +844,7 @@ var cookieStore = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var inline_svg__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76);
+/* harmony import */ var inline_svg__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(75);
 /* harmony import */ var inline_svg__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(inline_svg__WEBPACK_IMPORTED_MODULE_0__);
 
 var inlineSVG = {

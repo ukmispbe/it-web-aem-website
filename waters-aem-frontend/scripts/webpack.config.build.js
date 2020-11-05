@@ -5,20 +5,22 @@ const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 function recursiveIssuer(m) {
     if (m.issuer) {
         return recursiveIssuer(m.issuer);
-    } else if (m.name) {
-        return m.name;
+    } else if (m.rawRequest) {
+        return m.rawRequest;
     } else {
         return false;
     }
 }
 
+const entries = {
+    main: './src/entry.js',
+    print: './src/printEntry.js',
+    head: './src/headEntry.js',
+    global: './src/globalEntry.js'
+}
+
 module.exports = {
-    entry: {
-        main: './src/entry.js',
-        print: './src/printEntry.js',
-        head: './src/headEntry.js',
-        global: './src/globalEntry.js'
-    },
+    entry: entries,
     output: {
         path: path.resolve(__dirname, '../', 'build')
     },
