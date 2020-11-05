@@ -204,6 +204,9 @@ nav.cmp-navigation {
                }
             }
 
+            &:hover > .cmp-navigation__container  a {
+               color: $color-blue-50;
+            }
 
             @include tablet-and-over {
                &::after {
