@@ -148,234 +148,14 @@
 /******/
 /******/
 /******/ 	// add entry module to deferred list
-/******/ 	deferredModules.push([452,1,2,0]);
+/******/ 	deferredModules.push([398,1,2,0]);
 /******/ 	// run deferred modules when ready
 /******/ 	return checkDeferredModules();
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 12:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return keys; });
-/* harmony import */ var _utils_userFunctions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(14);
-
-var keys = {
-  previousPagePosition: 'waters.previousPagePosition',
-  previousPagePositionEnabled: 'waters.previousPagePositionEnabled',
-  fromSearchURL: 'waters.fromSearchURL',
-  searchTabHistory: 'waters.searchTabHistory',
-  previousPaginationClick: 'waters.previousPaginationClick',
-  dismissSystemWideNotification: 'waters.dismissSystemWideNotification',
-  userDetails: 'waters.userDetails',
-  soldToDetails: 'waters.soldToDetails',
-  "continue": 'waters.continue',
-  personalDetailsUpdated: 'waters.personalDetailsUpdated',
-  legacyToken: 'waters.legacyToken',
-  signInRedirect: 'waters.signInRedirect',
-  punchoutSetupDetails: 'waters.punchoutSetupDetails',
-  userType: 'waters.userType'
-};
-
-var getJSONObject = function getJSONObject(key) {
-  var value = window.sessionStorage.getItem(key);
-  return value ? JSON.parse(value) : {};
-};
-
-var getJSONArray = function getJSONArray(key) {
-  var value = window.sessionStorage.getItem(key);
-  return value ? JSON.parse(value) : null;
-};
-
-var SessionStore = function SessionStore() {
-  this.setSoldToDetails = function (value) {
-    return window.sessionStorage.setItem(keys.soldToDetails, JSON.stringify(Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_0__[/* filterSoldToDetails */ "b"])(value)));
-  };
-
-  this.getSoldToDetails = function () {
-    return getJSONArray(keys.soldToDetails);
-  };
-
-  this.removeSoldToDetails = function () {
-    return window.sessionStorage.removeItem(keys.soldToDetails);
-  };
-
-  this.setUserDetails = function (value) {
-    return window.sessionStorage.setItem(keys.userDetails, JSON.stringify(Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_0__[/* filterUserDetails */ "c"])(value)));
-  };
-
-  this.getUserDetails = function () {
-    return getJSONObject(keys.userDetails);
-  };
-
-  this.removeUserDetails = function () {
-    return window.sessionStorage.removeItem(keys.userDetails);
-  };
-
-  this.setPreviousPagePosition = function (value) {
-    return window.sessionStorage.setItem(keys.previousPagePosition, value);
-  };
-
-  this.getPreviousPagePosition = function () {
-    return window.sessionStorage.getItem(keys.previousPagePosition);
-  };
-
-  this.removePreviousPagePosition = function () {
-    return window.sessionStorage.removeItem(keys.previousPagePosition);
-  };
-
-  this.setPreviousPagePositionEnabled = function () {
-    return window.sessionStorage.setItem(keys.previousPagePositionEnabled, 'Y');
-  };
-
-  this.getPreviousPagePositionEnabled = function () {
-    return window.sessionStorage.getItem(keys.previousPagePositionEnabled);
-  };
-
-  this.removePreviousPagePositionEnabled = function () {
-    return window.sessionStorage.removeItem(keys.previousPagePositionEnabled);
-  };
-
-  this.setFromSearchURL = function (value) {
-    return window.sessionStorage.setItem(keys.fromSearchURL, JSON.stringify(value));
-  };
-
-  this.getFromSearchURL = function () {
-    return getJSONObject(keys.fromSearchURL);
-  };
-
-  this.removeFromSearchURL = function () {
-    return window.sessionStorage.removeItem(keys.fromSearchURL);
-  };
-
-  this.setSearchTabHistory = function (value) {
-    return window.sessionStorage.setItem(keys.searchTabHistory, JSON.stringify(value));
-  };
-
-  this.getSearchTabHistory = function () {
-    return getJSONObject(keys.searchTabHistory);
-  };
-
-  this.removeSearchTabHistory = function () {
-    return window.sessionStorage.removeItem(keys.searchTabHistory);
-  };
-
-  this.setPreviousPaginationClick = function (value) {
-    return window.sessionStorage.setItem(keys.previousPaginationClick, value);
-  };
-
-  this.getPreviousPaginationClick = function () {
-    return window.sessionStorage.getItem(keys.previousPaginationClick);
-  };
-
-  this.removePreviousPaginationClick = function () {
-    return window.sessionStorage.removeItem(keys.previousPaginationClick);
-  };
-
-  this.setDismissSystemWideNotification = function () {
-    return window.sessionStorage.setItem(keys.dismissSystemWideNotification, "Y");
-  };
-
-  this.getDismissSystemWideNotificatiopn = function () {
-    return window.sessionStorage.getItem(keys.dismissSystemWideNotification);
-  };
-
-  this.setContinueLink = function (value) {
-    return window.sessionStorage.setItem(keys["continue"], value);
-  };
-
-  this.getContinueLink = function () {
-    return window.sessionStorage.getItem(keys["continue"]);
-  };
-
-  this.removeContinueLink = function () {
-    return window.sessionStorage.removeItem(keys["continue"]);
-  };
-
-  this.setPersonalDetailsUpdated = function () {
-    return window.sessionStorage.setItem(keys.personalDetailsUpdated, 'Y');
-  };
-
-  this.getPersonalDetailsUpdated = function () {
-    return window.sessionStorage.getItem(keys.personalDetailsUpdated);
-  };
-
-  this.removePersonalDetailsUpdated = function () {
-    return window.sessionStorage.removeItem(keys.personalDetailsUpdated);
-  };
-
-  this.setLegacyToken = function (value) {
-    return window.sessionStorage.setItem(keys.legacyToken, value);
-  };
-
-  this.getLegacyToken = function () {
-    return window.sessionStorage.getItem(keys.legacyToken);
-  };
-
-  this.removeLegacyToken = function () {
-    return window.sessionStorage.removeItem(keys.legacyToken);
-  };
-
-  this.setSignInRedirect = function (value) {
-    return window.sessionStorage.setItem(keys.signInRedirect, value);
-  };
-
-  this.getSignInRedirect = function () {
-    return window.sessionStorage.getItem(keys.signInRedirect);
-  };
-
-  this.removeSignInRedirect = function () {
-    return window.sessionStorage.removeItem(keys.signInRedirect);
-  };
-
-  this.setPunchoutSetupDetails = function (value) {
-    return window.sessionStorage.setItem(keys.punchoutSetupDetails, JSON.stringify(value));
-  };
-
-  this.getPunchoutSetupDetails = function () {
-    return getJSONObject(keys.punchoutSetupDetails);
-  };
-
-  this.removePunchoutSetupDetails = function () {
-    return window.sessionStorage.removeItem(keys.punchoutSetupDetails);
-  };
-
-  this.setUserType = function (value) {
-    return window.sessionStorage.setItem(keys.userType, value);
-  };
-
-  this.getUserType = function () {
-    return window.sessionStorage.getItem(keys.userType);
-  };
-
-  this.removeUserType = function () {
-    return window.sessionStorage.removeItem(keys.userType);
-  };
-};
-
-/* harmony default export */ __webpack_exports__["a"] = (SessionStore);
-
-
-/***/ }),
-
-/***/ 16:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var _stores_cookieStore__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(30);
-
-var loginStatus = {
-  state: function state() {
-    return _stores_cookieStore__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].getLoggedInStatus() ? true : false;
-  }
-};
-/* harmony default export */ __webpack_exports__["a"] = (loginStatus);
-
-/***/ }),
-
-/***/ 18:
+/***/ 17:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -396,16 +176,16 @@ var slicedToArray = __webpack_require__(10);
 var classCallCheck = __webpack_require__(4);
 
 // EXTERNAL MODULE: ./src/scripts/inlineSVG.js
-var inlineSVG = __webpack_require__(45);
+var inlineSVG = __webpack_require__(53);
 
 // EXTERNAL MODULE: ./src/scripts/DigitalData.js
-var DigitalData = __webpack_require__(19);
+var DigitalData = __webpack_require__(22);
 
 // EXTERNAL MODULE: ./src/stores/sessionStore.js
-var sessionStore = __webpack_require__(12);
+var sessionStore = __webpack_require__(14);
 
 // EXTERNAL MODULE: ./src/stores/cookieStore.js
-var cookieStore = __webpack_require__(30);
+var cookieStore = __webpack_require__(48);
 
 // CONCATENATED MODULE: ./src/analytics/eventTypes.js
 var eventTypes = {
@@ -746,130 +526,12 @@ var _analytics$analyticTy = Object(slicedToArray["a" /* default */])(analytics.a
 
 /***/ }),
 
-/***/ 19:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-var DigitalData = {
-  get globalExperience() {
-    return 'XG';
-  },
-
-  get language() {
-    if (!window.digitalData) return '';
-    return window.digitalData.page && window.digitalData.page.language ? window.digitalData.page.language : "en";
-  },
-
-  get country() {
-    if (!window.digitalData) return '';
-    return window.digitalData.page && window.digitalData.page.country ? window.digitalData.page.country : this.globalExperience;
-  },
-
-  get page() {
-    if (!window.digitalData) return '';
-    return window.digitalData.page;
-  },
-
-  get default() {
-    return this.country !== this.globalExperience ? this.country.toLowerCase() : "";
-  }
-
-};
-/* harmony default export */ __webpack_exports__["a"] = (DigitalData);
-
-/***/ }),
-
-/***/ 30:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var _scripts_DigitalData__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(19);
-
-var keys = {
-  loggedInStatus: 'WatersGreetingCookie',
-  soldToStatus: 'ST_STATUS',
-  locale: 'org.springframework.web.servlet.i18n.CookieLocaleResolver.LOCALE'
-};
-
-function getCookie(cname) {
-  var name = cname + "=";
-  var decodedCookie = decodeURIComponent(document.cookie);
-  var ca = decodedCookie.split(';');
-
-  for (var i = 0; i < ca.length; i++) {
-    var c = ca[i];
-
-    while (c.charAt(0) == ' ') {
-      c = c.substring(1);
-    }
-
-    if (c.indexOf(name) === 0) {
-      return c.substring(name.length, c.length);
-    }
-  }
-
-  return "";
-}
-
-;
-var cookieStore = {
-  getLoggedInStatus: function getLoggedInStatus() {
-    return getCookie(keys.loggedInStatus);
-  },
-  getSoldToStatus: function getSoldToStatus() {
-    return getCookie(keys.soldToStatus);
-  },
-  getLocale: function getLocale() {
-    return getCookie(keys.locale);
-  },
-  setLocale: function setLocale() {
-    if (_scripts_DigitalData__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].country === _scripts_DigitalData__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].globalExperience) {
-      return;
-    }
-
-    var locale = "".concat(_scripts_DigitalData__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].language, "_").concat(_scripts_DigitalData__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].country);
-    var cookieName = keys.locale;
-    var existingCookie = getCookie(cookieName);
-
-    if (!existingCookie || existingCookie !== locale) {
-      document.cookie = "".concat(cookieName, "=").concat(locale, "; path=/");
-    }
-  }
-};
-/* harmony default export */ __webpack_exports__["a"] = (cookieStore);
-
-/***/ }),
-
-/***/ 45:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var inline_svg__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(75);
-/* harmony import */ var inline_svg__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(inline_svg__WEBPACK_IMPORTED_MODULE_0__);
-
-var inlineSVG = {
-  init: function init(svgSelector, initClass) {
-    try {
-      inline_svg__WEBPACK_IMPORTED_MODULE_0___default.a.init({
-        svgSelector: svgSelector,
-        // the class attached to all images that should be inlined
-        initClass: initClass // class added to <html>
-
-      }, function () {});
-    } catch (e) {// console.log(e);
-    }
-  }
-};
-/* harmony default export */ __webpack_exports__["a"] = (inlineSVG);
-
-/***/ }),
-
-/***/ 452:
+/***/ 398:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _analytics__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(18);
+/* harmony import */ var _analytics__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(17);
 // head JS entry file
 
 _analytics__WEBPACK_IMPORTED_MODULE_0__[/* default */ "b"].siteLoad();

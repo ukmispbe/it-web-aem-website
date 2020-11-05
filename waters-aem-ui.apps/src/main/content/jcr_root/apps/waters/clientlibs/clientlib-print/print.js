@@ -149,517 +149,21 @@
 /******/
 /******/
 /******/ 	// add entry module to deferred list
-/******/ 	deferredModules.push([450,1,2,0]);
+/******/ 	deferredModules.push([396,1,2,0]);
 /******/ 	// run deferred modules when ready
 /******/ 	return checkDeferredModules();
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 105:
-/***/ (function(module, exports) {
-
-function scrollToElement(scrollTargetElementID, speed, easing) {
-  var ignorePadding = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
-  var additionalOffset = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 0;
-
-  if (!scrollTargetElementID) {
-    return;
-  }
-
-  speed = speed || 2000;
-  easing = easing || 'easeOutSine';
-  var scrollY = window.scrollY || document.documentElement.scrollTop;
-  var scrollTargetElement = document.getElementById(scrollTargetElementID);
-  var bodyRect = document.body.getBoundingClientRect();
-
-  if (!scrollTargetElement) {
-    return;
-  }
-
-  var targetRect = scrollTargetElement.getBoundingClientRect();
-  var currentTime = 0,
-      currentOffset = getOffset();
-  var time = Math.max(0.1, Math.min(Math.abs(scrollY - currentOffset) / speed, 0.8));
-  var easingEquations = {
-    easeOutSine: function easeOutSine(pos) {
-      return Math.sin(pos * (Math.PI / 2));
-    },
-    easeInOutSine: function easeInOutSine(pos) {
-      return -0.5 * (Math.cos(Math.PI * pos) - 1);
-    },
-    easeInOutQuint: function easeInOutQuint(pos) {
-      if ((pos /= 0.5) < 1) {
-        return 0.5 * Math.pow(pos, 5);
-      }
-
-      return 0.5 * (Math.pow(pos - 2, 5) + 2);
-    }
-  };
-
-  function getPadding() {
-    if (!ignorePadding) {
-      return 0;
-    }
-
-    var padding = window.getComputedStyle(scrollTargetElement, null).getPropertyValue('padding-top');
-
-    if (padding.indexOf('em') !== -1) {
-      padding = padding.replace('em', '');
-      padding *= 16;
-    } else {
-      padding = padding.replace('px', '');
-      padding *= 1;
-    }
-
-    return padding;
-  }
-
-  function getOffset() {
-    targetRect = scrollTargetElement.getBoundingClientRect();
-    bodyRect = document.body.getBoundingClientRect();
-    var tmpOffset = targetRect.top - bodyRect.top;
-    tmpOffset += getPadding();
-    tmpOffset -= additionalOffset;
-    return tmpOffset;
-  }
-
-  function tick() {
-    currentOffset = getOffset();
-    currentTime += 1 / 60;
-    var p = currentTime / time;
-    var t = easingEquations[easing](p);
-
-    if (p < 1) {
-      requestAnimFrame(tick);
-      window.scrollTo(0, scrollY + (currentOffset - scrollY) * t);
-    } else {
-      window.scrollTo(0, currentOffset);
-    }
-  }
-
-  tick();
-}
-
-module.exports = scrollToElement;
-
-/***/ }),
-
-/***/ 12:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return keys; });
-/* harmony import */ var _utils_userFunctions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(14);
-
-var keys = {
-  previousPagePosition: 'waters.previousPagePosition',
-  previousPagePositionEnabled: 'waters.previousPagePositionEnabled',
-  fromSearchURL: 'waters.fromSearchURL',
-  searchTabHistory: 'waters.searchTabHistory',
-  previousPaginationClick: 'waters.previousPaginationClick',
-  dismissSystemWideNotification: 'waters.dismissSystemWideNotification',
-  userDetails: 'waters.userDetails',
-  soldToDetails: 'waters.soldToDetails',
-  "continue": 'waters.continue',
-  personalDetailsUpdated: 'waters.personalDetailsUpdated',
-  legacyToken: 'waters.legacyToken',
-  signInRedirect: 'waters.signInRedirect',
-  punchoutSetupDetails: 'waters.punchoutSetupDetails',
-  userType: 'waters.userType'
-};
-
-var getJSONObject = function getJSONObject(key) {
-  var value = window.sessionStorage.getItem(key);
-  return value ? JSON.parse(value) : {};
-};
-
-var getJSONArray = function getJSONArray(key) {
-  var value = window.sessionStorage.getItem(key);
-  return value ? JSON.parse(value) : null;
-};
-
-var SessionStore = function SessionStore() {
-  this.setSoldToDetails = function (value) {
-    return window.sessionStorage.setItem(keys.soldToDetails, JSON.stringify(Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_0__[/* filterSoldToDetails */ "b"])(value)));
-  };
-
-  this.getSoldToDetails = function () {
-    return getJSONArray(keys.soldToDetails);
-  };
-
-  this.removeSoldToDetails = function () {
-    return window.sessionStorage.removeItem(keys.soldToDetails);
-  };
-
-  this.setUserDetails = function (value) {
-    return window.sessionStorage.setItem(keys.userDetails, JSON.stringify(Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_0__[/* filterUserDetails */ "c"])(value)));
-  };
-
-  this.getUserDetails = function () {
-    return getJSONObject(keys.userDetails);
-  };
-
-  this.removeUserDetails = function () {
-    return window.sessionStorage.removeItem(keys.userDetails);
-  };
-
-  this.setPreviousPagePosition = function (value) {
-    return window.sessionStorage.setItem(keys.previousPagePosition, value);
-  };
-
-  this.getPreviousPagePosition = function () {
-    return window.sessionStorage.getItem(keys.previousPagePosition);
-  };
-
-  this.removePreviousPagePosition = function () {
-    return window.sessionStorage.removeItem(keys.previousPagePosition);
-  };
-
-  this.setPreviousPagePositionEnabled = function () {
-    return window.sessionStorage.setItem(keys.previousPagePositionEnabled, 'Y');
-  };
-
-  this.getPreviousPagePositionEnabled = function () {
-    return window.sessionStorage.getItem(keys.previousPagePositionEnabled);
-  };
-
-  this.removePreviousPagePositionEnabled = function () {
-    return window.sessionStorage.removeItem(keys.previousPagePositionEnabled);
-  };
-
-  this.setFromSearchURL = function (value) {
-    return window.sessionStorage.setItem(keys.fromSearchURL, JSON.stringify(value));
-  };
-
-  this.getFromSearchURL = function () {
-    return getJSONObject(keys.fromSearchURL);
-  };
-
-  this.removeFromSearchURL = function () {
-    return window.sessionStorage.removeItem(keys.fromSearchURL);
-  };
-
-  this.setSearchTabHistory = function (value) {
-    return window.sessionStorage.setItem(keys.searchTabHistory, JSON.stringify(value));
-  };
-
-  this.getSearchTabHistory = function () {
-    return getJSONObject(keys.searchTabHistory);
-  };
-
-  this.removeSearchTabHistory = function () {
-    return window.sessionStorage.removeItem(keys.searchTabHistory);
-  };
-
-  this.setPreviousPaginationClick = function (value) {
-    return window.sessionStorage.setItem(keys.previousPaginationClick, value);
-  };
-
-  this.getPreviousPaginationClick = function () {
-    return window.sessionStorage.getItem(keys.previousPaginationClick);
-  };
-
-  this.removePreviousPaginationClick = function () {
-    return window.sessionStorage.removeItem(keys.previousPaginationClick);
-  };
-
-  this.setDismissSystemWideNotification = function () {
-    return window.sessionStorage.setItem(keys.dismissSystemWideNotification, "Y");
-  };
-
-  this.getDismissSystemWideNotificatiopn = function () {
-    return window.sessionStorage.getItem(keys.dismissSystemWideNotification);
-  };
-
-  this.setContinueLink = function (value) {
-    return window.sessionStorage.setItem(keys["continue"], value);
-  };
-
-  this.getContinueLink = function () {
-    return window.sessionStorage.getItem(keys["continue"]);
-  };
-
-  this.removeContinueLink = function () {
-    return window.sessionStorage.removeItem(keys["continue"]);
-  };
-
-  this.setPersonalDetailsUpdated = function () {
-    return window.sessionStorage.setItem(keys.personalDetailsUpdated, 'Y');
-  };
-
-  this.getPersonalDetailsUpdated = function () {
-    return window.sessionStorage.getItem(keys.personalDetailsUpdated);
-  };
-
-  this.removePersonalDetailsUpdated = function () {
-    return window.sessionStorage.removeItem(keys.personalDetailsUpdated);
-  };
-
-  this.setLegacyToken = function (value) {
-    return window.sessionStorage.setItem(keys.legacyToken, value);
-  };
-
-  this.getLegacyToken = function () {
-    return window.sessionStorage.getItem(keys.legacyToken);
-  };
-
-  this.removeLegacyToken = function () {
-    return window.sessionStorage.removeItem(keys.legacyToken);
-  };
-
-  this.setSignInRedirect = function (value) {
-    return window.sessionStorage.setItem(keys.signInRedirect, value);
-  };
-
-  this.getSignInRedirect = function () {
-    return window.sessionStorage.getItem(keys.signInRedirect);
-  };
-
-  this.removeSignInRedirect = function () {
-    return window.sessionStorage.removeItem(keys.signInRedirect);
-  };
-
-  this.setPunchoutSetupDetails = function (value) {
-    return window.sessionStorage.setItem(keys.punchoutSetupDetails, JSON.stringify(value));
-  };
-
-  this.getPunchoutSetupDetails = function () {
-    return getJSONObject(keys.punchoutSetupDetails);
-  };
-
-  this.removePunchoutSetupDetails = function () {
-    return window.sessionStorage.removeItem(keys.punchoutSetupDetails);
-  };
-
-  this.setUserType = function (value) {
-    return window.sessionStorage.setItem(keys.userType, value);
-  };
-
-  this.getUserType = function () {
-    return window.sessionStorage.getItem(keys.userType);
-  };
-
-  this.removeUserType = function () {
-    return window.sessionStorage.removeItem(keys.userType);
-  };
-};
-
-/* harmony default export */ __webpack_exports__["a"] = (SessionStore);
-
-
-/***/ }),
-
-/***/ 130:
-/***/ (function(module, exports) {
-
-var anchorSkuScroll = function anchorSkuScroll() {
-  var handler = function handler(event) {
-    if (document.getElementsByClassName('cmp-sku-details__wrapper').length) {
-      if (document.getElementsByClassName('cmp-anchor--sticky').length && document.getElementsByClassName('cmp-sku-details--sticky').length) {
-        document.getElementsByClassName('cmp-sku-details__wrapper')[0].classList.add('cmp-sku-details__wrapper-noBorder');
-      } else {
-        document.getElementsByClassName('cmp-sku-details__wrapper')[0].classList.remove('cmp-sku-details__wrapper-noBorder');
-      }
-    } else {
-      window.removeEventListener('scroll', handler);
-    }
-  };
-
-  return handler;
-};
-
-window.addEventListener('scroll', anchorSkuScroll());
-
-/***/ }),
-
-/***/ 131:
-/***/ (function(module, exports) {
-
-var pdfPluginVerification = function pdfPluginVerification() {
-  var iframes = document.querySelectorAll('.cmp-iframe iframe');
-  var noPDFPluginContainers = document.querySelectorAll('.no-pdf-plugin-container-ie');
-  var browserName = getBrowserName();
-  var pdfPlugin = getPDFPlugin();
-
-  for (var i = 0; i < iframes.length; i++) {
-    var iframe = iframes[i];
-    var fileExtension = getFileExtension(iframe.src);
-    if (fileExtension.toLowerCase() !== 'pdf' || browserName !== 'ie') continue;
-    if (pdfPlugin) return;
-    var noPDFPluginContainer = noPDFPluginContainers[i];
-    iframe.classList.add('hide');
-    noPDFPluginContainer.classList.remove('hide');
-  }
-
-  function getFileExtension(fileName) {
-    return fileName.split('.').pop();
-  }
-
-  function getUserAgent() {
-    return navigator ? navigator.userAgent.toLowerCase() : "other";
-  }
-
-  function getBrowserName() {
-    var userAgent = getUserAgent();
-
-    if (userAgent.indexOf("chrome") > -1) {
-      return "chrome";
-    } else if (userAgent.indexOf("safari") > -1) {
-      return "safari";
-    } else if (userAgent.indexOf("msie") > -1 || navigator.appVersion.indexOf('Trident/') > 0) {
-      return "ie";
-    } else if (userAgent.indexOf("firefox") > -1) {
-      return "firefox";
-    } else {
-      return userAgent;
-    }
-  }
-
-  ;
-
-  function getActiveXObject(name) {
-    try {
-      return new ActiveXObject(name);
-    } catch (e) {
-      return null;
-    }
-
-    ;
-  }
-
-  ;
-
-  function getPDFPlugin() {
-    var names = ['AcroPDF.PDF', 'PDF.PdfCtrl'];
-
-    for (var _i = 0; _i < names.length; _i++) {
-      var activeXObject = getActiveXObject(names[_i]);
-      if (activeXObject) return activeXObject;
-    }
-
-    return null;
-  }
-
-  ;
-};
-
-window.addEventListener('load', pdfPluginVerification);
-
-/***/ }),
-
-/***/ 132:
-/***/ (function(module, exports) {
-
-var bannerReplacement = function bannerReplacement() {
-  if (!objectFitIsSupported()) {
-    var bannerImages = Array.from(document.querySelectorAll('.cmp-banner .cmp-image'));
-    bannerImages.forEach(function (imageContainer) {
-      return replaceBannerImage(imageContainer);
-    });
-  }
-
-  function replaceBannerImage(imageContainer) {
-    imageContainer.classList.add('cmp-banner__backgroundImage');
-    var imageElement = imageContainer.querySelector('.cmp-image__image');
-
-    if (imageElement) {
-      imageContainer.style.backgroundImage = "url('".concat(imageElement.src, "')");
-    }
-  }
-
-  function objectFitIsSupported() {
-    return Modernizr.objectfit ? true : false;
-  }
-};
-
-window.addEventListener('load', bannerReplacement);
-
-/***/ }),
-
-/***/ 134:
+/***/ 136:
 /***/ (function(module, exports) {
 
 /* (ignored) */
 
 /***/ }),
 
-/***/ 135:
-/***/ (function(module, exports) {
-
-var sectionContainers = document.querySelectorAll('.cmp-section-container--collapse');
-
-var toggleBody = function toggleBody(el) {
-  var body = el.querySelector('.cmp-section-container__body');
-  var title = el.querySelector('.cmp-section-container__title');
-  var isOpen = body.classList.contains('open');
-
-  if (window.matchMedia('(max-width: 650px)').matches) {
-    // We only need to open and close items if they are in mobile view. If the user is in desktop view we have no reason to append or remove classes
-    if (isOpen) {
-      title.classList.remove('open');
-      body.classList.remove('open');
-    } else {
-      title.classList.add('open');
-      body.classList.add('open');
-    }
-  }
-};
-
-if (sectionContainers.length > 0) {
-  var _loop = function _loop(i) {
-    var el = sectionContainers[i];
-    var title = el.querySelector('.cmp-section-container__title');
-    title.addEventListener('click', function (e) {
-      return toggleBody(el);
-    });
-  };
-
-  for (var i = 0; i < sectionContainers.length; i++) {
-    _loop(i);
-  }
-}
-
-/***/ }),
-
-/***/ 15:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-var screenSizes = {
-  isMobile: function isMobile() {
-    return window.matchMedia('(max-width: 650px)').matches;
-  },
-  isTabletAndUnder: function isTabletAndUnder() {
-    return window.matchMedia('(max-width: 1200px)').matches;
-  },
-  isTabletAndOver: function isTabletAndOver() {
-    return window.matchMedia('(min-width: 651px)').matches;
-  },
-  isTablet: function isTablet() {
-    return window.matchMedia('(min-width: 651px) and (max-width: 1200px)').matches;
-  }
-};
-/* harmony default export */ __webpack_exports__["a"] = (screenSizes);
-
-/***/ }),
-
-/***/ 16:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var _stores_cookieStore__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(30);
-
-var loginStatus = {
-  state: function state() {
-    return _stores_cookieStore__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].getLoggedInStatus() ? true : false;
-  }
-};
-/* harmony default export */ __webpack_exports__["a"] = (loginStatus);
-
-/***/ }),
-
-/***/ 162:
+/***/ 137:
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
@@ -667,7 +171,15 @@ module.exports = {"colorBorderDark":"#9ca7b0","colorGray50":"#4f5b64","colorBack
 
 /***/ }),
 
-/***/ 164:
+/***/ 15:
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+module.exports = {"colorBorderDark":"#9ca7b0","colorGray50":"#4f5b64","colorBackgroundLight":"#f4f6f7","colorWhite":"#fff","colorBlue50":"#07b","borderRadius":"4px","spaceXXXS":".25em","spaceXXS":".5em","spaceXS":".75em","spaceS":"1em"};
+
+/***/ }),
+
+/***/ 154:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -675,1673 +187,7 @@ module.exports = {"colorBorderDark":"#9ca7b0","colorGray50":"#4f5b64","colorBack
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./src/styles/index.scss
-var styles = __webpack_require__(95);
-
-// EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js
-var classCallCheck = __webpack_require__(4);
-
-// EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass.js
-var createClass = __webpack_require__(5);
-
-// CONCATENATED MODULE: ./src/scripts/stickyService.js
-
-
-
-window.requestAnimFrame = function () {
-  return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || function (callback) {
-    window.setTimeout(callback, 1000 / 60);
-  };
-}();
-
-var last_known_scroll_position = 0;
-var ticking = false;
-
-var stickyService_Sticky = /*#__PURE__*/function () {
-  function Sticky() {
-    Object(classCallCheck["a" /* default */])(this, Sticky);
-
-    this.sumHeight = 0;
-    this.currentStickyClasses = [];
-    this.queue = [];
-    this.attachedFunctions = [];
-    this.current = [];
-  }
-
-  Object(createClass["a" /* default */])(Sticky, [{
-    key: "init",
-    value: function init() {
-      window.addEventListener('scroll', this.watch.bind(this));
-    }
-  }, {
-    key: "throttle",
-    value: function throttle(cb) {
-      last_known_scroll_position = window.scrollY;
-
-      if (!ticking) {
-        window.requestAnimFrame(function () {
-          cb();
-          ticking = false;
-        });
-        ticking = true;
-      }
-    }
-  }, {
-    key: "decideToStick",
-    value: function decideToStick(offset, position, height, parent) {
-      var attach = false;
-
-      switch (offset.position) {
-        case 'bottom':
-          if (position.top - offset.amount + height <= 0) {
-            attach = true;
-          }
-
-          break;
-
-        case 'top':
-          if (parent.getBoundingClientRect().top + offset.amount <= 0) {
-            attach = true;
-          } else if (position.x <= 0 && parent.getBoundingClientRect().y <= 0) {
-            attach = true;
-          }
-
-          break;
-
-        default:
-          attach = false;
-      }
-
-      return attach;
-    }
-  }, {
-    key: "watch",
-    value: function watch(e) {
-      var _this = this;
-
-      this.throttle(function () {
-        if (_this.queue && _this.queue.length) {
-          _this.queue.forEach(function (q) {
-            _this.conditionsToStick(q);
-          });
-        }
-
-        if (_this.attachedFunctions && _this.attachedFunctions.length) {
-          _this.attachedFunctions.forEach(function (fn) {
-            fn(e);
-          });
-        }
-      });
-    }
-  }, {
-    key: "conditionsToStick",
-    value: function conditionsToStick(q) {
-      var position = q.element.getBoundingClientRect();
-
-      if (this.decideToStick(q.offset, position, q.boundingClient.height, q.element.parentNode)) {
-        var conditionalCheck = q.conditions;
-
-        if (typeof conditionalCheck === 'function') {
-          if (conditionalCheck(q.element)) {
-            this.stick(q);
-          } else {
-            this.unstick(q);
-          }
-        } else {
-          this.stick(q);
-        }
-      } else {
-        this.unstick(q);
-      }
-    }
-  }, {
-    key: "stick",
-    value: function stick(el) {
-      var _this2 = this;
-
-      if (!el.sticky) {
-        el.sticky = true;
-        var currentSticky = [];
-        var hasStickyWith = [];
-        this.queue.forEach(function (q) {
-          if (q.sticky) {
-            currentSticky.push(q);
-
-            _this2.currentStickyClasses.push(q.modifier);
-
-            q.element.classList.remove(q.modifier);
-            q.element.classList.remove(q.modifier + '--shadow');
-          } else if (q.stickyWith) {
-            hasStickyWith.push(q);
-          }
-        });
-
-        if (hasStickyWith) {
-          hasStickyWith.forEach(function (hs) {
-            if (_this2.currentStickyClasses.includes(hs.stickyWith)) {
-              hs.sticky = true;
-              currentSticky.push(hs);
-            }
-          });
-        }
-
-        this.sumHeight = 0;
-        currentSticky.sort(function (a, b) {
-          if (a.priority < b.priority) {
-            return -1;
-          } else if (b.priority < a.priority) {
-            return 1;
-          }
-
-          return 0;
-        });
-        currentSticky.forEach(function (q, index) {
-          var boundingClient = q.element.getBoundingClientRect();
-          var rect = Object.assign({}, {
-            height: boundingClient.height
-          }); // set height on parent to avoid page jump
-
-          q.element.parentNode.style.height = rect.height + q.fillHeight + 'px';
-          q.element.parentNode.classList.add("current-sticky-".concat(q.modifier));
-          q.element.classList.add(q.modifier);
-
-          if (index === 0) {
-            _this2.addTopPositioning(q, '0px');
-
-            if (currentSticky.length === 1) {
-              q.element.classList.add(q.modifier + '--shadow');
-            }
-          } else if (index === currentSticky.length - 1) {
-            _this2.addTopPositioning(q, "".concat(_this2.sumHeight, "px"));
-
-            q.element.classList.add(q.modifier + '--shadow');
-          } else {
-            _this2.addTopPositioning(q, "".concat(_this2.sumHeight, "px"));
-          }
-
-          _this2.sumHeight += q.stickyHeight;
-        });
-      }
-    }
-  }, {
-    key: "unstick",
-    value: function unstick(el) {
-      var _this3 = this;
-
-      if (el.sticky && !el.stickyWith || el.sticky && el.stickyWith && this.currentStickyClasses.indexOf(el.stickyWith) === -1) {
-        el.element.style.opacity = 0;
-        el.element.style.top = '';
-        el.element.parentNode.style.height = '';
-        el.element.parentNode.classList.remove("current-sticky-".concat(el.modifier));
-
-        if (this.currentStickyClasses.length > 1) {
-          this.addBottomShadow();
-        }
-
-        el.element.classList.remove(el.modifier + '--shadow');
-        el.element.classList.remove(el.modifier);
-        this.currentStickyClasses.splice(this.currentStickyClasses.indexOf(el.modifier), 1);
-        setTimeout(function () {
-          el.element.style.opacity = 1;
-        }, 100);
-        el.sticky = false;
-
-        var _loop = function _loop(i) {
-          var pastEl = _this3.queue[i];
-
-          if (pastEl && pastEl.sticky && pastEl.stickyWith === el.modifier && _this3.currentStickyClasses.indexOf(pastEl.modifier) == -1) {
-            pastEl.element.style.opacity = 0;
-            pastEl.element.style.top = '';
-            pastEl.element.parentNode.style.height = '';
-            pastEl.element.parentNode.classList.remove("current-sticky-".concat(pastEl.modifier));
-
-            if (_this3.currentStickyClasses.length > 1) {
-              _this3.addBottomShadow();
-            }
-
-            pastEl.element.classList.remove(pastEl.modifier + '--shadow');
-            pastEl.element.classList.remove(pastEl.modifier);
-            setTimeout(function () {
-              pastEl.element.style.opacity = 1;
-            }, 100);
-            pastEl.sticky = false;
-          }
-        };
-
-        for (var i = 0; i < this.queue.indexOf(el); i++) {
-          _loop(i);
-        }
-      } else {
-        if (!el.element.classList.contains(el.modifier)) {
-          el.element.classList.remove(el.modifier + '--shadow');
-        }
-      }
-    }
-  }, {
-    key: "addTopPositioning",
-    value: function addTopPositioning(el, position) {
-      if (el.element.classList.contains('cmp-sku-details')) {
-        el.element.children[0].style.top = position;
-      } else {
-        el.element.style.top = position;
-      }
-    }
-  }, {
-    key: "addBottomShadow",
-    value: function addBottomShadow() {
-      var bottomElement = {};
-      this.queue.forEach(function (q) {
-        if (!bottomElement.priority & q.sticky) {
-          bottomElement = q;
-        } else if (bottomElement.priority && bottomElement.priority >= q.priority) {
-          bottomElement = q;
-        }
-      });
-
-      if (bottomElement.element) {
-        bottomElement.element.classList.add(bottomElement.modifier + '--shadow');
-      }
-    }
-  }, {
-    key: "add",
-    value: function add(el) {
-      if (!this) {
-        return wait(sticky.add(el));
-      }
-
-      if (!el.element) {
-        return;
-      }
-
-      var rect = el.element.getBoundingClientRect();
-      el.boundingClient = Object.assign({}, {
-        bottom: rect.bottom,
-        height: rect.height,
-        left: rect.left,
-        right: rect.right,
-        top: rect.top,
-        width: rect.width,
-        x: rect.x,
-        y: rect.y
-      });
-      this.queue.push(el);
-    }
-  }, {
-    key: "attachToScrollListener",
-    value: function attachToScrollListener(fn) {
-      if (!this || !this.attachedFunctions) {
-        return wait(sticky.attachToScrollListener(fn));
-      }
-
-      try {
-        this.attachedFunctions.push(fn);
-      } catch (e) {
-        wait(sticky.attachToScrollListener(fn));
-      }
-    }
-  }, {
-    key: "findStickyEl",
-    value: function findStickyEl(element) {
-      var stickyService = null;
-
-      if (this.queue && this.queue.length) {
-        for (var q = 0; q < this.queue.length; q++) {
-          if (this.queue[q].element == element) {
-            stickyService = this.queue[q];
-            break;
-          }
-        }
-      }
-
-      return stickyService;
-    }
-  }]);
-
-  return Sticky;
-}();
-
-var sticky = new stickyService_Sticky();
-document.addEventListener('DOMContentLoaded', function () {
-  sticky.init();
-});
-
-function wait(fn) {
-  setTimeout(fn, 50);
-}
-
-/* harmony default export */ var stickyService = (sticky);
-var scrollListener = sticky.attachToScrollListener;
-// EXTERNAL MODULE: ./src/scripts/scrollTo.js
-var scrollTo = __webpack_require__(34);
-var scrollTo_default = /*#__PURE__*/__webpack_require__.n(scrollTo);
-
-// CONCATENATED MODULE: ./src/scripts/backtotop.js
-
-
-
-var isInViewport = function isInViewport(elem) {
-  var distance = elem.getBoundingClientRect();
-  return distance.top <= window.innerHeight;
-};
-
-var goTopBtnFixed = document.querySelector('.cmp-back-to-top');
-var goTopBtnRelative = document.querySelector('.cmp-back-to-top--relative');
-
-function trackScroll() {
-  var scrolled = window.pageYOffset;
-  var coords = window.innerHeight;
-  var footer = document.querySelector('.cmp-footer');
-  var footerInViewport = isInViewport(footer);
-  var showToGoTopBtn = scrolled > coords * 2; // the following conditions toggle the visibility of a fixed and relative "back-to-top" buttons
-  // and the conditions will prevent the footer from flickering while the user is scrolling
-
-  if (!footerInViewport && showToGoTopBtn && !goTopBtnFixed.classList.contains('cmp-back-to-top-show')) {
-    // user has scrolled down enough to show the button
-    // adding the style will transition the visibility of the button to show
-    goTopBtnFixed.classList.add('cmp-back-to-top-show');
-  } else if (!footerInViewport && !showToGoTopBtn) {
-    // user has scrolled up enough to hide the button
-    // removing the style will transition the visibility of the button to hide
-    goTopBtnFixed.classList.remove('cmp-back-to-top-show');
-  } else if (footerInViewport && goTopBtnFixed.style.display === "") {
-    // user has scrolled down enough that the footer is visible
-    // show the relative button and this will prevent the footer from flickering
-    // set the display of the fixed button to "none" to immediately hide the button and avoid the CSS transition
-    goTopBtnRelative.classList.add('cmp-back-to-top-show');
-    goTopBtnFixed.style.display = "none";
-  } else if (!footerInViewport && goTopBtnFixed.style.display === "none") {
-    // user has scrolled up enough that the footer is no longer visible
-    // set the display of the fixed button to "" to immediately show the button and avoid the CSS transition
-    // hide the relative button and this will prevent the footer from flickering
-    goTopBtnFixed.style.display = "";
-    goTopBtnRelative.classList.remove('cmp-back-to-top-show');
-  }
-}
-
-document.addEventListener('DOMContentLoaded', function () {
-  scrollListener(trackScroll);
-});
-goTopBtnFixed.addEventListener('click', function (e) {
-  e.preventDefault();
-  scrollTo_default()(0, 1500, 'easeOutSine');
-});
-goTopBtnRelative.addEventListener('click', function (e) {
-  e.preventDefault();
-  scrollTo_default()(0, 1500, 'easeOutSine');
-});
-// EXTERNAL MODULE: ./src/scripts/scrollToElement.js
-var scrollToElement = __webpack_require__(105);
-var scrollToElement_default = /*#__PURE__*/__webpack_require__.n(scrollToElement);
-
-// EXTERNAL MODULE: ./src/scripts/screenSizes.js
-var screenSizes = __webpack_require__(15);
-
-// CONCATENATED MODULE: ./src/scripts/fade-x.js
-
-
-var fade_x_Fader = function Fader(targetClassName) {
-  var offsetWidth = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-  var maxFadeWidth = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : Number.POSITIVE_INFINITY;
-  var forceMobile = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
-  var wrap = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : false;
-  var targetElement = document.querySelector(".".concat(targetClassName));
-
-  if (!targetElement || screenSizes["a" /* default */].isMobile() && !forceMobile) {
-    return;
-  }
-
-  var fadeOffset = offsetWidth || 0;
-  var maxWidth = maxFadeWidth || Number.POSITIVE_INFINITY;
-  targetElement.classList.add('fader-fade');
-  var lDiv = document.createElement('div');
-  lDiv.classList.add('fader-container');
-  var rDiv = lDiv.cloneNode();
-  lDiv.classList.add('fader-container--left');
-  rDiv.classList.add('fader-container--right');
-  targetElement.prepend(lDiv);
-  targetElement.appendChild(rDiv);
-
-  if (wrap) {
-    var wrapper = document.createElement('div');
-    targetElement.parentNode.insertBefore(wrapper, targetElement);
-    wrapper.appendChild(targetElement);
-  }
-
-  var scrollCheck = function scrollCheck() {
-    if (targetElement.scrollLeft > 0) {
-      targetElement.classList.add('fader-fade--left');
-      var lWidth = fadeOffset + targetElement.scrollLeft / 2;
-
-      if (lWidth > maxWidth) {
-        lDiv.style.width = maxWidth + offsetWidth + "px";
-      } else if (targetElement.scrollLeft < 150 - fadeOffset) {
-        lDiv.style.width = lWidth + "px";
-      } else {
-        lDiv.style.width = fadeOffset + 100 + "px";
-      }
-    } else {
-      targetElement.classList.remove('fader-fade--left');
-    }
-
-    if (targetElement.scrollLeft + targetElement.clientWidth < targetElement.scrollWidth) {
-      targetElement.classList.add('fader-fade--right');
-      var scrollPos = targetElement.scrollWidth - (targetElement.scrollLeft + targetElement.clientWidth);
-      var rWidth = scrollPos / 2 + fadeOffset;
-
-      if (rWidth > maxWidth) {
-        rDiv.style.width = maxWidth + offsetWidth + "px";
-      } else if (scrollPos < 150) {
-        rDiv.style.width = rWidth + "px";
-      } else {
-        rDiv.style.width = fadeOffset + 100 + "px";
-      }
-    } else {
-      targetElement.classList.remove('fader-fade--right');
-    }
-  };
-
-  scrollCheck();
-  return scrollCheck;
-};
-
-/* harmony default export */ var fade_x = (fade_x_Fader);
-// EXTERNAL MODULE: ./src/scripts/ecommerce.js
-var ecommerce = __webpack_require__(27);
-
-// EXTERNAL MODULE: ./src/scripts/loginStatus.js
-var loginStatus = __webpack_require__(16);
-
-// EXTERNAL MODULE: ./src/scripts/checkOutStatus.js
-var checkOutStatus = __webpack_require__(42);
-
-// CONCATENATED MODULE: ./src/scripts/sku-details.js
-
-
-
-
-var skuDetails = {
-  element: function element() {
-    return document.querySelector('.cmp-sku-details');
-  },
-  exists: function exists() {
-    return this.element() ? true : false;
-  },
-  discontinued: function discontinued() {
-    var skuEcom = this.exists() ? this.element().querySelector('.cmp-sku-details__ecom') : null;
-    return !skuEcom ? false : skuEcom.getAttribute('data-discontinued') === 'true' ? true : false;
-  },
-  okToConfigureSticky: function okToConfigureSticky() {
-    return this.exists() && ecommerce["a" /* default */].currentState() != ecommerce["a" /* default */].disabled;
-  },
-  preventSticky: function preventSticky() {
-    return screenSizes["a" /* default */].isMobile() && this.discontinued();
-  },
-  allowSticky: function allowSticky() {
-    return !ecommerce["a" /* default */].isPartialState() ? true : loginStatus["a" /* default */].state() && checkOutStatus["a" /* default */].state();
-  },
-  stickyExists: function stickyExists() {
-    return this.exists() && !this.preventSticky() && this.allowSticky();
-  }
-};
-/* harmony default export */ var sku_details = (skuDetails);
-// CONCATENATED MODULE: ./src/scripts/anchor.js
-
-
-
-
-
-var anchorElement = document.querySelector('.cmp-anchor');
-var anchorMenu = document.querySelector('.cmp-anchor__list-heading');
-var ancFader = null; // Setup click handler for Anchor Links to scroll in view
-
-var anchorLinks = document.querySelectorAll('.cmp-anchor__link') ? Array.from(document.querySelectorAll('.cmp-anchor__link')) : [];
-
-var anchor_bindClickEvents = function bindClickEvents() {
-  var anchorStickyHeaderOffset = 53;
-  var skuDetailsStickyHeaderOffset = 145;
-  anchorLinks.forEach(function (anchor) {
-    anchor.addEventListener('click', function (e) {
-      e.preventDefault();
-      var href = e.target.getAttribute('href').replace(/#/gi, '');
-      var additionalScrollOffset = sku_details.stickyExists() ? skuDetailsStickyHeaderOffset : anchorStickyHeaderOffset;
-      scrollToElement_default()(href, 1000, 'easeOutSine', true, additionalScrollOffset);
-      anchorLinks.forEach(function (anchor) {
-        return anchor.classList.remove('active');
-      });
-      anchor.classList.add('active');
-
-      if (screenSizes["a" /* default */].isMobile()) {
-        toggleMobileNav(true);
-      }
-    });
-  });
-};
-
-window.addEventListener('load', anchor_bindClickEvents);
-var anchorDestinations = [];
-
-var setAnchorDestinations = function setAnchorDestinations() {
-  for (var i = 0; i <= anchorLinks.length; i++) {
-    var anchor = anchorLinks[i];
-
-    if (anchor) {
-      anchor.classList.remove('active');
-      anchorDestinations.push({
-        id: anchor.getAttribute('href'),
-        anchor: anchor
-      });
-    }
-  }
-};
-
-var activeClassName = "active";
-
-var setAnchorState = function setAnchorState(index, isActive) {
-  if (isActive) {
-    anchorDestinations.forEach(function (item) {
-      return item.anchor.classList.remove(activeClassName);
-    });
-    anchorDestinations[index].anchor.classList.add(activeClassName);
-  } else {
-    anchorDestinations[index].anchor.classList.remove(activeClassName);
-  }
-};
-
-var atBottomOfPage = function atBottomOfPage() {
-  return window.innerHeight + window.pageYOffset >= document.body.offsetHeight;
-};
-
-var anchorScrollSpy = function anchorScrollSpy() {
-  if (!anchorElement || !anchorDestinations) {
-    return;
-  }
-
-  var anchorElementBottom = anchorElement.getBoundingClientRect().bottom;
-  var docHeight = document.documentElement.clientHeight;
-  anchorDestinations.forEach(function (item, index) {
-    var id = item.id.replace(/#/gi, '');
-    var elementBoundaries = document.getElementById(id).getBoundingClientRect();
-    var elementTop = elementBoundaries.top;
-    var elementBottom = elementBoundaries.bottom;
-    var isBottomAboveContainer = elementBottom < anchorElementBottom;
-
-    if (index === 0) {
-      var thresholdMarker = docHeight / 1.4;
-      var isAboveThresholdMarker = elementTop <= thresholdMarker;
-      var isBetweenContainerAndThresholdMarker = !isBottomAboveContainer && isAboveThresholdMarker;
-      setAnchorState(index, isBetweenContainerAndThresholdMarker);
-    } else if (index === anchorDestinations.length - 1) {
-      var _thresholdMarker = docHeight * .34;
-
-      var _isAboveThresholdMarker = elementTop <= _thresholdMarker;
-
-      var _isBetweenContainerAndThresholdMarker = !isBottomAboveContainer && _isAboveThresholdMarker;
-
-      if (atBottomOfPage() && _isBetweenContainerAndThresholdMarker) {
-        setAnchorState(index, true);
-      } else {
-        var isActive = !isBottomAboveContainer && elementTop <= anchorElementBottom;
-        setAnchorState(index, isActive);
-      }
-    } else {
-      var _isActive = !isBottomAboveContainer && elementTop <= anchorElementBottom;
-
-      setAnchorState(index, _isActive);
-    }
-  });
-};
-
-function anchorHide() {
-  if (document.getElementsByClassName('cmp-section-container--collapse').length > 0) {
-    document.getElementsByClassName('anchor')[0].style.display = 'none';
-  } else {
-    document.getElementsByClassName('anchor')[0].style.display = 'block';
-  }
-}
-
-function toggleMobileNav(forceClose) {
-  var heading = document.querySelector('.cmp-anchor--sticky');
-
-  if (!forceClose && heading && heading.classList.contains('closed')) {
-    heading.classList.remove('closed');
-    heading.classList.add('open');
-  } else if (heading) {
-    heading.classList.add('closed');
-    heading.classList.remove('open');
-  }
-}
-
-function showScrollBars(el) {
-  el.classList.add('show-scroll-bar');
-}
-
-function hideScrollBars(el) {
-  el.classList.remove('show-scroll-bar');
-}
-
-function anchorChange(el) {
-  if (ancFader === null) {
-    ancFader = fade_x('cmp-anchor__list', 0, 75, false, true);
-    var anchorElementId = document.getElementById('cmp-anchor');
-
-    if (ancFader) {
-      anchorElementId.addEventListener('scroll', ancFader);
-    }
-  }
-}
-
-function clearGradients() {
-  var lhsGradient = document.querySelector('.cmp-anchor__list .fader-container--left');
-  var rhsGradient = document.querySelector('.cmp-anchor__list .fader-container--right');
-
-  if (lhsGradient !== null && rhsGradient !== null) {
-    lhsGradient.style.display = 'none';
-    rhsGradient.style.display = 'none';
-  }
-}
-
-function applyGradients() {
-  var lhsGradient = document.querySelector('.cmp-anchor__list .fader-container--left');
-  var rhsGradient = document.querySelector('.cmp-anchor__list .fader-container--right');
-
-  if (lhsGradient !== null && rhsGradient !== null) {
-    lhsGradient.style.display = 'block';
-    rhsGradient.style.display = 'block';
-  }
-}
-
-function clearOpenContainers() {
-  // This closes any open containers as the user transitions to/from mobile/desktop views instead of just leaving them open
-  if (document.getElementsByClassName('cmp-section-container__title open')) {
-    var listOfOpenTitleContainers = document.querySelectorAll('.cmp-section-container__title.open');
-    var listOfOpenBodyContainers = document.querySelectorAll('.cmp-section-container__body.open');
-    listOfOpenTitleContainers.forEach(function (record) {
-      record.classList.remove('open');
-    });
-    listOfOpenBodyContainers.forEach(function (record) {
-      record.classList.remove('open');
-    });
-  }
-}
-
-function resizeWindow(el) {
-  var hasHorizontalScrollbar = el.scrollWidth > el.clientWidth;
-
-  if (!hasHorizontalScrollbar) {
-    clearGradients();
-  } else {
-    applyGradients();
-  }
-}
-
-function scrollWindow(el) {
-  var hasHorizontalScrollbar = el.scrollWidth > el.clientWidth;
-
-  if (!hasHorizontalScrollbar) {
-    clearGradients();
-  }
-}
-
-var anchorList = document.querySelector('.cmp-anchor__list');
-
-if (anchorList) {
-  var anchorChangeToMobile = function anchorChangeToMobile(e) {
-    if (e.matches) {
-      anchorHide();
-      clearGradients();
-    } else {
-      clearOpenContainers();
-      document.getElementsByClassName('anchor')[0].style.display = "block";
-    }
-  };
-
-  if (screenSizes["a" /* default */].isMobile()) {
-    anchorHide();
-  }
-
-  if (anchorElement) {
-    setAnchorDestinations();
-    scrollListener(anchorScrollSpy);
-    stickyService.add({
-      element: anchorElement,
-      priority: 2,
-      modifier: 'cmp-anchor--sticky',
-      offset: {
-        position: 'top',
-        amount: 13
-      },
-      fillHeight: 52,
-      stickyHeight: 53,
-      stickyWith: document.querySelector('.cmp-sku-details') ? 'cmp-sku-details--sticky' : ''
-    });
-  }
-
-  if (anchorMenu) {
-    anchorMenu.addEventListener('click', function () {
-      return toggleMobileNav();
-    });
-  }
-
-  anchorList.addEventListener('mouseover', function () {
-    return showScrollBars(anchorList);
-  });
-  anchorList.addEventListener('mouseout', function () {
-    return hideScrollBars(anchorList);
-  });
-  anchorChange(anchorList);
-  window.addEventListener('scroll', function () {
-    return scrollWindow(anchorList);
-  });
-  window.addEventListener('load', function () {
-    return resizeWindow(anchorList);
-  });
-  window.addEventListener('resize', function () {
-    return resizeWindow(anchorList);
-  });
-  var mediaQueryListener = window.matchMedia('(max-width: 650px)');
-  mediaQueryListener.addListener(anchorChangeToMobile);
-}
-// CONCATENATED MODULE: ./src/scripts/sticky-sort-filter.js
-
-
-
-var sticky_sort_filter_SortFilterSticky = function SortFilterSticky() {
-  if (screenSizes["a" /* default */].isMobile()) {
-    stickyService.add({
-      element: document.querySelector('.btn-show-sort-filter'),
-      priority: 1,
-      modifier: 'btn-show-sort-filter--sticky',
-      offset: {
-        position: 'top',
-        amount: 0
-      },
-      fillHeight: 17.6,
-      stickyHeight: 54
-    });
-  }
-};
-
-document.addEventListener('DOMContentLoaded', sticky_sort_filter_SortFilterSticky);
-// CONCATENATED MODULE: ./src/scripts/sticky-sku-details.js
-
-
-
-var sticky_sku_details_SkuDetailsSticky = function SkuDetailsSticky() {
-  if (sku_details.okToConfigureSticky()) {
-    stickyService.add({
-      element: sku_details.element(),
-      priority: 1,
-      modifier: 'cmp-sku-details--sticky',
-      offset: {
-        position: 'bottom',
-        amount: 60
-      },
-      conditions: function conditions(element) {
-        if (sku_details.preventSticky()) {
-          // do not show sticky on mobile for discontinued items
-          // because the sticky will show a blank space since users
-          // will not see the quantity and add to cart button
-          return false;
-        }
-
-        return sku_details.allowSticky();
-      },
-      fillHeight: 50,
-      stickyHeight: 92 // setting to 92px to remove gap between anchor and sku-details sticky
-
-    });
-  }
-};
-
-document.addEventListener('DOMContentLoaded', sticky_sku_details_SkuDetailsSticky);
-/* harmony default export */ var sticky_sku_details = (sticky_sku_details_SkuDetailsSticky);
-// EXTERNAL MODULE: ./src/scripts/sticky-sku-scroll.js
-var sticky_sku_scroll = __webpack_require__(130);
-
-// CONCATENATED MODULE: ./src/scripts/mobile-search-scroll.js
-
-
-var mobile_search_scroll_androidSuggestionFix = function androidSuggestionFix() {
-  var isAndroid = navigator.userAgent.toLowerCase().indexOf("android") > -1;
-  var isSearchPage = document.getElementsByClassName('cmp-search__sort-filter__container').length;
-
-  if (!isAndroid && isSearchPage) {
-    document.getElementsByClassName('cmp-search__sort-filter__container')[0].classList.add('no-fix');
-  }
-
-  if (screenSizes["a" /* default */].isMobile() && isAndroid && isSearchPage) {
-    var windowHeight = document.documentElement.clientHeight;
-    window.addEventListener('resize', function () {
-      var newHeight = document.documentElement.clientHeight;
-      var sortContainer = document.getElementsByClassName('cmp-search__sort-filter__container')[0];
-
-      if (sortContainer) {
-        var openedFacet = sortContainer.getElementsByClassName('cmp-search-filters__filter expanded')[0];
-
-        if (openedFacet) {
-          var searchField = openedFacet.getElementsByClassName('cmp-search-filters__filter__search')[0];
-
-          if (windowHeight > newHeight) {
-            if (searchField && document.activeElement === searchField) {
-              sortContainer.scrollTo(0, sortContainer.scrollTop + (searchField.getBoundingClientRect().top - sortContainer.getBoundingClientRect().top));
-            }
-          } else if (newHeight > windowHeight) {
-            windowHeight = newHeight;
-          }
-        }
-      }
-    });
-  }
-};
-
-document.addEventListener('DOMContentLoaded', mobile_search_scroll_androidSuggestionFix);
-// CONCATENATED MODULE: ./src/scripts/navigation-overlay.js
-
-var elem = document.querySelector('.cmp-navigation');
-
-if (elem) {
-  var overlay = document.createElement('div');
-  overlay.classList.add('cmp-navigation-overlay__container');
-  overlay.classList.add('overlay-container');
-  elem.parentElement.after(overlay);
-
-  var navigation_overlay_closeOverlay = function closeOverlay() {
-    if (screenSizes["a" /* default */].isTabletAndOver()) {
-      overlay.style.opacity = "0";
-      overlay.style.visibility = "hidden";
-      overlay.style.transitionDelay = "0s, 0s";
-      elem.classList.remove('cmp-navigation--shadow');
-    }
-  };
-
-  var navigation_overlay_openOverlay = function openOverlay() {
-    if (screenSizes["a" /* default */].isTabletAndOver()) {
-      overlay.style.opacity = "0.5";
-      overlay.style.visibility = "visible";
-      overlay.style.transitionDelay = "0s, 0s";
-      elem.classList.add('cmp-navigation--shadow');
-    }
-  };
-
-  var handleClickAway = function handleClickAway(event) {
-    if (!(event && event.target && event.target.classList)) {
-      return;
-    }
-
-    var level1ClickableClassNames = ['cmp-navigation__container', 'cmp-navigation__item-link', 'left', 'inline-svg', 'st0'];
-    var matches = level1ClickableClassNames.filter(function (className) {
-      return event.target.classList.contains(className);
-    });
-
-    if (matches.length === 0) {
-      navigation_overlay_closeOverlay();
-    }
-  }; // Contains links only displayed on Mobile
-
-
-  var mobileOnlyLinks = document.getElementById("cmp-navigation-mobileList");
-  var mobileOnlyLinksJson = "";
-
-  if (mobileOnlyLinks) {
-    mobileOnlyLinksJson = JSON.parse(mobileOnlyLinks.innerHTML);
-  }
-
-  Array.from(document.querySelector('.navigation .cmp-navigation .cmp-navigation__group').children).forEach(function (e) {
-    var level2Links = e.querySelector('.cmp-navigation__group');
-    var level2LinksCount = level2Links ? level2Links.children.length : 0;
-
-    if (level2Links && mobileOnlyLinksJson.mobileList) {
-      if (mobileOnlyLinksJson.mobileList !== "[]") {
-        // All Products, All Applications etc
-        var allArrayLevel2Links = Array.from(level2Links.children);
-        allArrayLevel2Links.map(function (li) {
-          var anchor = li.querySelector('.cmp-navigation__container > a'); //const anchorBasePathName = anchor.pathname.substr(0, anchor.pathname.length - 5);
-
-          if (mobileOnlyLinksJson.mobileList.includes(anchor.pathname)) {
-            li.classList.add("cmp-navigation__group-all-mobile");
-          }
-        });
-      }
-    }
-
-    if (level2LinksCount !== 0) {
-      e.addEventListener('mouseover', navigation_overlay_openOverlay);
-      e.addEventListener('mouseleave', navigation_overlay_closeOverlay);
-    }
-
-    var level1Link = e.querySelector('.cmp-navigation__container .cmp-navigation__item-link');
-
-    if (level1Link) {
-      if (screenSizes["a" /* default */].isMobile()) {
-        level1Link.addEventListener('click', function (event) {
-          return event.preventDefault();
-        });
-      }
-    }
-  });
-  document.body.addEventListener('click', handleClickAway);
-  var navigation_overlay_header = document.querySelector('.cmp-header');
-
-  if (navigation_overlay_header) {
-    navigation_overlay_header.addEventListener('click', handleClickAway);
-  }
-}
-// CONCATENATED MODULE: ./src/scripts/navigation.js
-
-
-var navigation_FadeNav = function FadeNav() {
-  var navFader = fade_x('cmp-navigation__group', 0, 100);
-  var nav = document.querySelector('.cmp-navigation__group');
-
-  if (navFader && nav) {
-    nav.addEventListener('scroll', navFader);
-  }
-};
-
-document.addEventListener('DOMContentLoaded', navigation_FadeNav);
-// EXTERNAL MODULE: ./src/scripts/navigation-level2.js
-var navigation_level2 = __webpack_require__(66);
-
-// EXTERNAL MODULE: ./src/scripts/iframe.js
-var iframe = __webpack_require__(131);
-
-// EXTERNAL MODULE: ./src/stores/sessionStore.js
-var stores_sessionStore = __webpack_require__(12);
-
-// CONCATENATED MODULE: ./src/scripts/backtosearch.js
-
-var backtosearch_sessionStore = new stores_sessionStore["a" /* default */]();
-
-function removeFromSession() {
-  backtosearch_sessionStore.removeFromSearchURL();
-}
-
-function checkForSessionLink() {
-  var getURL = backtosearch_sessionStore.getFromSearchURL();
-
-  if (!getURL || getURL.constructor === Object && Object.entries(getURL).length === 0) {
-    return false;
-  }
-
-  window.onbeforeunload = function (e) {
-    return removeFromSession();
-  };
-
-  return getURL;
-}
-
-function hideBreadcrumbShowBackToSearch(link) {
-  var searchButton = document.querySelectorAll('.cmp-breadcrumb-search');
-
-  for (var n = 0; n < searchButton.length; n++) {
-    var button = searchButton[n];
-    var action = button.querySelector('.cmp-breadcrumb-search__link');
-    button.classList.remove('cmp-breadcrumb-search--disable');
-    action.href = link;
-    action.addEventListener('click', function (e) {
-      removeFromSession();
-      backtosearch_sessionStore.setPreviousPagePositionEnabled();
-    });
-  }
-}
-
-var backtosearch_mediaQueryListener = window.matchMedia('(max-width: 650px)');
-
-function changeBreadcrumb(source) {
-  var scrollOffset = 40;
-
-  if (source === 'FromScroll') {
-    scrollOffset = 10;
-  }
-}
-
-var breadcrumbDiv = document.querySelector('.breadcrumb');
-
-if (breadcrumbDiv) {
-  backtosearch_mediaQueryListener.addListener(changeBreadcrumb);
-  breadcrumbDiv.addEventListener('scroll', function () {
-    return changeBreadcrumb('FromScroll');
-  });
-  window.addEventListener('load', function () {
-    return changeBreadcrumb('FromScroll');
-  });
-  window.addEventListener('resize', function () {
-    return changeBreadcrumb('FromScroll');
-  });
-}
-
-var backtosearch_link = checkForSessionLink();
-
-if (backtosearch_link) {
-  hideBreadcrumbShowBackToSearch(backtosearch_link);
-}
-// EXTERNAL MODULE: ./src/scripts/domElements.js
-var domElements = __webpack_require__(25);
-
-// EXTERNAL MODULE: ./src/utils/textTransform.js
-var textTransform = __webpack_require__(116);
-
-// EXTERNAL MODULE: ./src/utils/parse-query-params/index.js
-var parse_query_params = __webpack_require__(83);
-
-// CONCATENATED MODULE: ./src/scripts/footer.js
-
-
-
-var scriptElement = document.getElementById('country-list-json');
-var countries = scriptElement && scriptElement.innerHTML.trim() ? JSON.parse(scriptElement.innerHTML) : [];
-
-if (Array.isArray(countries) && countries.length === 0) {
-  var regionSelector = document.querySelector('.cmp-footer__selector__region');
-
-  if (regionSelector) {
-    regionSelector.classList.add('one-country');
-  }
-}
-
-var languageSelector = document.querySelector('.cmp-footer__selector__language');
-var languageSelectorOptions = document.querySelector('.cmp-footer__selector__language--options');
-
-if (languageSelector) {
-  var footer_children = languageSelectorOptions && Array.prototype.slice.call(languageSelectorOptions.childNodes);
-  var displayText = languageSelector.firstElementChild.innerText;
-  var longestAnchor = displayText.length;
-
-  if (footer_children) {
-    footer_children.forEach(function (e) {
-      if (e && e.tagName && e.tagName === 'A') {
-        if (e.innerText && e.innerText.length > longestAnchor) {
-          longestAnchor = e.innerText.length;
-        }
-      }
-    });
-
-    if (longestAnchor > displayText.length) {
-      var diff = longestAnchor - displayText.length;
-      var spacer = " ";
-      languageSelector.firstElementChild.innerText = displayText + spacer.repeat(diff * 5);
-    }
-  }
-
-  if (!languageSelector.classList.contains('one-link')) {
-    languageSelector.addEventListener('click', function () {
-      if (languageSelector.classList.contains('active')) {
-        languageSelector.classList.remove('active');
-      } else {
-        languageSelector.classList.add('active');
-      }
-    });
-    document.addEventListener("click", function (evt) {
-      var targetElement = evt.target; // clicked element
-
-      do {
-        if (targetElement == languageSelector) {
-          return;
-        }
-
-        targetElement = targetElement.parentNode;
-      } while (targetElement);
-
-      languageSelector.classList.remove('active');
-    });
-  }
-}
-
-document.addEventListener('mopinion_will_show', function (e) {
-  domElements["a" /* default */].noScroll(true);
-});
-document.addEventListener('mopinion_will_hide', function (e) {
-  domElements["a" /* default */].noScroll(false);
-});
-/**
- * Function is used to replace the text on check-your-email confirmation page for eproc users
- */
-
-var footer_replaceTextOnEmailConfirmation = function replaceTextOnEmailConfirmation() {
-  var element = document.getElementById('check-your-email-confirmation-text');
-
-  if (element) {
-    var userEmail = Object(parse_query_params["a" /* default */])(window.location.search)['email'] || '';
-    Object(textTransform["a" /* replaceTextWith */])(element, {
-      email: userEmail
-    });
-  }
-};
-
-footer_replaceTextOnEmailConfirmation();
-// EXTERNAL MODULE: ./src/scripts/banner.js
-var banner = __webpack_require__(132);
-
-// CONCATENATED MODULE: ./src/scripts/breadcrumb.js
-
-
-var breadcrumb_FadeBreadcrumb = function FadeBreadcrumb() {
-  var bcFader = fade_x('cmp-breadcrumb__list', 0, 100, true);
-  var bc = document.querySelector('.cmp-breadcrumb__list');
-
-  if (bcFader && bc) {
-    bc.addEventListener('scroll', bcFader);
-  }
-};
-
-document.addEventListener('DOMContentLoaded', breadcrumb_FadeBreadcrumb);
-// EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/regenerator/index.js
-var regenerator = __webpack_require__(2);
-var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
-
-// EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
-var asyncToGenerator = __webpack_require__(13);
-
-// EXTERNAL MODULE: ./src/scripts/mobileNav.js
-var scripts_mobileNav = __webpack_require__(74);
-
-// CONCATENATED MODULE: ./src/scripts/dateRange.js
-var invalidDateValue = 'Invalid Date';
-
-var DateRange = function DateRange(startValue, endValue) {
-  var startDate = startValue ? new Date(startValue) : null;
-  var endDate = endValue ? new Date(endValue) : null;
-  validateParameters(startDate, endDate);
-
-  this.isValid = function (date) {
-    var comparisonDate = date ? date : Date.now();
-
-    if (!startValue && !endValue || startValue && !endValue && comparisonDate >= startValue || !startValue && endValue && comparisonDate <= endValue || startValue && endValue && comparisonDate >= startValue && comparisonDate <= endValue) {
-      return true;
-    }
-
-    return false;
-  };
-
-  function validateParameters(startUtc, endUtc) {
-    if (startUtc && startUtc == invalidDateValue) {
-      throw new TypeError("Start date/time is invalid");
-    }
-
-    if (endUtc && endUtc == invalidDateValue) {
-      throw new TypeError("End date/time is invalid");
-    }
-
-    if (startUtc && endUtc && startUtc > endUtc) {
-      throw new RangeError('Start date/time cannot come after the end date/time');
-    }
-  }
-};
-
-/* harmony default export */ var dateRange = (DateRange);
-// CONCATENATED MODULE: ./src/element-creators/services/servletService.js
-
-
-
-var basePath = "/bin/waters/";
-var ServletService = {
-  getSystemWideNotification: function () {
-    var _getSystemWideNotification = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee(language) {
-      var _this = this;
-
-      return regenerator_default.a.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              return _context.abrupt("return", this.fetchSystemWideNotification(language).then(function (data) {
-                return _this.mapSystemWideNotification(data);
-              })["catch"](function (error) {
-                return {
-                  enabled: false,
-                  title: error.message
-                };
-              }));
-
-            case 1:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee, this);
-    }));
-
-    function getSystemWideNotification(_x) {
-      return _getSystemWideNotification.apply(this, arguments);
-    }
-
-    return getSystemWideNotification;
-  }(),
-  fetchSystemWideNotification: function () {
-    var _fetchSystemWideNotification = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee2(language) {
-      return regenerator_default.a.wrap(function _callee2$(_context2) {
-        while (1) {
-          switch (_context2.prev = _context2.next) {
-            case 0:
-              return _context2.abrupt("return", fetch("".concat(basePath, "notifications.").concat(language, ".json")).then(function (response) {
-                return response.json();
-              }));
-
-            case 1:
-            case "end":
-              return _context2.stop();
-          }
-        }
-      }, _callee2);
-    }));
-
-    function fetchSystemWideNotification(_x2) {
-      return _fetchSystemWideNotification.apply(this, arguments);
-    }
-
-    return fetchSystemWideNotification;
-  }(),
-  mapSystemWideNotification: function mapSystemWideNotification(data) {
-    return {
-      enabled: data.message ? true : false,
-      title: data.title,
-      message: data.message,
-      dateRange: new dateRange(data.onTime, data.offTime)
-    };
-  }
-};
-/* harmony default export */ var servletService = (ServletService);
-// EXTERNAL MODULE: ./src/scripts/DigitalData.js
-var DigitalData = __webpack_require__(19);
-
-// CONCATENATED MODULE: ./src/json-script-blocks/globalTranslations.js
-var script = document.getElementById('global-translations-json');
-var innerHtml = script ? script.innerHTML : '';
-var GlobalTranslations = innerHtml ? JSON.parse(innerHtml) : {};
-/* harmony default export */ var globalTranslations = (GlobalTranslations);
-// CONCATENATED MODULE: ./src/element-creators/systemWideNotification.js
-
-
-
-
-
-var systemWideNotification_SystemWideNotification = function SystemWideNotification(service, onDismiss) {
-  var data;
-
-  this.create = /*#__PURE__*/function () {
-    var _ref = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee(time) {
-      return regenerator_default.a.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              _context.next = 2;
-              return service.getSystemWideNotification(DigitalData["a" /* default */].language);
-
-            case 2:
-              data = _context.sent;
-
-              if (!(!data.enabled || !data.dateRange.isValid(time))) {
-                _context.next = 5;
-                break;
-              }
-
-              return _context.abrupt("return", {
-                visible: false
-              });
-
-            case 5:
-              return _context.abrupt("return", {
-                visible: true,
-                element: createFullWidthContainer()
-              });
-
-            case 6:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee);
-    }));
-
-    return function (_x) {
-      return _ref.apply(this, arguments);
-    };
-  }();
-
-  function createFullWidthContainer() {
-    var element = document.createElement('div');
-    element.classList.add('container-sitewide-notification');
-    element.appendChild(createPageContainer());
-    return element;
-  }
-
-  function createPageContainer() {
-    var element = document.createElement('div');
-    element.classList.add('container');
-    element.appendChild(createWrapper());
-    return element;
-  }
-
-  function createWrapper() {
-    var element = document.createElement('div');
-    element.classList.add('cmp-notification--sitewide');
-    element.appendChild(createIcon());
-    element.appendChild(createBody());
-    return element;
-  }
-
-  function createIcon() {
-    var element = document.createElement('div');
-    element.classList.add('cmp-notification-icon');
-    var icon = document.createElement('img');
-    icon.src = '/content/dam/waters/en/brand-assets/icons/attention.svg';
-    icon.classList.add('inline-svg');
-    element.appendChild(icon);
-    return element;
-  }
-
-  function createBody() {
-    var element = document.createElement('div');
-    element.classList.add('cmp-notification-body');
-    element.appendChild(createTitle());
-    element.appendChild(createMessage());
-    element.appendChild(createDismiss());
-    return element;
-  }
-
-  function createTitle() {
-    var element = document.createElement('div');
-    element.classList.add('cmp-notification-title');
-    element.innerHTML = data.title;
-    return element;
-  }
-
-  function createMessage() {
-    var element = document.createElement('div');
-    element.classList.add('cmp-notification-description');
-    element.innerHTML = data.message;
-    return element;
-  }
-
-  function createDismiss() {
-    var element = document.createElement('div');
-    element.classList.add('cmp-notification-dismiss');
-    var anchor = document.createElement('a');
-    anchor.href = 'javascript:void(0)';
-    anchor.innerHTML = globalTranslations.dismissButton;
-    anchor.onclick = onDismiss;
-    element.appendChild(anchor);
-    return element;
-  }
-};
-
-/* harmony default export */ var systemWideNotification = (systemWideNotification_SystemWideNotification);
-// EXTERNAL MODULE: ./src/scripts/inlineSVG.js
-var inlineSVG = __webpack_require__(45);
-
-// EXTERNAL MODULE: ./src/utils/eCommerceFunctions.js
-var eCommerceFunctions = __webpack_require__(11);
-
-// CONCATENATED MODULE: ./src/scripts/header.js
-
-
-
-
-
-
-
-
-
-
-
-var header_sessionStore = new stores_sessionStore["a" /* default */]();
-var headerTB, headerTB_user, headerTB_mobile, headerTB_mobile_btn, headerNavigation_comp, headerNavigation_mainUL, headerNavigation_cartLI;
-
-var headerInit = function headerInit() {
-  domReferences();
-  addEventListeners();
-  header_render();
-  renderSystemWideNotification();
-};
-
-function domReferences() {
-  headerTB = document.querySelector('header.cmp-header .cmp-header__top-bar');
-  headerTB_user = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__user');
-  headerTB_mobile = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__mobile');
-  headerTB_mobile_btn = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__mobile button');
-  headerNavigation_comp = document.querySelector('.cmp-header__navigation nav.cmp-navigation');
-  headerNavigation_mainUL = document.querySelector('.cmp-header__navigation nav.cmp-navigation');
-  headerNavigation_cartLI = document.querySelector('.top-bar__nav__cart');
-}
-
-function addEventListeners() {
-  if (headerNavigation_comp) {
-    var mobileNav = Object(scripts_mobileNav["a" /* default */])();
-
-    if (mobileNav) {
-      headerTB_mobile_btn.addEventListener('click', mobileNav.toggle);
-      window.addEventListener('resize', mobileNav.resize);
-    }
-  }
-}
-
-function header_render() {
-  // Show or Hide Cart Icon dependent upon eCommerce Status
-  var hideCartClass = "top-bar__nav__cart--hide";
-
-  if (Object(eCommerceFunctions["e" /* isCartHidden */])()) {
-    domElements["a" /* default */].addClass(headerNavigation_cartLI, hideCartClass);
-  } else {
-    domElements["a" /* default */].removeClass(headerNavigation_cartLI, hideCartClass);
-  }
-
-  var loggedInClass = 'loggedIn';
-
-  if (loginStatus["a" /* default */].state()) {
-    domElements["a" /* default */].addClass(headerTB_user, loggedInClass);
-  } else {
-    domElements["a" /* default */].removeClass(headerTB_user, loggedInClass);
-  }
-
-  var isUsed = 'is-used';
-
-  if (headerNavigation_comp) {
-    domElements["a" /* default */].addClass(headerTB_mobile, isUsed);
-  }
-
-  if (headerNavigation_mainUL) {
-    if (headerNavigation_mainUL.childNodes.length > 0) {
-      if (screenSizes["a" /* default */].isMobile()) {
-        headerNavigation_mainUL.children[0].style.height = window.innerHeight - headerTB.offsetHeight + 'px';
-      }
-    }
-  }
-}
-
-var handleSystemWideNotificationDismiss = function handleSystemWideNotificationDismiss() {
-  var parent = document.querySelector('.cmp-header');
-  var notification = parent.querySelector('.container-sitewide-notification');
-
-  if (parent && notification) {
-    parent.removeChild(notification);
-    header_sessionStore.setDismissSystemWideNotification();
-  }
-};
-
-var renderSystemWideNotification = /*#__PURE__*/function () {
-  var _ref = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee() {
-    var component, result, parent;
-    return regenerator_default.a.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            if (!(header_sessionStore.getDismissSystemWideNotificatiopn() === 'Y')) {
-              _context.next = 2;
-              break;
-            }
-
-            return _context.abrupt("return");
-
-          case 2:
-            component = new systemWideNotification(servletService, handleSystemWideNotificationDismiss);
-            _context.next = 5;
-            return component.create(Date.now());
-
-          case 5:
-            result = _context.sent;
-
-            if (result.visible) {
-              parent = document.querySelector('.cmp-header');
-              parent.appendChild(result.element);
-              inlineSVG["a" /* default */].init('img.inline-svg', 'svg-inlined');
-            }
-
-          case 7:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  }));
-
-  return function renderSystemWideNotification() {
-    return _ref.apply(this, arguments);
-  };
-}();
-
-window.addEventListener('load', headerInit);
-// EXTERNAL MODULE: ./src/scripts/collapsible.js
-var collapsible = __webpack_require__(135);
-
-// CONCATENATED MODULE: ./src/scripts/skulist.js
-function skuQuantityInput(e) {
-  var value = e.target.value;
-
-  if (value.length > 3 || value > 999) {
-    value = 999;
-  }
-
-  e.target.value = value;
-}
-
-function skuRemoveNegative(e) {
-  e = e || window.event;
-  var charCode = typeof e.which == "undefined" ? e.keyCode : e.which;
-  var charStr = String.fromCharCode(charCode); // 45 = '-' sign,  48 = '0' Don't allow minus sign or leading zero
-
-  if (charCode === 45 || charCode === 48 && e.target.value.length === 0) {
-    e.preventDefault();
-    return;
-  } // In for FireFox
-
-
-  if (!charStr.match(/^[0-9]$/)) {
-    e.preventDefault();
-    return;
-  }
-}
-
-var quantitySkuList = document.getElementsByClassName("cmp-sku-list__quantity");
-
-if (quantitySkuList) {
-  for (var skulist_i = 0; skulist_i < quantitySkuList.length; skulist_i++) {
-    quantitySkuList[skulist_i].addEventListener('keyup', function (event) {
-      return skuQuantityInput(event);
-    });
-    quantitySkuList[skulist_i].addEventListener('keypress', function (event) {
-      return skuRemoveNegative(event);
-    });
-  }
-}
-
-/* harmony default export */ var skulist = ({
-  SkuRemoveNegative: skuRemoveNegative,
-  SkuQuantityInput: skuQuantityInput
-});
-// CONCATENATED MODULE: ./src/scripts/continueButton.js
-
-var session = new stores_sessionStore["a" /* default */]();
-var continueBtns = document.querySelectorAll('.cmp-button-continue');
-var continuePage = session.getContinueLink();
-
-if (continueBtns.length && continuePage) {
-  Array.from(continueBtns).forEach(function (btn) {
-    btn.href = continuePage;
-  });
-  session.removeContinueLink();
-}
-
-(function getAllSignInLinks() {
-  var header = document.getElementById('header');
-  var signin = header.dataset.signinUrl;
-  var register = header.dataset.registerUrl;
-  var allLinks = document.getElementsByTagName('a');
-  Array.from(allLinks).forEach(function (link) {
-    if (link.href === signin || link.href === register) {
-      link.addEventListener('click', function (e) {
-        session.setContinueLink(window.location.href);
-      });
-    }
-  });
-})();
-// EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty.js
-var defineProperty = __webpack_require__(43);
-
-// EXTERNAL MODULE: ./src/my-account/services/UserDetailsLazy.js
-var UserDetailsLazy = __webpack_require__(56);
-
-// CONCATENATED MODULE: ./src/scripts/textModifier.js
-
-
-
-
-var textModifier_session = new stores_sessionStore["a" /* default */]();
-
-
-function textModifier() {
-  return _textModifier.apply(this, arguments);
-}
-
-function _textModifier() {
-  _textModifier = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee() {
-    var detailsUrl, checkSessionStore, userDetails, objMapping, textReplaceElements, replaceObj;
-    return regenerator_default.a.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            detailsUrl = document.getElementById('header').dataset.userDetailsUrl;
-            checkSessionStore = true;
-
-            if (Array.from(document.querySelectorAll('.text-replace')).length !== 0) {
-              checkSessionStore = false;
-            }
-
-            _context.next = 5;
-            return Object(UserDetailsLazy["a" /* default */])(detailsUrl, checkSessionStore, textModifier_session);
-
-          case 5:
-            userDetails = _context.sent;
-            objMapping = {
-              user: stores_sessionStore["b" /* keys */].userDetails,
-              userDetails: stores_sessionStore["b" /* keys */].userDetails
-            };
-
-            if (userDetails) {
-              textReplaceElements = document.querySelectorAll('.text-replace');
-              replaceObj = Object(defineProperty["a" /* default */])({}, stores_sessionStore["b" /* keys */].userDetails, userDetails);
-              Array.from(textReplaceElements).forEach(function (el) {
-                var matches = el.innerHTML.match(/{{(.*?)}}/gi);
-                Array.from(matches).forEach(function (match) {
-                  var splitMatch = match.split('.');
-                  var key = splitMatch[0].replace('{{', '');
-                  var field = splitMatch[1].replace('}}', '');
-                  var replacement = replaceObj[objMapping[key]][field];
-                  el.innerHTML = el.innerHTML.replace(match, replacement);
-                });
-              });
-            }
-
-          case 8:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  }));
-  return _textModifier.apply(this, arguments);
-}
-
-textModifier();
-// EXTERNAL MODULE: ./src/polyfills.js
-var polyfills = __webpack_require__(97);
+var styles = __webpack_require__(97);
 
 // EXTERNAL MODULE: ./node_modules/react/index.js
 var react = __webpack_require__(0);
@@ -2355,10 +201,23 @@ var react_dom_default = /*#__PURE__*/__webpack_require__.n(react_dom);
 var objectSpread = __webpack_require__(6);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 3 modules
-var toConsumableArray = __webpack_require__(41);
+var toConsumableArray = __webpack_require__(40);
+
+// EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/regenerator/index.js
+var regenerator = __webpack_require__(2);
+var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
+
+// EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
+var asyncToGenerator = __webpack_require__(12);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/typeof.js
-var esm_typeof = __webpack_require__(37);
+var esm_typeof = __webpack_require__(35);
+
+// EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js
+var classCallCheck = __webpack_require__(4);
+
+// EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass.js
+var createClass = __webpack_require__(5);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js
 var possibleConstructorReturn = __webpack_require__(7);
@@ -2370,13 +229,13 @@ var getPrototypeOf = __webpack_require__(8);
 var inherits = __webpack_require__(9);
 
 // EXTERNAL MODULE: ./src/search/services/index.js
-var services = __webpack_require__(22);
+var services = __webpack_require__(21);
 
 // EXTERNAL MODULE: ./node_modules/query-string/index.js
-var query_string = __webpack_require__(28);
+var query_string = __webpack_require__(27);
 
 // EXTERNAL MODULE: ./node_modules/react-router-dom/es/withRouter.js + 1 modules
-var withRouter = __webpack_require__(472);
+var withRouter = __webpack_require__(492);
 
 // EXTERNAL MODULE: ./node_modules/react-svg/es/react-svg.js
 var react_svg = __webpack_require__(3);
@@ -2388,15 +247,15 @@ var react_svg = __webpack_require__(3);
 var no_results_NoResults = function NoResults(_ref) {
   var searchText = _ref.searchText,
       query = _ref.query;
-  var forQuery = /*#__PURE__*/react_default.a.createElement("span", null, "for \"", /*#__PURE__*/react_default.a.createElement("strong", null, query), "\"");
-  return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement("h2", {
+  var forQuery = react_default.a.createElement("span", null, "for \"", react_default.a.createElement("strong", null, query), "\"");
+  return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("h2", {
     className: "cmp-search__resultsCount noresults"
-  }, "Showing 0 results", ' ', " ", forQuery), /*#__PURE__*/react_default.a.createElement("div", {
+  }, "Showing 0 results", ' ', " ", forQuery), react_default.a.createElement("div", {
     className: "cmp-search__no-results"
-  }, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+  }, react_default.a.createElement(react_svg["a" /* default */], {
     className: "icon",
     src: searchText.noResultsIcon
-  }), /*#__PURE__*/react_default.a.createElement("h2", null, searchText.noResultsTitle), /*#__PURE__*/react_default.a.createElement("p", null, searchText.noResultsDescription, /*#__PURE__*/react_default.a.createElement("a", {
+  }), react_default.a.createElement("h2", null, searchText.noResultsTitle), react_default.a.createElement("p", null, searchText.noResultsDescription, react_default.a.createElement("a", {
     href: window.location.href.split('?')[0]
   }, searchText.noResultsSearchLinkText))));
 };
@@ -2406,8 +265,14 @@ var no_results_NoResults = function NoResults(_ref) {
 var validator = __webpack_require__(54);
 var validator_default = /*#__PURE__*/__webpack_require__.n(validator);
 
+// EXTERNAL MODULE: ./src/scripts/domElements.js
+var domElements = __webpack_require__(26);
+
+// EXTERNAL MODULE: ./src/scripts/screenSizes.js
+var screenSizes = __webpack_require__(19);
+
 // EXTERNAL MODULE: ./src/analytics/index.js + 1 modules
-var analytics = __webpack_require__(18);
+var analytics = __webpack_require__(17);
 
 // EXTERNAL MODULE: ./node_modules/react-spinners/index.js
 var react_spinners = __webpack_require__(91);
@@ -2444,9 +309,9 @@ var spinner_LoadingSpinner = /*#__PURE__*/function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react_default.a.createElement("div", {
+      return react_default.a.createElement("div", {
         className: "cmp-search-overlay"
-      }, /*#__PURE__*/react_default.a.createElement(react_spinners["ClipLoader"], {
+      }, react_default.a.createElement(react_spinners["ClipLoader"], {
         sizeUnit: 'px',
         size: 64,
         color: '#ffffff',
@@ -2467,12 +332,12 @@ var loading_Loading = function Loading(_ref) {
   var visible = _ref.visible;
 
   if (!visible) {
-    return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null);
+    return react_default.a.createElement(react_default.a.Fragment, null);
   }
 
-  return /*#__PURE__*/react_default.a.createElement("div", null, /*#__PURE__*/react_default.a.createElement("div", {
+  return react_default.a.createElement("div", null, react_default.a.createElement("div", {
     className: "overlay"
-  }), /*#__PURE__*/react_default.a.createElement(spinner, {
+  }), react_default.a.createElement(spinner, {
     loading: true
   }));
 };
@@ -2687,7 +552,7 @@ var defaultProps = {
 };
 
 // EXTERNAL MODULE: ./node_modules/react-paginate/dist/react-paginate.js
-var react_paginate = __webpack_require__(76);
+var react_paginate = __webpack_require__(75);
 var react_paginate_default = /*#__PURE__*/__webpack_require__.n(react_paginate);
 
 // CONCATENATED MODULE: ./src/search/components/content-type-menu.js
@@ -2696,13 +561,13 @@ var react_paginate_default = /*#__PURE__*/__webpack_require__.n(react_paginate);
 var content_type_menu_ContentTypeMenu = function ContentTypeMenu(props) {
   var Items = function Items() {
     return props.items.map(function (item) {
-      return /*#__PURE__*/react_default.a.createElement("div", {
+      return react_default.a.createElement("div", {
         key: item.facetName,
         className: "content-type-menu-container__item",
         onClick: function onClick() {
           return props.onClick(item);
         }
-      }, /*#__PURE__*/react_default.a.createElement("div", null, /*#__PURE__*/react_default.a.createElement("a", {
+      }, react_default.a.createElement("div", null, react_default.a.createElement("a", {
         href: "#",
         onClick: function onClick(e) {
           e.preventDefault();
@@ -2713,11 +578,11 @@ var content_type_menu_ContentTypeMenu = function ContentTypeMenu(props) {
     });
   };
 
-  return /*#__PURE__*/react_default.a.createElement("div", {
+  return react_default.a.createElement("div", {
     className: "content-type-menu-container"
-  }, /*#__PURE__*/react_default.a.createElement("div", {
+  }, react_default.a.createElement("div", {
     className: "content-type-menu-container__heading"
-  }, props.heading), /*#__PURE__*/react_default.a.createElement("div", {
+  }, props.heading), react_default.a.createElement("div", {
     className: "content-type-menu-container__body"
   }, Items()));
 };
@@ -2733,24 +598,24 @@ content_type_menu_ContentTypeMenu.defaultProps = {
 
 
 var facet_menu_FacetMenu = function FacetMenu(props) {
-  return /*#__PURE__*/react_default.a.createElement("div", {
+  return react_default.a.createElement("div", {
     className: "facet-menu-container",
     "data-locator": "facet-menu-container"
-  }, /*#__PURE__*/react_default.a.createElement("div", {
+  }, react_default.a.createElement("div", {
     className: "facet-menu-container__heading",
     "data-locator": "facet-menu-container-heading"
-  }, props.filterTags, /*#__PURE__*/react_default.a.createElement("div", {
+  }, props.filterTags, react_default.a.createElement("div", {
     className: "heading--with-selected-value",
     "data-locator": "heading-with-selected-value"
-  }, /*#__PURE__*/react_default.a.createElement("div", {
+  }, react_default.a.createElement("div", {
     className: "back-btn"
-  }, /*#__PURE__*/react_default.a.createElement("a", {
+  }, react_default.a.createElement("a", {
     href: "javascript:void(0)",
     onClick: props.onClear,
     "data-locator": "link-back-button"
-  }, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+  }, react_default.a.createElement(react_svg["a" /* default */], {
     src: props.previousIcon
-  }), " ", props.heading)), /*#__PURE__*/react_default.a.createElement("h3", null, props.selectedValue))), /*#__PURE__*/react_default.a.createElement("div", {
+  }), " ", props.heading)), react_default.a.createElement("h3", null, props.selectedValue))), react_default.a.createElement("div", {
     className: "facet-menu-container__body",
     "data-locator": "facet-menu-container-body"
   }, props.children));
@@ -2760,7 +625,7 @@ facet_menu_FacetMenu.defaultProps = {
   heading: '',
   selectedValue: '',
   previousIcon: '',
-  filterTags: /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null),
+  filterTags: react_default.a.createElement(react_default.a.Fragment, null),
   onClear: function onClear() {}
 };
 /* harmony default export */ var facet_menu = (facet_menu_FacetMenu);
@@ -2830,18 +695,18 @@ var filter_section_FilterSection = /*#__PURE__*/function (_Component) {
 
     _this.getFacetSearch = function (items, minItemSearch) {
       if (items.length >= minItemSearch) {
-        return /*#__PURE__*/react_default.a.createElement("div", {
+        return react_default.a.createElement("div", {
           className: "cmp-search-filters__filter__search"
-        }, !_this.state.searchValue.length ? /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+        }, !_this.state.searchValue.length ? react_default.a.createElement(react_svg["a" /* default */], {
           src: _this.props.text.searchIcon,
           className: "searchIcon"
-        }) : /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+        }) : react_default.a.createElement(react_svg["a" /* default */], {
           src: _this.props.text.closeIcon,
           className: "closeIcon",
           onClick: function onClick() {
             return _this.handleClearClick(_this.props.minCharSearch, _this.props.facet.facets);
           }
-        }), /*#__PURE__*/react_default.a.createElement("input", {
+        }), react_default.a.createElement("input", {
           type: "input",
           placeholder: "Search",
           onChange: function onChange(e) {
@@ -2906,26 +771,26 @@ var filter_section_FilterSection = /*#__PURE__*/function (_Component) {
           }
         }
 
-        return /*#__PURE__*/react_default.a.createElement("li", {
+        return react_default.a.createElement("li", {
           className: "cmp-search-filters__filter__item",
           key: "".concat(item.value, "#_").concat(index)
-        }, /*#__PURE__*/react_default.a.createElement("a", {
+        }, react_default.a.createElement("a", {
           href: "javascript:void(0)",
           className: 'checkbox ' + (checked ? 'checked' : ''),
           onClick: _this2.checkHandler.bind(_this2),
           "data-locator": "search-filters-filter-item"
-        }, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+        }, react_default.a.createElement(react_svg["a" /* default */], {
           src: _this2.props.text.checkmarkIcon
-        })), /*#__PURE__*/react_default.a.createElement("input", {
+        })), react_default.a.createElement("input", {
           type: "checkbox",
           name: "".concat(_this2.props.name, ":").concat(item.value),
           onChange: function onChange(e) {
             return _this2.props.selectHandler(item.value, _this2.props.facet.name, e);
           },
           checked: checked
-        }), /*#__PURE__*/react_default.a.createElement("label", {
+        }), react_default.a.createElement("label", {
           htmlFor: "".concat(_this2.props.name, ":").concat(item.value)
-        }, item.value, ' ', /*#__PURE__*/react_default.a.createElement("span", {
+        }, item.value, ' ', react_default.a.createElement("span", {
           className: "cmp-search-filters__filter__item__count"
         }, "(", item.count, ")")));
       });
@@ -2936,10 +801,10 @@ var filter_section_FilterSection = /*#__PURE__*/function (_Component) {
     value: function render() {
       var props = this.props;
       var className = "cmp-search-filters__filter ".concat(props.isExpanded ? 'expanded' : '');
-      return /*#__PURE__*/react_default.a.createElement("li", {
+      return react_default.a.createElement("li", {
         className: className,
         "data-locator": "search-filters-filter"
-      }, /*#__PURE__*/react_default.a.createElement("a", {
+      }, react_default.a.createElement("a", {
         href: "javascript:void(0);",
         className: "filter-toggle",
         item: props.item,
@@ -2947,18 +812,18 @@ var filter_section_FilterSection = /*#__PURE__*/function (_Component) {
           return props.handleInput(e, props.item);
         },
         "data-locator": "link-search-filter"
-      }, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+      }, react_default.a.createElement(react_svg["a" /* default */], {
         src: props.text.expandIcon,
         className: "expandIcon"
-      }), /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+      }), react_default.a.createElement(react_svg["a" /* default */], {
         src: props.text.collapseIcon,
         className: "collapseIcon"
-      }), /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+      }), react_default.a.createElement(react_svg["a" /* default */], {
         src: props.text.nextIcon,
         className: "mobileIcon"
-      }), props.facet.translation), /*#__PURE__*/react_default.a.createElement("div", {
+      }), props.facet.translation), react_default.a.createElement("div", {
         className: "facet-container"
-      }, this.getFacetSearch(this.props.facet.facets, this.props.minItemSearch), /*#__PURE__*/react_default.a.createElement("ul", null, this.getFacetOptions())));
+      }, this.getFacetSearch(this.props.facet.facets, this.props.minItemSearch), react_default.a.createElement("ul", null, this.getFacetOptions())));
     }
   }]);
 
@@ -3129,11 +994,11 @@ var filter_Filter = /*#__PURE__*/function (_Component) {
     value: function getFilters() {
       var _this2 = this;
 
-      if (this.props.showTagsOnly) return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null);
+      if (this.props.showTagsOnly) return react_default.a.createElement(react_default.a.Fragment, null);
       var props = this.props;
       var mappings = this.state.facetGroups;
       var filters = Array.isArray(mappings) ? mappings.map(function (item, index) {
-        return /*#__PURE__*/react_default.a.createElement(filter_section, {
+        return react_default.a.createElement(filter_section, {
           key: "".concat(item.category, "#_").concat(index),
           last: _this2.state.lastIndex,
           selected: _this2.props.activeIndex,
@@ -3151,12 +1016,12 @@ var filter_Filter = /*#__PURE__*/function (_Component) {
           isExpanded: item.isExpanded
         });
       }) : [];
-      return /*#__PURE__*/react_default.a.createElement("ul", null, filters);
+      return react_default.a.createElement("ul", null, filters);
     }
   }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react_default.a.createElement("div", {
+      return react_default.a.createElement("div", {
         id: "js-search-filters",
         className: "cmp-search-filters"
       }, this.props.facets && this.getFilters());
@@ -3178,10 +1043,10 @@ filter_Filter.defaultProps = {
 };
 /* harmony default export */ var filter = (filter_Filter);
 // EXTERNAL MODULE: ./node_modules/react-select/dist/react-select.esm.js + 1 modules
-var react_select_esm = __webpack_require__(40);
+var react_select_esm = __webpack_require__(38);
 
 // EXTERNAL MODULE: ./src/styles/variables.scss
-var variables = __webpack_require__(17);
+var variables = __webpack_require__(15);
 var variables_default = /*#__PURE__*/__webpack_require__.n(variables);
 
 // CONCATENATED MODULE: ./src/search/components/category-dropdown.js
@@ -3250,7 +1115,7 @@ var customStyles = {
 };
 
 var category_dropdown_DropdownIndicator = function DropdownIndicator(props) {
-  return /*#__PURE__*/react_default.a.createElement(react_select_esm["a" /* components */].DropdownIndicator, props, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+  return react_default.a.createElement(react_select_esm["a" /* components */].DropdownIndicator, props, react_default.a.createElement(react_svg["a" /* default */], {
     src: props.theme.dropdownIndicator,
     className: "dropDownIcon"
   }));
@@ -3272,9 +1137,9 @@ var category_dropdown_CategoryDropdown = function CategoryDropdown(props) {
   var options = category_dropdown_getOptions(props.categoryOptions);
 
   var mobileView = function mobileView() {
-    return /*#__PURE__*/react_default.a.createElement("div", {
+    return react_default.a.createElement("div", {
       className: "cmp-search-category-dropdown"
-    }, /*#__PURE__*/react_default.a.createElement(react_select_esm["c" /* default */], {
+    }, react_default.a.createElement(react_select_esm["c" /* default */], {
       options: options,
       value: options[props.categoryValue],
       onChange: props.categoryOnChange,
@@ -3291,7 +1156,7 @@ var category_dropdown_CategoryDropdown = function CategoryDropdown(props) {
     }));
   };
 
-  return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, screenSizes["a" /* default */].isTabletAndUnder() ? mobileView() : null);
+  return react_default.a.createElement(react_default.a.Fragment, null, screenSizes["a" /* default */].isTabletAndUnder() ? mobileView() : null);
 };
 
 category_dropdown_CategoryDropdown.defaultProps = {
@@ -3331,14 +1196,14 @@ var btn_hide_sort_filter_HideSortFilter = /*#__PURE__*/function (_Component) {
     key: "render",
     value: function render() {
       var props = this.props;
-      return /*#__PURE__*/react_default.a.createElement("div", {
+      return react_default.a.createElement("div", {
         className: "cmp-search-hide-btn clearfix"
-      }, /*#__PURE__*/react_default.a.createElement("a", {
+      }, react_default.a.createElement("a", {
         href: "javascript:void(0);",
         onClick: props.onClick,
         className: "btn-hide-sort-filter",
         "data-locator": "link-hide-search-button"
-      }, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+      }, react_default.a.createElement(react_svg["a" /* default */], {
         src: props.text.closeIcon
       }), props.text.sortAndFilterButton));
     }
@@ -3349,7 +1214,7 @@ var btn_hide_sort_filter_HideSortFilter = /*#__PURE__*/function (_Component) {
 
 /* harmony default export */ var btn_hide_sort_filter = (btn_hide_sort_filter_HideSortFilter);
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js
-var assertThisInitialized = __webpack_require__(21);
+var assertThisInitialized = __webpack_require__(20);
 
 // CONCATENATED MODULE: ./src/search/components/btn-apply-sort-filter.js
 
@@ -3403,9 +1268,9 @@ var btn_apply_sort_filter_ApplySortFilter = /*#__PURE__*/function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react_default.a.createElement("div", {
+      return react_default.a.createElement("div", {
         className: "cmp-search-apply-btn"
-      }, /*#__PURE__*/react_default.a.createElement("a", {
+      }, react_default.a.createElement("a", {
         href: "javascript:void(0);",
         onClick: this.handleClick,
         className: "btn-apply-sort-filter",
@@ -3452,9 +1317,9 @@ var btn_done_sort_filter_DoneSortFilter = /*#__PURE__*/function (_Component) {
     key: "render",
     value: function render() {
       var props = this.props;
-      return /*#__PURE__*/react_default.a.createElement("div", {
+      return react_default.a.createElement("div", {
         className: "cmp-search-done-btn"
-      }, /*#__PURE__*/react_default.a.createElement("a", {
+      }, react_default.a.createElement("a", {
         href: "javascript:void(0);",
         onClick: this.handleInput,
         className: "btn-done-sort-filter",
@@ -3530,16 +1395,16 @@ var dropdown_customStyles = {
 };
 
 var dropdown_DropdownIndicator = function DropdownIndicator(props) {
-  return /*#__PURE__*/react_default.a.createElement(react_select_esm["a" /* components */].DropdownIndicator, props, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+  return react_default.a.createElement(react_select_esm["a" /* components */].DropdownIndicator, props, react_default.a.createElement(react_svg["a" /* default */], {
     src: props.theme.dropdownIndicator
   }));
 };
 
 var dropdown_Dropdown = function Dropdown(props) {
-  return /*#__PURE__*/react_default.a.createElement("div", {
+  return react_default.a.createElement("div", {
     "aria-describedby": "cmp-custom-dropdown__single-value",
     tabindex: "0"
-  }, /*#__PURE__*/react_default.a.createElement(react_select_esm["c" /* default */], {
+  }, react_default.a.createElement(react_select_esm["c" /* default */], {
     defaultValue: props.getOptions(props.text)[1],
     options: props.getOptions(props.text),
     value: props.sortValue && props.sortValue.value ? props.sortValue.value : props.getOptions(props.text)[props.sortValue - 1],
@@ -3579,10 +1444,10 @@ var sort_getOptions = function getOptions(text) {
 };
 
 var sort_Sort = function Sort(props) {
-  return /*#__PURE__*/react_default.a.createElement("div", {
+  return react_default.a.createElement("div", {
     className: "cmp-search-sortby",
     "data-locator": "sortby-label"
-  }, /*#__PURE__*/react_default.a.createElement("h3", null, props.text.sortByHeading), /*#__PURE__*/react_default.a.createElement(dropdown, {
+  }, react_default.a.createElement("h3", null, props.text.sortByHeading), react_default.a.createElement(dropdown, {
     getOptions: sort_getOptions,
     sortValue: props.sortValue,
     onChange: function onChange(e) {
@@ -3661,17 +1526,17 @@ var btn_show_sort_filter_ShowSortFilter = /*#__PURE__*/function (_Component) {
     key: "render",
     value: function render() {
       var props = this.props;
-      return /*#__PURE__*/react_default.a.createElement("div", {
+      return react_default.a.createElement("div", {
         className: "cmp-search-show-btn"
-      }, /*#__PURE__*/react_default.a.createElement("a", {
+      }, react_default.a.createElement("a", {
         ref: this.sortFilterBtnRef,
         href: "javascript:void(0);",
         onClick: this.handleInput,
         className: "btn-show-sort-filter"
-      }, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+      }, react_default.a.createElement(react_svg["a" /* default */], {
         src: props.text.filterIcon,
         className: "filterIcon"
-      }), /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+      }), react_default.a.createElement(react_svg["a" /* default */], {
         src: props.text.closeIcon,
         className: "closeIcon"
       }), props.text.sortAndFilterButton));
@@ -3696,35 +1561,35 @@ var results_count_ResultsCount = function ResultsCount(props) {
   };
 
   var getSuggestedQueryInfo = function getSuggestedQueryInfo() {
-    return /*#__PURE__*/react_default.a.createElement("span", null, "for\xA0", /*#__PURE__*/react_default.a.createElement("span", {
+    return react_default.a.createElement("span", null, "for\xA0", react_default.a.createElement("span", {
       className: "text-strike"
-    }, searchQuery), "\xA0", /*#__PURE__*/react_default.a.createElement("strong", null, /*#__PURE__*/react_default.a.createElement("q", {
+    }, searchQuery), "\xA0", react_default.a.createElement("strong", null, react_default.a.createElement("q", {
       className: "query"
     }, props.spell_suggestion), "."));
   };
 
   var getSearchQuery = function getSearchQuery() {
-    return /*#__PURE__*/react_default.a.createElement("span", null, "for\xA0", /*#__PURE__*/react_default.a.createElement("strong", null, /*#__PURE__*/react_default.a.createElement("q", {
+    return react_default.a.createElement("span", null, "for\xA0", react_default.a.createElement("strong", null, react_default.a.createElement("q", {
       className: "query"
     }, searchQuery), "."));
   };
 
   var renderRelatedSuggestions = function renderRelatedSuggestions() {
-    return props.spell_related_suggestions.length !== 0 ? /*#__PURE__*/react_default.a.createElement("div", {
+    return props.spell_related_suggestions.length !== 0 ? react_default.a.createElement("div", {
       className: "cmp-search__related-suggestions"
-    }, "Related Searches ", getRelatedSuggestions()) : /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null);
+    }, "Related Searches ", getRelatedSuggestions()) : react_default.a.createElement(react_default.a.Fragment, null);
   };
 
   var getRelatedSuggestions = function getRelatedSuggestions() {
     return props.spell_related_suggestions.length === 1 ? getRelatedSuggestionLink(props.spell_related_suggestions[0]) : getRelatedSuggestionLinks(props.spell_related_suggestions).reduce(function (prev, curr) {
-      return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, prev, /*#__PURE__*/react_default.a.createElement("span", {
+      return react_default.a.createElement(react_default.a.Fragment, null, prev, react_default.a.createElement("span", {
         className: "vertical-bar"
       }, "|"), curr);
     });
   };
 
   var getRelatedSuggestionLink = function getRelatedSuggestionLink(word) {
-    return /*#__PURE__*/react_default.a.createElement("a", {
+    return react_default.a.createElement("a", {
       className: "item",
       onClick: function onClick(e) {
         return props.onRelatedSuggestionClick(word);
@@ -3748,10 +1613,10 @@ var results_count_ResultsCount = function ResultsCount(props) {
     }));
   };
 
-  return /*#__PURE__*/react_default.a.createElement("div", {
+  return react_default.a.createElement("div", {
     className: "cmp-search__resultsCount-container",
     "data-locator": "results-count-container"
-  }, /*#__PURE__*/react_default.a.createElement("h2", {
+  }, react_default.a.createElement("h2", {
     className: "cmp-search__resultsCount",
     "data-locator": "results-count"
   }, getResultsText(), props.noQuery || props.query === '*:*' ? null : renderSearchTerm()), renderRelatedSuggestions());
@@ -3799,7 +1664,7 @@ var filter_tags_SubFacetTags = function SubFacetTags(props) {
         var cat = mapping[n];
 
         if (cat.name === facet) {
-          category.push( /*#__PURE__*/react_default.a.createElement("a", {
+          category.push(react_default.a.createElement("a", {
             key: "facetTag-".concat(_i),
             href: "javascript:void(0);",
             onClick: function onClick() {
@@ -3808,9 +1673,9 @@ var filter_tags_SubFacetTags = function SubFacetTags(props) {
                 facet: selected
               });
             }
-          }, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+          }, react_default.a.createElement(react_svg["a" /* default */], {
             src: props.text.closeIcon
-          }), /*#__PURE__*/react_default.a.createElement("span", null, cat.translation, ": ", selected)));
+          }), react_default.a.createElement("span", null, cat.translation, ": ", selected)));
         }
       };
 
@@ -3825,41 +1690,41 @@ var filter_tags_SubFacetTags = function SubFacetTags(props) {
 
     return category;
   }) : null;
-  return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, props.selectedFacets && tags);
+  return react_default.a.createElement(react_default.a.Fragment, null, props.selectedFacets && tags);
 };
 
 var filter_tags_ContentTypeTag = function ContentTypeTag(props) {
   var showTags = Object.entries(props.selected).length !== 0 ? true : false;
-  if (!showTags) return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null);
-  return /*#__PURE__*/react_default.a.createElement("a", {
+  if (!showTags) return react_default.a.createElement(react_default.a.Fragment, null);
+  return react_default.a.createElement("a", {
     href: "javascript:void(0);",
     onClick: props.onRemove,
     "data-locator": "content-type-tag-hide"
-  }, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+  }, react_default.a.createElement(react_svg["a" /* default */], {
     src: props.text.closeIcon
-  }), /*#__PURE__*/react_default.a.createElement("span", null, "".concat(props.text['contentType'], ": ").concat(props.selected.facetTranslation)));
+  }), react_default.a.createElement("span", null, "".concat(props.text['contentType'], ": ").concat(props.selected.facetTranslation)));
 };
 
 var filter_tags_ClearAllTag = function ClearAllTag(props) {
-  return /*#__PURE__*/react_default.a.createElement("a", {
+  return react_default.a.createElement("a", {
     href: "javascript:void(0);",
     className: "cmp-search-filters__tags__clear",
     "data-locator": "link-search-filters-tag-clear",
     "aria-label": props.text.clearAllFilters,
     onClick: props.onRemove
-  }, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+  }, react_default.a.createElement(react_svg["a" /* default */], {
     src: props.text.closeIcon
-  }), /*#__PURE__*/react_default.a.createElement("span", null, props.text.clearAllFilters));
+  }), react_default.a.createElement("span", null, props.text.clearAllFilters));
 };
 
 var filter_tags_KeywordTag = function KeywordTag(props) {
-  return /*#__PURE__*/react_default.a.createElement("a", {
+  return react_default.a.createElement("a", {
     href: "javascript:void(0);",
     "aria-label": "".concat(props.text.keyWordLabel, ": ").concat(props.keyword),
     onClick: props.onRemove
-  }, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+  }, react_default.a.createElement(react_svg["a" /* default */], {
     src: props.text.closeIcon
-  }), /*#__PURE__*/react_default.a.createElement("span", null, "".concat(props.text.keyWordLabel, ": ").concat(props.keyword)));
+  }), react_default.a.createElement("span", null, "".concat(props.text.keyWordLabel, ": ").concat(props.keyword)));
 };
 
 filter_tags_SubFacetTags.defaultProps = {
@@ -3896,7 +1761,7 @@ filter_tags_KeywordTag.defaultProps = {
 };
 
 // EXTERNAL MODULE: ./src/scripts/ErrorMessages.js
-var ErrorMessages = __webpack_require__(52);
+var ErrorMessages = __webpack_require__(59);
 
 // CONCATENATED MODULE: ./src/sku-details/views/stock.js
 
@@ -3920,14 +1785,14 @@ var stock_Stock = /*#__PURE__*/function (_React$Component) {
   Object(createClass["a" /* default */])(Stock, [{
     key: "renderStockError",
     value: function renderStockError() {
-      return /*#__PURE__*/react_default.a.createElement("span", null, /*#__PURE__*/react_default.a.createElement("span", {
+      return react_default.a.createElement("span", null, react_default.a.createElement("span", {
         className: "cmp-sku-".concat(this.props.skuType, "__stockdetails"),
         "data-locator": "sku-".concat(this.props.skuType, "-stockdetails")
-      }, ErrorMessages["a" /* default */].ErrorMessages(this.props.errorObj).serviceUnavailable, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+      }, ErrorMessages["a" /* default */].ErrorMessages(this.props.errorObj).serviceUnavailable, react_default.a.createElement(react_svg["a" /* default */], {
         src: this.props.skuInfo.lowStockIcon,
         className: "cmp-sku-".concat(this.props.skuType, "__stockdetails--outofstock"),
         "data-locator": "sku-".concat(this.props.skuType, "-stockdetails-outofstock")
-      })), /*#__PURE__*/react_default.a.createElement("div", {
+      })), react_default.a.createElement("div", {
         className: "cmp-sku-".concat(this.props.skuType, "__order"),
         "data-locator": "sku-".concat(this.props.skuType, "-order")
       }, ErrorMessages["a" /* default */].ErrorMessages(this.props.errorObj).tryAgainLater));
@@ -3935,14 +1800,14 @@ var stock_Stock = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "renderInStock",
     value: function renderInStock() {
-      return /*#__PURE__*/react_default.a.createElement("span", null, /*#__PURE__*/react_default.a.createElement("span", {
+      return react_default.a.createElement("span", null, react_default.a.createElement("span", {
         className: "cmp-sku-".concat(this.props.skuType, "__stockdetails"),
         "data-locator": "sku-".concat(this.props.skuType, "-stockdetails")
-      }, this.props.skuInfo.inStockLabel, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+      }, this.props.skuInfo.inStockLabel, react_default.a.createElement(react_svg["a" /* default */], {
         src: this.props.skuInfo.inStockIcon,
         className: "cmp-sku-".concat(this.props.skuType, "__stockdetails--instock"),
         "data-locator": "sku-".concat(this.props.skuType, "-stockdetails-instock")
-      })), /*#__PURE__*/react_default.a.createElement("div", {
+      })), react_default.a.createElement("div", {
         className: "cmp-sku-".concat(this.props.skuType, "__order"),
         "data-locator": "sku-".concat(this.props.skuType, "-order")
       }, this.props.skuInfo.orderNowLabel));
@@ -3950,10 +1815,10 @@ var stock_Stock = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "renderContactWaters",
     value: function renderContactWaters() {
-      return /*#__PURE__*/react_default.a.createElement("span", null, /*#__PURE__*/react_default.a.createElement("span", {
+      return react_default.a.createElement("span", null, react_default.a.createElement("span", {
         className: "cmp-sku-".concat(this.props.skuType, "__stockdetails"),
         "data-locator": "sku-".concat(this.props.skuType, "-stockdetails")
-      }, this.props.skuInfo.contactWatersLabel), /*#__PURE__*/react_default.a.createElement("div", {
+      }, this.props.skuInfo.contactWatersLabel), react_default.a.createElement("div", {
         className: "cmp-sku-".concat(this.props.skuType, "__order"),
         "data-locator": "sku-".concat(this.props.skuType, "-order")
       }, this.props.skuInfo.contactWatersInfoLabel));
@@ -3998,11 +1863,11 @@ var price_Price = /*#__PURE__*/function (_React$Component) {
     key: "render",
     value: function render() {
       var priceLabelClass = this.props.isListPrice === true ? "cmp-sku-list__list-price-label" : "cmp-sku-list__cust-price-label";
-      return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement("div", {
+      return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("div", {
         className: priceLabelClass,
         "data-locator": "sku-price-label",
         "aria-label": this.props.label
-      }, this.props.label), this.props.price && /*#__PURE__*/react_default.a.createElement("div", {
+      }, this.props.label), this.props.price && react_default.a.createElement("div", {
         className: "cmp-sku__price",
         "data-locator": "sku-price",
         "aria-label": this.props.price
@@ -4018,6 +1883,9 @@ price_Price.defaultProps = {
   price: ''
 };
 /* harmony default export */ var views_price = (price_Price);
+// EXTERNAL MODULE: ./src/utils/eCommerceFunctions.js
+var eCommerceFunctions = __webpack_require__(11);
+
 // CONCATENATED MODULE: ./src/sku-details/views/unavailablePrice.js
 
 
@@ -4027,17 +1895,17 @@ function UnavailablePrice(props) {
   var label = props.label,
       icon = props.icon,
       text = props.text;
-  return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement("label", {
+  return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("label", {
     className: "cmp-sku-list__cust-price-label",
     "data-locator": "sku-price-label",
     "aria-label": label
-  }, label), /*#__PURE__*/react_default.a.createElement("div", {
+  }, label), react_default.a.createElement("div", {
     className: "cmp-sku-list__unavailable"
-  }, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+  }, react_default.a.createElement(react_svg["a" /* default */], {
     "aria-hidden": "true",
     src: icon,
     "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])("icon ".concat(text))
-  }), /*#__PURE__*/react_default.a.createElement("span", {
+  }), react_default.a.createElement("span", {
     "aria-label": text,
     "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])(text)
   }, text)));
@@ -4045,16 +1913,19 @@ function UnavailablePrice(props) {
 
 /* harmony default export */ var unavailablePrice = (UnavailablePrice);
 // EXTERNAL MODULE: ./node_modules/whatwg-fetch/fetch.js
-var whatwg_fetch_fetch = __webpack_require__(36);
+var whatwg_fetch_fetch = __webpack_require__(34);
 
 // EXTERNAL MODULE: ./src/stores/localStore.js
-var stores_localStore = __webpack_require__(47);
+var stores_localStore = __webpack_require__(49);
+
+// EXTERNAL MODULE: ./src/scripts/loginStatus.js
+var loginStatus = __webpack_require__(16);
 
 // EXTERNAL MODULE: ./src/utils/serviceFunctions.js
-var serviceFunctions = __webpack_require__(67);
+var serviceFunctions = __webpack_require__(68);
 
 // EXTERNAL MODULE: ./src/utils/userFunctions.js
-var userFunctions = __webpack_require__(14);
+var userFunctions = __webpack_require__(13);
 
 // CONCATENATED MODULE: ./src/sku-details/services/index.js
 
@@ -4342,6 +2213,9 @@ var matchListItems = function matchListItems(skuListData, pricesAPIResults) {
 
   return skuListItem;
 };
+// EXTERNAL MODULE: ./src/scripts/skulist.js
+var skulist = __webpack_require__(84);
+
 // CONCATENATED MODULE: ./src/sku-details/views/addToCart.js
 
 
@@ -4401,11 +2275,11 @@ var addToCart_AddToCart = /*#__PURE__*/function (_React$Component) {
     };
 
     _this.skuRemoveNegative = function (e) {
-      skulist.SkuRemoveNegative(e);
+      skulist["a" /* default */].SkuRemoveNegative(e);
     };
 
     _this.skuQuantityInput = function (e) {
-      skulist.SkuQuantityInput(e);
+      skulist["a" /* default */].SkuQuantityInput(e);
       var value = e.target.value;
 
       _this.setState({
@@ -4520,7 +2394,7 @@ var addToCart_AddToCart = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var _this3 = this;
 
-      return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement("form", null, /*#__PURE__*/react_default.a.createElement("input", {
+      return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("form", null, react_default.a.createElement("input", {
         className: "cmp-sku-details__quantity",
         placeholder: "Qty",
         value: this.state.addToCartQty,
@@ -4528,7 +2402,7 @@ var addToCart_AddToCart = /*#__PURE__*/function (_React$Component) {
         onKeyPress: this.skuRemoveNegative,
         "data-locator": "input-sku-qty",
         "aria-label": this.props.qtyLabel
-      })), /*#__PURE__*/react_default.a.createElement("a", {
+      })), react_default.a.createElement("a", {
         className: "cmp-button ".concat(!this.state.skuNumber.trim() && 'disabled'),
         onClick: function onClick() {
           return _this3.addToCart();
@@ -4549,13 +2423,13 @@ addToCart_AddToCart.defaultProps = {
 };
 /* harmony default export */ var views_addToCart = (addToCart_AddToCart);
 // EXTERNAL MODULE: ./src/sku-details/views/addToCartModal.js
-var addToCartModal = __webpack_require__(35);
+var addToCartModal = __webpack_require__(33);
 
 // EXTERNAL MODULE: ./src/utils/modal/index.js + 1 modules
-var modal = __webpack_require__(20);
+var modal = __webpack_require__(18);
 
 // EXTERNAL MODULE: ./src/utils/spinner/index.js
-var utils_spinner = __webpack_require__(29);
+var utils_spinner = __webpack_require__(28);
 
 // CONCATENATED MODULE: ./src/sku-message/index.js
 
@@ -4581,7 +2455,7 @@ var sku_message_SkuMessage = /*#__PURE__*/function (_React$Component) {
           title = _ref.title,
           url = _ref.url,
           blank = _ref.blank;
-      return /*#__PURE__*/react_default.a.createElement("a", {
+      return react_default.a.createElement("a", {
         href: url,
         target: blank ? "_blank" : "",
         rel: "noopener",
@@ -4595,7 +2469,7 @@ var sku_message_SkuMessage = /*#__PURE__*/function (_React$Component) {
     };
 
     _this.displayError = function () {
-      return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, Array.isArray(_this.props.message) && _this.props.message.length > 0 && _this.props.message.map(function (block, index) {
+      return react_default.a.createElement(react_default.a.Fragment, null, Array.isArray(_this.props.message) && _this.props.message.length > 0 && _this.props.message.map(function (block, index) {
         var itemToRender = block.type === 'link' ? _this.renderLink(block) : _this.renderText(block);
         var space = '';
 
@@ -4603,14 +2477,14 @@ var sku_message_SkuMessage = /*#__PURE__*/function (_React$Component) {
           space = ' ';
         }
 
-        return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, {
+        return react_default.a.createElement(react_default.a.Fragment, {
           key: index
         }, itemToRender, space);
       }));
     };
 
     _this.displaySkuMsg = function () {
-      return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, _this.props.message, _this.props.linkMessage && _this.props.link && /*#__PURE__*/react_default.a.createElement("a", {
+      return react_default.a.createElement(react_default.a.Fragment, null, _this.props.message, _this.props.linkMessage && _this.props.link && react_default.a.createElement("a", {
         href: _this.props.link
       }, _this.props.linkMessage));
     };
@@ -4621,17 +2495,17 @@ var sku_message_SkuMessage = /*#__PURE__*/function (_React$Component) {
   Object(createClass["a" /* default */])(SkuMessage, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react_default.a.createElement("div", {
+      return react_default.a.createElement("div", {
         className: "cmp-notification-wrapper ".concat(Array.isArray(this.props.message) ? 'sku-error-code' : ''),
         "data-locator": "sku-msg-notification-wrapper"
-      }, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+      }, react_default.a.createElement(react_svg["a" /* default */], {
         src: this.props.icon,
         className: "cmp-notification-icon",
         "data-locator": "sku-msg-notification-icon"
-      }), /*#__PURE__*/react_default.a.createElement("div", {
+      }), react_default.a.createElement("div", {
         className: "cmp-notification-body",
         "data-locator": "sku-msg-notification-body"
-      }, /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("div", {
         className: "cmp-notification-description",
         "data-locator": "sku-msg-notification-description"
       }, Array.isArray(this.props.message) ? this.displayError() : this.displaySkuMsg())));
@@ -4642,6 +2516,18 @@ var sku_message_SkuMessage = /*#__PURE__*/function (_React$Component) {
 }(react_default.a.Component);
 
 /* harmony default export */ var sku_message = (sku_message_SkuMessage);
+// EXTERNAL MODULE: ./src/scripts/checkOutStatus.js
+var checkOutStatus = __webpack_require__(44);
+
+// EXTERNAL MODULE: ./src/scripts/ecommerce.js
+var ecommerce = __webpack_require__(29);
+
+// EXTERNAL MODULE: ./src/scripts/sku-details.js
+var sku_details = __webpack_require__(51);
+
+// EXTERNAL MODULE: ./src/scripts/stickyService.js
+var stickyService = __webpack_require__(46);
+
 // CONCATENATED MODULE: ./src/constants/index.js
 var BAD_REQUEST_CODE = 400;
 var SERVER_ERROR_CODE = 500;
@@ -4730,15 +2616,15 @@ var listItem_ListItem = /*#__PURE__*/function (_React$Component) {
       _this.setState({
         modalShown: !_this.state.modalShown
       }, function () {
-        if (sku_details.exists()) {
+        if (sku_details["a" /* default */].exists()) {
           if (!_this.state.modalShown) {
             //Firefox bug -->
             //if on a sku page and the modal was just open, make call to check whether to stick again
             //this will unstick the current element if necessary
-            var SKUDetailsSticky = stickyService.findStickyEl(sku_details.element);
+            var SKUDetailsSticky = stickyService["a" /* default */].findStickyEl(sku_details["a" /* default */].element);
 
             if (SKUDetailsSticky) {
-              stickyService.conditionsToStick(SKUDetailsSticky);
+              stickyService["a" /* default */].conditionsToStick(SKUDetailsSticky);
             }
           }
         }
@@ -4796,14 +2682,14 @@ var listItem_ListItem = /*#__PURE__*/function (_React$Component) {
           errorPriceType = _this$state.errorPriceType;
 
       if (errorPriceType === UNAVAILABLE_PRICE_WITH_ADD_TO_CART) {
-        return /*#__PURE__*/react_default.a.createElement(unavailablePrice, {
+        return react_default.a.createElement(unavailablePrice, {
           label: skuInfo.custPriceLabel,
           icon: skuInfo.lowStockIcon,
           text: skuInfo.unavailablePriceLabel
         });
       } else {
         if (typeof listPrice !== 'undefined') {
-          return /*#__PURE__*/react_default.a.createElement(views_price, {
+          return react_default.a.createElement(views_price, {
             label: skuInfo.listPriceLabel,
             price: listPrice,
             isListPrice: true
@@ -4825,7 +2711,7 @@ var listItem_ListItem = /*#__PURE__*/function (_React$Component) {
         if (errorPriceType !== '') {
           return _this.renderListOrUnavailablePrice();
         } else {
-          return /*#__PURE__*/react_default.a.createElement(views_price, {
+          return react_default.a.createElement(views_price, {
             label: skuInfo.custPriceLabel,
             price: price,
             isListPrice: false
@@ -4851,37 +2737,37 @@ var listItem_ListItem = /*#__PURE__*/function (_React$Component) {
           relatedSku = _this$props.relatedSku,
           skuConfig = _this$props.skuConfig;
       var isErrorModal = Object.keys(errorObjCart).length !== 0;
-      return /*#__PURE__*/react_default.a.createElement("div", {
+      return react_default.a.createElement("div", {
         className: "cmp-sku-details__buyinfo"
-      }, loginStatus["a" /* default */].state() && typeof custPrice !== 'undefined' && custPrice !== listPrice && /*#__PURE__*/react_default.a.createElement("div", {
+      }, loginStatus["a" /* default */].state() && typeof custPrice !== 'undefined' && custPrice !== listPrice && react_default.a.createElement("div", {
         className: "cmp-sku-list__list-price",
         "data-locator": "list-price-label",
         "aria-label": "".concat(skuInfo.listPriceLabel, " ").concat(listPrice)
-      }, "".concat(skuInfo.listPriceLabel, " ").concat(listPrice)), /*#__PURE__*/react_default.a.createElement("div", {
+      }, "".concat(skuInfo.listPriceLabel, " ").concat(listPrice)), react_default.a.createElement("div", {
         className: "cmp-sku-list__priceinfo"
-      }, loading ? /*#__PURE__*/react_default.a.createElement(utils_spinner["a" /* default */], {
+      }, loading ? react_default.a.createElement(utils_spinner["a" /* default */], {
         loading: loading,
         type: "inline"
-      }) : _this.renderPricing()), /*#__PURE__*/react_default.a.createElement("div", {
+      }) : _this.renderPricing()), react_default.a.createElement("div", {
         className: "cmp-sku-details__availability",
         onClick: function onClick(e) {
           return _this.checkAvailability(relatedSku.code);
         }
-      }, (skuAvailability.productStatus || _this.state && errorObjAvailability && errorObjAvailability.ok === false) && /*#__PURE__*/react_default.a.createElement(stock, {
+      }, (skuAvailability.productStatus || _this.state && errorObjAvailability && errorObjAvailability.ok === false) && react_default.a.createElement(stock, {
         skuInfo: skuInfo,
         skuNumber: relatedSku.code,
         skuAvailability: skuAvailability,
         skuType: "details",
         errorObj: errorObjAvailability
-      }), !skuAvailability.productStatus && !(_this.state && errorObjAvailability && errorObjAvailability.ok === false) && /*#__PURE__*/react_default.a.createElement("span", {
+      }), !skuAvailability.productStatus && !(_this.state && errorObjAvailability && errorObjAvailability.ok === false) && react_default.a.createElement("span", {
         className: "cmp-sku-list__checkavailability"
-      }, skuConfig.skuInfo.seeAvailabilityLabel, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+      }, skuConfig.skuInfo.seeAvailabilityLabel, react_default.a.createElement(react_svg["a" /* default */], {
         alt: skuConfig.skuInfo.seeAvailabilityLabel,
         src: skuConfig.skuInfo.refreshIcon,
         "data-locator": "check-availability"
-      }))), /*#__PURE__*/react_default.a.createElement("div", {
+      }))), react_default.a.createElement("div", {
         className: "cmp-sku-list__buttons"
-      }, /*#__PURE__*/react_default.a.createElement(views_addToCart, {
+      }, react_default.a.createElement(views_addToCart, {
         toggleParentModal: _this.toggleModal,
         skuNumber: relatedSku.code,
         addToCartLabel: skuConfig.addToCartLabel,
@@ -4891,19 +2777,19 @@ var listItem_ListItem = /*#__PURE__*/function (_React$Component) {
         toggleErrorModal: _this.toggleErrorModal,
         analyticsConfig: _this.state.analyticsConfig,
         qtyLabel: skuConfig.qtyAriaLabel
-      }), /*#__PURE__*/react_default.a.createElement(modal["b" /* default */], {
+      }), react_default.a.createElement(modal["b" /* default */], {
         isOpen: _this.state.modalShown,
         onClose: _this.toggleModal,
         className: "cmp-add-to-cart-modal"
-      }, !isErrorModal && /*#__PURE__*/react_default.a.createElement(modal["a" /* Header */], {
+      }, !isErrorModal && react_default.a.createElement(modal["a" /* Header */], {
         title: modalConfig.title,
         icon: modalConfig.icon,
         className: modal["c" /* keys */].HeaderWithAddedMarginTop
-      }), isErrorModal && /*#__PURE__*/react_default.a.createElement(modal["a" /* Header */], {
+      }), isErrorModal && react_default.a.createElement(modal["a" /* Header */], {
         title: errorConfig.title,
         icon: errorConfig.icon,
         className: modal["c" /* keys */].HeaderWithAddedMarginTopError
-      }), /*#__PURE__*/react_default.a.createElement(addToCartModal["a" /* default */], {
+      }), react_default.a.createElement(addToCartModal["a" /* default */], {
         config: modalConfig,
         errorObjCart: errorObjCart
       }))));
@@ -4914,7 +2800,7 @@ var listItem_ListItem = /*#__PURE__*/function (_React$Component) {
         return null;
       } else {
         if (ecommerce["a" /* default */].isPartialState() && loginStatus["a" /* default */].state() && checkOutStatus["a" /* default */].state() || !ecommerce["a" /* default */].isPartialState() && !ecommerce["a" /* default */].isDisabledState()) {
-          return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, _this.renderBuyInfoPartial());
+          return react_default.a.createElement(react_default.a.Fragment, null, _this.renderBuyInfoPartial());
         } else {
           return null;
         }
@@ -4939,14 +2825,14 @@ var listItem_ListItem = /*#__PURE__*/function (_React$Component) {
           discontinuedMessage = skuConfig.skuInfo.discontinuedNoReplacementCode;
         }
 
-        return /*#__PURE__*/react_default.a.createElement(sku_message, {
+        return react_default.a.createElement(sku_message, {
           icon: skuConfig.skuInfo.lowStockIcon,
           message: discontinuedMessage,
           link: relatedSku.replacementskuurl,
           linkMessage: relatedSku.replacementskucode
         });
       } else if (_this.state.errorPriceType === NO_PRICE_NO_ADD_TO_CART) {
-        return /*#__PURE__*/react_default.a.createElement(sku_message, {
+        return react_default.a.createElement(sku_message, {
           icon: skuConfig.skuInfo.lowStockIcon,
           message: skuConfig.skuInfo.skuErrorMessage
         });
@@ -4961,20 +2847,20 @@ var listItem_ListItem = /*#__PURE__*/function (_React$Component) {
           skuConfig = _this$props3.skuConfig;
 
       if (skuConfig.showBreadcrumbs) {
-        return /*#__PURE__*/react_default.a.createElement("div", {
+        return react_default.a.createElement("div", {
           className: "cmp-search__results-item-breadcrumb skuitem",
           "data-locator": "search-results-breadcrumb"
-        }, /*#__PURE__*/react_default.a.createElement("div", {
+        }, react_default.a.createElement("div", {
           "aria-label": relatedSku.category_facet
-        }, relatedSku.category_facet), /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+        }, relatedSku.category_facet), react_default.a.createElement(react_svg["a" /* default */], {
           src: skuConfig.skuInfo.nextIcon,
           "aria-hidden": "true"
-        }), /*#__PURE__*/react_default.a.createElement("div", {
+        }), react_default.a.createElement("div", {
           "aria-label": relatedSku.contenttype_facet
         }, relatedSku.contenttype_facet));
       }
 
-      return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null);
+      return react_default.a.createElement(react_default.a.Fragment, null);
     };
 
     _this.isDisabled = function () {
@@ -5011,7 +2897,7 @@ var listItem_ListItem = /*#__PURE__*/function (_React$Component) {
       skuAvailability: {},
       skuData: _this.props.relatedSku,
       analyticsConfig: {
-        context: sku_details.exists() ? analytics["d" /* relatedCartContext */] : analytics["e" /* searchCartContext */],
+        context: sku_details["a" /* default */].exists() ? analytics["d" /* relatedCartContext */] : analytics["e" /* searchCartContext */],
         name: _this.props.relatedSku.title,
         price: _this.props.relatedSku.formattedPrice,
         custPrice: '',
@@ -5069,24 +2955,24 @@ var listItem_ListItem = /*#__PURE__*/function (_React$Component) {
       }
 
       var imageAltLabel = relatedSku.primaryImageAlt ? relatedSku.primaryImageAlt : relatedSku.title;
-      return /*#__PURE__*/react_default.a.createElement("div", {
+      return react_default.a.createElement("div", {
         className: 'cmp-sku-list__container ' + disabledClass
-      }, /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("div", {
         className: "cmp-sku-list__right"
-      }, /*#__PURE__*/react_default.a.createElement("img", {
+      }, react_default.a.createElement("img", {
         src: relatedSku.primaryImageThumbnail,
         alt: relatedSku.title,
         "data-locator": "product-image"
-      })), /*#__PURE__*/react_default.a.createElement("div", {
+      })), react_default.a.createElement("div", {
         className: "cmp-sku-details__left"
-      }, /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("div", {
         className: "cmp-sku-list__code",
         "data-locator": "product-number",
         "aria-label": skuConfig.skuInfo.partNumberLabel + " " + relatedSku.code
-      }, skuConfig.skuInfo.partNumberLabel + " " + relatedSku.code), /*#__PURE__*/react_default.a.createElement("a", {
+      }, skuConfig.skuInfo.partNumberLabel + " " + relatedSku.code), react_default.a.createElement("a", {
         onClick: this.handleItemClick,
         href: relatedSku.skuPageHref ? relatedSku.skuPageHref : null
-      }, /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("div", {
         className: "cmp-sku-details__title",
         "data-locator": "product-title"
       }, relatedSku.title)), buyInfo, breadcrumbs));
@@ -5106,55 +2992,9 @@ listItem_ListItem.defaultProps = {
   isEProcurementUserRestricted: false
 };
 /* harmony default export */ var listItem = (listItem_ListItem);
-// CONCATENATED MODULE: ./src/scripts/signIn.js
+// EXTERNAL MODULE: ./src/scripts/signIn.js
+var scripts_signIn = __webpack_require__(76);
 
-
-
-
-
-var signIn_SignIn = function SignIn(props) {
-  var onSignIn = function onSignIn(e) {
-    e.preventDefault();
-    var store = new stores_sessionStore["a" /* default */]();
-    store.setSignInRedirect(window.location.href);
-    window.location.href = props.signInUrl;
-  };
-
-  if (!Object(eCommerceFunctions["f" /* isSignInHidden */])()) {
-    return /*#__PURE__*/react_default.a.createElement("div", {
-      className: "cmp-sku-signin-wrapper",
-      "data-locator": "sku-signin-wrapper"
-    }, /*#__PURE__*/react_default.a.createElement("div", {
-      className: "cmp-sku-signin",
-      "data-locator": "sku-signin"
-    }, /*#__PURE__*/react_default.a.createElement("a", Object.assign({
-      className: "signin-link",
-      "data-locator": "signin-link"
-    }, {
-      onClick: function onClick(e) {
-        return onSignIn(e);
-      },
-      rel: 'nofollow'
-    }), /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
-      src: props.signInIcon,
-      className: "signin-icon",
-      "data-locator": "signin-icon"
-    }), /*#__PURE__*/react_default.a.createElement("span", {
-      className: "signin-part1",
-      "data-locator": "signin-part1"
-    }, props.signInText1)), /*#__PURE__*/react_default.a.createElement("span", {
-      className: "signin-part2",
-      "data-locator": "signin-part2"
-    }, props.signInText2), /*#__PURE__*/react_default.a.createElement("span", {
-      className: "signin-part3",
-      "data-locator": "signin-part3"
-    }, props.signInText3)));
-  } else {
-    return null;
-  }
-};
-
-/* harmony default export */ var scripts_signIn = (signIn_SignIn);
 // CONCATENATED MODULE: ./src/sku-list/index.js
 
 
@@ -5194,7 +3034,7 @@ var sku_list_SkuList = /*#__PURE__*/function (_React$Component) {
     key: "renderSignIn",
     value: function renderSignIn() {
       if (!loginStatus["a" /* default */].state()) {
-        return /*#__PURE__*/react_default.a.createElement(scripts_signIn, {
+        return react_default.a.createElement(scripts_signIn["a" /* default */], {
           signInUrl: this.props.skuConfig.baseSignInUrl,
           signInIcon: this.props.skuConfig.skuInfo.signinIcon,
           signInText1: this.props.skuConfig.skuInfo.signInText1,
@@ -5202,7 +3042,7 @@ var sku_list_SkuList = /*#__PURE__*/function (_React$Component) {
           signInText3: this.props.skuConfig.skuInfo.signInText3
         });
       } else {
-        return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null);
+        return react_default.a.createElement(react_default.a.Fragment, null);
       }
     }
   }, {
@@ -5211,13 +3051,11 @@ var sku_list_SkuList = /*#__PURE__*/function (_React$Component) {
       var _this2 = this;
 
       var signIn = this.renderSignIn();
-      return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, this.props.data.length > 0 &&
-      /*#__PURE__*/
-      //only return template if data exists
-      react_default.a.createElement(react_default.a.Fragment, null, this.props.title && /*#__PURE__*/react_default.a.createElement("div", {
+      return react_default.a.createElement(react_default.a.Fragment, null, this.props.data.length > 0 && //only return template if data exists
+      react_default.a.createElement(react_default.a.Fragment, null, this.props.title && react_default.a.createElement("div", {
         className: "cmp-sku-list__title"
       }, this.props.title), signIn, this.props.data.map(function (record, index) {
-        return /*#__PURE__*/react_default.a.createElement(listItem, {
+        return react_default.a.createElement(listItem, {
           key: index,
           relatedSku: record,
           skuConfig: _this2.props.skuConfig,
@@ -5253,39 +3091,39 @@ var results_Result = function Result(_ref) {
       locale = _ref.locale,
       nextIcon = _ref.nextIcon,
       onItemClick = _ref.onItemClick;
-  var thumbnail = /*#__PURE__*/react_default.a.createElement("div", {
+  var thumbnail = react_default.a.createElement("div", {
     className: "cmp-search__results-thumbnail"
-  }, /*#__PURE__*/react_default.a.createElement("img", {
+  }, react_default.a.createElement("img", {
     src: result.thumbnail,
     alt: result.title
   }));
-  return /*#__PURE__*/react_default.a.createElement("li", {
+  return react_default.a.createElement("li", {
     className: "cmp-search__results-item",
     key: result.literaturecode
-  }, result.thumbnail && thumbnail, /*#__PURE__*/react_default.a.createElement("div", {
+  }, result.thumbnail && thumbnail, react_default.a.createElement("div", {
     className: "cmp-search__results-body ".concat(result.thumbnail ? 'cmp-search__results-body--image' : '')
-  }, /*#__PURE__*/react_default.a.createElement("a", {
+  }, react_default.a.createElement("a", {
     href: result.url,
     onClick: onItemClick,
     className: "cmp-search__results-item-link"
-  }, /*#__PURE__*/react_default.a.createElement("span", {
+  }, react_default.a.createElement("span", {
     className: "cmp-search__results-item-title"
-  }, result.title)), /*#__PURE__*/react_default.a.createElement("div", {
+  }, result.title)), react_default.a.createElement("div", {
     className: "cmp-search__results-item-description"
-  }, /*#__PURE__*/react_default.a.createElement("div", {
+  }, react_default.a.createElement("div", {
     className: "cmp-search__results-item-description-text"
-  }, /*#__PURE__*/react_default.a.createElement(lib_default.a, {
+  }, react_default.a.createElement(lib_default.a, {
     text: result.description,
     maxLine: "3",
     ellipsis: "\u2026",
     trimRight: true,
     basedOn: "words",
     clamped: "true"
-  }))), /*#__PURE__*/react_default.a.createElement("div", {
+  }))), react_default.a.createElement("div", {
     className: "cmp-search__results-item-breadcrumb"
-  }, /*#__PURE__*/react_default.a.createElement("div", null, result.category_facet), /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+  }, react_default.a.createElement("div", null, result.category_facet), react_default.a.createElement(react_svg["a" /* default */], {
     src: nextIcon
-  }), /*#__PURE__*/react_default.a.createElement("div", null, result.contenttype_facet))));
+  }), react_default.a.createElement("div", null, result.contenttype_facet))));
 };
 
 var results_Results = function Results(_ref2) {
@@ -5294,7 +3132,7 @@ var results_Results = function Results(_ref2) {
       nextIcon = _ref2.nextIcon,
       onItemClick = _ref2.onItemClick;
   var mappedResults = Array.isArray(results) ? results.map(function (result, i) {
-    return /*#__PURE__*/react_default.a.createElement(results_Result, {
+    return react_default.a.createElement(results_Result, {
       result: result,
       locale: locale,
       nextIcon: nextIcon,
@@ -5302,9 +3140,9 @@ var results_Results = function Results(_ref2) {
       onItemClick: onItemClick
     });
   }) : [];
-  return /*#__PURE__*/react_default.a.createElement("div", {
+  return react_default.a.createElement("div", {
     className: "cmp-search__results-container"
-  }, /*#__PURE__*/react_default.a.createElement("ul", {
+  }, react_default.a.createElement("ul", {
     className: "cmp-search__results"
   }, mappedResults));
 };
@@ -5340,34 +3178,34 @@ var search_component_helpers_FilterTagList = function FilterTagList(_ref) {
   var isContentTypeSelected = Object.entries(filterTagsProps.contentTypeSelected).length !== 0 && filterTagsProps.contentTypeSelected.facetTranslation;
 
   if (!isKeywordSpecified && !isContentTypeSelected) {
-    return /*#__PURE__*/react_default.a.createElement("div", {
+    return react_default.a.createElement("div", {
       className: "cmp-search-filters__emptytags"
     });
   }
 
   var keyword = filterTagsProps.spell_suggestion ? filterTagsProps.spell_suggestion : filterTagsProps.keyword;
-  var keyWordTag = isKeywordSpecified ? /*#__PURE__*/react_default.a.createElement(filter_tags_KeywordTag, {
+  var keyWordTag = isKeywordSpecified ? react_default.a.createElement(filter_tags_KeywordTag, {
     keyword: keyword,
     text: text,
     onRemove: filterTagsEvents.onKeywordRemove
-  }) : /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null);
-  var contentTypeTag = isContentTypeSelected ? /*#__PURE__*/react_default.a.createElement(filter_tags_ContentTypeTag, {
+  }) : react_default.a.createElement(react_default.a.Fragment, null);
+  var contentTypeTag = isContentTypeSelected ? react_default.a.createElement(filter_tags_ContentTypeTag, {
     text: text,
     selected: filterTagsProps.contentTypeSelected,
     onRemove: filterTagsEvents.onContentTypeRemove
-  }) : /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null);
-  var subFacetTags = Object.entries(filterTagsProps.selectedFacets).length !== 0 ? /*#__PURE__*/react_default.a.createElement(filter_tags_SubFacetTags, {
+  }) : react_default.a.createElement(react_default.a.Fragment, null);
+  var subFacetTags = Object.entries(filterTagsProps.selectedFacets).length !== 0 ? react_default.a.createElement(filter_tags_SubFacetTags, {
     text: text,
     selectedFacets: filterTagsProps.selectedFacets,
     facets: filterTagsProps.facets,
     removeTag: filterTagsEvents.onSubFacetRemove,
     filterMap: filterMap,
     defaultFacet: filterTagsProps.contentType
-  }) : /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null);
-  return /*#__PURE__*/react_default.a.createElement("div", {
+  }) : react_default.a.createElement(react_default.a.Fragment, null);
+  return react_default.a.createElement("div", {
     className: "cmp-search-filters__tags clearfix",
     "data-locator": "search-filters-tags"
-  }, /*#__PURE__*/react_default.a.createElement(filter_tags_ClearAllTag, {
+  }, react_default.a.createElement(filter_tags_ClearAllTag, {
     text: text,
     onRemove: filterTagsEvents.onClearAll
   }), keyWordTag, contentTypeTag, subFacetTags);
@@ -5385,23 +3223,23 @@ var search_component_helpers_Aside = function Aside(_ref2) {
       asideProps = _ref2.asideProps,
       asideEvents = _ref2.asideEvents,
       children = _ref2.children;
-  return /*#__PURE__*/react_default.a.createElement("div", {
+  return react_default.a.createElement("div", {
     className: "container__left cmp-search__sort-filter",
     "data-locator": "left-container-filter"
-  }, /*#__PURE__*/react_default.a.createElement(btn_hide_sort_filter, {
+  }, react_default.a.createElement(btn_hide_sort_filter, {
     text: text,
     onClick: asideEvents.onHideSortFilterClick
-  }), /*#__PURE__*/react_default.a.createElement(btn_apply_sort_filter, {
+  }), react_default.a.createElement(btn_apply_sort_filter, {
     text: text,
     applyFilters: asideEvents.onApplySortFilter,
     isPristine: asideProps.sortFilterIsPristine,
     count: asideProps.count
-  }), /*#__PURE__*/react_default.a.createElement(btn_done_sort_filter, {
+  }), react_default.a.createElement(btn_done_sort_filter, {
     text: text,
     collapseFilters: asideEvents.onCollapseFilters
-  }), /*#__PURE__*/react_default.a.createElement("div", {
+  }), react_default.a.createElement("div", {
     className: "cmp-search__sort-filter__container"
-  }, /*#__PURE__*/react_default.a.createElement(sort, {
+  }, react_default.a.createElement(sort, {
     sortValue: asideProps.sortByValue,
     sortHandler: asideEvents.onSort,
     text: text
@@ -5428,7 +3266,7 @@ var search_component_helpers_Menu = function Menu(_ref3) {
       filterTagsEvents = _ref3.filterTagsEvents;
 
   if (menuProps.showContentTypeMenu) {
-    return /*#__PURE__*/react_default.a.createElement(content_type_menu, {
+    return react_default.a.createElement(content_type_menu, {
       heading: menuProps.heading,
       items: contentTypeMenuProps.items,
       onClick: contentTypeMenuEvents.onContentTypeItemClick
@@ -5443,13 +3281,13 @@ var search_component_helpers_Menu = function Menu(_ref3) {
   });
 
   if (menuProps.showFacetMenu) {
-    return /*#__PURE__*/react_default.a.createElement(facet_menu, {
+    return react_default.a.createElement(facet_menu, {
       heading: menuProps.heading,
       selectedValue: facetMenuProps.selectedValue,
       previousIcon: facetMenuProps.previousIcon,
       filterTags: filterTags,
       onClear: facetMenuEvents.onContentTypeRemoval
-    }, /*#__PURE__*/react_default.a.createElement(filter, {
+    }, react_default.a.createElement(filter, {
       facets: subFacetFiltersProps.items,
       text: text,
       filterMap: subFacetFiltersProps.filterMap,
@@ -5500,7 +3338,7 @@ var search_component_helpers_SkuResults = function SkuResults(_ref4) {
       title: item.title
     };
   }) : [];
-  return /*#__PURE__*/react_default.a.createElement(sku_list, {
+  return react_default.a.createElement(sku_list, {
     skuConfig: skuConfig,
     data: skuData,
     onItemClick: onItemClick
@@ -5522,14 +3360,14 @@ var search_component_helpers_ResultsContent = function ResultsContent(_ref5) {
   var items = resultsProps.items[searchParams.page];
 
   if (resultsProps.isSkuList) {
-    return /*#__PURE__*/react_default.a.createElement(search_component_helpers_SkuResults, {
+    return react_default.a.createElement(search_component_helpers_SkuResults, {
       items: items,
       skuConfig: skuConfig,
       onItemClick: resultsEvents.onResultsItemClick
     });
   }
 
-  return /*#__PURE__*/react_default.a.createElement(components_results, {
+  return react_default.a.createElement(components_results, {
     results: items,
     nextIcon: text.nextIcon,
     onItemClick: resultsEvents.onResultsItemClick
@@ -5551,14 +3389,14 @@ var search_component_helpers_Pagination = function Pagination(_ref6) {
       previousIcon = _ref6.previousIcon;
 
   if (resultsProps.count <= services["b" /* parameterDefaults */].rows) {
-    return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null);
+    return react_default.a.createElement(react_default.a.Fragment, null);
   }
 
   var buildHref = function buildHref(href) {
     return "".concat(window.location.href, "/page/").concat(href);
   };
 
-  return /*#__PURE__*/react_default.a.createElement(react_paginate_default.a, {
+  return react_default.a.createElement(react_paginate_default.a, {
     pageCount: resultsProps.pagination.amount,
     forcePage: resultsProps.pagination.current ? resultsProps.pagination.current - 1 : 0,
     pageRangeDisplayed: 8,
@@ -5569,10 +3407,10 @@ var search_component_helpers_Pagination = function Pagination(_ref6) {
     },
     breakLabel: '…',
     hrefBuilder: buildHref,
-    previousLabel: /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+    previousLabel: react_default.a.createElement(react_svg["a" /* default */], {
       src: previousIcon
     }),
-    nextLabel: /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+    nextLabel: react_default.a.createElement(react_svg["a" /* default */], {
       src: nextIcon
     }),
     initialPage: resultsProps.pagination.current ? resultsProps.pagination.current - 1 : 0,
@@ -5602,42 +3440,42 @@ var search_component_helpers_ResultsBody = function ResultsBody(_ref7) {
       resultsProps = _ref7.resultsProps,
       resultsEvents = _ref7.resultsEvents,
       isEprocurementUser = _ref7.isEprocurementUser;
-  return /*#__PURE__*/react_default.a.createElement("div", {
+  return react_default.a.createElement("div", {
     className: "cmp-search__container"
-  }, /*#__PURE__*/react_default.a.createElement("div", {
+  }, react_default.a.createElement("div", {
     className: "cmp-search__container__header clearfix"
-  }, !isEprocurementUser && /*#__PURE__*/react_default.a.createElement(category_dropdown, {
+  }, !isEprocurementUser && react_default.a.createElement(category_dropdown, {
     categoryDownIcon: text.downIcon,
     categoryIsSearchable: false,
     categoryOnChange: categoryEvents.onCategoryDropdownChange,
     categoryOptions: categoryProps.categories,
     categoryValue: categoryProps.activeIndex
-  }), /*#__PURE__*/react_default.a.createElement(btn_show_sort_filter, {
+  }), react_default.a.createElement(btn_show_sort_filter, {
     text: text,
     setupFilters: showSortFilterEvents.onSetupFilters,
     resetToSavedState: showSortFilterEvents.onResetToSavedState,
     collapseFilters: showSortFilterProps.collapseFilters,
     onClose: showSortFilterEvents.onClose
-  }), /*#__PURE__*/react_default.a.createElement("div", {
+  }), react_default.a.createElement("div", {
     className: "cmp-search__sorted-by"
-  }, text.sortedBy, ":", ' ', asideProps.sortByText === 'most-relevant' ? text.sortByBestMatch : text.sortByMostRecent)), /*#__PURE__*/react_default.a.createElement("div", {
+  }, text.sortedBy, ":", ' ', asideProps.sortByText === 'most-relevant' ? text.sortByBestMatch : text.sortByMostRecent)), react_default.a.createElement("div", {
     className: "cmp-search__sorted-container"
-  }, /*#__PURE__*/react_default.a.createElement(results_count, Object.assign({}, resultsProps, {
+  }, react_default.a.createElement(results_count, Object.assign({}, resultsProps, {
     text: text,
     onRelatedSuggestionClick: resultsEvents.onRelatedSuggestionClick
-  })), /*#__PURE__*/react_default.a.createElement(search_component_helpers_FilterTagList, {
+  })), react_default.a.createElement(search_component_helpers_FilterTagList, {
     text: text,
     filterMap: filterMap,
     filterTagsProps: filterTagsProps,
     filterTagsEvents: filterTagsEvents
-  }), /*#__PURE__*/react_default.a.createElement(search_component_helpers_ResultsContent, {
+  }), react_default.a.createElement(search_component_helpers_ResultsContent, {
     text: text,
     filterMap: filterMap,
     skuConfig: skuConfig,
     searchParams: searchParams,
     resultsProps: resultsProps,
     resultsEvents: resultsEvents
-  })), /*#__PURE__*/react_default.a.createElement(search_component_helpers_Pagination, {
+  })), react_default.a.createElement(search_component_helpers_Pagination, {
     resultsProps: resultsProps,
     resultsEvents: resultsEvents,
     nextIcon: text.nextIcon,
@@ -5661,6 +3499,9 @@ search_component_helpers_ResultsBody.defaultProps = {
   resultsEvents: defaultProps.resultsEvents
 };
 
+// EXTERNAL MODULE: ./src/scripts/fade-x.js
+var fade_x = __webpack_require__(67);
+
 // CONCATENATED MODULE: ./src/navigation/tabs/index.js
 
 
@@ -5677,7 +3518,7 @@ var tabs_Tabs = function Tabs(_ref) {
     var tabFader;
 
     if (enableFading && items.length !== 0) {
-      tabFader = fade_x('cmp-tabs', 0, 100);
+      tabFader = Object(fade_x["a" /* default */])('cmp-tabs', 0, 100);
       tabsRef.current.addEventListener('scroll', tabFader);
     }
 
@@ -5685,13 +3526,13 @@ var tabs_Tabs = function Tabs(_ref) {
       tabsRef.current.removeEventListener('scroll', tabFader);
     };
   }, []);
-  return /*#__PURE__*/react_default.a.createElement("div", {
+  return react_default.a.createElement("div", {
     className: "cmp-tabs-wrapper"
-  }, /*#__PURE__*/react_default.a.createElement("div", {
+  }, react_default.a.createElement("div", {
     ref: tabsRef,
     className: "cmp-tabs ".concat(className)
   }, items.map(function (item, index) {
-    return /*#__PURE__*/react_default.a.createElement(tabs_Tab, {
+    return react_default.a.createElement(tabs_Tab, {
       key: "CategoryTab-".concat(index),
       name: item.name,
       index: index,
@@ -5714,12 +3555,12 @@ var tabs_Tab = function Tab(_ref2) {
       name = _ref2.name,
       isActive = _ref2.isActive,
       _onClick = _ref2.onClick;
-  return /*#__PURE__*/react_default.a.createElement("div", {
+  return react_default.a.createElement("div", {
     className: "cmp-tabs__tab".concat(isActive ? " active" : ""),
     onClick: function onClick() {
       return _onClick(index);
     }
-  }, /*#__PURE__*/react_default.a.createElement("span", {
+  }, react_default.a.createElement("span", {
     className: "cmp-tabs__tab-label",
     "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])(name)
   }, name));
@@ -5740,19 +3581,19 @@ tabs_Tab.defaultProps = {
 
 
 var search_component_SearchComponent = function SearchComponent(props) {
-  return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, !props.isEprocurementUser && /*#__PURE__*/react_default.a.createElement(tabs, {
+  return react_default.a.createElement(react_default.a.Fragment, null, !props.isEprocurementUser && react_default.a.createElement(tabs, {
     className: "cmp-search__categories-tabs",
     items: props.categoryProps.categories,
     activeIndex: props.categoryProps.activeIndex,
     onClick: props.categoryEvents.onCategoryTabClick
-  }), /*#__PURE__*/react_default.a.createElement("div", null, /*#__PURE__*/react_default.a.createElement("div", {
+  }), react_default.a.createElement("div", null, react_default.a.createElement("div", {
     className: "overlay"
-  }), /*#__PURE__*/react_default.a.createElement(search_component_helpers_Aside, {
+  }), react_default.a.createElement(search_component_helpers_Aside, {
     sortFilterIsPristine: props.asideProps.sortFilterIsPristine,
     text: props.text,
     asideProps: props.asideProps,
     asideEvents: props.asideEvents
-  }, /*#__PURE__*/react_default.a.createElement(search_component_helpers_Menu, {
+  }, react_default.a.createElement(search_component_helpers_Menu, {
     text: props.text,
     filterMap: props.filterMap,
     menuProps: props.menuProps,
@@ -5764,7 +3605,7 @@ var search_component_SearchComponent = function SearchComponent(props) {
     subFacetFiltersEvents: props.subFacetFiltersEvents,
     filterTagsProps: props.filterTagsProps,
     filterTagsEvents: props.filterTagsEvents
-  })), /*#__PURE__*/react_default.a.createElement(search_component_helpers_ResultsBody, {
+  })), react_default.a.createElement(search_component_helpers_ResultsBody, {
     text: props.text,
     filterMap: props.filterMap,
     skuConfig: props.skuConfig,
@@ -6989,7 +4830,7 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
     key: "render",
     value: function render() {
       if (this.state.loading && !screenSizes["a" /* default */].isTabletAndUnder()) {
-        return /*#__PURE__*/react_default.a.createElement(components_loading, {
+        return react_default.a.createElement(components_loading, {
           visible: true
         });
       }
@@ -6997,13 +4838,13 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
       ;
 
       if (this.state.noResults) {
-        return /*#__PURE__*/react_default.a.createElement(no_results, {
+        return react_default.a.createElement(no_results, {
           searchText: this.props.searchText,
           query: this.state.keyword
         });
       }
 
-      return /*#__PURE__*/react_default.a.createElement(search_component, {
+      return react_default.a.createElement(search_component, {
         isEprocurementUser: this.state.isEprocurementUser,
         text: this.props.searchText,
         filterMap: this.props.filterMap,
@@ -7036,10 +4877,10 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
 
 /* harmony default export */ var search_container = (Object(withRouter["a" /* default */])(search_container_SearchContainer));
 // EXTERNAL MODULE: ./node_modules/react-router-dom/es/BrowserRouter.js
-var BrowserRouter = __webpack_require__(467);
+var BrowserRouter = __webpack_require__(487);
 
 // EXTERNAL MODULE: ./node_modules/react-router-dom/es/Route.js
-var Route = __webpack_require__(468);
+var Route = __webpack_require__(488);
 
 // CONCATENATED MODULE: ./src/search/ErrorBoundary.js
 
@@ -7104,7 +4945,7 @@ var ErrorBoundary_ErrorBoundary = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, react_default.a.cloneElement(this.props.children, {
+      return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.cloneElement(this.props.children, {
         hasError: this.state.hasError,
         hasErrored: this.state.hasErrored,
         resetErrorBoundaryToFalse: this.resetErrorBoundaryToFalse.bind(this),
@@ -7129,10 +4970,10 @@ var ErrorBoundary_ErrorBoundary = /*#__PURE__*/function (_React$Component) {
 var search_SearchApp = function SearchApp(props) {
   var isoCode = Object(userFunctions["p" /* isEprocurementUser */])() && Object(userFunctions["l" /* getIsoCode */])() || props.isocode;
   var search = new services["a" /* SearchService */](isoCode, props.searchServicePath, services["b" /* parameterDefaults */].page, props.searchDefaults.rows, services["b" /* parameterDefaults */].sort, undefined, function () {});
-  return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement(BrowserRouter["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(Route["a" /* default */], {
+  return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement(BrowserRouter["a" /* default */], null, react_default.a.createElement(Route["a" /* default */], {
     path: "",
     render: function render() {
-      return /*#__PURE__*/react_default.a.createElement(search_ErrorBoundary, null, /*#__PURE__*/react_default.a.createElement(search_container, {
+      return react_default.a.createElement(search_ErrorBoundary, null, react_default.a.createElement(search_container, {
         defaultFacet: props.defaultFacet,
         searchDefaults: props.searchDefaults,
         searchServicePath: props.searchServicePath,
@@ -7148,6 +4989,9 @@ var search_SearchApp = function SearchApp(props) {
 };
 
 /* harmony default export */ var src_search = (search_SearchApp);
+// EXTERNAL MODULE: ./src/stores/sessionStore.js
+var stores_sessionStore = __webpack_require__(14);
+
 // CONCATENATED MODULE: ./src/search/components/tagcloud.js
 
 
@@ -7187,14 +5031,14 @@ var tagcloud_TagCloud = /*#__PURE__*/function (_Component) {
       var mappedResults = this.props.keywords.map(function (keyword, i) {
         var boundItemClick = _this2.handleRelatedSearch.bind(_this2, keyword.filter);
 
-        return /*#__PURE__*/react_default.a.createElement("li", {
+        return react_default.a.createElement("li", {
           className: "cmp-tag-cloud__item",
           key: i
-        }, /*#__PURE__*/react_default.a.createElement("a", {
+        }, react_default.a.createElement("a", {
           onClick: boundItemClick
         }, keyword.title));
       });
-      return [/*#__PURE__*/react_default.a.createElement("h3", null, this.props.tagCloudTitle), /*#__PURE__*/react_default.a.createElement("ul", {
+      return [react_default.a.createElement("h3", null, this.props.tagCloudTitle), react_default.a.createElement("ul", {
         className: "cmp-tag-cloud__list"
       }, mappedResults)];
     }
@@ -7329,7 +5173,7 @@ var image_viewer_ImageViewer = /*#__PURE__*/function (_React$Component) {
     };
 
     _this.renderImageDisplay = function () {
-      return /*#__PURE__*/react_default.a.createElement("figure", {
+      return react_default.a.createElement("figure", {
         ref: _this.figureRef,
         className: "image-viewer-container__image-figure image-viewer-container__image-figure--".concat(_this.state.magnified, " image-viewer-container__image-figure--zoomin-").concat(_this.state.magnified),
         style: {
@@ -7338,7 +5182,7 @@ var image_viewer_ImageViewer = /*#__PURE__*/function (_React$Component) {
         onDragStart: _this.handleOnDragStart,
         onMouseMove: _this.handleFigureMouseMove,
         onTouchMove: _this.handleFigureTouchMove
-      }, /*#__PURE__*/react_default.a.createElement("img", {
+      }, react_default.a.createElement("img", {
         className: "image-viewer-container__image-element",
         src: _this.state.imageSrc,
         alt: _this.props.alt,
@@ -7347,13 +5191,13 @@ var image_viewer_ImageViewer = /*#__PURE__*/function (_React$Component) {
     };
 
     _this.renderZoomIcon = function () {
-      return _this.state.magnified ? /*#__PURE__*/react_default.a.createElement("div", {
+      return _this.state.magnified ? react_default.a.createElement("div", {
         onClick: _this.handleMagnifyClick
-      }, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+      }, react_default.a.createElement(react_svg["a" /* default */], {
         src: _this.props.zoomOutIcon
-      })) : /*#__PURE__*/react_default.a.createElement("div", {
+      })) : react_default.a.createElement("div", {
         onClick: _this.handleMagnifyClick
-      }, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+      }, react_default.a.createElement(react_svg["a" /* default */], {
         src: _this.props.zoomInIcon
       }));
     };
@@ -7410,14 +5254,14 @@ var image_viewer_ImageViewer = /*#__PURE__*/function (_React$Component) {
   Object(createClass["a" /* default */])(ImageViewer, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react_default.a.createElement("div", {
+      return react_default.a.createElement("div", {
         ref: this.containerRef,
         className: "image-viewer-container"
-      }, /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("div", {
         className: "image-viewer-container__image-display"
-      }, this.renderImageDisplay(), /*#__PURE__*/react_default.a.createElement("div", {
+      }, this.renderImageDisplay(), react_default.a.createElement("div", {
         className: "image-viewer-container__image-zoom"
-      }, /*#__PURE__*/react_default.a.createElement("div", null, this.renderZoomIcon()))));
+      }, react_default.a.createElement("div", null, this.renderZoomIcon()))));
     }
   }, {
     key: "componentDidUpdate",
@@ -7601,7 +5445,7 @@ var image_thumbnails_ImageThumbnails = /*#__PURE__*/function (_React$Component) 
       }
 
       return _this.props.items.map(function (item, index) {
-        return /*#__PURE__*/react_default.a.createElement("div", {
+        return react_default.a.createElement("div", {
           ref: _this.refs[index],
           key: index,
           className: "image-thumbnails-container__item ".concat(_this.getItemClassName(index)),
@@ -7723,33 +5567,33 @@ var image_thumbnails_ImageThumbnails = /*#__PURE__*/function (_React$Component) 
     value: function render() {
       var _this2 = this;
 
-      return /*#__PURE__*/react_default.a.createElement("div", {
+      return react_default.a.createElement("div", {
         className: "image-thumbnails-wrapper ".concat(this.getImageThumbnailsWrapperClassName()),
         style: this.getImageThumbnailsWrapperStyle()
-      }, /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("div", {
         className: "image-thumbnails-button ".concat(this.getPrevButtonClassName()),
         onClick: function onClick(e) {
           return _this2.handleSlide(PREV);
         }
-      }, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+      }, react_default.a.createElement(react_svg["a" /* default */], {
         src: "/content/dam/waters/en/brand-assets/icons/left.svg"
-      })), /*#__PURE__*/react_default.a.createElement("div", {
+      })), react_default.a.createElement("div", {
         className: "image-thumbnails-container",
         onTouchStart: this.handleTouchStart,
         onTouchMove: this.handleTouchMove,
         onTouchEnd: this.handleTouchEnd
-      }, /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("div", {
         ref: this.gradientLeftRef,
         "class": "image-thumbnails-wrapper__gradient-left"
-      }), this.renderItems(), /*#__PURE__*/react_default.a.createElement("div", {
+      }), this.renderItems(), react_default.a.createElement("div", {
         ref: this.gradientRightRef,
         "class": "image-thumbnails-wrapper__gradient-right"
-      })), /*#__PURE__*/react_default.a.createElement("div", {
+      })), react_default.a.createElement("div", {
         className: "image-thumbnails-button ".concat(this.getNextButtonClassName()),
         onClick: function onClick(e) {
           return _this2.handleSlide(NEXT);
         }
-      }, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+      }, react_default.a.createElement(react_svg["a" /* default */], {
         src: "/content/dam/waters/en/brand-assets/icons/right.svg"
       })));
     }
@@ -7818,11 +5662,11 @@ var image_carousel_ImageCarousel = /*#__PURE__*/function (_React$Component) {
     };
 
     _this.mapTemplateToImageViewer = function (template, index) {
-      return /*#__PURE__*/react_default.a.createElement("div", {
+      return react_default.a.createElement("div", {
         style: {
           display: _this.state.activeIndex === index ? 'block' : 'none'
         }
-      }, /*#__PURE__*/react_default.a.createElement(image_viewer, {
+      }, react_default.a.createElement(image_viewer, {
         key: template,
         template: template,
         widths: _this.props.widths,
@@ -7837,11 +5681,11 @@ var image_carousel_ImageCarousel = /*#__PURE__*/function (_React$Component) {
     };
 
     _this.getThumbnails = function () {
-      return _this.props.templates.length > 1 ? /*#__PURE__*/react_default.a.createElement(image_thumbnails, {
+      return _this.props.templates.length > 1 ? react_default.a.createElement(image_thumbnails, {
         items: _this.getThumbnailImages(),
         onItemClick: _this.handleThumbnailClick,
         width: _this.state.figureWidth
-      }) : /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null);
+      }) : react_default.a.createElement(react_default.a.Fragment, null);
     };
 
     _this.getThumbnailImages = function () {
@@ -7851,7 +5695,7 @@ var image_carousel_ImageCarousel = /*#__PURE__*/function (_React$Component) {
     };
 
     _this.mapTemplateToElement = function (template) {
-      return /*#__PURE__*/react_default.a.createElement("div", {
+      return react_default.a.createElement("div", {
         className: "image-thumbnails-container__image",
         style: {
           backgroundImage: "url(".concat(template.replace(/{{width}}/gi, _this.props.widths[0]), ")")
@@ -7870,11 +5714,11 @@ var image_carousel_ImageCarousel = /*#__PURE__*/function (_React$Component) {
   Object(createClass["a" /* default */])(ImageCarousel, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react_default.a.createElement("div", {
+      return react_default.a.createElement("div", {
         className: "image-carousel"
-      }, /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("div", {
         className: "image-viewer-placeholder"
-      }, this.getImageViewerComponents()), /*#__PURE__*/react_default.a.createElement("div", {
+      }, this.getImageViewerComponents()), react_default.a.createElement("div", {
         className: "image-thumbnails-placeholder"
       }, this.getThumbnails()));
     }
@@ -7910,16 +5754,16 @@ function UserGreeting(props) {
       hideCompanyImageOnError = _useState2[1];
 
   var srcLogo = Object(eCommerceFunctions["b" /* getCompanyLogo */])(logoDirectoryPath, Object(eCommerceFunctions["d" /* htmlParser */])(company));
-  return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement("div", {
+  return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("div", {
     className: "greetings",
     "data-locator": "user-greeting-sec"
-  }, /*#__PURE__*/react_default.a.createElement("h2", {
+  }, react_default.a.createElement("h2", {
     "data-locator": "user-greeting"
-  }, greetings), /*#__PURE__*/react_default.a.createElement("h3", {
+  }, greetings), react_default.a.createElement("h3", {
     "data-locator": "user-greeting-name"
-  }, Object(eCommerceFunctions["d" /* htmlParser */])(name)), /*#__PURE__*/react_default.a.createElement("h4", {
+  }, Object(eCommerceFunctions["d" /* htmlParser */])(name)), react_default.a.createElement("h4", {
     "data-locator": "user-greeting-company"
-  }, Object(eCommerceFunctions["d" /* htmlParser */])(company))), !isImageHidden && /*#__PURE__*/react_default.a.createElement("img", {
+  }, Object(eCommerceFunctions["d" /* htmlParser */])(company))), !isImageHidden && react_default.a.createElement("img", {
     src: srcLogo,
     alt: Object(eCommerceFunctions["d" /* htmlParser */])(company),
     className: "logo",
@@ -8024,10 +5868,10 @@ var Input_Input = /*#__PURE__*/function (_PureComponent) {
           elementLocator = _this$props2.elementLocator,
           accept = _this$props2.accept,
           maxInputLength = _this$props2.maxInputLength;
-      return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, showLabel && /*#__PURE__*/react_default.a.createElement("label", {
+      return react_default.a.createElement(react_default.a.Fragment, null, showLabel && react_default.a.createElement("label", {
         htmlFor: id,
         className: "visually-hidden"
-      }, name), /*#__PURE__*/react_default.a.createElement("input", {
+      }, name), react_default.a.createElement("input", {
         id: id,
         type: type,
         name: name,
@@ -8230,10 +6074,10 @@ function QuickOrder(props) {
       }
     }
   }, [skuErrorMgs, setErrorObjCart, setModalConfig, setModalShown]);
-  return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement("div", {
+  return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("div", {
     className: "quick-order-parent",
     "data-locator": "quick-order"
-  }, /*#__PURE__*/react_default.a.createElement(components_Input_Input, {
+  }, react_default.a.createElement(components_Input_Input, {
     id: "code",
     type: "text",
     name: "quickOrder",
@@ -8244,7 +6088,7 @@ function QuickOrder(props) {
     onChange: onChange,
     elementLocator: "input-quick-order-sku",
     ariaLabel: addToCartPlaceHolder
-  }), /*#__PURE__*/react_default.a.createElement(views_addToCart, {
+  }), react_default.a.createElement(views_addToCart, {
     skuNumber: sku,
     addToCartQty: 1,
     qtyLabel: qtyLabel,
@@ -8263,30 +6107,30 @@ function QuickOrder(props) {
       childRef.current = ref;
     },
     skuResponse: skuResponse
-  })), /*#__PURE__*/react_default.a.createElement("a", {
+  })), react_default.a.createElement("a", {
     href: multipleItemsLink,
     className: "quick-order-multiple-item",
     "data-locator": "link-quick-order-add-multiple-item"
-  }, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+  }, react_default.a.createElement(react_svg["a" /* default */], {
     "aria-hidden": "true",
     src: isMobile ? addItemsIcon : multipleItemsIcon,
     wrapper: "span",
     "data-locator": "add-multiple-item-icon"
-  }), multipleItemsLabel), /*#__PURE__*/react_default.a.createElement(modal["b" /* default */], {
+  }), multipleItemsLabel), react_default.a.createElement(modal["b" /* default */], {
     isOpen: modalShown,
     onClose: toggleModal,
     className: "cmp-add-to-cart-modal"
-  }, !(Object.keys(errorObjCart).length !== 0) && /*#__PURE__*/react_default.a.createElement(modal["a" /* Header */], {
+  }, !(Object.keys(errorObjCart).length !== 0) && react_default.a.createElement(modal["a" /* Header */], {
     title: modalConfig.title,
     icon: modalConfig.icon,
     className: modal["c" /* keys */].HeaderWithAddedMarginTop,
     elementLocator: "quick-order-modal-header"
-  }), Object.keys(errorObjCart).length !== 0 && /*#__PURE__*/react_default.a.createElement(modal["a" /* Header */], {
+  }), Object.keys(errorObjCart).length !== 0 && react_default.a.createElement(modal["a" /* Header */], {
     title: skuConfig.errorInfo.title,
     icon: skuConfig.errorInfo.icon,
     className: modal["c" /* keys */].HeaderWithAddedMarginTopError,
     elementLocator: "quick-order-modal-header"
-  }), /*#__PURE__*/react_default.a.createElement(addToCartModal["a" /* default */], {
+  }), react_default.a.createElement(addToCartModal["a" /* default */], {
     config: modalConfig,
     errorObjCart: errorObjCart,
     onClose: function onClose() {}
@@ -8331,7 +6175,7 @@ QuickOrder.defaultProps = {
 function LinkButton(props) {
   var url = props.url,
       label = props.label;
-  return /*#__PURE__*/react_default.a.createElement("a", {
+  return react_default.a.createElement("a", {
     className: "cmp-button",
     href: url,
     title: label,
@@ -8346,11 +6190,11 @@ LinkButton.defaultProps = {
 };
 /* harmony default export */ var link_button_LinkButton = (LinkButton);
 // EXTERNAL MODULE: ./node_modules/react-html-parser/lib/index.js
-var react_html_parser_lib = __webpack_require__(90);
+var react_html_parser_lib = __webpack_require__(92);
 var react_html_parser_lib_default = /*#__PURE__*/__webpack_require__.n(react_html_parser_lib);
 
 // EXTERNAL MODULE: ./src/legal-link-modal/styles/index.scss
-var legal_link_modal_styles = __webpack_require__(162);
+var legal_link_modal_styles = __webpack_require__(137);
 
 // CONCATENATED MODULE: ./src/legal-link-modal/LegalLinkModal.js
 
@@ -8433,17 +6277,17 @@ function LegalLinkModal(props) {
   var onClose = Object(react["useCallback"])(function () {
     setIsOpen(false);
   }, [isOpen, setIsOpen]);
-  return /*#__PURE__*/react_default.a.createElement(modal["b" /* default */], {
+  return react_default.a.createElement(modal["b" /* default */], {
     isOpen: isOpen,
     onClose: onClose,
     className: "cmp-modal-legal-links"
-  }, /*#__PURE__*/react_default.a.createElement("div", {
+  }, react_default.a.createElement("div", {
     className: "cmp-modal-body-legal-links custom-scroll"
-  }, /*#__PURE__*/react_default.a.createElement(modal["a" /* Header */], {
+  }, react_default.a.createElement(modal["a" /* Header */], {
     title: title,
     icon: props.docIcon,
     className: modal["c" /* keys */].HeaderWithAddedMarginTop
-  }), /*#__PURE__*/react_default.a.createElement(addToCartModal["a" /* default */], {
+  }), react_default.a.createElement(addToCartModal["a" /* default */], {
     config: {
       isOrderDetails: true,
       text: react_html_parser_lib_default()("<main>".concat(bodyContent, "</main>"))
@@ -8457,6 +6301,9 @@ LegalLinkModal.defaultProps = {
   docIcon: ''
 };
 /* harmony default export */ var legal_link_modal_LegalLinkModal = (LegalLinkModal);
+// EXTERNAL MODULE: ./src/scripts/DigitalData.js
+var DigitalData = __webpack_require__(22);
+
 // CONCATENATED MODULE: ./src/sku-details/index.js
 
 
@@ -8568,7 +6415,7 @@ var sku_details_SkuDetails = /*#__PURE__*/function (_React$Component) {
     };
 
     _this.renderCountryRestricted = function () {
-      return /*#__PURE__*/react_default.a.createElement(sku_message, {
+      return react_default.a.createElement(sku_message, {
         icon: _this.state.skuInfo.lowStockIcon,
         message: _this.props.countryRestricted
       });
@@ -8581,7 +6428,7 @@ var sku_details_SkuDetails = /*#__PURE__*/function (_React$Component) {
         discontinuedMessage = _this.props.config.skuInfo.discontinuedNoReplacementCode;
       }
 
-      return /*#__PURE__*/react_default.a.createElement(sku_message, {
+      return react_default.a.createElement(sku_message, {
         icon: _this.props.config.skuInfo.lowStockIcon,
         message: discontinuedMessage,
         link: _this.props.replacementSkuHref,
@@ -8590,14 +6437,14 @@ var sku_details_SkuDetails = /*#__PURE__*/function (_React$Component) {
     };
 
     _this.renderEcommerceDisabled = function () {
-      return /*#__PURE__*/react_default.a.createElement(sku_message, {
+      return react_default.a.createElement(sku_message, {
         icon: _this.props.config.commerceConfig.disabledIcon,
         message: _this.props.config.commerceConfig.disabledText
       });
     };
 
     _this.renderEcommercePartialDisabled = function () {
-      return /*#__PURE__*/react_default.a.createElement(sku_message, {
+      return react_default.a.createElement(sku_message, {
         icon: _this.props.config.commerceConfig.disabledIcon,
         message: _this.props.config.commerceConfig.partialDisabledText,
         link: _this.props.config.commerceConfig.partialDisabledHref,
@@ -8614,20 +6461,20 @@ var sku_details_SkuDetails = /*#__PURE__*/function (_React$Component) {
       var isHiddenListPrice = errorPriceType === NO_PRICE_NO_ADD_TO_CART && isStickyAvailable && Object(userFunctions["p" /* isEprocurementUser */])() ? true : false;
 
       if (errorPriceType === UNAVAILABLE_PRICE_WITH_ADD_TO_CART && !isStickyAvailable) {
-        return /*#__PURE__*/react_default.a.createElement(unavailablePrice, {
+        return react_default.a.createElement(unavailablePrice, {
           label: skuInfo.custPriceLabel,
           icon: skuInfo.lowStockIcon,
           text: skuInfo.unavailablePriceLabel
         });
       } else {
         if (typeof listPrice !== 'undefined' && !isHiddenListPrice) {
-          return /*#__PURE__*/react_default.a.createElement(views_price, {
+          return react_default.a.createElement(views_price, {
             label: skuInfo.listPriceLabel,
             price: listPrice,
             isListPrice: true
           });
         } else {
-          return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null);
+          return react_default.a.createElement(react_default.a.Fragment, null);
         }
       }
     };
@@ -8645,7 +6492,7 @@ var sku_details_SkuDetails = /*#__PURE__*/function (_React$Component) {
         if (errorPriceType !== '') {
           return _this.renderListOrUnavailablePrice();
         } else {
-          return /*#__PURE__*/react_default.a.createElement(views_price, {
+          return react_default.a.createElement(views_price, {
             label: skuInfo.custPriceLabel,
             price: price,
             isListPrice: false
@@ -8676,30 +6523,30 @@ var sku_details_SkuDetails = /*#__PURE__*/function (_React$Component) {
       }
 
       var isHiddenAddToCart = errorPriceType === NO_PRICE_NO_ADD_TO_CART && isStickyAvailable ? true : false;
-      return /*#__PURE__*/react_default.a.createElement("div", {
+      return react_default.a.createElement("div", {
         className: "cmp-sku-details__buyinfo",
         "data-locator": "sku-details-buyinfo"
-      }, loginStatus["a" /* default */].state() && typeof custPrice !== 'undefined' && custPrice !== listPrice && /*#__PURE__*/react_default.a.createElement("div", {
+      }, loginStatus["a" /* default */].state() && typeof custPrice !== 'undefined' && custPrice !== listPrice && react_default.a.createElement("div", {
         className: "cmp-sku-details__list-price"
-      }, "".concat(skuInfo.listPriceLabel, " ").concat(listPrice)), /*#__PURE__*/react_default.a.createElement("div", {
+      }, "".concat(skuInfo.listPriceLabel, " ").concat(listPrice)), react_default.a.createElement("div", {
         className: "cmp-sku-details__priceinfo",
         "data-locator": "sku-details-priceinfo"
-      }, loading ? /*#__PURE__*/react_default.a.createElement(utils_spinner["a" /* default */], {
+      }, loading ? react_default.a.createElement(utils_spinner["a" /* default */], {
         loading: loading,
         type: "inline"
-      }) : _this.renderPricing()), /*#__PURE__*/react_default.a.createElement("div", {
+      }) : _this.renderPricing()), react_default.a.createElement("div", {
         className: "cmp-sku-details__availability",
         "data-locator": "sku-details-availability"
-      }, /*#__PURE__*/react_default.a.createElement(stock, {
+      }, react_default.a.createElement(stock, {
         skuInfo: skuInfo,
         skuNumber: skuNumber,
         skuAvailability: skuAvailability,
         skuType: "details",
         errorObj: errorObjAvailability
-      })), /*#__PURE__*/react_default.a.createElement("div", {
+      })), react_default.a.createElement("div", {
         className: "cmp-sku-details__buttons".concat(isHiddenAddToCart ? ' cmp-sku-details__add-to-cart-hide' : ''),
         "data-locator": "sku-details-add-to-cart-sec"
-      }, /*#__PURE__*/react_default.a.createElement(views_addToCart, {
+      }, react_default.a.createElement(views_addToCart, {
         toggleParentModal: _this.toggleModal,
         skuNumber: skuNumber,
         addToCartLabel: config.addToCartLabel,
@@ -8708,21 +6555,21 @@ var sku_details_SkuDetails = /*#__PURE__*/function (_React$Component) {
         isCommerceApiMigrated: config.isCommerceApiMigrated,
         toggleErrorModal: _this.toggleErrorModal,
         analyticsConfig: _this.state.analyticsConfig
-      })), /*#__PURE__*/react_default.a.createElement(modal["b" /* default */], {
+      })), react_default.a.createElement(modal["b" /* default */], {
         isOpen: _this.state.modalShown,
         onClose: _this.toggleModal,
         className: "cmp-add-to-cart-modal"
-      }, !isErrorModal && /*#__PURE__*/react_default.a.createElement(modal["a" /* Header */], {
+      }, !isErrorModal && react_default.a.createElement(modal["a" /* Header */], {
         title: _this.state.modalConfig.title,
         icon: _this.state.modalConfig.icon,
         className: modal["c" /* keys */].HeaderWithAddedMarginTop,
         elementLocator: "add-to-cart-modal-header"
-      }), isErrorModal && /*#__PURE__*/react_default.a.createElement(modal["a" /* Header */], {
+      }), isErrorModal && react_default.a.createElement(modal["a" /* Header */], {
         title: _this.state.errorInfo.title,
         icon: _this.state.errorInfo.icon,
         className: modal["c" /* keys */].HeaderWithAddedMarginTopError,
         elementLocator: "add-to-cart-modal-header"
-      }), /*#__PURE__*/react_default.a.createElement(addToCartModal["a" /* default */], {
+      }), react_default.a.createElement(addToCartModal["a" /* default */], {
         config: _this.state.modalConfig,
         errorObjCart: _this.state.errorObjCart
       })));
@@ -8733,13 +6580,13 @@ var sku_details_SkuDetails = /*#__PURE__*/function (_React$Component) {
         return _this.renderEcommerceDisabled();
       } else {
         if (ecommerce["a" /* default */].isPartialState() && loginStatus["a" /* default */].state() && checkOutStatus["a" /* default */].state() || !ecommerce["a" /* default */].isPartialState() && !ecommerce["a" /* default */].isDisabledState()) {
-          return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, !loginStatus["a" /* default */].state() && /*#__PURE__*/react_default.a.createElement(scripts_signIn, {
+          return react_default.a.createElement(react_default.a.Fragment, null, !loginStatus["a" /* default */].state() && react_default.a.createElement(scripts_signIn["a" /* default */], {
             signInUrl: _this.props.config.baseSignInUrl,
             signInIcon: _this.state.skuInfo.signinIcon,
             signInText1: _this.state.skuInfo.signInText1,
             signInText2: _this.state.skuInfo.signInText2,
             signInText3: _this.state.skuInfo.signInText3
-          }) || loginStatus["a" /* default */].state() && /*#__PURE__*/react_default.a.createElement("div", {
+          }) || loginStatus["a" /* default */].state() && react_default.a.createElement("div", {
             className: "cmp-sku-signin-wrapper-not-displayed"
           }), _this.renderBuyInfo());
         } else {
@@ -8749,21 +6596,21 @@ var sku_details_SkuDetails = /*#__PURE__*/function (_React$Component) {
     };
 
     _this.renderEProcurementUserRestricted = function () {
-      return /*#__PURE__*/react_default.a.createElement(sku_message, {
+      return react_default.a.createElement(sku_message, {
         icon: _this.props.config.commerceConfig.disabledIcon,
         message: _this.props.config.commerceConfig.eProcurementRestrictedText
       });
     };
 
     _this.renderSkuPriceErrorMsg = function () {
-      return /*#__PURE__*/react_default.a.createElement(sku_message, {
+      return react_default.a.createElement(sku_message, {
         icon: _this.props.config.skuInfo.lowStockIcon,
         message: _this.props.config.skuInfo.skuErrorMessage
       });
     };
 
     _this.renderSkuPriceErrorMsg = function () {
-      return /*#__PURE__*/react_default.a.createElement(sku_message, {
+      return react_default.a.createElement(sku_message, {
         icon: _this.props.config.skuInfo.lowStockIcon,
         message: _this.props.config.skuInfo.skuErrorMessage
       });
@@ -8901,15 +6748,18 @@ sku_details_SkuDetails.defaultProps = {
   replacementSkuHref: ''
 };
 /* harmony default export */ var src_sku_details = (sku_details_SkuDetails);
+// EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty.js
+var defineProperty = __webpack_require__(43);
+
 // EXTERNAL MODULE: ./node_modules/react-hook-form/dist/react-hook-form.ie11.js
 var react_hook_form_ie11 = __webpack_require__(121);
 var react_hook_form_ie11_default = /*#__PURE__*/__webpack_require__.n(react_hook_form_ie11);
 
 // EXTERNAL MODULE: ./src/forms/fields/utils/stateWatcher.js + 1 modules
-var stateWatcher = __webpack_require__(33);
+var stateWatcher = __webpack_require__(32);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectDestructuringEmpty.js
-var objectDestructuringEmpty = __webpack_require__(32);
+var objectDestructuringEmpty = __webpack_require__(31);
 
 // CONCATENATED MODULE: ./src/forms/fields/components/field-validation-display.js
 
@@ -8945,19 +6795,19 @@ var field_validation_display_FieldValidationDisplay = function FieldValidationDi
   };
 
   var renderClean = function renderClean() {
-    return /*#__PURE__*/react_default.a.createElement("div", {
+    return react_default.a.createElement("div", {
       className: "cmp-form-field cmp-form-field-".concat(type)
     }, children);
   };
 
   var renderValid = function renderValid() {
-    return /*#__PURE__*/react_default.a.createElement("div", {
+    return react_default.a.createElement("div", {
       className: "cmp-form-field cmp-form-field-".concat(type, " cmp-form-field--valid")
     }, children);
   };
 
   var renderInvalid = function renderInvalid() {
-    return /*#__PURE__*/react_default.a.createElement("div", {
+    return react_default.a.createElement("div", {
       className: "cmp-form-field cmp-form-field-".concat(type, " cmp-form-field--invalid")
     }, children);
   };
@@ -9025,24 +6875,24 @@ var icons_Icons = function Icons(_ref) {
     }
   };
 
-  var eyeIcons = type === 'password' ? /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+  var eyeIcons = type === 'password' ? react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement(react_svg["a" /* default */], {
     src: icons.eyeIcon,
     className: "showHide-icon toggled",
     onMouseDown: toggleEye
-  }), /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+  }), react_default.a.createElement(react_svg["a" /* default */], {
     src: icons.eyeOffIcon,
     className: "showHideOff-icon",
     onMouseDown: toggleEye
-  })) : /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null);
-  return /*#__PURE__*/react_default.a.createElement("div", {
+  })) : react_default.a.createElement(react_default.a.Fragment, null);
+  return react_default.a.createElement("div", {
     className: "cmp-form-field--icons"
-  }, eyeIcons, !disabled && /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+  }, eyeIcons, !disabled && react_default.a.createElement(react_svg["a" /* default */], {
     src: icons.validIcon,
     className: "valid-icon"
-  }), !disabled && /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+  }), !disabled && react_default.a.createElement(react_svg["a" /* default */], {
     src: icons.invalidIcon,
     className: "invalid-icon"
-  }), disabled && /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+  }), disabled && react_default.a.createElement(react_svg["a" /* default */], {
     src: icons.lockIcon,
     className: "lock-icon"
   }));
@@ -9067,7 +6917,7 @@ var displaymessage_DisplayMessage = function DisplayMessage(_ref) {
   var getInfo = function getInfo() {
     var fieldErr = errors[name];
     var message = '';
-    var link = /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null);
+    var link = react_default.a.createElement(react_default.a.Fragment, null);
 
     if (validation && fieldErr) {
       switch (fieldErr.type) {
@@ -9092,27 +6942,27 @@ var displaymessage_DisplayMessage = function DisplayMessage(_ref) {
       }
     }
 
-    return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, message, link);
+    return react_default.a.createElement(react_default.a.Fragment, null, message, link);
   };
 
   var showSignIn = function showSignIn() {
-    return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, validation.alreadyRegisteredMsg, /*#__PURE__*/react_default.a.createElement("a", {
+    return react_default.a.createElement(react_default.a.Fragment, null, validation.alreadyRegisteredMsg, react_default.a.createElement("a", {
       href: validation.signInURL,
       className: "cmp-sign-in-link"
-    }, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+    }, react_default.a.createElement(react_svg["a" /* default */], {
       src: icons.signInIcon,
       className: "email-signin"
     }), validation.signInMsg));
   };
 
-  return /*#__PURE__*/react_default.a.createElement("span", {
+  return react_default.a.createElement("span", {
     className: "cmp-form-field--errorText"
   }, getInfo());
 };
 
 /* harmony default export */ var displaymessage = (react_default.a.memo(displaymessage_DisplayMessage));
 // EXTERNAL MODULE: ./src/forms/fields/patterns/index.js + 1 modules
-var patterns = __webpack_require__(44);
+var patterns = __webpack_require__(41);
 
 // CONCATENATED MODULE: ./src/forms/fields/components/requirements.js
 
@@ -9184,21 +7034,21 @@ var requirements_Requirements = function Requirements(_ref, ref) {
     return requirements.map(function (_ref3, key) {
       var name = _ref3.name,
           msg = _ref3.msg;
-      return /*#__PURE__*/react_default.a.createElement("div", {
+      return react_default.a.createElement("div", {
         key: "requirements-info-".concat(key)
-      }, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+      }, react_default.a.createElement(react_svg["a" /* default */], {
         id: name,
         src: icons.checkmarkIcon,
         className: validFields[key] ? "valid requirements-info-svg" : "requirements-info-svg"
-      }), /*#__PURE__*/react_default.a.createElement("div", {
+      }), react_default.a.createElement("div", {
         className: "requirements-info"
       }, msg));
     });
   };
 
-  return /*#__PURE__*/react_default.a.createElement("div", {
+  return react_default.a.createElement("div", {
     className: "cmp-form-field--input-requirements" + (toggled ? " toggled" : "")
-  }, /*#__PURE__*/react_default.a.createElement("div", {
+  }, react_default.a.createElement("div", {
     className: "requirements-title"
   }, header), renderRequirementFields());
 };
@@ -9208,7 +7058,7 @@ var requirements_Requirements = function Requirements(_ref, ref) {
 var validations = __webpack_require__(78);
 
 // EXTERNAL MODULE: ./src/utils/labelFunctions.js
-var labelFunctions = __webpack_require__(48);
+var labelFunctions = __webpack_require__(45);
 
 // CONCATENATED MODULE: ./src/forms/fields/input.js
 
@@ -9371,15 +7221,15 @@ var input_Input = function Input(_ref) {
   }, [name, validation]);
 
   var renderInput = function renderInput() {
-    return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement("label", {
+    return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("label", {
       htmlFor: name,
       className: validation.validateFnName === 'matching' ? 'cmp-form-field--label-matching' : '',
       "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])(label) || 'form-field--label'
-    }, Object(labelFunctions["a" /* renderFormattedLabel */])(label, validation.required, optionalLabel)), description && /*#__PURE__*/react_default.a.createElement("div", {
+    }, Object(labelFunctions["a" /* renderFormattedLabel */])(label, validation.required, optionalLabel)), description && react_default.a.createElement("div", {
       className: "cmp-form_description"
-    }, description), /*#__PURE__*/react_default.a.createElement("div", {
+    }, description), react_default.a.createElement("div", {
       className: "cmp-form-field--input"
-    }, /*#__PURE__*/react_default.a.createElement("input", {
+    }, react_default.a.createElement("input", {
       type: type,
       name: name,
       id: name,
@@ -9396,18 +7246,18 @@ var input_Input = function Input(_ref) {
       "aria-required": validation.required,
       className: !!errors[name] ? 'error' : !!inputRef.current ? !!inputRef.current.value ? 'valid' : '' : '',
       "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])(name) || 'form-field-input'
-    }), /*#__PURE__*/react_default.a.createElement(components_icons, null)), /*#__PURE__*/react_default.a.createElement(displaymessage, {
+    }), react_default.a.createElement(components_icons, null)), react_default.a.createElement(displaymessage, {
       name: name,
       validation: validation
-    }), validation.validateFnName === 'password' && validation.requirements && /*#__PURE__*/react_default.a.createElement(components_requirements, {
+    }), validation.validateFnName === 'password' && validation.requirements && react_default.a.createElement(components_requirements, {
       header: validation.requirementsLabel,
       requirements: validation.requirements,
       ref: reqRef
     }));
   };
 
-  return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, renderInput(), hasMatch && Object(react["useMemo"])(function () {
-    return /*#__PURE__*/react_default.a.createElement(Input, {
+  return react_default.a.createElement(react_default.a.Fragment, null, renderInput(), hasMatch && Object(react["useMemo"])(function () {
+    return react_default.a.createElement(Input, {
       name: getMatchName(),
       label: matchLabel,
       hasMatch: false,
@@ -9523,15 +7373,15 @@ var textarea_TextArea = function TextArea(_ref) {
   };
 
   var renderTextArea = function renderTextArea() {
-    return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement("label", {
+    return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("label", {
       htmlFor: name,
       className: validation.validateFnName === 'matching' ? 'cmp-form-field--label-matching' : '',
       "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])(label) || 'form-field--label'
-    }, Object(labelFunctions["a" /* renderFormattedLabel */])(label, validation.required, optionalLabel)), description && /*#__PURE__*/react_default.a.createElement("div", {
+    }, Object(labelFunctions["a" /* renderFormattedLabel */])(label, validation.required, optionalLabel)), description && react_default.a.createElement("div", {
       className: "cmp-form_description"
-    }, description), /*#__PURE__*/react_default.a.createElement("div", {
+    }, description), react_default.a.createElement("div", {
       className: "cmp-form-field--textarea"
-    }, /*#__PURE__*/react_default.a.createElement("textarea", {
+    }, react_default.a.createElement("textarea", {
       name: name,
       id: name,
       ref: function ref(_ref2) {
@@ -9549,19 +7399,19 @@ var textarea_TextArea = function TextArea(_ref) {
       rows: rows,
       className: !!errors[name] ? "error ".concat(resize ? '' : 'disable-resize') : !!inputRef.current ? !!inputRef.current.value ? "valid ".concat(resize ? '' : 'disable-resize') : "".concat(resize ? '' : 'disable-resize') : "".concat(resize ? '' : 'disable-resize'),
       "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])(name) || 'form-field-textarea'
-    })), /*#__PURE__*/react_default.a.createElement("div", {
+    })), react_default.a.createElement("div", {
       className: "textarea-info"
-    }, /*#__PURE__*/react_default.a.createElement(displaymessage, {
+    }, react_default.a.createElement(displaymessage, {
       name: name,
       validation: validation
-    }), showTextInfo && /*#__PURE__*/react_default.a.createElement("div", {
+    }), showTextInfo && react_default.a.createElement("div", {
       "data-locator": "text-info",
       className: "text-info ".concat(textInfo.isCharOver ? 'errorText' : '')
     }, "".concat(textInfo.remainingChar, " ").concat(textInfo.text))));
   };
 
-  return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, renderTextArea(), hasMatch && Object(react["useMemo"])(function () {
-    return /*#__PURE__*/react_default.a.createElement(TextArea, {
+  return react_default.a.createElement(react_default.a.Fragment, null, renderTextArea(), hasMatch && Object(react["useMemo"])(function () {
+    return react_default.a.createElement(TextArea, {
       name: getMatchName(),
       label: matchLabel,
       hasMatch: false,
@@ -9578,13 +7428,6 @@ var textarea_TextArea = function TextArea(_ref) {
 
 
 
-
-
-function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 
 
@@ -9686,14 +7529,14 @@ var checkboxOrRadio_CheckboxOrRadio = function CheckboxOrRadio(_ref) {
       formattedLabel = Object(labelFunctions["b" /* renderFormattedLabelText */])(label, true);
     }
 
-    return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, formattedLabel + ' ', renderAddOnLink(thisName), !state[thisName].required && type !== 'radio' && optionalLabel && /*#__PURE__*/react_default.a.createElement("span", {
+    return react_default.a.createElement(react_default.a.Fragment, null, formattedLabel + ' ', renderAddOnLink(thisName), !state[thisName].required && type !== 'radio' && optionalLabel && react_default.a.createElement("span", {
       className: "cmp-form-field--optional"
     }, optionalLabel));
   };
 
   var renderAddOnLink = function renderAddOnLink(thisName) {
     var thisState = state[thisName];
-    return thisState.text && thisState.link && thisState.blank && /*#__PURE__*/react_default.a.createElement("a", {
+    return thisState.text && thisState.link && thisState.blank && react_default.a.createElement("a", {
       href: thisState.link,
       target: thisState ? '_blank' : '',
       rel: "noopener noreferrer",
@@ -9703,7 +7546,7 @@ var checkboxOrRadio_CheckboxOrRadio = function CheckboxOrRadio(_ref) {
 
   var renderType = function renderType(thisName, label) {
     var thisState = state[thisName];
-    return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement("input", {
+    return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("input", {
       type: type,
       role: type,
       name: thisName,
@@ -9720,58 +7563,67 @@ var checkboxOrRadio_CheckboxOrRadio = function CheckboxOrRadio(_ref) {
       } : {}),
       readOnly: true,
       "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])(thisName || 'input-type')
-    }), /*#__PURE__*/react_default.a.createElement("a", {
+    }), react_default.a.createElement("a", {
       className: "".concat(type, " ") + (disabled ? ' disabled' : '') + (hasError(thisName) ? ' error' : ' valid'),
       onClick: function onClick(e) {
         return checkHandler(e, thisName);
       },
       id: thisName + '_link'
-    }, type == 'checkbox' ? /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+    }, type == 'checkbox' ? react_default.a.createElement(react_svg["a" /* default */], {
       src: icons.checkmarkIcon
-    }) : /*#__PURE__*/react_default.a.createElement("div", {
+    }) : react_default.a.createElement("div", {
       className: "selector"
-    })), /*#__PURE__*/react_default.a.createElement("div", {
+    })), react_default.a.createElement("div", {
       className: "cmp-form-field-".concat(type, "--wrapper") + (disabled ? ' disabled' : '')
-    }, /*#__PURE__*/react_default.a.createElement("label", {
+    }, react_default.a.createElement("label", {
       htmlFor: thisName,
       onClick: function onClick(e) {
         return checkHandler(e, thisName);
       }
-    }, renderLabel(thisName, label)), thisState.description && /*#__PURE__*/react_default.a.createElement("span", {
+    }, renderLabel(thisName, label)), thisState.description && react_default.a.createElement("span", {
       "class": "cmp-form_description"
     }, thisState.description)));
   };
 
   try {
-    return !options ? renderType(name, label) : /*#__PURE__*/react_default.a.createElement("div", {
+    return !options ? renderType(name, label) : react_default.a.createElement("div", {
       id: name,
       className: "cmp-form-field-".concat(type, "--grouping")
     }, options.map(function (option, i) {
       var address = [];
-
-      var _iterator = _createForOfIteratorHelper(option.address.entries()),
-          _step;
+      var _iteratorNormalCompletion = true;
+      var _didIteratorError = false;
+      var _iteratorError = undefined;
 
       try {
-        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        for (var _iterator = option.address.entries()[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
           var _ref5 = _step.value;
 
           var _ref4 = Object(slicedToArray["a" /* default */])(_ref5, 2);
 
           var index = _ref4[0];
           var value = _ref4[1];
-          address.push( /*#__PURE__*/react_default.a.createElement("div", {
+          address.push(react_default.a.createElement("div", {
             className: "cmp-form-field-".concat(type, "--address1"),
             key: index
           }, value));
         }
       } catch (err) {
-        _iterator.e(err);
+        _didIteratorError = true;
+        _iteratorError = err;
       } finally {
-        _iterator.f();
+        try {
+          if (!_iteratorNormalCompletion && _iterator["return"] != null) {
+            _iterator["return"]();
+          }
+        } finally {
+          if (_didIteratorError) {
+            throw _iteratorError;
+          }
+        }
       }
 
-      return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement("div", {
+      return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("div", {
         style: {
           paddingTop: "10px"
         },
@@ -9852,7 +7704,7 @@ var checkboxOrRadio_CheckboxOrRadio = function CheckboxOrRadio(_ref) {
 
 
 var select_DropdownIndicator = function DropdownIndicator(props) {
-  return /*#__PURE__*/react_default.a.createElement(react_select_esm["a" /* components */].DropdownIndicator, props, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+  return react_default.a.createElement(react_select_esm["a" /* components */].DropdownIndicator, props, react_default.a.createElement(react_svg["a" /* default */], {
     src: props.theme.dropdownIndicator
   }));
 };
@@ -9945,7 +7797,7 @@ var select_Select = function Select(props) {
     }
   };
 
-  return /*#__PURE__*/react_default.a.createElement(react_select_esm["c" /* default */], Object.assign({}, props, {
+  return react_default.a.createElement(react_select_esm["c" /* default */], Object.assign({}, props, {
     options: getOptions(),
     isDisabled: disabled,
     isSearchable: true,
@@ -10000,17 +7852,17 @@ var fields_dropdown_Dropdown = function Dropdown(_ref) {
       register = _useContext2.register;
 
   var newLabel = Object(labelFunctions["b" /* renderFormattedLabelText */])(label, validation.required, optionalLabel);
-  return /*#__PURE__*/react_default.a.createElement("div", {
+  return react_default.a.createElement("div", {
     className: "cmp-form-field-dropdown--wrapper"
-  }, /*#__PURE__*/react_default.a.createElement("label", {
+  }, react_default.a.createElement("label", {
     htmlFor: name,
     "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])("".concat(name, " label"))
-  }, newLabel), /*#__PURE__*/react_default.a.createElement("div", {
+  }, newLabel), react_default.a.createElement("div", {
     className: "cmp-form-field-dropdown--wrapper",
     "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])(name) || 'form-field-dropdown',
     "aria-describedby": "cmp-custom-dropdown__single-value",
     tabindex: "0"
-  }, /*#__PURE__*/react_default.a.createElement(components_select, {
+  }, react_default.a.createElement(components_select, {
     name: name,
     defaultValue: defaultValue,
     ref: register({
@@ -10019,7 +7871,7 @@ var fields_dropdown_Dropdown = function Dropdown(_ref) {
     id: name,
     tabIndex: "-1",
     "aria-label": name
-  }), /*#__PURE__*/react_default.a.createElement(components_icons, null)), /*#__PURE__*/react_default.a.createElement(displaymessage, {
+  }), react_default.a.createElement(components_icons, null)), react_default.a.createElement(displaymessage, {
     name: name,
     validation: validation
   }));
@@ -10031,14 +7883,14 @@ var fields_dropdown_Dropdown = function Dropdown(_ref) {
 
 var hr_Hr = function Hr(_ref) {
   var addClass = _ref.addClass;
-  return /*#__PURE__*/react_default.a.createElement("hr", {
+  return react_default.a.createElement("hr", {
     className: addClass
   });
 };
 
 /* harmony default export */ var hr = (react_default.a.memo(hr_Hr));
 // EXTERNAL MODULE: ./node_modules/react-google-recaptcha/lib/esm/index.js + 3 modules
-var esm = __webpack_require__(126);
+var esm = __webpack_require__(127);
 
 // CONCATENATED MODULE: ./src/forms/fields/captcha.js
 
@@ -10064,7 +7916,7 @@ var captcha_Captcha = function Captcha(_ref) {
     setValue(name, value, true);
   };
 
-  return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement(esm["a" /* default */], {
+  return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement(esm["a" /* default */], {
     sitekey: siteKey,
     onChange: onChange,
     ref: register({
@@ -10074,7 +7926,7 @@ var captcha_Captcha = function Captcha(_ref) {
     }),
     hl: isocode,
     "data-locator": "captcha"
-  }), /*#__PURE__*/react_default.a.createElement(displaymessage, {
+  }), react_default.a.createElement(displaymessage, {
     name: name,
     validation: validation
   }));
@@ -10098,7 +7950,7 @@ var body_Body = function Body(_ref) {
     }
   }
 
-  return /*#__PURE__*/react_default.a.createElement("div", null, text, displayAdditionalText && /*#__PURE__*/react_default.a.createElement("span", {
+  return react_default.a.createElement("div", null, text, displayAdditionalText && react_default.a.createElement("span", {
     className: "cmp-form__additionalText"
   }, displayAdditionalText));
 };
@@ -10121,9 +7973,9 @@ var link_Link = function Link(_ref) {
       blank = _useContext.blank,
       addClass = _useContext.addClass;
 
-  return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, text && link && /*#__PURE__*/react_default.a.createElement("div", {
+  return react_default.a.createElement(react_default.a.Fragment, null, text && link && react_default.a.createElement("div", {
     className: "cmp-form-field-".concat(type, "--").concat(name, " ") + (addClass ? addClass : '')
-  }, /*#__PURE__*/react_default.a.createElement("a", {
+  }, react_default.a.createElement("a", {
     href: link,
     target: blank ? "_blank" : "",
     rel: "noopener noreferrer",
@@ -10155,7 +8007,7 @@ var textWithLinks_TextWithLinks = function TextWithLinks(_ref) {
         className = _ref2.className,
         title = _ref2.title,
         id = _ref2.id;
-    return /*#__PURE__*/react_default.a.createElement("a", {
+    return react_default.a.createElement("a", {
       href: url,
       target: blank ? "_blank" : "",
       rel: "noopener noreferrer",
@@ -10171,7 +8023,7 @@ var textWithLinks_TextWithLinks = function TextWithLinks(_ref) {
     return text;
   };
 
-  return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, config.length > 0 && /*#__PURE__*/react_default.a.createElement("div", {
+  return react_default.a.createElement(react_default.a.Fragment, null, config.length > 0 && react_default.a.createElement("div", {
     className: "cmp-form-field-".concat(type, "--").concat(name, " ") + (addClass ? addClass : '')
   }, config.map(function (block, index) {
     var itemToRender = block.type === "link" ? renderLink(Object(objectSpread["a" /* default */])({}, block, {
@@ -10185,7 +8037,7 @@ var textWithLinks_TextWithLinks = function TextWithLinks(_ref) {
       space = " ";
     }
 
-    return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, {
+    return react_default.a.createElement(react_default.a.Fragment, {
       key: index
     }, itemToRender, space);
   })));
@@ -10200,7 +8052,7 @@ var label_Label = function Label(_ref) {
       label = _ref.label,
       _ref$htmlFor = _ref.htmlFor,
       htmlFor = _ref$htmlFor === void 0 ? "" : _ref$htmlFor;
-  return /*#__PURE__*/react_default.a.createElement("label", {
+  return react_default.a.createElement("label", {
     className: addClass,
     htmlFor: htmlFor
   }, label);
@@ -10255,18 +8107,18 @@ var fields_Field = function Field(_ref) {
     return name ? 'confirm'.concat(name.charAt(0).toUpperCase() + name.slice(1)) : '';
   };
 
-  return Component && field.active !== false && /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement(field_validation_display, {
+  return Component && field.active !== false && react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement(field_validation_display, {
     name: name,
     matchName: hasMatch ? getMatchName() : ''
-  }, /*#__PURE__*/react_default.a.createElement(Component, field)));
+  }, react_default.a.createElement(Component, field)));
 };
 
 /* harmony default export */ var forms_fields = (react_default.a.memo(fields_Field));
 // EXTERNAL MODULE: ./src/utils/redirectFunctions.js
-var redirectFunctions = __webpack_require__(26);
+var redirectFunctions = __webpack_require__(25);
 
 // EXTERNAL MODULE: ./src/my-account/services/SoldToDetailsLazy.js + 1 modules
-var SoldToDetailsLazy = __webpack_require__(57);
+var SoldToDetailsLazy = __webpack_require__(56);
 
 // CONCATENATED MODULE: ./src/forms/form.js
 
@@ -10591,14 +8443,14 @@ var form_Form = function Form(_ref) {
       initialState: defaultValues ? defaultValues[field.name] : undefined
     });
 
-    return /*#__PURE__*/react_default.a.createElement(FieldApi.Provider, {
+    return react_default.a.createElement(FieldApi.Provider, {
       value: getFieldApi,
       key: "field-".concat(i)
-    }, /*#__PURE__*/react_default.a.createElement(forms_fields, null));
+    }, react_default.a.createElement(forms_fields, null));
   });
 
   var renderForm = function renderForm() {
-    return /*#__PURE__*/react_default.a.createElement("form", {
+    return react_default.a.createElement("form", {
       className: "cmp-form cmp-form--registration ".concat(config.customFormClass || ''),
       "data-locator": "".concat(config.elementLocator || 'form-component'),
       onSubmit: handleSubmit(submitFn.bind({
@@ -10612,17 +8464,17 @@ var form_Form = function Form(_ref) {
         setFormAnalytics: setFormAnalytics,
         urlChooseAccount: config.chooseAccountEndPoint
       }))
-    }, /*#__PURE__*/react_default.a.createElement(FormApi.Provider, {
+    }, react_default.a.createElement(FormApi.Provider, {
       value: getApi
-    }, /*#__PURE__*/react_default.a.createElement(stateWatcher["b" /* FormStateProvider */], {
+    }, react_default.a.createElement(stateWatcher["b" /* FormStateProvider */], {
       watch: formState
-    }, /*#__PURE__*/react_default.a.createElement(stateWatcher["a" /* ErrorsProvider */], {
+    }, react_default.a.createElement(stateWatcher["a" /* ErrorsProvider */], {
       watch: errors
-    }, fields))), /*#__PURE__*/react_default.a.createElement("button", {
+    }, fields))), react_default.a.createElement("button", {
       type: "submit",
       className: "cmp-button cmp-button--no-border cmp-form--submit",
       "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])(config.buttonLocator || 'form-submit')
-    }, config.buttonText), config.cancelText && !!cancelHandler && /*#__PURE__*/react_default.a.createElement("a", {
+    }, config.buttonText), config.cancelText && !!cancelHandler && react_default.a.createElement("a", {
       className: "cmp-button cmp-button--cancel",
       onClick: cancelHandler,
       "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])(config.cancelText || 'form-cancel')
@@ -10630,24 +8482,28 @@ var form_Form = function Form(_ref) {
   };
 
   if (isInEditMode || config.getRadioOptions && config.options || displayForm && !config.getRadioOptions) {
-    return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, renderForm());
+    return react_default.a.createElement(react_default.a.Fragment, null, renderForm());
   } else {
-    return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement(utils_spinner["a" /* default */], {
+    return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement(utils_spinner["a" /* default */], {
       loading: !displayForm
     }), renderForm());
   }
 };
 
 var form_ErrorBoundaryForm = function ErrorBoundaryForm(props) {
-  return /*#__PURE__*/react_default.a.createElement(search_ErrorBoundary, null, /*#__PURE__*/react_default.a.createElement(form_Form, props));
+  return react_default.a.createElement(search_ErrorBoundary, null, react_default.a.createElement(form_Form, props));
 };
 
 /* harmony default export */ var forms_form = (form_ErrorBoundaryForm); // Context Variables
 
 var useFormApi = FormApi;
 var useFieldApi = FieldApi;
+// EXTERNAL MODULE: ./src/scripts/scrollTo.js
+var scrollTo = __webpack_require__(39);
+var scrollTo_default = /*#__PURE__*/__webpack_require__.n(scrollTo);
+
 // EXTERNAL MODULE: ./src/my-account/services/UserDetails.js
-var UserDetails = __webpack_require__(49);
+var UserDetails = __webpack_require__(47);
 
 // CONCATENATED MODULE: ./src/forms/services/submit.js
 
@@ -11580,9 +9436,9 @@ var video_modal_body_VideoModalBody = /*#__PURE__*/function (_React$Component) {
         controls: !screenSizes["a" /* default */].isMobile() ? true : false,
         loop: false
       };
-      return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement("div", {
+      return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("div", {
         className: "cmp-video_modal-body"
-      }, /*#__PURE__*/react_default.a.createElement(brightcove_react_player_loader_es["a" /* default */], {
+      }, react_default.a.createElement(brightcove_react_player_loader_es["a" /* default */], {
         options: optionsVideoJS,
         videoId: this.props.config.brightcoveVideoId,
         playerId: this.props.config.brightcovePlayerId,
@@ -11626,7 +9482,7 @@ var video_description_VideoDescription = /*#__PURE__*/function (_React$Component
   Object(createClass["a" /* default */])(VideoDescription, [{
     key: "render",
     value: function render() {
-      var toggleEllipsisContent = this.props.useEllipsis ? /*#__PURE__*/react_default.a.createElement(ResponsiveEllipsis, {
+      var toggleEllipsisContent = this.props.useEllipsis ? react_default.a.createElement(ResponsiveEllipsis, {
         style: {
           whiteSpace: 'pre-wrap'
         },
@@ -11636,7 +9492,7 @@ var video_description_VideoDescription = /*#__PURE__*/function (_React$Component
         trimRight: "true",
         basedOn: "words"
       }) : this.props.text;
-      return /*#__PURE__*/react_default.a.createElement("p", {
+      return react_default.a.createElement("p", {
         "class": "cmp-video_description",
         onClick: this.props.click ? this.props.click : null
       }, toggleEllipsisContent);
@@ -11707,9 +9563,9 @@ var video_VideoContainer = /*#__PURE__*/function (_React$Component) {
     };
 
     _this.renderVideoInfo = function () {
-      return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, _this.state.title && /*#__PURE__*/react_default.a.createElement("h3", {
+      return react_default.a.createElement(react_default.a.Fragment, null, _this.state.title && react_default.a.createElement("h3", {
         className: "cmp-video_title"
-      }, _this.state.title), _this.state.description && /*#__PURE__*/react_default.a.createElement(video_description, {
+      }, _this.state.title), _this.state.description && react_default.a.createElement(video_description, {
         text: _this.state.description,
         useEllipsis: _this.state.useEllipsis
       }));
@@ -11730,10 +9586,10 @@ var video_VideoContainer = /*#__PURE__*/function (_React$Component) {
   Object(createClass["a" /* default */])(VideoContainer, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react_default.a.createElement("div", {
+      return react_default.a.createElement("div", {
         className: "cmp-video_video-container",
         ref: this.videoRef
-      }, /*#__PURE__*/react_default.a.createElement(video_modal_body, {
+      }, react_default.a.createElement(video_modal_body, {
         config: this.props.videoConfig,
         onVideoSuccess: this.onSuccess,
         onVideoFailure: this.onFailure
@@ -11749,7 +9605,7 @@ var video_VideoContainer = /*#__PURE__*/function (_React$Component) {
 
 
 
-var _Promise = typeof Promise === 'undefined' ? __webpack_require__(89).Promise : Promise;
+var _Promise = typeof Promise === 'undefined' ? __webpack_require__(86).Promise : Promise;
 
 
 
@@ -11841,15 +9697,15 @@ var chat_Chat = /*#__PURE__*/function (_React$Component) {
     key: "render",
     value: function render() {
       var isActive = this.state.isActive;
-      return /*#__PURE__*/react_default.a.createElement("div", {
+      return react_default.a.createElement("div", {
         className: "cmp-chat-content"
-      }, /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("div", {
         className: "cmp-chat__icon"
-      }, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+      }, react_default.a.createElement(react_svg["a" /* default */], {
         src: this.props.icon
-      })), /*#__PURE__*/react_default.a.createElement("div", {
+      })), react_default.a.createElement("div", {
         className: "cmp-chat__text"
-      }, this.props.text), /*#__PURE__*/react_default.a.createElement("a", {
+      }, this.props.text), react_default.a.createElement("a", {
         className: "cmp-button ".concat(!isActive ? "cmp-button--disabled" : ""),
         href: isActive ? this.props.url : "#",
         target: "_blank",
@@ -11857,13 +9713,13 @@ var chat_Chat = /*#__PURE__*/function (_React$Component) {
         disabled: !isActive,
         role: "button",
         "aria-disabled": !isActive
-      }, this.props.buttonText), /*#__PURE__*/react_default.a.createElement("div", {
+      }, this.props.buttonText), react_default.a.createElement("div", {
         className: "cmp-chat__status"
-      }, /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("div", {
         className: "cmp-chat__status-icon ".concat(isActive ? "online" : "offline")
-      }, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+      }, react_default.a.createElement(react_svg["a" /* default */], {
         src: isActive ? this.props.onlineIcon : this.props.offlineIcon
-      })), /*#__PURE__*/react_default.a.createElement("div", {
+      })), react_default.a.createElement("div", {
         className: "cmp-chat__status-text"
       }, isActive ? this.props.availableText : this.props.unavailableText)));
     }
@@ -11875,6 +9731,9 @@ var chat_Chat = /*#__PURE__*/function (_React$Component) {
 /* harmony default export */ var chat = (chat_Chat);
 // EXTERNAL MODULE: ./src/detail-tiles/utils/generateTiles.js
 var generateTiles = __webpack_require__(79);
+
+// EXTERNAL MODULE: ./src/my-account/services/UserDetailsLazy.js
+var UserDetailsLazy = __webpack_require__(61);
 
 // CONCATENATED MODULE: ./src/detail-tiles/hooks/useProfile.js
 
@@ -11965,15 +9824,15 @@ var tile_Tile = function Tile(_ref) {
   };
 
   var renderEdit = function renderEdit() {
-    return /*#__PURE__*/react_default.a.createElement("div", {
+    return react_default.a.createElement("div", {
       className: "cmp-detail-tiles-list--tile-edit",
       onClick: handleToggle,
       "data-locator": "detail-tiles-tile-edit"
-    }, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+    }, react_default.a.createElement(react_svg["a" /* default */], {
       src: icon,
       className: "cmp-detail-tiles-list--tile-edit--icon",
       "data-locator": "edit-icon"
-    }), /*#__PURE__*/react_default.a.createElement("div", {
+    }), react_default.a.createElement("div", {
       className: "cmp-detail-tiles-list--tile-edit--title",
       "data-locator": "tile-edit-title"
     }, editText));
@@ -11983,15 +9842,15 @@ var tile_Tile = function Tile(_ref) {
     return columns.map(function (_ref2, key) {
       var title = _ref2.title,
           rows = _ref2.rows;
-      return /*#__PURE__*/react_default.a.createElement("div", {
+      return react_default.a.createElement("div", {
         className: "cmp-detail-tiles-list--tile-column column-".concat(key),
         key: key,
         "data-locator": "detail-tile-list-column-".concat(key)
-      }, title && /*#__PURE__*/react_default.a.createElement("div", {
+      }, title && react_default.a.createElement("div", {
         className: "cmp-detail-tiles-list--tile-column--title",
         "data-locator": "detail-tile-list-column-title-".concat(key)
       }, title), rows && rows.map(function (row, idx) {
-        return /*#__PURE__*/react_default.a.createElement("div", {
+        return react_default.a.createElement("div", {
           className: "".concat(row["class"], " cmp-detail-tiles-list--tile-column--text"),
           key: idx,
           "data-locator": "detail-tile-list-column-text-".concat(key, "-").concat(idx)
@@ -12001,60 +9860,60 @@ var tile_Tile = function Tile(_ref) {
   };
 
   var renderNotification = function renderNotification() {
-    return /*#__PURE__*/react_default.a.createElement("div", {
+    return react_default.a.createElement("div", {
       className: "cmp-detail-tiles-list--tile-notification-wrapper",
       "data-locator": "detail-tiles-list-notification-wrapper"
-    }, /*#__PURE__*/react_default.a.createElement("div", {
+    }, react_default.a.createElement("div", {
       className: "cmp-detail-tiles-list--tile-notification",
       "data-locator": "detail-tiles-list-notification"
-    }, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+    }, react_default.a.createElement(react_svg["a" /* default */], {
       src: notification.icon,
       className: "cmp-detail-tiles-list--tile-notification--icon",
       "data-locator": "tile-notification--icon"
-    }), /*#__PURE__*/react_default.a.createElement("div", {
+    }), react_default.a.createElement("div", {
       className: "cmp-detail-tiles-list--tile-notification--title",
       "data-locator": "detail-tiles-list-notification--title"
-    }, notification.title), /*#__PURE__*/react_default.a.createElement("div", {
+    }, notification.title), react_default.a.createElement("div", {
       className: "cmp-detail-tiles-list--tile-notification--description",
       "data-locator": "detail-tiles-list-notification-description"
     }, notification.description)));
   };
 
   var renderTile = function renderTile() {
-    return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, canCreate && renderEdit(), renderColumns(), notification && renderNotification());
+    return react_default.a.createElement(react_default.a.Fragment, null, canCreate && renderEdit(), renderColumns(), notification && renderNotification());
   };
 
   var renderBlank = function renderBlank() {
     var blank = columns[0];
-    return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement("div", {
+    return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("div", {
       className: "cmp-detail-tiles-list--tile-noAddress",
       "data-locator": "tile-no-address"
-    }, /*#__PURE__*/react_default.a.createElement("div", {
+    }, react_default.a.createElement("div", {
       className: "cmp-detail-tiles-list--tile-noAddress--title",
       "data-locator": "no-address-blank-title"
-    }, blank.title), canCreate && /*#__PURE__*/react_default.a.createElement("div", {
+    }, blank.title), canCreate && react_default.a.createElement("div", {
       className: "cmp-detail-tiles--add",
       "data-locator": "add-detail-tiles"
-    }, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+    }, react_default.a.createElement(react_svg["a" /* default */], {
       src: blank.addIcon,
       className: "cmp-detail-tiles--add-icon"
-    }), /*#__PURE__*/react_default.a.createElement("div", {
+    }), react_default.a.createElement("div", {
       className: "cmp-detail-tiles--add-title"
     }, blank.addTitle))));
   };
 
-  return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement("div", {
+  return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("div", {
     className: 'cmp-detail-tiles-list--tile' + (formShown ? ' form-shown' : '') + (isNoAddress ? ' no-address' : ''),
     id: name
-  }, isNoAddress ? renderBlank() : renderTile()), form && formShown && /*#__PURE__*/react_default.a.createElement("div", {
+  }, isNoAddress ? renderBlank() : renderTile()), form && formShown && react_default.a.createElement("div", {
     className: "cmp-detail-tiles-list--form"
-  }, formMessage && /*#__PURE__*/react_default.a.createElement("div", {
+  }, formMessage && react_default.a.createElement("div", {
     className: "cmp-detail-tiles-list--form-message",
     "data-locator": "form-message"
-  }, formMessage.text, /*#__PURE__*/react_default.a.createElement("a", {
+  }, formMessage.text, react_default.a.createElement("a", {
     href: formMessage.linkURL,
     "data-locator": "link-text"
-  }, formMessage.linkText)), /*#__PURE__*/react_default.a.createElement(forms_form, {
+  }, formMessage.linkText)), react_default.a.createElement(forms_form, {
     config: form,
     submitFn: form.submitFn,
     callback: handleToggle,
@@ -12155,7 +10014,7 @@ var detail_tiles_DetailTiles = function DetailTiles(_ref) {
     form.submitFn = submitFn || function () {};
 
     if (!tiles.length) {
-      return /*#__PURE__*/react_default.a.createElement(search_ErrorBoundary, null, /*#__PURE__*/react_default.a.createElement(views_tile, {
+      return react_default.a.createElement(search_ErrorBoundary, null, react_default.a.createElement(views_tile, {
         name: 'emptyAddressTile',
         columns: [{
           title: noAddressMessage,
@@ -12172,7 +10031,7 @@ var detail_tiles_DetailTiles = function DetailTiles(_ref) {
     }
 
     if (!canCreate && !tiles.length) {
-      return /*#__PURE__*/react_default.a.createElement(search_ErrorBoundary, null, /*#__PURE__*/react_default.a.createElement(views_tile, {
+      return react_default.a.createElement(search_ErrorBoundary, null, react_default.a.createElement(views_tile, {
         name: 'emptyAddressTile',
         columns: [{
           title: noAddressMessage,
@@ -12202,7 +10061,7 @@ var detail_tiles_DetailTiles = function DetailTiles(_ref) {
         processFormData();
       }
 
-      return /*#__PURE__*/react_default.a.createElement(search_ErrorBoundary, null, /*#__PURE__*/react_default.a.createElement(views_tile, Object.assign({}, tile, {
+      return react_default.a.createElement(search_ErrorBoundary, null, react_default.a.createElement(views_tile, Object.assign({}, tile, {
         key: name + key,
         formMessage: formMessage,
         form: form,
@@ -12214,24 +10073,24 @@ var detail_tiles_DetailTiles = function DetailTiles(_ref) {
     });
   };
 
-  return /*#__PURE__*/react_default.a.createElement("div", {
+  return react_default.a.createElement("div", {
     className: "cmp-detail-tiles",
     id: name,
     "data-locator": "detail-tiles"
-  }, /*#__PURE__*/react_default.a.createElement("div", {
+  }, react_default.a.createElement("div", {
     className: "cmp-detail-tiles--title",
     "data-locator": "detail-tiles-title"
-  }, title), /*#__PURE__*/react_default.a.createElement("div", {
+  }, title), react_default.a.createElement("div", {
     className: "cmp-detail-tiles-list",
     "data-locator": "details-tiles-list"
-  }, renderTiles()), canCreate && !!tiles.length && type !== "personal" && /*#__PURE__*/react_default.a.createElement("div", {
+  }, renderTiles()), canCreate && !!tiles.length && type !== "personal" && react_default.a.createElement("div", {
     className: "cmp-detail-tiles--add",
     "data-locator": "details-tile-add"
-  }, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+  }, react_default.a.createElement(react_svg["a" /* default */], {
     src: icons.add,
     className: "cmp-detail-tiles--add-icon",
     "data-locator": "details-tile-add-icon"
-  }), /*#__PURE__*/react_default.a.createElement("div", {
+  }), react_default.a.createElement("div", {
     className: "cmp-detail-tiles--add-title",
     "data-locator": "detail-tiles-add-title"
   }, addTitle)));
@@ -12262,14 +10121,14 @@ var wechat_modal_body_WeChatModalBody = /*#__PURE__*/function (_React$Component)
           text = _this$props$config.text,
           qrCodeImg = _this$props$config.qrCodeImg,
           alt = _this$props$config.alt;
-      return /*#__PURE__*/react_default.a.createElement("div", {
+      return react_default.a.createElement("div", {
         className: "cmp-wechat-modal"
-      }, /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("div", {
         className: "cmp-wechat-modal__image"
-      }, /*#__PURE__*/react_default.a.createElement("img", {
+      }, react_default.a.createElement("img", {
         src: qrCodeImg,
         alt: alt
-      })), /*#__PURE__*/react_default.a.createElement("div", {
+      })), react_default.a.createElement("div", {
         className: "cmp-wechat-modal__text"
       }, text));
     }
@@ -12324,20 +10183,20 @@ var wechat_WeChat = /*#__PURE__*/function (_React$Component) {
   Object(createClass["a" /* default */])(WeChat, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement("a", {
+      return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("a", {
         className: weChatLinkClass,
         href: "#",
         target: "_blank",
         onClick: this.showModal
-      }, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+      }, react_default.a.createElement(react_svg["a" /* default */], {
         src: this.props.config.chatIcon
-      })), /*#__PURE__*/react_default.a.createElement(modal["b" /* default */], {
+      })), react_default.a.createElement(modal["b" /* default */], {
         isOpen: this.state.isModalShown,
         onClose: this.toggleModal
-      }, /*#__PURE__*/react_default.a.createElement(modal["a" /* Header */], {
+      }, react_default.a.createElement(modal["a" /* Header */], {
         title: this.props.config.title,
         className: modal["c" /* keys */].HeaderTitleCentered
-      }), /*#__PURE__*/react_default.a.createElement(wechat_modal_body, {
+      }), react_default.a.createElement(wechat_modal_body, {
         config: this.props.config
       })));
     }
@@ -12349,10 +10208,10 @@ var wechat_WeChat = /*#__PURE__*/function (_React$Component) {
 /* harmony default export */ var wechat = (wechat_WeChat);
 
 // EXTERNAL MODULE: ./node_modules/react-router-dom/es/HashRouter.js
-var HashRouter = __webpack_require__(470);
+var HashRouter = __webpack_require__(490);
 
 // EXTERNAL MODULE: ./node_modules/react-router-dom/es/Switch.js + 1 modules
-var Switch = __webpack_require__(471);
+var Switch = __webpack_require__(491);
 
 // CONCATENATED MODULE: ./src/my-account/routes.js
 /* harmony default export */ var routes = ({
@@ -12382,31 +10241,11 @@ var Switch = __webpack_require__(471);
   }
 });
 // EXTERNAL MODULE: ./node_modules/react-router-dom/es/Link.js
-var es_Link = __webpack_require__(469);
+var es_Link = __webpack_require__(489);
 
-// CONCATENATED MODULE: ./src/typography/title.js
+// EXTERNAL MODULE: ./src/typography/title.js
+var typography_title = __webpack_require__(80);
 
-
-var title_Title = function Title(_ref) {
-  var text = _ref.text;
-  return /*#__PURE__*/react_default.a.createElement("div", {
-    className: "cmp-title",
-    "data-locator": "title"
-  }, /*#__PURE__*/react_default.a.createElement("h1", {
-    className: "cmp-title__text",
-    "data-locator": "title-text"
-  }, text), /*#__PURE__*/react_default.a.createElement("div", {
-    className: "cmp-title__print",
-    "data-locator": "title-print"
-  }, text), /*#__PURE__*/react_default.a.createElement("div", {
-    className: "cmp-accent-rule"
-  }, /*#__PURE__*/react_default.a.createElement("hr", null)));
-};
-
-title_Title.defaultProps = {
-  text: ""
-};
-/* harmony default export */ var typography_title = (title_Title);
 // CONCATENATED MODULE: ./src/my-account/components/breadcrumb.js
 
 
@@ -12448,15 +10287,15 @@ var breadcrumb_Breadcrumb = function Breadcrumb(props) {
       return route.path === parentRoutePath;
     })[0].name;
     var parentConfig = props.config.routes[parentRouteName];
-    return /*#__PURE__*/react_default.a.createElement("li", {
+    return react_default.a.createElement("li", {
       className: "cmp-breadcrumb-back"
-    }, /*#__PURE__*/react_default.a.createElement(es_Link["a" /* default */], {
+    }, react_default.a.createElement(es_Link["a" /* default */], {
       "class": "cmp-breadcrumb-back__link cmp-button--secondary cmp-button--no-border cmp-button--with-icon",
       to: parentRoutePath,
       title: parentConfig.title
-    }, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+    }, react_default.a.createElement(react_svg["a" /* default */], {
       src: props.config.backIcon
-    }), /*#__PURE__*/react_default.a.createElement("span", null, parentConfig.backLinkTitle)));
+    }), react_default.a.createElement("span", null, parentConfig.backLinkTitle)));
   };
 
   var renderBreadcrumbLink = function renderBreadcrumbLink(linkPath) {
@@ -12465,16 +10304,16 @@ var breadcrumb_Breadcrumb = function Breadcrumb(props) {
     })[0];
     var linkRouteName = linkRoute.name;
     var linkConfig = props.config.routes[linkRouteName];
-    return /*#__PURE__*/react_default.a.createElement("li", {
+    return react_default.a.createElement("li", {
       className: "cmp-breadcrumb__item",
       itemprop: "itemListElement",
       itemscope: "",
       itemtype: "http://schema.org/ListItem"
-    }, /*#__PURE__*/react_default.a.createElement(es_Link["a" /* default */], {
+    }, react_default.a.createElement(es_Link["a" /* default */], {
       to: linkRoute.path,
       className: "cmp-breadcrumb__item-link",
       itemprop: "item"
-    }, /*#__PURE__*/react_default.a.createElement("span", {
+    }, react_default.a.createElement("span", {
       itemprop: "name"
     }, linkConfig.title)));
   };
@@ -12526,31 +10365,31 @@ var aside_Aside = function Aside(props) {
   }, []);
 
   if (isInEditMode || displayTile) {
-    return /*#__PURE__*/react_default.a.createElement("div", {
+    return react_default.a.createElement("div", {
       className: "cmp-my-account__aside-wrapper",
       "data-locator": "my-account-wrapper"
-    }, /*#__PURE__*/react_default.a.createElement(typography_title, {
+    }, react_default.a.createElement(typography_title["a" /* default */], {
       text: getTitle(props.tiles, props.location.pathname)
-    }), /*#__PURE__*/react_default.a.createElement("div", {
+    }), react_default.a.createElement("div", {
       className: "cmp-my-account__aside-links",
       "data-locator": "my-account-links"
     }, props.tiles.map(function (tile) {
-      return /*#__PURE__*/react_default.a.createElement(aside_Tile, {
+      return react_default.a.createElement(aside_Tile, {
         key: tile.title,
         tile: tile,
         requiresEcommerce: tile.requiresEcommerce,
         isHiddenForEprocUser: tile.isHiddenForEprocUser,
         pathname: props.location.pathname
       });
-    })), /*#__PURE__*/react_default.a.createElement("div", {
+    })), react_default.a.createElement("div", {
       className: "cmp-my-account__aside-content",
       "data-locator": "my-account-aside-content"
-    }, props.children), breadcrumbList && /*#__PURE__*/react_default.a.createElement(components_breadcrumb, {
+    }, props.children), breadcrumbList && react_default.a.createElement(components_breadcrumb, {
       path: props.location.pathname,
       config: props.breadcrumbs
     }));
   } else {
-    return /*#__PURE__*/react_default.a.createElement(utils_spinner["a" /* default */], {
+    return react_default.a.createElement(utils_spinner["a" /* default */], {
       loading: !displayTile
     });
   }
@@ -12561,27 +10400,27 @@ var aside_Tile = function Tile(_ref) {
       pathname = _ref.pathname;
 
   if (tile.requiresEcommerce === "true" && Object(eCommerceFunctions["e" /* isCartHidden */])() || tile.isHiddenForEprocUser === "true" && Object(userFunctions["q" /* isEprocurementUserRole */])()) {
-    return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null);
+    return react_default.a.createElement(react_default.a.Fragment, null);
   }
 
-  return /*#__PURE__*/react_default.a.createElement("div", {
+  return react_default.a.createElement("div", {
     className: "tile",
     "data-locator": "my-account-tile"
-  }, /*#__PURE__*/react_default.a.createElement("div", {
+  }, react_default.a.createElement("div", {
     className: "tile__title",
     "data-locator": "my-account-title-tile"
-  }, tile.title), /*#__PURE__*/react_default.a.createElement("div", {
+  }, tile.title), react_default.a.createElement("div", {
     className: "tile__links",
     "data-locator": "my-account-tile-links"
   }, tile.links.map(function (link) {
     if (!link.isHidden) {
       if (linkIsActive(pathname, link.url)) {
-        return /*#__PURE__*/react_default.a.createElement(aside_ActiveLink, {
+        return react_default.a.createElement(aside_ActiveLink, {
           key: link.text,
           text: link.text
         });
       } else {
-        return /*#__PURE__*/react_default.a.createElement(aside_HyperLink, {
+        return react_default.a.createElement(aside_HyperLink, {
           key: link.text,
           link: link,
           linkName: link.linkName
@@ -12610,7 +10449,7 @@ var linkIsActive = function linkIsActive(pathname, url) {
 
 var aside_ActiveLink = function ActiveLink(_ref2) {
   var text = _ref2.text;
-  return /*#__PURE__*/react_default.a.createElement("span", {
+  return react_default.a.createElement("span", {
     className: "link--active",
     "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])(text)
   }, text);
@@ -12618,13 +10457,13 @@ var aside_ActiveLink = function ActiveLink(_ref2) {
 
 var aside_HyperLink = function HyperLink(_ref3) {
   var link = _ref3.link;
-  return link.url.startsWith("#") ? /*#__PURE__*/react_default.a.createElement(es_Link["a" /* default */], {
+  return link.url.startsWith("#") ? react_default.a.createElement(es_Link["a" /* default */], {
     to: "/".concat(link.url.substring(1, link.url.length)),
     onClick: function onClick() {
       return Object(analytics["f" /* setClickAnalytics */])("Side Navigation", link.linkName ? link.linkName : link.text, link.url);
     },
     "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])(link.text)
-  }, link.text) : /*#__PURE__*/react_default.a.createElement("a", {
+  }, link.text) : react_default.a.createElement("a", {
     href: link.url,
     onClick: function onClick() {
       return Object(analytics["f" /* setClickAnalytics */])("Side Navigation", link.linkName ? link.linkName : link.text, link.url);
@@ -12647,7 +10486,7 @@ var components_link_Link = function Link(_ref) {
       url = _ref.url,
       linkName = _ref.linkName,
       context = _ref.context;
-  return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, !!text && !!url && /*#__PURE__*/react_default.a.createElement("a", {
+  return react_default.a.createElement(react_default.a.Fragment, null, !!text && !!url && react_default.a.createElement("a", {
     className: "cmp-linktile--link",
     href: url,
     onClick: function onClick() {
@@ -12672,25 +10511,25 @@ var link_tile_LinkTile = function LinkTile(_ref) {
       links = _ref.links,
       tilesName = _ref.tilesName,
       datalocator = _ref.datalocator;
-  return /*#__PURE__*/react_default.a.createElement("div", {
+  return react_default.a.createElement("div", {
     className: "cmp-linktile",
     "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])(tilesName || 'my-account-tile')
-  }, /*#__PURE__*/react_default.a.createElement("div", {
+  }, react_default.a.createElement("div", {
     className: "cmp-linktile-column"
-  }, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+  }, react_default.a.createElement(react_svg["a" /* default */], {
     src: icon,
     className: "cmp-linktile--icon",
     "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])("".concat(title, " icon"))
-  })), /*#__PURE__*/react_default.a.createElement("div", {
+  })), react_default.a.createElement("div", {
     className: "cmp-linktile-column"
-  }, /*#__PURE__*/react_default.a.createElement("div", {
+  }, react_default.a.createElement("div", {
     className: "cmp-linktile--title",
     "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])(title)
   }, title), links.map(function (link, key) {
-    return /*#__PURE__*/react_default.a.createElement("div", {
+    return react_default.a.createElement("div", {
       key: key,
       className: "cmp-linktile--links"
-    }, !link.isHidden && /*#__PURE__*/react_default.a.createElement(components_link, Object.assign({}, link, {
+    }, !link.isHidden && react_default.a.createElement(components_link, Object.assign({}, link, {
       context: datalocator
     })));
   })));
@@ -12712,10 +10551,10 @@ var myaccount_Tile = function Tile(_ref) {
   var tile = _ref.tile;
 
   if (tile.requiresEcommerce === "true" && Object(eCommerceFunctions["e" /* isCartHidden */])() || tile.isHiddenForEprocUser === "true" && Object(userFunctions["q" /* isEprocurementUserRole */])()) {
-    return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null);
+    return react_default.a.createElement(react_default.a.Fragment, null);
   }
 
-  return /*#__PURE__*/react_default.a.createElement(link_tile, Object.assign({}, tile, {
+  return react_default.a.createElement(link_tile, Object.assign({}, tile, {
     datalocator: "my-account"
   }));
 };
@@ -12747,25 +10586,25 @@ var myaccount_MyAccount = function MyAccount(_ref2) {
   }, []);
 
   if (isInEditMode || displayTile) {
-    return /*#__PURE__*/react_default.a.createElement("div", {
+    return react_default.a.createElement("div", {
       className: "cmp-my-account-wrapper"
-    }, /*#__PURE__*/react_default.a.createElement(typography_title, {
+    }, react_default.a.createElement(typography_title["a" /* default */], {
       text: title
-    }), /*#__PURE__*/react_default.a.createElement("div", {
+    }), react_default.a.createElement("div", {
       className: "cmp-my-account__body"
-    }, body), /*#__PURE__*/react_default.a.createElement("div", {
+    }, body), react_default.a.createElement("div", {
       className: "cmp-my-account__tiles"
-    }, /*#__PURE__*/react_default.a.createElement("div", {
+    }, react_default.a.createElement("div", {
       className: "tile",
       "data-locator": "my-account-tiles"
     }, tiles.map(function (tile, key) {
-      return /*#__PURE__*/react_default.a.createElement(myaccount_Tile, {
+      return react_default.a.createElement(myaccount_Tile, {
         tile: tile,
         key: key
       });
     }))));
   } else {
-    return /*#__PURE__*/react_default.a.createElement(utils_spinner["a" /* default */], {
+    return react_default.a.createElement(utils_spinner["a" /* default */], {
       loading: !displayTile
     });
   }
@@ -12830,14 +10669,14 @@ var my_profile_MyProfile = function MyProfile(_ref) {
         detailTiles.push(addressConfig);
       });
       return detailTiles.map(function (config, key) {
-        return /*#__PURE__*/react_default.a.createElement(detail_tiles, Object.assign({}, config, {
+        return react_default.a.createElement(detail_tiles, Object.assign({}, config, {
           key: key
         }));
       });
     }
   };
 
-  return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, renderDetailTiles());
+  return react_default.a.createElement(react_default.a.Fragment, null, renderDetailTiles());
 };
 
 /* harmony default export */ var my_profile = (my_profile_MyProfile);
@@ -12860,7 +10699,7 @@ var change_password_ChangePassword = function ChangePassword(_ref) {
   Object(react["useEffect"])(function () {
     setConfig(configContent);
   }, []);
-  return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, !!config && /*#__PURE__*/react_default.a.createElement(detail_tiles, config));
+  return react_default.a.createElement(react_default.a.Fragment, null, !!config && react_default.a.createElement(detail_tiles, config));
 };
 
 /* harmony default export */ var change_password = (change_password_ChangePassword);
@@ -12944,7 +10783,7 @@ var delivery_status_DeliveryStatus = /*#__PURE__*/function (_Component) {
           labels = _this$props.labels;
 
       if (Object.keys(shipped).length && shipped.carrierUrl !== "") {
-        return /*#__PURE__*/react_default.a.createElement("div", null, /*#__PURE__*/react_default.a.createElement("a", {
+        return react_default.a.createElement("div", null, react_default.a.createElement("a", {
           className: "tracking-link",
           href: shipped.carrierUrl,
           target: "_blank",
@@ -12953,7 +10792,7 @@ var delivery_status_DeliveryStatus = /*#__PURE__*/function (_Component) {
             return Object(analytics["f" /* setClickAnalytics */])("Order Details", "Track Shipment", shipped.carrierUrl);
           },
           "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])(labels.trackShipmentText)
-        }, labels.trackShipmentText, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+        }, labels.trackShipmentText, react_default.a.createElement(react_svg["a" /* default */], {
           src: "/content/dam/waters/en/brand-assets/icons/externallink.svg",
           className: "tracking-link__icon",
           "data-locator": "tracking-link-icon"
@@ -13028,14 +10867,14 @@ var delivery_status_DeliveryStatus = /*#__PURE__*/function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement("div", {
+      return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("div", {
         className: "delivery-status",
         "data-locator": "delivery-status"
-      }, /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("div", {
         className: this.state.iconClassName
-      }, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+      }, react_default.a.createElement(react_svg["a" /* default */], {
         src: this.state.icon
-      })), /*#__PURE__*/react_default.a.createElement("div", {
+      })), react_default.a.createElement("div", {
         className: "delivery-text",
         "data-locator": "delivery-text"
       }, this.state.deliveryStatus), this.renderTrackingLink()));
@@ -13053,10 +10892,10 @@ delivery_status_DeliveryStatus.defaultProps = {
 };
 /* harmony default export */ var delivery_status = (delivery_status_DeliveryStatus);
 // EXTERNAL MODULE: ./src/utils/date-formatter/index.js
-var date_formatter = __webpack_require__(58);
+var date_formatter = __webpack_require__(57);
 
 // EXTERNAL MODULE: ./src/utils/get-locale/index.js
-var get_locale = __webpack_require__(59);
+var get_locale = __webpack_require__(58);
 
 // CONCATENATED MODULE: ./src/order-history/components/order-list-item.js
 
@@ -13089,31 +10928,31 @@ var order_list_item_OrderListItem = /*#__PURE__*/function (_Component) {
     value: function render() {
       var _this2 = this;
 
-      return /*#__PURE__*/react_default.a.createElement("div", {
+      return react_default.a.createElement("div", {
         className: "cmp-order-list__container"
-      }, /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("div", {
         className: "cmp-order-list__left"
-      }, /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("div", {
         className: "cmp-order-list__order-number"
-      }, /*#__PURE__*/react_default.a.createElement("a", {
+      }, react_default.a.createElement("a", {
         href: '#orderdetails?id=' + this.props.data.orderNumber,
         onClick: function onClick() {
           return Object(analytics["f" /* setClickAnalytics */])("Order History", "Order Details, " + _this2.props.data.orderNumber, '#orderdetails?id=' + _this2.props.data.orderNumber);
         },
         "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])("".concat(this.props.orderText, " ").concat(this.props.data.orderNumber))
-      }, this.props.orderText + " " + this.props.data.orderNumber)), /*#__PURE__*/react_default.a.createElement("div", {
+      }, this.props.orderText + " " + this.props.data.orderNumber)), react_default.a.createElement("div", {
         className: "cmp-order-list__date",
         "data-locator": "order-list-date"
-      }, date_formatter["a" /* default */].dateFormatter(this.props.data.date, this.userLocale))), /*#__PURE__*/react_default.a.createElement("div", {
+      }, date_formatter["a" /* default */].dateFormatter(this.props.data.date, this.userLocale))), react_default.a.createElement("div", {
         className: "cmp-order-list__right",
         "data-locator": "order-list-right"
-      }, /*#__PURE__*/react_default.a.createElement("hr", {
+      }, react_default.a.createElement("hr", {
         className: "cmp-order-list_hr"
-      }), /*#__PURE__*/react_default.a.createElement(delivery_status, {
+      }), react_default.a.createElement(delivery_status, {
         status: this.props.data.deliveryStatus,
         labels: this.props.shipment,
         icons: this.props.icons
-      })), /*#__PURE__*/react_default.a.createElement("div", {
+      })), react_default.a.createElement("div", {
         className: "cmp-order-list__total",
         "data-locator": "order-list-total"
       }, this.props.data.orderTotal));
@@ -13150,9 +10989,9 @@ var count_header_CountHeader = function CountHeader(props) {
     };
   }
 
-  return /*#__PURE__*/react_default.a.createElement("div", {
+  return react_default.a.createElement("div", {
     className: "cmp-order-list__resultsCount-container"
-  }, /*#__PURE__*/react_default.a.createElement("h2", {
+  }, react_default.a.createElement("h2", {
     className: "cmp-order-list__resultsCount",
     "data-locator": "order-list-result-count"
   }, getResultsText()));
@@ -13160,7 +10999,7 @@ var count_header_CountHeader = function CountHeader(props) {
 
 /* harmony default export */ var count_header = (count_header_CountHeader);
 // EXTERNAL MODULE: ./src/utils/dropdown/index.js
-var utils_dropdown = __webpack_require__(80);
+var utils_dropdown = __webpack_require__(81);
 
 // CONCATENATED MODULE: ./src/order-history/components/time-period-dropdown.js
 
@@ -13183,10 +11022,10 @@ var time_period_dropdown_getOptions = function getOptions(text) {
 };
 
 var time_period_dropdown_TimePeriod = function TimePeriod(props) {
-  return /*#__PURE__*/react_default.a.createElement("div", {
+  return react_default.a.createElement("div", {
     className: "cmp-order-list-timeperiod",
     "data-locator": "cmp-order-list-timeperiod"
-  }, /*#__PURE__*/react_default.a.createElement(utils_dropdown["a" /* default */], {
+  }, react_default.a.createElement(utils_dropdown["a" /* default */], {
     getOptions: time_period_dropdown_getOptions,
     onChange: function onChange(e) {
       return props.onChange(e);
@@ -13213,9 +11052,9 @@ var order_filter_dropdown_getOptions = function getOptions(text) {
 };
 
 var order_filter_dropdown_OrderFilterDropdown = function OrderFilterDropdown(props) {
-  return /*#__PURE__*/react_default.a.createElement("div", {
+  return react_default.a.createElement("div", {
     className: "cmp-order-list-orderfilters"
-  }, /*#__PURE__*/react_default.a.createElement(utils_dropdown["a" /* default */], {
+  }, react_default.a.createElement(utils_dropdown["a" /* default */], {
     getOptions: order_filter_dropdown_getOptions,
     onChange: function onChange(e) {
       return props.onChange(e);
@@ -13353,7 +11192,7 @@ var order_history_OrderHistory = /*#__PURE__*/function (_Component) {
     }();
 
     _this.renderTabs = function () {
-      return /*#__PURE__*/react_default.a.createElement(tabs, {
+      return react_default.a.createElement(tabs, {
         className: "cmp-search__categories-tabs",
         items: _this.props.configs.tabs,
         activeIndex: _this.state.activeIndex,
@@ -13365,14 +11204,14 @@ var order_history_OrderHistory = /*#__PURE__*/function (_Component) {
     };
 
     _this.renderDropDowns = function () {
-      return /*#__PURE__*/react_default.a.createElement("div", {
+      return react_default.a.createElement("div", {
         className: "cmp-order-list__dropdowns"
-      }, /*#__PURE__*/react_default.a.createElement(order_filter_dropdown, {
+      }, react_default.a.createElement(order_filter_dropdown, {
         onChange: function onChange(e) {
           return _this.handleCategorySelected(e);
         },
         orderFilters: _this.props.configs.orderfilters
-      }), /*#__PURE__*/react_default.a.createElement(time_period_dropdown, {
+      }), react_default.a.createElement(time_period_dropdown, {
         onChange: function onChange(e) {
           return _this.timePeriodHandler(e);
         },
@@ -13381,7 +11220,7 @@ var order_history_OrderHistory = /*#__PURE__*/function (_Component) {
     };
 
     _this.renderOrderCountHeader = function () {
-      return /*#__PURE__*/react_default.a.createElement(count_header, {
+      return react_default.a.createElement(count_header, {
         rows: _this.paginationDefaults.visibleRows,
         count: _this.state.listCount,
         current: _this.state.currentPage,
@@ -13411,11 +11250,11 @@ var order_history_OrderHistory = /*#__PURE__*/function (_Component) {
     };
 
     _this.renderNoResults = function () {
-      return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement("div", {
+      return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("div", {
         className: "cmp-order-list__no-results"
-      }, /*#__PURE__*/react_default.a.createElement("p", {
+      }, react_default.a.createElement("p", {
         "data-locator": "no-results"
-      }, _this.props.configs.noOrdersFoundText), /*#__PURE__*/react_default.a.createElement("p", null, /*#__PURE__*/react_default.a.createElement("a", {
+      }, _this.props.configs.noOrdersFoundText), react_default.a.createElement("p", null, react_default.a.createElement("a", {
         href: _this.props.configs.shopAllHref,
         "data-locator": "shop-all"
       }, _this.props.configs.shopAllTitle))));
@@ -13573,13 +11412,13 @@ var order_history_OrderHistory = /*#__PURE__*/function (_Component) {
       var _this4 = this;
 
       if (this.state.listCount > this.paginationDefaults.visibleRows) {
-        var previousIcon = /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+        var previousIcon = react_default.a.createElement(react_svg["a" /* default */], {
           src: this.paginationDefaults.previousIcon
         });
-        var nextIcon = /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+        var nextIcon = react_default.a.createElement(react_svg["a" /* default */], {
           src: this.paginationDefaults.nextIcon
         });
-        return /*#__PURE__*/react_default.a.createElement(react_paginate_default.a, {
+        return react_default.a.createElement(react_paginate_default.a, {
           pageCount: this.state.pageCount,
           forcePage: this.state.currentPage - 1,
           pageRangeDisplayed: this.paginationDefaults.pageRangeDisplayed,
@@ -13596,7 +11435,7 @@ var order_history_OrderHistory = /*#__PURE__*/function (_Component) {
           hrefBuilder: this.buildHref
         });
       } else {
-        return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null);
+        return react_default.a.createElement(react_default.a.Fragment, null);
       }
     }
   }, {
@@ -13604,13 +11443,13 @@ var order_history_OrderHistory = /*#__PURE__*/function (_Component) {
     value: function render() {
       var _this5 = this;
 
-      return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, this.state.loading ? /*#__PURE__*/react_default.a.createElement(utils_spinner["a" /* default */], {
+      return react_default.a.createElement(react_default.a.Fragment, null, this.state.loading ? react_default.a.createElement(utils_spinner["a" /* default */], {
         loading: this.state.loading
-      }) : null, !this.state.loading && /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, this.renderTabs(), /*#__PURE__*/react_default.a.createElement("div", {
+      }) : null, !this.state.loading && react_default.a.createElement(react_default.a.Fragment, null, this.renderTabs(), react_default.a.createElement("div", {
         className: "cmp-order-list__header clearfix",
         "data-locator": "order-list-header-clearfix"
       }, this.renderDropDowns(), this.renderOrderCountHeader()), this.state.noResults && this.renderNoResults(), this.state.listCount > 0 && this.renderPaginatedResults().map(function (item, index) {
-        return /*#__PURE__*/react_default.a.createElement(order_list_item, {
+        return react_default.a.createElement(order_list_item, {
           data: item,
           orderText: _this5.props.configs.orderText,
           itemsText: _this5.props.configs.itemsText,
@@ -13626,7 +11465,7 @@ var order_history_OrderHistory = /*#__PURE__*/function (_Component) {
 
 /* harmony default export */ var order_history = (order_history_OrderHistory);
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js + 1 modules
-var objectWithoutProperties = __webpack_require__(128);
+var objectWithoutProperties = __webpack_require__(129);
 
 // CONCATENATED MODULE: ./src/order-details/orderDetails.services.js
 
@@ -13814,35 +11653,35 @@ var order_details_list_item_OrderDetailsListItem = /*#__PURE__*/function (_React
         relatedSku.thumbnail = skuConfig.skuInfo.noThumbnailImage;
       }
 
-      return /*#__PURE__*/react_default.a.createElement("div", {
+      return react_default.a.createElement("div", {
         className: "cmp-sku-list__container"
-      }, /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("div", {
         className: "cmp-sku-list__right"
-      }, /*#__PURE__*/react_default.a.createElement("img", {
+      }, react_default.a.createElement("img", {
         src: relatedSku.thumbnail,
         alt: relatedSku.title,
         "data-locator": "product-image"
-      })), /*#__PURE__*/react_default.a.createElement("div", {
+      })), react_default.a.createElement("div", {
         className: "cmp-sku-list__left"
-      }, /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("div", {
         className: "cmp-sku-list__code",
         "data-locator": "product-number"
-      }, skuConfig.skuInfo.partNumberLabel + " " + relatedSku.materialNumber), relatedSku.url && /*#__PURE__*/react_default.a.createElement("a", {
+      }, skuConfig.skuInfo.partNumberLabel + " " + relatedSku.materialNumber), relatedSku.url && react_default.a.createElement("a", {
         href: relatedSku.url
-      }, /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("div", {
         className: "cmp-sku-details__title",
         "data-locator": "product-title"
-      }, relatedSku.title)), !relatedSku.url && /*#__PURE__*/react_default.a.createElement("div", {
+      }, relatedSku.title)), !relatedSku.url && react_default.a.createElement("div", {
         className: "cmp-sku-details__title",
         "data-locator": "product-title"
-      }, relatedSku.title), /*#__PURE__*/react_default.a.createElement("div", {
+      }, relatedSku.title), react_default.a.createElement("div", {
         className: "cmp-sku-details__buyinfo"
-      }, /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("div", {
         className: "cmp-sku-list__priceinfo"
-      }, /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("div", {
         className: "cmp-sku__price",
         "data-locator": "sku-price"
-      }, relatedSku.unitPrice)), /*#__PURE__*/react_default.a.createElement("div", {
+      }, relatedSku.unitPrice)), react_default.a.createElement("div", {
         "class": "cmp-sku-details__quantitytext",
         "data-locator": "sku-qty"
       }, skuConfig.qtyLabel, ": ", relatedSku.orderedQuantity))));
@@ -13952,27 +11791,27 @@ var shipment_Shipment = /*#__PURE__*/function (_Component) {
           icons = _this$props.icons,
           data = _this$props.data,
           totalItemsOrdered = _this$props.totalItemsOrdered;
-      return /*#__PURE__*/react_default.a.createElement("div", {
+      return react_default.a.createElement("div", {
         className: "order-shipment"
-      }, /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("div", {
         className: "order-shipment-header"
-      }, /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("div", {
         className: "order-shipment-header__left"
-      }, totalShipments > 1 && /*#__PURE__*/react_default.a.createElement("div", {
+      }, totalShipments > 1 && react_default.a.createElement("div", {
         className: "order-shipment-header__shipment-count"
-      }, shipment.shipmentText + " " + shipmentNumber), /*#__PURE__*/react_default.a.createElement("div", {
+      }, shipment.shipmentText + " " + shipmentNumber), react_default.a.createElement("div", {
         className: "order-shipment-header__item-count"
-      }, this.renderItemCount(totalItemsOrdered, shipment))), /*#__PURE__*/react_default.a.createElement("div", {
+      }, this.renderItemCount(totalItemsOrdered, shipment))), react_default.a.createElement("div", {
         className: "order-shipment-header__right"
-      }, /*#__PURE__*/react_default.a.createElement(delivery_status, {
+      }, react_default.a.createElement(delivery_status, {
         status: this.ifShipped(),
         labels: shipment,
         icons: icons,
         shipped: this.orderShipped()
-      }))), /*#__PURE__*/react_default.a.createElement("div", {
+      }))), react_default.a.createElement("div", {
         className: ""
       }, this.props.data.map(function (record, index) {
-        return /*#__PURE__*/react_default.a.createElement(order_details_list_item, {
+        return react_default.a.createElement(order_details_list_item, {
           key: index,
           relatedSku: record,
           skuConfig: _this2.skuConfig
@@ -13996,7 +11835,7 @@ shipment_Shipment.defaultProps = {
 var get_isocode = __webpack_require__(124);
 
 // EXTERNAL MODULE: ./src/utils/group-by/index.js
-var group_by = __webpack_require__(93);
+var group_by = __webpack_require__(95);
 
 // CONCATENATED MODULE: ./src/order-details/index.js
 
@@ -14093,7 +11932,7 @@ var order_details_OrderDetails = /*#__PURE__*/function (_Component) {
 
       for (var i = 0; i < Object.keys(airbills).length; i++) {
         var values = Object.values(airbills)[i];
-        shipments.push( /*#__PURE__*/react_default.a.createElement(components_shipment, {
+        shipments.push(react_default.a.createElement(components_shipment, {
           data: values,
           shipment: _this.props.config.shipment,
           icons: _this.props.config.icons,
@@ -14104,7 +11943,7 @@ var order_details_OrderDetails = /*#__PURE__*/function (_Component) {
         }));
       }
 
-      return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement("hr", {
+      return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("hr", {
         className: "order-shipment-list__hr"
       }), Object.keys(airbills).length > 0 && shipments);
     };
@@ -14182,8 +12021,8 @@ var order_details_OrderDetails = /*#__PURE__*/function (_Component) {
         if (account) {
           var includeCountryName = true;
           var addressArray = Object(userFunctions["n" /* getOrderDetailsAddress */])(account, includeCountryName);
-          return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, addressArray.map(function (addressLine) {
-            return /*#__PURE__*/react_default.a.createElement("div", {
+          return react_default.a.createElement(react_default.a.Fragment, null, addressArray.map(function (addressLine) {
+            return react_default.a.createElement("div", {
               className: "cmp-order-details-address1",
               "data-locator": "order-details-address"
             }, addressLine);
@@ -14213,7 +12052,7 @@ var order_details_OrderDetails = /*#__PURE__*/function (_Component) {
     };
 
     _this.renderReorderButton = function () {
-      return /*#__PURE__*/react_default.a.createElement("a", {
+      return react_default.a.createElement("a", {
         className: "cmp-button",
         onClick: function onClick() {
           return _this.toggleModal();
@@ -14226,104 +12065,104 @@ var order_details_OrderDetails = /*#__PURE__*/function (_Component) {
           orderDetails = _this$state2.orderDetails,
           userLocale = _this$state2.userLocale;
       var notZeroDiscountFlag = parseFloat(orderDetails.orderDiscountValue) !== 0 ? true : false;
-      return /*#__PURE__*/react_default.a.createElement("div", {
+      return react_default.a.createElement("div", {
         className: "cmp-order-details__container"
-      }, /*#__PURE__*/react_default.a.createElement("h2", {
+      }, react_default.a.createElement("h2", {
         className: "cmp-order-details__title",
         "data-locator": "product-title"
-      }, _this.props.config.orderDetails), /*#__PURE__*/react_default.a.createElement("div", {
+      }, _this.props.config.orderDetails), react_default.a.createElement("div", {
         className: "cmp-order-details__order-info"
-      }, /*#__PURE__*/react_default.a.createElement("h3", {
+      }, react_default.a.createElement("h3", {
         className: "cmp-order-details__order-number",
         "data-locator": "product-number"
-      }, _this.props.config.orderNumber + ": " + orderDetails.orderNumber), /*#__PURE__*/react_default.a.createElement("div", {
+      }, _this.props.config.orderNumber + ": " + orderDetails.orderNumber), react_default.a.createElement("div", {
         className: "cmp-order-details__order-date",
         "data-locator": "order-date"
-      }, date_formatter["a" /* default */].dateFormatter(orderDetails.date, userLocale)), /*#__PURE__*/react_default.a.createElement("div", {
+      }, date_formatter["a" /* default */].dateFormatter(orderDetails.date, userLocale)), react_default.a.createElement("div", {
         className: "cmp-order-details__address-container"
-      }, /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("div", {
         className: "cmp-order-details__ship-to",
         "data-locator": "ship-to"
-      }, /*#__PURE__*/react_default.a.createElement("h4", null, _this.props.config.shipTo), _this.renderAddress("shipping")), /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("h4", null, _this.props.config.shipTo), _this.renderAddress("shipping")), react_default.a.createElement("div", {
         className: "cmp-order-details__bill-to",
         "data-locator": "bill-to"
-      }, /*#__PURE__*/react_default.a.createElement("h4", null, _this.props.config.billTo), _this.renderAddress("billing"))), /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("h4", null, _this.props.config.billTo), _this.renderAddress("billing"))), react_default.a.createElement("div", {
         className: "cmp-order-details__payment-container"
-      }, /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("div", {
         className: "cmp-order-details__payment-method",
         "data-locator": "payment-method"
-      }, /*#__PURE__*/react_default.a.createElement("h4", null, _this.props.config.paymentMethod), orderDetails.ccNum && /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+      }, react_default.a.createElement("h4", null, _this.props.config.paymentMethod), orderDetails.ccNum && react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement(react_svg["a" /* default */], {
         src: _this.props.config.paymentType.creditCard.icon
-      }), /*#__PURE__*/react_default.a.createElement("div", {
+      }), react_default.a.createElement("div", {
         className: "text"
-      }, _this.props.config.paymentType.creditCard.label)), !orderDetails.ccNum && orderDetails.purchaseOrderNumber && /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+      }, _this.props.config.paymentType.creditCard.label)), !orderDetails.ccNum && orderDetails.purchaseOrderNumber && react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement(react_svg["a" /* default */], {
         src: _this.props.config.paymentType.purchaseOrder.icon
-      }), /*#__PURE__*/react_default.a.createElement("div", {
+      }), react_default.a.createElement("div", {
         className: "text"
-      }, _this.props.config.paymentType.purchaseOrder.label, ": ", orderDetails.purchaseOrderNumber))))), /*#__PURE__*/react_default.a.createElement("div", {
+      }, _this.props.config.paymentType.purchaseOrder.label, ": ", orderDetails.purchaseOrderNumber))))), react_default.a.createElement("div", {
         className: "cmp-order-details__order-summary",
         "data-locator": "order-summary"
-      }, /*#__PURE__*/react_default.a.createElement("h4", null, _this.props.config.orderSummary), /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("h4", null, _this.props.config.orderSummary), react_default.a.createElement("div", {
         className: "cmp-order-details__order-subtotal"
-      }, /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("div", {
         className: "cmp-order-details__order-subtotal_left",
         "data-locator": "order-subtotal-left"
-      }, _this.props.config.subTotal, " ", _this.renderItemCount()), /*#__PURE__*/react_default.a.createElement("div", {
+      }, _this.props.config.subTotal, " ", _this.renderItemCount()), react_default.a.createElement("div", {
         className: "cmp-order-details__order-subtotal_right",
         "data-locator": "order-subtotal-right"
-      }, orderDetails.itemsSubTotal)), notZeroDiscountFlag && /*#__PURE__*/react_default.a.createElement("div", {
+      }, orderDetails.itemsSubTotal)), notZeroDiscountFlag && react_default.a.createElement("div", {
         className: "cmp-order-details__order-savings"
-      }, /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("div", {
         className: "cmp-order-details__order-savings_left",
         "data-locator": "order-savings-left"
-      }, _this.props.config.savings), /*#__PURE__*/react_default.a.createElement("div", {
+      }, _this.props.config.savings), react_default.a.createElement("div", {
         className: "cmp-order-details__order-savings_right",
         "data-locator": "order-savings-right"
-      }, _this.props.config.minusSign, orderDetails.orderDiscount)), /*#__PURE__*/react_default.a.createElement("div", {
+      }, _this.props.config.minusSign, orderDetails.orderDiscount)), react_default.a.createElement("div", {
         className: "cmp-order-details__order-shipping"
-      }, /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("div", {
         className: "cmp-order-details__order-shipping_left",
         "data-locator": "order-shipping-left"
-      }, _this.props.config.shipping), /*#__PURE__*/react_default.a.createElement("div", {
+      }, _this.props.config.shipping), react_default.a.createElement("div", {
         className: "cmp-order-details__order-shipping_right",
         "data-locator": "order-shipping-right"
-      }, orderDetails.shippingAmount)), /*#__PURE__*/react_default.a.createElement("div", {
+      }, orderDetails.shippingAmount)), react_default.a.createElement("div", {
         className: "cmp-order-details__order-tax"
-      }, /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("div", {
         className: "cmp-order-details__order-tax_left",
         "data-locator": "order-tax-left"
-      }, _this.props.config.tax), /*#__PURE__*/react_default.a.createElement("div", {
+      }, _this.props.config.tax), react_default.a.createElement("div", {
         className: "cmp-order-details__order-tax_right",
         "data-locator": "order-tax-right"
-      }, orderDetails.taxAmount)), /*#__PURE__*/react_default.a.createElement("div", {
+      }, orderDetails.taxAmount)), react_default.a.createElement("div", {
         className: "cmp-order-details__order-total"
-      }, /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("div", {
         className: "cmp-order-details__order-total_left",
         "data-locator": "order-total-left"
-      }, _this.props.config.orderTotal), /*#__PURE__*/react_default.a.createElement("div", {
+      }, _this.props.config.orderTotal), react_default.a.createElement("div", {
         className: "cmp-order-details__order-total_right",
         "data-locator": "order-total-right"
-      }, /*#__PURE__*/react_default.a.createElement("h1", null, orderDetails.orderTotal))), _this.state.isCommerceApiMigrated && /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("h1", null, orderDetails.orderTotal))), _this.state.isCommerceApiMigrated && react_default.a.createElement("div", {
         className: "cmp-order-details__reorder",
         "data-locator": "order-details-reorder"
       }, _this.renderReorderButton())));
     };
 
     _this.renderOrderNotFoundError = function () {
-      return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement("div", {
+      return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("div", {
         className: "cmp-order-details__no-results",
         "data-locator": "order-details-no-results"
-      }, /*#__PURE__*/react_default.a.createElement("p", null, _this.props.config.orderNotFoundErrorTitle)));
+      }, react_default.a.createElement("p", null, _this.props.config.orderNotFoundErrorTitle)));
     };
 
     _this.renderOrderShipmentList = function () {
       var _this$state3 = _this.state,
           airbills = _this$state3.airbills,
           orderDetails = _this$state3.orderDetails;
-      return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement("div", {
+      return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("div", {
         className: "cmp-order-details__order-shipment-list",
         "data-locator": "order-shipment-list"
-      }, Object.keys(airbills).length > 0 && _this.getShipmentList(airbills, orderDetails)), _this.state.isCommerceApiMigrated && /*#__PURE__*/react_default.a.createElement("div", {
+      }, Object.keys(airbills).length > 0 && _this.getShipmentList(airbills, orderDetails)), _this.state.isCommerceApiMigrated && react_default.a.createElement("div", {
         className: "order-shipment__reorder",
         "data-locator": "order-shipment-reorder"
       }, _this.renderReorderButton()));
@@ -14466,17 +12305,17 @@ var order_details_OrderDetails = /*#__PURE__*/function (_Component) {
           isLoading = _this$state5.isLoading,
           errorOrderNotFound = _this$state5.errorOrderNotFound,
           errorServiceError = _this$state5.errorServiceError;
-      return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, isLoading && /*#__PURE__*/react_default.a.createElement(utils_spinner["a" /* default */], {
+      return react_default.a.createElement(react_default.a.Fragment, null, isLoading && react_default.a.createElement(utils_spinner["a" /* default */], {
         loading: isLoading
-      }), !isLoading && errorOrderNotFound && this.renderOrderNotFoundError(), !errorOrderNotFound && !errorServiceError && !isLoading && this.renderOrderDetails(), !errorOrderNotFound && !errorServiceError && !isLoading && this.renderOrderShipmentList(), /*#__PURE__*/react_default.a.createElement(modal["b" /* default */], {
+      }), !isLoading && errorOrderNotFound && this.renderOrderNotFoundError(), !errorOrderNotFound && !errorServiceError && !isLoading && this.renderOrderDetails(), !errorOrderNotFound && !errorServiceError && !isLoading && this.renderOrderShipmentList(), react_default.a.createElement(modal["b" /* default */], {
         isOpen: this.state.modalShown,
         onClose: this.toggleModal,
         className: "cmp-add-to-cart-modal"
-      }, /*#__PURE__*/react_default.a.createElement(modal["a" /* Header */], {
+      }, react_default.a.createElement(modal["a" /* Header */], {
         title: this.state.modalConfig.title,
         icon: this.state.modalConfig.icon,
         className: modal["c" /* keys */].HeaderWithAddedMarginTop
-      }), /*#__PURE__*/react_default.a.createElement(addToCartModal["a" /* default */], {
+      }), react_default.a.createElement(addToCartModal["a" /* default */], {
         config: this.state.modalConfig,
         errorObjCart: this.state.errorObjCart
       })));
@@ -14487,7 +12326,7 @@ var order_details_OrderDetails = /*#__PURE__*/function (_Component) {
 }(react["Component"]);
 
 var order_details_ErrorBoundaryOrderDetails = function ErrorBoundaryOrderDetails(props) {
-  return /*#__PURE__*/react_default.a.createElement(search_ErrorBoundary, null, /*#__PURE__*/react_default.a.createElement(order_details_OrderDetails, props));
+  return react_default.a.createElement(search_ErrorBoundary, null, react_default.a.createElement(order_details_OrderDetails, props));
 };
 
 
@@ -14504,43 +12343,43 @@ var order_details_ErrorBoundaryOrderDetails = function ErrorBoundaryOrderDetails
 
 
 var my_account_MyAccountRouter = function MyAccountRouter(props) {
-  return /*#__PURE__*/react_default.a.createElement(HashRouter["a" /* default */], {
+  return react_default.a.createElement(HashRouter["a" /* default */], {
     hashType: "noslash"
-  }, /*#__PURE__*/react_default.a.createElement(Switch["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(Route["a" /* default */], {
+  }, react_default.a.createElement(Switch["a" /* default */], null, react_default.a.createElement(Route["a" /* default */], {
     exact: true,
     path: routes.myAccount.path
-  }, /*#__PURE__*/react_default.a.createElement(myaccount, props)), /*#__PURE__*/react_default.a.createElement(Route["a" /* default */], {
+  }, react_default.a.createElement(myaccount, props)), react_default.a.createElement(Route["a" /* default */], {
     exact: true,
     path: routes.profile.path
-  }, /*#__PURE__*/react_default.a.createElement(aside, {
+  }, react_default.a.createElement(aside, {
     tiles: props.tiles,
     breadcrumbs: props.breadcrumbs
-  }, /*#__PURE__*/react_default.a.createElement(my_profile, {
+  }, react_default.a.createElement(my_profile, {
     configs: props.myProfile
-  }))), /*#__PURE__*/react_default.a.createElement(Route["a" /* default */], {
+  }))), react_default.a.createElement(Route["a" /* default */], {
     exact: true,
     path: routes.changePassword.path
-  }, /*#__PURE__*/react_default.a.createElement(aside, {
+  }, react_default.a.createElement(aside, {
     tiles: props.tiles,
     breadcrumbs: props.breadcrumbs
-  }, /*#__PURE__*/react_default.a.createElement(change_password, {
+  }, react_default.a.createElement(change_password, {
     configId: props.changePassword.config,
     configs: props.myProfile
-  }))), /*#__PURE__*/react_default.a.createElement(Route["a" /* default */], {
+  }))), react_default.a.createElement(Route["a" /* default */], {
     exact: true,
     path: routes.orderHistory.path
-  }, /*#__PURE__*/react_default.a.createElement(aside, {
+  }, react_default.a.createElement(aside, {
     tiles: props.tiles,
     breadcrumbs: props.breadcrumbs
-  }, /*#__PURE__*/react_default.a.createElement(order_history, {
+  }, react_default.a.createElement(order_history, {
     configs: props.orderHistory
-  }))), /*#__PURE__*/react_default.a.createElement(Route["a" /* default */], {
+  }))), react_default.a.createElement(Route["a" /* default */], {
     exact: true,
     path: routes.orderDetails.path
-  }, /*#__PURE__*/react_default.a.createElement(aside, {
+  }, react_default.a.createElement(aside, {
     tiles: props.tiles,
     breadcrumbs: props.breadcrumbs
-  }, /*#__PURE__*/react_default.a.createElement(order_details, {
+  }, react_default.a.createElement(order_details, {
     config: props.orderDetails
   })))));
 };
@@ -14572,37 +12411,37 @@ var country_selector_CountrySelection = function CountrySelection(props) {
 
   var Items = function Items() {
     return props.countries.map(function (country) {
-      return /*#__PURE__*/react_default.a.createElement("option", {
+      return react_default.a.createElement("option", {
         key: country.href,
         value: country.href
       }, country.title);
     });
   };
 
-  return /*#__PURE__*/react_default.a.createElement("div", {
+  return react_default.a.createElement("div", {
     className: "cmp-country-selector"
-  }, /*#__PURE__*/react_default.a.createElement("div", {
+  }, react_default.a.createElement("div", {
     className: "cmp-country-selector__text"
-  }, props.translations.changeCountryText), /*#__PURE__*/react_default.a.createElement("div", {
+  }, props.translations.changeCountryText), react_default.a.createElement("div", {
     className: "cmp-country-selector__dropdown"
-  }, /*#__PURE__*/react_default.a.createElement("select", {
+  }, react_default.a.createElement("select", {
     className: "select-css",
     value: selectedValue,
     onChange: handleDropdownChange
-  }, /*#__PURE__*/react_default.a.createElement(Items, null))), /*#__PURE__*/react_default.a.createElement("div", {
+  }, react_default.a.createElement(Items, null))), react_default.a.createElement("div", {
     className: "cmp-country-selector__note"
-  }, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+  }, react_default.a.createElement(react_svg["a" /* default */], {
     src: "/content/dam/waters/en/brand-assets/icons/externallink.svg"
-  }), /*#__PURE__*/react_default.a.createElement("div", {
+  }), react_default.a.createElement("div", {
     className: "cmp-country-selector__note-text"
-  }, /*#__PURE__*/react_default.a.createElement("span", null, props.translations.changeCountryNoteText, ":"), "\xA0", props.translations.changeCountryNewTabText)), /*#__PURE__*/react_default.a.createElement("div", {
+  }, react_default.a.createElement("span", null, props.translations.changeCountryNoteText, ":"), "\xA0", props.translations.changeCountryNewTabText)), react_default.a.createElement("div", {
     className: "cmp-country-selector__button"
-  }, /*#__PURE__*/react_default.a.createElement("a", {
+  }, react_default.a.createElement("a", {
     className: "cmp-button",
     onClick: handleButtonClick
-  }, props.translations.changeCountryButton)), /*#__PURE__*/react_default.a.createElement("div", {
+  }, props.translations.changeCountryButton)), react_default.a.createElement("div", {
     className: "cmp-country-selector__cancel"
-  }, /*#__PURE__*/react_default.a.createElement("a", {
+  }, react_default.a.createElement("a", {
     onClick: props.onClose
   }, props.translations.cancelButton)));
 };
@@ -14638,14 +12477,14 @@ var country_selector_CountrySelector = function CountrySelector(props) {
     window.open("".concat(window.location.origin).concat(item), "_blank");
   };
 
-  return /*#__PURE__*/react_default.a.createElement(modal["b" /* default */], {
+  return react_default.a.createElement(modal["b" /* default */], {
     isOpen: open,
     onClose: handleClose,
     className: "cmp-country-selector-modal"
-  }, /*#__PURE__*/react_default.a.createElement(modal["a" /* Header */], {
+  }, react_default.a.createElement(modal["a" /* Header */], {
     title: props.translations.preferredCountryHeading,
     icon: "/content/dam/waters/en/brand-assets/icons/globe.svg"
-  }), /*#__PURE__*/react_default.a.createElement(country_selector_CountrySelection, Object.assign({}, props, {
+  }), react_default.a.createElement(country_selector_CountrySelection, Object.assign({}, props, {
     onChange: handleCountrySelectionChange,
     onClose: handleClose
   })));
@@ -14689,9 +12528,9 @@ var create_account_form_CreateAccountForm = function CreateAccountForm(_ref) {
     if (isEProcUser !== null) isEProcUser ? checkEmailResetPasswordSubmit.call(this, data) : setRegistrationFormVisibility(true);
   }
 
-  return showRegistrationForm ? /*#__PURE__*/react_default.a.createElement(forms_form, Object.assign({}, registrationFormConfig, {
+  return showRegistrationForm ? react_default.a.createElement(forms_form, Object.assign({}, registrationFormConfig, {
     isocode: isocode
-  })) : /*#__PURE__*/react_default.a.createElement(forms_form, Object.assign({}, checkEmailFormConfig, {
+  })) : react_default.a.createElement(forms_form, Object.assign({}, checkEmailFormConfig, {
     submitFn: checkEmailSubmit,
     isocode: isocode
   }));
@@ -14727,11 +12566,10 @@ var create_account_form_CreateAccountForm = function CreateAccountForm(_ref) {
 
 
 
-
 if (false) { var whyDidYouRender; }
 
 var globalTranslationsScript = document.getElementById('global-translations-json');
-var src_globalTranslations = globalTranslationsScript ? JSON.parse(globalTranslationsScript.innerHTML) : {};
+var globalTranslations = globalTranslationsScript ? JSON.parse(globalTranslationsScript.innerHTML) : {};
 var headerRef = document.getElementById("header");
 var headerData = headerRef ? {
   userDetailsUrl: headerRef.dataset.userDetailsUrl
@@ -14779,7 +12617,7 @@ if (spinnerContainer) {
       loading: showLoader,
       color: '#ffffff'
     };
-    react_dom_default.a.render(showLoader ? /*#__PURE__*/react_default.a.createElement(utils_spinner["a" /* default */], props) : null, container);
+    react_dom_default.a.render(showLoader ? react_default.a.createElement(utils_spinner["a" /* default */], props) : null, container);
   };
 
   window.addEventListener("showLoaderEproc", function (_ref) {
@@ -14803,7 +12641,7 @@ if (searchAppContainer) {
   }
 
   var src_data = getAuthoredDataForSearchApp(searchAppContainer);
-  react_dom_default.a.render( /*#__PURE__*/react_default.a.createElement(src_search, {
+  react_dom_default.a.render(react_default.a.createElement(src_search, {
     defaultFacet: "category_facet:waters%253Acategory%252Fapplicationslibrary",
     searchDefaults: {
       rows: 25
@@ -14825,7 +12663,7 @@ if (tagCloudContainers) {
 
     var _data = getAuthoredDataForTagCloud(header, tagCloudContainers[src_i]);
 
-    react_dom_default.a.render( /*#__PURE__*/react_default.a.createElement(tagcloud, {
+    react_dom_default.a.render(react_default.a.createElement(tagcloud, {
       tagCloudTitle: _data.tagTitle,
       searchPath: _data.searchPath,
       keywords: src_json,
@@ -14840,7 +12678,7 @@ var imageGalleryContainers = Array.from(document.querySelectorAll('.cmp-image-ga
 if (imageGalleryContainers) {
   imageGalleryContainers.forEach(function (container) {
     var json = JSON.parse(container.getAttribute('data-json'));
-    react_dom_default.a.render( /*#__PURE__*/react_default.a.createElement(image_carousel, {
+    react_dom_default.a.render(react_default.a.createElement(image_carousel, {
       templates: json.templates,
       widths: json.widths,
       alt: json.alt,
@@ -14865,7 +12703,7 @@ if (document.querySelector('.cmp-sku-details__ecom')) {
 
 if (src_skuDetailsContainer) {
   var src_skuDetailsRender = function skuDetailsRender(skuDetailsContainer) {
-    react_dom_default.a.render( /*#__PURE__*/react_default.a.createElement(src_sku_details, {
+    react_dom_default.a.render(react_default.a.createElement(src_sku_details, {
       config: skuDetailsConfig,
       price: skuDetailsListPrice,
       countryRestricted: skuCountryRestricted,
@@ -14909,7 +12747,7 @@ var skuListContainer = document.querySelector('.cmp-sku-list');
 if (skuListContainer) {
   var skuListData = JSON.parse(skuListContainer.dataset.json);
   var skuListTitle = skuListContainer.dataset.componenttitle ? skuListContainer.dataset.componenttitle : '';
-  react_dom_default.a.render( /*#__PURE__*/react_default.a.createElement(sku_list, {
+  react_dom_default.a.render(react_default.a.createElement(sku_list, {
     skuConfig: skuDetailsConfig,
     data: skuListData,
     title: skuListTitle
@@ -14939,7 +12777,7 @@ if (skuUnavailableContainer) {
     }
 
     var skuDetailsUnavailableBindingContainer = document.querySelector('#cmp-sku-details-replacement');
-    react_dom_default.a.render( /*#__PURE__*/react_default.a.createElement(sku_message, {
+    react_dom_default.a.render(react_default.a.createElement(sku_message, {
       icon: replacementSkuIcon,
       message: skuMessageText,
       link: _replacementSkuHref,
@@ -14958,7 +12796,7 @@ if (videoContainers) {
     if (videoContainer && videoConfig) {
       var _json = JSON.parse(videoConfig.innerHTML);
 
-      react_dom_default.a.render( /*#__PURE__*/react_default.a.createElement(video, {
+      react_dom_default.a.render(react_default.a.createElement(video, {
         videoConfig: _json.videoConfig,
         ref: function ref(ourComponent) {
           if (window.cmpVideos) {
@@ -15028,9 +12866,7 @@ if (registrationFormContainer) {
     config: configCheckEmailForm
   };
   var src_isTwoStepRegistrationForm = configCheckEmailForm.isTwoStepRegistrationForm;
-  react_dom_default.a.render(
-  /*#__PURE__*/
-  // replace isocode with a value supplied by AEM
+  react_dom_default.a.render( // replace isocode with a value supplied by AEM
   react_default.a.createElement(create_account_form, {
     registrationFormConfig: registrationForm,
     checkEmailFormConfig: checkEmailForm,
@@ -15047,7 +12883,7 @@ if (contactSupportFormContainer) {
   var objData = src_config.fields.find(function (x) {
     return x.type === 'dropdown' && x.name === 'formCategoryType' && Object.keys(x).includes('defaultValue');
   });
-  react_dom_default.a.render( /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement(forms_form, {
+  react_dom_default.a.render(react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement(forms_form, {
     config: src_config,
     submitFn: contactSupportSubmit,
     callback: headerData.userDetailsUrl,
@@ -15055,7 +12891,7 @@ if (contactSupportFormContainer) {
     defaultValues: {
       formCategoryType: objData.defaultValue || ''
     }
-  }), /*#__PURE__*/react_default.a.createElement(legal_link_modal_LegalLinkModal, {
+  }), react_default.a.createElement(legal_link_modal_LegalLinkModal, {
     docIcon: src_config.icons.docIcon || ''
   })), contactSupportFormContainer);
 }
@@ -15065,9 +12901,7 @@ var troubleSigningInFormContainer = document.getElementById('cmp-trouble-signing
 if (troubleSigningInFormContainer) {
   var _config = JSON.parse(document.getElementById('js-trouble-signing-in-form').innerHTML);
 
-  react_dom_default.a.render(
-  /*#__PURE__*/
-  // replace isocode with a value supplied by AEM
+  react_dom_default.a.render( // replace isocode with a value supplied by AEM
   react_default.a.createElement(forms_form, {
     config: _config,
     submitFn: troubleSigningInSubmit,
@@ -15080,9 +12914,7 @@ var chooseAccountFormContainer = document.getElementById('cmp-choose-account-for
 if (chooseAccountFormContainer) {
   var _config2 = JSON.parse(document.getElementById('js-choose-account-form').innerHTML);
 
-  react_dom_default.a.render(
-  /*#__PURE__*/
-  // replace isocode with a value supplied by AEM
+  react_dom_default.a.render( // replace isocode with a value supplied by AEM
   react_default.a.createElement(forms_form, {
     config: _config2,
     submitFn: chooseAccountSubmit,
@@ -15096,7 +12928,7 @@ if (resetPasswordContainer) {
   var _config3 = JSON.parse(document.getElementById('cmp-reset-password-form').innerHTML);
 
   _config3.submitEndpoint = "".concat(_config3.submitEndpoint).concat(_config3.isEproc === "true" ? '?isEproc=true' : '');
-  react_dom_default.a.render( /*#__PURE__*/react_default.a.createElement(forms_form, {
+  react_dom_default.a.render(react_default.a.createElement(forms_form, {
     config: _config3,
     submitFn: resetPasswordSubmit,
     callback: headerData.userDetailsUrl
@@ -15108,7 +12940,7 @@ var changePasswordContainer = document.getElementById('changePassword-details-ti
 if (changePasswordContainer) {
   var _config4 = JSON.parse(document.getElementById('cmp-detail-tiles--changePassword').innerHTML);
 
-  react_dom_default.a.render( /*#__PURE__*/react_default.a.createElement(detail_tiles, _config4), changePasswordContainer);
+  react_dom_default.a.render(react_default.a.createElement(detail_tiles, _config4), changePasswordContainer);
 }
 
 var chatContainer = document.querySelector('.cmp-chat');
@@ -15116,7 +12948,7 @@ var chatContainer = document.querySelector('.cmp-chat');
 if (chatContainer) {
   var _data2 = getAuthoredDataForChat(chatContainer);
 
-  react_dom_default.a.render( /*#__PURE__*/react_default.a.createElement(chat, {
+  react_dom_default.a.render(react_default.a.createElement(chat, {
     url: _data2.url,
     statusApi: _data2.statusApi,
     countryCode: skuDetailsConfig.countryCode,
@@ -15135,7 +12967,7 @@ var shippingDetailsTile = document.getElementById('shipping-details-tile');
 if (shippingDetailsTile) {
   var _config5 = JSON.parse(document.getElementById('cmp-detail-tiles--shipping').innerHTML);
 
-  react_dom_default.a.render( /*#__PURE__*/react_default.a.createElement(detail_tiles, _config5), shippingDetailsTile);
+  react_dom_default.a.render(react_default.a.createElement(detail_tiles, _config5), shippingDetailsTile);
 }
 
 var billingDetailsTile = document.getElementById('billing-details-tile');
@@ -15143,7 +12975,7 @@ var billingDetailsTile = document.getElementById('billing-details-tile');
 if (billingDetailsTile) {
   var _config6 = JSON.parse(document.getElementById('cmp-detail-tiles--billing').innerHTML);
 
-  react_dom_default.a.render( /*#__PURE__*/react_default.a.createElement(detail_tiles, _config6), billingDetailsTile);
+  react_dom_default.a.render(react_default.a.createElement(detail_tiles, _config6), billingDetailsTile);
 }
 
 var src_wechat = document.querySelector('.cmp-wechat');
@@ -15153,7 +12985,7 @@ var wechatJSON = document.getElementById('wechat-json');
 if (src_wechat && wechatContainer && wechatJSON) {
   var _config7 = JSON.parse(wechatJSON.innerHTML);
 
-  react_dom_default.a.render( /*#__PURE__*/react_default.a.createElement(wechat, {
+  react_dom_default.a.render(react_default.a.createElement(wechat, {
     config: _config7
   }), wechatContainer);
 }
@@ -15163,19 +12995,19 @@ var myAccountPage = document.getElementById('my-account');
 if (myAccountPage) {
   var _config8 = JSON.parse(document.getElementById('cmp-my-account').innerHTML);
 
-  react_dom_default.a.render( /*#__PURE__*/react_default.a.createElement(my_account, _config8), myAccountPage);
+  react_dom_default.a.render(react_default.a.createElement(my_account, _config8), myAccountPage);
 }
 
 var countryModalRoot = document.getElementById('country-selector-root');
 
 if (countryModalRoot) {
-  var src_scriptElement = document.getElementById('country-list-json');
-  var src_countries = src_scriptElement && src_scriptElement.innerHTML.trim() ? JSON.parse(src_scriptElement.innerHTML) : [];
+  var scriptElement = document.getElementById('country-list-json');
+  var countries = scriptElement && scriptElement.innerHTML.trim() ? JSON.parse(scriptElement.innerHTML) : [];
 
-  if (Array.isArray(src_countries) && src_countries.length !== 0) {
-    react_dom_default.a.render( /*#__PURE__*/react_default.a.createElement(country_selector, {
-      countries: src_countries,
-      translations: src_globalTranslations
+  if (Array.isArray(countries) && countries.length !== 0) {
+    react_dom_default.a.render(react_default.a.createElement(country_selector, {
+      countries: countries,
+      translations: globalTranslations
     }), countryModalRoot);
   }
 }
@@ -15185,9 +13017,7 @@ var signInFormContainer = document.getElementById("js-signin-form");
 if (signInFormContainer) {
   var _config9 = JSON.parse(document.getElementById("cmp-signin-form").innerHTML);
 
-  react_dom_default.a.render(
-  /*#__PURE__*/
-  // replace isocode with a value supplied by AEM
+  react_dom_default.a.render( // replace isocode with a value supplied by AEM
   react_default.a.createElement(forms_form, {
     config: _config9,
     submitFn: signInSubmit,
@@ -15208,7 +13038,7 @@ if (src_userGreetingContainer) {
 
 function userGreeting(userGreetingContainer) {
   var props = JSON.parse(document.getElementById("cmp-user-greetings").innerHTML);
-  react_dom_default.a.render( /*#__PURE__*/react_default.a.createElement(user_greetings_UserGreeting, props), userGreetingContainer);
+  react_dom_default.a.render(react_default.a.createElement(user_greetings_UserGreeting, props), userGreetingContainer);
 } // Checks user set in session storage or not
 
 
@@ -15237,7 +13067,7 @@ if (quickOrderContainer) {
 function quickOrder(container) {
   var props = JSON.parse(document.getElementById("cmp-quick-order").innerHTML);
   var skuConfig = JSON.parse(document.getElementById('commerce-configs-json').innerHTML);
-  react_dom_default.a.render( /*#__PURE__*/react_default.a.createElement(quick_order_QuickOrder, Object.assign({}, props, {
+  react_dom_default.a.render(react_default.a.createElement(quick_order_QuickOrder, Object.assign({}, props, {
     skuConfig: skuConfig
   })), container);
 } // End Quick Order Component
@@ -15257,7 +13087,7 @@ if (contactusContainer) {
     src_url = _config10.commerceConfig.contactSupportHref;
   }
 
-  react_dom_default.a.render( /*#__PURE__*/react_default.a.createElement(link_button_LinkButton, {
+  react_dom_default.a.render(react_default.a.createElement(link_button_LinkButton, {
     label: src_label,
     url: src_url
   }), contactusContainer);
@@ -15265,27 +13095,30 @@ if (contactusContainer) {
 // EXTERNAL MODULE: ./node_modules/css-vars-ponyfill/dist/css-vars-ponyfill.esm.js
 var css_vars_ponyfill_esm = __webpack_require__(125);
 
+// EXTERNAL MODULE: ./src/scripts/inlineSVG.js
+var inlineSVG = __webpack_require__(53);
+
 // CONCATENATED MODULE: ./src/entry.js
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ // import './scripts/stickyService';
+// import './scripts/backtotop';
+// import './scripts/anchor';
+// import './scripts/sticky-sort-filter';
+// import './scripts/sticky-sku-details';
+// import './scripts/sticky-sku-scroll';
+// import './scripts/mobile-search-scroll';
+// import './scripts/navigation-overlay';
+// import './scripts/navigation';
+// import './scripts/navigation-level2';
+// import './scripts/iframe';
+// import './scripts/backtosearch';
+// import './scripts/footer';
+// import './scripts/banner';
+// import './scripts/breadcrumb';
+// import './scripts/header';
+// import './scripts/collapsible';
+// import './scripts/skulist';
+// import './scripts/continueButton';
+// import './scripts/textModifier';
 
 
 
@@ -15340,14 +13173,6 @@ window.addEventListener('resize', addEllipses);
 /***/ }),
 
 /***/ 17:
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-module.exports = {"colorBorderDark":"#9ca7b0","colorGray50":"#4f5b64","colorBackgroundLight":"#f4f6f7","colorWhite":"#fff","colorBlue50":"#07b","borderRadius":"4px","spaceXXXS":".25em","spaceXXS":".5em","spaceXS":".75em","spaceS":"1em"};
-
-/***/ }),
-
-/***/ 18:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -15368,16 +13193,16 @@ var slicedToArray = __webpack_require__(10);
 var classCallCheck = __webpack_require__(4);
 
 // EXTERNAL MODULE: ./src/scripts/inlineSVG.js
-var inlineSVG = __webpack_require__(45);
+var inlineSVG = __webpack_require__(53);
 
 // EXTERNAL MODULE: ./src/scripts/DigitalData.js
-var DigitalData = __webpack_require__(19);
+var DigitalData = __webpack_require__(22);
 
 // EXTERNAL MODULE: ./src/stores/sessionStore.js
-var sessionStore = __webpack_require__(12);
+var sessionStore = __webpack_require__(14);
 
 // EXTERNAL MODULE: ./src/stores/cookieStore.js
-var cookieStore = __webpack_require__(30);
+var cookieStore = __webpack_require__(48);
 
 // CONCATENATED MODULE: ./src/analytics/eventTypes.js
 var eventTypes = {
@@ -15718,40 +13543,14 @@ var _analytics$analyticTy = Object(slicedToArray["a" /* default */])(analytics.a
 
 /***/ }),
 
-/***/ 19:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ 187:
+/***/ (function(module, exports) {
 
-"use strict";
-var DigitalData = {
-  get globalExperience() {
-    return 'XG';
-  },
-
-  get language() {
-    if (!window.digitalData) return '';
-    return window.digitalData.page && window.digitalData.page.language ? window.digitalData.page.language : "en";
-  },
-
-  get country() {
-    if (!window.digitalData) return '';
-    return window.digitalData.page && window.digitalData.page.country ? window.digitalData.page.country : this.globalExperience;
-  },
-
-  get page() {
-    if (!window.digitalData) return '';
-    return window.digitalData.page;
-  },
-
-  get default() {
-    return this.country !== this.globalExperience ? this.country.toLowerCase() : "";
-  }
-
-};
-/* harmony default export */ __webpack_exports__["a"] = (DigitalData);
+/* (ignored) */
 
 /***/ }),
 
-/***/ 22:
+/***/ 21:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -15759,13 +13558,13 @@ var DigitalData = {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return parameterValues; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return parameterDefaults; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return searchMapper; });
-/* harmony import */ var C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
-/* harmony import */ var C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
-/* harmony import */ var C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4);
-/* harmony import */ var C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(5);
-/* harmony import */ var whatwg_fetch__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(36);
-/* harmony import */ var _stores_sessionStore__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(12);
+/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
+/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
+/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4);
+/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(5);
+/* harmony import */ var whatwg_fetch__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(34);
+/* harmony import */ var _stores_sessionStore__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(14);
 
 
 
@@ -15773,7 +13572,7 @@ var DigitalData = {
 
 
 
-var queryString = __webpack_require__(28);
+var queryString = __webpack_require__(27);
 
 var parameterValues = {
   undefined: 'undefined',
@@ -15808,7 +13607,7 @@ var SearchService = /*#__PURE__*/function () {
     var multiselect = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : true;
     var throwError = arguments.length > 6 ? arguments[6] : undefined;
 
-    Object(C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(this, SearchService);
+    Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(this, SearchService);
 
     this.getCategories = function (_ref) {
       var _ref$keyword = _ref.keyword,
@@ -15932,9 +13731,9 @@ var SearchService = /*#__PURE__*/function () {
     };
 
     this.getSuggestedKeywords = /*#__PURE__*/function () {
-      var _ref5 = Object(C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(rows, term) {
+      var _ref5 = Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(rows, term) {
         var searchString, callService, response;
-        return C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        return C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
@@ -16090,7 +13889,7 @@ var SearchService = /*#__PURE__*/function () {
     this.sessionStore = new _stores_sessionStore__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"]();
   }
 
-  Object(C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(SearchService, [{
+  Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(SearchService, [{
     key: "getParamsFromString",
     value: function getParamsFromString() {
       var str = window.location.search;
@@ -16270,244 +14069,16 @@ var searchMapper = {
 
 /***/ }),
 
-/***/ 224:
-/***/ (function(module, exports) {
-
-/* (ignored) */
-
-/***/ }),
-
-/***/ 25:
+/***/ 33:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-var domElements = {
-  getHeader: function getHeader() {
-    return document.querySelector('.cmp-header');
-  },
-  getSortFilterhModal: function getSortFilterhModal() {
-    return document.querySelector('.cmp-search__sort-filter');
-  },
-  hasClass: function hasClass(el, className) {
-    if (!el) {
-      return false;
-    }
-
-    var classListSupport = hasClassListSupport();
-
-    if (classListSupport) {
-      return el.classList.contains(className);
-    }
-
-    return new RegExp('\\b' + className + '\\b').test(el.className);
-  },
-  addClass: function addClass(el, className) {
-    if (!el) {
-      return;
-    }
-
-    if (hasClassListSupport()) {
-      el.classList.add(className);
-      return;
-    } // fallback for non-classlist supported browsers
-
-
-    if (!exports.hasClass(el, className)) {
-      el.className += ' ' + className;
-    }
-  },
-  removeClass: function removeClass(el, className) {
-    if (!el) {
-      return;
-    }
-
-    if (hasClassListSupport()) {
-      el.classList.remove(className);
-      return;
-    } // fallback for non-classlist supported browsers
-
-
-    el.className = el.className.replace(new RegExp('\\b' + className + '\\b', 'g'), '');
-  },
-  noScroll: function noScroll(state) {
-    if (state) {
-      document.body.classList.add('no-scroll');
-      document.documentElement.classList.add('no-scroll');
-    } else {
-      document.body.classList.remove('no-scroll');
-      document.documentElement.classList.remove('no-scroll');
-    }
-  }
-};
-
-function hasClassListSupport() {
-  return 'classList' in document.documentElement;
-}
-
-/* harmony default export */ __webpack_exports__["a"] = (domElements);
-
-/***/ }),
-
-/***/ 27:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-var partial = 'PARTIAL_ENABLED';
-var full = 'FULL_ENABLED';
-var disabled = 'DISABLED';
-
-var currentState = function currentState() {
-  var footer = document.querySelector('#footer');
-  var currentState = '';
-
-  if (footer) {
-    currentState = footer.dataset.ecommerceState;
-  }
-
-  return currentState;
-};
-
-var isPartialState = function isPartialState() {
-  return currentState() == partial;
-};
-
-var isFullState = function isFullState() {
-  return currentState() == full;
-};
-
-var isDisabledState = function isDisabledState() {
-  return currentState() == disabled;
-};
-
-/* harmony default export */ __webpack_exports__["a"] = ({
-  currentState: currentState,
-  partial: partial,
-  full: full,
-  disabled: disabled,
-  isPartialState: isPartialState,
-  isFullState: isFullState,
-  isDisabledState: isDisabledState
-});
-
-/***/ }),
-
-/***/ 30:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var _scripts_DigitalData__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(19);
-
-var keys = {
-  loggedInStatus: 'WatersGreetingCookie',
-  soldToStatus: 'ST_STATUS',
-  locale: 'org.springframework.web.servlet.i18n.CookieLocaleResolver.LOCALE'
-};
-
-function getCookie(cname) {
-  var name = cname + "=";
-  var decodedCookie = decodeURIComponent(document.cookie);
-  var ca = decodedCookie.split(';');
-
-  for (var i = 0; i < ca.length; i++) {
-    var c = ca[i];
-
-    while (c.charAt(0) == ' ') {
-      c = c.substring(1);
-    }
-
-    if (c.indexOf(name) === 0) {
-      return c.substring(name.length, c.length);
-    }
-  }
-
-  return "";
-}
-
-;
-var cookieStore = {
-  getLoggedInStatus: function getLoggedInStatus() {
-    return getCookie(keys.loggedInStatus);
-  },
-  getSoldToStatus: function getSoldToStatus() {
-    return getCookie(keys.soldToStatus);
-  },
-  getLocale: function getLocale() {
-    return getCookie(keys.locale);
-  },
-  setLocale: function setLocale() {
-    if (_scripts_DigitalData__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].country === _scripts_DigitalData__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].globalExperience) {
-      return;
-    }
-
-    var locale = "".concat(_scripts_DigitalData__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].language, "_").concat(_scripts_DigitalData__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].country);
-    var cookieName = keys.locale;
-    var existingCookie = getCookie(cookieName);
-
-    if (!existingCookie || existingCookie !== locale) {
-      document.cookie = "".concat(cookieName, "=").concat(locale, "; path=/");
-    }
-  }
-};
-/* harmony default export */ __webpack_exports__["a"] = (cookieStore);
-
-/***/ }),
-
-/***/ 34:
-/***/ (function(module, exports) {
-
-function scrollToY(scrollTargetY, speed, easing) {
-  var scrollY = window.scrollY || document.documentElement.scrollTop,
-      scrollTargetY = scrollTargetY || 0,
-      speed = speed || 2000,
-      easing = easing || 'easeOutSine',
-      currentTime = 0;
-  var time = Math.max(0.1, Math.min(Math.abs(scrollY - scrollTargetY) / speed, 0.8));
-  var easingEquations = {
-    easeOutSine: function easeOutSine(pos) {
-      return Math.sin(pos * (Math.PI / 2));
-    },
-    easeInOutSine: function easeInOutSine(pos) {
-      return -0.5 * (Math.cos(Math.PI * pos) - 1);
-    },
-    easeInOutQuint: function easeInOutQuint(pos) {
-      if ((pos /= 0.5) < 1) {
-        return 0.5 * Math.pow(pos, 5);
-      }
-
-      return 0.5 * (Math.pow(pos - 2, 5) + 2);
-    }
-  };
-
-  function tick() {
-    currentTime += 1 / 60;
-    var p = currentTime / time;
-    var t = easingEquations[easing](p);
-
-    if (p < 1) {
-      requestAnimFrame(tick);
-      window.scrollTo(0, scrollY + (scrollTargetY - scrollY) * t);
-    } else {
-      window.scrollTo(0, scrollTargetY);
-    }
-  }
-
-  tick();
-}
-
-module.exports = scrollToY;
-
-/***/ }),
-
-/***/ 35:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6);
-/* harmony import */ var C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(10);
+/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6);
+/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(10);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(0);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _scripts_ErrorMessages__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(52);
-/* harmony import */ var _utils_modal__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(20);
+/* harmony import */ var _scripts_ErrorMessages__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(59);
+/* harmony import */ var _utils_modal__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(18);
 /* harmony import */ var _utils_eCommerceFunctions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(11);
 
 
@@ -16530,8 +14101,8 @@ var keys = {
 var AddToCartModalBody = function AddToCartModalBody(props) {
   var errorObjCart = props.errorObjCart;
 
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])(Object(C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({}, props.config)),
-      _useState2 = Object(C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(_useState, 1),
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])(Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({}, props.config)),
+      _useState2 = Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(_useState, 1),
       state = _useState2[0];
 
   var _useContext = Object(react__WEBPACK_IMPORTED_MODULE_2__["useContext"])(_utils_modal__WEBPACK_IMPORTED_MODULE_4__[/* useModalApi */ "d"]),
@@ -16545,26 +14116,26 @@ var AddToCartModalBody = function AddToCartModalBody(props) {
 
   var InfoTextWrapper = function InfoTextWrapper(props) {
     if (!isOrderDetails) {
-      if (!text || !textHeading) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null);
+      if (!text || !textHeading) return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null);
     } else {
-      if (!text) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null);
+      if (!text) return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null);
     }
 
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+    return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
       className: keys.InfoTextWrapper
     }, props.children);
   };
 
   var TextHeading = function TextHeading() {
-    if (!textHeading) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null);
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+    if (!textHeading) return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null);
+    return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
       className: keys.TextHeading
     }, partNumberLabel, "\xA0", textHeading);
   };
 
   var Text = function Text(props) {
-    if (!props.text) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null);
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+    if (!props.text) return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null);
+    return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
       className: props.className,
       "data-locator": "modal-information-text"
     }, props.text);
@@ -16572,8 +14143,8 @@ var AddToCartModalBody = function AddToCartModalBody(props) {
 
   var buttonType = function buttonType(btn) {
     if (btn.action === 'close') {
-      if (!onClose) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null);
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("button", {
+      if (!onClose) return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null);
+      return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("button", {
         onClick: function onClick() {
           return onClose();
         },
@@ -16582,7 +14153,7 @@ var AddToCartModalBody = function AddToCartModalBody(props) {
         "aria-label": btn.text
       }, btn.text);
     } else if (btn.action.indexOf('://') >= 0 || btn.action.indexOf('.com') >= 0) {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("a", Object.assign({
+      return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("a", Object.assign({
         href: btn.action,
         className: keys.MainButton,
         target: btn.target || ''
@@ -16599,11 +14170,11 @@ var AddToCartModalBody = function AddToCartModalBody(props) {
   };
 
   var Buttons = function Buttons() {
-    if (!buttons) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null);
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+    if (!buttons) return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null);
+    return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
       className: keys.ButtonWrapper
     }, buttons.map(function (btn, index) {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+      return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
         className: keys.FullWidthButton,
         key: "modal-btn-".concat(index),
         "data-locator": "modal-btn-".concat(index)
@@ -16612,20 +14183,20 @@ var AddToCartModalBody = function AddToCartModalBody(props) {
   };
 
   var Error = function Error() {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(InfoTextWrapper, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Text, {
+    return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(InfoTextWrapper, null, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Text, {
       className: keys.ErrorText,
       text: _scripts_ErrorMessages__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"].ErrorMessages(errorObjCart).wereSorry
     }));
   };
 
   var Body = function Body() {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(InfoTextWrapper, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(TextHeading, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Text, {
+    return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(InfoTextWrapper, null, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(TextHeading, null), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Text, {
       className: keys.Text,
       text: text
-    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Buttons, null));
+    })), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Buttons, null));
   };
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, errorObjCart && errorObjCart.ok === false ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Error, null) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Body, null));
+  return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, errorObjCart && errorObjCart.ok === false ? react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Error, null) : react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Body, null));
 };
 
 AddToCartModalBody.whyDidYouRender = true;
@@ -16633,54 +14204,28 @@ AddToCartModalBody.whyDidYouRender = true;
 
 /***/ }),
 
-/***/ 42:
+/***/ 396:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var _stores_sessionStore__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(12);
-/* harmony import */ var _stores_cookieStore__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(30);
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _styles_print_page_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(397);
+/* harmony import */ var _styles_print_page_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_styles_print_page_scss__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _entry__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(154);
+// Print Breaking CSS File
 
 
-var checkOutStatus = {
-  state: function state() {
-    var cestatus = false;
-    var soldToDetails = this.details;
-    var soldToStatusCookie = _stores_cookieStore__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"].getSoldToStatus();
-
-    if (Array.isArray(soldToDetails)) {
-      cestatus = !soldToDetails.length ? false : true;
-    } //TODO Tobe deleted for the 6.2.0 release
-
-
-    if (!cestatus && soldToStatusCookie) {
-      cestatus = soldToStatusCookie.toUpperCase() == 'Y' ? true : false;
-    }
-
-    return cestatus;
-  },
-
-  get length() {
-    var soldToDetails = this.details;
-
-    if (!Array.isArray(soldToDetails)) {
-      return 0;
-    }
-
-    return soldToDetails.length;
-  },
-
-  get details() {
-    var sessionStore = new _stores_sessionStore__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"]();
-    var soldToDetails = sessionStore.getSoldToDetails();
-    return soldToDetails;
-  }
-
-};
-/* harmony default export */ __webpack_exports__["a"] = (checkOutStatus);
 
 /***/ }),
 
-/***/ 44:
+/***/ 397:
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
+/***/ 41:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -16695,13 +14240,13 @@ var classCallCheck = __webpack_require__(4);
 var createClass = __webpack_require__(5);
 
 // EXTERNAL MODULE: ./node_modules/whatwg-fetch/fetch.js
-var fetch = __webpack_require__(36);
+var fetch = __webpack_require__(34);
 
 // CONCATENATED MODULE: ./src/forms/services/EmailService.js
 
 
 
-var _Promise = typeof Promise === 'undefined' ? __webpack_require__(89).Promise : Promise;
+var _Promise = typeof Promise === 'undefined' ? __webpack_require__(86).Promise : Promise;
 
 
 
@@ -16959,110 +14504,24 @@ var functions = {
 
 /***/ }),
 
-/***/ 45:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var inline_svg__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(75);
-/* harmony import */ var inline_svg__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(inline_svg__WEBPACK_IMPORTED_MODULE_0__);
-
-var inlineSVG = {
-  init: function init(svgSelector, initClass) {
-    try {
-      inline_svg__WEBPACK_IMPORTED_MODULE_0___default.a.init({
-        svgSelector: svgSelector,
-        // the class attached to all images that should be inlined
-        initClass: initClass // class added to <html>
-
-      }, function () {});
-    } catch (e) {// console.log(e);
-    }
-  }
-};
-/* harmony default export */ __webpack_exports__["a"] = (inlineSVG);
-
-/***/ }),
-
-/***/ 450:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _styles_print_page_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(451);
-/* harmony import */ var _styles_print_page_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_styles_print_page_scss__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _entry__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(164);
-// Print Breaking CSS File
-
-
-
-/***/ }),
-
-/***/ 451:
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-
-/***/ }),
-
 /***/ 47:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* unused harmony export keys */
-var keys = {
-  guid: 'waters.cartGuid',
-  cartId: 'waters.cartId'
-};
-
-var LocalStore = function LocalStore() {
-  this.setGUID = function (value) {
-    return window.localStorage.setItem(keys.guid, value.toString());
-  };
-
-  this.getGUID = function () {
-    return window.localStorage.getItem(keys.guid);
-  };
-
-  this.removeGUID = function () {
-    return window.localStorage.removeItem(keys.guid);
-  };
-
-  this.setCartId = function (value) {
-    return window.localStorage.setItem(keys.cartId, value.toString());
-  };
-
-  this.getCartId = function () {
-    return window.localStorage.getItem(keys.cartId);
-  };
-
-  this.removeCartId = function () {
-    return window.localStorage.removeItem(keys.cartId);
-  };
-};
-
-/* harmony default export */ __webpack_exports__["a"] = (LocalStore);
-
-
-/***/ }),
-
-/***/ 49:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
-/* harmony import */ var C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
-/* harmony import */ var whatwg_fetch__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(36);
-/* harmony import */ var _utils_redirectFunctions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(26);
+/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
+/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
+/* harmony import */ var whatwg_fetch__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(34);
+/* harmony import */ var _utils_redirectFunctions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(25);
 
 
 
 
 
 var getData = /*#__PURE__*/function () {
-  var _ref = Object(C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(url) {
+  var _ref = Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(url) {
     var response;
-    return C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+    return C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
@@ -17097,12 +14556,12 @@ var getData = /*#__PURE__*/function () {
 }();
 
 var UserDetails = /*#__PURE__*/function () {
-  var _ref2 = Object(C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+  var _ref2 = Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
     var url,
         _response,
         _args2 = arguments;
 
-    return C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+    return C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
@@ -17157,191 +14616,7 @@ var UserDetails = /*#__PURE__*/function () {
 
 /***/ }),
 
-/***/ 52:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-var messageObj = {};
-
-function ErrorMessages(errorObj) {
-  var skuDetailsConfig = JSON.parse(document.getElementById('commerce-configs-json').innerHTML);
-
-  switch (errorObj.status) {
-    case 500:
-      messageObj = {
-        serviceUnavailable: skuDetailsConfig.errorInfo.serviceUnavailable,
-        tryAgainLater: skuDetailsConfig.errorInfo.tryAgainLater,
-        img: "lowStockIcon",
-        anErrorHasOccurred: skuDetailsConfig.errorInfo.anErrorHasOccurred,
-        wereSorry: skuDetailsConfig.errorInfo.wereSorry,
-        modalImage: skuDetailsConfig.skuInfo.lowStockIcon
-      };
-      break;
-
-    default:
-      messageObj = {
-        serviceUnavailable: skuDetailsConfig.errorInfo.serviceUnavailable,
-        tryAgainLater: skuDetailsConfig.errorInfo.tryAgainLater,
-        img: "lowStockItem",
-        anErrorHasOccurred: skuDetailsConfig.errorInfo.anErrorHasOccurred,
-        wereSorry: skuDetailsConfig.errorInfo.wereSorry,
-        modalImage: skuDetailsConfig.skuInfo.lowStockIcon
-      };
-      break;
-  }
-
-  return messageObj;
-}
-
-/* harmony default export */ __webpack_exports__["a"] = ({
-  ErrorMessages: ErrorMessages
-});
-
-/***/ }),
-
-/***/ 53:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-var FeedbackSurvey = {
-  isDisplayed: function isDisplayed(state) {
-    var surveyBtn = document.getElementById('surveyContent');
-    var surveyContent = document.querySelector('.mopinion-survey-content');
-    var surveyMask = document.getElementById('surveyMask');
-
-    if (state) {
-      var blockDisplay = "block";
-
-      if (surveyBtn) {
-        surveyBtn.style.display = blockDisplay;
-      }
-
-      if (surveyContent) {
-        surveyContent.style.display = blockDisplay;
-      }
-
-      if (surveyMask) {
-        surveyMask.style.display = blockDisplay;
-      }
-    } else {
-      var noneDisplay = "none";
-
-      if (surveyBtn) {
-        surveyBtn.style.display = noneDisplay;
-      }
-
-      if (surveyContent) {
-        surveyContent.style.display = noneDisplay;
-      }
-
-      if (surveyMask) {
-        surveyMask.style.display = noneDisplay;
-      }
-    }
-  }
-};
-/* harmony default export */ __webpack_exports__["a"] = (FeedbackSurvey);
-
-/***/ }),
-
 /***/ 56:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
-/* harmony import */ var C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
-/* harmony import */ var _scripts_loginStatus__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(16);
-/* harmony import */ var _stores_sessionStore__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(12);
-/* harmony import */ var _services_UserDetails__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(49);
-
-
-
-
-
-/* harmony default export */ __webpack_exports__["a"] = (/*#__PURE__*/(function () {
-  var _ref = Object(C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(userDetailsUrl, checkSessionStore) {
-    var sessionStore,
-        service,
-        navBarControls,
-        userDetails,
-        response,
-        _args = arguments;
-    return C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            sessionStore = _args.length > 2 && _args[2] !== undefined ? _args[2] : new _stores_sessionStore__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"]();
-            service = _args.length > 3 && _args[3] !== undefined ? _args[3] : _services_UserDetails__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"];
-            // Don't get User Details if My-Account Drop Down is not present
-            navBarControls = document.getElementsByClassName("cmp-header__top-bar__nav");
-
-            if (!(navBarControls.length === 0)) {
-              _context.next = 6;
-              break;
-            }
-
-            console.info("UserDetails API cannot be initiated due to nav bar controls");
-            return _context.abrupt("return", {});
-
-          case 6:
-            if (_scripts_loginStatus__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"].state()) {
-              _context.next = 9;
-              break;
-            }
-
-            console.info("UserDetails API cannot be initiated due to unavailibility of login cookie");
-            return _context.abrupt("return", {});
-
-          case 9:
-            if (!checkSessionStore) {
-              _context.next = 13;
-              break;
-            }
-
-            userDetails = sessionStore.getUserDetails();
-
-            if (!(userDetails && Object.keys(userDetails).length !== 0)) {
-              _context.next = 13;
-              break;
-            }
-
-            return _context.abrupt("return", userDetails);
-
-          case 13:
-            _context.next = 15;
-            return service(userDetailsUrl);
-
-          case 15:
-            response = _context.sent;
-
-            if (response.failed) {
-              _context.next = 19;
-              break;
-            }
-
-            sessionStore.setUserDetails(response);
-            return _context.abrupt("return", response);
-
-          case 19:
-            return _context.abrupt("return", {});
-
-          case 20:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  }));
-
-  return function (_x, _x2) {
-    return _ref.apply(this, arguments);
-  };
-})());
-
-/***/ }),
-
-/***/ 57:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -17351,16 +14626,16 @@ var regenerator = __webpack_require__(2);
 var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
-var asyncToGenerator = __webpack_require__(13);
+var asyncToGenerator = __webpack_require__(12);
 
 // EXTERNAL MODULE: ./src/scripts/loginStatus.js
 var loginStatus = __webpack_require__(16);
 
 // EXTERNAL MODULE: ./src/stores/sessionStore.js
-var stores_sessionStore = __webpack_require__(12);
+var stores_sessionStore = __webpack_require__(14);
 
 // EXTERNAL MODULE: ./node_modules/whatwg-fetch/fetch.js
-var whatwg_fetch_fetch = __webpack_require__(36);
+var whatwg_fetch_fetch = __webpack_require__(34);
 
 // CONCATENATED MODULE: ./src/my-account/services/SoldToDetails.js
 
@@ -17466,7 +14741,7 @@ var SoldToDetails = /*#__PURE__*/function () {
 
 /* harmony default export */ var services_SoldToDetails = (SoldToDetails);
 // EXTERNAL MODULE: ./src/scripts/domElements.js
-var domElements = __webpack_require__(25);
+var domElements = __webpack_require__(26);
 
 // EXTERNAL MODULE: ./src/utils/eCommerceFunctions.js
 var eCommerceFunctions = __webpack_require__(11);
@@ -17561,219 +14836,108 @@ var eCommerceFunctions = __webpack_require__(11);
 
 /***/ }),
 
-/***/ 66:
+/***/ 61:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var _scripts_screenSizes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(15);
-
-
-var navigationLevel2 = function navigationLevel2() {
-  var maxColumnCount = 3;
-  var linksPerColumn = 8;
-  var headerNavigation_comp = document.querySelector('.cmp-header__navigation nav.cmp-navigation');
-  var level0Groups = document.querySelectorAll('.cmp-navigation > .cmp-navigation__group > .cmp-navigation__item');
-  var expanded = 'is-expanded';
-  var active = 'is-active';
-  Array.from(level0Groups).forEach(function (group) {
-    var level1Group = group.querySelector('.cmp-navigation__group');
-
-    if (level1Group) {
-      var numberOfLinks = level1Group.children.length;
-
-      if (level1Group.classList.contains("cmp-navigation__group-all-mobile") && _scripts_screenSizes__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].isMobile()) {
-        level1Group.classList.remove("cmp-navigation__group-all-mobile");
-        numberOfLinks--;
-      }
-
-      var columnCount = numberOfLinks === 0 ? 1 : Math.ceil(numberOfLinks / linksPerColumn);
-      var className = "cmp-navigation__group--col-".concat(columnCount > maxColumnCount ? maxColumnCount : columnCount);
-      level1Group.classList.add(className);
-    }
-
-    var container = group.querySelector('.cmp-navigation__container');
-    container.addEventListener('click', function (event) {
-      if (level1Group && level1Group.children.length !== 0) {
-        if (_scripts_screenSizes__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].isMobile()) {
-          event.preventDefault();
-          var mainULNav = event.currentTarget.parentElement.parentElement;
-          var level0Item = event.currentTarget.parentElement;
-
-          if (level0Item.classList.contains(active)) {
-            level0Item.classList.remove(active);
-            mainULNav.classList.remove(expanded);
-          } else {
-            level0Item.classList.add(active);
-            mainULNav.classList.add(expanded);
-          }
-        }
-      } else {
-        var linkURL = event.currentTarget.getElementsByTagName("a")[0].href;
-
-        if (linkURL) {
-          window.open(linkURL, '_self', false);
-        }
-      }
-    });
-  });
-
-  if (headerNavigation_comp) {
-    window.addEventListener('resize', function () {
-      if (!_scripts_screenSizes__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].isMobile()) {
-        Reset();
-      }
-    });
-  }
-};
-
-window.addEventListener('load', navigationLevel2);
-
-var Reset = function Reset() {
-  return function () {
-    var expanded = 'is-expanded';
-    var active = 'is-active';
-    var level0Items = document.querySelectorAll('.cmp-navigation > .cmp-navigation__group > .cmp-navigation__item');
-    var level0Group = document.querySelector('.cmp-navigation > .cmp-navigation__group');
-
-    if (level0Items) {
-      Array.from(level0Items).forEach(function (level0Item) {
-        if (level0Item.classList.contains(active)) {
-          level0Item.classList.remove(active);
-        }
-      });
-    }
-
-    if (level0Group) {
-      if (level0Group.classList.contains(expanded)) {
-        level0Group.classList.remove(expanded);
-      }
-    }
-  };
-};
-
-/* harmony default export */ __webpack_exports__["a"] = (Reset);
-
-/***/ }),
-
-/***/ 74:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var _scripts_screenSizes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(15);
-/* harmony import */ var _scripts_navigation_level2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(66);
-/* harmony import */ var _feedbackSurvey__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(53);
-/* harmony import */ var _domElements__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(25);
+/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
+/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
+/* harmony import */ var _scripts_loginStatus__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(16);
+/* harmony import */ var _stores_sessionStore__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(14);
+/* harmony import */ var _services_UserDetails__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(47);
 
 
 
 
 
-var MobileNav = function MobileNav() {
-  var header = document.querySelector('header.cmp-header');
-  var headerTB = document.querySelector('header.cmp-header .cmp-header__top-bar');
-  var headerTB_mobile_btn = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__mobile button');
-  var headerNavigation = document.querySelector('.cmp-header__navigation');
-  var headerNavigation_mainUL = document.querySelector('.cmp-header__navigation nav.cmp-navigation');
+/* harmony default export */ __webpack_exports__["a"] = (/*#__PURE__*/(function () {
+  var _ref = Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(userDetailsUrl, checkSessionStore) {
+    var sessionStore,
+        service,
+        navBarControls,
+        userDetails,
+        response,
+        _args = arguments;
+    return C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            sessionStore = _args.length > 2 && _args[2] !== undefined ? _args[2] : new _stores_sessionStore__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"]();
+            service = _args.length > 3 && _args[3] !== undefined ? _args[3] : _services_UserDetails__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"];
+            // Don't get User Details if My-Account Drop Down is not present
+            navBarControls = document.getElementsByClassName("cmp-header__top-bar__nav");
 
-  var showMobileNav = function showMobileNav() {
-    headerTB_mobile_btn.classList.add('is-active');
-    headerNavigation.classList.add('is-active');
-    header.classList.add('is-fixed');
-    _domElements__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"].noScroll(true);
-    _feedbackSurvey__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"].isDisplayed(false);
-  };
+            if (!(navBarControls.length === 0)) {
+              _context.next = 6;
+              break;
+            }
 
-  var hideMobileNav = function hideMobileNav() {
-    headerTB_mobile_btn.classList.remove('is-active');
-    headerNavigation.classList.remove('is-active');
-    header.classList.remove('is-fixed');
-    _domElements__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"].noScroll(false);
-    _feedbackSurvey__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"].isDisplayed(true);
-    var navMenuFunc = Object(_scripts_navigation_level2__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])();
+            console.info("UserDetails API cannot be initiated due to nav bar controls");
+            return _context.abrupt("return", {});
 
-    if (navMenuFunc) {
-      navMenuFunc();
-    }
-  };
+          case 6:
+            if (_scripts_loginStatus__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"].state()) {
+              _context.next = 9;
+              break;
+            }
 
-  var resizeMobileNav = function resizeMobileNav() {
-    if (!_scripts_screenSizes__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].isMobile() && headerTB_mobile_btn.classList.contains('is-active') || !_scripts_screenSizes__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].isMobile() && headerNavigation.classList.contains('is-active') || !_scripts_screenSizes__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].isMobile() && header.classList.contains('is-fixed') || !_scripts_screenSizes__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].isMobile() && document.documentElement.classList.contains('no-scroll')) {
-      hideMobileNav();
-    }
+            console.info("UserDetails API cannot be initiated due to unavailibility of login cookie");
+            return _context.abrupt("return", {});
 
-    if (headerNavigation_mainUL) {
-      if (headerNavigation_mainUL.childNodes.length > 0) {
-        if (_scripts_screenSizes__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].isMobile()) {
-          headerNavigation_mainUL.children[0].style.height = window.innerHeight - headerTB.offsetHeight + 'px';
-        } else {
-          headerNavigation_mainUL.children[0].style.height = 'auto';
+          case 9:
+            if (!checkSessionStore) {
+              _context.next = 13;
+              break;
+            }
+
+            userDetails = sessionStore.getUserDetails();
+
+            if (!(userDetails && Object.keys(userDetails).length !== 0)) {
+              _context.next = 13;
+              break;
+            }
+
+            return _context.abrupt("return", userDetails);
+
+          case 13:
+            _context.next = 15;
+            return service(userDetailsUrl);
+
+          case 15:
+            response = _context.sent;
+
+            if (response.failed) {
+              _context.next = 19;
+              break;
+            }
+
+            sessionStore.setUserDetails(response);
+            return _context.abrupt("return", response);
+
+          case 19:
+            return _context.abrupt("return", {});
+
+          case 20:
+          case "end":
+            return _context.stop();
         }
       }
-    }
+    }, _callee);
+  }));
+
+  return function (_x, _x2) {
+    return _ref.apply(this, arguments);
   };
-
-  var toggleMobileNav = function toggleMobileNav() {
-    if (headerTB_mobile_btn.classList.contains('is-active')) {
-      hideMobileNav();
-    } else {
-      showMobileNav();
-    }
-  };
-
-  return {
-    show: function show() {
-      return showMobileNav();
-    },
-    hide: function hide() {
-      return hideMobileNav();
-    },
-    resize: function resize() {
-      return resizeMobileNav();
-    },
-    toggle: function toggle() {
-      return toggleMobileNav();
-    }
-  };
-};
-
-/* harmony default export */ __webpack_exports__["a"] = (MobileNav);
-
-/***/ }),
-
-/***/ 95:
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-module.exports = {"colorBorderDark":"#9ca7b0","colorGray50":"#4f5b64","colorBackgroundLight":"#f4f6f7","colorWhite":"#fff","colorBlue50":"#07b","borderRadius":"4px","spaceXXXS":".25em","spaceXXS":".5em","spaceXS":".75em","spaceS":"1em"};
+})());
 
 /***/ }),
 
 /***/ 97:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-/* harmony import */ var core_js_features_object_assign__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(136);
-/* harmony import */ var core_js_features_object_assign__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_features_object_assign__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var core_js_features_promise__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(148);
-/* harmony import */ var core_js_features_promise__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_features_promise__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var core_js_features_array_find__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(153);
-/* harmony import */ var core_js_features_array_find__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_features_array_find__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var core_js_features_array_from__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(154);
-/* harmony import */ var core_js_features_array_from__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_features_array_from__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var core_js_features_object_entries__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(155);
-/* harmony import */ var core_js_features_object_entries__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_features_object_entries__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var core_js_features_string_repeat__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(156);
-/* harmony import */ var core_js_features_string_repeat__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(core_js_features_string_repeat__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var core_js_features_object_values__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(157);
-/* harmony import */ var core_js_features_object_values__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(core_js_features_object_values__WEBPACK_IMPORTED_MODULE_6__);
-// polyfills found here: https://github.com/zloirock/core-js
-
-
-
-
-
-
-
+// extracted by mini-css-extract-plugin
+module.exports = {"colorBorderDark":"#9ca7b0","colorGray50":"#4f5b64","colorBackgroundLight":"#f4f6f7","colorWhite":"#fff","colorBlue50":"#07b","borderRadius":"4px","spaceXXXS":".25em","spaceXXS":".5em","spaceXS":".75em","spaceS":"1em"};
 
 /***/ })
 

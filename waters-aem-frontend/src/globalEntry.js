@@ -1,3 +1,24 @@
+import './scripts/stickyService';
+import './scripts/backtotop';
+import './scripts/anchor';
+import './scripts/sticky-sort-filter';
+import './scripts/sticky-sku-details';
+import './scripts/sticky-sku-scroll';
+import './scripts/mobile-search-scroll';
+import './scripts/navigation-overlay';
+import './scripts/navigation';
+import './scripts/navigation-level2';
+import './scripts/iframe';
+import './scripts/backtosearch';
+import './scripts/footer';
+import './scripts/banner';
+import './scripts/breadcrumb';
+import './scripts/header';
+import './scripts/collapsible';
+import './scripts/skulist';
+import './scripts/continueButton';
+import './scripts/textModifier';
+
 import './polyfills';
 import React from 'react';
 import ReactDOM from 'react-dom';

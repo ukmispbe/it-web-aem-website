@@ -42,7 +42,7 @@ module.exports = {
                 },
                 utility: {
                     name: 'utility',
-                    test: /[\\/]utils[\\/]/,
+                    test: /[\\/]utils|scripts|typography|stores[\\/]/,
                     chunks: 'all',
                     priority: 3
                 }
