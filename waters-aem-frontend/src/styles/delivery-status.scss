@@ -47,6 +47,22 @@
         margin-right: $space-xxs;
     }
 
+    .delivery-icon-disabled {
+        display: inline-block;  
+        line-height: $icon-m; 
+        
+        svg {
+            height: $icon-m;
+            width: $icon-m;
+            .st0,
+            .st1 {
+                stroke-width: 1.5px;
+                stroke: $color-disabled;
+            }
+        }
+        margin-right: $space-xxs;
+    }
+
     .delivery-text {
         display: inline-block; 
         vertical-align: top;
