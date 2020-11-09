@@ -2,9 +2,7 @@ import loginStatus from "../../scripts/loginStatus";
 import SessionStore from "../../stores/sessionStore";
 import SoldToDetails from "../services/SoldToDetails";
 import domElements from "../../scripts/domElements";
-import {
-    isCartHidden
-} from "../../utils/eCommerceFunctions";
+import { isCartHidden } from "../../utils/eCommerceFunctions";
 
 export default async (
     soldToDetailsUrl,
@@ -28,11 +26,26 @@ export default async (
         return [];
     }
 
-    const soldToDetails = sessionStore.getSoldToDetails();
+    let soldToDetails = sessionStore.getSoldToDetails();
 
-    if (soldToDetails) {
-        return soldToDetails;
+    //START Patches for EComm
+    if (soldToDetails && soldToDetails.length !== 0) {
+        let hasDefaultSoldTo = false;
+
+        soldToDetails.map((soldTo) => {
+            if((soldTo.soldToFlag && soldTo.soldToFlag === 1) ||
+            (soldTo.default_soldTo && soldTo.default_soldTo === 1)) {
+                hasDefaultSoldTo = true;
+                soldTo.soldToFlag === 1;
+                soldTo.default_soldTo === 1;
+            }
+        });
+
+        if (hasDefaultSoldTo) {
+            return soldToDetails;
+        }
     }
+    //END Patches for EComm
 
     const response = await service(soldToUrl);
 
