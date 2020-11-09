@@ -17,6 +17,7 @@ import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceResolverFactory;
 import org.apache.sling.models.factory.ModelFactory;
 import org.apache.solr.client.solrj.SolrServerException;
+import org.apache.solr.client.solrj.impl.BaseCloudSolrClient.RouteException;
 import org.apache.solr.common.SolrInputDocument;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
@@ -61,11 +62,16 @@ public class DefaultSolrIndexService implements SolrIndexService {
         boolean success = true;
 
         if (enabled) {
+        	try {
             final SolrInputDocument document = getSolrInputDocument(path);
 
             LOG.info("adding solr document to index : {}", document);
 
             success = solrIndexClient.addToIndex(document);
+        }
+        	catch(RouteException e) {
+        		LOG.info("Missing facet, indexing skipped due to : {}", e.getMessage());
+        	}
         } else {
             LOG.info("solr index service disabled, not adding path to index : {}", path);
         }
@@ -78,9 +84,14 @@ public class DefaultSolrIndexService implements SolrIndexService {
         boolean success = true;
 
         if (enabled) {
+        	try {
             LOG.info("deleting path {} from solr index...", path);
 
             success = solrIndexClient.deleteFromIndex(path);
+            }
+        	catch(RouteException e) {
+        		LOG.info("Missing facet, indexing skipped due to : {}", e.getMessage());
+        	}
         } else {
             LOG.info("solr index service disabled, not deleting path from index : {}", path);
         }
