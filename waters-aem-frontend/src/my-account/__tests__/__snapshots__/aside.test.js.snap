@@ -82,6 +82,13 @@ exports[`Feature: Aside Component for my account Scenario: Rendering When ecomme
         >
           Order History
         </a>
+        <a
+          data-locator="quote-history"
+          href="/quotehistory"
+          onClick={[Function]}
+        >
+          Quote History
+        </a>
       </div>
     </div>
     <div
@@ -210,6 +217,13 @@ exports[`Feature: Aside Component for my account Scenario: Rendering When no lin
           onClick={[Function]}
         >
           Order History
+        </a>
+        <a
+          data-locator="quote-history"
+          href="/quotehistory"
+          onClick={[Function]}
+        >
+          Quote History
         </a>
       </div>
     </div>
@@ -340,6 +354,13 @@ exports[`Feature: Aside Component for my account Scenario: Rendering When passwo
         >
           Order History
         </a>
+        <a
+          data-locator="quote-history"
+          href="/quotehistory"
+          onClick={[Function]}
+        >
+          Quote History
+        </a>
       </div>
     </div>
     <div
@@ -468,6 +489,13 @@ exports[`Feature: Aside Component for my account Scenario: Rendering When profil
           onClick={[Function]}
         >
           Order History
+        </a>
+        <a
+          data-locator="quote-history"
+          href="/quotehistory"
+          onClick={[Function]}
+        >
+          Quote History
         </a>
       </div>
     </div>

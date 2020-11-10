@@ -2,14 +2,15 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import { shallow } from 'enzyme';
 
-import { OrderDetails } from '../index';
-import * as getOrderDetails from '../orderDetails.services';
-import props from '../__mocks__/en_US/index';
-import { orderDetailsJSON } from '../__mocks__/en_US/services-json.test';
-import mockBodyHTML from '../../__mocks__/en_US/html/mock-body-html'
+import { OrderDetails } from '../order-details/index';
+import * as getOrderDetails from '../details.services';
+import { myAccountJSON } from '../../__mocks__/en_US/html/mock-html-json';
+import mockBodyHTML from '../../__mocks__/en_US/html/mock-body-html';
 
 describe('Feature: Order Details Component', () => {
     let wrapper;
+    let props = {config: myAccountJSON.html.orderDetails};
+    document.body.innerHTML = mockBodyHTML;
 
     beforeAll(async () => {
         delete window.location;
@@ -31,18 +32,15 @@ describe('Feature: Order Details Component', () => {
     });
 
     describe('Scenario: Rendering', () => {
-        document.body.innerHTML = mockBodyHTML;
-
         describe("When component is mounted", () => {
             it("It should get order id from url", async () => {
                 expect(window.location.hash).toEqual("#orderdetails?id=15740002");
             });
 
-            it('should fetch data from server and set orderDetails state', done => { // 1
-
+            it('should fetch data from server', done => { // 1
                 const spyDidMount = jest.spyOn(OrderDetails.prototype,"componentDidMount");
                 const spyGetOrderDetails = jest.spyOn(getOrderDetails, 'getOrderDetails').mockImplementation(() => {
-                    return Promise.resolve(orderDetailsJSON);
+                    return Promise.resolve(null);
                 });
                 const didMount = wrapper.instance().componentDidMount();
                 expect(spyDidMount).toHaveBeenCalled();
@@ -51,7 +49,6 @@ describe('Feature: Order Details Component', () => {
                     wrapper.update();
                     expect(spyGetOrderDetails).toHaveBeenCalled();
                     expect(wrapper.state('orderId')).toBe('15740002');
-                    expect(wrapper.state('orderDetails')).toBe(orderDetailsJSON);
 
                     spyDidMount.mockRestore();
                     fetch.mockClear();
@@ -68,5 +65,6 @@ describe('Feature: Order Details Component', () => {
             });
 
         })
+
     })
 })

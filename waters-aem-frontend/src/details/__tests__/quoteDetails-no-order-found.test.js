@@ -2,18 +2,19 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import { shallow } from 'enzyme';
 
-import { OrderDetails } from '../index';
-import * as getOrderDetails from '../orderDetails.services';
-import props from '../__mocks__/en_US/index';
-import mockBodyHTML from '../../__mocks__/en_US/html/mock-body-html'
+import { QuoteDetails } from '../quote-details/index';
+import * as getQuoteDetails from '../details.services';
+import { myAccountJSON } from '../../__mocks__/en_US/html/mock-html-json';
+import mockBodyHTML from '../../__mocks__/en_US/html/mock-body-html';
 
-describe('Feature: Order Details Component', () => {
-
+describe('Feature: Quote Details Component', () => {
     let wrapper;
+    let props = {config: myAccountJSON.html.quoteDetails};
+    document.body.innerHTML = mockBodyHTML;
 
     beforeAll(async () => {
         delete window.location;
-        window.location = new URL('https://www.waters.com/nextgen/us/en/account/my-account.html#orderdetails?id=15740002');
+        window.location = new URL('https://www.waters.com/nextgen/us/en/account/my-account.html#quotedetails?id=15740002');
         window.scrollTo = jest.fn();
         global.fetch = jest.fn();
     });
@@ -22,7 +23,7 @@ describe('Feature: Order Details Component', () => {
         const setErrorBoundaryToTrue = jest.fn();
         const resetErrorBoundaryToFalse = jest.fn();
         const removeNotifications = jest.fn();
-        wrapper = shallow(<OrderDetails {...props} setErrorBoundaryToTrue={setErrorBoundaryToTrue} resetErrorBoundaryToFalse={resetErrorBoundaryToFalse} removeNotifications={removeNotifications} />, { disableLifecycleMethods: true });
+        wrapper = shallow(<QuoteDetails {...props} setErrorBoundaryToTrue={setErrorBoundaryToTrue} resetErrorBoundaryToFalse={resetErrorBoundaryToFalse} removeNotifications={removeNotifications} />, { disableLifecycleMethods: true });
     });
 
     afterEach(() => {
@@ -31,16 +32,14 @@ describe('Feature: Order Details Component', () => {
     });
 
     describe('Scenario: Rendering', () => {
-        document.body.innerHTML = mockBodyHTML;
-
         describe("When component is mounted", () => {
-            it("It should get order id from url", async () => {
-                expect(window.location.hash).toEqual("#orderdetails?id=15740002");
+            it("It should get quote id from url", async () => {
+                expect(window.location.hash).toEqual("#quotedetails?id=15740002");
             });
 
             it('should fetch data from server', done => { // 1
-                const spyDidMount = jest.spyOn(OrderDetails.prototype,"componentDidMount");
-                const spyGetOrderDetails = jest.spyOn(getOrderDetails, 'getOrderDetails').mockImplementation(() => {
+                const spyDidMount = jest.spyOn(QuoteDetails.prototype,"componentDidMount");
+                const spyGetQuoteDetails = jest.spyOn(getQuoteDetails, 'getQuoteDetails').mockImplementation(() => {
                     return Promise.resolve(null);
                 });
                 const didMount = wrapper.instance().componentDidMount();
@@ -48,8 +47,8 @@ describe('Feature: Order Details Component', () => {
 
                 didMount.then(() => {
                     wrapper.update();
-                    expect(spyGetOrderDetails).toHaveBeenCalled();
-                    expect(wrapper.state('orderId')).toBe('15740002');
+                    expect(spyGetQuoteDetails).toHaveBeenCalled();
+                    expect(wrapper.state('quoteId')).toBe('15740002');
 
                     spyDidMount.mockRestore();
                     fetch.mockClear();
@@ -60,7 +59,7 @@ describe('Feature: Order Details Component', () => {
             it('Then the snapshot should match', async () => {
                 let json;
                 await renderer.act(async () => {
-                    json = renderer.create(<OrderDetails {...props} />);
+                    json = renderer.create(<QuoteDetails {...props} />);
                 });
                 expect(json).toMatchSnapshot();
             });

@@ -133,14 +133,8 @@ export const getOrderDetailsAddress = (address, includeCountryName) => {
     const region = address.region ? trimAndCapitalize(address.region) + ' ' : '';
     const postalCd = address.postalCd ? trimAndCapitalize(address.postalCd) : '';
 
-    if (address.partnerName) {
-        address.partnerName ? addressArray.push(trimAndCapitalize(address.partnerName)) : null;
-    }
-
-    if (address.addr1) {
-        address.addr1 ? addressArray.push(trimAndCapitalize(address.addr1)) : null;
-    }
-
+    address.partnerName ? addressArray.push(trimAndCapitalize(address.partnerName)) : null;
+    address.addr1 ? addressArray.push(trimAndCapitalize(address.addr1)) : null;
     address.addr2 ? addressArray.push(trimAndCapitalize(address.addr2)) : null;
     address.addr3 ? addressArray.push(trimAndCapitalize(address.addr3)) : null;
     address.addr4 ? addressArray.push(trimAndCapitalize(address.addr4)) : null;
