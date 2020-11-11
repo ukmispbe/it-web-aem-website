@@ -1,3 +1,5 @@
+import ReactHtmlParser from 'react-html-parser';
+
 import SessionStore from '../stores/sessionStore';
 import loginStatus from '../scripts/loginStatus';
 // This function determines the eCommerce Status of the User / Country combination
@@ -65,3 +67,20 @@ export const getHttpStatusFromErrors = (arrErrors, defaultCode) => {
         return defaultCode;
     }
 }
+
+export const htmlParser = (text = '') => {
+    try {
+        return ReactHtmlParser(text.trim()).toString();
+    } catch (err) {
+        return text;
+    }
+}
+
+export const getCompanyLogo = (dir, company) => {
+    const logoDir = dir.replace(/\/$/, '');
+    const logo = company.replace(/[\|#%{}?&-]/g, '')
+        .replace(/\s+/g, "-")
+        .toLowerCase();
+
+    return `${logoDir}/${logo}.png`;
+};

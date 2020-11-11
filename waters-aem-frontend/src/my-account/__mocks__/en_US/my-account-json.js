@@ -32,7 +32,7 @@ export default {
                     text: "Order History",
                     url: "#orderdetails",
                     isHidden: "true",
-                },
+                }
             ],
         },
         {

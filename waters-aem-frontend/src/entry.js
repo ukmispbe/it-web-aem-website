@@ -19,7 +19,6 @@ import './scripts/collapsible';
 import './scripts/skulist';
 import './scripts/continueButton';
 import './scripts/textModifier';
-import './scripts/oneTrust';
 import './index';
 
 import cssVars from 'css-vars-ponyfill';
