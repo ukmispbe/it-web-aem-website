@@ -121,7 +121,8 @@ export const trimAndCapitalize = (item) => {
     return item;
 }
 
-export const getFullCompanyAddress = (address, includeCountryName) => {
+//Springboot APIs
+export const getOrderDetailsAddress = (address, includeCountryName) => {
     if (
         !address ||
         (Object.entries(address).length === 0 && address.constructor === Object)
@@ -145,7 +146,36 @@ export const getFullCompanyAddress = (address, includeCountryName) => {
     address.addr3 ? addressArray.push(trimAndCapitalize(address.addr3)) : null;
     address.addr4 ? addressArray.push(trimAndCapitalize(address.addr4)) : null;
     address.street ? addressArray.push(trimAndCapitalize(address.street)) : null;
+    address.street2 ? addressArray.push(trimAndCapitalize(address.street2)) : null;
     addressArray.push((city + region + postalCd));
+
+    if (includeCountryName) {
+        address.countryName ? addressArray.push(trimAndCapitalize(address.countryName)) : address.country;
+    }
+
+    return addressArray;
+};
+
+//Mule User API
+export const getFullCompanyAddress = (address, includeCountryName) => {
+    if (
+        !address ||
+        (Object.entries(address).length === 0 && address.constructor === Object)
+    )
+        return '';
+
+    let addressArray = [];
+    const city = address.city ? trimAndCapitalize(address.city) + ', ' : '';
+    const state = address.state ? trimAndCapitalize(address.state) + ' ' : '';
+    const postalCode = address.postalCode ? trimAndCapitalize(address.postalCode) : '';
+
+    address.name ? addressArray.push(trimAndCapitalize(address.name)) : null;
+    address.address1 ? addressArray.push(trimAndCapitalize(address.address1)) : null;
+    address.address2 ? addressArray.push(trimAndCapitalize(address.address2)) : null;
+    address.address3 ? addressArray.push(trimAndCapitalize(address.address3)) : null;
+    address.street ? addressArray.push(trimAndCapitalize(address.street)) : null;
+    address.street2 ? addressArray.push(trimAndCapitalize(address.street2)) : null;
+    addressArray.push((city + state + postalCode));
 
     if (includeCountryName) {
         address.countryName ? addressArray.push(trimAndCapitalize(address.countryName)) : address.country;
@@ -186,10 +216,16 @@ export const getFullName = data => {
     }
 };
 
+//soldToInfo billToInfo shipToInfo payerInfo carrierInfo
 export const getAddressesByType = (addresses, type) => {
-    return addresses.length
-        ? addresses.filter(address => address.addressType === type)
-        : [];
+    let addressTypeData = [];
+    for (let key of Object.keys(addresses)) {
+        if (key === type) {
+            addressTypeData = addresses[key];
+        }
+    }
+
+    return addressTypeData;
 };
 
 export const getDefaultSoldTo = (soldToAccounts) => {
@@ -199,19 +235,19 @@ export const getDefaultSoldTo = (soldToAccounts) => {
         let defaultSoldTo = soldToAccounts.filter(function(i) {
             return i.defaultFlag === 1;
         })[0];
-    
+
         return defaultSoldTo;
     }
 }
 
 export const getDefaultSoldToAddresses = (soldToAccounts) => {
     if (Array.isArray(soldToAccounts) && !soldToAccounts.length){
-        return [];  
+        return {};
     } else {
         let defaultSoldTo = getDefaultSoldTo(soldToAccounts);
 
-        if (defaultSoldTo.addresses === null || defaultSoldTo.addresses === undefined || !defaultSoldTo.addresses.length) {
-            return [];  
+        if (defaultSoldTo.addresses === null || defaultSoldTo.addresses === undefined) {
+            return {};
         } else {
             return defaultSoldTo.addresses;
         }
@@ -250,6 +286,62 @@ export const filterUserDetails = (inputUser) => {
     }
     return filteredUser;
 }
+
+// Save only the Sold To Details allowed
+export const filterSoldToDetails = (soldToInfo) => {
+    let filteredSoldTo = [];
+    if (soldToInfo) {
+        soldToInfo.forEach(soldTo => {
+            let eachSoldTo = {};
+            eachSoldTo.customerNumber = soldTo.customerNumber;
+            eachSoldTo.name = soldTo.name;
+            eachSoldTo.soldToFlag = soldTo.soldToFlag;
+            eachSoldTo.salesOrg = soldTo.salesOrg;
+            eachSoldTo.soldToInfo = soldTo.soldToInfo || [],
+            eachSoldTo.billToInfo = soldTo.billToInfo || [],
+            eachSoldTo.shipToInfo = soldTo.shipToInfo || [],
+            eachSoldTo.payerInfo = soldTo.payerInfo || []
+
+            //START Patches for EComm
+            eachSoldTo.soldTo = soldTo.customerNumber;
+            eachSoldTo.company = soldTo.name;
+            eachSoldTo.default_soldTo = soldTo.soldToFlag;
+            eachSoldTo.partnerAddress = [];
+
+            if (soldTo.billToInfo) {
+                eachSoldTo.partnerAddress.push(createPartnerAddress(soldTo.billToInfo[0],  "billing"));
+            }
+
+            if (soldTo.shipToInfo) {
+                eachSoldTo.partnerAddress.push(createPartnerAddress(soldTo.shipToInfo[0], "shipping"));
+            }
+            //END Patches for EComm
+
+            filteredSoldTo.push(eachSoldTo);
+        });
+    }
+    return filteredSoldTo;
+}
+
+//START Patches for EComm
+const createPartnerAddress = (soldToInfo, addressType) => {
+    let partnerAddress = {
+            addr1: soldToInfo.name || "",
+            addr2: soldToInfo.address1 || "",
+            addr3: soldToInfo.address2 || "",
+            addr4: soldToInfo.address3 || "",
+            street: soldToInfo.street || "",
+            street2: soldToInfo.street2 || "",
+            city: soldToInfo.city || "",
+            regio: soldToInfo.state || "",
+            postalCd: soldToInfo.postalCode || "",
+            country: soldToInfo.country || "",
+            addressType: addressType,
+        };
+
+    return partnerAddress;
+}
+//END Patches for EComm
 
 export const getIsoCode = () => {
 	const store = new SessionStore();
@@ -310,15 +402,21 @@ export const getEprocUserLanguage = () => {
     return userDetails.localeLanguage || '';
 }
 
+//soldToInfo billToInfo shipToInfo payerInfo carrierInfo
 export const matchAddresses = (userDetailsAPIDetails, soldToAPIDetails) => {
     userDetailsAPIDetails.soldToAccounts.forEach(account => {
         for (let i = 0; i < soldToAPIDetails.length; i++) {
-            if(account.soldTo === soldToAPIDetails[i].soldTo) {
-                account.company = soldToAPIDetails[i].company;
-                account.addresses = soldToAPIDetails[i].partnerAddress;
+            if(account.soldTo === soldToAPIDetails[i].customerNumber) {
+                account.company = soldToAPIDetails[i].name;
+                account.addresses = {
+                    'soldToInfo': soldToAPIDetails[i].soldToInfo || [],
+                    'billToInfo': soldToAPIDetails[i].billToInfo || [],
+                    'shipToInfo': soldToAPIDetails[i].shipToInfo || [],
+                    'payerInfo': soldToAPIDetails[i].payerInfo || []
+                };
             } 
         }
     });
-    
+
     return userDetailsAPIDetails;
 }

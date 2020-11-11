@@ -14,7 +14,7 @@ import { addToCart } from '../sku-details/services';
 import Analytics, { analyticTypes, setClickAnalytics, setSelectDropdownAnalytics } from '../analytics';
 import LocalStore from '../stores/localStore';
 import loginStatus from '../scripts/loginStatus';
-import { getFullCompanyAddress, getCountryName } from '../utils/userFunctions'
+import { getOrderDetailsAddress, getCountryName } from '../utils/userFunctions'
 
 class OrderDetails extends Component {
     constructor({setErrorBoundaryToTrue, resetErrorBoundaryToFalse, removeNotifications, ...props}) {
@@ -175,6 +175,7 @@ class OrderDetails extends Component {
                     data.account.map(account => {
                         const countryName = getCountryName(account.country, this.config);
                         account.countryName = countryName;
+                        account.state = account.region;
                     });
                     this.setState({
                         isLoading: false,
@@ -224,7 +225,7 @@ class OrderDetails extends Component {
             const account = orderDetails.account.filter(item => item.partnerType === addressType )[0];
             if (account) {
                 const includeCountryName = true;
-                const addressArray = getFullCompanyAddress(account, includeCountryName);
+                const addressArray = getOrderDetailsAddress(account, includeCountryName);
                 return (
                     <>
                         {addressArray.map((addressLine) => <div className="cmp-order-details-address1" data-locator="order-details-address">{addressLine}</div>)}

@@ -12,19 +12,19 @@ export default (userDetailsUrl, soldToDetailsUrl, type, icon) => {
     
     function getData() {
         const checkSessionStore = false;
-        let userDetailsAPICall = UserDetailsLazy(userDetailsUrl, checkSessionStore).then(response => {return response});
-        let soldToAPICall = SoldToDetailsLazy(soldToDetailsUrl).then(response => {return response});
-
-        Promise.all([userDetailsAPICall, soldToAPICall])
-        .then(finalVals => {
-            if (finalVals[0].phone) {
-                finalVals[0].phone = finalVals[0].phone.replace(/\D/g,'');
+        UserDetailsLazy(userDetailsUrl, checkSessionStore)
+        .then((userDetails) => {
+            if (userDetails.phone) {
+                userDetails.phone = userDetails.phone.replace(/\D/g,'');
             }
-            let userDetailsAPIResp = finalVals[0];
-            let soldToAPIResp = finalVals[1];
-            let mergeAPIs = matchAddresses(userDetailsAPIResp, soldToAPIResp);
 
-            setData(mergeAPIs);
+            if(userDetails && userDetails.userId && userDetails.salesOrg) {
+                SoldToDetailsLazy(soldToDetailsUrl, userDetails.userId, userDetails.salesOrg)
+                .then((soldToDetails) => {
+                    let mergeAPIs = matchAddresses(userDetails, soldToDetails);
+                    setData(mergeAPIs);
+                });
+            }
         });
     }
 

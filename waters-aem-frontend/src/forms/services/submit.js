@@ -246,6 +246,7 @@ export async function personalSubmit(data) {
     }
 }
 
+//Note: this method uses the USER Details API, not the SoldToDetailsAPI
 const checkRedirectToChooseAccount = (soldToAccounts) => {
     if (soldToAccounts === null || soldToAccounts === undefined || !soldToAccounts.length) {
         return false;
@@ -337,14 +338,15 @@ const setNewSoldTo = (newSoldto) => {
     const user = store.getUserDetails();
 
     const updatedSoldToDetails = soldToDetails.map(soldTo => {
-        if (soldTo.soldTo === newSoldto) {
-            soldTo.default_soldTo = 1;
+        if (soldTo.customerNumber === newSoldto) {
+            soldTo.soldToFlag = 1;
         }
         else {
-            soldTo.default_soldTo = 0;
+            soldTo.soldToFlag = 0;
         }         
         return soldTo;
     });
+
     store.setSoldToDetails(updatedSoldToDetails);
 
     const updatedUserDetailsSoldTos = user.soldToAccounts.map(soldTo => {
@@ -362,7 +364,7 @@ const setNewSoldTo = (newSoldto) => {
 }
 
 export async function chooseAccountSubmit(data) {
-    // Determine the selercted Account
+    // Determine the selected Account
     let selectedAccount = "";
     for (let key of Object.keys(data)) {
         if (data[key] === "on") {

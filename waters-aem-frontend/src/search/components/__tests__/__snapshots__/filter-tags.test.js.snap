@@ -2,7 +2,9 @@
 
 exports[`Feature: Filter Tags Scenario: Clear all tag When rendered Then it should match snapshot 1`] = `
 <a
+  aria-label="Clear All"
   className="cmp-search-filters__tags__clear"
+  data-locator="link-search-filters-tag-clear"
   href="javascript:void(0);"
   onClick={[MockFunction]}
 >
@@ -17,6 +19,7 @@ exports[`Feature: Filter Tags Scenario: Content type tag When content type is no
 
 exports[`Feature: Filter Tags Scenario: Content type tag When content type is selected Then it should match snapshot 1`] = `
 <a
+  data-locator="content-type-tag-hide"
   href="javascript:void(0);"
   onClick={[MockFunction]}
 >
@@ -29,6 +32,7 @@ exports[`Feature: Filter Tags Scenario: Content type tag When content type is se
 
 exports[`Feature: Filter Tags Scenario: Keyword tag When keyword is specified Then it should match snapshot 1`] = `
 <a
+  aria-label="Keyword: milk"
   href="javascript:void(0);"
   onClick={[MockFunction]}
 >

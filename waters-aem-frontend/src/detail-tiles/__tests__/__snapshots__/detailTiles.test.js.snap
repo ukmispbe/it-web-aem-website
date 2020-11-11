@@ -7,14 +7,17 @@ exports[`Feature: Detail Tiles Component Scenario Render Tile and check snapshot
 >
   <div
     className="cmp-detail-tiles-list--tile-noAddress"
+    data-locator="tile-no-address"
   >
     <div
       className="cmp-detail-tiles-list--tile-noAddress--title"
+      data-locator="no-address-blank-title"
     >
       There are no tiles, add one now.
     </div>
     <div
       className="cmp-detail-tiles--add"
+      data-locator="add-detail-tiles"
     >
       <div
         className="cmp-detail-tiles--add-icon"
@@ -36,14 +39,17 @@ exports[`Feature: Detail Tiles Component Scenario Render Tile and check snapshot
 >
   <div
     className="cmp-detail-tiles-list--tile-noAddress"
+    data-locator="tile-no-address"
   >
     <div
       className="cmp-detail-tiles-list--tile-noAddress--title"
+      data-locator="no-address-blank-title"
     >
       There are no tiles, add one now.
     </div>
     <div
       className="cmp-detail-tiles--add"
+      data-locator="add-detail-tiles"
     >
       <div
         className="cmp-detail-tiles--add-icon"
@@ -65,14 +71,17 @@ exports[`Feature: Detail Tiles Component Scenario Render Tile and check snapshot
 >
   <div
     className="cmp-detail-tiles-list--tile-noAddress"
+    data-locator="tile-no-address"
   >
     <div
       className="cmp-detail-tiles-list--tile-noAddress--title"
+      data-locator="no-address-blank-title"
     >
       There are no tiles, add one now.
     </div>
     <div
       className="cmp-detail-tiles--add"
+      data-locator="add-detail-tiles"
     >
       <div
         className="cmp-detail-tiles--add-icon"

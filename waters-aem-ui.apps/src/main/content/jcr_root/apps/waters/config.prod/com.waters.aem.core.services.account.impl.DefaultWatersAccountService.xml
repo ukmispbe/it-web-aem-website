@@ -10,7 +10,7 @@
           pwResetUrl="https://prodservices.waters.com/api/waters/user/v1/reset/password?email={email}"
           changePwUrl="https://prodservices.waters.com/api/waters/user/v1/change/password"
           userDetailsUrl="https://prodservices.waters.com/api/waters/user/v1/details"
-          soldToDetailsUrl="https://prodservices.waters.com/api/waters/user/v1/retrievesoldto"
+          soldToDetailsUrl="https://api-sbox.waters.com/uat-waters-user-exp-api-v1/api/users"
           updatePwUrl="https://prodservices.waters.com/api/waters/user/v1/update/password"
           signInEndpoint="https://prodservices.waters.com/api/waters/user/v1/login"
           signOutEndpoint="https://prodservices.waters.com/api/waters/user/v1/logout"

@@ -1,4 +1,4 @@
-import { filterUserDetails } from '../utils/userFunctions';
+import { filterSoldToDetails, filterUserDetails } from '../utils/userFunctions';
 
 const keys = {
     previousPagePosition: 'waters.previousPagePosition',
@@ -29,7 +29,7 @@ const getJSONArray = key => {
 }
 
 const SessionStore = function () {
-    this.setSoldToDetails = value => window.sessionStorage.setItem(keys.soldToDetails, JSON.stringify(value));
+    this.setSoldToDetails = value => window.sessionStorage.setItem(keys.soldToDetails, JSON.stringify(filterSoldToDetails(value)));
     this.getSoldToDetails = () => getJSONArray(keys.soldToDetails);
     this.removeSoldToDetails = () => window.sessionStorage.removeItem(keys.soldToDetails);
     this.setUserDetails = value => window.sessionStorage.setItem(keys.userDetails, JSON.stringify(filterUserDetails(value)));

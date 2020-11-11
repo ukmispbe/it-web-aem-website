@@ -19,23 +19,28 @@ Array [
     >
       <div
         className="cmp-modal__header header-with-title header-with-title-centered"
+        data-locator="关注我们-–-沃特世中国"
       >
         <div
           className="cmp-modal__title"
         >
           <div
+            aria-label="关注我们 – 沃特世中国"
             className="cmp-modal__title-text"
+            data-locator="关注我们-–-沃特世中国"
+            role="heading"
           >
             关注我们 – 沃特世中国
           </div>
         </div>
-        <div
+        <button
           className="cmp-modal__close-icon"
+          onClick={[Function]}
         >
           <div
-            onClick={[Function]}
+            aria-hidden="true"
           />
-        </div>
+        </button>
       </div>
       <div
         className="cmp-wechat-modal"

@@ -151,9 +151,10 @@ export async function getPricing(url, sku, soldToId, salesOrg) {
 }
 
 export const matchListItems = (skuListData, pricesAPIResults) => {
-let skuListItem = {
-	code: skuListData
-}
+    let skuListItem = {
+        code: skuListData
+    }
+
 	for (let i = 0; i < pricesAPIResults.length; i++) {
 		if(skuListItem.code === pricesAPIResults[i].productNumber) {
 			skuListItem.custPrice = pricesAPIResults[i].netPrice.formattedValue;

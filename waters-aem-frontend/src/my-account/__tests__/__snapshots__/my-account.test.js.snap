@@ -6,14 +6,17 @@ exports[`Feature: My Account Component Scenario: Rendering When ecommerce is not
 >
   <div
     className="cmp-title"
+    data-locator="title"
   >
     <h1
       className="cmp-title__text"
+      data-locator="title-text"
     >
       My Account
     </h1>
     <div
       className="cmp-title__print"
+      data-locator="title-print"
     >
       My Account
     </div>
@@ -26,13 +29,14 @@ exports[`Feature: My Account Component Scenario: Rendering When ecommerce is not
   <div
     className="cmp-my-account__body"
   >
-    Find all the resources and tools you need to manage your Waters account online.
+    Find all the resources and tools you need to manage your Waters account online. 
   </div>
   <div
     className="cmp-my-account__tiles"
   >
     <div
       className="tile"
+      data-locator="my-account-tiles"
     >
       <div
         className="cmp-linktile"
@@ -42,6 +46,7 @@ exports[`Feature: My Account Component Scenario: Rendering When ecommerce is not
         >
           <div
             className="cmp-linktile--icon"
+            data-locator="account-information-icon"
           />
         </div>
         <div
@@ -49,6 +54,7 @@ exports[`Feature: My Account Component Scenario: Rendering When ecommerce is not
         >
           <div
             className="cmp-linktile--title"
+            data-locator="account-information"
           >
             Account Information
           </div>
@@ -57,6 +63,7 @@ exports[`Feature: My Account Component Scenario: Rendering When ecommerce is not
           >
             <a
               className="cmp-linktile--link"
+              data-locator="profile"
               href="#profile"
               onClick={[Function]}
             >
@@ -68,6 +75,7 @@ exports[`Feature: My Account Component Scenario: Rendering When ecommerce is not
           >
             <a
               className="cmp-linktile--link"
+              data-locator="password"
               href="#changepassword"
               onClick={[Function]}
             >
@@ -84,6 +92,7 @@ exports[`Feature: My Account Component Scenario: Rendering When ecommerce is not
         >
           <div
             className="cmp-linktile--icon"
+            data-locator="orders-icon"
           />
         </div>
         <div
@@ -91,6 +100,7 @@ exports[`Feature: My Account Component Scenario: Rendering When ecommerce is not
         >
           <div
             className="cmp-linktile--title"
+            data-locator="orders"
           >
             Orders
           </div>
@@ -99,12 +109,16 @@ exports[`Feature: My Account Component Scenario: Rendering When ecommerce is not
           >
             <a
               className="cmp-linktile--link"
+              data-locator="order-history"
               href="#orderhistory"
               onClick={[Function]}
             >
               Order History
             </a>
           </div>
+          <div
+            className="cmp-linktile--links"
+          />
         </div>
       </div>
       <div
@@ -115,6 +129,7 @@ exports[`Feature: My Account Component Scenario: Rendering When ecommerce is not
         >
           <div
             className="cmp-linktile--icon"
+            data-locator="additional-links-icon"
           />
         </div>
         <div
@@ -122,6 +137,7 @@ exports[`Feature: My Account Component Scenario: Rendering When ecommerce is not
         >
           <div
             className="cmp-linktile--title"
+            data-locator="additional-links"
           >
             Additional Links
           </div>
@@ -130,10 +146,11 @@ exports[`Feature: My Account Component Scenario: Rendering When ecommerce is not
           >
             <a
               className="cmp-linktile--link"
-              href="https://www.waters.com/waters/nav.htm?cid=10006027"
+              data-locator="my-implementations"
+              href="https://www.waters.com/waters/nav.htm?cid=2243096"
               onClick={[Function]}
             >
-              Request Technical Support
+              My Implementations
             </a>
           </div>
           <div
@@ -141,10 +158,11 @@ exports[`Feature: My Account Component Scenario: Rendering When ecommerce is not
           >
             <a
               className="cmp-linktile--link"
-              href="https://www.waters.com/waters/nav.htm?cid=134614448"
+              data-locator="support-plans"
+              href="https://www.waters.com/waters/nav.htm?cid=2243124"
               onClick={[Function]}
             >
-              Waters Knowledgebase
+              Support Plans
             </a>
           </div>
           <div
@@ -152,17 +170,7 @@ exports[`Feature: My Account Component Scenario: Rendering When ecommerce is not
           >
             <a
               className="cmp-linktile--link"
-              href="https://www.waters.com/waters/nav.htm?cid=513247"
-              onClick={[Function]}
-            >
-              Training Courses
-            </a>
-          </div>
-          <div
-            className="cmp-linktile--links"
-          >
-            <a
-              className="cmp-linktile--link"
+              data-locator="contact-waters"
               href="https://www.waters.com/waters/localeRedirect.htm?type=contact_us"
               onClick={[Function]}
             >
@@ -182,14 +190,17 @@ exports[`Feature: My Account Component Scenario: Rendering when ecommerce is dis
 >
   <div
     className="cmp-title"
+    data-locator="title"
   >
     <h1
       className="cmp-title__text"
+      data-locator="title-text"
     >
       My Account
     </h1>
     <div
       className="cmp-title__print"
+      data-locator="title-print"
     >
       My Account
     </div>
@@ -202,13 +213,14 @@ exports[`Feature: My Account Component Scenario: Rendering when ecommerce is dis
   <div
     className="cmp-my-account__body"
   >
-    Find all the resources and tools you need to manage your Waters account online.
+    Find all the resources and tools you need to manage your Waters account online. 
   </div>
   <div
     className="cmp-my-account__tiles"
   >
     <div
       className="tile"
+      data-locator="my-account-tiles"
     >
       <div
         className="cmp-linktile"
@@ -218,6 +230,7 @@ exports[`Feature: My Account Component Scenario: Rendering when ecommerce is dis
         >
           <div
             className="cmp-linktile--icon"
+            data-locator="account-information-icon"
           />
         </div>
         <div
@@ -225,6 +238,7 @@ exports[`Feature: My Account Component Scenario: Rendering when ecommerce is dis
         >
           <div
             className="cmp-linktile--title"
+            data-locator="account-information"
           >
             Account Information
           </div>
@@ -233,6 +247,7 @@ exports[`Feature: My Account Component Scenario: Rendering when ecommerce is dis
           >
             <a
               className="cmp-linktile--link"
+              data-locator="profile"
               href="#profile"
               onClick={[Function]}
             >
@@ -244,6 +259,7 @@ exports[`Feature: My Account Component Scenario: Rendering when ecommerce is dis
           >
             <a
               className="cmp-linktile--link"
+              data-locator="password"
               href="#changepassword"
               onClick={[Function]}
             >
@@ -260,6 +276,7 @@ exports[`Feature: My Account Component Scenario: Rendering when ecommerce is dis
         >
           <div
             className="cmp-linktile--icon"
+            data-locator="orders-icon"
           />
         </div>
         <div
@@ -267,6 +284,44 @@ exports[`Feature: My Account Component Scenario: Rendering when ecommerce is dis
         >
           <div
             className="cmp-linktile--title"
+            data-locator="orders"
+          >
+            Orders
+          </div>
+          <div
+            className="cmp-linktile--links"
+          >
+            <a
+              className="cmp-linktile--link"
+              data-locator="order-history"
+              href="#orderhistory"
+              onClick={[Function]}
+            >
+              Order History
+            </a>
+          </div>
+          <div
+            className="cmp-linktile--links"
+          />
+        </div>
+      </div>
+      <div
+        className="cmp-linktile"
+      >
+        <div
+          className="cmp-linktile-column"
+        >
+          <div
+            className="cmp-linktile--icon"
+            data-locator="additional-links-icon"
+          />
+        </div>
+        <div
+          className="cmp-linktile-column"
+        >
+          <div
+            className="cmp-linktile--title"
+            data-locator="additional-links"
           >
             Additional Links
           </div>
@@ -275,10 +330,11 @@ exports[`Feature: My Account Component Scenario: Rendering when ecommerce is dis
           >
             <a
               className="cmp-linktile--link"
-              href="https://www.waters.com/waters/nav.htm?cid=10006027"
+              data-locator="my-implementations"
+              href="https://www.waters.com/waters/nav.htm?cid=2243096"
               onClick={[Function]}
             >
-              Request Technical Support
+              My Implementations
             </a>
           </div>
           <div
@@ -286,10 +342,11 @@ exports[`Feature: My Account Component Scenario: Rendering when ecommerce is dis
           >
             <a
               className="cmp-linktile--link"
-              href="https://www.waters.com/waters/nav.htm?cid=134614448"
+              data-locator="support-plans"
+              href="https://www.waters.com/waters/nav.htm?cid=2243124"
               onClick={[Function]}
             >
-              Waters Knowledgebase
+              Support Plans
             </a>
           </div>
           <div
@@ -297,17 +354,7 @@ exports[`Feature: My Account Component Scenario: Rendering when ecommerce is dis
           >
             <a
               className="cmp-linktile--link"
-              href="https://www.waters.com/waters/nav.htm?cid=513247"
-              onClick={[Function]}
-            >
-              Training Courses
-            </a>
-          </div>
-          <div
-            className="cmp-linktile--links"
-          >
-            <a
-              className="cmp-linktile--link"
+              data-locator="contact-waters"
               href="https://www.waters.com/waters/localeRedirect.htm?type=contact_us"
               onClick={[Function]}
             >

@@ -17,6 +17,7 @@ import { checkRenderInput,
         checkEventsInput,
         checkRenderTextWithLinks,
         checkEventsCheckbox } from '../__utils__/utils';
+import mockBodyHTML from '../../__mocks__/en_US/html/mock-body-html';
 
 const mockSubmitFn = jest.fn();
 const isocode = 'en_us';
@@ -36,6 +37,8 @@ afterEach(() => {
 });
 
 describe('Feature: Registration Form', () => {
+    document.body.innerHTML = mockBodyHTML;
+
     describe('Scenario: Rendering', () => {
         describe('When initial render', () => {
             it('Then the snapshot should match', async () => {
@@ -110,7 +113,6 @@ describe('Feature: Registration Form', () => {
         });
 
         describe('Checking Events', () => {
-
             it('Then it should check events on email field', async () => {
                 checkEventsInput(wrapper, "email");
             });
