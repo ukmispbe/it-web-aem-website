@@ -145,7 +145,7 @@ class SearchContainer extends Component {
             spell_suggestion: '',
             erroredOut: false,
             categoryTabs: [],
-            activeTabIndex: -1,
+            activeTabIndex: 0,
             tabHistory: {},
             facetGroupsSelectedOrder: [],
             collapseAllFilters: false,
