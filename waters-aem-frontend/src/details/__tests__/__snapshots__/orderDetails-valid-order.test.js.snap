@@ -7,6 +7,7 @@ Array [
   >
     <h2
       className="cmp-order-details__title"
+      data-locator="product-title"
     >
       Order Details
     </h2>
@@ -15,11 +16,13 @@ Array [
     >
       <h3
         className="cmp-order-details__order-number"
+        data-locator="product-number"
       >
         Order Number: 15740002
       </h3>
       <div
         className="cmp-order-details__order-date"
+        data-locator="order-date"
       >
         February 18, 2020
       </div>
@@ -28,46 +31,66 @@ Array [
       >
         <div
           className="cmp-order-details__ship-to"
+          data-locator="ship-to"
         >
           <h4>
             Ship to
           </h4>
           <div
             className="cmp-order-details-address1"
+            data-locator="order-details-address"
           >
             Neta Scientific Inc
           </div>
           <div
-            className="cmp-order-details-address2"
+            className="cmp-order-details-address1"
+            data-locator="order-details-address"
           >
             4206 Sylon Blvd
           </div>
           <div
-            className="cmp-order-details-address3"
+            className="cmp-order-details-address1"
+            data-locator="order-details-address"
           >
-            Hainesport, 08036-3736
+            Hainesport, NJ 08036-3736
+          </div>
+          <div
+            className="cmp-order-details-address1"
+            data-locator="order-details-address"
+          >
+            United States
           </div>
         </div>
         <div
           className="cmp-order-details__bill-to"
+          data-locator="bill-to"
         >
           <h4>
             Bill to
           </h4>
           <div
             className="cmp-order-details-address1"
+            data-locator="order-details-address"
           >
             Neta Scientific Inc
           </div>
           <div
-            className="cmp-order-details-address2"
+            className="cmp-order-details-address1"
+            data-locator="order-details-address"
           >
             4206 Sylon Blvd
           </div>
           <div
-            className="cmp-order-details-address3"
+            className="cmp-order-details-address1"
+            data-locator="order-details-address"
           >
-            Hainesport, 08036-3736
+            Hainesport, NJ 08036-3736
+          </div>
+          <div
+            className="cmp-order-details-address1"
+            data-locator="order-details-address"
+          >
+            United States
           </div>
         </div>
       </div>
@@ -76,6 +99,7 @@ Array [
       >
         <div
           className="cmp-order-details__payment-method"
+          data-locator="payment-method"
         >
           <h4>
             Payment Method
@@ -84,7 +108,8 @@ Array [
           <div
             className="text"
           >
-            PO: 
+            PO
+            : 
             123456
           </div>
         </div>
@@ -92,27 +117,42 @@ Array [
     </div>
     <div
       className="cmp-order-details__order-summary"
+      data-locator="order-summary"
     >
-      <h4>
-        Order Summary
-      </h4>
+      <h4 />
       <div
         className="cmp-order-details__order-subtotal"
       >
         <div
           className="cmp-order-details__order-subtotal_left"
+          data-locator="order-subtotal-left"
         >
           Subtotal
-           (
-          1
            
-          items
-          )
+          
         </div>
         <div
           className="cmp-order-details__order-subtotal_right"
+          data-locator="order-subtotal-right"
         >
-          $43.35
+          0000000000043.35
+        </div>
+      </div>
+      <div
+        className="cmp-order-details__order-savings"
+      >
+        <div
+          className="cmp-order-details__order-savings_left"
+          data-locator="order-savings-left"
+        >
+          Savings
+        </div>
+        <div
+          className="cmp-order-details__order-savings_right"
+          data-locator="order-savings-right"
+        >
+          -
+          0000000000007.65
         </div>
       </div>
       <div
@@ -120,13 +160,15 @@ Array [
       >
         <div
           className="cmp-order-details__order-shipping_left"
+          data-locator="order-shipping-left"
         >
-          Shipping
+          Shipping and Handling 
         </div>
         <div
           className="cmp-order-details__order-shipping_right"
+          data-locator="order-shipping-right"
         >
-          $0.00
+          0000000000000
         </div>
       </div>
       <div
@@ -134,13 +176,15 @@ Array [
       >
         <div
           className="cmp-order-details__order-tax_left"
+          data-locator="order-tax-left"
         >
           Tax
         </div>
         <div
           className="cmp-order-details__order-tax_right"
+          data-locator="order-tax-right"
         >
-          $0.00
+          0000000000000
         </div>
       </div>
       <div
@@ -148,21 +192,44 @@ Array [
       >
         <div
           className="cmp-order-details__order-total_left"
-        >
-          Order Total
-        </div>
+          data-locator="order-total-left"
+        />
         <div
           className="cmp-order-details__order-total_right"
+          data-locator="order-total-right"
         >
           <h1>
-            $43.35
+            0000000000043.35
           </h1>
         </div>
+      </div>
+      <div
+        className="cmp-order-details__reorder"
+        data-locator="order-details-reorder"
+      >
+        <a
+          className="cmp-button"
+          onClick={[Function]}
+        >
+          Reorder
+        </a>
       </div>
     </div>
   </div>,
   <div
     className="cmp-order-details__order-shipment-list"
+    data-locator="order-shipment-list"
   />,
+  <div
+    className="order-shipment__reorder"
+    data-locator="order-shipment-reorder"
+  >
+    <a
+      className="cmp-button"
+      onClick={[Function]}
+    >
+      Reorder
+    </a>
+  </div>,
 ]
 `;

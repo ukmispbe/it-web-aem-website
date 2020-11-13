@@ -5,7 +5,7 @@ import DigitalData from '../scripts/DigitalData';
 const countryArray = ["JP"];
 
 const isPrefix = () => {
-    return countryArray.indexOf(DigitalData.page.country.toUpperCase()) > -1;
+    return countryArray.indexOf((DigitalData.page.country).toUpperCase()) > -1;
 }
 
 export const renderFormattedLabel = (label, required, optionalLabel = '') => {

@@ -77,7 +77,13 @@ nav.cmp-navigation {
       scrollbar-width: none;
       overflow-y: hidden;
       -ms-overflow-y: hidden;
-      
+   
+      .cmp-navigation__group-all-mobile {
+         @include tablet-and-over {
+            display: none;
+         }
+      }
+
       &.fader-fade {
          overflow-x: hidden;
          -ms-overflow-x: hidden;
@@ -198,6 +204,9 @@ nav.cmp-navigation {
                }
             }
 
+            &:hover > .cmp-navigation__container  a {
+               color: $color-link;
+            }
 
             @include tablet-and-over {
                &::after {
@@ -277,8 +286,10 @@ nav.cmp-navigation {
                   margin: 0;
                }
 
-               &:hover {              
+               &:hover {    
+                  cursor: pointer;          
                   text-decoration: none;
+                  color: $color-blue-50;
                }
 
             }

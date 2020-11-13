@@ -178,24 +178,6 @@ div.links--noPadding {
         &__link {
             order: 2;
             display: inline-flex;
-
-            &-icon-wrapper--back {
-                display: inline-block;
-
-                .cmp-links__link-icon {
-                    display: inline-block;
-                }
-            }
-
-            &:hover {
-                .cmp-links__link-icon-wrapper--back .cmp-links__link-icon {
-                    color: $color-link-hover;
-
-                    .st0, .st1 {
-                        stroke: $color-link-hover;
-                    }
-                }
-            }
         }
     }
 }

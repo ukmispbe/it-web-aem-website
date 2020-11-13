@@ -5,6 +5,7 @@
             "formName": "contactsupport",
             "submitEndpoint": "${contactSupport.contactSupportUrl @ context='unsafe'}",
             "buttonText": "${'SEND MESSAGE' @ i18n, context='text'}",
+			"buttonLocator": "send-message",
             "redirectUrl": "${contactSupport.redirectLink.href @ context='unsafe'}",
             "icons": {
                 "checkmarkIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
@@ -16,6 +17,11 @@
                 "docIcon": "/content/dam/waters/en/brand-assets/icons/document.svg"
             },
             "fields": [
+				{
+                    "type": "label",
+                    "name": "requiredLabel",
+                    "label": "${'*Required field' @ i18n, context='unsafe'}"
+                },
                 {
                     "type": "dropdown",
                     "name": "formCategoryType",
