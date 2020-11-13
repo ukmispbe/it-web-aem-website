@@ -193,13 +193,16 @@ export const functions = {
                         return removeError(ref);
                     })
                     .catch(err => {
-                        setError(
-                            "alreadyRegistered",
-                            "alreadyRegistered",
-                            err,
-                            ref
-                        );
-                        return false;
+                        //clearError("alreadyRegistered");
+                        removeError(ref);
+                        // throw new error("Network Issue");
+                        // setError(
+                        //     "networkIssue",
+                        //     "networkIssue",
+                        //     err,
+                        //     ref
+                        // );
+                        return true;
                     });
     
                 return newEmail;

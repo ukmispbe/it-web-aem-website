@@ -23,6 +23,8 @@ const DisplayMessage = ({ name, validation }) => {
                     if (validation.validateFnName === 'email') {
                         if (errors.invalidEmail)
                             message = errors.invalidEmail.message;
+                        if (errors.networkIssue)
+                            message = "Network Issue";
                         if (errors.alreadyRegistered) return showSignIn();
                         break;
                     }
