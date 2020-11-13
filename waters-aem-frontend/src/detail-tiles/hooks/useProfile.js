@@ -18,14 +18,16 @@ export default (userDetailsUrl, soldToDetailsUrl, type, icon) => {
                 userDetails.phone = userDetails.phone.replace(/\D/g,'');
             }
 
-            if(type !== 'password' && userDetails && userDetails.userId && userDetails.salesOrg) {
-                SoldToDetailsLazy(soldToDetailsUrl, userDetails.userId, userDetails.salesOrg)
-                .then((soldToDetails) => {
-                    let mergeAPIs = matchAddresses(userDetails, soldToDetails);
-                    setData(mergeAPIs);
-                });
-            } else {
-                setData(userDetails);
+            if (userDetails && userDetails.userId && userDetails.salesOrg) {
+                if(type !== 'password') {
+                    SoldToDetailsLazy(soldToDetailsUrl, userDetails.userId, userDetails.salesOrg)
+                    .then((soldToDetails) => {
+                        let mergeAPIs = matchAddresses(userDetails, soldToDetails);
+                        setData(mergeAPIs);
+                    });
+                } else {
+                    setData(userDetails);
+                }
             }
         });
     }
