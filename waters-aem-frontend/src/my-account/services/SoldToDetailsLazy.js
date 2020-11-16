@@ -33,11 +33,13 @@ export default async (
         let hasDefaultSoldTo = false;
 
         soldToDetails.map((soldTo) => {
-            if((soldTo.soldToFlag && soldTo.soldToFlag === 1) ||
-            (soldTo.default_soldTo && soldTo.default_soldTo === 1)) {
+            if(((soldTo.soldToFlag && soldTo.soldToFlag === 1) ||
+            (soldTo.default_soldTo && soldTo.default_soldTo === 1)) && 
+            (soldTo.soldToInfo && soldTo.soldToInfo.length !== 0 &&
+            soldTo.billToInfo && soldTo.shipToInfo)) {
                 hasDefaultSoldTo = true;
-                soldTo.soldToFlag === 1;
-                soldTo.default_soldTo === 1;
+                soldTo.soldToFlag = 1;
+                soldTo.default_soldTo = 1;
             }
         });
 
