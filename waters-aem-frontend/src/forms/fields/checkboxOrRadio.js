@@ -194,7 +194,6 @@ const CheckboxOrRadio = ({}) => {
                 <div id={name} className={`cmp-form-field-${type}--grouping`}>
                     {options.map((option, i) => {
                         let address=[];
-
                         option.address.map((addressPiece) => {
                             address.push(<div className={`cmp-form-field-${type}--address1`}>{addressPiece}</div>)
                         })
