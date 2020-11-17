@@ -449,6 +449,7 @@ exports[`Feature: ResultsBody Component Scenario: Rendering When sorting by best
       data-locator="results-count"
     >
       <span
+        class="results"
         dangerouslySetInnerHTML={
           Object {
             "__html": "Showing <span class='count'>0</span> results for",
@@ -467,11 +468,7 @@ exports[`Feature: ResultsBody Component Scenario: Rendering When sorting by best
          
          
          
-        <span
-          class="category"
-        >
-          undefined
-        </span>
+        
       </div>
       <hr
         className="small-accent-rule"
@@ -532,6 +529,7 @@ exports[`Feature: ResultsBody Component Scenario: Rendering When sorting by most
       data-locator="results-count"
     >
       <span
+        class="results"
         dangerouslySetInnerHTML={
           Object {
             "__html": "Showing <span class='count'>0</span> results for",
@@ -550,11 +548,7 @@ exports[`Feature: ResultsBody Component Scenario: Rendering When sorting by most
          
          
          
-        <span
-          class="category"
-        >
-          undefined
-        </span>
+        
       </div>
       <hr
         className="small-accent-rule"
