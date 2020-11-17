@@ -1,5 +1,8 @@
 package com.waters.aem.solr.client.impl;
 
+import com.waters.aem.solr.client.SolrIndexClient;
+import com.waters.aem.solr.client.SolrIndexClientConfiguration;
+import com.waters.aem.solr.index.impl.DefaultSolrIndexService;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -19,9 +22,6 @@ import org.osgi.service.metatype.annotations.Designate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.waters.aem.solr.client.SolrIndexClient;
-import com.waters.aem.solr.client.SolrIndexClientConfiguration;
-import com.waters.aem.solr.index.impl.DefaultSolrIndexService;
 
 @Component(immediate = true, service = SolrIndexClient.class)
 @Designate(ocd = SolrIndexClientConfiguration.class)
