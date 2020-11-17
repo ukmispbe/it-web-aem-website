@@ -1,16 +1,33 @@
 import React from 'react';
+import ReactSVG from 'react-svg';
 import PropTypes from 'prop-types';
 function ResultsCount(props) {
+    console.log("props", props);
+    console.log("props.spell_related_suggestions", props.spell_related_suggestions);
+    const searchIcon = props.text.searchIcon;
+    const spell_suggest = ['acid', 'acquity', 'acquity hplc', 'acquity abcd', 'acquity efgh', 'Wolfeschlegelsteinhausenbergerdorff', 'acid', 'acid', 'acid', 'acid', 'acid', 'acid', 'acid', 'acid', 'acid', 'acid', 'acid', 'acid', 'acid', 'acid', 'acid', 'acid', 'acid', 'acid', 'acid', 'acid', 'acid', 'acid', 'acid', 'acid', 'acid', 'acid'];
+
     const maxLength = 120;
     const searchQuery = (props.query && props.query.toString().length > maxLength) ? props.query.substring(0,maxLength) + '...' : props.query;
     const getSearchQuery = (query) => <h1 className="query">{query}</h1>;
     const getSuggestedQuery = () => <span className="text-strike">{searchQuery}</span>;
-    const getRelatedSuggestions = () => (props.spell_related_suggestions.length === 1) 
-        ? getRelatedSuggestionLink(props.spell_related_suggestions[0])
-        : getRelatedSuggestionLinks(props.spell_related_suggestions).reduce((prev, curr) => <>{prev}<span className="vertical-bar">&#124;</span>{curr}</>);
+    // const getRelatedSuggestions = () => (props.spell_related_suggestions.length === 1) 
+    //     ? relatedSuggestionsTag(props.spell_related_suggestions[0])
+    //     : relatedSuggestionsTags(props.spell_related_suggestions).reduce((prev, curr) => <>{prev}<span className="vertical-bar">&#124;</span>{curr}</>);
 
-        const getRelatedSuggestionLink = word => <a className="item" onClick={e => props.onRelatedSuggestionClick(word)}>{word}</a>;
-        const getRelatedSuggestionLinks = words => words.map(word => getRelatedSuggestionLink(word));
+        // const getRelatedSuggestionLink = word => <a className="item" onClick={e => props.onRelatedSuggestionClick(word)}>{word}</a>;
+        // const getRelatedSuggestionLinks = words => words.map(word => getRelatedSuggestionLink(word));
+
+        const relatedSuggestionsTag = (word) => {
+            return <a href="javascript:void(0);"
+                    aria-label={word}
+                    className="item" onClick={e => props.onRelatedSuggestionClick(word)}>
+                    <ReactSVG src={searchIcon} />
+                    <span>{word}</span>
+                </a>;
+        }
+
+        const getRelatedSuggestionsTags = words => words.map(word => relatedSuggestionsTag(word));
 
         const getOptions = options => {
             let categoryOptionsList = options.filter(category => category.count !== 0).map((a, index) => { 
@@ -36,9 +53,10 @@ function ResultsCount(props) {
     const renderCategoryText = (selectedCategory) => (selectedCategory !=="") ? <span class='category'>{props.text.inCategoryText + selectedCategory}</span> : '';
     const renderRelatedSuggestions = () => {
         return (props.spell_related_suggestions.length !== 0) 
-            ? <div className='cmp-search__related-suggestions'>{props.text.relatedSearchesText} {getRelatedSuggestions()}</div> 
+            ? <div className='cmp-search__related-suggestions'>{props.text.relatedSearchesText} {getRelatedSuggestionsTags(spell_suggest)}</div> 
             : <></>;
     }
+
 
         return (
             <div className="cmp-search__resultsCount" data-locator="results-count">

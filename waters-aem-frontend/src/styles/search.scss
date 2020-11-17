@@ -462,22 +462,66 @@ div.cmp-search__no-results {
 
 
 .cmp-search__related-suggestions {
-    // @include font-body;
-    // color: $color-font-medium;
+    display: flex;
+    flex-wrap: wrap;
+    
+    :hover {
+        color: $color-link-hover;
+        .st0 {
+            stroke: $color-link-hover;
+        }
+    }
 
-    .item {
+    a {
+        @include font-small;
+        line-height: $line-height-text;
+        display: block;
+        float: left;
+        padding: $space-xxxs $space-xs ($space-xxxs + .05em) ($space-l - $space-xxxs);
+        margin: 0 $space-xxs $space-xxs 0;
+        text-decoration: none;
+        background-color: $color-blue-10;
+        position: relative;
+        border-radius: $border-radius;
         color: $color-link;
-        height: 1em;
-        padding: 0 $space-xxs;
-        cursor: pointer;
-    }
+        
 
-    .item:hover {
-        text-decoration: underline;
-    }
+        @include tablet {
+            max-height: fit-content;
+            margin: 0 $space-xxs $space-xxs 0;
+        }
 
-    .vertical-bar {
-        color: $color-border-medium;
+        @include mobile {
+            padding: ($space-xxxs + .05em) $space-xs ($space-xxxs + .1em) ($space-l - $space-xxxs);
+            max-height: fit-content;
+            margin: 0 $space-xxs $space-xxs 0;
+        }
+
+        svg {
+            position: absolute;
+            top: 9px;
+            left: 8px;
+            width: $icon-s;
+            height: $icon-s;
+            .st0 {
+                stroke: $color-link;
+                stroke-width: 2px;
+            }
+            .st0:hover {
+                stroke: $color-link-hover;
+            }
+            @include tablet-and-under {
+                top: 9px;
+                margin: 0;
+            }
+            @include mobile {
+                top: 9px;
+            }
+        }
+    }
+    @include tablet-and-under {
+        margin-top: 0;
+        margin-bottom: 0;
     }
 }
 
