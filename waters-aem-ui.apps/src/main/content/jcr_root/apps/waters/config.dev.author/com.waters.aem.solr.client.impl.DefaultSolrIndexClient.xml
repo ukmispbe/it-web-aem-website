@@ -4,6 +4,8 @@
           jcr:primaryType="sling:OsgiConfig"
 		  zookeeperUrl="[10.201.8.122:2181,10.201.8.168:2181,10.201.9.62:2181]"
           collection="waters"
+		  userName="solr"
+		  password="{String}{05db016f01925e06fa2ea3b82c77ea4cd5798413296ec4947ef5cfbce23da7b7}"
           hardCommit="{Boolean}false"
           connectionTimeout="{Long}20000"
           socketTimeout="{Long}20000"
