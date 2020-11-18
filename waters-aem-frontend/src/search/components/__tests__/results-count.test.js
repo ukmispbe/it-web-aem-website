@@ -20,6 +20,7 @@ describe('Feature: ResultsCount React Component', () => {
             noResultsText: 'Showing 0 results',
             relatedSearchesText: 'Related Searches',
             inCategoryText: 'in ',
+            searchIcon: 'search.svg'
         },
         categoryOptions: [
             {

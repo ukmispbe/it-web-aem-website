@@ -54,28 +54,6 @@
         top: 0;
         margin-top: $space-s;
     }
-
-    .cmp-search-filters__tags {
-
-        @include tablet {
-            width: 100%;
-            padding: 0;
-            margin-bottom: $space-m;
-
-            a {
-                margin: 0 $space-xxs $space-xxs 0;
-            }
-        }
-
-        @include mobile {
-            margin-top: 0;
-            margin-bottom: $space-s;
-
-            a {
-                margin: 0 $space-xxs $space-xxs 0;
-            }
-        }
-    }
 }
 .cmp-search__results-container {
     @include list-container;
@@ -114,7 +92,7 @@
                 margin-left: $space-xxxs;
             }
         }
-    
+
         &.noresults {
             width: 70%;
             margin-left: 0;
@@ -122,22 +100,23 @@
             overflow: visible;
             height: auto;
         }
+
         @include tablet-and-under {
             margin: unset;
-            padding-bottom: $space-s;
             overflow: visible;
             text-overflow: unset;
             white-space: normal;
             overflow: visible;
             height: auto;
+
             &.noresults {
                 width: 100%;
                 margin: 0;
             }
         }
-    
+
         @include mobile {
-            padding-bottom: $space-s;
+            padding-bottom: $space-xs;
         }
     }
 }
@@ -447,7 +426,7 @@ div.cmp-search__no-results {
 }
 
 .cmp-search-show-btn,
-.cmp-search-category-dropdown{
+.cmp-search-category-dropdown {
     @include tablet {
         float: left;
         margin-bottom: 0;
@@ -459,25 +438,32 @@ div.cmp-search__no-results {
     }
 }
 
-
-
 .cmp-search__related-suggestions {
-    // @include font-body;
-    // color: $color-font-medium;
+    @include inline-tag-list;
 
-    .item {
+    .related-searches-text {
+        display: inline-block;
+        margin-right: $space-xs;
+        padding-top: $space-xxxs;
+    }
+
+    a.item {
+        background-color: $color-blue-10;
         color: $color-link;
-        height: 1em;
-        padding: 0 $space-xxs;
-        cursor: pointer;
+        svg {
+            .st0 {
+                stroke: $color-link;
+            }
+        }
     }
 
-    .item:hover {
-        text-decoration: underline;
-    }
-
-    .vertical-bar {
-        color: $color-border-medium;
+    a.item:hover {
+        color: $color-link-hover;
+        svg {
+            .st0 {
+                stroke: $color-link-hover;
+            }
+        }
     }
 }
 
@@ -488,7 +474,7 @@ div.cmp-search__no-results {
         display: flex;
         flex-wrap: wrap;
 
-        .cmp-search__sorted-by{
+        .cmp-search__sorted-by {
             order: 0;
             padding-bottom: $space-xs;
             padding-top: 0;

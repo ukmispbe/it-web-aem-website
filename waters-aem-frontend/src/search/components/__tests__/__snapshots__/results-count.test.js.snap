@@ -9,6 +9,7 @@ exports[`Feature: ResultsCount React Component Scenario: Rendering When keyword 
     class="query-box"
   >
     <span
+      class="results"
       dangerouslySetInnerHTML={
         Object {
           "__html": "Showing <span class='count'>24</span> results",
@@ -28,6 +29,7 @@ exports[`Feature: ResultsCount React Component Scenario: Rendering When keyword 
   data-locator="results-count"
 >
   <span
+    class="results"
     dangerouslySetInnerHTML={
       Object {
         "__html": "Showing <span class='count'>24</span> results for ",
@@ -68,6 +70,7 @@ exports[`Feature: ResultsCount React Component Scenario: Rendering When keyword 
   data-locator="results-count"
 >
   <span
+    class="results"
     dangerouslySetInnerHTML={
       Object {
         "__html": "Showing <span class='count'>24</span> results for ",
@@ -104,6 +107,7 @@ exports[`Feature: ResultsCount React Component Scenario: Rendering When more tha
   data-locator="results-count"
 >
   <span
+    class="results"
     dangerouslySetInnerHTML={
       Object {
         "__html": "Showing <span class='count'>24</span> results for ",
@@ -138,24 +142,32 @@ exports[`Feature: ResultsCount React Component Scenario: Rendering When more tha
   <div
     className="cmp-search__related-suggestions"
   >
-    Related Searches
-     
-    <a
-      className="item"
-      onClick={[Function]}
-    >
-      ... it does a body good!
-    </a>
     <span
-      className="vertical-bar"
+      class="related-searches-text"
     >
-      |
+      Related Searches
     </span>
     <a
+      aria-label="... it does a body good!"
       className="item"
+      href="javascript:void(0);"
       onClick={[Function]}
     >
-      milkyway
+      <div />
+      <span>
+        ... it does a body good!
+      </span>
+    </a>
+    <a
+      aria-label="milkyway"
+      className="item"
+      href="javascript:void(0);"
+      onClick={[Function]}
+    >
+      <div />
+      <span>
+        milkyway
+      </span>
     </a>
   </div>
 </div>
@@ -167,6 +179,7 @@ exports[`Feature: ResultsCount React Component Scenario: Rendering When one rela
   data-locator="results-count"
 >
   <span
+    class="results"
     dangerouslySetInnerHTML={
       Object {
         "__html": "Showing <span class='count'>24</span> results for ",
@@ -201,13 +214,21 @@ exports[`Feature: ResultsCount React Component Scenario: Rendering When one rela
   <div
     className="cmp-search__related-suggestions"
   >
-    Related Searches
-     
+    <span
+      class="related-searches-text"
+    >
+      Related Searches
+    </span>
     <a
+      aria-label="... it does a body good!"
       className="item"
+      href="javascript:void(0);"
       onClick={[Function]}
     >
-      ... it does a body good!
+      <div />
+      <span>
+        ... it does a body good!
+      </span>
     </a>
   </div>
 </div>
