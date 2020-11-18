@@ -7,7 +7,7 @@ import AddToCartBody from '../sku-details/views/addToCartModal';
 import Modal, { Header, keys } from '../utils/modal';
 import Input from '../components/Input/Input';
 import ScreenSizes from '../scripts/screenSizes';
-import { mainCartContext } from "../analytics";
+import { shopAllCartContext } from "../analytics";
 
 function QuickOrder(props) {
     const {
@@ -84,15 +84,23 @@ function QuickOrder(props) {
             }
         }
     }, [setModalConfig, setErrorObjCart, setModalShown]);
+
+    // Reset SKU and Qty
+    useEffect(() => {
+        if (!modalShown && childRef.current) {
+            childRef.current.onChangeSku('');
+            childRef.current.skuQuantityInput({ target: { value: 1 } });
+            setSku(() => '');
+        }
+    }, [modalShown]);
+
     // Used for modal status
     const toggleModal = useCallback(() => {
-        childRef.current.onChangeSku('');
-        childRef.current.skuQuantityInput({ target: { value: 1 } });
-        setSku(() => '');
         setErrorObjCart(() => ({}));
         skuErrorMgs(false);
         setModalShown(status => !status);
-    }, [setSku, setErrorObjCart, skuErrorMgs, setModalShown, childRef]);
+    }, [setErrorObjCart, skuErrorMgs, setModalShown]);
+
     // Error scenarios
     const toggleErrorModal = useCallback(error => {
         if (Object.keys(error).length > 0) {
@@ -135,7 +143,7 @@ function QuickOrder(props) {
                     isCommerceApiMigrated={isCommerceApiMigrated}
                     toggleParentModal={toggleModal}
                     toggleErrorModal={toggleErrorModal}
-                    analyticsConfig={{ sku, price, context: mainCartContext, name: titleText }}
+                    analyticsConfig={{ sku, price, context: shopAllCartContext, name: titleText }}
                     onRef={ref => { childRef.current = ref; }}
                     skuResponse={skuResponse}
                 />

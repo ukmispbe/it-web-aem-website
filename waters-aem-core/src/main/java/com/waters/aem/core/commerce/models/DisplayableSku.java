@@ -4,10 +4,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.waters.aem.core.commerce.constants.WatersCommerceConstants;
 import com.waters.aem.core.components.SiteContext;
+import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.utils.AssetUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Collections;
 import java.util.List;
@@ -54,8 +56,17 @@ public final class DisplayableSku {
 
     public String getFormattedPrice() {
         final BigDecimal price = getPrice();
+        final String currencyCode = sku.getCurrencyCode(siteContext.getLocaleWithCountry().getCountry(),
+                siteContext.getCurrencyIsoCode());
 
-        return price == null ? null : NumberFormat.getCurrencyInstance(siteContext.getCurrencyLocale()).format(price);
+        return price == null ? null : formatCurrencyValueFromSAP(currencyCode, price) + " " + currencyCode;
+    }
+
+    private String formatCurrencyValueFromSAP(String currencyCode , BigDecimal currency) {
+        final String currencyFormat = WatersConstants.CURRENCY_FORMATS.getOrDefault(currencyCode, "#,##0.00");
+
+        DecimalFormat format = new DecimalFormat(currencyFormat);
+        return format.format(currency);
     }
 
     public String getPrimaryImageAlt() {

@@ -15,21 +15,12 @@ public @interface AkamaiEdgeGridClientConfiguration {
     @AttributeDefinition(name = "Akamai Hostname")
     String hostname() default "akab-zai4si42encz4itc-umutbp23o4zar5su.purge.akamaiapis.net";
 
-    @AttributeDefinition(name = "Ecomm Akamai Access Token")
-    String ecommAccessToken() default "";
+    @AttributeDefinition(name = "Akamai Access Token")
+    String accessToken() default "";
 
-    @AttributeDefinition(name = "Ecomm Akamai Client Token")
-    String ecommClientToken() default "";
+    @AttributeDefinition(name = "Akamai Client Token")
+    String clientToken() default "";
 
-    @AttributeDefinition(name = "Ecomm Akamai Client Secret")
-    String ecommClientSecret() default "";
-    
-    @AttributeDefinition(name = "Eproc Akamai Access Token")
-    String eprocAccessToken() default "";
-
-    @AttributeDefinition(name = "Eproc Akamai Client Token")
-    String eprocClientToken() default "";
-
-    @AttributeDefinition(name = "Eproc Akamai Client Secret")
-    String eprocClientSecret() default "";
+    @AttributeDefinition(name = "Akamai Client Secret")
+    String clientSecret() default "";
 }

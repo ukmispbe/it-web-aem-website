@@ -14,7 +14,7 @@ import { addToCart } from '../sku-details/services';
 import Analytics, { analyticTypes, setClickAnalytics, setSelectDropdownAnalytics } from '../analytics';
 import LocalStore from '../stores/localStore';
 import loginStatus from '../scripts/loginStatus';
-import { getFullCompanyAddress, getCountryName } from '../utils/userFunctions'
+import { getOrderDetailsAddress, getCountryName } from '../utils/userFunctions'
 
 class OrderDetails extends Component {
     constructor({setErrorBoundaryToTrue, resetErrorBoundaryToFalse, removeNotifications, ...props}) {
@@ -225,7 +225,7 @@ class OrderDetails extends Component {
             const account = orderDetails.account.filter(item => item.partnerType === addressType )[0];
             if (account) {
                 const includeCountryName = true;
-                const addressArray = getFullCompanyAddress(account, includeCountryName);
+                const addressArray = getOrderDetailsAddress(account, includeCountryName);
                 return (
                     <>
                         {addressArray.map((addressLine) => <div className="cmp-order-details-address1" data-locator="order-details-address">{addressLine}</div>)}
@@ -308,26 +308,26 @@ class OrderDetails extends Component {
                 <div className="cmp-order-details__order-summary" data-locator="order-summary">
                     <h4>{this.props.config.orderSummary}</h4>
                     <div className="cmp-order-details__order-subtotal">
-                        <div className="cmp-order-details__order-subtotal_left" data-locator="order-subtotal-left">{this.props.config.subTotal} {this.renderItemCount()}</div>
-                        <div className="cmp-order-details__order-subtotal_right" data-locator="order-subtotal-right">{orderDetails.itemsSubTotal}</div>
+                        <div className="cmp-order-details__order-subtotal_left" data-locator="order-summary-label-sub-total">{this.props.config.subTotal} {this.renderItemCount()}</div>
+                        <div className="cmp-order-details__order-subtotal_right" data-locator="order-summary-price-sub-total">{orderDetails.itemsSubTotal}</div>
                     </div>
                     {notZeroDiscountFlag && 
                         <div className="cmp-order-details__order-savings">
-                            <div className="cmp-order-details__order-savings_left" data-locator="order-savings-left">{this.props.config.savings}</div>
-                            <div className="cmp-order-details__order-savings_right" data-locator="order-savings-right">{this.props.config.minusSign}{orderDetails.orderDiscount}</div>
+                            <div className="cmp-order-details__order-savings_left" data-locator="order-summary-label-total-discount">{this.props.config.savings}</div>
+                            <div className="cmp-order-details__order-savings_right" data-locator="order-summary-price-total-discount">{this.props.config.minusSign}{orderDetails.orderDiscount}</div>
                         </div>
                     }
                     <div className="cmp-order-details__order-shipping">
-                        <div className="cmp-order-details__order-shipping_left" data-locator="order-shipping-left">{this.props.config.shipping}</div>
-                        <div className="cmp-order-details__order-shipping_right" data-locator="order-shipping-right">{orderDetails.shippingAmount}</div>
+                        <div className="cmp-order-details__order-shipping_left" data-locator="order-summary-label-total-shipping-handling">{this.props.config.shipping}</div>
+                        <div className="cmp-order-details__order-shipping_right" data-locator="order-summary-price-total-shipping-handling">{orderDetails.shippingAmount}</div>
                     </div>
                     <div className="cmp-order-details__order-tax">
-                        <div className="cmp-order-details__order-tax_left" data-locator="order-tax-left">{this.props.config.tax}</div>
-                        <div className="cmp-order-details__order-tax_right" data-locator="order-tax-right">{orderDetails.taxAmount}</div>
+                        <div className="cmp-order-details__order-tax_left" data-locator="order-summary-label-estimated-tax">{this.props.config.tax}</div>
+                        <div className="cmp-order-details__order-tax_right" data-locator="order-summary-price-estimated-tax">{orderDetails.taxAmount}</div>
                     </div>
                     <div className="cmp-order-details__order-total">
-                        <div className="cmp-order-details__order-total_left" data-locator="order-total-left">{this.props.config.orderTotal}</div>
-                        <div className="cmp-order-details__order-total_right" data-locator="order-total-right"><h1>{orderDetails.orderTotal}</h1></div>
+                        <div className="cmp-order-details__order-total_left" data-locator="order-summary-label-total-price">{this.props.config.orderTotal}</div>
+                        <div className="cmp-order-details__order-total_right" data-locator="order-summary-price-total-price"><h1>{orderDetails.orderTotal}</h1></div>
                     </div>
                     {this.state.isCommerceApiMigrated && (
                         <div className="cmp-order-details__reorder" data-locator="order-details-reorder">
