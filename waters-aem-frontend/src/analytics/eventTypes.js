@@ -2,7 +2,7 @@ const eventTypes = {
     cart: {
         name: 'cart',
         event: 'scAddAEM',
-        context: ['Part Detail Page', 'Search: Global', 'Related Products']
+        context: ['Part Detail Page', 'Search: Global', 'Related Products', 'Shop All Products: Quick Add']
     },
     reOrder: {
         name: 'reOrder',
@@ -152,6 +152,24 @@ const eventTypes = {
         },
         error: {
             event: 'orderDetailsPageError'
+        }
+    },
+    quoteHistory: {
+        name: 'quoteHistory',
+        load: {
+            event: 'quoteHistoryPageLoad'
+        },
+        error: {
+            event: 'quoteHistoryError'
+        }
+    },
+    quoteDetails: {
+        name: 'quoteDetails',
+        load: {
+            event: 'quoteDetailsPageLoad'
+        },
+        error: {
+            event: 'quoteDetailsPageError'
         }
     }
 }

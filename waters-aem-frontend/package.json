@@ -170,5 +170,8 @@
     "setupFilesAfterEnv": [
       "<rootDir>/scripts/setup-test-enzyme.js"
     ]
+  },
+  "optionalDependencies": {
+    "win-node-env": "^0.4.0"
   }
 }

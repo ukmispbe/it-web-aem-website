@@ -120,7 +120,36 @@ export const trimAndCapitalize = (item) => {
     }
     return item;
 }
+//Springboot APIs
+export const getOrderDetailsAddress = (address, includeCountryName) => {
+    if (
+        !address ||
+        (Object.entries(address).length === 0 && address.constructor === Object)
+    )
+        return '';
 
+    let addressArray = [];
+    const city = address.city ? trimAndCapitalize(address.city) + ', ' : '';
+    const region = address.region ? trimAndCapitalize(address.region) + ' ' : '';
+    const postalCd = address.postalCd ? trimAndCapitalize(address.postalCd) : '';
+
+    address.partnerName ? addressArray.push(trimAndCapitalize(address.partnerName)) : null;
+    address.addr1 ? addressArray.push(trimAndCapitalize(address.addr1)) : null;
+    address.addr2 ? addressArray.push(trimAndCapitalize(address.addr2)) : null;
+    address.addr3 ? addressArray.push(trimAndCapitalize(address.addr3)) : null;
+    address.addr4 ? addressArray.push(trimAndCapitalize(address.addr4)) : null;
+    address.street ? addressArray.push(trimAndCapitalize(address.street)) : null;
+    address.street2 ? addressArray.push(trimAndCapitalize(address.street2)) : null;
+    addressArray.push((city + region + postalCd));
+
+    if (includeCountryName) {
+        address.countryName ? addressArray.push(trimAndCapitalize(address.countryName)) : address.country;
+    }
+
+    return addressArray;
+};
+
+//Mule User API
 export const getFullCompanyAddress = (address, includeCountryName) => {
     if (
         !address ||

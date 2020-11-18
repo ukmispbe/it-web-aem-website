@@ -12,7 +12,7 @@ const Tile = ({ tile }) => {
         return <></>;
     }
 
-    return <LinkTile {...tile} />
+    return <LinkTile {...tile} datalocator="my-account" />
 }
 
 const MyAccount = ({ title, body, tiles }) => {

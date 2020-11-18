@@ -193,6 +193,10 @@ const CheckboxOrRadio = ({}) => {
         ) : (
                 <div id={name} className={`cmp-form-field-${type}--grouping`}>
                     {options.map((option, i) => {
+                        let address=[];
+                        option.address.map((addressPiece) => {
+                            address.push(<div className={`cmp-form-field-${type}--address1`}>{addressPiece}</div>)
+                        })
                         return (
                             <>
                                 <div style={{ paddingTop: "10px" }}
@@ -201,10 +205,7 @@ const CheckboxOrRadio = ({}) => {
                                 >
                                     {renderType(option.name, option.label)}
                                 </div>
-                                {option.accountStreet &&
-                                    <div className={`cmp-form-field-${type}--address1`}>{option.accountStreet}</div>}
-                                {option.accountCity &&
-                                    <div className={`cmp-form-field-${type}--address1`}>{option.accountCity + ", " + option.state + " " + option.accountZip}</div>}
+                                {address}
                             </>
                         );
                     })}

@@ -5,8 +5,10 @@ import Aside from "./aside";
 import MyAccount from "./myaccount";
 import MyProfile from '../my-profile';
 import ChangePassword from "../change-password";
-import OrderHistory from "../order-history";
-import OrderDetails from "../order-details";
+import OrderHistory from "../history/order-history";
+import OrderDetails from "../details/order-details";
+import QuoteHistory from "../history/quote-history";
+import QuoteDetails from "../details/quote-details";
 
 const MyAccountRouter = (props) => {
     return (
@@ -25,7 +27,7 @@ const MyAccountRouter = (props) => {
                         <ChangePassword configId={props.changePassword.config} configs={props.myProfile} />
                     </Aside>
                 </Route>
-                <Route exact path={routes.orderHistory.path} >
+                <Route exact path={routes.orderHistory.path}>
                     <Aside tiles={props.tiles} breadcrumbs={props.breadcrumbs}>
                         <OrderHistory configs={props.orderHistory} />
                     </Aside>
@@ -33,6 +35,16 @@ const MyAccountRouter = (props) => {
                 <Route exact path={routes.orderDetails.path}>
                     <Aside tiles={props.tiles} breadcrumbs={props.breadcrumbs}>
                         <OrderDetails config={props.orderDetails} />
+                    </Aside>
+                </Route>
+                <Route exact path={routes.quoteHistory.path}>
+                    <Aside tiles={props.tiles} breadcrumbs={props.breadcrumbs}>
+                        <QuoteHistory configs={props.quoteHistory} />
+                    </Aside>
+                </Route>
+                <Route exact path={routes.quoteDetails.path}>
+                    <Aside tiles={props.tiles} breadcrumbs={props.breadcrumbs}>
+                        <QuoteDetails config={props.quoteDetails} />
                     </Aside>
                 </Route>
             </Switch>

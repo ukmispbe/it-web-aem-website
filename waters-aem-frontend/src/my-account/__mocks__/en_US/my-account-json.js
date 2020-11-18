@@ -33,6 +33,16 @@ export default {
                     url: "#orderdetails",
                     isHidden: "true",
                 },
+                {
+                    text: "Quote History",
+                    url: "#quotehistory",
+                    linkName: "Quote History",
+                },
+                {
+                    text: "Quote History",
+                    url: "#quotedetails",
+                    isHidden: "true",
+                }
             ],
         },
         {
@@ -71,6 +81,10 @@ export default {
                 title: "Order History",
                 backLinkTitle: "Back to Order History",
             },
+            quoteHistory: {
+                title: "Quote History",
+                backLinkTitle: "Back to Quote History",
+            }
         },
         backIcon: "/content/dam/waters/en/brand-assets/icons/left.svg",
     },
@@ -94,8 +108,8 @@ export default {
         fetchEndPoint: "https://devservices.waters.com:8443/api/waters/order/v1/list",
         title: "Order History",
         resultsText: "Showing {startResults}-{endResults} of {count} Orders",
-        noOrdersFoundTitle: "Sorry, no orders found.",
-        noOrdersFoundText: "Check back after you shop on Waters.com for order information and shipment tracking.",
+        noResultsFoundTitle: "Sorry, no orders found.",
+        noResultsFoundText: "Check back after you shop on Waters.com for order information and shipment tracking.",
         shopAllTitle: "Shop All Products",
         shopAllHref: "/content/waters/us/en/shop/shop-all-products.html",
         orderText: "Order Number: ",
@@ -118,9 +132,9 @@ export default {
         }, {
             name: "Open Orders"
         }],
-        orderfilters: {
-            allOrders: "All Orders",
-            openOrders: "Open Orders",
+        dropdownfilters: {
+            all: "All Orders",
+            opens: "Open Orders",
             downIcon: "/content/dam/waters/en/brand-assets/icons/down.svg",
         },
         timeperiod: {
@@ -137,11 +151,11 @@ export default {
         orderHistory: "Order History",
         orderDetails: "Order Details",
         resultsText: "Showing {startResults}-{endResults} of {count} Shipments",
-        orderNotFoundErrorTitle: "Sorry, order not found.",
+        resultNotFoundErrorTitle: "Sorry, order not found.",
         serviceErrorNotificationTitle: "Sorry, something went wrong.",
         serviceErrorNotificationText: "Please try again.",
         serviceErrorNotificationIcon: "/content/dam/waters/en/brand-assets/icons/attention.svg",
-        orderNumber: "Order Number",
+        numberLabel: "Order Number",
         shipTo: "Ship to",
         billTo: "Bill to",
         orderSummary: "Order Summary",
@@ -180,6 +194,127 @@ export default {
             openIcon: "/content/dam/waters/en/brand-assets/icons/refresh.svg",
             partialIcon: "/content/dam/waters/en/brand-assets/icons/success.svg",
             completeIcon: "/content/dam/waters/en/brand-assets/icons/success.svg",
+        },
+        modalInfo: {
+            icon: "/content/dam/waters/en/brand-assets/icons/cart.svg",
+            closeIcon: "/content/dam/waters/en/brand-assets/icons/close.svg",
+            title: "Reorder all items?",
+            isOrderDetails: true,
+            buttons: [{
+                    text: "Continue to Shopping Cart",
+                    action: "https://wwwdt1.waters.com/waters/shoppingCart.htm",
+                },
+                {
+                    text: "Cancel",
+                    action: "close",
+                },
+            ],
+            text: "This order will be added to your Shopping Cart",
+        },
+    },
+    quoteHistory: {
+        fetchEndPoint: "https://devservices.waters.com:8443/api/waters/order/v1/list",
+        title: "Quote History",
+        resultsText: "Showing {startResults}-{endResults} of {count} Quotes",
+        noResultsFoundTitle: "Sorry, no quotes found.",
+        noResultsFoundText: "Check back after you shop for quote information.",
+        shopAllTitle: "Shop All Products",
+        shopAllHref: "/content/waters/us/en/shop/shop-all-products.html",
+        orderText: "Quote Number: ",
+        itemsText: " Items",
+        shipment: {
+            shipmentText: "Shipment",
+            trackShipmentText: "Track Shipment",
+            openLabel: "In Progress",
+            partialLabel: "Partially Shipped",
+            completeLabel: "Shipped",
+            completeShippedLabel: "Shipped on ",
+            expiredLabel: "Expired",
+            orderPlacedLabel: "Order Placed",
+        },
+        icons: {
+            openIcon: "/content/dam/waters/en/brand-assets/icons/refresh.svg",
+            partialIcon: "/content/dam/waters/en/brand-assets/icons/success.svg",
+            completeIcon: "/content/dam/waters/en/brand-assets/icons/success.svg",
+            expiredIcon: "/content/dam/waters/en/brand-assets/icons/x.svg",
+            orderPlacedIcon: "/content/dam/waters/en/brand-assets/icons/success.svg",
+        },
+        tabs: [{
+            name: "All Quotes"
+        }, {
+            name: "Open Quotes"
+        },
+        {
+            name: "Closed Quotes"
+        }],
+        blankItemTabs:[{name: "All Quotes"}],
+        dropdownfilters: {
+            all: "All Quotes",
+            open: "Open Quotes",
+            closed: "Closed Quotes",
+            downIcon: "/content/dam/waters/en/brand-assets/icons/down.svg",
+        },
+        timeperiod: {
+            last30days: "Last 30 Days",
+            last6months: "Last 6 Months",
+            last12months: "Last 12 Months",
+            showall: "Show All",
+            downIcon: "/content/dam/waters/en/brand-assets/icons/down.svg",
+        },
+    },
+    quoteDetails: {
+        fetchDetailsEndPoint: "https://devservices.waters.com:8443/api/waters/order/v1/details",
+        fetchItemsEndPoint: "https://devservices.waters.com:8443/api/waters/search",
+        quoteHistory: "Quote History",
+        orderDetails: "Quote Details",
+        resultsText: "Showing {startResults}-{endResults} of {count} Shipments",
+        resultNotFoundErrorTitle: "Sorry, Quotes not found.",
+        serviceErrorNotificationTitle: "Sorry, something went wrong.",
+        serviceErrorNotificationText: "Please try again.",
+        serviceErrorNotificationIcon: "/content/dam/waters/en/brand-assets/icons/attention.svg",
+        numberLabel: "Quote Number",
+        shipTo: "Ship to",
+        billTo: "Bill to",
+        orderSummary: "Quotes Summary",
+        paymentMethod: "Payment Method",
+        shipmentMethod: "Shipment Method",
+        subTotal: "Subtotal",
+        items: "items",
+        item: "item",
+        shipping: "Shipping and Handling ",
+        savings: "Savings",
+        tax: "Tax",
+        minusSign: "-",
+        orderTotal: "Order Total",
+        reorderTitle: "Reorder",
+        paymentType: {
+            purchaseOrder: {
+                label: "PO",
+                icon: "/content/dam/waters/en/brand-assets/icons/document.svg",
+            },
+            creditCard: {
+                label: "Credit Card",
+                icon: "/content/dam/waters/en/brand-assets/icons/creditcard.svg",
+            },
+        },
+        shipment: {
+            shipmentText: "Shipment",
+            itemsText: "Items",
+            itemText: "Item",
+            trackShipmentText: "Track Shipment",
+            openLabel: "In Progress",
+            partialLabel: "Partially Shipped",
+            completeLabel: "Shipped",
+            completeShippedLabel: "Shipped on ",
+            expiredLabel: "Expired",
+            orderPlacedLabel: "Order Placed",
+        },
+        icons: {
+            openIcon: "/content/dam/waters/en/brand-assets/icons/refresh.svg",
+            partialIcon: "/content/dam/waters/en/brand-assets/icons/success.svg",
+            completeIcon: "/content/dam/waters/en/brand-assets/icons/success.svg",
+            expiredIcon: "/content/dam/waters/en/brand-assets/icons/x.svg",
+            orderPlacedIcon: "/content/dam/waters/en/brand-assets/icons/success.svg",
         },
         modalInfo: {
             icon: "/content/dam/waters/en/brand-assets/icons/cart.svg",

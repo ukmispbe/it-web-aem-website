@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import ReactHtmlParser from 'react-html-parser';
+
+import { htmlParser, getCompanyLogo } from '../../utils/eCommerceFunctions';
 
 //Mocked Props
 import UserGreeting from '../UserGreeting';
@@ -80,6 +81,17 @@ describe('<UserGreeting />', () => {
         enzymeWrapper.setProps({ greetings: '' });
         enzymeWrapper.update();
         expect(enzymeWrapper.find('h2').text()).toBe('');
-        expect(enzymeWrapper.find('h4').text()).toBe(ReactHtmlParser('Johnson &amp; Johnson BE').toString());
+        expect(enzymeWrapper.find('h4').text()).toBe(htmlParser('Johnson &amp; Johnson BE'));
+    });
+    it('should display company logo with special char(&) in company name', () => {
+        window.sessionStorage.setItem('waters.userDetails', JSON.stringify({ company: 'Johnson &amp; Johnson' }));
+        enzymeWrapper.setProps({ greetings: 'Welcome' });
+        enzymeWrapper.update();
+        expect(enzymeWrapper.find('h2').text()).toBe('Welcome');
+        expect(enzymeWrapper.find('h4').text()).toBe(htmlParser('Johnson &amp; Johnson'));
+        expect(enzymeWrapper.find('img')).toHaveLength(1);
+        const imgProps = enzymeWrapper.find('img').props();
+        expect(imgProps.src).toBe(getCompanyLogo(props.logoDirectoryPath, htmlParser('Johnson &amp; Johnson')));
+        expect(imgProps.alt).toBe(htmlParser('Johnson &amp; Johnson'));
     });
 });
