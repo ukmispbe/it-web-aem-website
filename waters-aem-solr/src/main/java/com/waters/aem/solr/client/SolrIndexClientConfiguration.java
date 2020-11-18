@@ -12,6 +12,10 @@ public @interface SolrIndexClientConfiguration {
     @AttributeDefinition(name = "Solr Collection")
     String collection() default "waters";
     
+    @AttributeDefinition(name = "Enable Authentication",
+            description = "If true, authentication will be enabled on solr.")
+     boolean enableAuthentication() default true;
+    
     @AttributeDefinition(name = "User Name")
     String userName() default "Solr";
     

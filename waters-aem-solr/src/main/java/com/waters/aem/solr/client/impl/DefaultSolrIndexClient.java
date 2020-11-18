@@ -37,6 +37,8 @@ public class DefaultSolrIndexClient implements SolrIndexClient {
 
     private volatile String collection;
     
+    private volatile boolean enableAuthentication;
+    
     private volatile String userName;
     
     private volatile String password;
@@ -46,7 +48,9 @@ public class DefaultSolrIndexClient implements SolrIndexClient {
     	  UpdateRequest req = new UpdateRequest();
     	    req.add(document);
     	    req.setCommitWithin(commitWithinMs);
+    	    if(enableAuthentication) {
     	    req.setBasicAuthCredentials(userName,password);
+    	    }
     	return processResponse(req.process(solrClient, collection), req);
     }
 
@@ -55,7 +59,9 @@ public class DefaultSolrIndexClient implements SolrIndexClient {
     	UpdateRequest req = new UpdateRequest();
         req.deleteById(id);
         req.setCommitWithin(commitWithinMs);
+        if(enableAuthentication) {
 	    req.setBasicAuthCredentials(userName, password);
+        }
     	return processResponse(req.process(solrClient, collection), req);
     }
 
@@ -65,6 +71,7 @@ public class DefaultSolrIndexClient implements SolrIndexClient {
         commitWithinMs = configuration.commitWithinMs();
         hardCommit = configuration.hardCommit();
         collection = configuration.collection();
+        enableAuthentication = configuration.enableAuthentication();
         userName = configuration.userName();
         password = configuration.password();
         final List<String> zkServers = Arrays.asList(configuration.zookeeperUrl());
