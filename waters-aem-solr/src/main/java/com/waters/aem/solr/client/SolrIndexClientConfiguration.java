@@ -17,10 +17,10 @@ public @interface SolrIndexClientConfiguration {
      boolean enableAuthentication() default true;
     
     @AttributeDefinition(name = "User Name")
-    String userName() default "Solr";
+    String userName() default "solradmin";
     
     @AttributeDefinition(name = "Protected Password", type = AttributeType.PASSWORD)
-    String password() default "{5695877bf59d50bb68b4f1bbe7abe1b7bc454ead75feb5911017b7571d917502}";
+    String password() default "{e2ba26faf1e47f31262d1d71dd9ce75c6014320d991b842f10296c5f1add0e5f}";
 
     @AttributeDefinition(name = "Commit Within Milliseconds",
         description = "Add/delete documents within the specified number of milliseconds.")
