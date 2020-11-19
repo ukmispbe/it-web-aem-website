@@ -15,7 +15,7 @@ const renderUserName = props => {
 };
 
 const renderAccountDetails = props => {
-    if (!CheckOutStatus.length && props.accountName.length === 0) return <></>
+    if (!CheckOutStatus.length && !props.accountName) return <></>
 
     return (
         <>

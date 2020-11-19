@@ -5,7 +5,8 @@ import { elementLocator } from '../../utils/eCommerceFunctions';
 const Link = ({
     text,
     url,
-    linkName
+    linkName,
+	context
 }) => (
     <>
         {!!text && !!url &&
@@ -13,7 +14,7 @@ const Link = ({
                 className="cmp-linktile--link"
                 href={url}
                 onClick={()=>setClickAnalytics("Account Home", linkName ? linkName : text, url)}
-                data-locator={elementLocator(text)}
+                data-locator={context ? `${context}-${elementLocator(linkName || text)}` : elementLocator(linkName || text)}
              >
                 {text}
             </a>)

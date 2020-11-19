@@ -135,17 +135,21 @@ public final class Sku {
     }
 
     public BigDecimal getPrice(final String country, final String currencyIso) {
-        final String priceResourcePath = new StringBuilder(WatersCommerceConstants.RESOURCE_NAME_PRICES)
-            .append("/")
-            .append(currencyIso)
-            .append("-")
-            .append(country)
-            .toString();
+        final String priceResourcePath = getPriceResourcePath(country, currencyIso);
 
         return Optional.ofNullable(resource.getChild(priceResourcePath))
             .map(priceResource -> priceResource.getValueMap().get(WatersCommerceConstants.PROPERTY_VALUE,
                 BigDecimal.class))
             .orElse(null);
+    }
+
+    private String getPriceResourcePath(String country, String currencyIso) {
+        return new StringBuilder(WatersCommerceConstants.RESOURCE_NAME_PRICES)
+                .append("/")
+                .append(currencyIso)
+                .append("-")
+                .append(country)
+                .toString();
     }
 
     public List<SkuImage> getImages() {
@@ -246,5 +250,10 @@ public final class Sku {
         return Objects.toStringHelper(this)
             .add("resource", resource.getPath())
             .toString();
+    }
+
+    public String getCurrencyCode(String country, String currencyIsoCode) {
+        return java.util.Objects.requireNonNull(resource.getChild(getPriceResourcePath(country, currencyIsoCode)))
+                .getValueMap().get(WatersCommerceConstants.PROPERTY_CURRENCY_ISO, "USD");
     }
 }

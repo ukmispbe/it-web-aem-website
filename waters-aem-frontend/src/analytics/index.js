@@ -156,4 +156,4 @@ export default analytics;
 export const analyticTypes = analytics.analyticTypes;
 export const setClickAnalytics = analytics.setClickAnalytics;
 export const setSelectDropdownAnalytics = analytics.setSelectDropdownAnalytics;
-export const [mainCartContext, searchCartContext, relatedCartContext] = analytics.analyticTypes.cart.context;
+export const [mainCartContext, searchCartContext, relatedCartContext, shopAllCartContext] = analytics.analyticTypes.cart.context;
