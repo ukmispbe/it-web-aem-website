@@ -70,7 +70,7 @@ public class DefaultSolrIndexService implements SolrIndexService {
             success = solrIndexClient.addToIndex(document);
         }
         	catch(RouteException e) {
-        		LOG.info("Missing facet, indexing skipped due to : {}", e.getMessage());
+        		LOG.info("Add to index skipped due to : {}", e.getMessage());
         	}
         } else {
             LOG.info("solr index service disabled, not adding path to index : {}", path);
@@ -90,7 +90,7 @@ public class DefaultSolrIndexService implements SolrIndexService {
             success = solrIndexClient.deleteFromIndex(path);
             }
         	catch(RouteException e) {
-        		LOG.info("Missing facet, indexing skipped due to : {}", e.getMessage());
+        		LOG.info("delete from index skipped due to : {}", e.getMessage());
         	}
         } else {
             LOG.info("solr index service disabled, not deleting path from index : {}", path);
