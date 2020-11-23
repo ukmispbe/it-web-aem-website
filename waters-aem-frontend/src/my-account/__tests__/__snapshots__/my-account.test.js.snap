@@ -121,6 +121,21 @@ exports[`Feature: My Account Component Scenario: Rendering When ecommerce is not
           <div
             className="cmp-linktile--links"
           />
+          <div
+            className="cmp-linktile--links"
+          >
+            <a
+              className="cmp-linktile--link"
+              data-locator="my-account-quote-history"
+              href="#quotehistory"
+              onClick={[Function]}
+            >
+              Quote History
+            </a>
+          </div>
+          <div
+            className="cmp-linktile--links"
+          />
         </div>
       </div>
       <div
@@ -303,6 +318,21 @@ exports[`Feature: My Account Component Scenario: Rendering when ecommerce is dis
               onClick={[Function]}
             >
               Order History
+            </a>
+          </div>
+          <div
+            className="cmp-linktile--links"
+          />
+          <div
+            className="cmp-linktile--links"
+          >
+            <a
+              className="cmp-linktile--link"
+              data-locator="my-account-quote-history"
+              href="#quotehistory"
+              onClick={[Function]}
+            >
+              Quote History
             </a>
           </div>
           <div

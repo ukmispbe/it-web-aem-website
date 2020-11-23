@@ -120,7 +120,7 @@ describe('Feature: My Account Dropdown Component', () => {
 					);
 					const SwitchAccount = wrapper.find(keys.switchAccount);
 					expect(SwitchAccount.text()).toEqual(props.switchAccount.text);
-					expect(SwitchAccount.prop('href')).toEqual(props.switchAccount.url);
+					expect(SwitchAccount.prop('href')).toEqual(props.switchAccount.url + "?fromMenu=true");
 					spy.mockClear()
 				});
 			});
