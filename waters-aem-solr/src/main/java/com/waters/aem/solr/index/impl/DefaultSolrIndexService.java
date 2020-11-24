@@ -28,6 +28,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
@@ -57,6 +58,51 @@ public class DefaultSolrIndexService implements SolrIndexService {
 
     private volatile List<String> locales;
 
+    @Override
+    public boolean addPageToIndex(final List<String> paths) throws IOException, SolrServerException {
+        boolean success = true;
+        List<SolrInputDocument> documentList = new ArrayList<SolrInputDocument>();
+
+        if (enabled) {
+        	try {
+        		for (String path : paths) {
+        			final SolrInputDocument document = getSolrInputDocument(path);
+
+                    LOG.info("adding solr document to index : {}", document);
+                    documentList.add(document);
+				}
+        		  success = solrIndexClient.addToIndex(documentList);
+            
+        }
+        	catch(RouteException e) {
+        		LOG.info("Add to index skipped due to : {}", e.getMessage());
+        	}
+        } else {
+            LOG.info("solr index service disabled, not adding path to index : {}", paths);
+        }
+
+        return success;
+    }
+
+    @Override
+    public boolean deletePageFromIndex(final List<String> paths) throws IOException, SolrServerException {
+        boolean success = true;
+
+        if (enabled) {
+        	try {
+            LOG.info("deleting paths {} from solr index...", paths);
+
+            success = solrIndexClient.deleteFromIndex(paths);
+            }
+        	catch(RouteException e) {
+        		LOG.info("delete from index skipped due to : {}", e.getMessage());
+        	}
+        } else {
+            LOG.info("solr index service disabled, not deleting path from index : {}", paths);
+        }
+
+        return success;
+    }
     @Override
     public boolean addPageToIndex(final String path) throws IOException, SolrServerException {
         boolean success = true;

@@ -1,10 +1,16 @@
 package com.waters.aem.solr.servlets;
 
-import com.google.common.base.Predicates;
-import com.icfolson.aem.library.api.page.PageDecorator;
-import com.icfolson.aem.library.api.page.PageManagerDecorator;
-import com.icfolson.aem.library.core.constants.PathConstants;
-import com.waters.aem.solr.index.SolrIndexService;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.annotation.Nonnull;
+import javax.servlet.Servlet;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.servlets.SlingSafeMethodsServlet;
@@ -15,13 +21,12 @@ import org.osgi.service.component.annotations.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.Nonnull;
-import javax.servlet.Servlet;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import com.google.common.base.Predicates;
+import com.google.common.collect.Lists;
+import com.icfolson.aem.library.api.page.PageDecorator;
+import com.icfolson.aem.library.api.page.PageManagerDecorator;
+import com.icfolson.aem.library.core.constants.PathConstants;
+import com.waters.aem.solr.index.SolrIndexService;
 
 @Component(service = Servlet.class)
 @SlingServletResourceTypes(
@@ -67,7 +72,8 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 
             if (page == null) {
                 // page no longer exists, delete path from index
-                success = deletePageFromIndex(pagePath);
+            	List<String> paths = Collections.singletonList( "pagePath" );
+                success = deletePageFromIndex(paths);
             } else {
                 // page still exists, delete path from index and include descendants if selected
                 success = deleteFromIndex(page, includeDescendants);
@@ -80,19 +86,17 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
     }
 
     private boolean addToIndex(final PageDecorator page, final boolean includeDescendants) {
-        return getPagePaths(page, includeDescendants)
+    	List<String> pagePaths =   getPagePaths(page, includeDescendants)
             .stream()
-            .filter(path -> solrIndexService.isIndexed(path, true))
-            .map(this :: addPageToIndex)
-            .allMatch(result -> true);
+            .filter(path -> solrIndexService.isIndexed(path, true)).collect(Collectors.toList());
+    	return Lists.partition(pagePaths, pagePaths.size()/100).stream().map(this::addPageToIndex).allMatch(result -> true);
     }
 
     private boolean deleteFromIndex(final PageDecorator page, final boolean includeDescendants) {
-        return getPagePaths(page, includeDescendants)
-            .stream()
-            .filter(path -> solrIndexService.isIndexed(path, false))
-            .map(this :: deletePageFromIndex)
-            .allMatch(result -> true);
+    	List<String> pagePaths =   getPagePaths(page, includeDescendants)
+                .stream()
+                .filter(path -> solrIndexService.isIndexed(path, false)).collect(Collectors.toList());
+        	return Lists.partition(pagePaths, pagePaths.size()/100).stream().map(this::deletePageFromIndex).allMatch(result -> true);
     }
 
     private List<String> getPagePaths(final PageDecorator page, final boolean includeDescendants) {
@@ -111,13 +115,13 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
         return pagePaths;
     }
 
-    private boolean addPageToIndex(final String path) {
+    private boolean addPageToIndex(final List<String> paths) {
         boolean success;
-
+        LOG.info("addPageToIndex method called having page count {} : " ,paths.size());
         try {
-            success = solrIndexService.addPageToIndex(path);
+            success = solrIndexService.addPageToIndex(paths);
         } catch (IOException | SolrServerException e) {
-            LOG.error("error adding page to index : " + path, e);
+            LOG.error("error adding page to index : " + paths, e);
 
             success = false;
         }
@@ -125,13 +129,13 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
         return success;
     }
 
-    private boolean deletePageFromIndex(final String path) {
+    private boolean deletePageFromIndex(final List<String> paths) {
         boolean success;
-
+        LOG.info("deletePageFromIndex method called having page count {} : " ,paths.size());
         try {
-            success = solrIndexService.deletePageFromIndex(path);
+            success = solrIndexService.deletePageFromIndex(paths);
         } catch (IOException | SolrServerException e) {
-            LOG.error("error deleting page from index : " + path, e);
+            LOG.error("error deleting page from index : " + paths, e);
 
             success = false;
         }
