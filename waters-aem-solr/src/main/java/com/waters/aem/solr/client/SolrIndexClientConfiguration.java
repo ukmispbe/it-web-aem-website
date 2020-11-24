@@ -1,16 +1,26 @@
 package com.waters.aem.solr.client;
 
 import org.osgi.service.metatype.annotations.AttributeDefinition;
+import org.osgi.service.metatype.annotations.AttributeType;
 import org.osgi.service.metatype.annotations.ObjectClassDefinition;
 
 @ObjectClassDefinition(name = "Solr Index Client Configuration")
 public @interface SolrIndexClientConfiguration {
-
-    @AttributeDefinition(name = "Solr Base URL")
-    String baseUrl() default "http://solrdevmaster.waters.com:8983/solr";
+	@AttributeDefinition(name = "Zookeeper host url",  type = AttributeType.STRING)
+    String[] zookeeperUrl() default {"localhost:2181","localhost:2182","localhost:2183"};
 
     @AttributeDefinition(name = "Solr Collection")
     String collection() default "waters";
+    
+    @AttributeDefinition(name = "Enable Authentication",
+            description = "If true, authentication will be enabled on solr.")
+     boolean enableAuthentication() default true;
+    
+    @AttributeDefinition(name = "User Name")
+    String userName() default "solradmin";
+    
+    @AttributeDefinition(name = "Protected Password", type = AttributeType.PASSWORD)
+    String password() default "{e2ba26faf1e47f31262d1d71dd9ce75c6014320d991b842f10296c5f1add0e5f}";
 
     @AttributeDefinition(name = "Commit Within Milliseconds",
         description = "Add/delete documents within the specified number of milliseconds.")

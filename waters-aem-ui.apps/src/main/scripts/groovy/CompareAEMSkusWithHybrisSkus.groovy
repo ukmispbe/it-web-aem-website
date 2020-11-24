@@ -86,6 +86,6 @@ def compareData(sheet, aemList, dataFormatter, contentType) {
 }
 
 def getAemData(contentTypeParam) {
-   return "http://test-author.waters.com:4503/bin/querybuilder.json?p.hits=selective&p.properties=hybris%3acode%20jcr%3atitle&path=/content/waters/us/en/shop/${contentTypeParam}&1_property=cq:template&1_property.value=/conf/waters/settings/wcm/templates/sku-page&p.limit=-1&1_property.operation=like&orderby=path".toURL().text
+   return "http://10.200.33.197:4503/bin/querybuilder.json?p.hits=selective&p.properties=hybris%3acode%20jcr%3atitle&path=/content/waters/us/en/shop/${contentTypeParam}&1_property=cq:template&1_property.value=/conf/waters/settings/wcm/templates/sku-page&p.limit=-1&1_property.operation=like&orderby=path".toURL().text
 } 
 
