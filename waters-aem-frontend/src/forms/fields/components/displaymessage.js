@@ -3,9 +3,11 @@ import ReactSVG from 'react-svg';
 
 import { useFieldApi } from '../../form';
 import { useErrorsContext } from '../utils/stateWatcher';
+import { useFormApi } from '../../form';
 
 const DisplayMessage = ({ name, validation }) => {
     const { icons } = useContext(useFieldApi);
+    const { isAlreadyRegistered } = useContext(useFormApi);
     const errors = useErrorsContext();
 
     const getInfo = () => {
@@ -23,9 +25,8 @@ const DisplayMessage = ({ name, validation }) => {
                     if (validation.validateFnName === 'email') {
                         if (errors.invalidEmail)
                             message = errors.invalidEmail.message;
-                        if (errors.networkIssue)
-                            message = "Network Issue";
                         if (errors.alreadyRegistered) return showSignIn();
+                        if (isAlreadyRegistered) return showSignIn();
                         break;
                     }
 
