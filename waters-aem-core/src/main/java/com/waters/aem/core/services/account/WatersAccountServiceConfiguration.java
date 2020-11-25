@@ -16,44 +16,44 @@ public @interface WatersAccountServiceConfiguration {
     String legacySearchUrl() default "https://wwwdt1.waters.com/waters/keywordSearch.htm";
 
     @AttributeDefinition(name = "Registration submit API Url", description = "Url for submitting the registration form")
-    String registrationSubmitUrl() default "https://devservices.waters.com:8443/api/waters/user/v1/registration";
+    String registrationSubmitUrl() default "https://dev1-services.waters.com/api/waters/user/v1/registration";
 
     @AttributeDefinition(name = "Email Validation API Url", description = "Url for email validation")
-    String emailValidationUrl() default "https://devservices.waters.com:8443/api/waters/user/v1/validate/{email}";
+    String emailValidationUrl() default "https://dev1-services.waters.com/api/waters/user/v1/validate/{email}";
 
     @AttributeDefinition(name = "Reset Password API Url", description = "Url for reset password")
-    String pwResetUrl() default "https://devservices.waters.com:8443/api/waters/user/v1/reset/password?email={email}";
+    String pwResetUrl() default "https://dev1-services.waters.com/api/waters/user/v1/reset/password?email={email}";
 
     @AttributeDefinition(name = "Change Password API Url", description = "Url for change password")
-    String changePwUrl() default "https://devservices.waters.com:8443/api/waters/user/v1/change/password";
+    String changePwUrl() default "https://dev1-services.waters.com/api/waters/user/v1/change/password";
 
     @AttributeDefinition(name = "User Details API Url", description = "Url for User Details API")
-    String userDetailsUrl() default "https://devservices.waters.com:8443/api/waters/user/v1/details";
+    String userDetailsUrl() default "https://dev1-services.waters.com/api/waters/user/v1/details";
 
     @AttributeDefinition(name = "Sold To Details API Url", description = "Url for Sold To Details API")
     String soldToDetailsUrl() default "https://api-sbox.waters.com/dev-waters-user-exp-api-v1/api/users";
 
     @AttributeDefinition(name = "Update Password API Url", description = "Url for update password API")
-    String updatePwUrl() default "https://devservices.waters.com:8443/api/waters/user/v1/update/password";
+    String updatePwUrl() default "https://dev1-services.waters.com/api/waters/user/v1/update/password";
 
     @AttributeDefinition(name = "Update Profile API Url", description = "Url for update profile API")
-    String updateProfileUrl() default "https://devservices.waters.com:8443/api/waters/user/v1/update/profile";
+    String updateProfileUrl() default "https://dev1-services.waters.com/api/waters/user/v1/update/profile";
 
     @AttributeDefinition(name = "Sign In Endpoint", description = "The Endpoint for the Sign In API")
-    String signInEndpoint() default "https://devservices.waters.com:8443/api/waters/user/v1/login";
+    String signInEndpoint() default "https://dev1-services.waters.com/api/waters/user/v1/login";
 
     @AttributeDefinition(name = "Sign Out Endpoint", description = "The Endpoint for the Sign Out API")
-    String signOutEndpoint() default "https://devservices.waters.com:8443/api/waters/user/v1/logout";
+    String signOutEndpoint() default "https://dev1-services.waters.com/api/waters/user/v1/logout";
 
     @AttributeDefinition(name = "Choose Account Endpoint", description = "The Endpoint for the Choose Account API")
-    String chooseAccountEndpoint() default "https://devservices.waters.com:8443/api/waters/user/v1/switchaccount";
+    String chooseAccountEndpoint() default "https://dev1-services.waters.com/api/waters/user/v1/switchaccount";
 
     @AttributeDefinition(name = "Order Details API Url", description = "Url for Order Details API")
-    String orderDetailsUrl() default "https://devservices.waters.com:8443/api/waters/order/v1/details";
+    String orderDetailsUrl() default "https://dev1-services.waters.com/api/waters/order/v1/details";
 
     @AttributeDefinition(name = "Order List API Url", description = "Url for Order List API")
-    String orderListUrl() default "https://devservices.waters.com:8443/api/waters/order/v1/list";
+    String orderListUrl() default "https://dev1-services.waters.com/api/waters/order/v1/list";
 
     @AttributeDefinition(name = "Contact Support API Url", description = "Url for Contact Support API")
-    String contactSupportUrl() default "https://devservices.waters.com:8443/api/waters/contact/v1/support"; 
+    String contactSupportUrl() default "https://dev1-services.waters.com/api/waters/contact/v1/support"; 
 }
