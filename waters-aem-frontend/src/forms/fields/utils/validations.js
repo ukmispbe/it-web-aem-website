@@ -1,6 +1,6 @@
 import { functions } from "../patterns";
 
-export const getAttributes = (ref, validation, matchRef, emailValidationEndpoint, setError, clearError) => {
+export const getAttributes = (ref, validation, matchRef, emailValidationEndpoint, setError, clearError, setErrorBoundaryToTrue, resetErrorBoundaryToFalse, removeNotifications, setValue, name) => {
     const setValidation = () => {
         if (validation && validation.validateFnName) {
             switch (validation.validateFnName) {
@@ -28,7 +28,9 @@ export const getAttributes = (ref, validation, matchRef, emailValidationEndpoint
                             ref,
                             validation.validationMsg,
                             setError,
-                            clearError
+                            clearError,
+                            setErrorBoundaryToTrue, 
+                            removeNotifications
                         ) &&
                         functions["newEmail"](
                             value,
@@ -36,7 +38,11 @@ export const getAttributes = (ref, validation, matchRef, emailValidationEndpoint
                             ref,
                             validation.alreadyRegisteredMsg,
                             setError,
-                            clearError
+                            clearError,
+                            setErrorBoundaryToTrue, 
+                            removeNotifications,
+                            setValue,
+                            name
                         )
                     )};
                 case "checkBoxOrRadio":
