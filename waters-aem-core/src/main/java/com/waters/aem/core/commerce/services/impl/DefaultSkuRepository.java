@@ -41,10 +41,17 @@ public final class DefaultSkuRepository implements SkuRepository {
 
     @Override
     public Sku getSku(final PageDecorator page) {
-        return page.get(WatersCommerceConstants.PROPERTY_PRODUCT_RESOURCE_PATH, String.class)
-            .transform(productResourcePath -> getSkuForProductResourcePath(
-                page.getContentResource().getResourceResolver(), productResourcePath))
-            .orNull();
+    	Sku sku =null;
+    	try {
+    	 sku = page.get(WatersCommerceConstants.PROPERTY_PRODUCT_RESOURCE_PATH, String.class)
+                .transform(productResourcePath -> getSkuForProductResourcePath(
+                        page.getContentResource().getResourceResolver(), productResourcePath))
+                    .orNull();
+    	}
+    	catch(NullPointerException e) {
+        	LOG.info("Product is not available :  {}", e.getMessage());
+        }
+        return sku;
     }
 
     @Override

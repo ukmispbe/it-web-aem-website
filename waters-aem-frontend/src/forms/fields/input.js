@@ -22,7 +22,7 @@ const Input = ({
     const inputRef = useRef(null);
 
     const { type, disabled, matchLabel, emailValidationEndpoint, optionalLabel } = useContext(useFieldApi);
-    const { register, setError, setValue, clearError, formName } = useContext(useFormApi);
+    const { register, setError, setValue, clearError, setErrorBoundaryToTrue, resetErrorBoundaryToFalse, removeNotifications, isAlreadyRegistered } = useContext(useFormApi);
 
     const errors = useErrorsContext();
 
@@ -34,7 +34,12 @@ const Input = ({
             matchRef,
             emailValidationEndpoint,
             setError,
-            clearError
+            clearError,
+            setErrorBoundaryToTrue, 
+            resetErrorBoundaryToFalse, 
+            removeNotifications,
+            setValue,
+            name
         );
     };
 
@@ -52,7 +57,7 @@ const Input = ({
                 break;
             }
             case "email": {
-                if (validator[validation.validateFnName](inputRef.current.value, inputRef.current, validation.requiredMsg, setError, clearError) === false) {
+                if (validator[validation.validateFnName](inputRef.current.value, inputRef.current, validation.requiredMsg, setError, clearError, setErrorBoundaryToTrue, removeNotifications, setValue, name) === false) {
                     // Hide the Tick Icon as not a valid email and don't validate using react-hook-form mechanism
                     hideShowValidIcon(name, true);
                     clearError(name);
@@ -185,7 +190,7 @@ const Input = ({
                     <Icons />
                 </div>
 
-                <DisplayMessage name={name} validation={validation} />
+                <DisplayMessage name={name} validation={validation} isAlreadyRegistered={isAlreadyRegistered} />
 
                 {validation.validateFnName === 'password' &&
                     validation.requirements && (

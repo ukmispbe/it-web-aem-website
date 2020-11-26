@@ -5,47 +5,48 @@ const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 function recursiveIssuer(m) {
     if (m.issuer) {
         return recursiveIssuer(m.issuer);
-    } else if (m.name) {
-        return m.name;
+    } else if (m.rawRequest) {
+        return m.rawRequest;
     } else {
         return false;
     }
 }
 
+const entries = {
+    main: './src/entry.js',
+    print: './src/printEntry.js',
+    head: './src/headEntry.js',
+    global: './src/globalEntry.js'
+}
+
 module.exports = {
-    entry: {
-        main: './src/entry.js',
-        print: './src/printEntry.js',
-        head: './src/headEntry.js'
-    },
+    entry: entries,
     output: {
         path: path.resolve(__dirname, '../', 'build')
     },
     optimization: {
         splitChunks: {
+            maxInitialRequests: Infinity,
             cacheGroups: {
-                mainStyles: {
-                    name: 'main',
-                    test: (m, c, entry = 'main') =>
-                    m.constructor.name === 'CssModule' && recursiveIssuer(m) === entry,
+                reactVendor: {
+                    name: 'react_vendors',
+                    test: /[\\/]node_modules[\\/](react|react-dom|prop-types|query-string|react-svg|react-router|react-router-dom|validator|react-paginate|whatwg-fetch|react-autosuggest|react-autowhatever|react-html-parser|react-spinners|es6-promise|react-hook-form)[\\/]/,
                     chunks: 'all',
-                    enforce: true,
+                    priority: 3
                 },
-                printStyles: {
-                    name: 'print',
-                    test: (m, c, entry = 'print') =>
-                    m.constructor.name === 'CssModule' && recursiveIssuer(m) === entry,
+                vendor: {
+                    name: 'node_vendors',
+                    test: /[\\/]node_modules[\\/]/,
                     chunks: 'all',
-                    enforce: true,
+                    priority: 2
                 },
-                headStyles: {
-                    name: 'head',
-                    test: (m, c, entry = 'head') =>
-                    m.constructor.name === 'CssModule' && recursiveIssuer(m) === entry,
+                utility: {
+                    name: 'utility',
+                    test: /[\\/]utils|scripts|typography|stores[\\/]/,
                     chunks: 'all',
-                    enforce: true,
+                    priority: 3
                 }
-            },
+            }
         },
         minimizer: [
             new OptimizeCSSAssetsPlugin({})
