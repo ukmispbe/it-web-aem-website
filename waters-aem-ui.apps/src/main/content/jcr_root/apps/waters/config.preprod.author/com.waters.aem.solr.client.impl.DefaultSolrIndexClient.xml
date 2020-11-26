@@ -7,6 +7,7 @@
 		  enableAuthentication="{Boolean}true"
 		  userName="solradmin"
 		  password="{String}{501304af2ba596a8d30a1fb82f2707932e7dd17fa34563c36880f51618f7a02a}"
+		  documentsCount="{Long}100" 
           hardCommit="{Boolean}false"
           connectionTimeout="{Long}20000"
           socketTimeout="{Long}20000"

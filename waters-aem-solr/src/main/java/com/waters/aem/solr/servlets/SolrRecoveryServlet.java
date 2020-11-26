@@ -18,6 +18,8 @@ import org.apache.sling.servlets.annotations.SlingServletResourceTypes;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.metatype.annotations.Designate;
+import org.osgi.service.component.annotations.Activate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,9 +28,11 @@ import com.google.common.collect.Lists;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.api.page.PageManagerDecorator;
 import com.icfolson.aem.library.core.constants.PathConstants;
+import com.waters.aem.solr.client.SolrIndexClientConfiguration;
 import com.waters.aem.solr.index.SolrIndexService;
 
 @Component(service = Servlet.class)
+@Designate(ocd=SolrIndexClientConfiguration.class)
 @SlingServletResourceTypes(
     resourceTypes = "waters/components/utilities/solr-recovery",
     methods = "GET",
@@ -37,16 +41,20 @@ import com.waters.aem.solr.index.SolrIndexService;
 )
 public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 
-    private static final String ADD = "add";
+   	private static final long serialVersionUID = 1L;
+
+	private static final String ADD = "add";
 
     private static final Logger LOG = LoggerFactory.getLogger(SolrRecoveryServlet.class);
 
     @Reference
     private SolrIndexService solrIndexService;
-
+   
+   private SolrIndexClientConfiguration configuration;
     @Override
     protected void doGet(@Nonnull final SlingHttpServletRequest request,
         @Nonnull final SlingHttpServletResponse response) {
+    	long startTime = System.currentTimeMillis();
         final String pagePath = request.getParameter("pagePath");
         final String action = request.getParameter("action");
         final boolean includeDescendants = Boolean.valueOf(request.getParameter("includeDescendants"));
@@ -65,7 +73,7 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
                 LOG.info("adding path to solr index : {}, including descendants : {}", pagePath,
                     includeDescendants);
 
-                success = addToIndex(page, includeDescendants);
+                success = addToIndex(page, includeDescendants, configuration.documentsCount());
             }
         } else {
             LOG.info("deleting path from solr index : {}", pagePath);
@@ -76,27 +84,29 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
                 success = deletePageFromIndex(paths);
             } else {
                 // page still exists, delete path from index and include descendants if selected
-                success = deleteFromIndex(page, includeDescendants);
+                success = deleteFromIndex(page, includeDescendants, configuration.documentsCount());
             }
         }
 
         if (!success) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
+        long endTime = System.currentTimeMillis();
+        LOG.info("Total time taken to index {} : {} ms",pagePath, endTime-startTime);
     }
 
-    private boolean addToIndex(final PageDecorator page, final boolean includeDescendants) {
+    private boolean addToIndex(final PageDecorator page, final boolean includeDescendants, int documentCount) {
     	List<String> pagePaths =   getPagePaths(page, includeDescendants)
             .stream()
             .filter(path -> solrIndexService.isIndexed(path, true)).collect(Collectors.toList());
-    	return Lists.partition(pagePaths, pagePaths.size()/100).stream().map(this::addPageToIndex).allMatch(result -> true);
+    	return Lists.partition(pagePaths, documentCount).stream().map(this::addPageToIndex).allMatch(result -> true);
     }
 
-    private boolean deleteFromIndex(final PageDecorator page, final boolean includeDescendants) {
+    private boolean deleteFromIndex(final PageDecorator page, final boolean includeDescendants, int documentCount) {
     	List<String> pagePaths =   getPagePaths(page, includeDescendants)
                 .stream()
                 .filter(path -> solrIndexService.isIndexed(path, false)).collect(Collectors.toList());
-        	return Lists.partition(pagePaths, pagePaths.size()/100).stream().map(this::deletePageFromIndex).allMatch(result -> true);
+        	return Lists.partition(pagePaths, documentCount).stream().map(this::deletePageFromIndex).allMatch(result -> true);
     }
 
     private List<String> getPagePaths(final PageDecorator page, final boolean includeDescendants) {
@@ -142,4 +152,9 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 
         return success;
     }
+    @Activate
+	protected void activate(SolrIndexClientConfiguration configuration) {
+		this.configuration = configuration;
+	}
+    
 }

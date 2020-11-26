@@ -21,6 +21,10 @@ public @interface SolrIndexClientConfiguration {
     
     @AttributeDefinition(name = "Protected Password", type = AttributeType.PASSWORD)
     String password() default "{e2ba26faf1e47f31262d1d71dd9ce75c6014320d991b842f10296c5f1add0e5f}";
+    
+    @AttributeDefinition(name = "Number of documents in single batch",
+            description = "Number of documents which will be indexed in single batch.")
+        int documentsCount() default 100;
 
     @AttributeDefinition(name = "Commit Within Milliseconds",
         description = "Add/delete documents within the specified number of milliseconds.")
