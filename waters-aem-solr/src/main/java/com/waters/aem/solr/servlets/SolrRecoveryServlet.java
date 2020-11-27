@@ -3,6 +3,7 @@ package com.waters.aem.solr.servlets;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Dictionary;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,10 +17,10 @@ import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.servlets.SlingSafeMethodsServlet;
 import org.apache.sling.servlets.annotations.SlingServletResourceTypes;
 import org.apache.solr.client.solrj.SolrServerException;
+import org.osgi.service.cm.Configuration;
+import org.osgi.service.cm.ConfigurationAdmin;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
-import org.osgi.service.metatype.annotations.Designate;
-import org.osgi.service.component.annotations.Activate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,11 +29,9 @@ import com.google.common.collect.Lists;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.api.page.PageManagerDecorator;
 import com.icfolson.aem.library.core.constants.PathConstants;
-import com.waters.aem.solr.client.SolrIndexClientConfiguration;
 import com.waters.aem.solr.index.SolrIndexService;
 
 @Component(service = Servlet.class)
-@Designate(ocd=SolrIndexClientConfiguration.class)
 @SlingServletResourceTypes(
     resourceTypes = "waters/components/utilities/solr-recovery",
     methods = "GET",
@@ -42,6 +41,7 @@ import com.waters.aem.solr.index.SolrIndexService;
 public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 
    	private static final long serialVersionUID = 1L;
+    private static final String DEFAULT_SOLR_INDEX_PID =	"com.waters.aem.solr.client.impl.DefaultSolrIndexClient";
 
 	private static final String ADD = "add";
 
@@ -49,11 +49,15 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 
     @Reference
     private SolrIndexService solrIndexService;
+    
+    @Reference
+    private ConfigurationAdmin configAdmin;
    
-   private SolrIndexClientConfiguration configuration;
     @Override
     protected void doGet(@Nonnull final SlingHttpServletRequest request,
-        @Nonnull final SlingHttpServletResponse response) {
+        @Nonnull final SlingHttpServletResponse response) throws IOException {
+    	Configuration configuration = configAdmin.getConfiguration(DEFAULT_SOLR_INDEX_PID);
+    	Dictionary<String, Object> props = configuration.getProperties();
     	long startTime = System.currentTimeMillis();
         final String pagePath = request.getParameter("pagePath");
         final String action = request.getParameter("action");
@@ -72,8 +76,8 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
             } else {
                 LOG.info("adding path to solr index : {}, including descendants : {}", pagePath,
                     includeDescendants);
-				if(configuration.enableBatchIndexing()) {
-				                success = addToIndex(page, includeDescendants, configuration.documentsCount());}
+				if((boolean) props.get("enableBatchIndexing")) {
+				                success = addToIndex(page, includeDescendants, (int)props.get("documentsCount"));}
 				else {
 					 success = addToIndex(page, includeDescendants);
 				}
@@ -87,8 +91,8 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
                 success = deletePageFromIndex(paths);
             } else {
                 // page still exists, delete path from index and include descendants if selected
-            	if(configuration.enableBatchIndexing()) {
-                success = deleteFromIndex(page, includeDescendants, configuration.documentsCount());
+            	if((boolean) props.get("enableBatchIndexing")) {
+                success = deleteFromIndex(page, includeDescendants,  (int)props.get("documentsCount"));
             	}
             	else {
             		success = deleteFromIndex(page, includeDescendants);
@@ -203,9 +207,6 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 
         return success;
     }
-    @Activate
-	protected void activate(SolrIndexClientConfiguration configuration) {
-		this.configuration = configuration;
-	}
+  
     
 }

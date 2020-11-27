@@ -25,11 +25,11 @@ public @interface SolrIndexClientConfiguration {
     
     @AttributeDefinition(name = "Enable Batch Indexing",
             description = "If true, documents will be indexed in batch mode.")
-    boolean enableBatchIndexing() default false;
+    public  boolean enableBatchIndexing() default false;
     
     @AttributeDefinition(name = "Number of documents in single batch",
             description = "Number of documents which will be indexed in single batch.")
-    int documentsCount() default 100;
+    public int documentsCount() default 100;
 
     @AttributeDefinition(name = "Commit Within Milliseconds",
         description = "Add/delete documents within the specified number of milliseconds.")
