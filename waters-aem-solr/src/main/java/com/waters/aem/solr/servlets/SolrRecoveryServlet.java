@@ -72,9 +72,12 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
             } else {
                 LOG.info("adding path to solr index : {}, including descendants : {}", pagePath,
                     includeDescendants);
-
-                success = addToIndex(page, includeDescendants, configuration.documentsCount());
-            }
+				if(configuration.enableBatchIndexing()) {
+				                success = addToIndex(page, includeDescendants, configuration.documentsCount());}
+				else {
+					 success = addToIndex(page, includeDescendants);
+				}
+				            }
         } else {
             LOG.info("deleting path from solr index : {}", pagePath);
 
@@ -84,7 +87,12 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
                 success = deletePageFromIndex(paths);
             } else {
                 // page still exists, delete path from index and include descendants if selected
+            	if(configuration.enableBatchIndexing()) {
                 success = deleteFromIndex(page, includeDescendants, configuration.documentsCount());
+            	}
+            	else {
+            		success = deleteFromIndex(page, includeDescendants);
+            	}
             }
         }
 
@@ -93,6 +101,21 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
         }
         long endTime = System.currentTimeMillis();
         LOG.info("Total time taken to index {} : {} ms",pagePath, endTime-startTime);
+    }
+    
+    private boolean addToIndex(final PageDecorator page, final boolean includeDescendants) {
+        return getPagePaths(page, includeDescendants)
+            .stream()
+            .filter(path -> solrIndexService.isIndexed(path, true))
+            .map(this :: addPageToIndex)
+            .allMatch(result -> true);
+    }
+    private boolean deleteFromIndex(final PageDecorator page, final boolean includeDescendants) {
+        return getPagePaths(page, includeDescendants)
+            .stream()
+            .filter(path -> solrIndexService.isIndexed(path, false))
+            .map(this :: deletePageFromIndex)
+            .allMatch(result -> true);
     }
 
     private boolean addToIndex(final PageDecorator page, final boolean includeDescendants, int documentCount) {
@@ -146,6 +169,34 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
             success = solrIndexService.deletePageFromIndex(paths);
         } catch (IOException | SolrServerException e) {
             LOG.error("error deleting page from index : " + paths, e);
+
+            success = false;
+        }
+
+        return success;
+    }
+    
+    private boolean addPageToIndex(final String path) {
+        boolean success;
+
+        try {
+            success = solrIndexService.addPageToIndex(path);
+        } catch (IOException | SolrServerException e) {
+            LOG.error("error adding page to index : " + path, e);
+
+            success = false;
+        }
+
+        return success;
+    }
+
+    private boolean deletePageFromIndex(final String path) {
+        boolean success;
+
+        try {
+            success = solrIndexService.deletePageFromIndex(path);
+        } catch (IOException | SolrServerException e) {
+            LOG.error("error deleting page from index : " + path, e);
 
             success = false;
         }
