@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import Search from './search/index';
 import TagCloud from './search/components/tagcloud';
-import ImageCarousel from './image-carousel';
+// import ImageCarousel from './image-carousel';
+const ImageCarousel = React.lazy(() => import(/* webpackChunkName: "imagegallery" */'./image-carousel'));
 import UserGreeting from './user-greetings/UserGreeting';
 import QuickOrder from './quick-order/QuickOrder';
 import LinkButton from './link-button/LinkButton';
@@ -11,7 +12,7 @@ import LegalLinkModal from './legal-link-modal/LegalLinkModal';
 import SkuDetails from './sku-details';
 import SkuList from './sku-list';
 import SkuMessage from './sku-message';
-import Form from './forms/form';
+// import Form from './forms/form';
 import {
     registrationSubmit,
     resetPasswordSubmit,
@@ -21,8 +22,10 @@ import {
     contactSupportSubmit
 
 } from './forms/services/submit';
-import Video from './video/index';
-import Chat from './chat';
+// import Video from './video/index';
+const Video = React.lazy(() => import(/* webpackChunkName: "video" */'./video/index'));
+// import Chat from './chat';
+const Chat = React.lazy(() => import(/* webpackChunkName: "chat" */'./chat'));
 import DetailTiles from './detail-tiles';
 import DigitalData from './scripts/DigitalData';
 import WeChat from './wechat';
@@ -99,7 +102,7 @@ if (spinnerContainer) {
             bindLoaderToDom(spinnerContainer, data.showLoader);
         },
         false
-    ); 
+    );
 }
 // End Bind Loader component on Demand
 
@@ -168,13 +171,14 @@ if (imageGalleryContainers) {
         const json = JSON.parse(container.getAttribute('data-json'));
 
         ReactDOM.render(
-            <ImageCarousel
-                templates={json.templates}
-                widths={json.widths}
-                alt={json.alt}
-                zoomInIcon="/content/dam/waters/en/brand-assets/icons/zoom-in.svg"
-                zoomOutIcon="/content/dam/waters/en/brand-assets/icons/zoom-out.svg"
-            />,
+            <Suspense fallback={<div>Loading...</div>}>
+                <ImageCarousel
+                    templates={json.templates}
+                    widths={json.widths}
+                    alt={json.alt}
+                    zoomInIcon="/content/dam/waters/en/brand-assets/icons/zoom-in.svg"
+                    zoomOutIcon="/content/dam/waters/en/brand-assets/icons/zoom-out.svg"
+                /></Suspense>,
             container
         );
     });
@@ -309,16 +313,17 @@ if (videoContainers) {
             const json = JSON.parse(videoConfig.innerHTML);
 
             ReactDOM.render(
-                <Video
-                    videoConfig={json.videoConfig}
-                    ref={ourComponent => {
-                        if (window.cmpVideos) {
-                            window.cmpVideos.push(ourComponent);
-                        } else {
-                            window.cmpVideos = [ourComponent];
-                        }
-                    }}
-                />,
+                <Suspense fallback={<div>Loading...</div>}>
+                    <Video
+                        videoConfig={json.videoConfig}
+                        ref={ourComponent => {
+                            if (window.cmpVideos) {
+                                window.cmpVideos.push(ourComponent);
+                            } else {
+                                window.cmpVideos = [ourComponent];
+                            }
+                        }}
+                    /></Suspense>,
                 videoContainer
             );
         }
@@ -384,15 +389,15 @@ if (registrationFormContainer) {
         config: configCheckEmailForm,
     }
 
-	const isTwoStepRegistrationForm = configCheckEmailForm.isTwoStepRegistrationForm;
+    const isTwoStepRegistrationForm = configCheckEmailForm.isTwoStepRegistrationForm;
 
     ReactDOM.render(
         // replace isocode with a value supplied by AEM
-        <CreateAccountForm 
+        <CreateAccountForm
             registrationFormConfig={registrationForm}
             checkEmailFormConfig={checkEmailForm}
             isocode={DigitalData.language}
-			isTwoStepRegistrationForm={isTwoStepRegistrationForm}
+            isTwoStepRegistrationForm={isTwoStepRegistrationForm}
         />,
         registrationFormContainer
     );
@@ -404,16 +409,18 @@ const contactSupportFormContainer = document.getElementById('js-contact-support-
 if (contactSupportFormContainer) {
     const config = JSON.parse(document.getElementById('cmp-contact-support-form').innerHTML);
     const objData = config.fields.find(x => (x.type === 'dropdown' && x.name === 'formCategoryType' && Object.keys(x).includes('defaultValue')));
-
+    const Form = React.lazy(() => import(/* webpackChunkName: "forms" */ './forms/form'));
     ReactDOM.render(
         <>
-            <Form
-                config={config}
-                submitFn={contactSupportSubmit}
-                callback={headerData.userDetailsUrl}
-                isocode={DigitalData.language}
-                defaultValues={{ formCategoryType: objData.defaultValue || '' }}
-            />
+            <Suspense fallback={<div>Loading...</div>}>
+                <Form
+                    config={config}
+                    submitFn={contactSupportSubmit}
+                    callback={headerData.userDetailsUrl}
+                    isocode={DigitalData.language}
+                    defaultValues={{ formCategoryType: objData.defaultValue || '' }}
+                />
+            </Suspense>
             <LegalLinkModal docIcon={config.icons.docIcon || ''} />
         </>,
         contactSupportFormContainer
@@ -428,14 +435,15 @@ if (troubleSigningInFormContainer) {
     const config = JSON.parse(
         document.getElementById('js-trouble-signing-in-form').innerHTML
     );
-
+    const Form = React.lazy(() => import(/* webpackChunkName: "forms" */ './forms/form'));
     ReactDOM.render(
         // replace isocode with a value supplied by AEM
-        <Form
-            config={config}
-            submitFn={troubleSigningInSubmit}
-            isocode={DigitalData.language}
-        />,
+        <Suspense fallback={<div>Loading...</div>}>
+            <Form
+                config={config}
+                submitFn={troubleSigningInSubmit}
+                isocode={DigitalData.language}
+            /></Suspense>,
         troubleSigningInFormContainer
     );
 }
@@ -448,14 +456,15 @@ if (chooseAccountFormContainer) {
     let config = JSON.parse(
         document.getElementById('js-choose-account-form').innerHTML
     );
-
+    const Form = React.lazy(() => import(/* webpackChunkName: "forms" */ './forms/form'));
     ReactDOM.render(
         // replace isocode with a value supplied by AEM
-        <Form
-            config={config}
-            submitFn={chooseAccountSubmit}
-            isocode={DigitalData.language}
-        />,
+        <Suspense fallback={<div>Loading...</div>}>
+            <Form
+                config={config}
+                submitFn={chooseAccountSubmit}
+                isocode={DigitalData.language}
+            /></Suspense>,
         chooseAccountFormContainer
     );
 }
@@ -470,9 +479,10 @@ if (resetPasswordContainer) {
     );
 
     config.submitEndpoint = `${config.submitEndpoint}${config.isEproc === "true" ? '?isEproc=true' : ''}`;
-
+    const Form = React.lazy(() => import(/* webpackChunkName: "forms" */ './forms/form'));
     ReactDOM.render(
-        <Form config={config} submitFn={resetPasswordSubmit} callback={headerData.userDetailsUrl} />,
+        <Suspense fallback={<div>Loading...</div>}>
+            <Form config={config} submitFn={resetPasswordSubmit} callback={headerData.userDetailsUrl} /></Suspense>,
         resetPasswordContainer
     );
 }
@@ -494,18 +504,19 @@ const chatContainer = document.querySelector('.cmp-chat');
 if (chatContainer) {
     const data = getAuthoredDataForChat(chatContainer);
     ReactDOM.render(
-        <Chat
-            url={data.url}
-            statusApi={data.statusApi}
-            countryCode={skuDetailsConfig.countryCode}
-            icon={data.icon}
-            availableText={data.availableText}
-            unavailableText={data.unavailableText}
-            text={data.text}
-            buttonText={data.buttonText}
-            offlineIcon={skuDetailsConfig.skuInfo.outOfStockIcon}
-            onlineIcon={skuDetailsConfig.skuInfo.inStockIcon}
-        />,
+        <Suspense fallback={<div>Loading...</div>}>
+            <Chat
+                url={data.url}
+                statusApi={data.statusApi}
+                countryCode={skuDetailsConfig.countryCode}
+                icon={data.icon}
+                availableText={data.availableText}
+                unavailableText={data.unavailableText}
+                text={data.text}
+                buttonText={data.buttonText}
+                offlineIcon={skuDetailsConfig.skuInfo.outOfStockIcon}
+                onlineIcon={skuDetailsConfig.skuInfo.inStockIcon}
+            /></Suspense>,
         chatContainer
     );
 }
@@ -566,10 +577,11 @@ const signInFormContainer = document.getElementById("js-signin-form");
 
 if (signInFormContainer) {
     const config = JSON.parse(document.getElementById("cmp-signin-form").innerHTML);
-
+    const Form = React.lazy(() => import(/* webpackChunkName: "forms" */ './forms/form'));
     ReactDOM.render(
         // replace isocode with a value supplied by AEM
-        <Form config={config} submitFn={signInSubmit} isocode={DigitalData.language} callback={headerData.userDetailsUrl} />,
+        <Suspense fallback={<div>Loading...</div>}>
+            <Form config={config} submitFn={signInSubmit} isocode={DigitalData.language} callback={headerData.userDetailsUrl} /></Suspense>,
         signInFormContainer
     );
 }

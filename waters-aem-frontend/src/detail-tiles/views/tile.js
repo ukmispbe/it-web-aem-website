@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { Suspense, useState } from 'react';
 import ReactSVG from 'react-svg';
 
-import Form from '../../forms/form';
+// import Form from '../../forms/form';
+const Form = React.lazy(() => import(/* webpackChunkName: "forms" */'../../forms/form'));
 
 const Tile = ({
     name,
@@ -83,7 +84,7 @@ const Tile = ({
                     <div className="cmp-detail-tiles-list--tile-notification--title" data-locator="detail-tiles-list-notification--title">
                         {notification.title}
                     </div>
-                    <div className="cmp-detail-tiles-list--tile-notification--description"data-locator="detail-tiles-list-notification-description">
+                    <div className="cmp-detail-tiles-list--tile-notification--description" data-locator="detail-tiles-list-notification-description">
                         {notification.description}
                     </div>
                 </div>
@@ -112,9 +113,9 @@ const Tile = ({
                     {canCreate && (
                         <div className="cmp-detail-tiles--add" data-locator="add-detail-tiles">
                             <ReactSVG
-                                    src={blank.addIcon}
-                                    className="cmp-detail-tiles--add-icon"
-                                />
+                                src={blank.addIcon}
+                                className="cmp-detail-tiles--add-icon"
+                            />
                             <div className="cmp-detail-tiles--add-title">
                                 {blank.addTitle}
                             </div>
@@ -147,14 +148,16 @@ const Tile = ({
                             </a>
                         </div>
                     )}
-                    <Form
-                        config={form}
-                        submitFn={form.submitFn}
-                        callback={handleToggle}
-                        cancelFn={handleToggle}
-                        defaultValues={defaultValues}
-                        setProfileData={setProfileData}
-                    />
+                    <Suspense fallback={<div>Loading...</div>}>
+                        <Form
+                            config={form}
+                            submitFn={form.submitFn}
+                            callback={handleToggle}
+                            cancelFn={handleToggle}
+                            defaultValues={defaultValues}
+                            setProfileData={setProfileData}
+                        />
+                    </Suspense>
                 </div>
             )}
         </>

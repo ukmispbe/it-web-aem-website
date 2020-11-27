@@ -57,11 +57,16 @@
 /******/ 	// undefined = chunk not loaded, null = chunk preloaded/prefetched
 /******/ 	// Promise = chunk loading, 0 = chunk loaded
 /******/ 	var installedChunks = {
-/******/ 		6: 0,
-/******/ 		5: 0
+/******/ 		9: 0,
+/******/ 		8: 0
 /******/ 	};
 /******/
 /******/ 	var deferredModules = [];
+/******/
+/******/ 	// script path function
+/******/ 	function jsonpScriptSrc(chunkId) {
+/******/ 		return __webpack_require__.p + "" + ({"3":"chat","4":"forms","7":"imagegallery","10":"video"}[chunkId]||chunkId) + ".js"
+/******/ 	}
 /******/
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
@@ -87,6 +92,67 @@
 /******/ 		return module.exports;
 /******/ 	}
 /******/
+/******/ 	// This file contains only the entry chunk.
+/******/ 	// The chunk loading function for additional chunks
+/******/ 	__webpack_require__.e = function requireEnsure(chunkId) {
+/******/ 		var promises = [];
+/******/
+/******/
+/******/ 		// JSONP chunk loading for javascript
+/******/
+/******/ 		var installedChunkData = installedChunks[chunkId];
+/******/ 		if(installedChunkData !== 0) { // 0 means "already installed".
+/******/
+/******/ 			// a Promise means "currently loading".
+/******/ 			if(installedChunkData) {
+/******/ 				promises.push(installedChunkData[2]);
+/******/ 			} else {
+/******/ 				// setup Promise in chunk cache
+/******/ 				var promise = new Promise(function(resolve, reject) {
+/******/ 					installedChunkData = installedChunks[chunkId] = [resolve, reject];
+/******/ 				});
+/******/ 				promises.push(installedChunkData[2] = promise);
+/******/
+/******/ 				// start chunk loading
+/******/ 				var script = document.createElement('script');
+/******/ 				var onScriptComplete;
+/******/
+/******/ 				script.charset = 'utf-8';
+/******/ 				script.timeout = 120;
+/******/ 				if (__webpack_require__.nc) {
+/******/ 					script.setAttribute("nonce", __webpack_require__.nc);
+/******/ 				}
+/******/ 				script.src = jsonpScriptSrc(chunkId);
+/******/
+/******/ 				// create error before stack unwound to get useful stacktrace later
+/******/ 				var error = new Error();
+/******/ 				onScriptComplete = function (event) {
+/******/ 					// avoid mem leaks in IE.
+/******/ 					script.onerror = script.onload = null;
+/******/ 					clearTimeout(timeout);
+/******/ 					var chunk = installedChunks[chunkId];
+/******/ 					if(chunk !== 0) {
+/******/ 						if(chunk) {
+/******/ 							var errorType = event && (event.type === 'load' ? 'missing' : event.type);
+/******/ 							var realSrc = event && event.target && event.target.src;
+/******/ 							error.message = 'Loading chunk ' + chunkId + ' failed.\n(' + errorType + ': ' + realSrc + ')';
+/******/ 							error.name = 'ChunkLoadError';
+/******/ 							error.type = errorType;
+/******/ 							error.request = realSrc;
+/******/ 							chunk[1](error);
+/******/ 						}
+/******/ 						installedChunks[chunkId] = undefined;
+/******/ 					}
+/******/ 				};
+/******/ 				var timeout = setTimeout(function(){
+/******/ 					onScriptComplete({ type: 'timeout', target: script });
+/******/ 				}, 120000);
+/******/ 				script.onerror = script.onload = onScriptComplete;
+/******/ 				document.head.appendChild(script);
+/******/ 			}
+/******/ 		}
+/******/ 		return Promise.all(promises);
+/******/ 	};
 /******/
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = modules;
@@ -140,6 +206,9 @@
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "";
 /******/
+/******/ 	// on error function for async loading
+/******/ 	__webpack_require__.oe = function(err) { console.error(err); throw err; };
+/******/
 /******/ 	var jsonpArray = window["webpackJsonp"] = window["webpackJsonp"] || [];
 /******/ 	var oldJsonpFunction = jsonpArray.push.bind(jsonpArray);
 /******/ 	jsonpArray.push = webpackJsonpCallback;
@@ -149,21 +218,410 @@
 /******/
 /******/
 /******/ 	// add entry module to deferred list
-/******/ 	deferredModules.push([396,1,2,0]);
+/******/ 	deferredModules.push([378,1,2,0]);
 /******/ 	// run deferred modules when ready
 /******/ 	return checkDeferredModules();
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 136:
+/***/ 12:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, "a", function() { return /* binding */ analyticTypes; });
+__webpack_require__.d(__webpack_exports__, "f", function() { return /* binding */ setClickAnalytics; });
+__webpack_require__.d(__webpack_exports__, "g", function() { return /* binding */ setSelectDropdownAnalytics; });
+__webpack_require__.d(__webpack_exports__, "c", function() { return /* binding */ mainCartContext; });
+__webpack_require__.d(__webpack_exports__, "e", function() { return /* binding */ searchCartContext; });
+__webpack_require__.d(__webpack_exports__, "d", function() { return /* binding */ relatedCartContext; });
+__webpack_require__.d(__webpack_exports__, "h", function() { return /* binding */ shopAllCartContext; });
+
+// EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray.js + 3 modules
+var slicedToArray = __webpack_require__(14);
+
+// EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js
+var classCallCheck = __webpack_require__(4);
+
+// EXTERNAL MODULE: ./src/scripts/inlineSVG.js
+var inlineSVG = __webpack_require__(53);
+
+// EXTERNAL MODULE: ./src/scripts/DigitalData.js
+var DigitalData = __webpack_require__(23);
+
+// EXTERNAL MODULE: ./src/stores/sessionStore.js
+var sessionStore = __webpack_require__(13);
+
+// EXTERNAL MODULE: ./src/stores/cookieStore.js
+var cookieStore = __webpack_require__(46);
+
+// CONCATENATED MODULE: ./src/analytics/eventTypes.js
+var eventTypes = {
+  cart: {
+    name: 'cart',
+    event: 'scAddAEM',
+    context: ['Part Detail Page', 'Search: Global', 'Related Products', 'Shop All Products: Quick Add']
+  },
+  reOrder: {
+    name: 'reOrder',
+    event: 'scAddReorder',
+    context: 'Order History: Reorder'
+  },
+  stock: {
+    name: 'stock',
+    event: 'checkAvailability'
+  },
+  search: {
+    name: 'search',
+    event: 'search'
+  },
+  form: {
+    name: 'form',
+    registration: {
+      name: 'registrationForm',
+      load: {
+        event: 'registrationFormLoad'
+      },
+      submit: {
+        event: 'registrationFormSubmit'
+      },
+      error: {
+        event: 'registrationFormError'
+      }
+    },
+    checkEmail: {
+      name: 'checkEmailForm',
+      load: {
+        event: 'checkEmailFormLoad'
+      },
+      submit: {
+        event: 'checkEmailFormSubmit'
+      },
+      error: {
+        event: 'checkEmailFormError'
+      }
+    },
+    signin: {
+      name: 'signInForm',
+      load: {
+        event: 'signInFormLoad'
+      },
+      submit: {
+        event: 'signInFormSubmit'
+      },
+      error: {
+        event: 'signInFormError'
+      }
+    },
+    troublesigningin: {
+      name: 'troubleSignInForm',
+      load: {
+        event: 'troubleSignInFormLoad'
+      },
+      submit: {
+        event: 'troubleSignInFormSubmit'
+      },
+      error: {
+        event: 'troubleSignInFormError'
+      }
+    },
+    resetpassword: {
+      name: 'resetPasswordForm',
+      load: {
+        event: 'resetPasswordFormLoad'
+      },
+      submit: {
+        event: 'resetPasswordFormSubmit'
+      },
+      error: {
+        event: 'resetPasswordFormError'
+      }
+    },
+    updatepassword: {
+      name: 'updatePasswordForm',
+      load: {
+        event: 'legacyPasswordFormLoad'
+      },
+      submit: {
+        event: 'legacyPasswordFormSubmit'
+      },
+      error: {
+        event: 'legacyPasswordFormError'
+      }
+    },
+    changepassword: {
+      name: 'changePasswordForm',
+      load: {
+        event: 'changePasswordFormLoad'
+      },
+      submit: {
+        event: 'changePasswordFormSubmit'
+      },
+      error: {
+        event: 'changePasswordFormError'
+      }
+    },
+    personaldetails: {
+      name: 'personalDetailsForm',
+      load: {
+        event: 'personalDetailsFormLoad'
+      },
+      submit: {
+        event: 'personalDetailsFormSubmit'
+      },
+      error: {
+        event: 'personalDetailsFormError'
+      }
+    },
+    contactsupport: {
+      name: 'contactSupportForm',
+      load: {
+        event: 'contactSupportFormLoad'
+      },
+      submit: {
+        event: 'contactSupportFormSubmit'
+      },
+      error: {
+        event: 'contactSupportFormError'
+      }
+    }
+  },
+  linkClick: {
+    name: 'linkClick',
+    event: 'linkClick'
+  },
+  selectDropDown: {
+    name: 'selectDropDown',
+    event: 'selectDropDown'
+  },
+  orderHistory: {
+    name: 'orderHistory',
+    load: {
+      event: 'orderHistoryPageLoad'
+    },
+    error: {
+      event: 'orderHistoryError'
+    }
+  },
+  orderDetails: {
+    name: 'orderDetails',
+    load: {
+      event: 'orderDetailsPageLoad'
+    },
+    error: {
+      event: 'orderDetailsPageError'
+    }
+  },
+  quoteHistory: {
+    name: 'quoteHistory',
+    load: {
+      event: 'quoteHistoryPageLoad'
+    },
+    error: {
+      event: 'quoteHistoryError'
+    }
+  },
+  quoteDetails: {
+    name: 'quoteDetails',
+    load: {
+      event: 'quoteDetailsPageLoad'
+    },
+    error: {
+      event: 'quoteDetailsPageError'
+    }
+  }
+};
+/* harmony default export */ var analytics_eventTypes = (eventTypes);
+// CONCATENATED MODULE: ./src/analytics/index.js
+
+
+
+
+
+
+
+
+var analytics_Analytics = function Analytics() {
+  var _this = this;
+
+  Object(classCallCheck["a" /* default */])(this, Analytics);
+
+  this.setAnalytics = function (eventType, model) {
+    var thisAnalyticEvent = null;
+
+    if (eventType === 'form') {
+      if (model.formName === 'resetpassword' && model.formType && model.formType === 'update') {
+        model.formName = 'updatepassword';
+      }
+
+      if (model.formName !== 'chooseAccount') {
+        thisAnalyticEvent = _this.analyticTypes[eventType][model.formName][model.event];
+      }
+    } else if (eventType === 'orderHistory' || eventType === 'orderDetails') {
+      thisAnalyticEvent = _this.analyticTypes[eventType][model.event];
+    } else {
+      thisAnalyticEvent = _this.analyticTypes[eventType];
+    }
+
+    if (thisAnalyticEvent) {
+      var newModel = _this.buildModel(eventType, model);
+
+      if (newModel) {
+        _this.dispatchEvent(thisAnalyticEvent.event, newModel);
+      }
+    }
+  };
+
+  this.setClickAnalytics = function (menuLocation, linkName, href) {
+    var model = {
+      detail: {
+        url: href,
+        menuLocation: menuLocation,
+        key: 'LinkName',
+        value: linkName
+      }
+    };
+
+    _this.setAnalytics(_this.analyticTypes['linkClick'].name, model);
+  };
+
+  this.setSelectDropdownAnalytics = function (key, value) {
+    var model = {
+      detail: {
+        key: key,
+        value: value
+      }
+    };
+
+    _this.setAnalytics(_this.analyticTypes['selectDropDown'].name, model);
+  };
+
+  this.buildModel = function (name, model) {
+    var returnModel = null;
+
+    switch (name) {
+      case "stock":
+      case "cart":
+        returnModel = _this.mapCartAndStockModel(model);
+        break;
+
+      case "search":
+        returnModel = _this.mapSearchModel(model);
+        break;
+
+      case "form":
+        returnModel = _this.mapFormModel(model);
+        break;
+
+      default:
+        returnModel = model;
+        break;
+    }
+
+    return returnModel;
+  };
+
+  this.getUserData = function (model) {
+    var userLoggedIn = cookieStore["a" /* default */].getLoggedInStatus();
+    var store = new sessionStore["a" /* default */]();
+    var userDetails = store.getUserDetails();
+    model.page = DigitalData["a" /* default */].page ? DigitalData["a" /* default */].page : {};
+    model.detail.userLoggedIn = cookieStore["a" /* default */].getLoggedInStatus() ? "yes" : "no";
+
+    if (userDetails) {
+      model.detail.userID = userDetails.userId;
+    }
+
+    return model;
+  };
+
+  this.mapFormModel = function (model) {
+    model.event = _this.analyticTypes['form'][model.formName][model.event]['event'];
+    model.formName = _this.analyticTypes['form'][model.formName]['name'];
+    return model;
+  };
+
+  this.mapCartAndStockModel = function (model) {
+    return {
+      detail: {
+        products: [model]
+      }
+    };
+  };
+
+  this.mapSearchModel = function (model) {
+    if (!model) {
+      return {};
+    }
+
+    var category = model.category ? model.category : '';
+    var contentType = model.content_type ? model.content_type : '';
+    var facetsObj = model.facets ? model.facets : {};
+    var facets = Object.entries(facetsObj).map(function (item) {
+      return {
+        name: item[0],
+        values: item[1]
+      };
+    });
+    return {
+      detail: {
+        search: {
+          category: category,
+          contentType: contentType,
+          facets: facets,
+          totalResults: model.total
+        }
+      }
+    };
+  };
+
+  this.dispatchEvent = function (eventName, model) {
+    model = _this.getUserData(model); // Uncomment next two lines to test analytics
+    // console.log(eventName, model);
+    // alert(eventName);
+
+    document.dispatchEvent(new CustomEvent(eventName, model));
+  };
+
+  this.siteLoad = function () {
+    document.addEventListener('at-library-loaded', function (event) {
+      if (typeof adobe != 'undefined') {
+        document.addEventListener(adobe.target.event.CONTENT_RENDERING_SUCCEEDED, function (event) {
+          inlineSVG["a" /* default */].init('img.inline-svg', 'svg-inlined');
+        });
+      }
+    });
+  };
+
+  this.analyticTypes = analytics_eventTypes;
+};
+
+var analytics = new analytics_Analytics();
+/* harmony default export */ var src_analytics = __webpack_exports__["b"] = (analytics);
+var analyticTypes = analytics.analyticTypes;
+var setClickAnalytics = analytics.setClickAnalytics;
+var setSelectDropdownAnalytics = analytics.setSelectDropdownAnalytics;
+
+var _analytics$analyticTy = Object(slicedToArray["a" /* default */])(analytics.analyticTypes.cart.context, 4),
+    mainCartContext = _analytics$analyticTy[0],
+    searchCartContext = _analytics$analyticTy[1],
+    relatedCartContext = _analytics$analyticTy[2],
+    shopAllCartContext = _analytics$analyticTy[3];
+
+
+
+/***/ }),
+
+/***/ 129:
 /***/ (function(module, exports) {
 
 /* (ignored) */
 
 /***/ }),
 
-/***/ 137:
+/***/ 130:
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
@@ -171,15 +629,7 @@ module.exports = {"colorBorderDark":"#9ca7b0","colorGray50":"#4f5b64","colorBack
 
 /***/ }),
 
-/***/ 15:
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-module.exports = {"colorBorderDark":"#9ca7b0","colorGray50":"#4f5b64","colorBackgroundLight":"#f4f6f7","colorWhite":"#fff","colorBlue50":"#07b","borderRadius":"4px","spaceXXXS":".25em","spaceXXS":".5em","spaceXS":".75em","spaceS":"1em"};
-
-/***/ }),
-
-/***/ 154:
+/***/ 146:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -187,31 +637,31 @@ module.exports = {"colorBorderDark":"#9ca7b0","colorGray50":"#4f5b64","colorBack
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./src/styles/index.scss
-var styles = __webpack_require__(97);
+var styles = __webpack_require__(95);
 
 // EXTERNAL MODULE: ./node_modules/react/index.js
 var react = __webpack_require__(0);
 var react_default = /*#__PURE__*/__webpack_require__.n(react);
 
 // EXTERNAL MODULE: ./node_modules/react-dom/index.js
-var react_dom = __webpack_require__(24);
+var react_dom = __webpack_require__(22);
 var react_dom_default = /*#__PURE__*/__webpack_require__.n(react_dom);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectSpread.js
-var objectSpread = __webpack_require__(6);
+var objectSpread = __webpack_require__(10);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 3 modules
-var toConsumableArray = __webpack_require__(40);
+var toConsumableArray = __webpack_require__(42);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/regenerator/index.js
 var regenerator = __webpack_require__(2);
 var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
-var asyncToGenerator = __webpack_require__(12);
+var asyncToGenerator = __webpack_require__(6);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/typeof.js
-var esm_typeof = __webpack_require__(35);
+var esm_typeof = __webpack_require__(37);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js
 var classCallCheck = __webpack_require__(4);
@@ -229,13 +679,13 @@ var getPrototypeOf = __webpack_require__(8);
 var inherits = __webpack_require__(9);
 
 // EXTERNAL MODULE: ./src/search/services/index.js
-var services = __webpack_require__(21);
+var services = __webpack_require__(18);
 
 // EXTERNAL MODULE: ./node_modules/query-string/index.js
-var query_string = __webpack_require__(27);
+var query_string = __webpack_require__(28);
 
 // EXTERNAL MODULE: ./node_modules/react-router-dom/es/withRouter.js + 1 modules
-var withRouter = __webpack_require__(492);
+var withRouter = __webpack_require__(503);
 
 // EXTERNAL MODULE: ./node_modules/react-svg/es/react-svg.js
 var react_svg = __webpack_require__(3);
@@ -266,16 +716,16 @@ var validator = __webpack_require__(54);
 var validator_default = /*#__PURE__*/__webpack_require__.n(validator);
 
 // EXTERNAL MODULE: ./src/scripts/domElements.js
-var domElements = __webpack_require__(26);
+var domElements = __webpack_require__(25);
 
 // EXTERNAL MODULE: ./src/scripts/screenSizes.js
-var screenSizes = __webpack_require__(19);
+var screenSizes = __webpack_require__(21);
 
 // EXTERNAL MODULE: ./src/analytics/index.js + 1 modules
-var analytics = __webpack_require__(17);
+var analytics = __webpack_require__(12);
 
 // EXTERNAL MODULE: ./node_modules/react-spinners/index.js
-var react_spinners = __webpack_require__(91);
+var react_spinners = __webpack_require__(89);
 
 // CONCATENATED MODULE: ./src/search/components/spinner.js
 
@@ -552,7 +1002,7 @@ var defaultProps = {
 };
 
 // EXTERNAL MODULE: ./node_modules/react-paginate/dist/react-paginate.js
-var react_paginate = __webpack_require__(75);
+var react_paginate = __webpack_require__(56);
 var react_paginate_default = /*#__PURE__*/__webpack_require__.n(react_paginate);
 
 // CONCATENATED MODULE: ./src/search/components/content-type-menu.js
@@ -1043,10 +1493,10 @@ filter_Filter.defaultProps = {
 };
 /* harmony default export */ var filter = (filter_Filter);
 // EXTERNAL MODULE: ./node_modules/react-select/dist/react-select.esm.js + 1 modules
-var react_select_esm = __webpack_require__(38);
+var react_select_esm = __webpack_require__(49);
 
 // EXTERNAL MODULE: ./src/styles/variables.scss
-var variables = __webpack_require__(15);
+var variables = __webpack_require__(19);
 var variables_default = /*#__PURE__*/__webpack_require__.n(variables);
 
 // CONCATENATED MODULE: ./src/search/components/category-dropdown.js
@@ -1121,7 +1571,7 @@ var category_dropdown_DropdownIndicator = function DropdownIndicator(props) {
   }));
 };
 
-var category_dropdown_getOptions = function getOptions(options) {
+var getOptions = function getOptions(options) {
   var newList = options.filter(function (item) {
     return item.count !== 0;
   }).map(function (a, index) {
@@ -1134,7 +1584,7 @@ var category_dropdown_getOptions = function getOptions(options) {
 };
 
 var category_dropdown_CategoryDropdown = function CategoryDropdown(props) {
-  var options = category_dropdown_getOptions(props.categoryOptions);
+  var options = getOptions(props.categoryOptions);
 
   var mobileView = function mobileView() {
     return react_default.a.createElement("div", {
@@ -1214,7 +1664,7 @@ var btn_hide_sort_filter_HideSortFilter = /*#__PURE__*/function (_Component) {
 
 /* harmony default export */ var btn_hide_sort_filter = (btn_hide_sort_filter_HideSortFilter);
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js
-var assertThisInitialized = __webpack_require__(20);
+var assertThisInitialized = __webpack_require__(24);
 
 // CONCATENATED MODULE: ./src/search/components/btn-apply-sort-filter.js
 
@@ -1761,7 +2211,7 @@ filter_tags_KeywordTag.defaultProps = {
 };
 
 // EXTERNAL MODULE: ./src/scripts/ErrorMessages.js
-var ErrorMessages = __webpack_require__(59);
+var ErrorMessages = __webpack_require__(57);
 
 // CONCATENATED MODULE: ./src/sku-details/views/stock.js
 
@@ -1884,7 +2334,7 @@ price_Price.defaultProps = {
 };
 /* harmony default export */ var views_price = (price_Price);
 // EXTERNAL MODULE: ./src/utils/eCommerceFunctions.js
-var eCommerceFunctions = __webpack_require__(11);
+var eCommerceFunctions = __webpack_require__(16);
 
 // CONCATENATED MODULE: ./src/sku-details/views/unavailablePrice.js
 
@@ -1913,19 +2363,19 @@ function UnavailablePrice(props) {
 
 /* harmony default export */ var unavailablePrice = (UnavailablePrice);
 // EXTERNAL MODULE: ./node_modules/whatwg-fetch/fetch.js
-var whatwg_fetch_fetch = __webpack_require__(34);
+var whatwg_fetch_fetch = __webpack_require__(35);
 
 // EXTERNAL MODULE: ./src/stores/localStore.js
-var stores_localStore = __webpack_require__(49);
+var stores_localStore = __webpack_require__(41);
 
 // EXTERNAL MODULE: ./src/scripts/loginStatus.js
-var loginStatus = __webpack_require__(16);
+var loginStatus = __webpack_require__(15);
 
 // EXTERNAL MODULE: ./src/utils/serviceFunctions.js
-var serviceFunctions = __webpack_require__(68);
+var serviceFunctions = __webpack_require__(47);
 
 // EXTERNAL MODULE: ./src/utils/userFunctions.js
-var userFunctions = __webpack_require__(13);
+var userFunctions = __webpack_require__(11);
 
 // CONCATENATED MODULE: ./src/sku-details/services/index.js
 
@@ -2214,7 +2664,7 @@ var matchListItems = function matchListItems(skuListData, pricesAPIResults) {
   return skuListItem;
 };
 // EXTERNAL MODULE: ./src/scripts/skulist.js
-var skulist = __webpack_require__(84);
+var skulist = __webpack_require__(82);
 
 // CONCATENATED MODULE: ./src/sku-details/views/addToCart.js
 
@@ -2423,13 +2873,13 @@ addToCart_AddToCart.defaultProps = {
 };
 /* harmony default export */ var views_addToCart = (addToCart_AddToCart);
 // EXTERNAL MODULE: ./src/sku-details/views/addToCartModal.js
-var addToCartModal = __webpack_require__(33);
+var addToCartModal = __webpack_require__(31);
 
 // EXTERNAL MODULE: ./src/utils/modal/index.js + 1 modules
-var modal = __webpack_require__(18);
+var modal = __webpack_require__(17);
 
 // EXTERNAL MODULE: ./src/utils/spinner/index.js
-var utils_spinner = __webpack_require__(28);
+var utils_spinner = __webpack_require__(27);
 
 // CONCATENATED MODULE: ./src/sku-message/index.js
 
@@ -2517,7 +2967,7 @@ var sku_message_SkuMessage = /*#__PURE__*/function (_React$Component) {
 
 /* harmony default export */ var sku_message = (sku_message_SkuMessage);
 // EXTERNAL MODULE: ./src/scripts/checkOutStatus.js
-var checkOutStatus = __webpack_require__(44);
+var checkOutStatus = __webpack_require__(43);
 
 // EXTERNAL MODULE: ./src/scripts/ecommerce.js
 var ecommerce = __webpack_require__(29);
@@ -2526,7 +2976,7 @@ var ecommerce = __webpack_require__(29);
 var sku_details = __webpack_require__(51);
 
 // EXTERNAL MODULE: ./src/scripts/stickyService.js
-var stickyService = __webpack_require__(46);
+var stickyService = __webpack_require__(44);
 
 // CONCATENATED MODULE: ./src/constants/index.js
 var BAD_REQUEST_CODE = 400;
@@ -2993,7 +3443,7 @@ listItem_ListItem.defaultProps = {
 };
 /* harmony default export */ var listItem = (listItem_ListItem);
 // EXTERNAL MODULE: ./src/scripts/signIn.js
-var scripts_signIn = __webpack_require__(76);
+var scripts_signIn = __webpack_require__(74);
 
 // CONCATENATED MODULE: ./src/sku-list/index.js
 
@@ -3078,7 +3528,7 @@ sku_list_SkuList.defaultProps = {
 };
 /* harmony default export */ var sku_list = (sku_list_SkuList);
 // EXTERNAL MODULE: ./node_modules/react-lines-ellipsis/lib/index.js
-var lib = __webpack_require__(77);
+var lib = __webpack_require__(116);
 var lib_default = /*#__PURE__*/__webpack_require__.n(lib);
 
 // CONCATENATED MODULE: ./src/search/components/results.js
@@ -3500,7 +3950,7 @@ search_component_helpers_ResultsBody.defaultProps = {
 };
 
 // EXTERNAL MODULE: ./src/scripts/fade-x.js
-var fade_x = __webpack_require__(67);
+var fade_x = __webpack_require__(65);
 
 // CONCATENATED MODULE: ./src/navigation/tabs/index.js
 
@@ -3572,7 +4022,7 @@ tabs_Tab.defaultProps = {
   isActive: false,
   onClick: function onClick() {}
 };
-/* harmony default export */ var tabs = (tabs_Tabs);
+/* harmony default export */ var navigation_tabs = (tabs_Tabs);
 // CONCATENATED MODULE: ./src/search/search.component.js
 
 
@@ -3581,7 +4031,7 @@ tabs_Tab.defaultProps = {
 
 
 var search_component_SearchComponent = function SearchComponent(props) {
-  return react_default.a.createElement(react_default.a.Fragment, null, !props.isEprocurementUser && react_default.a.createElement(tabs, {
+  return react_default.a.createElement(react_default.a.Fragment, null, !props.isEprocurementUser && react_default.a.createElement(navigation_tabs, {
     className: "cmp-search__categories-tabs",
     items: props.categoryProps.categories,
     activeIndex: props.categoryProps.activeIndex,
@@ -4877,88 +5327,14 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
 
 /* harmony default export */ var search_container = (Object(withRouter["a" /* default */])(search_container_SearchContainer));
 // EXTERNAL MODULE: ./node_modules/react-router-dom/es/BrowserRouter.js
-var BrowserRouter = __webpack_require__(487);
+var BrowserRouter = __webpack_require__(499);
 
 // EXTERNAL MODULE: ./node_modules/react-router-dom/es/Route.js
-var Route = __webpack_require__(488);
+var Route = __webpack_require__(500);
 
-// CONCATENATED MODULE: ./src/search/ErrorBoundary.js
+// EXTERNAL MODULE: ./src/search/ErrorBoundary.js
+var ErrorBoundary = __webpack_require__(36);
 
-
-
-
-
-
-
-var ErrorBoundary_ErrorBoundary = /*#__PURE__*/function (_React$Component) {
-  Object(inherits["a" /* default */])(ErrorBoundary, _React$Component);
-
-  function ErrorBoundary(props) {
-    var _this;
-
-    Object(classCallCheck["a" /* default */])(this, ErrorBoundary);
-
-    _this = Object(possibleConstructorReturn["a" /* default */])(this, Object(getPrototypeOf["a" /* default */])(ErrorBoundary).call(this, props));
-    _this.state = {
-      hasError: false,
-      hasErrored: false
-    };
-    return _this;
-  }
-
-  Object(createClass["a" /* default */])(ErrorBoundary, [{
-    key: "resetErrorBoundaryToFalse",
-    value: function resetErrorBoundaryToFalse() {
-      this.setState({
-        hasError: false
-      });
-    }
-  }, {
-    key: "removeNotifications",
-    value: function removeNotifications() {
-      this.setState({
-        hasError: false,
-        hasErrored: false
-      });
-      var notifications = document.querySelectorAll('.cmp-notification--dynamic[class*=cmp-notification--]');
-      Array.from(notifications).forEach(function (notification) {
-        if (notification) {
-          notification.classList.remove('error');
-        }
-      });
-    }
-  }, {
-    key: "setErrorBoundaryToTrue",
-    value: function setErrorBoundaryToTrue(response) {
-      var status = response.hasOwnProperty('code') ? response.code : "";
-      var notification = document.querySelector('.cmp-notification--dynamic.cmp-notification--error' + status);
-
-      if (notification) {
-        notification.classList.add('error');
-      }
-
-      this.setState({
-        hasError: true,
-        hasErrored: true
-      });
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.cloneElement(this.props.children, {
-        hasError: this.state.hasError,
-        hasErrored: this.state.hasErrored,
-        resetErrorBoundaryToFalse: this.resetErrorBoundaryToFalse.bind(this),
-        setErrorBoundaryToTrue: this.setErrorBoundaryToTrue.bind(this),
-        removeNotifications: this.removeNotifications.bind(this)
-      }));
-    }
-  }]);
-
-  return ErrorBoundary;
-}(react_default.a.Component);
-
-/* harmony default export */ var search_ErrorBoundary = (ErrorBoundary_ErrorBoundary);
 // CONCATENATED MODULE: ./src/search/index.js
 
 
@@ -4973,7 +5349,7 @@ var search_SearchApp = function SearchApp(props) {
   return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement(BrowserRouter["a" /* default */], null, react_default.a.createElement(Route["a" /* default */], {
     path: "",
     render: function render() {
-      return react_default.a.createElement(search_ErrorBoundary, null, react_default.a.createElement(search_container, {
+      return react_default.a.createElement(ErrorBoundary["a" /* default */], null, react_default.a.createElement(search_container, {
         defaultFacet: props.defaultFacet,
         searchDefaults: props.searchDefaults,
         searchServicePath: props.searchServicePath,
@@ -4990,7 +5366,7 @@ var search_SearchApp = function SearchApp(props) {
 
 /* harmony default export */ var src_search = (search_SearchApp);
 // EXTERNAL MODULE: ./src/stores/sessionStore.js
-var stores_sessionStore = __webpack_require__(14);
+var stores_sessionStore = __webpack_require__(13);
 
 // CONCATENATED MODULE: ./src/search/components/tagcloud.js
 
@@ -5048,691 +5424,8 @@ var tagcloud_TagCloud = /*#__PURE__*/function (_Component) {
 }(react["Component"]);
 
 /* harmony default export */ var tagcloud = (tagcloud_TagCloud);
-// EXTERNAL MODULE: ./node_modules/hammerjs/hammer.js
-var hammer = __webpack_require__(120);
-var hammer_default = /*#__PURE__*/__webpack_require__.n(hammer);
-
-// CONCATENATED MODULE: ./src/image-carousel/image-viewer.js
-
-
-
-
-
-
-
-
-
-var image_viewer_ImageViewer = /*#__PURE__*/function (_React$Component) {
-  Object(inherits["a" /* default */])(ImageViewer, _React$Component);
-
-  function ImageViewer() {
-    var _this;
-
-    Object(classCallCheck["a" /* default */])(this, ImageViewer);
-
-    _this = Object(possibleConstructorReturn["a" /* default */])(this, Object(getPrototypeOf["a" /* default */])(ImageViewer).call(this));
-
-    _this.touchActionNotSupported = function () {
-      return typeof CSS != "undefined" && !CSS.supports('touch-action', 'none');
-    };
-
-    _this.handleOnDragStart = function (e) {
-      return e.preventDefault();
-    };
-
-    _this.handleMagnifyClick = function (e) {
-      // delay clearing background position so the image gets rendered on the page
-      setTimeout(function () {
-        return _this.figureRef.current.style.backgroundPosition = '';
-      }, 0);
-      var magnified = !_this.state.magnified;
-
-      if (magnified && _this.props.onZoomIn) {
-        _this.props.onZoomIn();
-      }
-
-      if (!magnified && _this.props.onZoomOut) {
-        _this.props.onZoomOut();
-      }
-
-      if (magnified) {
-        _this.setState({
-          magnified: magnified
-        }, function () {
-          if (_this.state.magnified) {
-            // CSS hack for browsers that do not support background-size transitions
-            // delay 500ms to allow the transform transition to conplete
-            setTimeout(function () {
-              _this.figureRef.current.classList.add('image-viewer-container__image-figure--zoomin-background');
-
-              _this.figureRef.current.classList.remove('image-viewer-container__image-figure--zoomout-background');
-            }, 500);
-          }
-        });
-      } else {
-        // CSS hack for browsers that do not support background-size transitions
-        _this.figureRef.current.classList.add('image-viewer-container__image-figure--zoomout-background');
-
-        _this.figureRef.current.classList.remove('image-viewer-container__image-figure--zoomin-background'); // delay to allow the CSS ruleset above to render
-
-
-        setTimeout(function () {
-          return _this.setState({
-            magnified: magnified
-          });
-        }, 0);
-      }
-    };
-
-    _this.handleFigureMove = function (magnified, offsetX, offsetY, figureElement) {
-      if (!magnified) return;
-      var x = offsetX / figureElement.offsetWidth * 100;
-      var y = offsetY / figureElement.offsetHeight * 100; // prevent user from scrolling off the boundary of the figure element
-      // which will also prevent from the image going blank when touch is out of boundary
-
-      if (x > 100) {
-        x = 100;
-      }
-
-      if (x < 0) {
-        x = 0;
-      }
-
-      if (y > 100) {
-        y = 100;
-      }
-
-      if (y < 0) {
-        y = 0;
-      }
-
-      figureElement.style.backgroundPosition = "".concat(x, "% ").concat(y, "%");
-    };
-
-    _this.handleFigureMouseMove = function (e) {
-      var offsetX = e.nativeEvent.offsetX;
-      var offsetY = e.nativeEvent.offsetY;
-
-      _this.handleFigureMove(_this.state.magnified, offsetX, offsetY, e.currentTarget);
-    };
-
-    _this.handleFigureTouchMove = function (e) {
-      var rectObj = e.nativeEvent.touches[0].target.getBoundingClientRect();
-      var offsetX = e.nativeEvent.touches[0].pageX - rectObj.left - window.pageXOffset;
-      var offsetY = e.nativeEvent.touches[0].pageY - rectObj.top - window.pageYOffset;
-
-      _this.handleFigureMove(_this.state.magnified, offsetX, offsetY, e.currentTarget);
-    };
-
-    _this.handleImageLoad = function (e) {
-      var figureWidth = _this.figureRef.current.getBoundingClientRect().width;
-
-      _this.setState({
-        figureWidth: figureWidth
-      });
-    };
-
-    _this.renderImageDisplay = function () {
-      return react_default.a.createElement("figure", {
-        ref: _this.figureRef,
-        className: "image-viewer-container__image-figure image-viewer-container__image-figure--".concat(_this.state.magnified, " image-viewer-container__image-figure--zoomin-").concat(_this.state.magnified),
-        style: {
-          backgroundImage: "url(".concat(_this.state.imageSrc, ")")
-        },
-        onDragStart: _this.handleOnDragStart,
-        onMouseMove: _this.handleFigureMouseMove,
-        onTouchMove: _this.handleFigureTouchMove
-      }, react_default.a.createElement("img", {
-        className: "image-viewer-container__image-element",
-        src: _this.state.imageSrc,
-        alt: _this.props.alt,
-        onLoad: _this.handleImageLoad
-      }));
-    };
-
-    _this.renderZoomIcon = function () {
-      return _this.state.magnified ? react_default.a.createElement("div", {
-        onClick: _this.handleMagnifyClick
-      }, react_default.a.createElement(react_svg["a" /* default */], {
-        src: _this.props.zoomOutIcon
-      })) : react_default.a.createElement("div", {
-        onClick: _this.handleMagnifyClick
-      }, react_default.a.createElement(react_svg["a" /* default */], {
-        src: _this.props.zoomInIcon
-      }));
-    };
-
-    _this.getClosestWidth = function (containerWidth) {
-      if (_this.widths.length) {
-        return _this.widths.reduce(function (prev, curr) {
-          return curr > containerWidth ? prev : curr;
-        });
-      } else {
-        return '660';
-      }
-    };
-
-    _this.calculateWidth = function () {
-      var containerWidth = _this.containerRef.current.getBoundingClientRect().width;
-
-      var imageWidth = _this.getClosestWidth(containerWidth);
-
-      var figureWidth = _this.figureRef.current.getBoundingClientRect().width;
-
-      var imageSrc = _this.props.template.replace(/{{width}}/gi, imageWidth);
-
-      _this.setState({
-        containerWidth: containerWidth,
-        imageWidth: imageWidth,
-        figureWidth: figureWidth,
-        imageSrc: imageSrc
-      });
-    };
-
-    _this.touchActionPolyfill = null;
-
-    if (_this.props && _this.props.widths.length === 0) {
-      _this.widths = [128, 140, 256, 320, 375, 620, 770, 1280];
-    } else if (_this.props && _this.props.widths.length > 0) {
-      _this.widths = _this.props.widths;
-    } else {
-      _this.widths = [];
-    }
-
-    _this.state = {
-      containerWidth: 0,
-      imageWidth: 0,
-      figureWidth: 0,
-      imageSrc: '',
-      magnified: false
-    };
-    _this.containerRef = react_default.a.createRef();
-    _this.figureRef = react_default.a.createRef();
-    return _this;
-  }
-
-  Object(createClass["a" /* default */])(ImageViewer, [{
-    key: "render",
-    value: function render() {
-      return react_default.a.createElement("div", {
-        ref: this.containerRef,
-        className: "image-viewer-container"
-      }, react_default.a.createElement("div", {
-        className: "image-viewer-container__image-display"
-      }, this.renderImageDisplay(), react_default.a.createElement("div", {
-        className: "image-viewer-container__image-zoom"
-      }, react_default.a.createElement("div", null, this.renderZoomIcon()))));
-    }
-  }, {
-    key: "componentDidUpdate",
-    value: function componentDidUpdate(prevProps, prevState) {
-      if (this.state.magnified && !prevState.magnified && this.touchActionNotSupported()) {
-        this.touchActionPolyfill = hammer_default()(this.figureRef.current, {
-          touchAction: 'pan-x'
-        });
-      } else if (!this.state.magnified && prevState.magnified && this.touchActionNotSupported()) {
-        this.touchActionPolyfill.destroy();
-        this.touchActionPolyfill = null;
-      }
-
-      if (this.props.isActive !== prevProps.isActive) {
-        this.setState({
-          magnified: false
-        });
-      }
-
-      if ((prevState.imageWidth !== this.state.imageWidth || prevState.containerWidth !== this.state.containerWidth || prevState.figureWidth !== this.state.figureWidth) && this.props.onCalculate) {
-        this.props.onCalculate(this.state);
-      }
-    }
-  }, {
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      this.figureRef.current.style.backgroundPosition = '50% 50%';
-      this.calculateWidth(); // this is for desktop
-
-      window.addEventListener('resize', this.calculateWidth); // this is for iPad orientation
-
-      window.addEventListener('orientationchange', this.calculateWidth); // this is for mobile devices
-
-      window.addEventListener('deviceorientation', this.calculateWidth);
-    }
-  }, {
-    key: "componentWillUnmount",
-    value: function componentWillUnmount() {
-      window.removeEventListener('resize', this.calculateWidth);
-      window.removeEventListener('orientationchange', this.calculateWidth);
-      window.removeEventListener('deviceorientation', this.calculateWidth);
-    }
-  }]);
-
-  return ImageViewer;
-}(react_default.a.Component);
-
-/* harmony default export */ var image_viewer = (image_viewer_ImageViewer);
-// CONCATENATED MODULE: ./src/image-carousel/image-thumbnails.js
-
-
-
-
-
-
-
-
-var PREV = -1;
-var NEXT = 1;
-var WIDTH_PER_THUMBNAIL = 86;
-
-var image_thumbnails_ImageThumbnails = /*#__PURE__*/function (_React$Component) {
-  Object(inherits["a" /* default */])(ImageThumbnails, _React$Component);
-
-  function ImageThumbnails(props) {
-    var _this;
-
-    Object(classCallCheck["a" /* default */])(this, ImageThumbnails);
-
-    _this = Object(possibleConstructorReturn["a" /* default */])(this, Object(getPrototypeOf["a" /* default */])(ImageThumbnails).call(this, props));
-
-    _this.handleSlide = function (dir) {
-      var newIndex = _this.state.firstIndex + dir; // check the boundaries to prevent sliding beyond left/right boundary
-
-      if (dir === PREV && newIndex === -1) {
-        return;
-      }
-
-      if (dir === NEXT && newIndex >= _this.getLastIndex(_this.props.width, _this.props.items.length) + 1) {
-        return;
-      }
-
-      if (dir === NEXT) {
-        _this.handleSlideNext(_this.state.firstIndex, newIndex);
-      } else {
-        _this.handleSlidePrev(_this.state.firstIndex, newIndex);
-      }
-    };
-
-    _this.getSlideDelay = function () {
-      return screenSizes["a" /* default */].isTabletAndUnder() ? 125 : 250;
-    };
-
-    _this.handleSlideNext = function (currentIndex, newIndex) {
-      // delay so the CSS transition for sliding is not prevented
-      setTimeout(function () {
-        return _this.refs[currentIndex].current.style.display = "none";
-      }, _this.getSlideDelay());
-
-      _this.setState({
-        firstIndex: newIndex
-      });
-    };
-
-    _this.handleSlidePrev = function (currentIndex, newIndex) {
-      // delay both statements to allow fast continous sliding
-      // this will happend if the user continously clicks the previous button
-      setTimeout(function () {
-        return _this.refs[newIndex].current.style.display = "";
-      }, 25);
-      setTimeout(function () {
-        return _this.setState({
-          firstIndex: newIndex
-        });
-      }, 50);
-    };
-
-    _this.handleTouchStart = function (e) {
-      var touch = e.touches[0];
-
-      _this.setState({
-        xStart: touch.clientX,
-        yStart: touch.clientY
-      });
-    };
-
-    _this.handleTouchMove = function (e) {
-      var touch = e.touches[0];
-
-      _this.setState({
-        xMove: touch.clientX,
-        yMove: touch.clientY
-      });
-    };
-
-    _this.handleTouchEnd = function (e) {
-      if (_this.state.xMove === 0) return;
-
-      if (_this.state.xStart < _this.state.xMove) {
-        _this.handleSlide(PREV);
-      } else {
-        _this.handleSlide(NEXT);
-      }
-
-      _this.setState({
-        xStart: 0,
-        yStart: 0,
-        xMove: 0,
-        yMove: 0
-      });
-    };
-
-    _this.getItemClassName = function (index) {
-      if (index < _this.state.firstIndex) {
-        return "image-thumbnails-container__item--hidden ".concat(_this.state.selectedIndex === index ? "image-thumbnails-container__item--selected" : "");
-      }
-
-      return "image-thumbnails-container__item--visible ".concat(_this.state.selectedIndex === index ? "image-thumbnails-container__item--selected" : "");
-    };
-
-    _this.handleItemClick = function (item, index) {
-      if (_this.props.onItemClick) {
-        _this.props.onItemClick({
-          item: item,
-          index: index
-        });
-      }
-
-      _this.setState({
-        selectedIndex: index
-      });
-    };
-
-    _this.renderItems = function () {
-      // refs are used to toggle the display property for each item during sliding
-      // and to highlight the selected that has been clicked
-      _this.refs = [];
-
-      for (var i = 0; i < _this.props.items.length; i++) {
-        _this.refs.push(react_default.a.createRef());
-      }
-
-      return _this.props.items.map(function (item, index) {
-        return react_default.a.createElement("div", {
-          ref: _this.refs[index],
-          key: index,
-          className: "image-thumbnails-container__item ".concat(_this.getItemClassName(index)),
-          onClick: function onClick(e) {
-            return _this.handleItemClick(item, index);
-          }
-        }, item);
-      });
-    };
-
-    _this.getPrevButtonClassName = function () {
-      return _this.state.firstIndex === 0 ? 'image-thumbails-button--disabled' : '';
-    };
-
-    _this.getNextButtonClassName = function () {
-      var lastIndex = _this.getLastIndex(_this.props.width, _this.props.items.length);
-
-      if (_this.state.firstIndex === lastIndex) {
-        return 'image-thumbails-button--disabled';
-      }
-
-      return '';
-    };
-
-    _this.getTotalVisibleItems = function (width, widthPerThumbnail) {
-      return Math.floor((width - (screenSizes["a" /* default */].isTabletAndUnder() ? 0 : 100)) / widthPerThumbnail);
-    };
-
-    _this.getLastIndex = function (width, totalItems) {
-      return totalItems - _this.getTotalVisibleItems(width, WIDTH_PER_THUMBNAIL);
-    };
-
-    _this.getImageThumbnailsWrapperStyle = function () {
-      // check if scrolling thumbnails is needed
-      // if scrolling is needed, set width and show the next and previous buttons
-      // if scrolling is not needed, no need for width and buttons... simply center images
-      var totalVisibleItems = _this.getTotalVisibleItems(_this.props.width, WIDTH_PER_THUMBNAIL);
-
-      if (_this.props.items.length <= totalVisibleItems) {
-        return {};
-      }
-
-      return {
-        width: "".concat(_this.props.width, "px")
-      };
-    };
-
-    _this.getImageThumbnailsWrapperClassName = function () {
-      // check if scrolling thumbnails is needed
-      // if scrolling is needed, set width and show the next and previous buttons
-      // if scrolling is not needed, no need for width and buttons... simply center images
-      var totalVisibleItems = _this.getTotalVisibleItems(_this.props.width, WIDTH_PER_THUMBNAIL);
-
-      if (_this.props.items.length <= totalVisibleItems) {
-        return 'image-thumbnails-wrapper--no-x-scroll';
-      }
-
-      return '';
-    };
-
-    _this.gradientLeft = function () {
-      if (_this.state.firstIndex !== 0) {
-        _this.addGradientLeft();
-      } else {
-        _this.removeGradientLeft();
-      }
-    };
-
-    _this.gradientRight = function () {
-      var lastIndex = _this.getLastIndex(_this.props.width, _this.props.items.length);
-
-      if (_this.state.firstIndex < lastIndex) {
-        _this.addGradientRight();
-      } else {
-        _this.removeGradientRight();
-      }
-    };
-
-    _this.addGradientLeft = function () {
-      if (_this.gradientLeftRef.current) {
-        _this.gradientLeftRef.current.style.display = 'block';
-      }
-    };
-
-    _this.removeGradientLeft = function () {
-      if (_this.gradientLeftRef.current) {
-        _this.gradientLeftRef.current.style.display = 'none';
-      }
-    };
-
-    _this.addGradientRight = function () {
-      if (_this.gradientRightRef.current) {
-        _this.gradientRightRef.current.style.display = 'block';
-      }
-    };
-
-    _this.removeGradientRight = function () {
-      if (_this.gradientRightRef.current) {
-        _this.gradientRightRef.current.style.display = 'none';
-      }
-    };
-
-    _this.gradientLeftRef = react_default.a.createRef();
-    _this.gradientRightRef = react_default.a.createRef();
-    _this.refs = [];
-    _this.state = {
-      firstIndex: 0,
-      selectedIndex: 0,
-      xStart: 0,
-      yStart: 0,
-      xMove: 0,
-      yMove: 0
-    };
-    return _this;
-  }
-
-  Object(createClass["a" /* default */])(ImageThumbnails, [{
-    key: "render",
-    value: function render() {
-      var _this2 = this;
-
-      return react_default.a.createElement("div", {
-        className: "image-thumbnails-wrapper ".concat(this.getImageThumbnailsWrapperClassName()),
-        style: this.getImageThumbnailsWrapperStyle()
-      }, react_default.a.createElement("div", {
-        className: "image-thumbnails-button ".concat(this.getPrevButtonClassName()),
-        onClick: function onClick(e) {
-          return _this2.handleSlide(PREV);
-        }
-      }, react_default.a.createElement(react_svg["a" /* default */], {
-        src: "/content/dam/waters/en/brand-assets/icons/left.svg"
-      })), react_default.a.createElement("div", {
-        className: "image-thumbnails-container",
-        onTouchStart: this.handleTouchStart,
-        onTouchMove: this.handleTouchMove,
-        onTouchEnd: this.handleTouchEnd
-      }, react_default.a.createElement("div", {
-        ref: this.gradientLeftRef,
-        "class": "image-thumbnails-wrapper__gradient-left"
-      }), this.renderItems(), react_default.a.createElement("div", {
-        ref: this.gradientRightRef,
-        "class": "image-thumbnails-wrapper__gradient-right"
-      })), react_default.a.createElement("div", {
-        className: "image-thumbnails-button ".concat(this.getNextButtonClassName()),
-        onClick: function onClick(e) {
-          return _this2.handleSlide(NEXT);
-        }
-      }, react_default.a.createElement(react_svg["a" /* default */], {
-        src: "/content/dam/waters/en/brand-assets/icons/right.svg"
-      })));
-    }
-  }, {
-    key: "componentDidUpdate",
-    value: function componentDidUpdate(prevProps) {
-      if (screenSizes["a" /* default */].isTabletAndUnder()) {
-        this.gradientLeft();
-        this.gradientRight();
-      }
-    }
-  }]);
-
-  return ImageThumbnails;
-}(react_default.a.Component);
-
-/* harmony default export */ var image_thumbnails = (image_thumbnails_ImageThumbnails);
-// CONCATENATED MODULE: ./src/image-carousel/index.js
-
-
-
-
-
-
-
-
-
-var image_carousel_ImageCarousel = /*#__PURE__*/function (_React$Component) {
-  Object(inherits["a" /* default */])(ImageCarousel, _React$Component);
-
-  function ImageCarousel() {
-    var _this;
-
-    Object(classCallCheck["a" /* default */])(this, ImageCarousel);
-
-    _this = Object(possibleConstructorReturn["a" /* default */])(this, Object(getPrototypeOf["a" /* default */])(ImageCarousel).call(this));
-
-    _this.handleImageViewerCalculate = function (data) {
-      // this will prevent the thumbnail width from changing when user clicks on thumbnails
-      if (_this.state.thumbnailClicked) {
-        _this.setState({
-          thumbnailClicked: false
-        });
-
-        return;
-      }
-
-      if (_this.state.figureWidth !== data.figureWidth && data.figureWidth !== 0) {
-        _this.setState({
-          figureWidth: data.figureWidth
-        });
-      }
-    };
-
-    _this.handleThumbnailClick = function (e) {
-      return _this.setState({
-        activeIndex: e.index,
-        thumbnailClicked: true
-      });
-    };
-
-    _this.getImageViewerComponents = function () {
-      return _this.props.templates.map(function (template, index) {
-        return _this.mapTemplateToImageViewer(template, index);
-      });
-    };
-
-    _this.mapTemplateToImageViewer = function (template, index) {
-      return react_default.a.createElement("div", {
-        style: {
-          display: _this.state.activeIndex === index ? 'block' : 'none'
-        }
-      }, react_default.a.createElement(image_viewer, {
-        key: template,
-        template: template,
-        widths: _this.props.widths,
-        alt: _this.props.alt,
-        isActive: index === _this.state.activeIndex,
-        zoomInIcon: _this.props.zoomInIcon,
-        zoomOutIcon: _this.props.zoomOutIcon,
-        onZoomIn: _this.handleZoomIn,
-        onZoomOut: _this.handleZoomOut,
-        onCalculate: _this.handleImageViewerCalculate
-      }));
-    };
-
-    _this.getThumbnails = function () {
-      return _this.props.templates.length > 1 ? react_default.a.createElement(image_thumbnails, {
-        items: _this.getThumbnailImages(),
-        onItemClick: _this.handleThumbnailClick,
-        width: _this.state.figureWidth
-      }) : react_default.a.createElement(react_default.a.Fragment, null);
-    };
-
-    _this.getThumbnailImages = function () {
-      return _this.props.templates.map(function (template) {
-        return _this.mapTemplateToElement(template);
-      });
-    };
-
-    _this.mapTemplateToElement = function (template) {
-      return react_default.a.createElement("div", {
-        className: "image-thumbnails-container__image",
-        style: {
-          backgroundImage: "url(".concat(template.replace(/{{width}}/gi, _this.props.widths[0]), ")")
-        }
-      });
-    };
-
-    _this.state = {
-      activeIndex: 0,
-      figureWidth: 0,
-      thumbnailClicked: false
-    };
-    return _this;
-  }
-
-  Object(createClass["a" /* default */])(ImageCarousel, [{
-    key: "render",
-    value: function render() {
-      return react_default.a.createElement("div", {
-        className: "image-carousel"
-      }, react_default.a.createElement("div", {
-        className: "image-viewer-placeholder"
-      }, this.getImageViewerComponents()), react_default.a.createElement("div", {
-        className: "image-thumbnails-placeholder"
-      }, this.getThumbnails()));
-    }
-  }]);
-
-  return ImageCarousel;
-}(react_default.a.Component);
-
-image_carousel_ImageCarousel.defaultProps = {
-  widths: ['128', '140', '256', '320', '375', '620', '770', '1280']
-};
-/* harmony default export */ var image_carousel = (image_carousel_ImageCarousel);
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray.js + 3 modules
-var slicedToArray = __webpack_require__(10);
+var slicedToArray = __webpack_require__(14);
 
 // CONCATENATED MODULE: ./src/user-greetings/UserGreeting.js
 
@@ -6190,11 +5883,11 @@ LinkButton.defaultProps = {
 };
 /* harmony default export */ var link_button_LinkButton = (LinkButton);
 // EXTERNAL MODULE: ./node_modules/react-html-parser/lib/index.js
-var react_html_parser_lib = __webpack_require__(92);
+var react_html_parser_lib = __webpack_require__(90);
 var react_html_parser_lib_default = /*#__PURE__*/__webpack_require__.n(react_html_parser_lib);
 
 // EXTERNAL MODULE: ./src/legal-link-modal/styles/index.scss
-var legal_link_modal_styles = __webpack_require__(137);
+var legal_link_modal_styles = __webpack_require__(130);
 
 // CONCATENATED MODULE: ./src/legal-link-modal/LegalLinkModal.js
 
@@ -6302,7 +5995,7 @@ LegalLinkModal.defaultProps = {
 };
 /* harmony default export */ var legal_link_modal_LegalLinkModal = (LegalLinkModal);
 // EXTERNAL MODULE: ./src/scripts/DigitalData.js
-var DigitalData = __webpack_require__(22);
+var DigitalData = __webpack_require__(23);
 
 // CONCATENATED MODULE: ./src/sku-details/index.js
 
@@ -6748,1762 +6441,15 @@ sku_details_SkuDetails.defaultProps = {
   replacementSkuHref: ''
 };
 /* harmony default export */ var src_sku_details = (sku_details_SkuDetails);
-// EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty.js
-var defineProperty = __webpack_require__(43);
-
-// EXTERNAL MODULE: ./node_modules/react-hook-form/dist/react-hook-form.ie11.js
-var react_hook_form_ie11 = __webpack_require__(121);
-var react_hook_form_ie11_default = /*#__PURE__*/__webpack_require__.n(react_hook_form_ie11);
-
-// EXTERNAL MODULE: ./src/forms/fields/utils/stateWatcher.js + 1 modules
-var stateWatcher = __webpack_require__(32);
-
-// EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectDestructuringEmpty.js
-var objectDestructuringEmpty = __webpack_require__(31);
-
-// CONCATENATED MODULE: ./src/forms/fields/components/field-validation-display.js
-
-
-
-
-
-var field_validation_display_FieldValidationDisplay = function FieldValidationDisplay(_ref) {
-  var name = _ref.name,
-      matchName = _ref.matchName,
-      children = _ref.children;
-  var formState = Object(stateWatcher["d" /* useFormStateContext */])();
-  var errors = Object(stateWatcher["c" /* useErrorsContext */])();
-
-  var _useContext = Object(react["useContext"])(useFieldApi),
-      options = _useContext.options,
-      type = _useContext.type;
-
-  var isDirty = function isDirty(name) {
-    return formState.touched[0] && (Object(esm_typeof["a" /* default */])(formState.touched[0]) === "object" ? formState.touched[0].has(name) : formState.touched.indexOf(name) > -1);
-  };
-
-  var isDirtyMatch = function isDirtyMatch(name) {
-    return matchName !== "" ? isDirty(name) : false;
-  };
-
-  var isValid = function isValid(name) {
-    return !errors[name];
-  };
-
-  var isValidMatch = function isValidMatch(name) {
-    return matchName !== "" ? isValid(name) : true;
-  };
-
-  var renderClean = function renderClean() {
-    return react_default.a.createElement("div", {
-      className: "cmp-form-field cmp-form-field-".concat(type)
-    }, children);
-  };
-
-  var renderValid = function renderValid() {
-    return react_default.a.createElement("div", {
-      className: "cmp-form-field cmp-form-field-".concat(type, " cmp-form-field--valid")
-    }, children);
-  };
-
-  var renderInvalid = function renderInvalid() {
-    return react_default.a.createElement("div", {
-      className: "cmp-form-field cmp-form-field-".concat(type, " cmp-form-field--invalid")
-    }, children);
-  };
-
-  var renderDisplay = function renderDisplay(name) {
-    if (type === "dropdown" && !isValid(name)) return "invalid";
-    if (!isDirty(name) && !isDirtyMatch(matchName)) return "clean";
-    if (isValid(name) && isValidMatch(matchName)) return "valid";
-    if (!isValid(name) || !isValidMatch(matchName)) return "invalid";
-    return "clean";
-  };
-
-  var displayType = renderDisplay(name);
-
-  if ((type === "radio" || type === "checkbox") && !!options) {
-    options.forEach(function (option) {
-      if (renderDisplay(option.name) !== "clean") {
-        displayType = renderDisplay(option.name);
-      }
-    });
-  }
-
-  switch (displayType) {
-    case "valid":
-      return renderValid();
-
-    case "invalid":
-      return renderInvalid();
-
-    case "clean":
-    default:
-      return renderClean();
-  }
-};
-
-/* harmony default export */ var field_validation_display = (react_default.a.memo(field_validation_display_FieldValidationDisplay));
-// CONCATENATED MODULE: ./src/forms/fields/components/icons.js
-
-
-
-
-
-var icons_Icons = function Icons(_ref) {
-  Object(objectDestructuringEmpty["a" /* default */])(_ref);
-
-  var _useContext = Object(react["useContext"])(useFieldApi),
-      icons = _useContext.icons,
-      type = _useContext.type,
-      disabled = _useContext.disabled;
-
-  var getType = function getType(elem) {
-    return elem.classList.contains('toggled') ? 'text' : type;
-  };
-
-  var toggleEye = function toggleEye(e) {
-    e.preventDefault();
-    var parent = e.currentTarget.parentNode;
-    var onIcon = parent.querySelector('.showHide-icon');
-    var offIcon = parent.querySelector('.showHideOff-icon');
-
-    if (onIcon && offIcon) {
-      onIcon.classList.toggle('toggled');
-      offIcon.classList.toggle('toggled');
-      parent.parentNode.querySelector('input').type = getType(offIcon);
-    }
-  };
-
-  var eyeIcons = type === 'password' ? react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement(react_svg["a" /* default */], {
-    src: icons.eyeIcon,
-    className: "showHide-icon toggled",
-    onMouseDown: toggleEye
-  }), react_default.a.createElement(react_svg["a" /* default */], {
-    src: icons.eyeOffIcon,
-    className: "showHideOff-icon",
-    onMouseDown: toggleEye
-  })) : react_default.a.createElement(react_default.a.Fragment, null);
-  return react_default.a.createElement("div", {
-    className: "cmp-form-field--icons"
-  }, eyeIcons, !disabled && react_default.a.createElement(react_svg["a" /* default */], {
-    src: icons.validIcon,
-    className: "valid-icon"
-  }), !disabled && react_default.a.createElement(react_svg["a" /* default */], {
-    src: icons.invalidIcon,
-    className: "invalid-icon"
-  }), disabled && react_default.a.createElement(react_svg["a" /* default */], {
-    src: icons.lockIcon,
-    className: "lock-icon"
-  }));
-};
-
-/* harmony default export */ var components_icons = (react_default.a.memo(icons_Icons));
-// CONCATENATED MODULE: ./src/forms/fields/components/displaymessage.js
-
-
-
-
-
-var displaymessage_DisplayMessage = function DisplayMessage(_ref) {
-  var name = _ref.name,
-      validation = _ref.validation;
-
-  var _useContext = Object(react["useContext"])(useFieldApi),
-      icons = _useContext.icons;
-
-  var errors = Object(stateWatcher["c" /* useErrorsContext */])();
-
-  var getInfo = function getInfo() {
-    var fieldErr = errors[name];
-    var message = '';
-    var link = react_default.a.createElement(react_default.a.Fragment, null);
-
-    if (validation && fieldErr) {
-      switch (fieldErr.type) {
-        case 'required':
-          message = fieldErr.message || validation.requiredMsg;
-          break;
-
-        case 'pattern':
-        case 'validate':
-          if (validation.validateFnName === 'email') {
-            if (errors.invalidEmail) message = errors.invalidEmail.message;
-            if (errors.alreadyRegistered) return showSignIn();
-            break;
-          }
-
-          message = fieldErr.message || validation.validationMsg || validation.requiredMsg;
-          break;
-
-        default:
-          message = fieldErr.message;
-          break;
-      }
-    }
-
-    return react_default.a.createElement(react_default.a.Fragment, null, message, link);
-  };
-
-  var showSignIn = function showSignIn() {
-    return react_default.a.createElement(react_default.a.Fragment, null, validation.alreadyRegisteredMsg, react_default.a.createElement("a", {
-      href: validation.signInURL,
-      className: "cmp-sign-in-link"
-    }, react_default.a.createElement(react_svg["a" /* default */], {
-      src: icons.signInIcon,
-      className: "email-signin"
-    }), validation.signInMsg));
-  };
-
-  return react_default.a.createElement("span", {
-    className: "cmp-form-field--errorText"
-  }, getInfo());
-};
-
-/* harmony default export */ var displaymessage = (react_default.a.memo(displaymessage_DisplayMessage));
-// EXTERNAL MODULE: ./src/forms/fields/patterns/index.js + 1 modules
-var patterns = __webpack_require__(41);
-
-// CONCATENATED MODULE: ./src/forms/fields/components/requirements.js
-
-
-
-
-
-
-var requirements_Requirements = function Requirements(_ref, ref) {
-  var header = _ref.header,
-      requirements = _ref.requirements;
-
-  var _useContext = Object(react["useContext"])(useFieldApi),
-      icons = _useContext.icons;
-
-  var _useState = Object(react["useState"])(false),
-      _useState2 = Object(slicedToArray["a" /* default */])(_useState, 2),
-      toggled = _useState2[0],
-      setToggled = _useState2[1];
-
-  var _useState3 = Object(react["useState"])(""),
-      _useState4 = Object(slicedToArray["a" /* default */])(_useState3, 2),
-      input = _useState4[0],
-      setInput = _useState4[1];
-
-  var _useState5 = Object(react["useState"])({}),
-      _useState6 = Object(slicedToArray["a" /* default */])(_useState5, 2),
-      errors = _useState6[0],
-      setErrors = _useState6[1];
-
-  var _useState7 = Object(react["useState"])(Array.from({
-    length: requirements.length
-  }, function () {
-    return false;
-  })),
-      _useState8 = Object(slicedToArray["a" /* default */])(_useState7, 2),
-      validFields = _useState8[0],
-      setValidFields = _useState8[1];
-
-  Object(react["useEffect"])(function () {
-    setValidFields(requirements.map(function (_ref2) {
-      var name = _ref2.name;
-      return !hasError(name) && !emptyInput();
-    }));
-  }, [input]);
-  Object(react["useImperativeHandle"])(ref, function () {
-    return {
-      toggle: function toggle() {
-        setToggled(!toggled);
-        return toggled;
-      },
-      update: function update(newInput) {
-        setInput(newInput);
-        setErrors(patterns["a" /* functions */].password(newInput, {}, null, null, false));
-        return input;
-      }
-    };
-  });
-
-  var hasError = function hasError(name) {
-    return errors[name];
-  };
-
-  var emptyInput = function emptyInput() {
-    return input === "" || input === undefined;
-  };
-
-  var renderRequirementFields = function renderRequirementFields() {
-    return requirements.map(function (_ref3, key) {
-      var name = _ref3.name,
-          msg = _ref3.msg;
-      return react_default.a.createElement("div", {
-        key: "requirements-info-".concat(key)
-      }, react_default.a.createElement(react_svg["a" /* default */], {
-        id: name,
-        src: icons.checkmarkIcon,
-        className: validFields[key] ? "valid requirements-info-svg" : "requirements-info-svg"
-      }), react_default.a.createElement("div", {
-        className: "requirements-info"
-      }, msg));
-    });
-  };
-
-  return react_default.a.createElement("div", {
-    className: "cmp-form-field--input-requirements" + (toggled ? " toggled" : "")
-  }, react_default.a.createElement("div", {
-    className: "requirements-title"
-  }, header), renderRequirementFields());
-};
-
-/* harmony default export */ var components_requirements = (Object(react["forwardRef"])(requirements_Requirements));
-// EXTERNAL MODULE: ./src/forms/fields/utils/validations.js
-var validations = __webpack_require__(78);
-
-// EXTERNAL MODULE: ./src/utils/labelFunctions.js
-var labelFunctions = __webpack_require__(45);
-
-// CONCATENATED MODULE: ./src/forms/fields/input.js
-
-
-
-
-
-
-
-
-
-
-
-var input_Input = function Input(_ref) {
-  var name = _ref.name,
-      label = _ref.label,
-      description = _ref.description,
-      validation = _ref.validation,
-      hasMatch = _ref.hasMatch,
-      matchRef = _ref.matchRef;
-  var reqRef = Object(react["useRef"])(null);
-  var inputRef = Object(react["useRef"])(null);
-
-  var _useContext = Object(react["useContext"])(useFieldApi),
-      type = _useContext.type,
-      disabled = _useContext.disabled,
-      matchLabel = _useContext.matchLabel,
-      emailValidationEndpoint = _useContext.emailValidationEndpoint,
-      optionalLabel = _useContext.optionalLabel;
-
-  var _useContext2 = Object(react["useContext"])(useFormApi),
-      register = _useContext2.register,
-      setError = _useContext2.setError,
-      setValue = _useContext2.setValue,
-      clearError = _useContext2.clearError,
-      formName = _useContext2.formName;
-
-  var errors = Object(stateWatcher["c" /* useErrorsContext */])();
-
-  var getRegisterAttributes = function getRegisterAttributes(ref) {
-    inputRef.current = ref;
-    return Object(validations["a" /* getAttributes */])(ref, validation, matchRef, emailValidationEndpoint, setError, clearError);
-  };
-
-  var getMatchName = function getMatchName() {
-    return 'confirm'.concat(name.charAt(0).toUpperCase() + name.slice(1));
-  };
-
-  var toggleReq = function toggleReq() {
-    return reqRef.current ? reqRef.current.toggle() : function () {
-      return false;
-    };
-  };
-
-  var updateReq = function updateReq() {
-    switch (type) {
-      case "text":
-        {
-          // use react-hook-form validation
-          setValue(name, inputRef.current.value, true);
-          break;
-        }
-
-      case "email":
-        {
-          if (patterns["a" /* functions */][validation.validateFnName](inputRef.current.value, inputRef.current, validation.requiredMsg, setError, clearError) === false) {
-            // Hide the Tick Icon as not a valid email and don't validate using react-hook-form mechanism
-            hideShowValidIcon(name, true);
-            clearError(name);
-          } else {
-            // Stop hiding the tick icon as email is now valid 
-            hideShowValidIcon(name, false);
-            setValue(name, inputRef.current.value, true);
-          }
-
-          break;
-        }
-
-      case "password":
-        {
-          if (inputRef.current.name === "currentPassword") {
-            // Not the standard password validation use text validation
-            setValue(name, inputRef.current.value, true);
-            break;
-          }
-
-          if (inputRef.current.name === "password" || inputRef.current.name === "newPassword") {
-            // password: (value, ref, setError, clearError, throwErrors=true)
-            if (patterns["a" /* functions */][validation.validateFnName](inputRef.current.value, inputRef.current, setError, clearError) === false) {
-              // Hide the Tick Icon as not a valid password and don't validate using react-hook-form mechanism
-              hideShowValidIcon(name, true);
-              clearError(name);
-            } else {
-              // Stop hiding the tick icon as password is now valid 
-              hideShowValidIcon(name, false);
-              setValue(name, inputRef.current.value, true);
-            }
-          }
-
-          if (inputRef.current.name === "confirmPassword" || inputRef.current.name === "confirmNewPassword") {
-            var passwordId = "password";
-
-            if (inputRef.current.name === "confirmNewPassword") {
-              passwordId = "newPassword";
-            }
-
-            var passwordControl = document.getElementById(passwordId); // matching: (value, matchRef, ref) 
-
-            if (patterns["a" /* functions */][validation.validateFnName](inputRef.current.value, passwordControl, inputRef.current) === false) {
-              // Hide the Tick Icon as not a valid confirm password and don't validate using react-hook-form mechanism
-              hideShowValidIcon(name, true, 1);
-              clearError(name);
-            } else {
-              // Stop hiding the tick icon as confirm password is now valid 
-              hideShowValidIcon(name, false, 1);
-              setValue(name, inputRef.current.value, true);
-            }
-          }
-
-          break;
-        }
-
-      default:
-        {
-          break;
-        }
-    }
-
-    reqRef.current ? reqRef.current.update(inputRef.current.value) : function () {
-      return false;
-    };
-  };
-
-  var hideShowValidIcon = function hideShowValidIcon(controlName, isHidden) {
-    var index = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
-    var control = document.getElementById(controlName);
-    var styleString = "inline-block";
-
-    if (isHidden) {
-      styleString = "none";
-    }
-
-    if (control) {
-      var mainControlDiv = control.parentElement.parentElement;
-
-      if (mainControlDiv) {
-        mainControlDiv.getElementsByClassName("valid-icon")[index].style.display = styleString;
-      }
-    }
-  };
-
-  var getMatchReq = Object(react["useMemo"])(function () {
-    return {
-      required: validation['required'],
-      requiredMsg: validation.requiredMatchMsg,
-      validateFnName: 'matching',
-      validationMsg: validation['nonMatchingMsg'],
-      maxLength: validation.maxLength
-    };
-  }, [name, validation]);
-
-  var renderInput = function renderInput() {
-    return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("label", {
-      htmlFor: name,
-      className: validation.validateFnName === 'matching' ? 'cmp-form-field--label-matching' : '',
-      "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])(label) || 'form-field--label'
-    }, Object(labelFunctions["a" /* renderFormattedLabel */])(label, validation.required, optionalLabel)), description && react_default.a.createElement("div", {
-      className: "cmp-form_description"
-    }, description), react_default.a.createElement("div", {
-      className: "cmp-form-field--input"
-    }, react_default.a.createElement("input", {
-      type: type,
-      name: name,
-      id: name,
-      ref: function ref(_ref2) {
-        return register(_ref2, getRegisterAttributes(_ref2));
-      },
-      onBlur: toggleReq,
-      onFocus: toggleReq,
-      onChange: updateReq,
-      placeholder: " ",
-      "aria-label": name,
-      disabled: disabled,
-      "aria-labelledby": name,
-      "aria-required": validation.required,
-      className: !!errors[name] ? 'error' : !!inputRef.current ? !!inputRef.current.value ? 'valid' : '' : '',
-      "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])(name) || 'form-field-input'
-    }), react_default.a.createElement(components_icons, null)), react_default.a.createElement(displaymessage, {
-      name: name,
-      validation: validation
-    }), validation.validateFnName === 'password' && validation.requirements && react_default.a.createElement(components_requirements, {
-      header: validation.requirementsLabel,
-      requirements: validation.requirements,
-      ref: reqRef
-    }));
-  };
-
-  return react_default.a.createElement(react_default.a.Fragment, null, renderInput(), hasMatch && Object(react["useMemo"])(function () {
-    return react_default.a.createElement(Input, {
-      name: getMatchName(),
-      label: matchLabel,
-      hasMatch: false,
-      description: description ? 'Match for '.concat(name) : '',
-      validation: getMatchReq,
-      matchRef: inputRef
-    });
-  }, [matchLabel, description, inputRef]));
-};
-
-/* harmony default export */ var fields_input = (react_default.a.memo(input_Input));
-// CONCATENATED MODULE: ./src/forms/fields/textarea.js
-
-
-
-
-
-
-
-
-
-
-var textarea_TextArea = function TextArea(_ref) {
-  var name = _ref.name,
-      label = _ref.label,
-      resize = _ref.resize,
-      rows = _ref.rows,
-      description = _ref.description,
-      validation = _ref.validation,
-      showTextInfo = _ref.showTextInfo,
-      hasMatch = _ref.hasMatch,
-      matchRef = _ref.matchRef;
-  var reqRef = Object(react["useRef"])(null);
-  var inputRef = Object(react["useRef"])(null);
-
-  var _useState = Object(react["useState"])({
-    remainingChar: validation.maxLength ? validation.maxLength.value : 0,
-    maxLength: validation.maxLength ? validation.maxLength.value : 0,
-    text: showTextInfo && showTextInfo.remainingMoreTextMsg ? showTextInfo.remainingMoreTextMsg : '',
-    isCharOver: false
-  }),
-      _useState2 = Object(slicedToArray["a" /* default */])(_useState, 2),
-      textInfo = _useState2[0],
-      setTextInfo = _useState2[1];
-
-  var _useContext = Object(react["useContext"])(useFieldApi),
-      disabled = _useContext.disabled,
-      matchLabel = _useContext.matchLabel,
-      emailValidationEndpoint = _useContext.emailValidationEndpoint,
-      optionalLabel = _useContext.optionalLabel;
-
-  var _useContext2 = Object(react["useContext"])(useFormApi),
-      register = _useContext2.register,
-      setError = _useContext2.setError,
-      setValue = _useContext2.setValue,
-      clearError = _useContext2.clearError;
-
-  var errors = Object(stateWatcher["c" /* useErrorsContext */])();
-
-  var getRegisterAttributes = function getRegisterAttributes(ref) {
-    inputRef.current = ref;
-    return Object(validations["a" /* getAttributes */])(ref, validation, matchRef, emailValidationEndpoint, setError, clearError);
-  };
-
-  var getMatchName = function getMatchName() {
-    return 'confirm'.concat(name.charAt(0).toUpperCase() + name.slice(1));
-  };
-
-  var toggleReq = function toggleReq() {
-    return reqRef.current ? reqRef.current.toggle() : function () {
-      return false;
-    };
-  };
-
-  var updateReq = function updateReq() {
-    setValue(name, inputRef.current.value, true);
-    reqRef.current ? reqRef.current.update(inputRef.current.value) : function () {
-      return false;
-    };
-  };
-
-  var getMatchReq = Object(react["useMemo"])(function () {
-    return {
-      required: validation['required'],
-      requiredMsg: validation.requiredMatchMsg,
-      validateFnName: 'matching',
-      validationMsg: validation['nonMatchingMsg'],
-      maxLength: validation.maxLength
-    };
-  }, [name, validation]);
-
-  var onKeyUp = function onKeyUp(event) {
-    if (showTextInfo) {
-      var remainingChar = textInfo.maxLength - event.target.value.length;
-      var text;
-      var isCharOver = false;
-
-      if (remainingChar >= 0) {
-        text = remainingChar > 1 ? showTextInfo.remainingMoreTextMsg : showTextInfo.remainingOneTextMsg;
-      } else {
-        text = Math.abs(remainingChar) > 1 ? showTextInfo.overMoreTextMsg : showTextInfo.overOneTextMsg;
-        isCharOver = true;
-      }
-
-      setTextInfo(function (prevState) {
-        return Object(objectSpread["a" /* default */])({}, prevState, {
-          remainingChar: Math.abs(remainingChar),
-          text: text,
-          isCharOver: isCharOver
-        });
-      });
-    }
-  };
-
-  var renderTextArea = function renderTextArea() {
-    return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("label", {
-      htmlFor: name,
-      className: validation.validateFnName === 'matching' ? 'cmp-form-field--label-matching' : '',
-      "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])(label) || 'form-field--label'
-    }, Object(labelFunctions["a" /* renderFormattedLabel */])(label, validation.required, optionalLabel)), description && react_default.a.createElement("div", {
-      className: "cmp-form_description"
-    }, description), react_default.a.createElement("div", {
-      className: "cmp-form-field--textarea"
-    }, react_default.a.createElement("textarea", {
-      name: name,
-      id: name,
-      ref: function ref(_ref2) {
-        return register(_ref2, getRegisterAttributes(_ref2));
-      },
-      onBlur: toggleReq,
-      onFocus: toggleReq,
-      onChange: updateReq,
-      onKeyUp: onKeyUp,
-      placeholder: " ",
-      disabled: disabled,
-      "aria-labelledby": name,
-      "aria-required": validation.required,
-      resize: resize,
-      rows: rows,
-      className: !!errors[name] ? "error ".concat(resize ? '' : 'disable-resize') : !!inputRef.current ? !!inputRef.current.value ? "valid ".concat(resize ? '' : 'disable-resize') : "".concat(resize ? '' : 'disable-resize') : "".concat(resize ? '' : 'disable-resize'),
-      "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])(name) || 'form-field-textarea'
-    })), react_default.a.createElement("div", {
-      className: "textarea-info"
-    }, react_default.a.createElement(displaymessage, {
-      name: name,
-      validation: validation
-    }), showTextInfo && react_default.a.createElement("div", {
-      "data-locator": "text-info",
-      className: "text-info ".concat(textInfo.isCharOver ? 'errorText' : '')
-    }, "".concat(textInfo.remainingChar, " ").concat(textInfo.text))));
-  };
-
-  return react_default.a.createElement(react_default.a.Fragment, null, renderTextArea(), hasMatch && Object(react["useMemo"])(function () {
-    return react_default.a.createElement(TextArea, {
-      name: getMatchName(),
-      label: matchLabel,
-      hasMatch: false,
-      description: description ? 'Match for '.concat(name) : '',
-      validation: getMatchReq,
-      matchRef: inputRef
-    });
-  }, [matchLabel, description, inputRef]));
-};
-
-/* harmony default export */ var fields_textarea = (react_default.a.memo(textarea_TextArea));
-// CONCATENATED MODULE: ./src/forms/fields/checkboxOrRadio.js
-
-
-
-
-
-
-
-
-
-
-
-
-var checkboxOrRadio_CheckboxOrRadio = function CheckboxOrRadio(_ref) {
-  Object(objectDestructuringEmpty["a" /* default */])(_ref);
-
-  var _useContext = Object(react["useContext"])(useFieldApi),
-      name = _useContext.name,
-      label = _useContext.label,
-      options = _useContext.options,
-      disabled = _useContext.disabled,
-      icons = _useContext.icons,
-      config = _useContext.config,
-      validation = _useContext.validation,
-      type = _useContext.type,
-      description = _useContext.description,
-      initialState = _useContext.initialState,
-      optionalLabel = _useContext.optionalLabel;
-
-  var _useContext2 = Object(react["useContext"])(useFormApi),
-      register = _useContext2.register,
-      setValue = _useContext2.setValue;
-
-  var errors = Object(stateWatcher["c" /* useErrorsContext */])();
-
-  var _useState = Object(react["useState"])(function () {
-    if (!options) {
-      return Object(defineProperty["a" /* default */])({}, name, Object(objectSpread["a" /* default */])({
-        isChecked: initialState,
-        required: validation && validation.required ? true : false,
-        description: description ? description : ''
-      }, config));
-    } else {
-      var defaultOptions = options.map(function (option, i) {
-        var thisOption = Object(defineProperty["a" /* default */])({}, option.name, Object(objectSpread["a" /* default */])({
-          isChecked: false,
-          required: validation && validation.validateFnName && option.required ? true : false,
-          description: option.description ? option.description : ''
-        }, option.config));
-
-        return thisOption;
-      });
-      return Object.assign.apply(Object, [{}].concat(Object(toConsumableArray["a" /* default */])(defaultOptions)));
-    }
-  }),
-      _useState2 = Object(slicedToArray["a" /* default */])(_useState, 2),
-      state = _useState2[0],
-      setState = _useState2[1];
-
-  var checkHandler = function checkHandler(event, thisName) {
-    if (!disabled) {
-      var thisState = state[thisName];
-
-      if (config.getRadioOptions && options) {
-        for (var _i = 0, _Object$keys = Object.keys(state); _i < _Object$keys.length; _i++) {
-          var key = _Object$keys[_i];
-
-          if (key === thisName) {
-            state[key].isChecked = true;
-          } else {
-            state[key].isChecked = false;
-          }
-
-          setValue(key, state[key].isChecked, state[key].required);
-        }
-
-        setState(Object(objectSpread["a" /* default */])({}, state)); // Non Mobile has Link Wrapper
-
-        var submitControlArrayLength = document.getElementsByClassName("cmp-button").length;
-
-        if (submitControlArrayLength > 0) {
-          document.getElementsByClassName("cmp-button")[submitControlArrayLength - 1].classList.remove("cmp-button--disabled");
-          document.getElementsByClassName("cmp-button")[submitControlArrayLength - 1].disabled = false;
-        }
-
-        return;
-      }
-
-      setValue(thisName, !thisState.isChecked, thisState.required);
-      setState(Object(objectSpread["a" /* default */])({}, state, Object(defineProperty["a" /* default */])({}, thisName, Object(objectSpread["a" /* default */])({}, thisState, {
-        isChecked: !thisState.isChecked
-      }))));
-    }
-  };
-
-  var hasError = Object(react["useCallback"])(function (name) {
-    return !!errors[name];
-  }, [errors]);
-
-  var renderLabel = function renderLabel(thisName, lbl) {
-    var formattedLabel = lbl; // If a check Box and required add required indicator to label
-
-    if (state[thisName].required && type !== 'radio') {
-      formattedLabel = Object(labelFunctions["b" /* renderFormattedLabelText */])(label, true);
-    }
-
-    return react_default.a.createElement(react_default.a.Fragment, null, formattedLabel + ' ', renderAddOnLink(thisName), !state[thisName].required && type !== 'radio' && optionalLabel && react_default.a.createElement("span", {
-      className: "cmp-form-field--optional"
-    }, optionalLabel));
-  };
-
-  var renderAddOnLink = function renderAddOnLink(thisName) {
-    var thisState = state[thisName];
-    return thisState.text && thisState.link && thisState.blank && react_default.a.createElement("a", {
-      href: thisState.link,
-      target: thisState ? '_blank' : '',
-      rel: "noopener noreferrer",
-      "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])(thisState.text || 'add-on-link')
-    }, thisState.text);
-  };
-
-  var renderType = function renderType(thisName, label) {
-    var thisState = state[thisName];
-    return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("input", {
-      type: type,
-      role: type,
-      name: thisName,
-      id: thisName,
-      "aria-labelledby": thisName,
-      disabled: disabled,
-      "aria-disabled": disabled ? true : false,
-      checked: thisState.isChecked,
-      "aria-checked": thisState.isChecked,
-      "aria-required": thisState.required,
-      className: hasError(thisName) ? 'error' : 'valid',
-      ref: register(thisState.required ? {
-        required: true
-      } : {}),
-      readOnly: true,
-      "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])(thisName || 'input-type')
-    }), react_default.a.createElement("a", {
-      className: "".concat(type, " ") + (disabled ? ' disabled' : '') + (hasError(thisName) ? ' error' : ' valid'),
-      onClick: function onClick(e) {
-        return checkHandler(e, thisName);
-      },
-      id: thisName + '_link'
-    }, type == 'checkbox' ? react_default.a.createElement(react_svg["a" /* default */], {
-      src: icons.checkmarkIcon
-    }) : react_default.a.createElement("div", {
-      className: "selector"
-    })), react_default.a.createElement("div", {
-      className: "cmp-form-field-".concat(type, "--wrapper") + (disabled ? ' disabled' : '')
-    }, react_default.a.createElement("label", {
-      htmlFor: thisName,
-      onClick: function onClick(e) {
-        return checkHandler(e, thisName);
-      }
-    }, renderLabel(thisName, label)), thisState.description && react_default.a.createElement("span", {
-      "class": "cmp-form_description"
-    }, thisState.description)));
-  };
-
-  try {
-    return !options ? renderType(name, label) : react_default.a.createElement("div", {
-      id: name,
-      className: "cmp-form-field-".concat(type, "--grouping")
-    }, options.map(function (option, i) {
-      var address = [];
-      var _iteratorNormalCompletion = true;
-      var _didIteratorError = false;
-      var _iteratorError = undefined;
-
-      try {
-        for (var _iterator = option.address.entries()[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-          var _ref5 = _step.value;
-
-          var _ref4 = Object(slicedToArray["a" /* default */])(_ref5, 2);
-
-          var index = _ref4[0];
-          var value = _ref4[1];
-          address.push(react_default.a.createElement("div", {
-            className: "cmp-form-field-".concat(type, "--address1"),
-            key: index
-          }, value));
-        }
-      } catch (err) {
-        _didIteratorError = true;
-        _iteratorError = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion && _iterator["return"] != null) {
-            _iterator["return"]();
-          }
-        } finally {
-          if (_didIteratorError) {
-            throw _iteratorError;
-          }
-        }
-      }
-
-      return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("div", {
-        style: {
-          paddingTop: "10px"
-        },
-        className: "cmp-form-field-".concat(type, "--grouping-item"),
-        key: "".concat(type, "-").concat(name, "-grouping-").concat(i)
-      }, renderType(option.name, option.label)), address);
-    }));
-  } catch (error) {
-    console.log("error ", error);
-  }
-};
-
-/* harmony default export */ var checkboxOrRadio = (react_default.a.memo(checkboxOrRadio_CheckboxOrRadio));
-// CONCATENATED MODULE: ./src/forms/fields/styles/dropdown.scss.js
-
-
-/* harmony default export */ var dropdown_scss = ({
-  indicatorSeparator: function indicatorSeparator() {
-    return {
-      display: "none"
-    };
-  },
-  option: function option(provided, state) {
-    return Object(objectSpread["a" /* default */])({}, provided, {
-      color: variables_default.a.colorGray50,
-      padding: '0.75em 1em',
-      backgroundColor: state.isSelected ? variables_default.a.colorBackgroundLight : variables_default.a.colorWhite,
-      cursor: !state.isSelected ? "pointer" : "default",
-      "&:hover": {
-        color: !state.isSelected ? variables_default.a.colorBlue50 : variables_default.a.colorGray50,
-        backgroundColor: !state.isSelected ? variables_default.a.colorWhite : variables_default.a.colorBackgroundLight
-      },
-      margin: 0
-    });
-  },
-  control: function control(provided, state) {
-    return Object(objectSpread["a" /* default */])({}, provided, {
-      "border-radius": variables_default.a.borderRadius,
-      padding: "0.3em 0.5em",
-      color: variables_default.a.colorGray50,
-      "border-color": state.isFocused ? variables_default.a.colorBorderDark : variables_default.a.colorBorderDark,
-      outline: "none",
-      cursor: "pointer",
-      "box-shadow": "none",
-      "&:hover": {
-        outline: "none",
-        color: variables_default.a.colorBlue50,
-        borderColor: variables_default.a.colorBlue50
-      }
-    });
-  },
-  singleValue: function singleValue(provided, state) {
-    return {};
-  },
-  menu: function menu(provided) {
-    return Object(objectSpread["a" /* default */])({}, provided, {
-      marginTop: 0,
-      borderRadius: 0,
-      width: "calc(100% - 2px)",
-      marginLeft: "1px",
-      marginBottom: 0,
-      padding: 0
-    });
-  },
-  menuList: function menuList(provided) {
-    return Object(objectSpread["a" /* default */])({}, provided, {
-      paddingBottom: 0,
-      paddingTop: 0
-    });
-  }
-});
-// CONCATENATED MODULE: ./src/forms/fields/components/select.js
-
-
-
-
-
-
-
-var select_DropdownIndicator = function DropdownIndicator(props) {
-  return react_default.a.createElement(react_select_esm["a" /* components */].DropdownIndicator, props, react_default.a.createElement(react_svg["a" /* default */], {
-    src: props.theme.dropdownIndicator
-  }));
-};
-
-var select_Select = function Select(props) {
-  var _useContext = Object(react["useContext"])(useFieldApi),
-      name = _useContext.name,
-      options = _useContext.options,
-      dropdownIndicator = _useContext.dropdownIndicator,
-      placeholder = _useContext.placeholder,
-      disabled = _useContext.disabled;
-
-  var _useContext2 = Object(react["useContext"])(useFormApi),
-      triggerValidation = _useContext2.triggerValidation,
-      setValue = _useContext2.setValue,
-      getValue = _useContext2.getValue,
-      activateField = _useContext2.activateField,
-      deactivateField = _useContext2.deactivateField,
-      setCountrySaved = _useContext2.setCountrySaved,
-      regionalConfig = _useContext2.regionalConfig;
-
-  var _useState = Object(react["useState"])(getValue(name) ? getValue(name).toLowerCase() : props.defaultValue || ""),
-      _useState2 = Object(slicedToArray["a" /* default */])(_useState, 2),
-      selectedValue = _useState2[0],
-      setSelectedValue = _useState2[1];
-
-  var setupOptions = function setupOptions(label, value) {
-    return {
-      label: label,
-      value: value
-    };
-  };
-
-  var getOptions = function getOptions() {
-    switch (name) {
-      case "country":
-        return options.map(function (val) {
-          return setupOptions(val.displayName, val.countryCode);
-        });
-
-      case "state":
-        return options.map(function (val) {
-          return setupOptions(val.displayName, val.stateCode);
-        });
-
-      case "namePrefix":
-        return options.map(function (val) {
-          return setupOptions(val.displayName, val.namePrefixCode);
-        });
-
-      default:
-        return options.map(function (val) {
-          return setupOptions(val.label, val.value);
-        });
-    }
-  };
-
-  var handleChange = function handleChange(option) {
-    setSelectedValue(option.value);
-    setValue(name, option.value, true);
-
-    if (name === "country") {
-      // Check if any Form Elements need hiding or displaying
-      // Get Regional config 
-      var countryOptionsConfig = regionalConfig; // Hide all country configurable fields
-
-      var allCountryOptions = countryOptionsConfig.filter(function (p) {
-        return p.country === "all";
-      });
-
-      if (allCountryOptions.length === 1) {
-        allCountryOptions[0].fields.map(function (fieldName) {
-          return deactivateField(fieldName);
-        });
-      } // Display Specific fields for the selected country
-
-
-      var selectedCountryOptions = countryOptionsConfig.filter(function (p) {
-        return p.country === option.value;
-      });
-
-      if (selectedCountryOptions.length === 1) {
-        selectedCountryOptions[0].fields.map(function (fieldName) {
-          return activateField(fieldName);
-        });
-      } // Update Country Code in State
-
-
-      setCountrySaved(option.value);
-    }
-  };
-
-  return react_default.a.createElement(react_select_esm["c" /* default */], Object.assign({}, props, {
-    options: getOptions(),
-    isDisabled: disabled,
-    isSearchable: true,
-    styles: dropdown_scss,
-    placeholder: placeholder,
-    classNamePrefix: "cmp-custom-dropdown",
-    components: {
-      DropdownIndicator: select_DropdownIndicator
-    },
-    theme: {
-      dropdownIndicator: dropdownIndicator
-    },
-    filterOption: Object(react_select_esm["b" /* createFilter */])({
-      ignoreCase: true,
-      trim: true,
-      matchFrom: "start"
-    }),
-    onBlur: function onBlur() {
-      return triggerValidation({
-        name: name
-      });
-    },
-    onChange: handleChange,
-    value: getOptions().filter(function (o) {
-      return o.value === selectedValue;
-    })
-  }));
-};
-
-/* harmony default export */ var components_select = (react_default.a.memo(select_Select));
-// CONCATENATED MODULE: ./src/forms/fields/dropdown.js
-
-
-
-
-
-
-
-
-
-var fields_dropdown_Dropdown = function Dropdown(_ref) {
-  Object(objectDestructuringEmpty["a" /* default */])(_ref);
-
-  var _useContext = Object(react["useContext"])(useFieldApi),
-      name = _useContext.name,
-      label = _useContext.label,
-      defaultValue = _useContext.defaultValue,
-      validation = _useContext.validation,
-      optionalLabel = _useContext.optionalLabel;
-
-  var _useContext2 = Object(react["useContext"])(useFormApi),
-      register = _useContext2.register;
-
-  var newLabel = Object(labelFunctions["b" /* renderFormattedLabelText */])(label, validation.required, optionalLabel);
-  return react_default.a.createElement("div", {
-    className: "cmp-form-field-dropdown--wrapper"
-  }, react_default.a.createElement("label", {
-    htmlFor: name,
-    "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])("".concat(name, " label"))
-  }, newLabel), react_default.a.createElement("div", {
-    className: "cmp-form-field-dropdown--wrapper",
-    "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])(name) || 'form-field-dropdown',
-    "aria-describedby": "cmp-custom-dropdown__single-value",
-    tabindex: "0"
-  }, react_default.a.createElement(components_select, {
-    name: name,
-    defaultValue: defaultValue,
-    ref: register({
-      name: name
-    }, validation),
-    id: name,
-    tabIndex: "-1",
-    "aria-label": name
-  }), react_default.a.createElement(components_icons, null)), react_default.a.createElement(displaymessage, {
-    name: name,
-    validation: validation
-  }));
-};
-
-/* harmony default export */ var fields_dropdown = (react_default.a.memo(fields_dropdown_Dropdown));
-// CONCATENATED MODULE: ./src/forms/fields/hr.js
-
-
-var hr_Hr = function Hr(_ref) {
-  var addClass = _ref.addClass;
-  return react_default.a.createElement("hr", {
-    className: addClass
-  });
-};
-
-/* harmony default export */ var hr = (react_default.a.memo(hr_Hr));
-// EXTERNAL MODULE: ./node_modules/react-google-recaptcha/lib/esm/index.js + 3 modules
-var esm = __webpack_require__(127);
-
-// CONCATENATED MODULE: ./src/forms/fields/captcha.js
-
-
-
-
-
-
-var captcha_Captcha = function Captcha(_ref) {
-  Object(objectDestructuringEmpty["a" /* default */])(_ref);
-
-  var _useContext = Object(react["useContext"])(useFieldApi),
-      siteKey = _useContext.siteKey,
-      name = _useContext.name,
-      isocode = _useContext.isocode,
-      validation = _useContext.validation;
-
-  var _useContext2 = Object(react["useContext"])(useFormApi),
-      register = _useContext2.register,
-      setValue = _useContext2.setValue;
-
-  var onChange = function onChange(value) {
-    setValue(name, value, true);
-  };
-
-  return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement(esm["a" /* default */], {
-    sitekey: siteKey,
-    onChange: onChange,
-    ref: register({
-      name: name
-    }, {
-      required: validation.required
-    }),
-    hl: isocode,
-    "data-locator": "captcha"
-  }), react_default.a.createElement(displaymessage, {
-    name: name,
-    validation: validation
-  }));
-};
-
-/* harmony default export */ var captcha = (react_default.a.memo(captcha_Captcha));
-// CONCATENATED MODULE: ./src/forms/fields/body.js
-
-
-
-var body_Body = function Body(_ref) {
-  var text = _ref.text,
-      additionalText = _ref.additionalText;
-  var displayAdditionalText;
-
-  if (typeof additionalText === 'string') {
-    getAdditionalText = additionalText;
-  } else if (additionalText) {
-    if (additionalText.query) {
-      displayAdditionalText = Object(query_string["parse"])(window.location.search)[additionalText.query];
-    }
-  }
-
-  return react_default.a.createElement("div", null, text, displayAdditionalText && react_default.a.createElement("span", {
-    className: "cmp-form__additionalText"
-  }, displayAdditionalText));
-};
-
-/* harmony default export */ var fields_body = (body_Body);
-// CONCATENATED MODULE: ./src/forms/fields/link.js
-
-
-
-
-
-var link_Link = function Link(_ref) {
-  Object(objectDestructuringEmpty["a" /* default */])(_ref);
-
-  var _useContext = Object(react["useContext"])(useFieldApi),
-      type = _useContext.type,
-      name = _useContext.name,
-      text = _useContext.text,
-      link = _useContext.link,
-      blank = _useContext.blank,
-      addClass = _useContext.addClass;
-
-  return react_default.a.createElement(react_default.a.Fragment, null, text && link && react_default.a.createElement("div", {
-    className: "cmp-form-field-".concat(type, "--").concat(name, " ") + (addClass ? addClass : '')
-  }, react_default.a.createElement("a", {
-    href: link,
-    target: blank ? "_blank" : "",
-    rel: "noopener noreferrer",
-    "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])(text)
-  }, text)));
-};
-
-/* harmony default export */ var fields_link = (link_Link);
-// CONCATENATED MODULE: ./src/forms/fields/textWithLinks.js
-
-
-
-
-
-
-var textWithLinks_TextWithLinks = function TextWithLinks(_ref) {
-  Object(objectDestructuringEmpty["a" /* default */])(_ref);
-
-  var _useContext = Object(react["useContext"])(useFieldApi),
-      type = _useContext.type,
-      name = _useContext.name,
-      config = _useContext.config,
-      addClass = _useContext.addClass;
-
-  var renderLink = function renderLink(_ref2) {
-    var label = _ref2.label,
-        url = _ref2.url,
-        blank = _ref2.blank,
-        className = _ref2.className,
-        title = _ref2.title,
-        id = _ref2.id;
-    return react_default.a.createElement("a", {
-      href: url,
-      target: blank ? "_blank" : "",
-      rel: "noopener noreferrer",
-      className: className,
-      id: id,
-      title: title,
-      "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])(label)
-    }, label);
-  };
-
-  var renderText = function renderText(_ref3) {
-    var text = _ref3.text;
-    return text;
-  };
-
-  return react_default.a.createElement(react_default.a.Fragment, null, config.length > 0 && react_default.a.createElement("div", {
-    className: "cmp-form-field-".concat(type, "--").concat(name, " ") + (addClass ? addClass : '')
-  }, config.map(function (block, index) {
-    var itemToRender = block.type === "link" ? renderLink(Object(objectSpread["a" /* default */])({}, block, {
-      className: block.className || '',
-      title: block.title || '',
-      id: block.id || "text-with-link-".concat(index)
-    })) : renderText(block);
-    var space = "";
-
-    if (block.rightSpace !== "false" || typeof block.rightSpace == "undefined") {
-      space = " ";
-    }
-
-    return react_default.a.createElement(react_default.a.Fragment, {
-      key: index
-    }, itemToRender, space);
-  })));
-};
-
-/* harmony default export */ var textWithLinks = (textWithLinks_TextWithLinks);
-// CONCATENATED MODULE: ./src/forms/fields/label.js
-
-
-var label_Label = function Label(_ref) {
-  var addClass = _ref.addClass,
-      label = _ref.label,
-      _ref$htmlFor = _ref.htmlFor,
-      htmlFor = _ref$htmlFor === void 0 ? "" : _ref$htmlFor;
-  return react_default.a.createElement("label", {
-    className: addClass,
-    htmlFor: htmlFor
-  }, label);
-};
-
-/* harmony default export */ var fields_label = (react_default.a.memo(label_Label));
-// CONCATENATED MODULE: ./src/forms/fields/index.js
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var formType = {
-  text: fields_input,
-  textarea: fields_textarea,
-  number: fields_input,
-  password: fields_input,
-  email: fields_input,
-  radio: checkboxOrRadio,
-  checkbox: checkboxOrRadio,
-  dropdown: fields_dropdown,
-  select: fields_dropdown,
-  "break": hr,
-  captcha: captcha,
-  body: fields_body,
-  link: fields_link,
-  textwithlinks: textWithLinks,
-  label: fields_label
-};
-
-var fields_Field = function Field(_ref) {
-  Object(objectDestructuringEmpty["a" /* default */])(_ref);
-
-  var _useContext = Object(react["useContext"])(useFieldApi),
-      type = _useContext.type,
-      name = _useContext.name,
-      hasMatch = _useContext.hasMatch,
-      field = _useContext.field;
-
-  var Component = formType[type];
-
-  var getMatchName = function getMatchName() {
-    return name ? 'confirm'.concat(name.charAt(0).toUpperCase() + name.slice(1)) : '';
-  };
-
-  return Component && field.active !== false && react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement(field_validation_display, {
-    name: name,
-    matchName: hasMatch ? getMatchName() : ''
-  }, react_default.a.createElement(Component, field)));
-};
-
-/* harmony default export */ var forms_fields = (react_default.a.memo(fields_Field));
-// EXTERNAL MODULE: ./src/utils/redirectFunctions.js
-var redirectFunctions = __webpack_require__(25);
-
-// EXTERNAL MODULE: ./src/my-account/services/SoldToDetailsLazy.js + 1 modules
-var SoldToDetailsLazy = __webpack_require__(56);
-
-// CONCATENATED MODULE: ./src/forms/form.js
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var FormApi = Object(react["createContext"])(null);
-FormApi.displayName = 'FormApi';
-var FieldApi = Object(react["createContext"])(null);
-FieldApi.displayName = 'FieldApi';
-
-var form_Form = function Form(_ref) {
-  var config = _ref.config,
-      submitFn = _ref.submitFn,
-      cancelFn = _ref.cancelFn,
-      isocode = _ref.isocode,
-      setErrorBoundaryToTrue = _ref.setErrorBoundaryToTrue,
-      resetErrorBoundaryToFalse = _ref.resetErrorBoundaryToFalse,
-      removeNotifications = _ref.removeNotifications,
-      defaultValues = _ref.defaultValues,
-      callback = _ref.callback,
-      setProfileData = _ref.setProfileData;
-
-  if (defaultValues) {
-    defaultValues.communications = defaultValues.communications === 'true' || defaultValues.communications === true ? true : false;
-  }
-
-  var _useForm = react_hook_form_ie11_default()({
-    mode: 'onBlur',
-    reValidateMode: 'onSubmit',
-    defaultValues: Object(objectSpread["a" /* default */])({
-      country: DigitalData["a" /* default */]["default"]
-    }, defaultValues)
-  }),
-      register = _useForm.register,
-      handleSubmit = _useForm.handleSubmit,
-      errors = _useForm.errors,
-      formState = _useForm.formState,
-      setValue = _useForm.setValue,
-      setError = _useForm.setError,
-      clearError = _useForm.clearError,
-      triggerValidation = _useForm.triggerValidation,
-      getValues = _useForm.getValues,
-      reset = _useForm.reset;
-
-  var checkIfDisabled = function checkIfDisabled() {
-    var requiredFields = config.fields.filter(function (field) {
-      return 'validation' in field && field.validation.required === true && ('active' in field ? field.active === true : true);
-    });
-    var values = getValues();
-    var emptyRequiredFields = requiredFields.filter(function (field) {
-      return values[field.name] === "" || values[field.name] === false || values[field.name] === null || values[field.name] === undefined;
-    });
-    var isConfirmPasswordFieldEmpty = 'confirmPassword' in values ? values['confirmPassword'] === "" : false;
-    return emptyRequiredFields.length !== 0 || isConfirmPasswordFieldEmpty || Object.keys(errors).length > 0;
-  };
-
-  var cancelHandler = function cancelHandler(clear) {
-    if (defaultValues) {
-      reset(Object(objectSpread["a" /* default */])({
-        country: DigitalData["a" /* default */]["default"]
-      }, defaultValues));
-    } else {
-      reset({});
-    }
-
-    cancelFn();
-  };
-
-  var _useState = Object(react["useState"])({}),
-      _useState2 = Object(slicedToArray["a" /* default */])(_useState, 2),
-      errorUpdates = _useState2[0],
-      setUpdate = _useState2[1];
-
-  var _useState3 = Object(react["useState"])(1),
-      _useState4 = Object(slicedToArray["a" /* default */])(_useState3, 2),
-      failedAttempts = _useState4[0],
-      setFailedAttempts = _useState4[1];
-
-  var _useState5 = Object(react["useState"])(),
-      _useState6 = Object(slicedToArray["a" /* default */])(_useState5, 2),
-      countrySaved = _useState6[0],
-      setCountrySaved = _useState6[1];
-
-  var regionalConfig = config.regionalConfig;
-
-  var _useState7 = Object(react["useState"])(false),
-      _useState8 = Object(slicedToArray["a" /* default */])(_useState7, 2),
-      displayForm = _useState8[0],
-      setDisplayForm = _useState8[1];
-
-  var _useState9 = Object(react["useState"])(document.getElementById("header").hasAttribute("data-is-edit-mode")),
-      _useState10 = Object(slicedToArray["a" /* default */])(_useState9, 2),
-      isInEditMode = _useState10[0],
-      setIsInEditMode = _useState10[1];
-
-  var captchaField = config.fields.filter(function (field) {
-    return field.type === 'captcha';
-  })[0];
-  var captchaFailedAttempts = captchaField && captchaField.failedAttempts ? captchaField.failedAttempts : 0;
-
-  var updateFailedAttempts = function updateFailedAttempts(formName) {
-    if (formName === 'signin') {
-      setFailedAttempts(function (failedAttempts) {
-        return failedAttempts + 1;
-      });
-
-      if (captchaFailedAttempts && failedAttempts === captchaFailedAttempts) {
-        activateField('captcha');
-      }
-    }
-  };
-
-  var activateField = function activateField(inputName) {
-    var fields = config.fields.map(function (field) {
-      if (field.type === inputName || field.name === inputName) {
-        field.active = true;
-      }
-
-      return field;
-    });
-    config.fields = Object(toConsumableArray["a" /* default */])(fields);
-  };
-
-  var deactivateField = function deactivateField(inputName) {
-    var fields = config.fields.map(function (field) {
-      if (field.name === inputName) {
-        field.active = false;
-      }
-
-      return field;
-    });
-    config.fields = Object(toConsumableArray["a" /* default */])(fields);
-  }; // Hook to check the user's Authentication Status and redirect if needed
-
-
-  Object(react["useEffect"])(function () {
-    if (!isInEditMode) {
-      var needsToBeSignedOut = config.needsToBeSignedOut;
-
-      if (needsToBeSignedOut) {
-        if (loginStatus["a" /* default */].state()) {
-          Object(redirectFunctions["b" /* homePageRedirect */])();
-          return null;
-        }
-      }
-
-      setDisplayForm(true);
-    }
-  }, []); // Hook to add error styles if there are errors on Submitting
-
-  Object(react["useEffect"])(function () {
-    if (Object.keys(errors).length !== 0) {
-      for (var name in errors) {
-        if (errors.hasOwnProperty(name)) {
-          if (name !== "captcha") {
-            var control = document.getElementById(name);
-
-            if (control) {
-              var mainControlDiv = control.parentElement.parentElement;
-
-              if (mainControlDiv) {
-                mainControlDiv.classList.add("cmp-form-field--invalid");
-              }
-            }
-          } else {
-            var captchaControl = document.getElementsByClassName("cmp-form-field-captcha")[0];
-
-            if (captchaControl) {
-              captchaControl.classList.add("cmp-form-field--invalid");
-            }
-          }
-        }
-      }
-    }
-  });
-  Object(react["useEffect"])(function () {
-    setFormAnalytics('load');
-  }, []);
-  Object(react["useEffect"])(function () {
-    // Configure Registration Form on "Loading"
-    if (config.formName === "registration") {
-      var countryRegion = DigitalData["a" /* default */].page.country.toLowerCase(); // Get Regional config 
-
-      var countryOptionsConfig = regionalConfig; // Hide all country configurable fields
-
-      var allCountryOptions = countryOptionsConfig.filter(function (p) {
-        return p.country === "all";
-      });
-
-      if (allCountryOptions.length === 1) {
-        allCountryOptions[0].fields.map(function (fieldName) {
-          return deactivateField(fieldName);
-        });
-      } // Display Specific fields for the current country
-
-
-      var selectedCountryOptions = countryOptionsConfig.filter(function (p) {
-        return p.country === countryRegion;
-      });
-
-      if (selectedCountryOptions.length === 1) {
-        selectedCountryOptions[0].fields.map(function (fieldName) {
-          return activateField(fieldName);
-        });
-      }
-    }
-  }, [config.formName]);
-
-  var _useState11 = Object(react["useState"])(),
-      _useState12 = Object(slicedToArray["a" /* default */])(_useState11, 2),
-      newConfig = _useState12[0],
-      setNewConfig = _useState12[1];
-
-  Object(react["useEffect"])(function () {
-    if (!config.getRadioOptions) {
-      return;
-    } // Only put this logic in for formName ==="chooseAccount"
-
-
-    if (config.formName === "chooseAccount") {
-      var store = new stores_sessionStore["a" /* default */]();
-      var userDetails = store.getUserDetails();
-      Object(SoldToDetailsLazy["a" /* default */])(config.optionsEndpoint, userDetails.userId, userDetails.salesOrg).then(function (resp) {
-        var store = new stores_sessionStore["a" /* default */]();
-        store.setSoldToDetails(resp);
-        var tempArray = resp.map(function (item) {
-          var tempOption = {};
-          var tempAddress;
-          tempOption.name = item.customerNumber;
-          tempOption.label = item.name;
-          tempAddress = Object(userFunctions["d" /* getAddressesByType */])(item, "soldToInfo")[0];
-          delete tempAddress.name;
-          tempOption.address = Object(userFunctions["j" /* getFullCompanyAddress */])(tempAddress, false);
-          return tempOption;
-        });
-        config.options = tempArray;
-        config.fields[1].options = tempArray;
-        setDisplayForm(true); // Setting newConfig to trigger a reload
-
-        setNewConfig(config);
-      });
-    }
-  }, []);
-  Object(react["useEffect"])(function () {
-    for (var name in errorUpdates) {
-      if (errors[name]) {
-        errors[name].ref = errorUpdates[name];
-      }
-
-      delete errorUpdates[name];
-    }
-  }, [errorUpdates, errors]);
-  var newError = Object(react["useCallback"])(function (name, type, msg, ref) {
-    setError(name, type, msg);
-    setUpdate(Object(objectSpread["a" /* default */])({}, errorUpdates, Object(defineProperty["a" /* default */])({}, name, ref)));
-  }, [errors]);
-
-  var setFormAnalytics = function setFormAnalytics(event) {
-    var detail = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-
-    if (config.formName) {
-      var model = {
-        detail: detail,
-        formName: config.formName,
-        formType: config.formType ? config.formType : undefined,
-        event: event
-      };
-      analytics["b" /* default */].setAnalytics(analytics["a" /* analyticTypes */]['form'].name, model);
-    }
-  };
-
-  var getValue = function getValue(name) {
-    return getValues()[name];
-  };
-
-  var getApi = Object(react["useMemo"])(function () {
-    return {
-      setValue: setValue,
-      setError: newError,
-      clearError: clearError,
-      register: register,
-      triggerValidation: triggerValidation,
-      getValues: getValues,
-      getValue: getValue,
-      activateField: activateField,
-      deactivateField: deactivateField,
-      setCountrySaved: setCountrySaved,
-      regionalConfig: regionalConfig
-    };
-  }, [register]);
-
-  var submitErrorHandler = function submitErrorHandler(res) {
-    if (res) {
-      setErrorBoundaryToTrue(res);
-    } else {
-      resetErrorBoundaryToFalse();
-      removeNotifications();
-    }
-  };
-
-  var fields = config.fields.map(function (field, i) {
-    var getFieldApi = Object(objectSpread["a" /* default */])({}, config, {
-      config: config
-    }, field, {
-      field: field,
-      isocode: isocode,
-      initialState: defaultValues ? defaultValues[field.name] : undefined
-    });
-
-    return react_default.a.createElement(FieldApi.Provider, {
-      value: getFieldApi,
-      key: "field-".concat(i)
-    }, react_default.a.createElement(forms_fields, null));
-  });
-
-  var renderForm = function renderForm() {
-    return react_default.a.createElement("form", {
-      className: "cmp-form cmp-form--registration ".concat(config.customFormClass || ''),
-      "data-locator": "".concat(config.elementLocator || 'form-component'),
-      onSubmit: handleSubmit(submitFn.bind({
-        url: config.submitEndpoint,
-        setError: submitErrorHandler,
-        redirect: config.redirectUrl,
-        passwordUpdateUrl: config.passwordUpdateUrl,
-        callback: callback,
-        updateFailedAttempts: updateFailedAttempts,
-        setProfileData: setProfileData,
-        setFormAnalytics: setFormAnalytics,
-        urlChooseAccount: config.chooseAccountEndPoint
-      }))
-    }, react_default.a.createElement(FormApi.Provider, {
-      value: getApi
-    }, react_default.a.createElement(stateWatcher["b" /* FormStateProvider */], {
-      watch: formState
-    }, react_default.a.createElement(stateWatcher["a" /* ErrorsProvider */], {
-      watch: errors
-    }, fields))), react_default.a.createElement("button", {
-      type: "submit",
-      className: "cmp-button cmp-button--no-border cmp-form--submit",
-      "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])(config.buttonLocator || 'form-submit')
-    }, config.buttonText), config.cancelText && !!cancelHandler && react_default.a.createElement("a", {
-      className: "cmp-button cmp-button--cancel",
-      onClick: cancelHandler,
-      "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])(config.cancelText || 'form-cancel')
-    }, config.cancelText));
-  };
-
-  if (isInEditMode || config.getRadioOptions && config.options || displayForm && !config.getRadioOptions) {
-    return react_default.a.createElement(react_default.a.Fragment, null, renderForm());
-  } else {
-    return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement(utils_spinner["a" /* default */], {
-      loading: !displayForm
-    }), renderForm());
-  }
-};
-
-var form_ErrorBoundaryForm = function ErrorBoundaryForm(props) {
-  return react_default.a.createElement(search_ErrorBoundary, null, react_default.a.createElement(form_Form, props));
-};
-
-/* harmony default export */ var forms_form = (form_ErrorBoundaryForm); // Context Variables
-
-var useFormApi = FormApi;
-var useFieldApi = FieldApi;
 // EXTERNAL MODULE: ./src/scripts/scrollTo.js
-var scrollTo = __webpack_require__(39);
+var scrollTo = __webpack_require__(34);
 var scrollTo_default = /*#__PURE__*/__webpack_require__.n(scrollTo);
 
 // EXTERNAL MODULE: ./src/my-account/services/UserDetails.js
-var UserDetails = __webpack_require__(47);
+var UserDetails = __webpack_require__(45);
+
+// EXTERNAL MODULE: ./src/utils/redirectFunctions.js
+var redirectFunctions = __webpack_require__(26);
 
 // CONCATENATED MODULE: ./src/forms/services/submit.js
 
@@ -8517,7 +6463,7 @@ var UserDetails = __webpack_require__(47);
 
 
 
-var submit_postData = /*#__PURE__*/function () {
+var postData = /*#__PURE__*/function () {
   var _ref = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee(url, data) {
     var response;
     return regenerator_default.a.wrap(function _callee$(_context) {
@@ -8586,7 +6532,7 @@ function _registrationSubmit() {
             data.localeCountry = localeCountry;
             data.localeLanguage = localeLanguage;
             _context2.next = 11;
-            return submit_postData(this.url, data);
+            return postData(this.url, data);
 
           case 11:
             response = _context2.sent;
@@ -8658,7 +6604,7 @@ function _checkEmailResetPasswordSubmit() {
           case 0:
             this.url = "".concat(this.url.replace('{email}', data.email), "&isEproc=true");
             _context3.next = 3;
-            return submit_postData(this.url, data);
+            return postData(this.url, data);
 
           case 3:
             response = _context3.sent;
@@ -8712,7 +6658,7 @@ function _troubleSigningInSubmit() {
 
             this.url = this.url.replace('{email}', data.email);
             _context4.next = 5;
-            return submit_postData(this.url, data);
+            return postData(this.url, data);
 
           case 5:
             response = _context4.sent;
@@ -8773,7 +6719,7 @@ function _resetPasswordSubmit() {
               newPassword: newPassword
             };
             _context5.next = 8;
-            return submit_postData(this.url, body);
+            return postData(this.url, body);
 
           case 8:
             response = _context5.sent;
@@ -8889,7 +6835,7 @@ function _changePasswordSubmit() {
             email = queryString.email;
             data.email = email;
             _context6.next = 6;
-            return submit_postData(this.url, data);
+            return postData(this.url, data);
 
           case 6:
             response = _context6.sent;
@@ -8960,7 +6906,7 @@ function _personalSubmit() {
         switch (_context7.prev = _context7.next) {
           case 0:
             _context7.next = 2;
-            return submit_postData(this.url, data);
+            return postData(this.url, data);
 
           case 2:
             response = _context7.sent;
@@ -9038,7 +6984,7 @@ function _signInSubmit() {
             }
 
             _context8.next = 4;
-            return submit_postData(this.url, data);
+            return postData(this.url, data);
 
           case 4:
             response = _context8.sent;
@@ -9217,7 +7163,7 @@ function _chooseAccountSubmit() {
 
             submit_setNewSoldTo(selectedAccount);
             _context9.next = 5;
-            return submit_postData(this.url + "/" + selectedAccount, "");
+            return postData(this.url + "/" + selectedAccount, "");
 
           case 5:
             response = _context9.sent;
@@ -9295,7 +7241,7 @@ function _submitAccount() {
         switch (_context10.prev = _context10.next) {
           case 0:
             _context10.next = 2;
-            return submit_postData(urlChooseAccount + "/" + selectedAccount, "");
+            return postData(urlChooseAccount + "/" + selectedAccount, "");
 
           case 2:
             response = _context10.sent;
@@ -9368,7 +7314,7 @@ function _contactSupportSubmit() {
             }
 
             _context11.next = 4;
-            return submit_postData(this.url, data);
+            return postData(this.url, data);
 
           case 4:
             response = _context11.sent;
@@ -9401,339 +7347,14 @@ function _contactSupportSubmit() {
   }));
   return _contactSupportSubmit.apply(this, arguments);
 }
-// EXTERNAL MODULE: ./node_modules/@brightcove/react-player-loader/dist/brightcove-react-player-loader.es.js
-var brightcove_react_player_loader_es = __webpack_require__(122);
-
-// CONCATENATED MODULE: ./src/video/video-modal-body.js
-
-
-
-
-
-
-
-
-
-var video_modal_body_VideoModalBody = /*#__PURE__*/function (_React$Component) {
-  Object(inherits["a" /* default */])(VideoModalBody, _React$Component);
-
-  function VideoModalBody(props) {
-    Object(classCallCheck["a" /* default */])(this, VideoModalBody);
-
-    return Object(possibleConstructorReturn["a" /* default */])(this, Object(getPrototypeOf["a" /* default */])(VideoModalBody).call(this, props));
-  }
-
-  Object(createClass["a" /* default */])(VideoModalBody, [{
-    key: "render",
-    value: function render() {
-      var playerAttrs = {
-        className: 'waters-brightcove-player'
-      }; //Any video option support by Video-js : https://docs.videojs.com/tutorial-options.html
-      //don't pass in autoplay here rather programmatically call after loadedmetadata event
-
-      var optionsVideoJS = {
-        fluid: true,
-        controls: !screenSizes["a" /* default */].isMobile() ? true : false,
-        loop: false
-      };
-      return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("div", {
-        className: "cmp-video_modal-body"
-      }, react_default.a.createElement(brightcove_react_player_loader_es["a" /* default */], {
-        options: optionsVideoJS,
-        videoId: this.props.config.brightcoveVideoId,
-        playerId: this.props.config.brightcovePlayerId,
-        accountId: this.props.config.brightcoveAccount,
-        onFailure: this.props.onVideoFailure,
-        onSuccess: this.props.onVideoSuccess // embedOptions={{unminified:true}}
-        ,
-        attrs: playerAttrs
-      })));
-    }
-  }]);
-
-  return VideoModalBody;
-}(react_default.a.Component);
-
-/* harmony default export */ var video_modal_body = (video_modal_body_VideoModalBody);
-// EXTERNAL MODULE: ./node_modules/react-lines-ellipsis/lib/responsiveHOC.js
-var responsiveHOC = __webpack_require__(123);
-var responsiveHOC_default = /*#__PURE__*/__webpack_require__.n(responsiveHOC);
-
-// CONCATENATED MODULE: ./src/video/video-description.js
-
-
-
-
-
-
-
-
-var ResponsiveEllipsis = responsiveHOC_default()()(lib_default.a);
-
-var video_description_VideoDescription = /*#__PURE__*/function (_React$Component) {
-  Object(inherits["a" /* default */])(VideoDescription, _React$Component);
-
-  function VideoDescription(props) {
-    Object(classCallCheck["a" /* default */])(this, VideoDescription);
-
-    return Object(possibleConstructorReturn["a" /* default */])(this, Object(getPrototypeOf["a" /* default */])(VideoDescription).call(this, props));
-  }
-
-  Object(createClass["a" /* default */])(VideoDescription, [{
-    key: "render",
-    value: function render() {
-      var toggleEllipsisContent = this.props.useEllipsis ? react_default.a.createElement(ResponsiveEllipsis, {
-        style: {
-          whiteSpace: 'pre-wrap'
-        },
-        text: this.props.text,
-        maxLine: "3",
-        ellipsis: "\u2026",
-        trimRight: "true",
-        basedOn: "words"
-      }) : this.props.text;
-      return react_default.a.createElement("p", {
-        "class": "cmp-video_description",
-        onClick: this.props.click ? this.props.click : null
-      }, toggleEllipsisContent);
-    }
-  }]);
-
-  return VideoDescription;
-}(react_default.a.Component);
-
-/* harmony default export */ var video_description = (video_description_VideoDescription);
-// CONCATENATED MODULE: ./src/video/index.js
-
-
-
-
-
-
-
-
-
-
-var video_VideoContainer = /*#__PURE__*/function (_React$Component) {
-  Object(inherits["a" /* default */])(VideoContainer, _React$Component);
-
-  function VideoContainer(props) {
-    var _this;
-
-    Object(classCallCheck["a" /* default */])(this, VideoContainer);
-
-    _this = Object(possibleConstructorReturn["a" /* default */])(this, Object(getPrototypeOf["a" /* default */])(VideoContainer).call(this, props));
-
-    _this.onSuccess = function (success) {
-      var player = _this.brightcovePlayer = success.ref;
-
-      if (player) {
-        if (player.el_) {
-          //on pause show big-play-button
-          player.el_.classList.add('vjs-show-big-play-button-on-pause');
-        }
-
-        player.on("play", _this.onPlay.bind(Object(assertThisInitialized["a" /* default */])(Object(assertThisInitialized["a" /* default */])(_this))));
-        player.on("ended", _this.onEnd.bind(Object(assertThisInitialized["a" /* default */])(Object(assertThisInitialized["a" /* default */])(_this))));
-      }
-    };
-
-    _this.onPlay = function () {
-      //check for any existin video and pause them
-      if (window.cmpVideos) {
-        window.cmpVideos.forEach(function (videoComponent) {
-          if (_this.videoRef.current != videoComponent.videoRef.current) {
-            if (videoComponent.brightcovePlayer) {
-              videoComponent.brightcovePlayer.pause();
-            }
-          }
-        });
-      }
-    };
-
-    _this.onEnd = function (e) {
-      var brightcove = _this.brightcovePlayer;
-
-      if (brightcove.player_.isFullscreen()) {
-        brightcove.player_.exitFullscreen();
-      }
-    };
-
-    _this.onFailure = function (failure) {//on brightcove load failure
-    };
-
-    _this.renderVideoInfo = function () {
-      return react_default.a.createElement(react_default.a.Fragment, null, _this.state.title && react_default.a.createElement("h3", {
-        className: "cmp-video_title"
-      }, _this.state.title), _this.state.description && react_default.a.createElement(video_description, {
-        text: _this.state.description,
-        useEllipsis: _this.state.useEllipsis
-      }));
-    };
-
-    _this.state = {
-      title: _this.props.videoConfig.title,
-      description: _this.props.videoConfig.description,
-      useEllipsis: true
-    };
-    _this.brightcovePlayer = null;
-    _this.videoRef = react_default.a.createRef();
-    _this.onSuccess = _this.onSuccess.bind(Object(assertThisInitialized["a" /* default */])(Object(assertThisInitialized["a" /* default */])(_this)));
-    _this.onFailure = _this.onFailure.bind(Object(assertThisInitialized["a" /* default */])(Object(assertThisInitialized["a" /* default */])(_this)));
-    return _this;
-  }
-
-  Object(createClass["a" /* default */])(VideoContainer, [{
-    key: "render",
-    value: function render() {
-      return react_default.a.createElement("div", {
-        className: "cmp-video_video-container",
-        ref: this.videoRef
-      }, react_default.a.createElement(video_modal_body, {
-        config: this.props.videoConfig,
-        onVideoSuccess: this.onSuccess,
-        onVideoFailure: this.onFailure
-      }), this.renderVideoInfo());
-    }
-  }]);
-
-  return VideoContainer;
-}(react_default.a.Component);
-
-/* harmony default export */ var video = (video_VideoContainer);
-// CONCATENATED MODULE: ./src/chat/services/index.js
-
-
-
-var _Promise = typeof Promise === 'undefined' ? __webpack_require__(86).Promise : Promise;
-
-
-
-var services_ChatService = /*#__PURE__*/function () {
-  function ChatService() {
-    var countryCode = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'US';
-    var statusApi = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'https://stgservices.waters.com/api/waters/v1/chat/enabled/{countryCode}';
-
-    Object(classCallCheck["a" /* default */])(this, ChatService);
-
-    this.countryCode = countryCode;
-    this.statusApi = statusApi;
-  }
-
-  Object(createClass["a" /* default */])(ChatService, [{
-    key: "checkFetch",
-    value: function checkFetch(response) {
-      if (!response.ok) {
-        throw response;
-      }
-
-      return response;
-    }
-  }, {
-    key: "getChatStatus",
-    value: function getChatStatus() {
-      var url = this.statusApi.replace('{countryCode}', this.countryCode);
-      return this.getData(url);
-    }
-  }, {
-    key: "getData",
-    value: function getData(url) {
-      var _this = this;
-
-      return new _Promise(function (resolve, reject) {
-        window.fetch(url).then(_this.checkFetch).then(function (response) {
-          resolve(response.json());
-        })["catch"](function (err) {
-          reject(err);
-        });
-      });
-    }
-  }]);
-
-  return ChatService;
-}();
-
-/* harmony default export */ var chat_services = (services_ChatService);
-// CONCATENATED MODULE: ./src/chat/index.js
-
-
-
-
-
-
-
-
-
-var chat_Chat = /*#__PURE__*/function (_React$Component) {
-  Object(inherits["a" /* default */])(Chat, _React$Component);
-
-  function Chat(props) {
-    var _this;
-
-    Object(classCallCheck["a" /* default */])(this, Chat);
-
-    _this = Object(possibleConstructorReturn["a" /* default */])(this, Object(getPrototypeOf["a" /* default */])(Chat).call(this, props));
-    _this.state = {
-      isActive: false
-    };
-    _this.request = new chat_services(_this.props.countryCode, _this.props.statusApi);
-    return _this;
-  }
-
-  Object(createClass["a" /* default */])(Chat, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      var _this2 = this;
-
-      this.request.getChatStatus().then(function (response) {
-        _this2.setState({
-          isActive: response.isChatActive
-        });
-      })["catch"](function (err) {
-        console.log("Unable to connect to chat api.");
-      });
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var isActive = this.state.isActive;
-      return react_default.a.createElement("div", {
-        className: "cmp-chat-content"
-      }, react_default.a.createElement("div", {
-        className: "cmp-chat__icon"
-      }, react_default.a.createElement(react_svg["a" /* default */], {
-        src: this.props.icon
-      })), react_default.a.createElement("div", {
-        className: "cmp-chat__text"
-      }, this.props.text), react_default.a.createElement("a", {
-        className: "cmp-button ".concat(!isActive ? "cmp-button--disabled" : ""),
-        href: isActive ? this.props.url : "#",
-        target: "_blank",
-        rel: "noopener noreferrer",
-        disabled: !isActive,
-        role: "button",
-        "aria-disabled": !isActive
-      }, this.props.buttonText), react_default.a.createElement("div", {
-        className: "cmp-chat__status"
-      }, react_default.a.createElement("div", {
-        className: "cmp-chat__status-icon ".concat(isActive ? "online" : "offline")
-      }, react_default.a.createElement(react_svg["a" /* default */], {
-        src: isActive ? this.props.onlineIcon : this.props.offlineIcon
-      })), react_default.a.createElement("div", {
-        className: "cmp-chat__status-text"
-      }, isActive ? this.props.availableText : this.props.unavailableText)));
-    }
-  }]);
-
-  return Chat;
-}(react_default.a.Component);
-
-/* harmony default export */ var chat = (chat_Chat);
 // EXTERNAL MODULE: ./src/detail-tiles/utils/generateTiles.js
-var generateTiles = __webpack_require__(79);
+var generateTiles = __webpack_require__(75);
 
 // EXTERNAL MODULE: ./src/my-account/services/UserDetailsLazy.js
-var UserDetailsLazy = __webpack_require__(61);
+var UserDetailsLazy = __webpack_require__(60);
+
+// EXTERNAL MODULE: ./src/my-account/services/SoldToDetailsLazy.js + 1 modules
+var SoldToDetailsLazy = __webpack_require__(68);
 
 // CONCATENATED MODULE: ./src/detail-tiles/hooks/useProfile.js
 
@@ -9763,10 +7384,14 @@ var UserDetailsLazy = __webpack_require__(61);
       }
 
       if (userDetails && userDetails.userId && userDetails.salesOrg) {
-        Object(SoldToDetailsLazy["a" /* default */])(soldToDetailsUrl, userDetails.userId, userDetails.salesOrg).then(function (soldToDetails) {
-          var mergeAPIs = Object(userFunctions["r" /* matchAddresses */])(userDetails, soldToDetails);
-          setData(mergeAPIs);
-        });
+        if (type !== 'password') {
+          Object(SoldToDetailsLazy["a" /* default */])(soldToDetailsUrl, userDetails.userId, userDetails.salesOrg).then(function (soldToDetails) {
+            var mergeAPIs = Object(userFunctions["r" /* matchAddresses */])(userDetails, soldToDetails);
+            setData(mergeAPIs);
+          });
+        } else {
+          setData(userDetails);
+        }
       }
     });
   }
@@ -9796,8 +7421,11 @@ var UserDetailsLazy = __webpack_require__(61);
 // CONCATENATED MODULE: ./src/detail-tiles/views/tile.js
 
 
+ // import Form from '../../forms/form';
 
-
+var Form = react_default.a.lazy(function () {
+  return Promise.all(/* import() | forms */[__webpack_require__.e(1), __webpack_require__.e(2), __webpack_require__.e(0), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, 505));
+});
 
 var tile_Tile = function Tile(_ref) {
   var name = _ref.name,
@@ -9913,14 +7541,16 @@ var tile_Tile = function Tile(_ref) {
   }, formMessage.text, react_default.a.createElement("a", {
     href: formMessage.linkURL,
     "data-locator": "link-text"
-  }, formMessage.linkText)), react_default.a.createElement(forms_form, {
+  }, formMessage.linkText)), react_default.a.createElement(react["Suspense"], {
+    fallback: react_default.a.createElement("div", null, "Loading...")
+  }, react_default.a.createElement(Form, {
     config: form,
     submitFn: form.submitFn,
     callback: handleToggle,
     cancelFn: handleToggle,
     defaultValues: defaultValues,
     setProfileData: setProfileData
-  })));
+  }))));
 };
 
 /* harmony default export */ var views_tile = (tile_Tile);
@@ -10014,7 +7644,7 @@ var detail_tiles_DetailTiles = function DetailTiles(_ref) {
     form.submitFn = submitFn || function () {};
 
     if (!tiles.length) {
-      return react_default.a.createElement(search_ErrorBoundary, null, react_default.a.createElement(views_tile, {
+      return react_default.a.createElement(ErrorBoundary["a" /* default */], null, react_default.a.createElement(views_tile, {
         name: 'emptyAddressTile',
         columns: [{
           title: noAddressMessage,
@@ -10031,7 +7661,7 @@ var detail_tiles_DetailTiles = function DetailTiles(_ref) {
     }
 
     if (!canCreate && !tiles.length) {
-      return react_default.a.createElement(search_ErrorBoundary, null, react_default.a.createElement(views_tile, {
+      return react_default.a.createElement(ErrorBoundary["a" /* default */], null, react_default.a.createElement(views_tile, {
         name: 'emptyAddressTile',
         columns: [{
           title: noAddressMessage,
@@ -10061,7 +7691,7 @@ var detail_tiles_DetailTiles = function DetailTiles(_ref) {
         processFormData();
       }
 
-      return react_default.a.createElement(search_ErrorBoundary, null, react_default.a.createElement(views_tile, Object.assign({}, tile, {
+      return react_default.a.createElement(ErrorBoundary["a" /* default */], null, react_default.a.createElement(views_tile, Object.assign({}, tile, {
         key: name + key,
         formMessage: formMessage,
         form: form,
@@ -10208,10 +7838,10 @@ var wechat_WeChat = /*#__PURE__*/function (_React$Component) {
 /* harmony default export */ var wechat = (wechat_WeChat);
 
 // EXTERNAL MODULE: ./node_modules/react-router-dom/es/HashRouter.js
-var HashRouter = __webpack_require__(490);
+var HashRouter = __webpack_require__(502);
 
 // EXTERNAL MODULE: ./node_modules/react-router-dom/es/Switch.js + 1 modules
-var Switch = __webpack_require__(491);
+var Switch = __webpack_require__(504);
 
 // CONCATENATED MODULE: ./src/my-account/routes.js
 /* harmony default export */ var routes = ({
@@ -10238,13 +7868,23 @@ var Switch = __webpack_require__(491);
     name: "orderDetails",
     path: "/orderdetails",
     parentTrail: ['/', '/orderhistory']
+  },
+  quoteHistory: {
+    name: "quoteHistory",
+    path: "/quotehistory",
+    parentTrail: ['/']
+  },
+  quoteDetails: {
+    name: "quoteDetails",
+    path: "/quotedetails",
+    parentTrail: ['/', '/quotehistory']
   }
 });
 // EXTERNAL MODULE: ./node_modules/react-router-dom/es/Link.js
-var es_Link = __webpack_require__(489);
+var es_Link = __webpack_require__(501);
 
 // EXTERNAL MODULE: ./src/typography/title.js
-var typography_title = __webpack_require__(80);
+var typography_title = __webpack_require__(76);
 
 // CONCATENATED MODULE: ./src/my-account/components/breadcrumb.js
 
@@ -10481,7 +8121,7 @@ aside_Aside.defaultProps = {
 
 
 
-var components_link_Link = function Link(_ref) {
+var link_Link = function Link(_ref) {
   var text = _ref.text,
       url = _ref.url,
       linkName = _ref.linkName,
@@ -10496,7 +8136,7 @@ var components_link_Link = function Link(_ref) {
   }, text));
 };
 
-/* harmony default export */ var components_link = (components_link_Link);
+/* harmony default export */ var components_link = (link_Link);
 // CONCATENATED MODULE: ./src/link-tile/components/index.js
 
 // CONCATENATED MODULE: ./src/link-tile/index.js
@@ -10513,7 +8153,7 @@ var link_tile_LinkTile = function LinkTile(_ref) {
       datalocator = _ref.datalocator;
   return react_default.a.createElement("div", {
     className: "cmp-linktile",
-    "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])(tilesName || 'my-account-tile')
+    "data-locator": "".concat(Object(eCommerceFunctions["a" /* elementLocator */])(tilesName || 'my-account-tile'), "-linktile")
   }, react_default.a.createElement("div", {
     className: "cmp-linktile-column"
   }, react_default.a.createElement(react_svg["a" /* default */], {
@@ -10703,43 +8343,20 @@ var change_password_ChangePassword = function ChangePassword(_ref) {
 };
 
 /* harmony default export */ var change_password = (change_password_ChangePassword);
-// CONCATENATED MODULE: ./src/order-history/orderHistory.services.js
+// CONCATENATED MODULE: ./src/history/history.services.js
 
 
 
 
 
-var orderHistory_services_OrderHistoryService = /*#__PURE__*/function () {
-  function OrderHistoryService() {
-    var url = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "https://stgservices.waters.com/api/waters/order/v1/list";
-
-    Object(classCallCheck["a" /* default */])(this, OrderHistoryService);
+var history_services_HistoryService = /*#__PURE__*/function () {
+  function HistoryService(url) {
+    Object(classCallCheck["a" /* default */])(this, HistoryService);
 
     this.url = url;
   }
 
-  Object(createClass["a" /* default */])(OrderHistoryService, [{
-    key: "postData",
-    value: function postData(url, options, setError) {
-      return fetch(url, {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(options)
-      }).then(function (response) {
-        if (response.status === 200) {
-          return response.json();
-        } else if (response.status === 401) {
-          setError(response.status);
-          Object(redirectFunctions["d" /* signInRedirect */])();
-        }
-      })["catch"](function (error) {
-        setError(error);
-      });
-    }
-  }, {
+  Object(createClass["a" /* default */])(HistoryService, [{
     key: "getOrderListPost",
     value: function getOrderListPost(url, fromDate, poNumber, orderNumber, setError) {
       var options = {};
@@ -10747,14 +8364,24 @@ var orderHistory_services_OrderHistoryService = /*#__PURE__*/function () {
       options.purchaseOrderNumber = poNumber;
       options.fromDate = fromDate;
       options.maxRecs = "";
-      return this.postData(url, options, setError);
+      return Object(serviceFunctions["b" /* postDataRedirect */])(url, options, setError);
+    }
+  }, {
+    key: "getQuoteListPost",
+    value: function getQuoteListPost(url, fromDate, poNumber, orderNumber, setError) {
+      var options = {};
+      options.orderNumber = orderNumber;
+      options.purchaseOrderNumber = poNumber;
+      options.fromDate = fromDate;
+      options.maxRecs = "";
+      return Object(serviceFunctions["b" /* postDataRedirect */])(url, options, setError);
     }
   }]);
 
-  return OrderHistoryService;
+  return HistoryService;
 }();
 
-/* harmony default export */ var orderHistory_services = (orderHistory_services_OrderHistoryService);
+/* harmony default export */ var history_services = (history_services_HistoryService);
 // CONCATENATED MODULE: ./src/common/delivery-status/index.js
 
 
@@ -10810,8 +8437,22 @@ var delivery_status_DeliveryStatus = /*#__PURE__*/function (_Component) {
       var deliveryStatus = "";
       var icon = "";
       var iconClassName = "delivery-icon";
+      var deliveryStatusClass = '';
 
       switch (status) {
+        case "Expired":
+          deliveryStatus = labels.expiredLabel;
+          icon = icons.expiredIcon;
+          iconClassName = "delivery-icon-disabled";
+          deliveryStatusClass = "disabled";
+          break;
+
+        case "Order Placed":
+          deliveryStatus = labels.orderPlacedLabel;
+          icon = icons.orderPlacedIcon;
+          iconClassName = "delivery-icon-complete";
+          break;
+
         case "Open":
           deliveryStatus = labels.openLabel;
           icon = icons.openIcon;
@@ -10840,14 +8481,16 @@ var delivery_status_DeliveryStatus = /*#__PURE__*/function (_Component) {
       _this.setState({
         deliveryStatus: deliveryStatus,
         icon: icon,
-        iconClassName: iconClassName
+        iconClassName: iconClassName,
+        deliveryStatusClass: deliveryStatusClass
       });
     };
 
     _this.state = {
       deliveryStatus: "",
       icon: "",
-      iconClassName: ""
+      iconClassName: "",
+      deliveryStatusClass: ""
     };
     return _this;
   }
@@ -10868,7 +8511,7 @@ var delivery_status_DeliveryStatus = /*#__PURE__*/function (_Component) {
     key: "render",
     value: function render() {
       return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("div", {
-        className: "delivery-status",
+        className: "delivery-status ".concat(this.state.deliveryStatusClass),
         "data-locator": "delivery-status"
       }, react_default.a.createElement("div", {
         className: this.state.iconClassName
@@ -10892,12 +8535,12 @@ delivery_status_DeliveryStatus.defaultProps = {
 };
 /* harmony default export */ var delivery_status = (delivery_status_DeliveryStatus);
 // EXTERNAL MODULE: ./src/utils/date-formatter/index.js
-var date_formatter = __webpack_require__(57);
+var date_formatter = __webpack_require__(38);
 
 // EXTERNAL MODULE: ./src/utils/get-locale/index.js
-var get_locale = __webpack_require__(58);
+var get_locale = __webpack_require__(39);
 
-// CONCATENATED MODULE: ./src/order-history/components/order-list-item.js
+// CONCATENATED MODULE: ./src/history/components/order-list-item.js
 
 
 
@@ -10939,8 +8582,8 @@ var order_list_item_OrderListItem = /*#__PURE__*/function (_Component) {
         onClick: function onClick() {
           return Object(analytics["f" /* setClickAnalytics */])("Order History", "Order Details, " + _this2.props.data.orderNumber, '#orderdetails?id=' + _this2.props.data.orderNumber);
         },
-        "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])("".concat(this.props.orderText, " ").concat(this.props.data.orderNumber))
-      }, this.props.orderText + " " + this.props.data.orderNumber)), react_default.a.createElement("div", {
+        "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])("".concat(this.props.numberText, " ").concat(this.props.data.orderNumber))
+      }, this.props.numberText + " " + this.props.data.orderNumber)), react_default.a.createElement("div", {
         className: "cmp-order-list__date",
         "data-locator": "order-list-date"
       }, date_formatter["a" /* default */].dateFormatter(this.props.data.date, this.userLocale))), react_default.a.createElement("div", {
@@ -10956,6 +8599,7 @@ var order_list_item_OrderListItem = /*#__PURE__*/function (_Component) {
         className: "cmp-order-list__total",
         "data-locator": "order-list-total"
       }, this.props.data.orderTotal));
+      s;
     }
   }]);
 
@@ -10999,9 +8643,9 @@ var count_header_CountHeader = function CountHeader(props) {
 
 /* harmony default export */ var count_header = (count_header_CountHeader);
 // EXTERNAL MODULE: ./src/utils/dropdown/index.js
-var utils_dropdown = __webpack_require__(81);
+var utils_dropdown = __webpack_require__(77);
 
-// CONCATENATED MODULE: ./src/order-history/components/time-period-dropdown.js
+// CONCATENATED MODULE: ./src/history/components/time-period-dropdown.js
 
 
 
@@ -11037,36 +8681,45 @@ var time_period_dropdown_TimePeriod = function TimePeriod(props) {
 };
 
 /* harmony default export */ var time_period_dropdown = (time_period_dropdown_TimePeriod);
-// CONCATENATED MODULE: ./src/order-history/components/order-filter-dropdown.js
+// CONCATENATED MODULE: ./src/history/components/filter-dropdown.js
 
 
 
-var order_filter_dropdown_getOptions = function getOptions(text) {
-  return [{
+var filter_dropdown_getOptions = function getOptions(text) {
+  var options = [{
     value: 0,
-    label: text.allOrders
+    label: text.all
   }, {
     value: 1,
-    label: text.openOrders
+    label: text.open
   }];
+
+  if (text.hasOwnProperty('closed')) {
+    options.push({
+      value: 2,
+      label: text.closed
+    });
+  }
+
+  return options;
 };
 
-var order_filter_dropdown_OrderFilterDropdown = function OrderFilterDropdown(props) {
+var filter_dropdown_FilterDropdown = function FilterDropdown(props) {
   return react_default.a.createElement("div", {
-    className: "cmp-order-list-orderfilters"
+    className: "cmp-order-list-dropdownfilters"
   }, react_default.a.createElement(utils_dropdown["a" /* default */], {
-    getOptions: order_filter_dropdown_getOptions,
+    getOptions: filter_dropdown_getOptions,
     onChange: function onChange(e) {
       return props.onChange(e);
     },
     isSearchable: false,
-    text: props.orderFilters,
+    text: props.dropdownfilters,
     defaultValue: 1
   }));
 };
 
-/* harmony default export */ var order_filter_dropdown = (order_filter_dropdown_OrderFilterDropdown);
-// CONCATENATED MODULE: ./src/order-history/index.js
+/* harmony default export */ var filter_dropdown = (filter_dropdown_FilterDropdown);
+// CONCATENATED MODULE: ./src/history/order-history/index.js
 
 
 
@@ -11102,7 +8755,7 @@ var order_history_OrderHistory = /*#__PURE__*/function (_Component) {
         detail: detail,
         event: event
       };
-      analytics["b" /* default */].setAnalytics(analytics["a" /* analyticTypes */]['orderHistory'].name, model);
+      analytics["b" /* default */].setAnalytics(analytics["a" /* analyticTypes */][_this.page.analytics.reference].name, model);
     };
 
     _this.setError = function (error) {
@@ -11117,7 +8770,7 @@ var order_history_OrderHistory = /*#__PURE__*/function (_Component) {
 
     _this.setNoResultsState = function () {
       _this.setState({
-        orderList: null,
+        listItems: null,
         pageCount: 0,
         listCount: 0,
         currentPage: 1,
@@ -11126,11 +8779,11 @@ var order_history_OrderHistory = /*#__PURE__*/function (_Component) {
       });
     };
 
-    _this.setResultsState = function (filteredOrders) {
+    _this.setResultsState = function (filteredListItems) {
       _this.setState({
-        orderList: filteredOrders,
-        pageCount: Math.ceil(filteredOrders.length / _this.paginationDefaults.visibleRows),
-        listCount: filteredOrders.length,
+        listItems: filteredListItems,
+        pageCount: Math.ceil(filteredListItems.length / _this.paginationDefaults.visibleRows),
+        listCount: filteredListItems.length,
         currentPage: 1,
         noResults: false,
         loading: false
@@ -11139,34 +8792,34 @@ var order_history_OrderHistory = /*#__PURE__*/function (_Component) {
 
     _this.retrieveData = /*#__PURE__*/function () {
       var _ref = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee(fromDate, poNumber, orderNumber, activeTabFilter) {
-        var OrderHistoryServiceObj, fetchEndPoint, orders, filteredOrders;
+        var HistoryServiceObj, fetchEndPoint, orders, filteredListItems;
         return regenerator_default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                OrderHistoryServiceObj = new orderHistory_services();
+                HistoryServiceObj = new history_services();
                 fetchEndPoint = _this.props.configs.fetchEndPoint;
                 _context.next = 4;
-                return OrderHistoryServiceObj.getOrderListPost(fetchEndPoint, fromDate, poNumber, orderNumber, _this.setError);
+                return HistoryServiceObj.getOrderListPost(fetchEndPoint, fromDate, poNumber, orderNumber, _this.setError);
 
               case 4:
                 orders = _context.sent;
 
                 if (orders && orders.length > 0) {
-                  filteredOrders = orders;
+                  filteredListItems = orders;
 
                   if (activeTabFilter !== undefined && activeTabFilter !== "All" && activeTabFilter === "Open") {
-                    filteredOrders = orders.filter(function (i) {
+                    filteredListItems = orders.filter(function (i) {
                       return i.deliveryStatus === "Open" || i.deliveryStatus === "Partial";
                     });
 
-                    if (filteredOrders.length > 0) {
-                      _this.setResultsState(filteredOrders);
+                    if (filteredListItems.length > 0) {
+                      _this.setResultsState(filteredListItems);
                     } else {
                       _this.setNoResultsState();
                     }
                   } else {
-                    _this.setResultsState(filteredOrders);
+                    _this.setResultsState(filteredListItems);
                   }
                 } else {
                   _this.setNoResultsState();
@@ -11192,7 +8845,7 @@ var order_history_OrderHistory = /*#__PURE__*/function (_Component) {
     }();
 
     _this.renderTabs = function () {
-      return react_default.a.createElement(tabs, {
+      return react_default.a.createElement(navigation_tabs, {
         className: "cmp-search__categories-tabs",
         items: _this.props.configs.tabs,
         activeIndex: _this.state.activeIndex,
@@ -11206,11 +8859,11 @@ var order_history_OrderHistory = /*#__PURE__*/function (_Component) {
     _this.renderDropDowns = function () {
       return react_default.a.createElement("div", {
         className: "cmp-order-list__dropdowns"
-      }, react_default.a.createElement(order_filter_dropdown, {
+      }, react_default.a.createElement(filter_dropdown, {
         onChange: function onChange(e) {
           return _this.handleCategorySelected(e);
         },
-        orderFilters: _this.props.configs.orderfilters
+        dropdownfilters: _this.props.configs.dropdownfilters
       }), react_default.a.createElement(time_period_dropdown, {
         onChange: function onChange(e) {
           return _this.timePeriodHandler(e);
@@ -11219,13 +8872,13 @@ var order_history_OrderHistory = /*#__PURE__*/function (_Component) {
       }));
     };
 
-    _this.renderOrderCountHeader = function () {
+    _this.renderCountHeader = function () {
       return react_default.a.createElement(count_header, {
         rows: _this.paginationDefaults.visibleRows,
         count: _this.state.listCount,
         current: _this.state.currentPage,
         resultsText: _this.props.configs.resultsText,
-        noResultsText: _this.props.configs.noOrdersFoundTitle
+        noResultsText: _this.props.configs.noResultsFoundTitle
       });
     };
 
@@ -11236,7 +8889,7 @@ var order_history_OrderHistory = /*#__PURE__*/function (_Component) {
       var endResults = count > current * rows ? current * rows : count;
       var startResults = current * rows - rows;
 
-      var itemsToRender = _this.state.orderList.slice(startResults, endResults);
+      var itemsToRender = _this.state.listItems.slice(startResults, endResults);
 
       return itemsToRender;
     };
@@ -11254,7 +8907,7 @@ var order_history_OrderHistory = /*#__PURE__*/function (_Component) {
         className: "cmp-order-list__no-results"
       }, react_default.a.createElement("p", {
         "data-locator": "no-results"
-      }, _this.props.configs.noOrdersFoundText), react_default.a.createElement("p", null, react_default.a.createElement("a", {
+      }, _this.props.configs.noResultsFoundText), react_default.a.createElement("p", null, react_default.a.createElement("a", {
         href: _this.props.configs.shopAllHref,
         "data-locator": "shop-all"
       }, _this.props.configs.shopAllTitle))));
@@ -11262,7 +8915,7 @@ var order_history_OrderHistory = /*#__PURE__*/function (_Component) {
 
     var today = new Date();
     _this.state = {
-      orderList: "",
+      listItems: "",
       fromDate: new Date(today.setDate(today.getDate() - 30)),
       poNumber: "",
       orderNumber: "",
@@ -11274,6 +8927,15 @@ var order_history_OrderHistory = /*#__PURE__*/function (_Component) {
       noResults: false,
       error: false,
       initialPageLoad: true
+    };
+    _this.page = {
+      name: "Order History",
+      type: "Orders",
+      analytics: {
+        reference: "orderHistory",
+        timePeriod: "Order Period Selected",
+        timePeriodOptions: ['Last 30 Days', 'Last 6 Months', 'Last 12 Months', 'Show All']
+      }
     };
     _this.paginationDefaults = {
       visibleRows: 10,
@@ -11307,11 +8969,9 @@ var order_history_OrderHistory = /*#__PURE__*/function (_Component) {
 
       if (tabId === 1) {
         activeTabFilter = "Open";
-        Object(analytics["f" /* setClickAnalytics */])('Order History', 'Order History Open Orders', '#');
-      } else {
-        Object(analytics["f" /* setClickAnalytics */])('Order History', 'Order History All Orders', '#');
       }
 
+      Object(analytics["f" /* setClickAnalytics */])(this.page.title, "".concat(this.page.title, " ").concat(activeTabFilter, " ").concat(this.page.type), '#');
       this.setState({
         activeTabFilter: activeTabFilter,
         activeIndex: tabId
@@ -11330,81 +8990,50 @@ var order_history_OrderHistory = /*#__PURE__*/function (_Component) {
     value: function timePeriodHandler(e) {
       var _this3 = this;
 
+      var _this$page$analytics = this.page.analytics,
+          timePeriod = _this$page$analytics.timePeriod,
+          timePeriodOptions = _this$page$analytics.timePeriodOptions;
       var selectedTimeframe = e.value;
-      var currentDate = new Date();
       var now = new Date();
+      var timeValue = '';
+      var days = 30;
+      var sixMonths = 6;
+      var twelveMonths = 12;
+      var allTime = 15;
+      Object(analytics["g" /* setSelectDropdownAnalytics */])(timePeriod, "".concat(this.page.title, " ").concat(timePeriodOptions[selectedTimeframe]));
 
       switch (selectedTimeframe) {
         case 1:
-          Object(analytics["g" /* setSelectDropdownAnalytics */])('Order Period Selected', 'Order History Last 30 Days');
-          var thirtyDaysAgo = new Date(now.setDate(now.getDate() - 30));
-          this.setState({
-            fromDate: thirtyDaysAgo.toISOString(),
-            activeTimePeriod: selectedTimeframe
-          }, function () {
-            var _this3$state = _this3.state,
-                fromDate = _this3$state.fromDate,
-                poNumber = _this3$state.poNumber,
-                orderNumber = _this3$state.orderNumber,
-                activeTabFilter = _this3$state.activeTabFilter;
-
-            _this3.retrieveData(fromDate, poNumber, orderNumber, activeTabFilter);
-          });
+          timeValue = new Date(now.setDate(now.getDate() - days));
           break;
 
         case 2:
-          Object(analytics["g" /* setSelectDropdownAnalytics */])('Order Period Selected', 'Order History Last 6 Months');
-          var sixMonthsAgo = new Date(now.setMonth(now.getMonth() - 6));
-          this.setState({
-            fromDate: sixMonthsAgo.toISOString(),
-            activeTimePeriod: selectedTimeframe
-          }, function () {
-            var _this3$state2 = _this3.state,
-                fromDate = _this3$state2.fromDate,
-                poNumber = _this3$state2.poNumber,
-                orderNumber = _this3$state2.orderNumber,
-                activeTabFilter = _this3$state2.activeTabFilter;
-
-            _this3.retrieveData(fromDate, poNumber, orderNumber, activeTabFilter);
-          });
+          timeValue = new Date(now.setMonth(now.getMonth() - sixMonths));
           break;
 
         case 3:
-          Object(analytics["g" /* setSelectDropdownAnalytics */])('Order Period Selected', 'Order History Last 12 Months');
-          var twelveMonthsAgo = new Date(now.setMonth(now.getMonth() - 12));
-          this.setState({
-            fromDate: twelveMonthsAgo.toISOString(),
-            activeTimePeriod: selectedTimeframe
-          }, function () {
-            var _this3$state3 = _this3.state,
-                fromDate = _this3$state3.fromDate,
-                poNumber = _this3$state3.poNumber,
-                orderNumber = _this3$state3.orderNumber,
-                activeTabFilter = _this3$state3.activeTabFilter;
-
-            _this3.retrieveData(fromDate, poNumber, orderNumber, activeTabFilter);
-          });
+          timeValue = new Date(now.setMonth(now.getMonth() - twelveMonths));
           break;
 
         case 4:
-          Object(analytics["g" /* setSelectDropdownAnalytics */])('Order Period Selected', 'Order History Show All');
-          var showAllTimeframe = new Date(now.setMonth(now.getMonth() - 15));
-          this.setState({
-            fromDate: showAllTimeframe.toISOString(),
-            activeTimePeriod: selectedTimeframe
-          }, function () {
-            var _this3$state4 = _this3.state,
-                fromDate = _this3$state4.fromDate,
-                poNumber = _this3$state4.poNumber,
-                orderNumber = _this3$state4.orderNumber,
-                activeTabFilter = _this3$state4.activeTabFilter;
-
-            _this3.retrieveData(fromDate, poNumber, orderNumber, activeTabFilter);
-          });
+          timeValue = new Date(now.setMonth(now.getMonth() - allTime));
           break;
 
         default:
       }
+
+      this.setState({
+        fromDate: timeValue.toISOString(),
+        activeTimePeriod: selectedTimeframe
+      }, function () {
+        var _this3$state = _this3.state,
+            fromDate = _this3$state.fromDate,
+            poNumber = _this3$state.poNumber,
+            orderNumber = _this3$state.orderNumber,
+            activeTabFilter = _this3$state.activeTabFilter;
+
+        _this3.retrieveData(fromDate, poNumber, orderNumber, activeTabFilter);
+      });
     }
   }, {
     key: "renderPagination",
@@ -11448,10 +9077,10 @@ var order_history_OrderHistory = /*#__PURE__*/function (_Component) {
       }) : null, !this.state.loading && react_default.a.createElement(react_default.a.Fragment, null, this.renderTabs(), react_default.a.createElement("div", {
         className: "cmp-order-list__header clearfix",
         "data-locator": "order-list-header-clearfix"
-      }, this.renderDropDowns(), this.renderOrderCountHeader()), this.state.noResults && this.renderNoResults(), this.state.listCount > 0 && this.renderPaginatedResults().map(function (item, index) {
+      }, this.renderDropDowns(), this.renderCountHeader()), this.state.noResults && this.renderNoResults(), this.state.listCount > 0 && this.renderPaginatedResults().map(function (item, index) {
         return react_default.a.createElement(order_list_item, {
           data: item,
-          orderText: _this5.props.configs.orderText,
+          numberText: _this5.props.configs.numberText,
           itemsText: _this5.props.configs.itemsText,
           shipment: _this5.props.configs.shipment,
           icons: _this5.props.configs.icons
@@ -11465,14 +9094,14 @@ var order_history_OrderHistory = /*#__PURE__*/function (_Component) {
 
 /* harmony default export */ var order_history = (order_history_OrderHistory);
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js + 1 modules
-var objectWithoutProperties = __webpack_require__(129);
+var objectWithoutProperties = __webpack_require__(79);
 
-// CONCATENATED MODULE: ./src/order-details/orderDetails.services.js
-
-
+// CONCATENATED MODULE: ./src/details/details.services.js
 
 
-var orderDetails_services_getData = /*#__PURE__*/function () {
+
+
+var details_services_getData = /*#__PURE__*/function () {
   var _ref = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee(url) {
     var response;
     return regenerator_default.a.wrap(function _callee$(_context) {
@@ -11518,7 +9147,7 @@ var getOrderDetails = /*#__PURE__*/function () {
           case 0:
             url = endpoint + "/" + id;
             _context2.next = 3;
-            return orderDetails_services_getData(url);
+            return details_services_getData(url);
 
           case 3:
             response = _context2.sent;
@@ -11553,27 +9182,16 @@ var getOrderDetails = /*#__PURE__*/function () {
     return _ref2.apply(this, arguments);
   };
 }();
-
-var buildSearchURL = function buildSearchURL(endpoint, lineItems, isocode) {
-  var skus, rows, keywords, url;
-  skus = lineItems.map(function (lineItem) {
-    return lineItem.materialNumber;
-  });
-  rows = skus.length;
-  keywords = skus.join(' ');
-  return url = "".concat(endpoint, "/category_facet$shop:Shop?keyword=").concat(keywords, "&rows=").concat(rows, "&isocode=").concat(isocode, "&multiselect=true&page=1&sort=most-relevant");
-};
-
-var getItemDetails = /*#__PURE__*/function () {
-  var _ref3 = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee3(endpoint, lineItems, setError, isocode) {
+var getQuoteDetails = /*#__PURE__*/function () {
+  var _ref3 = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee3(endpoint, id, setError) {
     var url, response, responseBody;
     return regenerator_default.a.wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
-            url = buildSearchURL(endpoint, lineItems, isocode);
+            url = endpoint + "/" + id;
             _context3.next = 3;
-            return orderDetails_services_getData(url);
+            return details_services_getData(url);
 
           case 3:
             response = _context3.sent;
@@ -11604,8 +9222,63 @@ var getItemDetails = /*#__PURE__*/function () {
     }, _callee3);
   }));
 
-  return function getItemDetails(_x5, _x6, _x7, _x8) {
+  return function getQuoteDetails(_x5, _x6, _x7) {
     return _ref3.apply(this, arguments);
+  };
+}();
+
+var buildSearchURL = function buildSearchURL(endpoint, lineItems, isocode) {
+  var skus, rows, keywords, url;
+  skus = lineItems.map(function (lineItem) {
+    return lineItem.materialNumber;
+  });
+  rows = skus.length;
+  keywords = skus.join(' ');
+  return url = "".concat(endpoint, "/category_facet$shop:Shop?keyword=").concat(keywords, "&rows=").concat(rows, "&isocode=").concat(isocode, "&multiselect=true&page=1&sort=most-relevant");
+};
+
+var getItemDetails = /*#__PURE__*/function () {
+  var _ref4 = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee4(endpoint, lineItems, setError, isocode) {
+    var url, response, responseBody;
+    return regenerator_default.a.wrap(function _callee4$(_context4) {
+      while (1) {
+        switch (_context4.prev = _context4.next) {
+          case 0:
+            url = buildSearchURL(endpoint, lineItems, isocode);
+            _context4.next = 3;
+            return details_services_getData(url);
+
+          case 3:
+            response = _context4.sent;
+            _context4.next = 6;
+            return response.json();
+
+          case 6:
+            responseBody = _context4.sent;
+
+            if (!(response.status === 200)) {
+              _context4.next = 11;
+              break;
+            }
+
+            return _context4.abrupt("return", responseBody);
+
+          case 11:
+            setError({
+              status: response.status,
+              code: responseBody.code
+            });
+
+          case 12:
+          case "end":
+            return _context4.stop();
+        }
+      }
+    }, _callee4);
+  }));
+
+  return function getItemDetails(_x8, _x9, _x10, _x11) {
+    return _ref4.apply(this, arguments);
   };
 }();
 var matchLineItems = function matchLineItems(orderDetailsAPIResults, searchAPIResults) {
@@ -11621,7 +9294,7 @@ var matchLineItems = function matchLineItems(orderDetailsAPIResults, searchAPIRe
   });
   return orderDetailsAPIResults;
 };
-// CONCATENATED MODULE: ./src/order-details/components/order-details-list-item.js
+// CONCATENATED MODULE: ./src/details/components/details-list-item.js
 
 
 
@@ -11629,16 +9302,16 @@ var matchLineItems = function matchLineItems(orderDetailsAPIResults, searchAPIRe
 
 
 
-var order_details_list_item_OrderDetailsListItem = /*#__PURE__*/function (_React$Component) {
-  Object(inherits["a" /* default */])(OrderDetailsListItem, _React$Component);
+var details_list_item_DetailsListItem = /*#__PURE__*/function (_React$Component) {
+  Object(inherits["a" /* default */])(DetailsListItem, _React$Component);
 
-  function OrderDetailsListItem(props) {
-    Object(classCallCheck["a" /* default */])(this, OrderDetailsListItem);
+  function DetailsListItem(props) {
+    Object(classCallCheck["a" /* default */])(this, DetailsListItem);
 
-    return Object(possibleConstructorReturn["a" /* default */])(this, Object(getPrototypeOf["a" /* default */])(OrderDetailsListItem).call(this, props));
+    return Object(possibleConstructorReturn["a" /* default */])(this, Object(getPrototypeOf["a" /* default */])(DetailsListItem).call(this, props));
   }
 
-  Object(createClass["a" /* default */])(OrderDetailsListItem, [{
+  Object(createClass["a" /* default */])(DetailsListItem, [{
     key: "render",
     value: function render() {
       var _this$props = this.props,
@@ -11688,18 +9361,16 @@ var order_details_list_item_OrderDetailsListItem = /*#__PURE__*/function (_React
     }
   }]);
 
-  return OrderDetailsListItem;
+  return DetailsListItem;
 }(react_default.a.Component);
 
-order_details_list_item_OrderDetailsListItem.defaultProps = {
+details_list_item_DetailsListItem.defaultProps = {
   key: 1,
   relatedSku: {},
   skuConfig: {}
 };
-/* harmony default export */ var order_details_list_item = (order_details_list_item_OrderDetailsListItem);
-// CONCATENATED MODULE: ./src/order-details/components/shipment.js
-
-
+/* harmony default export */ var details_list_item = (details_list_item_DetailsListItem);
+// CONCATENATED MODULE: ./src/details/components/shipment.js
 
 
 
@@ -11811,7 +9482,7 @@ var shipment_Shipment = /*#__PURE__*/function (_Component) {
       }))), react_default.a.createElement("div", {
         className: ""
       }, this.props.data.map(function (record, index) {
-        return react_default.a.createElement(order_details_list_item, {
+        return react_default.a.createElement(details_list_item, {
           key: index,
           relatedSku: record,
           skuConfig: _this2.skuConfig
@@ -11832,12 +9503,12 @@ shipment_Shipment.defaultProps = {
 };
 /* harmony default export */ var components_shipment = (shipment_Shipment);
 // EXTERNAL MODULE: ./src/utils/get-isocode/index.js
-var get_isocode = __webpack_require__(124);
+var get_isocode = __webpack_require__(78);
 
 // EXTERNAL MODULE: ./src/utils/group-by/index.js
-var group_by = __webpack_require__(95);
+var group_by = __webpack_require__(58);
 
-// CONCATENATED MODULE: ./src/order-details/index.js
+// CONCATENATED MODULE: ./src/details/order-details/index.js
 
 
 
@@ -11884,6 +9555,7 @@ var order_details_OrderDetails = /*#__PURE__*/function (_Component) {
       resetErrorBoundaryToFalse: resetErrorBoundaryToFalse,
       removeNotifications: removeNotifications
     }, props)));
+    _this.rootStyle = "cmp-order-details";
 
     _this.setAnalytics = function (event) {
       var detail = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
@@ -12023,7 +9695,7 @@ var order_details_OrderDetails = /*#__PURE__*/function (_Component) {
           var addressArray = Object(userFunctions["n" /* getOrderDetailsAddress */])(account, includeCountryName);
           return react_default.a.createElement(react_default.a.Fragment, null, addressArray.map(function (addressLine) {
             return react_default.a.createElement("div", {
-              className: "cmp-order-details-address1",
+              className: "".concat(_this.rootStyle, "-address1"),
               "data-locator": "order-details-address"
             }, addressLine);
           }));
@@ -12035,13 +9707,14 @@ var order_details_OrderDetails = /*#__PURE__*/function (_Component) {
 
     _this.renderItemCount = function () {
       var orderDetails = _this.state.orderDetails;
+      var config = _this.props.config;
       var label = "";
 
       if (orderDetails && orderDetails.totalItemsOrdered) {
         if (parseInt(orderDetails.totalItemsOrdered) > 1) {
-          label = _this.props.config.items;
+          label = config.items;
         } else if (parseInt(orderDetails.totalItemsOrdered) === 1) {
-          label = _this.props.config.item;
+          label = config.item;
         }
 
         var itemCountLabel = " (" + orderDetails.totalItemsOrdered + " " + label + ")";
@@ -12060,99 +9733,100 @@ var order_details_OrderDetails = /*#__PURE__*/function (_Component) {
       }, _this.props.config.reorderTitle);
     };
 
-    _this.renderOrderDetails = function () {
+    _this.renderDetailsSection = function () {
       var _this$state2 = _this.state,
           orderDetails = _this$state2.orderDetails,
           userLocale = _this$state2.userLocale;
+      var config = _this.props.config;
       var notZeroDiscountFlag = parseFloat(orderDetails.orderDiscountValue) !== 0 ? true : false;
-      return react_default.a.createElement("div", {
-        className: "cmp-order-details__container"
+      return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("div", {
+        className: "".concat(_this.rootStyle, "__container")
       }, react_default.a.createElement("h2", {
-        className: "cmp-order-details__title",
+        className: "".concat(_this.rootStyle, "__title"),
         "data-locator": "product-title"
-      }, _this.props.config.orderDetails), react_default.a.createElement("div", {
-        className: "cmp-order-details__order-info"
+      }, config.orderDetails), react_default.a.createElement("div", {
+        className: "".concat(_this.rootStyle, "__order-info")
       }, react_default.a.createElement("h3", {
-        className: "cmp-order-details__order-number",
+        className: "".concat(_this.rootStyle, "__order-number"),
         "data-locator": "product-number"
-      }, _this.props.config.orderNumber + ": " + orderDetails.orderNumber), react_default.a.createElement("div", {
-        className: "cmp-order-details__order-date",
+      }, config.numberLabel + ": " + orderDetails.orderNumber), react_default.a.createElement("div", {
+        className: "".concat(_this.rootStyle, "__order-date"),
         "data-locator": "order-date"
       }, date_formatter["a" /* default */].dateFormatter(orderDetails.date, userLocale)), react_default.a.createElement("div", {
-        className: "cmp-order-details__address-container"
+        className: "".concat(_this.rootStyle, "__address-container")
       }, react_default.a.createElement("div", {
-        className: "cmp-order-details__ship-to",
+        className: "".concat(_this.rootStyle, "__ship-to"),
         "data-locator": "ship-to"
-      }, react_default.a.createElement("h4", null, _this.props.config.shipTo), _this.renderAddress("shipping")), react_default.a.createElement("div", {
-        className: "cmp-order-details__bill-to",
+      }, react_default.a.createElement("h4", null, config.shipTo), _this.renderAddress("shipping")), react_default.a.createElement("div", {
+        className: "".concat(_this.rootStyle, "__bill-to"),
         "data-locator": "bill-to"
-      }, react_default.a.createElement("h4", null, _this.props.config.billTo), _this.renderAddress("billing"))), react_default.a.createElement("div", {
-        className: "cmp-order-details__payment-container"
+      }, react_default.a.createElement("h4", null, config.billTo), _this.renderAddress("billing"))), react_default.a.createElement("div", {
+        className: "".concat(_this.rootStyle, "__payment-container")
       }, react_default.a.createElement("div", {
-        className: "cmp-order-details__payment-method",
+        className: "".concat(_this.rootStyle, "__payment-method"),
         "data-locator": "payment-method"
-      }, react_default.a.createElement("h4", null, _this.props.config.paymentMethod), orderDetails.ccNum && react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement(react_svg["a" /* default */], {
-        src: _this.props.config.paymentType.creditCard.icon
+      }, react_default.a.createElement("h4", null, config.paymentMethod), orderDetails.ccNum && react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement(react_svg["a" /* default */], {
+        src: config.paymentType.creditCard.icon
       }), react_default.a.createElement("div", {
         className: "text"
-      }, _this.props.config.paymentType.creditCard.label)), !orderDetails.ccNum && orderDetails.purchaseOrderNumber && react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement(react_svg["a" /* default */], {
-        src: _this.props.config.paymentType.purchaseOrder.icon
+      }, config.paymentType.creditCard.label)), !orderDetails.ccNum && orderDetails.purchaseOrderNumber && react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement(react_svg["a" /* default */], {
+        src: config.paymentType.purchaseOrder.icon
       }), react_default.a.createElement("div", {
         className: "text"
-      }, _this.props.config.paymentType.purchaseOrder.label, ": ", orderDetails.purchaseOrderNumber))))), react_default.a.createElement("div", {
+      }, config.paymentType.purchaseOrder.label, ": ", orderDetails.purchaseOrderNumber))))), react_default.a.createElement("div", {
         className: "cmp-order-details__order-summary",
         "data-locator": "order-summary"
-      }, react_default.a.createElement("h4", null, _this.props.config.orderSummary), react_default.a.createElement("div", {
+      }, react_default.a.createElement("h4", null, config.summaryTitle), react_default.a.createElement("div", {
         className: "cmp-order-details__order-subtotal"
       }, react_default.a.createElement("div", {
         className: "cmp-order-details__order-subtotal_left",
-        "data-locator": "order-subtotal-left"
-      }, _this.props.config.subTotal, " ", _this.renderItemCount()), react_default.a.createElement("div", {
+        "data-locator": "order-summary-label-sub-total"
+      }, config.subTotal, " ", _this.renderItemCount()), react_default.a.createElement("div", {
         className: "cmp-order-details__order-subtotal_right",
-        "data-locator": "order-subtotal-right"
+        "data-locator": "order-summary-price-sub-total"
       }, orderDetails.itemsSubTotal)), notZeroDiscountFlag && react_default.a.createElement("div", {
         className: "cmp-order-details__order-savings"
       }, react_default.a.createElement("div", {
         className: "cmp-order-details__order-savings_left",
-        "data-locator": "order-savings-left"
-      }, _this.props.config.savings), react_default.a.createElement("div", {
+        "data-locator": "order-summary-label-total-discount"
+      }, config.savings), react_default.a.createElement("div", {
         className: "cmp-order-details__order-savings_right",
-        "data-locator": "order-savings-right"
+        "data-locator": "order-summary-price-total-discount"
       }, _this.props.config.minusSign, orderDetails.orderDiscount)), react_default.a.createElement("div", {
         className: "cmp-order-details__order-shipping"
       }, react_default.a.createElement("div", {
         className: "cmp-order-details__order-shipping_left",
-        "data-locator": "order-shipping-left"
-      }, _this.props.config.shipping), react_default.a.createElement("div", {
+        "data-locator": "order-summary-label-total-shipping-handling"
+      }, config.shipping), react_default.a.createElement("div", {
         className: "cmp-order-details__order-shipping_right",
-        "data-locator": "order-shipping-right"
+        "data-locator": "order-summary-price-total-shipping-handling"
       }, orderDetails.shippingAmount)), react_default.a.createElement("div", {
         className: "cmp-order-details__order-tax"
       }, react_default.a.createElement("div", {
         className: "cmp-order-details__order-tax_left",
-        "data-locator": "order-tax-left"
-      }, _this.props.config.tax), react_default.a.createElement("div", {
+        "data-locator": "order-summary-label-estimated-tax"
+      }, config.tax), react_default.a.createElement("div", {
         className: "cmp-order-details__order-tax_right",
-        "data-locator": "order-tax-right"
+        "data-locator": "order-summary-price-estimated-tax"
       }, orderDetails.taxAmount)), react_default.a.createElement("div", {
         className: "cmp-order-details__order-total"
       }, react_default.a.createElement("div", {
         className: "cmp-order-details__order-total_left",
-        "data-locator": "order-total-left"
-      }, _this.props.config.orderTotal), react_default.a.createElement("div", {
+        "data-locator": "order-summary-label-total-price"
+      }, config.totalLabel), react_default.a.createElement("div", {
         className: "cmp-order-details__order-total_right",
-        "data-locator": "order-total-right"
+        "data-locator": "order-summary-price-total-price"
       }, react_default.a.createElement("h1", null, orderDetails.orderTotal))), _this.state.isCommerceApiMigrated && react_default.a.createElement("div", {
-        className: "cmp-order-details__reorder",
+        className: "".concat(_this.rootStyle, "__reorder"),
         "data-locator": "order-details-reorder"
-      }, _this.renderReorderButton())));
+      }, _this.renderReorderButton()))));
     };
 
-    _this.renderOrderNotFoundError = function () {
+    _this.renderNotFoundError = function () {
       return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("div", {
-        className: "cmp-order-details__no-results",
+        className: "".concat(_this.rootStyle, "__no-results"),
         "data-locator": "order-details-no-results"
-      }, react_default.a.createElement("p", null, _this.props.config.orderNotFoundErrorTitle)));
+      }, react_default.a.createElement("p", null, _this.props.config.resultNotFoundErrorTitle)));
     };
 
     _this.renderOrderShipmentList = function () {
@@ -12160,7 +9834,7 @@ var order_details_OrderDetails = /*#__PURE__*/function (_Component) {
           airbills = _this$state3.airbills,
           orderDetails = _this$state3.orderDetails;
       return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("div", {
-        className: "cmp-order-details__order-shipment-list",
+        className: "".concat(_this.rootStyle, "__order-shipment-list"),
         "data-locator": "order-shipment-list"
       }, Object.keys(airbills).length > 0 && _this.getShipmentList(airbills, orderDetails)), _this.state.isCommerceApiMigrated && react_default.a.createElement("div", {
         className: "order-shipment__reorder",
@@ -12307,7 +9981,7 @@ var order_details_OrderDetails = /*#__PURE__*/function (_Component) {
           errorServiceError = _this$state5.errorServiceError;
       return react_default.a.createElement(react_default.a.Fragment, null, isLoading && react_default.a.createElement(utils_spinner["a" /* default */], {
         loading: isLoading
-      }), !isLoading && errorOrderNotFound && this.renderOrderNotFoundError(), !errorOrderNotFound && !errorServiceError && !isLoading && this.renderOrderDetails(), !errorOrderNotFound && !errorServiceError && !isLoading && this.renderOrderShipmentList(), react_default.a.createElement(modal["b" /* default */], {
+      }), !isLoading && errorOrderNotFound && this.renderNotFoundError(), !errorOrderNotFound && !errorServiceError && !isLoading && this.renderDetailsSection(), !errorOrderNotFound && !errorServiceError && !isLoading && this.renderOrderShipmentList(), react_default.a.createElement(modal["b" /* default */], {
         isOpen: this.state.modalShown,
         onClose: this.toggleModal,
         className: "cmp-add-to-cart-modal"
@@ -12326,12 +10000,984 @@ var order_details_OrderDetails = /*#__PURE__*/function (_Component) {
 }(react["Component"]);
 
 var order_details_ErrorBoundaryOrderDetails = function ErrorBoundaryOrderDetails(props) {
-  return react_default.a.createElement(search_ErrorBoundary, null, react_default.a.createElement(order_details_OrderDetails, props));
+  return react_default.a.createElement(ErrorBoundary["a" /* default */], null, react_default.a.createElement(order_details_OrderDetails, props));
 };
 
 
 /* harmony default export */ var order_details = (order_details_ErrorBoundaryOrderDetails);
+// CONCATENATED MODULE: ./src/history/components/quote-list-item.js
+
+
+
+
+
+
+
+
+
+
+
+
+var getShipmentStatus = function getShipmentStatus(data, index) {
+  var status = data;
+
+  if (index == 1) {
+    status = "Expired";
+  }
+
+  if (index == 2) {
+    status = "Order Placed";
+  }
+
+  return status;
+};
+
+var quote_list_item_QuoteListItem = /*#__PURE__*/function (_Component) {
+  Object(inherits["a" /* default */])(QuoteListItem, _Component);
+
+  function QuoteListItem(props) {
+    var _this;
+
+    Object(classCallCheck["a" /* default */])(this, QuoteListItem);
+
+    _this = Object(possibleConstructorReturn["a" /* default */])(this, Object(getPrototypeOf["a" /* default */])(QuoteListItem).call(this, props));
+
+    _this.renderQuoteAgainButton = function () {
+      return react_default.a.createElement("a", {
+        className: "cmp-button",
+        href: "/#"
+      }, _this.props.quoteAgainTitle);
+    };
+
+    _this.userLocale = get_locale["a" /* default */].getLocale();
+    return _this;
+  }
+
+  Object(createClass["a" /* default */])(QuoteListItem, [{
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      var deliveryStatus = getShipmentStatus(this.props.data.deliveryStatus, this.props.index);
+      return react_default.a.createElement("div", {
+        className: "cmp-order-list__container"
+      }, react_default.a.createElement("div", {
+        className: "cmp-order-list__left"
+      }, react_default.a.createElement("div", {
+        className: "cmp-order-list__order-number"
+      }, react_default.a.createElement("a", {
+        href: '#quotedetails?id=' + this.props.data.orderNumber,
+        onClick: function onClick() {
+          return Object(analytics["f" /* setClickAnalytics */])("Quote History", "Quote Details, " + _this2.props.data.orderNumber, '#quotedetails?id=' + _this2.props.data.orderNumber);
+        },
+        "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])("".concat(this.props.numberText, " ").concat(this.props.data.orderNumber))
+      }, this.props.numberText + " " + this.props.data.orderNumber)), react_default.a.createElement("div", {
+        className: "cmp-order-list__date",
+        "data-locator": "order-list-date"
+      }, date_formatter["a" /* default */].dateFormatter(this.props.data.date, this.userLocale))), react_default.a.createElement("div", {
+        className: "cmp-order-list__right",
+        "data-locator": "order-list-right"
+      }, react_default.a.createElement("hr", {
+        className: "cmp-order-list_hr"
+      }), react_default.a.createElement(delivery_status, {
+        status: deliveryStatus,
+        labels: this.props.shipment,
+        icons: this.props.icons
+      })), react_default.a.createElement("div", {
+        className: "cmp-order-list__total cmp-order-list__left",
+        "data-locator": "order-list-total"
+      }, this.props.data.orderTotal), this.props.index == 1 && react_default.a.createElement("div", {
+        className: "cmp-order-list__right quote-again-section",
+        "data-locator": "quote-history-quote-again"
+      }, this.renderQuoteAgainButton()));
+    }
+  }]);
+
+  return QuoteListItem;
+}(react["Component"]);
+
+/* harmony default export */ var quote_list_item = (quote_list_item_QuoteListItem);
+// CONCATENATED MODULE: ./src/history/quote-history/index.js
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var quote_history_QuoteHistory = /*#__PURE__*/function (_Component) {
+  Object(inherits["a" /* default */])(QuoteHistory, _Component);
+
+  function QuoteHistory(props) {
+    var _this;
+
+    Object(classCallCheck["a" /* default */])(this, QuoteHistory);
+
+    _this = Object(possibleConstructorReturn["a" /* default */])(this, Object(getPrototypeOf["a" /* default */])(QuoteHistory).call(this, props));
+
+    _this.setAnalytics = function (event) {
+      var detail = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      var model = {
+        detail: detail,
+        event: event
+      };
+      analytics["b" /* default */].setAnalytics(analytics["a" /* analyticTypes */][_this.page.analytics.reference].name, model);
+    };
+
+    _this.setError = function (error) {
+      _this.setAnalytics('error', {
+        error: error
+      });
+
+      _this.setState({
+        error: true
+      });
+    };
+
+    _this.setNoResultsState = function () {
+      _this.setState({
+        listItems: null,
+        pageCount: 0,
+        listCount: 0,
+        currentPage: 1,
+        noResults: true,
+        loading: false
+      });
+    };
+
+    _this.setResultsState = function (filteredListItems) {
+      _this.setState({
+        listItems: filteredListItems,
+        pageCount: Math.ceil(filteredListItems.length / _this.paginationDefaults.visibleRows),
+        listCount: filteredListItems.length,
+        currentPage: 1,
+        noResults: false,
+        loading: false
+      });
+    };
+
+    _this.retrieveData = /*#__PURE__*/function () {
+      var _ref = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee(fromDate, poNumber, orderNumber, activeTabFilter) {
+        var HistoryServiceObj, fetchEndPoint, orders, filteredListItems;
+        return regenerator_default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                HistoryServiceObj = new history_services();
+                fetchEndPoint = _this.props.configs.fetchEndPoint;
+                _context.next = 4;
+                return HistoryServiceObj.getQuoteListPost(fetchEndPoint, fromDate, poNumber, orderNumber, _this.setError);
+
+              case 4:
+                orders = _context.sent;
+
+                if (orders && orders.length > 0) {
+                  filteredListItems = orders;
+
+                  if (activeTabFilter !== undefined && activeTabFilter !== "All" && activeTabFilter === "Open") {
+                    filteredListItems = orders.filter(function (i) {
+                      return i.deliveryStatus === "Open" || i.deliveryStatus === "Partial";
+                    });
+
+                    if (filteredListItems.length > 0) {
+                      _this.setResultsState(filteredListItems);
+                    } else {
+                      _this.setNoResultsState();
+                    }
+                  } else {
+                    _this.setResultsState(filteredListItems);
+                  }
+                } else {
+                  _this.setNoResultsState();
+                }
+
+                !_this.state.error && _this.state.initialPageLoad && _this.setAnalytics('load');
+
+                _this.setState({
+                  initialPageLoad: false
+                });
+
+              case 8:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+
+      return function (_x, _x2, _x3, _x4) {
+        return _ref.apply(this, arguments);
+      };
+    }();
+
+    _this.renderTabs = function () {
+      var _ref2 = _this.props.configs || {},
+          _ref2$tabs = _ref2.tabs,
+          tabs = _ref2$tabs === void 0 ? [] : _ref2$tabs,
+          _ref2$blankItemTabs = _ref2.blankItemTabs,
+          blankItemTabs = _ref2$blankItemTabs === void 0 ? [] : _ref2$blankItemTabs;
+
+      var currentTabs = _this.state.noResults ? blankItemTabs : tabs;
+      return react_default.a.createElement(navigation_tabs, {
+        className: "cmp-search__categories-tabs",
+        items: currentTabs,
+        activeIndex: _this.state.activeIndex,
+        onClick: function onClick(e) {
+          return _this.handleCategorySelected(e);
+        },
+        enableFading: true
+      });
+    };
+
+    _this.renderDropDowns = function () {
+      return react_default.a.createElement("div", {
+        className: "cmp-order-list__dropdowns"
+      }, react_default.a.createElement(filter_dropdown, {
+        onChange: function onChange(e) {
+          return _this.handleCategorySelected(e);
+        },
+        dropdownfilters: _this.props.configs.dropdownfilters
+      }), react_default.a.createElement(time_period_dropdown, {
+        onChange: function onChange(e) {
+          return _this.timePeriodHandler(e);
+        },
+        timePeriod: _this.props.configs.timeperiod
+      }));
+    };
+
+    _this.renderCountHeader = function () {
+      return react_default.a.createElement(count_header, {
+        rows: _this.paginationDefaults.visibleRows,
+        count: _this.state.listCount,
+        current: _this.state.currentPage,
+        resultsText: _this.props.configs.resultsText,
+        noResultsText: _this.props.configs.noResultsFoundTitle
+      });
+    };
+
+    _this.renderPaginatedResults = function () {
+      var rows = _this.paginationDefaults.visibleRows;
+      var count = _this.state.listCount;
+      var current = _this.state.currentPage;
+      var endResults = count > current * rows ? current * rows : count;
+      var startResults = current * rows - rows;
+
+      var itemsToRender = _this.state.listItems.slice(startResults, endResults);
+
+      return itemsToRender;
+    };
+
+    _this.paginationClickHandler = function (page) {
+      _this.setState({
+        currentPage: page.selected + 1
+      });
+
+      window.scroll(0, 0);
+    };
+
+    _this.renderNoResults = function () {
+      return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("div", {
+        className: "cmp-order-list__no-results"
+      }, react_default.a.createElement("p", {
+        "data-locator": "no-results"
+      }, _this.props.configs.noResultsFoundText), react_default.a.createElement("p", null, react_default.a.createElement("a", {
+        href: _this.props.configs.shopAllHref,
+        "data-locator": "shop-all"
+      }, _this.props.configs.shopAllTitle))));
+    };
+
+    var today = new Date();
+    _this.state = {
+      listItems: "",
+      fromDate: new Date(today.setDate(today.getDate() - 30)),
+      poNumber: "",
+      orderNumber: "",
+      activeTabFilter: "All",
+      activeIndex: 0,
+      activeTimePeriod: 1,
+      errorObjHistory: {},
+      loading: true,
+      noResults: false,
+      error: false,
+      initialPageLoad: true
+    };
+    _this.page = {
+      name: "Quote History",
+      type: "Quotes",
+      analytics: {
+        reference: "quoteHistory",
+        timePeriod: "Quote Period Selected",
+        timePeriodOptions: ['Last 30 Days', 'Last 6 Months', 'Last 12 Months', 'Show All']
+      }
+    };
+    _this.paginationDefaults = {
+      visibleRows: 10,
+      nextIcon: "/content/dam/waters/en/brand-assets/icons/right.svg",
+      previousIcon: "/content/dam/waters/en/brand-assets/icons/left.svg",
+      pageRangeDisplayed: 8,
+      marginPagesDisplayed: 1
+    };
+    return _this;
+  }
+
+  Object(createClass["a" /* default */])(QuoteHistory, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this$state = this.state,
+          fromDate = _this$state.fromDate,
+          poNumber = _this$state.poNumber,
+          orderNumber = _this$state.orderNumber,
+          activeTabFilter = _this$state.activeTabFilter;
+      this.retrieveData(fromDate, poNumber, orderNumber, activeTabFilter);
+    }
+  }, {
+    key: "handleCategorySelected",
+    value: function handleCategorySelected(e) {
+      var _this2 = this;
+
+      // 0 = All Quotes, 1 = Open Quotes, 2 = Closed Quotes
+      var tabId;
+      var activeTabFilter = "All";
+      e.value || e.value === 0 ? tabId = e.value : tabId = e;
+
+      if (tabId === 1) {
+        activeTabFilter = "Open";
+      } else if (tabId === 2) {
+        activeTabFilter = "Closed";
+      }
+
+      Object(analytics["f" /* setClickAnalytics */])(this.page.title, "".concat(this.page.title, " ").concat(activeTabFilter, " ").concat(this.page.type), '#');
+      this.setState({
+        activeTabFilter: activeTabFilter,
+        activeIndex: tabId
+      }, function () {
+        var _this2$state = _this2.state,
+            fromDate = _this2$state.fromDate,
+            poNumber = _this2$state.poNumber,
+            orderNumber = _this2$state.orderNumber,
+            activeTabFilter = _this2$state.activeTabFilter;
+
+        _this2.retrieveData(fromDate, poNumber, orderNumber, activeTabFilter);
+      });
+    }
+  }, {
+    key: "timePeriodHandler",
+    value: function timePeriodHandler(e) {
+      var _this3 = this;
+
+      var _this$page$analytics = this.page.analytics,
+          timePeriod = _this$page$analytics.timePeriod,
+          timePeriodOptions = _this$page$analytics.timePeriodOptions;
+      var selectedTimeframe = e.value;
+      var now = new Date();
+      var timeValue = '';
+      var days = 30;
+      var sixMonths = 6;
+      var twelveMonths = 12;
+      var allTime = 15;
+      Object(analytics["g" /* setSelectDropdownAnalytics */])(timePeriod, "".concat(this.page.title, " ").concat(timePeriodOptions[selectedTimeframe - 1]));
+
+      switch (selectedTimeframe) {
+        case 1:
+          timeValue = new Date(now.setDate(now.getDate() - days));
+          break;
+
+        case 2:
+          timeValue = new Date(now.setMonth(now.getMonth() - sixMonths));
+          break;
+
+        case 3:
+          timeValue = new Date(now.setMonth(now.getMonth() - twelveMonths));
+          break;
+
+        case 4:
+          timeValue = new Date(now.setMonth(now.getMonth() - allTime));
+          break;
+
+        default:
+      }
+
+      this.setState({
+        fromDate: timeValue.toISOString(),
+        activeTimePeriod: selectedTimeframe
+      }, function () {
+        var _this3$state = _this3.state,
+            fromDate = _this3$state.fromDate,
+            poNumber = _this3$state.poNumber,
+            orderNumber = _this3$state.orderNumber,
+            activeTabFilter = _this3$state.activeTabFilter;
+
+        _this3.retrieveData(fromDate, poNumber, orderNumber, activeTabFilter);
+      });
+    }
+  }, {
+    key: "renderPagination",
+    value: function renderPagination() {
+      var _this4 = this;
+
+      if (this.state.listCount > this.paginationDefaults.visibleRows) {
+        var previousIcon = react_default.a.createElement(react_svg["a" /* default */], {
+          src: this.paginationDefaults.previousIcon
+        });
+        var nextIcon = react_default.a.createElement(react_svg["a" /* default */], {
+          src: this.paginationDefaults.nextIcon
+        });
+        return react_default.a.createElement(react_paginate_default.a, {
+          pageCount: this.state.pageCount,
+          forcePage: this.state.currentPage - 1,
+          pageRangeDisplayed: this.paginationDefaults.pageRangeDisplayed,
+          marginPagesDisplayed: this.paginationDefaults.marginPagesDisplayed,
+          containerClassName: "paginate__container",
+          onPageChange: function onPageChange(page) {
+            return _this4.paginationClickHandler(page);
+          },
+          breakLabel: '…',
+          previousLabel: previousIcon,
+          nextLabel: nextIcon,
+          initialPage: this.state.currentPage - 1,
+          disableInitialCallback: true,
+          hrefBuilder: this.buildHref
+        });
+      } else {
+        return react_default.a.createElement(react_default.a.Fragment, null);
+      }
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this5 = this;
+
+      return react_default.a.createElement(react_default.a.Fragment, null, this.state.loading ? react_default.a.createElement(utils_spinner["a" /* default */], {
+        loading: this.state.loading
+      }) : null, !this.state.loading && react_default.a.createElement(react_default.a.Fragment, null, this.renderTabs(), react_default.a.createElement("div", {
+        className: "cmp-order-list__header clearfix",
+        "data-locator": "order-list-header-clearfix"
+      }, !this.state.noResults && this.renderDropDowns(), this.renderCountHeader()), this.state.noResults && this.renderNoResults(), this.state.listCount > 0 && this.renderPaginatedResults().map(function (item, index) {
+        return react_default.a.createElement(quote_list_item, {
+          data: item,
+          numberText: _this5.props.configs.numberText,
+          itemsText: _this5.props.configs.itemsText,
+          shipment: _this5.props.configs.shipment,
+          icons: _this5.props.configs.icons,
+          quoteAgainTitle: _this5.props.configs.quoteAgainTitle,
+          index: index
+        });
+      }), this.state.listCount > 0 && this.renderPagination()));
+    }
+  }]);
+
+  return QuoteHistory;
+}(react["Component"]);
+
+/* harmony default export */ var quote_history = (quote_history_QuoteHistory);
+// CONCATENATED MODULE: ./src/details/quote-details/index.js
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var quote_details_QuoteDetails = /*#__PURE__*/function (_Component) {
+  Object(inherits["a" /* default */])(QuoteDetails, _Component);
+
+  function QuoteDetails(_ref) {
+    var _this;
+
+    var setErrorBoundaryToTrue = _ref.setErrorBoundaryToTrue,
+        resetErrorBoundaryToFalse = _ref.resetErrorBoundaryToFalse,
+        removeNotifications = _ref.removeNotifications,
+        props = Object(objectWithoutProperties["a" /* default */])(_ref, ["setErrorBoundaryToTrue", "resetErrorBoundaryToFalse", "removeNotifications"]);
+
+    Object(classCallCheck["a" /* default */])(this, QuoteDetails);
+
+    _this = Object(possibleConstructorReturn["a" /* default */])(this, Object(getPrototypeOf["a" /* default */])(QuoteDetails).call(this, Object(objectSpread["a" /* default */])({
+      setErrorBoundaryToTrue: setErrorBoundaryToTrue,
+      resetErrorBoundaryToFalse: resetErrorBoundaryToFalse,
+      removeNotifications: removeNotifications
+    }, props)));
+    _this.rootStyle = "cmp-order-details";
+
+    _this.setAnalytics = function (event) {
+      var detail = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      var model = {
+        detail: detail,
+        event: event
+      };
+      analytics["b" /* default */].setAnalytics(analytics["a" /* analyticTypes */]['quoteDetails'].name, model);
+    };
+
+    _this.toggleModal = function () {
+      _this.setState({
+        modalShown: !_this.state.modalShown
+      });
+    };
+
+    _this.getUrlParameter = function (name) {
+      name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+      var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+      var results = regex.exec(window.location.hash);
+      return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+    };
+
+    _this.setError = function (response) {
+      _this.setAnalytics('error', {
+        error: Object(objectSpread["a" /* default */])({}, response)
+      });
+
+      if (response.status === 400 && response.code === 704) {
+        _this.setState({
+          orderNotFoundError: true
+        });
+      } else {
+        _this.props.setErrorBoundaryToTrue({
+          code: 400
+        });
+
+        _this.setState({
+          errorServiceError: true
+        });
+      }
+    };
+
+    _this.getShipmentList = function (airbills, quoteDetails) {
+      var shipments = [];
+
+      for (var i = 0; i < Object.keys(airbills).length; i++) {
+        var values = Object.values(airbills)[i];
+        shipments.push(react_default.a.createElement(components_shipment, {
+          data: values,
+          shipment: _this.props.config.shipment,
+          icons: _this.props.config.icons,
+          shipmentNumber: i + 1,
+          totalShipments: Object.keys(airbills).length,
+          addToCartReorder: _this.addToCartReorder,
+          totalItemsOrdered: quoteDetails.totalItemsOrdered
+        }));
+      }
+
+      return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("hr", {
+        className: "order-shipment-list__hr"
+      }), Object.keys(airbills).length > 0 && shipments);
+    };
+
+    _this.addReorderAnalytics = function (response) {
+      var localStore = new stores_localStore["a" /* default */]();
+      var cartId = loginStatus["a" /* default */].state() ? localStore.getCartId() : localStore.getGUID();
+      var cartModifications = response.cartModifications;
+      var items = {};
+
+      if (cartModifications) {
+        items = cartModifications.map(function (item) {
+          return {
+            "sku": item.entry.product.code,
+            "qty": item.quantityAdded
+          };
+        });
+      }
+
+      var reOrderModel = {
+        detail: {
+          cartId: cartId,
+          "addContext": analytics["a" /* analyticTypes */]["reOrder"].context,
+          items: items
+        }
+      };
+      analytics["b" /* default */].setAnalytics(analytics["a" /* analyticTypes */]["reOrder"].name, reOrderModel);
+    };
+
+    _this.addToCartReorder = function (e) {
+      e.preventDefault();
+      var _this$state = _this.state,
+          isCommerceApiMigrated = _this$state.isCommerceApiMigrated,
+          addToCartUrl = _this$state.addToCartUrl,
+          reorderData = _this$state.reorderData;
+      addToCart(isCommerceApiMigrated, addToCartUrl, reorderData, null, _this.setError).then(function (response) {
+        // Redirect if at least one item was successfully added to the cart
+        if (response && response.cartModifications && response.cartModifications.length) {
+          _this.addReorderAnalytics(response);
+
+          window.location.href = _this.state.viewCartUrl;
+        } else {
+          _this.toggleModal();
+
+          response && response.errors && _this.setState({
+            errorCartErrors: response.errors
+          });
+
+          _this.setError(response);
+
+          _this.setState({
+            errorServiceError: false
+          });
+        }
+      })["catch"](function (err) {
+        _this.toggleModal();
+
+        _this.setState({
+          errorServiceError: false
+        });
+      });
+    };
+
+    _this.config = document.getElementById('json-config--cmp-detail-tiles--personal') ? JSON.parse(document.getElementById('json-config--cmp-detail-tiles--personal').innerHTML) : '';
+
+    _this.renderAddress = function (addressType) {
+      var quoteDetails = _this.state.quoteDetails;
+
+      if (quoteDetails.account) {
+        var account = quoteDetails.account.filter(function (item) {
+          return item.partnerType === addressType;
+        })[0];
+
+        if (account) {
+          var includeCountryName = true;
+          var addressArray = Object(userFunctions["n" /* getOrderDetailsAddress */])(account, includeCountryName);
+          return react_default.a.createElement(react_default.a.Fragment, null, addressArray.map(function (addressLine) {
+            return react_default.a.createElement("div", {
+              className: "".concat(_this.rootStyle, "-address1"),
+              "data-locator": "order-details-address"
+            }, addressLine);
+          }));
+        }
+      }
+
+      return null;
+    };
+
+    _this.renderItemCount = function () {
+      var quoteDetails = _this.state.quoteDetails;
+      var label = "";
+
+      if (quoteDetails && quoteDetails.totalItemsOrdered) {
+        if (parseInt(quoteDetails.totalItemsOrdered) > 1) {
+          label = _this.props.config.items;
+        } else if (parseInt(quoteDetails.totalItemsOrdered) === 1) {
+          label = _this.props.config.item;
+        }
+
+        var itemCountLabel = " (" + quoteDetails.totalItemsOrdered + " " + label + ")";
+        return itemCountLabel;
+      } else {
+        return label;
+      }
+    };
+
+    _this.renderReorderButton = function () {
+      return react_default.a.createElement("a", {
+        className: "cmp-button",
+        href: "/#"
+      }, _this.props.config.reorderTitle);
+    };
+
+    _this.renderDetailsSection = function () {
+      var _this$state2 = _this.state,
+          quoteDetails = _this$state2.quoteDetails,
+          userLocale = _this$state2.userLocale;
+      var config = _this.props.config;
+      var notZeroDiscountFlag = parseFloat(quoteDetails.orderDiscountValue) !== 0 ? true : false;
+      return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("div", {
+        className: "".concat(_this.rootStyle, "__container")
+      }, react_default.a.createElement("h2", {
+        className: "".concat(_this.rootStyle, "__title"),
+        "data-locator": "product-title"
+      }, config.quoteDetails), react_default.a.createElement("div", {
+        className: "".concat(_this.rootStyle, "__order-info")
+      }, react_default.a.createElement("h3", {
+        className: "".concat(_this.rootStyle, "__order-number"),
+        "data-locator": "product-number"
+      }, config.numberLabel + ": " + quoteDetails.orderNumber), react_default.a.createElement("div", {
+        className: "".concat(_this.rootStyle, "__order-date"),
+        "data-locator": "order-date"
+      }, date_formatter["a" /* default */].dateFormatter(quoteDetails.date, userLocale)), react_default.a.createElement("div", {
+        className: "".concat(_this.rootStyle, "__address-container")
+      }, react_default.a.createElement("div", {
+        className: "".concat(_this.rootStyle, "__ship-to"),
+        "data-locator": "ship-to"
+      }, react_default.a.createElement("h4", null, config.shipTo), _this.renderAddress("shipping")), react_default.a.createElement("div", {
+        className: "".concat(_this.rootStyle, "__bill-to"),
+        "data-locator": "bill-to"
+      }, react_default.a.createElement("h4", null, config.billTo), _this.renderAddress("billing"))), react_default.a.createElement("div", {
+        className: "".concat(_this.rootStyle, "__payment-container")
+      }, react_default.a.createElement("div", {
+        className: "".concat(_this.rootStyle, "__payment-method"),
+        "data-locator": "payment-method"
+      }, react_default.a.createElement("h4", null, config.paymentMethod), quoteDetails.ccNum && react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement(react_svg["a" /* default */], {
+        src: config.paymentType.creditCard.icon
+      }), react_default.a.createElement("div", {
+        className: "text"
+      }, config.paymentType.creditCard.label)), !quoteDetails.ccNum && quoteDetails.purchaseOrderNumber && react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement(react_svg["a" /* default */], {
+        src: config.paymentType.purchaseOrder.icon
+      }), react_default.a.createElement("div", {
+        className: "text"
+      }, config.paymentType.purchaseOrder.label, ": ", quoteDetails.purchaseOrderNumber))))), react_default.a.createElement("div", {
+        className: "".concat(_this.rootStyle, "__order-summary"),
+        "data-locator": "order-summary"
+      }, react_default.a.createElement("h4", null, config.summaryTitle), react_default.a.createElement("div", {
+        className: "".concat(_this.rootStyle, "__order-subtotal")
+      }, react_default.a.createElement("div", {
+        className: "".concat(_this.rootStyle, "__order-subtotal_left"),
+        "data-locator": "order-subtotal-left"
+      }, config.subTotal, " ", _this.renderItemCount()), react_default.a.createElement("div", {
+        className: "".concat(_this.rootStyle, "__order-subtotal_right"),
+        "data-locator": "order-subtotal-right"
+      }, quoteDetails.itemsSubTotal)), notZeroDiscountFlag && react_default.a.createElement("div", {
+        className: "".concat(_this.rootStyle, "__order-savings")
+      }, react_default.a.createElement("div", {
+        className: "".concat(_this.rootStyle, "__order-savings_left"),
+        "data-locator": "order-savings-left"
+      }, config.savings), react_default.a.createElement("div", {
+        className: "".concat(_this.rootStyle, "__order-savings_right"),
+        "data-locator": "order-savings-right"
+      }, config.minusSign, quoteDetails.orderDiscount)), react_default.a.createElement("div", {
+        className: "".concat(_this.rootStyle, "__order-shipping")
+      }, react_default.a.createElement("div", {
+        className: "".concat(_this.rootStyle, "__order-shipping_left"),
+        "data-locator": "order-shipping-left"
+      }, config.shipping), react_default.a.createElement("div", {
+        className: "".concat(_this.rootStyle, "__order-shipping_right"),
+        "data-locator": "order-shipping-right"
+      }, quoteDetails.shippingAmount)), react_default.a.createElement("div", {
+        className: "".concat(_this.rootStyle, "__order-tax")
+      }, react_default.a.createElement("div", {
+        className: "".concat(_this.rootStyle, "__order-tax_left"),
+        "data-locator": "order-tax-left"
+      }, config.tax), react_default.a.createElement("div", {
+        className: "".concat(_this.rootStyle, "__order-tax_right"),
+        "data-locator": "order-tax-right"
+      }, quoteDetails.taxAmount)), react_default.a.createElement("div", {
+        className: "".concat(_this.rootStyle, "__order-total")
+      }, react_default.a.createElement("div", {
+        className: "".concat(_this.rootStyle, "__order-total_left"),
+        "data-locator": "order-total-left"
+      }, config.totalLabel), react_default.a.createElement("div", {
+        className: "".concat(_this.rootStyle, "__order-total_right"),
+        "data-locator": "order-total-right"
+      }, react_default.a.createElement("h1", null, quoteDetails.orderTotal))), _this.state.isCommerceApiMigrated && react_default.a.createElement("div", {
+        className: "".concat(_this.rootStyle, "__reorder"),
+        "data-locator": "order-details-reorder"
+      }, _this.renderReorderButton()))));
+    };
+
+    _this.renderNotFoundError = function () {
+      return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("div", {
+        className: "cmp-order-details__no-results",
+        "data-locator": "order-details-no-results"
+      }, react_default.a.createElement("p", null, _this.props.config.resultNotFoundErrorTitle)));
+    };
+
+    _this.renderOrderShipmentList = function () {
+      var _this$state3 = _this.state,
+          airbills = _this$state3.airbills,
+          quoteDetails = _this$state3.quoteDetails;
+      return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("div", {
+        className: "cmp-order-details__order-shipment-list",
+        "data-locator": "order-shipment-list"
+      }, Object.keys(airbills).length > 0 && _this.getShipmentList(airbills, quoteDetails)), _this.state.isCommerceApiMigrated && react_default.a.createElement("div", {
+        className: "order-shipment__reorder",
+        "data-locator": "order-shipment-reorder"
+      }, _this.renderReorderButton()));
+    };
+
+    _this.state = {
+      quoteId: _this.getUrlParameter("id"),
+      userLocale: get_locale["a" /* default */].getLocale(),
+      userIsocode: get_isocode["a" /* default */].getIsocode(),
+      detailsUrl: props.config.fetchDetailsEndPoint,
+      itemsUrl: props.config.fetchItemsEndPoint,
+      reorderUrl: props.config.fetchReorderUrlEndPoint,
+      quoteDetails: {},
+      reorderData: [],
+      airbills: {},
+      skusSoldCount: 0,
+      errorServiceError: false,
+      errorOrderNotFound: false,
+      isLoading: true,
+      modalShown: false,
+      modalConfig: props.config.modalInfo,
+      isCommerceApiMigrated: false,
+      addToCartUrl: '',
+      viewCartUrl: '',
+      errorCartErrors: []
+    };
+    return _this;
+  }
+
+  Object(createClass["a" /* default */])(QuoteDetails, [{
+    key: "componentDidMount",
+    value: function () {
+      var _componentDidMount = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee() {
+        var _this2 = this;
+
+        var commerceConfig, buttons, updatedModalConfig, _this$state4, detailsUrl, itemsUrl, quoteId, userIsocode;
+
+        return regenerator_default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                commerceConfig = JSON.parse(document.getElementById('commerce-configs-json').innerHTML);
+
+                if (commerceConfig) {
+                  this.setState({
+                    isCommerceApiMigrated: JSON.parse(commerceConfig.isCommerceApiMigrated.toLowerCase()),
+                    addToCartUrl: commerceConfig.addToCartUrl,
+                    viewCartUrl: commerceConfig.viewCartUrl
+                  });
+
+                  if (commerceConfig.isCommerceApiMigrated.toLowerCase() === 'true') {
+                    // Update modal config button with a callback and new cart url
+                    buttons = Object(toConsumableArray["a" /* default */])(this.state.modalConfig.buttons);
+                    buttons[0] = Object(objectSpread["a" /* default */])({}, buttons[0], {
+                      action: commerceConfig.viewCartUrl,
+                      callback: this.addToCartReorder
+                    });
+                    updatedModalConfig = Object(objectSpread["a" /* default */])({}, this.state.modalConfig, {
+                      buttons: buttons
+                    });
+                    this.setState({
+                      modalConfig: updatedModalConfig
+                    });
+                  }
+                }
+
+                _this$state4 = this.state, detailsUrl = _this$state4.detailsUrl, itemsUrl = _this$state4.itemsUrl, quoteId = _this$state4.quoteId, userIsocode = _this$state4.userIsocode;
+                getQuoteDetails(detailsUrl, quoteId, this.setError).then(function (data) {
+                  if (data && data.account && data.account.length) {
+                    // Add Country Names to data
+                    data.account.map(function (account) {
+                      var countryName = Object(userFunctions["f" /* getCountryName */])(account.country, _this2.config);
+                      account.countryName = countryName;
+                      account.state = account.region;
+                    });
+
+                    _this2.setState({
+                      isLoading: false,
+                      quoteDetails: data
+                    });
+
+                    var reorderData = data.lineItems.map(function (item) {
+                      return {
+                        code: item.materialNumber,
+                        quantity: item.orderedQuantity
+                      };
+                    });
+
+                    _this2.setState({
+                      reorderData: Object(toConsumableArray["a" /* default */])(reorderData)
+                    });
+
+                    getItemDetails(itemsUrl, data.lineItems, _this2.setError, userIsocode).then(function (itemData) {
+                      if (itemData && itemData.documents && itemData.documents.length) {
+                        var mergedAPIs = matchLineItems(data, itemData.documents);
+
+                        _this2.setState({
+                          airbills: group_by["a" /* default */].groupBy(mergedAPIs.lineItems, 'airbill')
+                        });
+                      } else {
+                        _this2.setState({
+                          airbills: group_by["a" /* default */].groupBy(data.lineItems, 'airbill')
+                        });
+                      }
+
+                      _this2.setAnalytics('load');
+                    });
+                  } else {
+                    _this2.setState({
+                      errorOrderNotFound: true,
+                      isLoading: false
+                    });
+                  }
+                });
+
+              case 4:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function componentDidMount() {
+        return _componentDidMount.apply(this, arguments);
+      }
+
+      return componentDidMount;
+    }()
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      this.props.resetErrorBoundaryToFalse();
+      this.props.removeNotifications();
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this$state5 = this.state,
+          isLoading = _this$state5.isLoading,
+          errorOrderNotFound = _this$state5.errorOrderNotFound,
+          errorServiceError = _this$state5.errorServiceError;
+      return react_default.a.createElement(react_default.a.Fragment, null, isLoading && react_default.a.createElement(utils_spinner["a" /* default */], {
+        loading: isLoading
+      }), !isLoading && errorOrderNotFound && this.renderNotFoundError(), !errorOrderNotFound && !errorServiceError && !isLoading && this.renderDetailsSection(), !errorOrderNotFound && !errorServiceError && !isLoading && this.renderOrderShipmentList(), react_default.a.createElement(modal["b" /* default */], {
+        isOpen: this.state.modalShown,
+        onClose: this.toggleModal,
+        className: "cmp-add-to-cart-modal"
+      }, react_default.a.createElement(modal["a" /* Header */], {
+        title: this.state.modalConfig.title,
+        icon: this.state.modalConfig.icon,
+        className: modal["c" /* keys */].HeaderWithAddedMarginTop
+      }), react_default.a.createElement(addToCartModal["a" /* default */], {
+        config: this.state.modalConfig,
+        errorObjCart: this.state.errorObjCart
+      })));
+    }
+  }]);
+
+  return QuoteDetails;
+}(react["Component"]);
+
+var quote_details_ErrorBoundaryQuoteDetails = function ErrorBoundaryQuoteDetails(props) {
+  return react_default.a.createElement(ErrorBoundary["a" /* default */], null, react_default.a.createElement(quote_details_QuoteDetails, props));
+};
+
+
+/* harmony default export */ var quote_details = (quote_details_ErrorBoundaryQuoteDetails);
 // CONCATENATED MODULE: ./src/my-account/index.js
+
+
 
 
 
@@ -12381,6 +11027,22 @@ var my_account_MyAccountRouter = function MyAccountRouter(props) {
     breadcrumbs: props.breadcrumbs
   }, react_default.a.createElement(order_details, {
     config: props.orderDetails
+  }))), react_default.a.createElement(Route["a" /* default */], {
+    exact: true,
+    path: routes.quoteHistory.path
+  }, react_default.a.createElement(aside, {
+    tiles: props.tiles,
+    breadcrumbs: props.breadcrumbs
+  }, react_default.a.createElement(quote_history, {
+    configs: props.quoteHistory
+  }))), react_default.a.createElement(Route["a" /* default */], {
+    exact: true,
+    path: routes.quoteDetails.path
+  }, react_default.a.createElement(aside, {
+    tiles: props.tiles,
+    breadcrumbs: props.breadcrumbs
+  }, react_default.a.createElement(quote_details, {
+    config: props.quoteDetails
   })))));
 };
 
@@ -12499,8 +11161,11 @@ country_selector_CountrySelector.defaultProps = {
 
 // CONCATENATED MODULE: ./src/create-account-form/create-account-form.js
 
+ // import Form from "../forms/form";
 
-
+var create_account_form_Form = react_default.a.lazy(function () {
+  return Promise.all(/* import() | forms */[__webpack_require__.e(1), __webpack_require__.e(2), __webpack_require__.e(0), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, 505));
+});
 
 
 var create_account_form_CreateAccountForm = function CreateAccountForm(_ref) {
@@ -12528,12 +11193,16 @@ var create_account_form_CreateAccountForm = function CreateAccountForm(_ref) {
     if (isEProcUser !== null) isEProcUser ? checkEmailResetPasswordSubmit.call(this, data) : setRegistrationFormVisibility(true);
   }
 
-  return showRegistrationForm ? react_default.a.createElement(forms_form, Object.assign({}, registrationFormConfig, {
+  return showRegistrationForm ? react_default.a.createElement(react["Suspense"], {
+    fallback: react_default.a.createElement("div", null, "Loading...")
+  }, react_default.a.createElement(create_account_form_Form, Object.assign({}, registrationFormConfig, {
     isocode: isocode
-  })) : react_default.a.createElement(forms_form, Object.assign({}, checkEmailFormConfig, {
+  }))) : react_default.a.createElement(react["Suspense"], {
+    fallback: react_default.a.createElement("div", null, "Loading...")
+  }, react_default.a.createElement(create_account_form_Form, Object.assign({}, checkEmailFormConfig, {
     submitFn: checkEmailSubmit,
     isocode: isocode
-  }));
+  })));
 };
 
 /* harmony default export */ var create_account_form = (create_account_form_CreateAccountForm);
@@ -12543,19 +11212,28 @@ var create_account_form_CreateAccountForm = function CreateAccountForm(_ref) {
 
 
 
+ // import ImageCarousel from './image-carousel';
+
+var ImageCarousel = react_default.a.lazy(function () {
+  return Promise.all(/* import() | imagegallery */[__webpack_require__.e(0), __webpack_require__.e(7)]).then(__webpack_require__.bind(null, 507));
+});
 
 
 
 
 
 
+ // import Form from './forms/form';
 
+ // import Video from './video/index';
 
+var Video = react_default.a.lazy(function () {
+  return Promise.all(/* import() | video */[__webpack_require__.e(0), __webpack_require__.e(10)]).then(__webpack_require__.bind(null, 506));
+}); // import Chat from './chat';
 
-
-
-
-
+var Chat = react_default.a.lazy(function () {
+  return __webpack_require__.e(/* import() | chat */ 3).then(__webpack_require__.bind(null, 508));
+});
 
 
 
@@ -12678,13 +11356,15 @@ var imageGalleryContainers = Array.from(document.querySelectorAll('.cmp-image-ga
 if (imageGalleryContainers) {
   imageGalleryContainers.forEach(function (container) {
     var json = JSON.parse(container.getAttribute('data-json'));
-    react_dom_default.a.render(react_default.a.createElement(image_carousel, {
+    react_dom_default.a.render(react_default.a.createElement(react["Suspense"], {
+      fallback: react_default.a.createElement("div", null, "Loading...")
+    }, react_default.a.createElement(ImageCarousel, {
       templates: json.templates,
       widths: json.widths,
       alt: json.alt,
       zoomInIcon: "/content/dam/waters/en/brand-assets/icons/zoom-in.svg",
       zoomOutIcon: "/content/dam/waters/en/brand-assets/icons/zoom-out.svg"
-    }), container);
+    })), container);
   });
 } // Start SKU Details Component
 
@@ -12796,7 +11476,9 @@ if (videoContainers) {
     if (videoContainer && videoConfig) {
       var _json = JSON.parse(videoConfig.innerHTML);
 
-      react_dom_default.a.render(react_default.a.createElement(video, {
+      react_dom_default.a.render(react_default.a.createElement(react["Suspense"], {
+        fallback: react_default.a.createElement("div", null, "Loading...")
+      }, react_default.a.createElement(Video, {
         videoConfig: _json.videoConfig,
         ref: function ref(ourComponent) {
           if (window.cmpVideos) {
@@ -12805,7 +11487,7 @@ if (videoContainers) {
             window.cmpVideos = [ourComponent];
           }
         }
-      }), videoContainer);
+      })), videoContainer);
     }
   });
 }
@@ -12883,7 +11565,12 @@ if (contactSupportFormContainer) {
   var objData = src_config.fields.find(function (x) {
     return x.type === 'dropdown' && x.name === 'formCategoryType' && Object.keys(x).includes('defaultValue');
   });
-  react_dom_default.a.render(react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement(forms_form, {
+  var src_Form = react_default.a.lazy(function () {
+    return Promise.all(/* import() | forms */[__webpack_require__.e(1), __webpack_require__.e(2), __webpack_require__.e(0), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, 505));
+  });
+  react_dom_default.a.render(react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement(react["Suspense"], {
+    fallback: react_default.a.createElement("div", null, "Loading...")
+  }, react_default.a.createElement(src_Form, {
     config: src_config,
     submitFn: contactSupportSubmit,
     callback: headerData.userDetailsUrl,
@@ -12891,7 +11578,7 @@ if (contactSupportFormContainer) {
     defaultValues: {
       formCategoryType: objData.defaultValue || ''
     }
-  }), react_default.a.createElement(legal_link_modal_LegalLinkModal, {
+  })), react_default.a.createElement(legal_link_modal_LegalLinkModal, {
     docIcon: src_config.icons.docIcon || ''
   })), contactSupportFormContainer);
 }
@@ -12901,12 +11588,18 @@ var troubleSigningInFormContainer = document.getElementById('cmp-trouble-signing
 if (troubleSigningInFormContainer) {
   var _config = JSON.parse(document.getElementById('js-trouble-signing-in-form').innerHTML);
 
+  var _Form = react_default.a.lazy(function () {
+    return Promise.all(/* import() | forms */[__webpack_require__.e(1), __webpack_require__.e(2), __webpack_require__.e(0), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, 505));
+  });
+
   react_dom_default.a.render( // replace isocode with a value supplied by AEM
-  react_default.a.createElement(forms_form, {
+  react_default.a.createElement(react["Suspense"], {
+    fallback: react_default.a.createElement("div", null, "Loading...")
+  }, react_default.a.createElement(_Form, {
     config: _config,
     submitFn: troubleSigningInSubmit,
     isocode: DigitalData["a" /* default */].language
-  }), troubleSigningInFormContainer);
+  })), troubleSigningInFormContainer);
 }
 
 var chooseAccountFormContainer = document.getElementById('cmp-choose-account-form');
@@ -12914,12 +11607,18 @@ var chooseAccountFormContainer = document.getElementById('cmp-choose-account-for
 if (chooseAccountFormContainer) {
   var _config2 = JSON.parse(document.getElementById('js-choose-account-form').innerHTML);
 
+  var _Form2 = react_default.a.lazy(function () {
+    return Promise.all(/* import() | forms */[__webpack_require__.e(1), __webpack_require__.e(2), __webpack_require__.e(0), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, 505));
+  });
+
   react_dom_default.a.render( // replace isocode with a value supplied by AEM
-  react_default.a.createElement(forms_form, {
+  react_default.a.createElement(react["Suspense"], {
+    fallback: react_default.a.createElement("div", null, "Loading...")
+  }, react_default.a.createElement(_Form2, {
     config: _config2,
     submitFn: chooseAccountSubmit,
     isocode: DigitalData["a" /* default */].language
-  }), chooseAccountFormContainer);
+  })), chooseAccountFormContainer);
 }
 
 var resetPasswordContainer = document.querySelector('.cmp-form-reset-password--attach');
@@ -12928,11 +11627,18 @@ if (resetPasswordContainer) {
   var _config3 = JSON.parse(document.getElementById('cmp-reset-password-form').innerHTML);
 
   _config3.submitEndpoint = "".concat(_config3.submitEndpoint).concat(_config3.isEproc === "true" ? '?isEproc=true' : '');
-  react_dom_default.a.render(react_default.a.createElement(forms_form, {
+
+  var _Form3 = react_default.a.lazy(function () {
+    return Promise.all(/* import() | forms */[__webpack_require__.e(1), __webpack_require__.e(2), __webpack_require__.e(0), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, 505));
+  });
+
+  react_dom_default.a.render(react_default.a.createElement(react["Suspense"], {
+    fallback: react_default.a.createElement("div", null, "Loading...")
+  }, react_default.a.createElement(_Form3, {
     config: _config3,
     submitFn: resetPasswordSubmit,
     callback: headerData.userDetailsUrl
-  }), resetPasswordContainer);
+  })), resetPasswordContainer);
 }
 
 var changePasswordContainer = document.getElementById('changePassword-details-tile');
@@ -12948,7 +11654,9 @@ var chatContainer = document.querySelector('.cmp-chat');
 if (chatContainer) {
   var _data2 = getAuthoredDataForChat(chatContainer);
 
-  react_dom_default.a.render(react_default.a.createElement(chat, {
+  react_dom_default.a.render(react_default.a.createElement(react["Suspense"], {
+    fallback: react_default.a.createElement("div", null, "Loading...")
+  }, react_default.a.createElement(Chat, {
     url: _data2.url,
     statusApi: _data2.statusApi,
     countryCode: skuDetailsConfig.countryCode,
@@ -12959,7 +11667,7 @@ if (chatContainer) {
     buttonText: _data2.buttonText,
     offlineIcon: skuDetailsConfig.skuInfo.outOfStockIcon,
     onlineIcon: skuDetailsConfig.skuInfo.inStockIcon
-  }), chatContainer);
+  })), chatContainer);
 }
 
 var shippingDetailsTile = document.getElementById('shipping-details-tile');
@@ -13017,13 +11725,19 @@ var signInFormContainer = document.getElementById("js-signin-form");
 if (signInFormContainer) {
   var _config9 = JSON.parse(document.getElementById("cmp-signin-form").innerHTML);
 
+  var _Form4 = react_default.a.lazy(function () {
+    return Promise.all(/* import() | forms */[__webpack_require__.e(1), __webpack_require__.e(2), __webpack_require__.e(0), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, 505));
+  });
+
   react_dom_default.a.render( // replace isocode with a value supplied by AEM
-  react_default.a.createElement(forms_form, {
+  react_default.a.createElement(react["Suspense"], {
+    fallback: react_default.a.createElement("div", null, "Loading...")
+  }, react_default.a.createElement(_Form4, {
     config: _config9,
     submitFn: signInSubmit,
     isocode: DigitalData["a" /* default */].language,
     callback: headerData.userDetailsUrl
-  }), signInFormContainer);
+  })), signInFormContainer);
 } // User Greeting Component
 
 
@@ -13093,32 +11807,12 @@ if (contactusContainer) {
   }), contactusContainer);
 }
 // EXTERNAL MODULE: ./node_modules/css-vars-ponyfill/dist/css-vars-ponyfill.esm.js
-var css_vars_ponyfill_esm = __webpack_require__(125);
+var css_vars_ponyfill_esm = __webpack_require__(120);
 
 // EXTERNAL MODULE: ./src/scripts/inlineSVG.js
 var inlineSVG = __webpack_require__(53);
 
 // CONCATENATED MODULE: ./src/entry.js
- // import './scripts/stickyService';
-// import './scripts/backtotop';
-// import './scripts/anchor';
-// import './scripts/sticky-sort-filter';
-// import './scripts/sticky-sku-details';
-// import './scripts/sticky-sku-scroll';
-// import './scripts/mobile-search-scroll';
-// import './scripts/navigation-overlay';
-// import './scripts/navigation';
-// import './scripts/navigation-level2';
-// import './scripts/iframe';
-// import './scripts/backtosearch';
-// import './scripts/footer';
-// import './scripts/banner';
-// import './scripts/breadcrumb';
-// import './scripts/header';
-// import './scripts/collapsible';
-// import './scripts/skulist';
-// import './scripts/continueButton';
-// import './scripts/textModifier';
 
 
 
@@ -13172,385 +11866,7 @@ window.addEventListener('resize', addEllipses);
 
 /***/ }),
 
-/***/ 17:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, "a", function() { return /* binding */ analyticTypes; });
-__webpack_require__.d(__webpack_exports__, "f", function() { return /* binding */ setClickAnalytics; });
-__webpack_require__.d(__webpack_exports__, "g", function() { return /* binding */ setSelectDropdownAnalytics; });
-__webpack_require__.d(__webpack_exports__, "c", function() { return /* binding */ mainCartContext; });
-__webpack_require__.d(__webpack_exports__, "e", function() { return /* binding */ searchCartContext; });
-__webpack_require__.d(__webpack_exports__, "d", function() { return /* binding */ relatedCartContext; });
-__webpack_require__.d(__webpack_exports__, "h", function() { return /* binding */ shopAllCartContext; });
-
-// EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray.js + 3 modules
-var slicedToArray = __webpack_require__(10);
-
-// EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js
-var classCallCheck = __webpack_require__(4);
-
-// EXTERNAL MODULE: ./src/scripts/inlineSVG.js
-var inlineSVG = __webpack_require__(53);
-
-// EXTERNAL MODULE: ./src/scripts/DigitalData.js
-var DigitalData = __webpack_require__(22);
-
-// EXTERNAL MODULE: ./src/stores/sessionStore.js
-var sessionStore = __webpack_require__(14);
-
-// EXTERNAL MODULE: ./src/stores/cookieStore.js
-var cookieStore = __webpack_require__(48);
-
-// CONCATENATED MODULE: ./src/analytics/eventTypes.js
-var eventTypes = {
-  cart: {
-    name: 'cart',
-    event: 'scAddAEM',
-    context: ['Part Detail Page', 'Search: Global', 'Related Products', 'Shop All Products: Quick Add']
-  },
-  reOrder: {
-    name: 'reOrder',
-    event: 'scAddReorder',
-    context: 'Order History: Reorder'
-  },
-  stock: {
-    name: 'stock',
-    event: 'checkAvailability'
-  },
-  search: {
-    name: 'search',
-    event: 'search'
-  },
-  form: {
-    name: 'form',
-    registration: {
-      name: 'registrationForm',
-      load: {
-        event: 'registrationFormLoad'
-      },
-      submit: {
-        event: 'registrationFormSubmit'
-      },
-      error: {
-        event: 'registrationFormError'
-      }
-    },
-    checkEmail: {
-      name: 'checkEmailForm',
-      load: {
-        event: 'checkEmailFormLoad'
-      },
-      submit: {
-        event: 'checkEmailFormSubmit'
-      },
-      error: {
-        event: 'checkEmailFormError'
-      }
-    },
-    signin: {
-      name: 'signInForm',
-      load: {
-        event: 'signInFormLoad'
-      },
-      submit: {
-        event: 'signInFormSubmit'
-      },
-      error: {
-        event: 'signInFormError'
-      }
-    },
-    troublesigningin: {
-      name: 'troubleSignInForm',
-      load: {
-        event: 'troubleSignInFormLoad'
-      },
-      submit: {
-        event: 'troubleSignInFormSubmit'
-      },
-      error: {
-        event: 'troubleSignInFormError'
-      }
-    },
-    resetpassword: {
-      name: 'resetPasswordForm',
-      load: {
-        event: 'resetPasswordFormLoad'
-      },
-      submit: {
-        event: 'resetPasswordFormSubmit'
-      },
-      error: {
-        event: 'resetPasswordFormError'
-      }
-    },
-    updatepassword: {
-      name: 'updatePasswordForm',
-      load: {
-        event: 'legacyPasswordFormLoad'
-      },
-      submit: {
-        event: 'legacyPasswordFormSubmit'
-      },
-      error: {
-        event: 'legacyPasswordFormError'
-      }
-    },
-    changepassword: {
-      name: 'changePasswordForm',
-      load: {
-        event: 'changePasswordFormLoad'
-      },
-      submit: {
-        event: 'changePasswordFormSubmit'
-      },
-      error: {
-        event: 'changePasswordFormError'
-      }
-    },
-    personaldetails: {
-      name: 'personalDetailsForm',
-      load: {
-        event: 'personalDetailsFormLoad'
-      },
-      submit: {
-        event: 'personalDetailsFormSubmit'
-      },
-      error: {
-        event: 'personalDetailsFormError'
-      }
-    },
-    contactsupport: {
-      name: 'contactSupportForm',
-      load: {
-        event: 'contactSupportFormLoad'
-      },
-      submit: {
-        event: 'contactSupportFormSubmit'
-      },
-      error: {
-        event: 'contactSupportFormError'
-      }
-    }
-  },
-  linkClick: {
-    name: 'linkClick',
-    event: 'linkClick'
-  },
-  selectDropDown: {
-    name: 'selectDropDown',
-    event: 'selectDropDown'
-  },
-  orderHistory: {
-    name: 'orderHistory',
-    load: {
-      event: 'orderHistoryPageLoad'
-    },
-    error: {
-      event: 'orderHistoryError'
-    }
-  },
-  orderDetails: {
-    name: 'orderDetails',
-    load: {
-      event: 'orderDetailsPageLoad'
-    },
-    error: {
-      event: 'orderDetailsPageError'
-    }
-  }
-};
-/* harmony default export */ var analytics_eventTypes = (eventTypes);
-// CONCATENATED MODULE: ./src/analytics/index.js
-
-
-
-
-
-
-
-
-var analytics_Analytics = function Analytics() {
-  var _this = this;
-
-  Object(classCallCheck["a" /* default */])(this, Analytics);
-
-  this.setAnalytics = function (eventType, model) {
-    var thisAnalyticEvent = null;
-
-    if (eventType === 'form') {
-      if (model.formName === 'resetpassword' && model.formType && model.formType === 'update') {
-        model.formName = 'updatepassword';
-      }
-
-      if (model.formName !== 'chooseAccount') {
-        thisAnalyticEvent = _this.analyticTypes[eventType][model.formName][model.event];
-      }
-    } else if (eventType === 'orderHistory' || eventType === 'orderDetails') {
-      thisAnalyticEvent = _this.analyticTypes[eventType][model.event];
-    } else {
-      thisAnalyticEvent = _this.analyticTypes[eventType];
-    }
-
-    if (thisAnalyticEvent) {
-      var newModel = _this.buildModel(eventType, model);
-
-      if (newModel) {
-        _this.dispatchEvent(thisAnalyticEvent.event, newModel);
-      }
-    }
-  };
-
-  this.setClickAnalytics = function (menuLocation, linkName, href) {
-    var model = {
-      detail: {
-        url: href,
-        menuLocation: menuLocation,
-        key: 'LinkName',
-        value: linkName
-      }
-    };
-
-    _this.setAnalytics(_this.analyticTypes['linkClick'].name, model);
-  };
-
-  this.setSelectDropdownAnalytics = function (key, value) {
-    var model = {
-      detail: {
-        key: key,
-        value: value
-      }
-    };
-
-    _this.setAnalytics(_this.analyticTypes['selectDropDown'].name, model);
-  };
-
-  this.buildModel = function (name, model) {
-    var returnModel = null;
-
-    switch (name) {
-      case "stock":
-      case "cart":
-        returnModel = _this.mapCartAndStockModel(model);
-        break;
-
-      case "search":
-        returnModel = _this.mapSearchModel(model);
-        break;
-
-      case "form":
-        returnModel = _this.mapFormModel(model);
-        break;
-
-      default:
-        returnModel = model;
-        break;
-    }
-
-    return returnModel;
-  };
-
-  this.getUserData = function (model) {
-    var userLoggedIn = cookieStore["a" /* default */].getLoggedInStatus();
-    var store = new sessionStore["a" /* default */]();
-    var userDetails = store.getUserDetails();
-    model.page = DigitalData["a" /* default */].page ? DigitalData["a" /* default */].page : {};
-    model.detail.userLoggedIn = cookieStore["a" /* default */].getLoggedInStatus() ? "yes" : "no";
-
-    if (userDetails) {
-      model.detail.userID = userDetails.userId;
-    }
-
-    return model;
-  };
-
-  this.mapFormModel = function (model) {
-    model.event = _this.analyticTypes['form'][model.formName][model.event]['event'];
-    model.formName = _this.analyticTypes['form'][model.formName]['name'];
-    return model;
-  };
-
-  this.mapCartAndStockModel = function (model) {
-    return {
-      detail: {
-        products: [model]
-      }
-    };
-  };
-
-  this.mapSearchModel = function (model) {
-    if (!model) {
-      return {};
-    }
-
-    var category = model.category ? model.category : '';
-    var contentType = model.content_type ? model.content_type : '';
-    var facetsObj = model.facets ? model.facets : {};
-    var facets = Object.entries(facetsObj).map(function (item) {
-      return {
-        name: item[0],
-        values: item[1]
-      };
-    });
-    return {
-      detail: {
-        search: {
-          category: category,
-          contentType: contentType,
-          facets: facets,
-          totalResults: model.total
-        }
-      }
-    };
-  };
-
-  this.dispatchEvent = function (eventName, model) {
-    model = _this.getUserData(model); // Uncomment next two lines to test analytics
-    // console.log(eventName, model);
-    // alert(eventName);
-
-    document.dispatchEvent(new CustomEvent(eventName, model));
-  };
-
-  this.siteLoad = function () {
-    document.addEventListener('at-library-loaded', function (event) {
-      if (typeof adobe != 'undefined') {
-        document.addEventListener(adobe.target.event.CONTENT_RENDERING_SUCCEEDED, function (event) {
-          inlineSVG["a" /* default */].init('img.inline-svg', 'svg-inlined');
-        });
-      }
-    });
-  };
-
-  this.analyticTypes = analytics_eventTypes;
-};
-
-var analytics = new analytics_Analytics();
-/* harmony default export */ var src_analytics = __webpack_exports__["b"] = (analytics);
-var analyticTypes = analytics.analyticTypes;
-var setClickAnalytics = analytics.setClickAnalytics;
-var setSelectDropdownAnalytics = analytics.setSelectDropdownAnalytics;
-
-var _analytics$analyticTy = Object(slicedToArray["a" /* default */])(analytics.analyticTypes.cart.context, 4),
-    mainCartContext = _analytics$analyticTy[0],
-    searchCartContext = _analytics$analyticTy[1],
-    relatedCartContext = _analytics$analyticTy[2],
-    shopAllCartContext = _analytics$analyticTy[3];
-
-
-
-/***/ }),
-
-/***/ 187:
-/***/ (function(module, exports) {
-
-/* (ignored) */
-
-/***/ }),
-
-/***/ 21:
+/***/ 18:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -13560,11 +11876,11 @@ var _analytics$analyticTy = Object(slicedToArray["a" /* default */])(analytics.a
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return searchMapper; });
 /* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
 /* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
+/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6);
 /* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4);
 /* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(5);
-/* harmony import */ var whatwg_fetch__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(34);
-/* harmony import */ var _stores_sessionStore__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(14);
+/* harmony import */ var whatwg_fetch__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(35);
+/* harmony import */ var _stores_sessionStore__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(13);
 
 
 
@@ -13572,7 +11888,7 @@ var _analytics$analyticTy = Object(slicedToArray["a" /* default */])(analytics.a
 
 
 
-var queryString = __webpack_require__(27);
+var queryString = __webpack_require__(28);
 
 var parameterValues = {
   undefined: 'undefined',
@@ -14069,17 +12385,25 @@ var searchMapper = {
 
 /***/ }),
 
-/***/ 33:
+/***/ 19:
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+module.exports = {"colorBorderDark":"#9ca7b0","colorGray50":"#4f5b64","colorBackgroundLight":"#f4f6f7","colorWhite":"#fff","colorBlue50":"#07b","borderRadius":"4px","spaceXXXS":".25em","spaceXXS":".5em","spaceXS":".75em","spaceS":"1em"};
+
+/***/ }),
+
+/***/ 31:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(10);
+/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(10);
+/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(14);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(0);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _scripts_ErrorMessages__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(59);
-/* harmony import */ var _utils_modal__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(18);
-/* harmony import */ var _utils_eCommerceFunctions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(11);
+/* harmony import */ var _scripts_ErrorMessages__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(57);
+/* harmony import */ var _utils_modal__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(17);
+/* harmony import */ var _utils_eCommerceFunctions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(16);
 
 
 
@@ -14204,315 +12528,126 @@ AddToCartModalBody.whyDidYouRender = true;
 
 /***/ }),
 
-/***/ 396:
+/***/ 36:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
+/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(5);
+/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(7);
+/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(8);
+/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(9);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(0);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_5__);
+
+
+
+
+
+
+
+var ErrorBoundary = /*#__PURE__*/function (_React$Component) {
+  Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])(ErrorBoundary, _React$Component);
+
+  function ErrorBoundary(props) {
+    var _this;
+
+    Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(this, ErrorBoundary);
+
+    _this = Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(this, Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(ErrorBoundary).call(this, props));
+    _this.state = {
+      hasError: false,
+      hasErrored: false
+    };
+    return _this;
+  }
+
+  Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(ErrorBoundary, [{
+    key: "resetErrorBoundaryToFalse",
+    value: function resetErrorBoundaryToFalse() {
+      this.setState({
+        hasError: false
+      });
+    }
+  }, {
+    key: "removeNotifications",
+    value: function removeNotifications() {
+      this.setState({
+        hasError: false,
+        hasErrored: false
+      });
+      var notifications = document.querySelectorAll('.cmp-notification--dynamic[class*=cmp-notification--]');
+      Array.from(notifications).forEach(function (notification) {
+        if (notification) {
+          notification.classList.remove('error');
+        }
+      });
+    }
+  }, {
+    key: "setErrorBoundaryToTrue",
+    value: function setErrorBoundaryToTrue(response) {
+      var status = response.hasOwnProperty('code') ? response.code : "";
+      var notification = document.querySelector('.cmp-notification--dynamic.cmp-notification--error' + status);
+
+      if (notification) {
+        notification.classList.add('error');
+      }
+
+      this.setState({
+        hasError: true,
+        hasErrored: true
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_5___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_5___default.a.cloneElement(this.props.children, {
+        hasError: this.state.hasError,
+        hasErrored: this.state.hasErrored,
+        resetErrorBoundaryToFalse: this.resetErrorBoundaryToFalse.bind(this),
+        setErrorBoundaryToTrue: this.setErrorBoundaryToTrue.bind(this),
+        removeNotifications: this.removeNotifications.bind(this)
+      }));
+    }
+  }]);
+
+  return ErrorBoundary;
+}(react__WEBPACK_IMPORTED_MODULE_5___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["a"] = (ErrorBoundary);
+
+/***/ }),
+
+/***/ 378:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _styles_print_page_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(397);
+/* harmony import */ var _styles_print_page_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(379);
 /* harmony import */ var _styles_print_page_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_styles_print_page_scss__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _entry__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(154);
+/* harmony import */ var _entry__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(146);
 // Print Breaking CSS File
 
 
 
 /***/ }),
 
-/***/ 397:
+/***/ 379:
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
 
 /***/ }),
 
-/***/ 41:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, "a", function() { return /* binding */ functions; });
-
-// EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js
-var classCallCheck = __webpack_require__(4);
-
-// EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass.js
-var createClass = __webpack_require__(5);
-
-// EXTERNAL MODULE: ./node_modules/whatwg-fetch/fetch.js
-var fetch = __webpack_require__(34);
-
-// CONCATENATED MODULE: ./src/forms/services/EmailService.js
-
-
-
-var _Promise = typeof Promise === 'undefined' ? __webpack_require__(86).Promise : Promise;
-
-
-
-var EmailService_EmailService = /*#__PURE__*/function () {
-  function EmailService() {
-    var url = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "https://stgservices.waters.com/api/waters/user/v1/validate/{email}";
-
-    Object(classCallCheck["a" /* default */])(this, EmailService);
-
-    this.url = url;
-  }
-
-  Object(createClass["a" /* default */])(EmailService, [{
-    key: "checkEmail",
-    value: function checkEmail(email) {
-      return this.getData(this.createEmailRequest(email));
-    }
-  }, {
-    key: "createEmailRequest",
-    value: function createEmailRequest(email) {
-      var url = this.url.replace("{email}", encodeURI(email).replace(/#/g, '%23'));
-      return url;
-    }
-  }, {
-    key: "checkFetch",
-    value: function checkFetch(response) {
-      if (!response.ok) {
-        throw response;
-      }
-
-      return response;
-    }
-  }, {
-    key: "getData",
-    value: function getData(url) {
-      var _this = this;
-
-      // Should be logic for all get requests we have to send
-      return new _Promise(function (resolve, reject) {
-        window.fetch(url).then(_this.checkFetch).then(function (response) {
-          resolve(response.json());
-        })["catch"](function (err) {
-          console.log("err - ", err);
-          reject(err);
-        });
-      });
-    }
-  }]);
-
-  return EmailService;
-}();
-
-/* harmony default export */ var services_EmailService = (EmailService_EmailService);
-// CONCATENATED MODULE: ./src/forms/fields/patterns/index.js
-
-
-var test = function test(value, regex) {
-  return regex.test(value);
-};
-
-var removeError = function removeError() {
-  for (var _len = arguments.length, refs = new Array(_len), _key = 0; _key < _len; _key++) {
-    refs[_key] = arguments[_key];
-  }
-
-  refs.forEach(function (ref) {
-    if (ref) {
-      ref.classList.remove("error");
-      ref.value && ref.classList.add("valid");
-    }
-  });
-  return true;
-};
-
-var functions = {
-  noValidation: function noValidation() {
-    return true;
-  },
-  matching: function matching(value, matchRef, ref) {
-    return value === matchRef.value ? removeError(ref) : false;
-  },
-  noWhitespaceOrSpecialChars: function noWhitespaceOrSpecialChars(value, ref) {
-    if (value.length) {
-      if (test(value, /^.*(?=^[^\\\/~`!@#$%^|&*_+=:;"<>?\(\)\]\[\{\}\n\r]+$)(?=^.*[^\s]+).*$/g)) {
-        return removeError(ref);
-      }
-
-      return false;
-    } else {
-      return removeError(ref);
-    }
-  },
-  noWhitespaceOnly: function noWhitespaceOnly(value, ref) {
-    if (value) {
-      if (test(value, /^.*[^\s]+.*$/)) {
-        return removeError(ref);
-      }
-
-      return false;
-    } else {
-      return removeError(ref);
-    }
-  },
-  noWhitespace: function noWhitespace(value, ref) {
-    if (value) {
-      if (!test(value, /^.*\s+.*$/)) {
-        return removeError(ref);
-      }
-
-      return false;
-    } else {
-      return removeError(ref);
-    }
-  },
-  blankOrNumbersOnly: function blankOrNumbersOnly(value, ref) {
-    if (value) {
-      if (test(value, /(^[0-9]+$|^$)/)) {
-        return removeError(ref);
-      }
-
-      return false;
-    } else {
-      return removeError(ref);
-    }
-  },
-  password: function password(value, ref, setError, clearError) {
-    var throwErrors = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : true;
-    var validations = 0;
-    var newErrors = []; // Check length (required)
-
-    if (value.length < 8) {
-      newErrors.push({
-        name: "shortPassword",
-        type: "invalidLength",
-        msg: "Password",
-        ref: ref
-      });
-    } else {
-      validations++;
-      if (throwErrors) clearError("shortPassword");
-    } // Check for lowercase
-
-
-    if (!test(value, /^.*[a-z]+.*$/)) {
-      newErrors.push({
-        name: "noLowercase",
-        type: "missingLowercase",
-        msg: "Password",
-        ref: ref
-      });
-    } else {
-      validations++;
-      if (throwErrors) clearError("noLowercase");
-    } // Check for uppercase
-
-
-    if (!test(value, /^.*[A-Z]+.*$/)) {
-      newErrors.push({
-        name: "noUppercase",
-        type: "missingUppercase",
-        msg: "Password",
-        ref: ref
-      });
-    } else {
-      validations++;
-      if (throwErrors) clearError("noUppercase");
-    } // Check for digit
-
-
-    if (!test(value, /^.*[0-9]+.*$/)) {
-      newErrors.push({
-        name: "noDigits",
-        type: "missingDigits",
-        msg: "Password",
-        ref: ref
-      });
-    } else {
-      validations++;
-      if (throwErrors) clearError("noDigits");
-    } // Check for special character
-
-
-    if (!test(value, /^.*[^a-zA-Z0-9]+.*$/)) {
-      newErrors.push({
-        name: "noSpecial",
-        type: "missingSpecial",
-        msg: "Password",
-        ref: ref
-      });
-    } else {
-      validations++;
-      if (throwErrors) clearError("noSpecial");
-    }
-
-    if (throwErrors) {
-      newErrors.forEach(function (error) {
-        setError(error.name, error.type, error.msg, error.ref);
-      });
-    } else {
-      return newErrors.length ? newErrors.reduce(function (map, error) {
-        map[error.name] = true;
-        return map;
-      }, {}) : {};
-    }
-
-    if (validations >= 5 && value.length >= 8) {
-      return removeError(ref);
-    } else {
-      return false;
-    }
-  },
-  email: function email(value, ref, invalidMsg, setError, clearError) {
-    if (test(value, /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
-      clearError("invalidEmail");
-      return true;
-    } else {
-      setError("invalidEmail", "invalidEmail", invalidMsg, ref);
-      return false;
-    }
-  },
-  newEmail: function newEmail(value, emailValidationEndpoint, ref, invalidMsg, setError, clearError) {
-    // Only Run if invalidMsg is supplied
-    if (invalidMsg) {
-      if (test(value, /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
-        var myService = new services_EmailService(emailValidationEndpoint);
-        var newEmail = myService.checkEmail(value).then(function (response) {
-          var isRegisteredUser = response.isregistereduser,
-              isAccountPartial = response.isAccountPartial;
-          window.dispatchEvent(new CustomEvent("setEProcUser", {
-            detail: {
-              isEProcUser: isAccountPartial
-            }
-          }));
-
-          if (isRegisteredUser) {
-            // Display Sign In span
-            setError("alreadyRegistered", "alreadyRegistered", invalidMsg, ref);
-            return false;
-          }
-
-          clearError("alreadyRegistered");
-          return removeError(ref);
-        })["catch"](function (err) {
-          setError("alreadyRegistered", "alreadyRegistered", err, ref);
-          return false;
-        });
-        return newEmail;
-      } else {
-        clearError("alreadyRegistered");
-        return true;
-      }
-    }
-  }
-};
-
-/***/ }),
-
-/***/ 47:
+/***/ 45:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
 /* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
-/* harmony import */ var whatwg_fetch__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(34);
-/* harmony import */ var _utils_redirectFunctions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(25);
+/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6);
+/* harmony import */ var whatwg_fetch__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(35);
+/* harmony import */ var _utils_redirectFunctions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(26);
 
 
 
@@ -14616,7 +12751,104 @@ var UserDetails = /*#__PURE__*/function () {
 
 /***/ }),
 
-/***/ 56:
+/***/ 60:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
+/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6);
+/* harmony import */ var _scripts_loginStatus__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(15);
+/* harmony import */ var _stores_sessionStore__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(13);
+/* harmony import */ var _services_UserDetails__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(45);
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = (/*#__PURE__*/(function () {
+  var _ref = Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(userDetailsUrl, checkSessionStore) {
+    var sessionStore,
+        service,
+        navBarControls,
+        userDetails,
+        response,
+        _args = arguments;
+    return C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            sessionStore = _args.length > 2 && _args[2] !== undefined ? _args[2] : new _stores_sessionStore__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"]();
+            service = _args.length > 3 && _args[3] !== undefined ? _args[3] : _services_UserDetails__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"];
+            // Don't get User Details if My-Account Drop Down is not present
+            navBarControls = document.getElementsByClassName("cmp-header__top-bar__nav");
+
+            if (!(navBarControls.length === 0)) {
+              _context.next = 6;
+              break;
+            }
+
+            console.info("UserDetails API cannot be initiated due to nav bar controls");
+            return _context.abrupt("return", {});
+
+          case 6:
+            if (_scripts_loginStatus__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"].state()) {
+              _context.next = 9;
+              break;
+            }
+
+            console.info("UserDetails API cannot be initiated due to unavailability of login cookie");
+            return _context.abrupt("return", {});
+
+          case 9:
+            if (!checkSessionStore) {
+              _context.next = 13;
+              break;
+            }
+
+            userDetails = sessionStore.getUserDetails();
+
+            if (!(userDetails && Object.keys(userDetails).length !== 0)) {
+              _context.next = 13;
+              break;
+            }
+
+            return _context.abrupt("return", userDetails);
+
+          case 13:
+            _context.next = 15;
+            return service(userDetailsUrl);
+
+          case 15:
+            response = _context.sent;
+
+            if (response.failed) {
+              _context.next = 19;
+              break;
+            }
+
+            sessionStore.setUserDetails(response);
+            return _context.abrupt("return", response);
+
+          case 19:
+            return _context.abrupt("return", {});
+
+          case 20:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function (_x, _x2) {
+    return _ref.apply(this, arguments);
+  };
+})());
+
+/***/ }),
+
+/***/ 68:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -14626,16 +12858,16 @@ var regenerator = __webpack_require__(2);
 var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
-var asyncToGenerator = __webpack_require__(12);
+var asyncToGenerator = __webpack_require__(6);
 
 // EXTERNAL MODULE: ./src/scripts/loginStatus.js
-var loginStatus = __webpack_require__(16);
+var loginStatus = __webpack_require__(15);
 
 // EXTERNAL MODULE: ./src/stores/sessionStore.js
-var stores_sessionStore = __webpack_require__(14);
+var stores_sessionStore = __webpack_require__(13);
 
 // EXTERNAL MODULE: ./node_modules/whatwg-fetch/fetch.js
-var whatwg_fetch_fetch = __webpack_require__(34);
+var whatwg_fetch_fetch = __webpack_require__(35);
 
 // CONCATENATED MODULE: ./src/my-account/services/SoldToDetails.js
 
@@ -14741,10 +12973,10 @@ var SoldToDetails = /*#__PURE__*/function () {
 
 /* harmony default export */ var services_SoldToDetails = (SoldToDetails);
 // EXTERNAL MODULE: ./src/scripts/domElements.js
-var domElements = __webpack_require__(26);
+var domElements = __webpack_require__(25);
 
 // EXTERNAL MODULE: ./src/utils/eCommerceFunctions.js
-var eCommerceFunctions = __webpack_require__(11);
+var eCommerceFunctions = __webpack_require__(16);
 
 // CONCATENATED MODULE: ./src/my-account/services/SoldToDetailsLazy.js
 
@@ -14761,6 +12993,7 @@ var eCommerceFunctions = __webpack_require__(11);
         currentPage,
         soldToUrl,
         soldToDetails,
+        hasDefaultSoldTo,
         response,
         hideCartClass,
         headerNavigation_cartLI,
@@ -14782,24 +13015,38 @@ var eCommerceFunctions = __webpack_require__(11);
             return _context.abrupt("return", []);
 
           case 6:
-            soldToDetails = sessionStore.getSoldToDetails();
+            soldToDetails = sessionStore.getSoldToDetails(); //START Patches for EComm
 
-            if (!soldToDetails) {
-              _context.next = 9;
+            if (!(soldToDetails && soldToDetails.length !== 0)) {
+              _context.next = 12;
+              break;
+            }
+
+            hasDefaultSoldTo = false;
+            soldToDetails.map(function (soldTo) {
+              if ((soldTo.soldToFlag && soldTo.soldToFlag === 1 || soldTo.default_soldTo && soldTo.default_soldTo === 1) && soldTo.soldToInfo && soldTo.soldToInfo.length !== 0 && soldTo.billToInfo && soldTo.shipToInfo) {
+                hasDefaultSoldTo = true;
+                soldTo.soldToFlag = 1;
+                soldTo.default_soldTo = 1;
+              }
+            });
+
+            if (!hasDefaultSoldTo) {
+              _context.next = 12;
               break;
             }
 
             return _context.abrupt("return", soldToDetails);
 
-          case 9:
-            _context.next = 11;
+          case 12:
+            _context.next = 14;
             return service(soldToUrl);
 
-          case 11:
+          case 14:
             response = _context.sent;
 
             if (response.failed) {
-              _context.next = 18;
+              _context.next = 21;
               break;
             }
 
@@ -14818,10 +13065,10 @@ var eCommerceFunctions = __webpack_require__(11);
 
             return _context.abrupt("return", response);
 
-          case 18:
+          case 21:
             return _context.abrupt("return", []);
 
-          case 19:
+          case 22:
           case "end":
             return _context.stop();
         }
@@ -14836,104 +13083,7 @@ var eCommerceFunctions = __webpack_require__(11);
 
 /***/ }),
 
-/***/ 61:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
-/* harmony import */ var _scripts_loginStatus__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(16);
-/* harmony import */ var _stores_sessionStore__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(14);
-/* harmony import */ var _services_UserDetails__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(47);
-
-
-
-
-
-/* harmony default export */ __webpack_exports__["a"] = (/*#__PURE__*/(function () {
-  var _ref = Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(userDetailsUrl, checkSessionStore) {
-    var sessionStore,
-        service,
-        navBarControls,
-        userDetails,
-        response,
-        _args = arguments;
-    return C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            sessionStore = _args.length > 2 && _args[2] !== undefined ? _args[2] : new _stores_sessionStore__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"]();
-            service = _args.length > 3 && _args[3] !== undefined ? _args[3] : _services_UserDetails__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"];
-            // Don't get User Details if My-Account Drop Down is not present
-            navBarControls = document.getElementsByClassName("cmp-header__top-bar__nav");
-
-            if (!(navBarControls.length === 0)) {
-              _context.next = 6;
-              break;
-            }
-
-            console.info("UserDetails API cannot be initiated due to nav bar controls");
-            return _context.abrupt("return", {});
-
-          case 6:
-            if (_scripts_loginStatus__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"].state()) {
-              _context.next = 9;
-              break;
-            }
-
-            console.info("UserDetails API cannot be initiated due to unavailibility of login cookie");
-            return _context.abrupt("return", {});
-
-          case 9:
-            if (!checkSessionStore) {
-              _context.next = 13;
-              break;
-            }
-
-            userDetails = sessionStore.getUserDetails();
-
-            if (!(userDetails && Object.keys(userDetails).length !== 0)) {
-              _context.next = 13;
-              break;
-            }
-
-            return _context.abrupt("return", userDetails);
-
-          case 13:
-            _context.next = 15;
-            return service(userDetailsUrl);
-
-          case 15:
-            response = _context.sent;
-
-            if (response.failed) {
-              _context.next = 19;
-              break;
-            }
-
-            sessionStore.setUserDetails(response);
-            return _context.abrupt("return", response);
-
-          case 19:
-            return _context.abrupt("return", {});
-
-          case 20:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  }));
-
-  return function (_x, _x2) {
-    return _ref.apply(this, arguments);
-  };
-})());
-
-/***/ }),
-
-/***/ 97:
+/***/ 95:
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
