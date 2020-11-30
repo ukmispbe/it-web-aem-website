@@ -115,6 +115,32 @@
                     }
                 },
                 {
+                    "type": "file",
+                    "name": "attachment",
+                    "label": "${'Attach File' @ i18n, context='text'}",
+                    "optionalLabel": "${'(optional)' @ i18n, context='text'}",
+                    "active": true,
+                    "chooseAFileToUpload": "${'Files can be a maximum of 5MB. Acceptable file types include .pdf, .jpg, .png' @ i18n, context='text'}",
+                    "removeTextLabel": "${'Remove' @ i18n, context='text'}",
+                    "accept": ".pdf, .jpg, .png",
+                    "attachmentFileSize": "5MB",
+                    "attachmentFileSizeErrorMsg": "${'File size is over 5MB. Please try again.' @ i18n, context='text'}",
+                    "maxAttachmentFileNameSize": 32,
+                    "attachmentFileNameLengthErrorMsg": "${'File name is too long. Please try again.' @ i18n, context='text'}",
+                    "attachmentFileValidMsg": "${'File format verified' @ i18n, context='text'}",
+                    "attachmentFileInvalidValidMsg": "${'File type not accepted. Please try again.' @ i18n, context='text'}",
+                    "validation": {
+                        "required": false,
+                        "validateFnName": "fileValidation"
+                    },
+                    "icons": {
+                        "upload": "/content/dam/waters/en/brand-assets/icons/upload.svg",
+                        "preview": "/content/dam/waters/en/brand-assets/icons/document.svg",
+                        "valid": "/content/dam/waters/en/brand-assets/icons/success.svg",
+                        "invalid": "/content/dam/waters/en/brand-assets/icons/x.svg"
+                    }
+                }, 
+                {
                     "type": "captcha",
                     "name": "captcha",
                     "siteKey": "${contactSupport.captchaSiteKey @ context='unsafe'}",

@@ -1,4 +1,5 @@
 import EmailService from "../../services/EmailService";
+import { validateUploadFile } from '../utils/common';
 
 const test = (value, regex) => regex.test(value);
 
@@ -12,6 +13,34 @@ const removeError = (...refs) => {
 
     return true;
 };
+
+const getFileValidation = (fileObj, validation) => {
+    let status = false;
+    let errorMsg = '';
+    const {
+        fileTypePattern,
+        attachmentFileSize,
+        maxAttachmentFileNameSize,
+        attachmentFileInvalidValidMsg,
+        attachmentFileSizeErrorMsg,
+        attachmentFileNameLengthErrorMsg
+    } = validation;
+    const labels = { attachmentFileSizeErrorMsg, attachmentFileNameLengthErrorMsg };
+    const config = { maxAttachmentFileNameSize, attachmentFileSize };
+
+    if (fileObj) {
+        const fileValidation = validateUploadFile(fileObj, labels, config);
+        const fileType = new RegExp(fileTypePattern, 'i');
+        if (!fileType.test(fileObj.name)) {
+            status = true;
+            errorMsg = attachmentFileInvalidValidMsg;
+        } else if (fileValidation.status) {
+            status = true;
+            errorMsg = fileValidation.error;
+        }
+    }
+    return { status, errorMsg };
+}
 
 export const functions = {
     noValidation: () => true,
@@ -211,5 +240,22 @@ export const functions = {
                 return true;
             }
         }
+    },
+    fileValidation: (value, ref, validation, setError, clearError) => {
+        if (ref) {
+            if (value && value.length === 1) {
+                const { status, errorMsg } = getFileValidation(value[0], validation);
+                if (status) {
+                    setError(ref.name, ref.name, errorMsg, ref);
+                    return false;
+                }
+                clearError(ref.name);
+                return true;
+            } else {
+                clearError(ref.name);
+                return true;
+            }
+        }
+        return true;
     }
 };

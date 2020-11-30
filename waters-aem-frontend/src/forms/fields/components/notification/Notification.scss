@@ -1,0 +1,153 @@
+@import '../../../../styles/variables.scss';
+@import '../../../../styles/mixins.scss';
+@import '../../../../styles/typography.scss';
+
+.notification {
+  display: flex;
+  margin-bottom: $space-xxs;
+  word-break: break-word;
+  .icon {
+    svg {
+      height: $icon-m;
+      width: $icon-m;
+      margin-right: $space-xxs;
+      margin-bottom: -6px;
+      .st0 {
+        stroke: $color-icon;
+      }
+    }
+  }
+  .title {
+    @include font-h4;
+    padding-right: $space-xxs;
+  }
+
+  .description {
+    @include font-body;
+    padding-right: $space-xxs;
+    margin-bottom: 0;
+  }
+}
+
+.attention {
+  .icon {
+    svg {
+      .st0 {
+        stroke: $color-error;
+      }
+    }
+  }
+}
+
+.small {
+  .title {
+    font-size: $font-size-small;
+    line-height: $line-height-heading;
+  }
+  .icon {
+    svg {
+      width: $icon-s;
+      height: $icon-s;
+      margin-bottom: -2px;
+    }
+  }
+  .description {
+    font-size: $font-size-small;
+    line-height: $line-height-heading;
+  }
+}
+
+.page {
+  border-radius: $border-radius;
+  min-height: $height-medium;
+  justify-content: center;
+  align-items: center;
+  .icon {
+    align-self: start;
+  }
+}
+.error {
+  background-color: $color-red-10;
+  border: 1px solid $color-red-20;
+  .icon {
+    svg {
+      margin-bottom: -6px;
+      .st0 {
+        stroke: $color-error;
+      }
+    }
+  }
+}
+.success {
+  background-color: $color-teal-10;
+  border: 1px solid $color-teal-20;
+  .icon {
+    & svg {
+      margin-bottom: -6px;
+      .st0 {
+        stroke: $color-success;
+      }
+    }
+  }
+}
+
+.siteWide {
+  border-radius: $border-radius;
+  min-height: $height-medium;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+.serverError {
+  background-color: $color-red-10;
+  border: 1px solid $color-red-20;
+  .icon {
+    svg {
+      margin-bottom: -6px;
+      .st0 {
+        stroke: $color-error;
+      }
+    }
+  }
+}
+.maintenance {
+  background-color: $color-blue-10;
+  border: 1px solid $color-blue-20;
+  .icon {
+    svg {
+      margin-bottom: -6px;
+      .st0 {
+        stroke: $color-icon;
+      }
+    }
+  }
+}
+
+.inline {
+  border-radius: $border-radius;
+  min-height: $height-small;
+  justify-content: start;
+  align-items: flex-start;
+  font-size: $font-size-small;
+  padding-top: $space-xxxs;
+  padding-bottom: $space-xxxs;
+  &.success {
+    svg {
+      width: $icon-s;
+      height: $icon-s;
+      margin-bottom: -2px;
+    }
+  }
+  &.error {
+    background-color: $color-red-10;
+    border: 1px solid $color-red-20;
+    svg {
+      width: $icon-s;
+      height: $icon-s;
+      margin-bottom: -2px;
+      .st0 {
+        stroke: $color-error;
+      }
+    }
+  }
+}

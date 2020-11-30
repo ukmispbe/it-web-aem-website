@@ -53,6 +53,16 @@ export const getAttributes = (ref, validation, matchRef, emailValidationEndpoint
                             matchRef
                         )
                     )};
+                case "fileValidation":
+                    return { validate: value => (
+                        functions[validation.validateFnName](
+                            value,
+                            ref,
+                            validation,
+                            setError,
+                            clearError
+                        )
+                    )};                     
                 default:
                     return { validate: value => (
                         functions[validation.validateFnName](

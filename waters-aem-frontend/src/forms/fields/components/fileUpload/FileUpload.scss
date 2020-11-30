@@ -1,0 +1,139 @@
+@import '../../../../styles/variables.scss';
+@import '../../../../styles/mixins.scss';
+@import '../../../../styles/typography.scss';
+
+.file-upload-container {
+  @include font-h4;
+
+  & a {
+    color: $color-link;
+    text-decoration: none;
+    & svg {
+      margin-left: $space-xxxs;
+      margin-right: $space-xxxs;
+      margin-bottom: -2px;
+      width: $icon-s;
+      height: $icon-s;
+      .st0,
+      .st1 {
+        stroke: $color-link;
+      }
+    }
+    &:hover {
+      color: $color-link-hover;
+      transition: $hover-transition;
+      text-decoration: underline;
+      cursor: pointer;
+      .st0,
+      .st1 {
+        stroke: $color-link-hover;
+      }
+    }
+  }
+
+  .file-input {
+      display: none;
+    }
+
+  .file-empty {
+    padding: $space-xxs;
+    background-color: $color-white;
+    border: $space-xxs solid $color-background-light;
+    &.has-file {
+        background-color: $color-background-light;
+        @include mobile {
+            padding: $space-xxs $space-xs;
+        }
+    }
+    @include mobile {
+        margin-bottom: $space-m;
+        padding: $space-xs;
+    }
+  }
+
+  .fileUploaderSmall {
+    padding: $space-s;
+    margin-bottom: $space-s;
+  }
+
+  .file-upload {
+    .small {
+      word-break: break-all;
+      .file-notify {
+        width: 100%;
+        margin-top: $space-xxs;
+      }
+    }
+  }
+
+  .select-file{
+    text-align: center;
+  }
+
+  .file-upload-link, .file-upload {
+      display: block;
+      & svg {
+        margin-left: $space-xxxs;
+        margin-right: $space-xxxs;
+        margin-bottom: -2px;
+        width: $icon-s;
+        height: $icon-s;
+        .st0,
+        .st1 {
+          stroke: $color-link;
+        }
+      }
+
+      @include mobile {
+          height: auto;
+          padding: 0;
+        }
+  }
+
+  .file-upload-link {
+      display: inline-block;
+      margin: $space-xxxs 0;
+  }
+
+  .notify-container {
+      display: flex;
+      flex-direction: row-reverse;
+      @include mobile {
+          display: block;
+      }
+      .file-notify {
+          margin-bottom: 0;
+          padding-left: $space-xxs;
+      }
+  }
+
+  .file-info-sec {
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .file-view {
+    margin: 0 0 $space-s;
+
+    div {
+        display: inline;
+        @include mobile {
+            top: 0;
+        }
+    }
+    .file-svg {
+        position: relative;
+        margin-right: $space-xxs;
+        top: $space-xxxs;
+        svg {
+          width: $icon-s;
+          height: 1.25em; /* only exception for fixing alignment issue*/
+          .st0,.st1 {
+            stroke: $color-icon;
+          }
+        }
+    }
+  }
+}
