@@ -1,3 +1,4 @@
+import {FILENAME_REGX} from '../../../constants'
 
 const bytesToKb = size => {
     return parseInt(Math.floor(size / 1000));
@@ -21,6 +22,7 @@ const configFileSize = config => {
 export const validateUploadFile = (fileObj, labels, config) => {
     let status = false;
     let error = '';
+    const specialChar = new RegExp(FILENAME_REGX);
     const { name, size } = fileObj;
 
     const fileSize = bytesToKb(size);
@@ -29,7 +31,10 @@ export const validateUploadFile = (fileObj, labels, config) => {
     if (fileSize > sizeFromConfig) {
         status = true;
         error = labels.attachmentFileSizeErrorMsg;
-    } else if (name.length > parseInt(config.maxAttachmentFileNameSize)) {
+    } else if (specialChar.test(name)) {
+        status = true;
+        error = labels.attachmentFileNameErrorMsg;
+      } else if (name.length > parseInt(config.maxAttachmentFileNameSize)) {
         status = true;
         error = labels.attachmentFileNameLengthErrorMsg;
     }

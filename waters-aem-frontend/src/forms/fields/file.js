@@ -21,6 +21,7 @@ function File(props) {
         attachmentFileSizeErrorMsg,
         maxAttachmentFileNameSize,
         attachmentFileNameLengthErrorMsg,
+        attachmentFileNameErrorMsg,
         validation,
         icons,
         description,
@@ -39,6 +40,7 @@ function File(props) {
     validation.attachmentFileInvalidValidMsg = attachmentFileInvalidValidMsg;
     validation.attachmentFileSizeErrorMsg = attachmentFileSizeErrorMsg;
     validation.attachmentFileNameLengthErrorMsg = attachmentFileNameLengthErrorMsg;
+    validation.attachmentFileNameErrorMsg = attachmentFileNameErrorMsg;
 
     const getRegisterAttributes = ref => {
         inputRef.current = ref;
@@ -82,6 +84,7 @@ function File(props) {
                     attachmentFileSizeErrorMsg={attachmentFileSizeErrorMsg}
                     maxAttachmentFileNameSize={maxAttachmentFileNameSize}
                     attachmentFileNameLengthErrorMsg={attachmentFileNameLengthErrorMsg}
+                    attachmentFileNameErrorMsg={attachmentFileNameErrorMsg}
                     accept={accept}
                     fileTypePattern={fileTypePattern}
                 />
@@ -101,6 +104,7 @@ File.propTypes = {
     attachmentFileSizeErrorMsg: PropTypes.string,
     maxAttachmentFileNameSize: PropTypes.number,
     attachmentFileNameLengthErrorMsg: PropTypes.string,
+    attachmentFileNameErrorMsg: PropTypes.string,
     accept: PropTypes.string,
     validation: PropTypes.object,
     label: PropTypes.string,
@@ -119,6 +123,7 @@ File.defaultProps = {
     attachmentFileSizeErrorMsg: '',
     maxAttachmentFileNameSize: 32,
     attachmentFileNameLengthErrorMsg: '',
+    attachmentFileNameErrorMsg: '',
     accept: '',
     validation: {},
     label: '',

@@ -25,6 +25,7 @@ function FileUpload(props) {
     attachmentFileSizeErrorMsg,
     maxAttachmentFileNameSize,
     attachmentFileNameLengthErrorMsg,
+    attachmentFileNameErrorMsg,
   } = props;
   const { upload, preview, valid, invalid } = icons;
   const [file, setFile] = useState('');
@@ -35,7 +36,11 @@ function FileUpload(props) {
     let pickedFile = {};
     let fileValidation = {};
     const fileType = new RegExp(fileTypePattern, 'i');
-    const labels = { attachmentFileSizeErrorMsg, attachmentFileNameLengthErrorMsg };
+    const labels = {
+      attachmentFileSizeErrorMsg,
+      attachmentFileNameLengthErrorMsg,
+      attachmentFileNameErrorMsg
+    };
     const config = { maxAttachmentFileNameSize, attachmentFileSize };
 
     if (files && files.length === 1) {
@@ -168,6 +173,7 @@ FileUpload.propTypes = {
   attachmentFileSizeErrorMsg: PropTypes.string,
   maxAttachmentFileNameSize: PropTypes.number,
   attachmentFileNameLengthErrorMsg: PropTypes.string,
+  attachmentFileNameErrorMsg: PropTypes.string,
   accept: PropTypes.string,
   fileTypePattern: PropTypes.string
 };
@@ -191,6 +197,7 @@ FileUpload.defaultProps = {
   attachmentFileSizeErrorMsg: '',
   maxAttachmentFileNameSize: 28,
   attachmentFileNameLengthErrorMsg: '',
+  attachmentFileNameErrorMsg: '',
   accept: '.pdf, .jpg, .png',
   fileTypePattern: '(\\.pdf|\.jpg|\.png)$'
 };

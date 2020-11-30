@@ -17,6 +17,7 @@ export default {
   attachmentFileSizeErrorMsg: 'File size is over 5MB. Please try again.',
   maxAttachmentFileNameSize: 32,
   attachmentFileNameLengthErrorMsg: 'File name is too long. Please try again.',
+  attachmentFileNameErrorMsg: 'File name contains special characters. Please try again.',
   accept: '.pdf, .jpg, .png',
   fileTypePattern: '(\\.pdf|\.jpg|\.png)$'
 };

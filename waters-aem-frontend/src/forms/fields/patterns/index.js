@@ -23,9 +23,14 @@ const getFileValidation = (fileObj, validation) => {
         maxAttachmentFileNameSize,
         attachmentFileInvalidValidMsg,
         attachmentFileSizeErrorMsg,
-        attachmentFileNameLengthErrorMsg
+        attachmentFileNameLengthErrorMsg,
+        attachmentFileNameErrorMsg
     } = validation;
-    const labels = { attachmentFileSizeErrorMsg, attachmentFileNameLengthErrorMsg };
+    const labels = { 
+        attachmentFileSizeErrorMsg, 
+        attachmentFileNameLengthErrorMsg, 
+        attachmentFileNameErrorMsg 
+    };
     const config = { maxAttachmentFileNameSize, attachmentFileSize };
 
     if (fileObj) {
