@@ -1,11 +1,16 @@
 package com.waters.aem.solr.servlets;
 
+import com.adobe.versioncue.nativecomm.IResult;
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.ExecutorService;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Dictionary;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.ThreadFactory;
 import java.util.stream.Collectors;
 
 import javax.annotation.Nonnull;
@@ -79,7 +84,10 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 				if((boolean) props.get("enableBatchIndexing")) {
 				                success = addToIndex(page, includeDescendants, (int)props.get("documentsCount"));}
 				else {
-					 success = addToIndex(page, includeDescendants);
+                    //success = addToIndex(page, includeDescendants);
+                    ThreadFactory threadFactory = new ThreadFactoryBuilder().build();
+                    ExecutorService serviceExecutor = newFixedThreadPool(4, threadFactory);
+					 success = addToIndex1(page, includeDescendants, serviceExecutor, 100);
 				}
 				            }
         } else {
@@ -106,14 +114,32 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
         long endTime = System.currentTimeMillis();
         LOG.info("Total time taken to index {} : {} ms",pagePath, endTime-startTime);
     }
-    
+
+    private boolean addToIndex1(final PageDecorator page, final boolean includeDescendants, ExecutorService executorService, int batchMode) {
+
+        List<String> pagePaths = getPagePaths(page, includeDescendants);
+        pagePaths.stream()
+                .limit(batchMode)
+                .filter(path -> solrIndexService.isIndexed( path, true)).allMatch(result -> true) ;{
+            executorService.execute(new Runnable() {
+
+                @Override
+                public void run() {
+                    addPageToIndex1(pagePaths);
+
+                }
+            });
+        }
+    }
     private boolean addToIndex(final PageDecorator page, final boolean includeDescendants) {
         return getPagePaths(page, includeDescendants)
-            .stream()
-            .filter(path -> solrIndexService.isIndexed(path, true))
-            .map(this :: addPageToIndex)
-            .allMatch(result -> true);
+                .stream()
+                .filter(path -> solrIndexService.isIndexed(path, true))
+                .map(this :: addPageToIndex)
+                .allMatch(result -> true);
     }
+    
+
     private boolean deleteFromIndex(final PageDecorator page, final boolean includeDescendants) {
         return getPagePaths(page, includeDescendants)
             .stream()
@@ -179,7 +205,22 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 
         return success;
     }
-    
+
+    private boolean addPageToIndex1(final List<String> path) {
+        boolean success;
+
+        try {
+            success = solrIndexService.addPageToIndex(path);
+        } catch (IOException | SolrServerException e) {
+            LOG.error("error adding page to index : " + path, e);
+
+            success = false;
+        }
+
+        return success;
+    }
+
+
     private boolean addPageToIndex(final String path) {
         boolean success;
 
