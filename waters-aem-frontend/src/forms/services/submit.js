@@ -6,6 +6,7 @@ import UserDetails from '../../my-account/services/UserDetails';
 import { signInRedirect } from '../../utils/redirectFunctions';
 import { getNamedHeaderLink } from '../../utils/redirectFunctions';
 import { matchAddresses } from '../../utils/userFunctions';
+import { convertFileIntoBase64, getAttachmentFieldName } from '../fields/utils/fileAttachment';
 
 const postData = async (url, data) => {
     const response = await fetch(url, {
@@ -444,28 +445,36 @@ export async function submitAccount(selectedAccount, urlChooseAccount) {
 }
 
 export async function contactSupportSubmit(data) {
-    const isCaptcha = data.hasOwnProperty('captcha');
-    if (isCaptcha) {
-        this.url = `${this.url}?captcha=${data.captcha}`;
-        delete data.captcha;
-    }
-
-    const response = await postData(this.url, data);
-    const responseBody = await response.json();
-    
-    // remove all previous server error notifications
-    this.setError();
-
-    if (response.status === 200) {
-        this.setFormAnalytics('submit');
-
-        if (this.redirect) {
-            window.location.replace(this.redirect);
+    try {
+        const isCaptcha = data.hasOwnProperty('captcha');
+        if (isCaptcha) {
+            this.url = `${this.url}?captcha=${data.captcha}`;
+            delete data.captcha;
         }
-    } else {
-        this.setFormAnalytics('error', responseBody);
-        this.setError(responseBody);
-        scrollToY(0);
+        const attachmentFieldName = getAttachmentFieldName(data);
+        const { fileName, base64Value } = await convertFileIntoBase64(data[attachmentFieldName]);
+        const encodeValue = base64Value.replace(/^[^,]*,/, '');
+        const formData = { ...data, [attachmentFieldName]: encodeValue, hasAttachment: encodeValue ? 'Y': 'N', fileName};
+
+        const response = await postData(this.url, formData);
+        const responseBody = await response.json();
+
+        // remove all previous server error notifications
+        this.setError();
+
+        if (response.status === 200) {
+            this.setFormAnalytics('submit');
+
+            if (this.redirect) {
+                window.location.replace(this.redirect);
+            }
+        } else {
+            this.setFormAnalytics('error', responseBody);
+            this.setError(responseBody);
+            scrollToY(0);
+        }
+    } catch (e) {
+        console.error(e);
     }
 }
 

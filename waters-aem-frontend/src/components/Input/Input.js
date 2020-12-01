@@ -65,6 +65,7 @@ class Input extends PureComponent {
       elementLocator,
       accept,
       maxInputLength,
+      setRef,
     } = this.props;
     return (
       <>
@@ -90,6 +91,7 @@ class Input extends PureComponent {
           onFocus={this.onFocus}
           accept={accept}
           autoComplete="off"
+          ref={ref => setRef(ref)}
         />
       </>
     );
@@ -116,6 +118,7 @@ Input.propTypes = {
   onFocus: PropTypes.func,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   accept: PropTypes.string,
+  setRef: PropTypes.func,
 };
 
 Input.defaultProps = {
@@ -138,6 +141,7 @@ Input.defaultProps = {
   onKeyUp: () => { },
   onFocus: () => { },
   accept: '',
+  setRef: () => { },
 };
 
 export default Input;
