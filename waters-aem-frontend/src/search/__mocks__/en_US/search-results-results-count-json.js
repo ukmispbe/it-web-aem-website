@@ -356,6 +356,7 @@ const searchResultsResultsPropsJSON = {
       "filterSearchPlaceholder": "Search",
       "resultsText": "Showing {count} results",
       "resultsForText": "Showing {count} results for ",
+      "categoryText": "Category:",
       "inCategoryText": "in ",
       "relatedSearchesText": "Related Searches",
       "noResultsText": "Showing 0 results",
