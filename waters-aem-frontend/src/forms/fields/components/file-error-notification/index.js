@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactSVG from 'react-svg';
-import '../../../../styles/file-error-notification.scss';
 
 const Notification = ({
   className,

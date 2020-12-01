@@ -6,7 +6,6 @@ import { validateUploadFile } from '../../utils/fileAttachment';
 import Input from '../../../../components/Input/Input';
 import Notification from '../file-error-notification';
 import Divider from '../divider';
-import '../../../../styles/file-upload.scss';
 
 function FileUpload(props) {
   const {
