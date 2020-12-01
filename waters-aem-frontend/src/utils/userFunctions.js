@@ -286,55 +286,23 @@ export const filterSoldToDetails = (soldToInfo) => {
     if (soldToInfo) {
         soldToInfo.forEach(soldTo => {
             let eachSoldTo = {};
-            eachSoldTo.customerNumber = soldTo.customerNumber;
-            eachSoldTo.name = soldTo.name;
-            eachSoldTo.soldToFlag = soldTo.soldToFlag;
-            eachSoldTo.salesOrg = soldTo.salesOrg;
-            eachSoldTo.soldToInfo = soldTo.soldToInfo || [],
-            eachSoldTo.billToInfo = soldTo.billToInfo || [],
-            eachSoldTo.shipToInfo = soldTo.shipToInfo || [],
-            eachSoldTo.payerInfo = soldTo.payerInfo || []
-
-            //START Patches for EComm
-            eachSoldTo.soldTo = soldTo.customerNumber;
-            eachSoldTo.company = soldTo.name;
-            eachSoldTo.default_soldTo = soldTo.soldToFlag;
-            eachSoldTo.partnerAddress = [];
-
-            if (soldTo.billToInfo) {
-                eachSoldTo.partnerAddress.push(createPartnerAddress(soldTo.billToInfo[0],  "billing"));
+            if (soldTo.soldToFlag == 1) {
+                eachSoldTo.customerNumber = soldTo.customerNumber;
+                eachSoldTo.name = soldTo.name;
+                eachSoldTo.soldToFlag = soldTo.soldToFlag;
+                eachSoldTo.salesOrg = soldTo.salesOrg;
             }
 
-            if (soldTo.shipToInfo) {
-                eachSoldTo.partnerAddress.push(createPartnerAddress(soldTo.shipToInfo[0], "shipping"));
+            if (soldTo.soldToFlag == 0) {
+                eachSoldTo.customerNumber = soldTo.customerNumber;
+                eachSoldTo.soldToFlag = soldTo.soldToFlag;
             }
-            //END Patches for EComm
 
             filteredSoldTo.push(eachSoldTo);
         });
     }
     return filteredSoldTo;
 }
-
-//START Patches for EComm
-const createPartnerAddress = (soldToInfo, addressType) => {
-    let partnerAddress = {
-            addr1: soldToInfo.name || "",
-            addr2: soldToInfo.address1 || "",
-            addr3: soldToInfo.address2 || "",
-            addr4: soldToInfo.address3 || "",
-            street: soldToInfo.street || "",
-            street2: soldToInfo.street2 || "",
-            city: soldToInfo.city || "",
-            regio: soldToInfo.state || "",
-            postalCd: soldToInfo.postalCode || "",
-            country: soldToInfo.country || "",
-            addressType: addressType,
-        };
-
-    return partnerAddress;
-}
-//END Patches for EComm
 
 export const getIsoCode = () => {
 	const store = new SessionStore();
