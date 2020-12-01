@@ -1,16 +1,13 @@
 package com.waters.aem.solr.servlets;
 
-import com.adobe.versioncue.nativecomm.IResult;
-import com.google.common.util.concurrent.ThreadFactoryBuilder;
-import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.ExecutorService;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Dictionary;
 import java.util.Iterator;
 import java.util.List;
-import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ForkJoinPool;
 import java.util.stream.Collectors;
 
 import javax.annotation.Nonnull;
@@ -49,6 +46,7 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
     private static final String DEFAULT_SOLR_INDEX_PID =	"com.waters.aem.solr.client.impl.DefaultSolrIndexClient";
 
 	private static final String ADD = "add";
+	final static int AVAILABLE_PROCESSOR = Runtime.getRuntime().availableProcessors();
 
     private static final Logger LOG = LoggerFactory.getLogger(SolrRecoveryServlet.class);
 
@@ -66,12 +64,15 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
     	long startTime = System.currentTimeMillis();
         final String pagePath = request.getParameter("pagePath");
         final String action = request.getParameter("action");
+       
         final boolean includeDescendants = Boolean.valueOf(request.getParameter("includeDescendants"));
 
         final PageDecorator page = request.getResourceResolver().adaptTo(PageManagerDecorator.class)
             .getPage(pagePath);
+        ForkJoinPool forkJoinPool = new ForkJoinPool(AVAILABLE_PROCESSOR);
+    	LOG.info("Available Process : {}", AVAILABLE_PROCESSOR);
 
-        boolean success;
+        boolean success = false;
 
         if (ADD.equals(action)) {
             if (page == null) {
@@ -82,12 +83,15 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
                 LOG.info("adding path to solr index : {}, including descendants : {}", pagePath,
                     includeDescendants);
 				if((boolean) props.get("enableBatchIndexing")) {
-				                success = addToIndex(page, includeDescendants, (int)props.get("documentsCount"));}
+				            
+									try {
+										success = addToIndex(page, includeDescendants,forkJoinPool, (int)props.get("documentsCount"));
+									} catch (InterruptedException | ExecutionException e) {
+										 LOG.info("Indexing failed due to {}",e.getMessage());
+									}
+								}
 				else {
-                    //success = addToIndex(page, includeDescendants);
-                    ThreadFactory threadFactory = new ThreadFactoryBuilder().build();
-                    ExecutorService serviceExecutor = newFixedThreadPool(4, threadFactory);
-					 success = addToIndex1(page, includeDescendants, serviceExecutor, 100);
+                    success = addToIndex(page, includeDescendants);
 				}
 				            }
         } else {
@@ -100,7 +104,11 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
             } else {
                 // page still exists, delete path from index and include descendants if selected
             	if((boolean) props.get("enableBatchIndexing")) {
-                success = deleteFromIndex(page, includeDescendants,  (int)props.get("documentsCount"));
+                try {
+					success = deleteFromIndex(page, includeDescendants,forkJoinPool, (int)props.get("documentsCount"));
+				} catch (InterruptedException | ExecutionException e) {
+					LOG.info("Deletion of Indexes failed due to {}",e.getMessage());
+				}
             	}
             	else {
             		success = deleteFromIndex(page, includeDescendants);
@@ -115,22 +123,6 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
         LOG.info("Total time taken to index {} : {} ms",pagePath, endTime-startTime);
     }
 
-    private boolean addToIndex1(final PageDecorator page, final boolean includeDescendants, ExecutorService executorService, int batchMode) {
-
-        List<String> pagePaths = getPagePaths(page, includeDescendants);
-        pagePaths.stream()
-                .limit(batchMode)
-                .filter(path -> solrIndexService.isIndexed( path, true)).allMatch(result -> true) ;{
-            executorService.execute(new Runnable() {
-
-                @Override
-                public void run() {
-                    addPageToIndex1(pagePaths);
-
-                }
-            });
-        }
-    }
     private boolean addToIndex(final PageDecorator page, final boolean includeDescendants) {
         return getPagePaths(page, includeDescendants)
                 .stream()
@@ -148,18 +140,15 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
             .allMatch(result -> true);
     }
 
-    private boolean addToIndex(final PageDecorator page, final boolean includeDescendants, int documentCount) {
-    	List<String> pagePaths =   getPagePaths(page, includeDescendants)
-            .stream()
-            .filter(path -> solrIndexService.isIndexed(path, true)).collect(Collectors.toList());
-    	return Lists.partition(pagePaths, documentCount).stream().map(this::addPageToIndex).allMatch(result -> true);
+    private boolean addToIndex(final PageDecorator page, final boolean includeDescendants,ForkJoinPool forkJoinPool,int documentCount) throws InterruptedException, ExecutionException {
+    	List<String> pagePaths =   getPagePaths(page, includeDescendants).stream().filter(path -> solrIndexService.isIndexed(path, true)).collect(Collectors.toList());
+    	List<List<String>> lists = Lists.partition(pagePaths, documentCount);
+    	return forkJoinPool.submit(() ->lists.parallelStream().map(this::addPageToIndex).allMatch(result -> true)).get(); 
     }
-
-    private boolean deleteFromIndex(final PageDecorator page, final boolean includeDescendants, int documentCount) {
-    	List<String> pagePaths =   getPagePaths(page, includeDescendants)
-                .stream()
-                .filter(path -> solrIndexService.isIndexed(path, false)).collect(Collectors.toList());
-        	return Lists.partition(pagePaths, documentCount).stream().map(this::deletePageFromIndex).allMatch(result -> true);
+    private boolean deleteFromIndex(final PageDecorator page, final boolean includeDescendants,ForkJoinPool forkJoinPool, int documentCount) throws InterruptedException, ExecutionException {
+    	List<String> pagePaths =   getPagePaths(page, includeDescendants).stream().filter(path -> solrIndexService.isIndexed(path, false)).collect(Collectors.toList());
+    	List<List<String>> lists = Lists.partition(pagePaths, documentCount);
+        return forkJoinPool.submit(() ->lists.parallelStream().map(this::deletePageFromIndex).allMatch(result -> true)).get(); 
     }
 
     private List<String> getPagePaths(final PageDecorator page, final boolean includeDescendants) {
@@ -206,22 +195,7 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
         return success;
     }
 
-    private boolean addPageToIndex1(final List<String> path) {
-        boolean success;
-
-        try {
-            success = solrIndexService.addPageToIndex(path);
-        } catch (IOException | SolrServerException e) {
-            LOG.error("error adding page to index : " + path, e);
-
-            success = false;
-        }
-
-        return success;
-    }
-
-
-    private boolean addPageToIndex(final String path) {
+       private boolean addPageToIndex(final String path) {
         boolean success;
 
         try {
