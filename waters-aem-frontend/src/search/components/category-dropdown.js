@@ -69,7 +69,7 @@ const CategoryDropdown = props => {
 CategoryDropdown.propTypes = {
     categoryOptions: PropTypes.array.isRequired,
     categoryOnChange: PropTypes.func.isRequired,
-    categoryLabelPrefix: PropTypes.string,
+    categoryLabelPrefix: PropTypes.string.isRequired,
     categoryIsSearchable: PropTypes.bool,
     categoryPlaceholder: PropTypes.string,
     categoryDownIcon: PropTypes.string.isRequired,
