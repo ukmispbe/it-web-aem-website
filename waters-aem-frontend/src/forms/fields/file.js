@@ -5,7 +5,7 @@ import { useFormApi, useFieldApi } from '../form';
 import { getAttributes } from './utils/validations';
 import { elementLocator } from '../../utils/eCommerceFunctions';
 import { renderFormattedLabel } from '../../utils/labelFunctions';
-import FileUpload from './components/fileUpload/FileUpload'
+import FileUpload from './components/file-upload'
 
 function File(props) {
     const {
@@ -19,7 +19,7 @@ function File(props) {
         attachmentFileInvalidValidMsg,
         attachmentFileSize,
         attachmentFileSizeErrorMsg,
-        maxAttachmentFileNameSize,
+        maxAttachmentFileNameSizeWithExt,
         attachmentFileNameLengthErrorMsg,
         attachmentFileNameErrorMsg,
         validation,
@@ -36,7 +36,7 @@ function File(props) {
 
     validation.fileTypePattern = fileTypePattern;
     validation.attachmentFileSize = attachmentFileSize;
-    validation.maxAttachmentFileNameSize = maxAttachmentFileNameSize;
+    validation.maxAttachmentFileNameSizeWithExt = maxAttachmentFileNameSizeWithExt;
     validation.attachmentFileInvalidValidMsg = attachmentFileInvalidValidMsg;
     validation.attachmentFileSizeErrorMsg = attachmentFileSizeErrorMsg;
     validation.attachmentFileNameLengthErrorMsg = attachmentFileNameLengthErrorMsg;
@@ -82,7 +82,7 @@ function File(props) {
                     attachmentFileInvalidValidMsg={attachmentFileInvalidValidMsg}
                     attachmentFileSize={attachmentFileSize}
                     attachmentFileSizeErrorMsg={attachmentFileSizeErrorMsg}
-                    maxAttachmentFileNameSize={maxAttachmentFileNameSize}
+                    maxAttachmentFileNameSizeWithExt={maxAttachmentFileNameSizeWithExt}
                     attachmentFileNameLengthErrorMsg={attachmentFileNameLengthErrorMsg}
                     attachmentFileNameErrorMsg={attachmentFileNameErrorMsg}
                     accept={accept}
@@ -102,7 +102,7 @@ File.propTypes = {
     attachmentFileInvalidValidMsg: PropTypes.string,
     attachmentFileSize: PropTypes.string,
     attachmentFileSizeErrorMsg: PropTypes.string,
-    maxAttachmentFileNameSize: PropTypes.number,
+    maxAttachmentFileNameSizeWithExt: PropTypes.number,
     attachmentFileNameLengthErrorMsg: PropTypes.string,
     attachmentFileNameErrorMsg: PropTypes.string,
     accept: PropTypes.string,
@@ -121,7 +121,7 @@ File.defaultProps = {
     attachmentFileInvalidValidMsg: '',
     attachmentFileSize: '5MB',
     attachmentFileSizeErrorMsg: '',
-    maxAttachmentFileNameSize: 32,
+    maxAttachmentFileNameSizeWithExt: 32,
     attachmentFileNameLengthErrorMsg: '',
     attachmentFileNameErrorMsg: '',
     accept: '',

@@ -34,7 +34,7 @@ export const validateUploadFile = (fileObj, labels, config) => {
     } else if (specialChar.test(name)) {
         status = true;
         error = labels.attachmentFileNameErrorMsg;
-      } else if (name.length > parseInt(config.maxAttachmentFileNameSize)) {
+      } else if (name.length > parseInt(config.maxAttachmentFileNameSizeWithExt)) {
         status = true;
         error = labels.attachmentFileNameLengthErrorMsg;
     }

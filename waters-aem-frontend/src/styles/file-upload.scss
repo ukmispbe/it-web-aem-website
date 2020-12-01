@@ -1,6 +1,6 @@
-@import '../../../../styles/variables.scss';
-@import '../../../../styles/mixins.scss';
-@import '../../../../styles/typography.scss';
+@import './variables.scss';
+@import './mixins.scss';
+@import './typography.scss';
 
 .file-upload-container {
   @include font-h4;

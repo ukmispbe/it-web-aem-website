@@ -1,5 +1,5 @@
 import EmailService from "../../services/EmailService";
-import { validateUploadFile } from '../utils/common';
+import { validateUploadFile } from '../utils/fileAttachment';
 
 const test = (value, regex) => regex.test(value);
 
@@ -20,7 +20,7 @@ const getFileValidation = (fileObj, validation) => {
     const {
         fileTypePattern,
         attachmentFileSize,
-        maxAttachmentFileNameSize,
+        maxAttachmentFileNameSizeWithExt,
         attachmentFileInvalidValidMsg,
         attachmentFileSizeErrorMsg,
         attachmentFileNameLengthErrorMsg,
@@ -31,7 +31,7 @@ const getFileValidation = (fileObj, validation) => {
         attachmentFileNameLengthErrorMsg, 
         attachmentFileNameErrorMsg 
     };
-    const config = { maxAttachmentFileNameSize, attachmentFileSize };
+    const config = { maxAttachmentFileNameSizeWithExt, attachmentFileSize };
 
     if (fileObj) {
         const fileValidation = validateUploadFile(fileObj, labels, config);

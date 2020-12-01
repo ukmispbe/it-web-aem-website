@@ -3,10 +3,10 @@ import { shallow } from 'enzyme';
 import ReactSVG from 'react-svg';
 
 import Input from '../../../../../components/Input/Input';
-import Notification from '../../../components/notification/Notification';
-import Divider from '../../../components/divider/Divider';
-import FileUpload from '../FileUpload';
-import props from '../FileUpload.mock';
+import Notification from '../../../components/file-error-notification';
+import Divider from '../../../components/divider';
+import FileUpload from '../index';
+import props from '../__mocks__/en_US';
 
 describe('<FileUpload />', () => {
     let enzymeWrapper;

@@ -2,8 +2,8 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import ReactSVG from 'react-svg';
 
-import Notification from '../Notification';
-import props from '../Notification.mock';
+import Notification from '../index';
+import props from '../__mocks__/en_US';
 
 describe('<Notification />', () => {
     let enzymeWrapper;

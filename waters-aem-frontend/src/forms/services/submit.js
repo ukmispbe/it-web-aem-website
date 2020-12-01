@@ -6,7 +6,7 @@ import UserDetails from '../../my-account/services/UserDetails';
 import { signInRedirect } from '../../utils/redirectFunctions';
 import { getNamedHeaderLink } from '../../utils/redirectFunctions';
 import { matchAddresses } from '../../utils/userFunctions';
-import { convertFileIntoBase64, getAttachmentFieldName } from '../fields/utils/common';
+import { convertFileIntoBase64, getAttachmentFieldName } from '../fields/utils/fileAttachment';
 
 const postData = async (url, data) => {
     const response = await fetch(url, {

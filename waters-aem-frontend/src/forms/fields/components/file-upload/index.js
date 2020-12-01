@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import ReactSVG from 'react-svg';
 
-import { validateUploadFile } from '../../utils/common';
+import { validateUploadFile } from '../../utils/fileAttachment';
 import Input from '../../../../components/Input/Input';
-import Notification from '../notification/Notification';
-import Divider from '../divider/Divider';
-import './FileUpload.scss';
+import Notification from '../file-error-notification';
+import Divider from '../divider';
+import '../../../../styles/file-upload.scss';
 
 function FileUpload(props) {
   const {
@@ -23,7 +23,7 @@ function FileUpload(props) {
     fileTypePattern,
     attachmentFileSize,
     attachmentFileSizeErrorMsg,
-    maxAttachmentFileNameSize,
+    maxAttachmentFileNameSizeWithExt,
     attachmentFileNameLengthErrorMsg,
     attachmentFileNameErrorMsg,
   } = props;
@@ -41,7 +41,7 @@ function FileUpload(props) {
       attachmentFileNameLengthErrorMsg,
       attachmentFileNameErrorMsg
     };
-    const config = { maxAttachmentFileNameSize, attachmentFileSize };
+    const config = { maxAttachmentFileNameSizeWithExt, attachmentFileSize };
 
     if (files && files.length === 1) {
       const fileObj = files[0];
@@ -108,7 +108,7 @@ function FileUpload(props) {
           href=""
         >
           <ReactSVG src={upload} wrapper="span" data-locator={`icon-${name}`} aria-hidden={true} />
-          {chooseAFileToUpload}
+          {`${chooseAFileToUpload} (${accept})`}
         </a>
       </div>
       {file && (
@@ -171,7 +171,7 @@ FileUpload.propTypes = {
   attachmentFileInvalidValidMsg: PropTypes.string,
   attachmentFileSize: PropTypes.string,
   attachmentFileSizeErrorMsg: PropTypes.string,
-  maxAttachmentFileNameSize: PropTypes.number,
+  maxAttachmentFileNameSizeWithExt: PropTypes.number,
   attachmentFileNameLengthErrorMsg: PropTypes.string,
   attachmentFileNameErrorMsg: PropTypes.string,
   accept: PropTypes.string,
@@ -193,9 +193,9 @@ FileUpload.defaultProps = {
   removeTextLabel: '',
   attachmentFileValidMsg: '',
   attachmentFileInvalidValidMsg: '',
-  attachmentFileSize: '3MB',
+  attachmentFileSize: '5MB',
   attachmentFileSizeErrorMsg: '',
-  maxAttachmentFileNameSize: 28,
+  maxAttachmentFileNameSizeWithExt: 32,
   attachmentFileNameLengthErrorMsg: '',
   attachmentFileNameErrorMsg: '',
   accept: '.pdf, .jpg, .png',

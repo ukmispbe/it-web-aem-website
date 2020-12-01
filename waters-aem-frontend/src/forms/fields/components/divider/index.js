@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './Divider.scss';
+import '../../../../styles/divider.scss';
 
 function Divider(props) {
   const { type, className, elementLocator } = props;

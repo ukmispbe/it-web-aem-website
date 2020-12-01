@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import Divider from '../Divider';
-import props from '../Divider.mock';
+import Divider from '../index';
+import props from '../__mocks__/en_US';
 
 describe('<Divider />', () => {
     let enzymeWrapper;
