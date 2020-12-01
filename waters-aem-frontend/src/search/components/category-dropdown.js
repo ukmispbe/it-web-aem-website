@@ -17,15 +17,17 @@ const getOptions = options => {
 };
 
 const dropdownComponents = label => {
+    let prefix = label !='' ? label + ' ': '';
+
     return {
         SingleValue: ({ children, ...props }) => {
             return (
                 <components.SingleValue {...props}>
-                    {label + " " + children}
+                    {prefix + children}
                 </components.SingleValue>
             );
         },
-        IndicatorSeparator: ({ children, ...props }) => {
+        DropdownIndicator: ({ children, ...props }) => {
             return (
                 <components.DropdownIndicator {...props}>
                     <ReactSVG
@@ -69,7 +71,7 @@ const CategoryDropdown = props => {
 CategoryDropdown.propTypes = {
     categoryOptions: PropTypes.array.isRequired,
     categoryOnChange: PropTypes.func.isRequired,
-    categoryLabelPrefix: PropTypes.string.isRequired,
+    categoryLabelPrefix: PropTypes.string,
     categoryIsSearchable: PropTypes.bool,
     categoryPlaceholder: PropTypes.string,
     categoryDownIcon: PropTypes.string.isRequired,
