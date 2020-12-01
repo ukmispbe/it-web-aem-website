@@ -148,21 +148,29 @@
 /******/
 /******/
 /******/ 	// add entry module to deferred list
-/******/ 	deferredModules.push([484,1,2,0]);
+/******/ 	deferredModules.push([489,1,2,0]);
 /******/ 	// run deferred modules when ready
 /******/ 	return checkDeferredModules();
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 136:
+/***/ 101:
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+module.exports = {"colorBorderDark":"#9ca7b0","colorGray50":"#4f5b64","colorBackgroundLight":"#f4f6f7","colorWhite":"#fff","colorBlue50":"#07b","borderRadius":"4px","spaceXXXS":".25em","spaceXXS":".5em","spaceXS":".75em","spaceS":"1em"};
+
+/***/ }),
+
+/***/ 139:
 /***/ (function(module, exports) {
 
 /* (ignored) */
 
 /***/ }),
 
-/***/ 17:
+/***/ 14:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -183,16 +191,16 @@ var slicedToArray = __webpack_require__(10);
 var classCallCheck = __webpack_require__(4);
 
 // EXTERNAL MODULE: ./src/scripts/inlineSVG.js
-var inlineSVG = __webpack_require__(53);
+var inlineSVG = __webpack_require__(57);
 
 // EXTERNAL MODULE: ./src/scripts/DigitalData.js
 var DigitalData = __webpack_require__(22);
 
 // EXTERNAL MODULE: ./src/stores/sessionStore.js
-var sessionStore = __webpack_require__(14);
+var sessionStore = __webpack_require__(15);
 
 // EXTERNAL MODULE: ./src/stores/cookieStore.js
-var cookieStore = __webpack_require__(48);
+var cookieStore = __webpack_require__(51);
 
 // CONCATENATED MODULE: ./src/analytics/eventTypes.js
 var eventTypes = {
@@ -349,6 +357,24 @@ var eventTypes = {
     },
     error: {
       event: 'orderDetailsPageError'
+    }
+  },
+  quoteHistory: {
+    name: 'quoteHistory',
+    load: {
+      event: 'quoteHistoryPageLoad'
+    },
+    error: {
+      event: 'quoteHistoryError'
+    }
+  },
+  quoteDetails: {
+    name: 'quoteDetails',
+    load: {
+      event: 'quoteDetailsPageLoad'
+    },
+    error: {
+      event: 'quoteDetailsPageError'
     }
   }
 };
@@ -541,13 +567,13 @@ var _analytics$analyticTy = Object(slicedToArray["a" /* default */])(analytics.a
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return parameterValues; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return parameterDefaults; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return searchMapper; });
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(5);
-/* harmony import */ var whatwg_fetch__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(34);
-/* harmony import */ var _stores_sessionStore__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(14);
+/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
+/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
+/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4);
+/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(5);
+/* harmony import */ var whatwg_fetch__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(35);
+/* harmony import */ var _stores_sessionStore__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(15);
 
 
 
@@ -555,7 +581,7 @@ var _analytics$analyticTy = Object(slicedToArray["a" /* default */])(analytics.a
 
 
 
-var queryString = __webpack_require__(27);
+var queryString = __webpack_require__(28);
 
 var parameterValues = {
   undefined: 'undefined',
@@ -590,7 +616,7 @@ var SearchService = /*#__PURE__*/function () {
     var multiselect = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : true;
     var throwError = arguments.length > 6 ? arguments[6] : undefined;
 
-    Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(this, SearchService);
+    Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(this, SearchService);
 
     this.getCategories = function (_ref) {
       var _ref$keyword = _ref.keyword,
@@ -714,9 +740,9 @@ var SearchService = /*#__PURE__*/function () {
     };
 
     this.getSuggestedKeywords = /*#__PURE__*/function () {
-      var _ref5 = Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(rows, term) {
+      var _ref5 = Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(rows, term) {
         var searchString, callService, response;
-        return C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        return C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
@@ -872,7 +898,7 @@ var SearchService = /*#__PURE__*/function () {
     this.sessionStore = new _stores_sessionStore__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"]();
   }
 
-  Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(SearchService, [{
+  Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(SearchService, [{
     key: "getParamsFromString",
     value: function getParamsFromString() {
       var str = window.location.search;
@@ -1052,24 +1078,24 @@ var searchMapper = {
 
 /***/ }),
 
-/***/ 230:
+/***/ 233:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
-/* harmony import */ var _scripts_dateRange__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(231);
+/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
+/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
+/* harmony import */ var _scripts_dateRange__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(234);
 
 
 
 var basePath = "/bin/waters/";
 var ServletService = {
   getSystemWideNotification: function () {
-    var _getSystemWideNotification = Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(language) {
+    var _getSystemWideNotification = Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(language) {
       var _this = this;
 
-      return C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+      return C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
@@ -1097,8 +1123,8 @@ var ServletService = {
     return getSystemWideNotification;
   }(),
   fetchSystemWideNotification: function () {
-    var _fetchSystemWideNotification = Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(language) {
-      return C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+    var _fetchSystemWideNotification = Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(language) {
+      return C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
@@ -1133,7 +1159,7 @@ var ServletService = {
 
 /***/ }),
 
-/***/ 236:
+/***/ 239:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1273,15 +1299,15 @@ var systemWideNotification_SystemWideNotification = function SystemWideNotificat
 
 /***/ }),
 
-/***/ 33:
+/***/ 31:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(10);
+/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6);
+/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(10);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(0);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _scripts_ErrorMessages__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(59);
+/* harmony import */ var _scripts_ErrorMessages__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(62);
 /* harmony import */ var _utils_modal__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(18);
 /* harmony import */ var _utils_eCommerceFunctions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(11);
 
@@ -1305,8 +1331,8 @@ var keys = {
 var AddToCartModalBody = function AddToCartModalBody(props) {
   var errorObjCart = props.errorObjCart;
 
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])(Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({}, props.config)),
-      _useState2 = Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(_useState, 1),
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])(Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({}, props.config)),
+      _useState2 = Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(_useState, 1),
       state = _useState2[0];
 
   var _useContext = Object(react__WEBPACK_IMPORTED_MODULE_2__["useContext"])(_utils_modal__WEBPACK_IMPORTED_MODULE_4__[/* useModalApi */ "d"]),
@@ -1408,119 +1434,7 @@ AddToCartModalBody.whyDidYouRender = true;
 
 /***/ }),
 
-/***/ 47:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
-/* harmony import */ var whatwg_fetch__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(34);
-/* harmony import */ var _utils_redirectFunctions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(25);
-
-
-
-
-
-var getData = /*#__PURE__*/function () {
-  var _ref = Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(url) {
-    var response;
-    return C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            _context.next = 2;
-            return fetch(url, {
-              method: 'GET',
-              credentials: 'include',
-              headers: {
-                'Content-Type': 'application/json'
-              }
-            });
-
-          case 2:
-            response = _context.sent;
-            _context.next = 5;
-            return response;
-
-          case 5:
-            return _context.abrupt("return", _context.sent);
-
-          case 6:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  }));
-
-  return function getData(_x) {
-    return _ref.apply(this, arguments);
-  };
-}();
-
-var UserDetails = /*#__PURE__*/function () {
-  var _ref2 = Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-    var url,
-        _response,
-        _args2 = arguments;
-
-    return C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
-      while (1) {
-        switch (_context2.prev = _context2.next) {
-          case 0:
-            url = _args2.length > 0 && _args2[0] !== undefined ? _args2[0] : "https://stgservices.waters.com/api/waters/user/v1/details";
-            _context2.prev = 1;
-            _context2.next = 4;
-            return getData(url);
-
-          case 4:
-            _response = _context2.sent;
-
-            if (!(_response.status === 200)) {
-              _context2.next = 9;
-              break;
-            }
-
-            return _context2.abrupt("return", _response.json());
-
-          case 9:
-            if (_response.status === 401 && window.location.href.indexOf('my-account.html') !== -1) {
-              Object(_utils_redirectFunctions__WEBPACK_IMPORTED_MODULE_3__[/* signInRedirect */ "d"])();
-            }
-
-          case 10:
-            return _context2.abrupt("return", {
-              failed: true,
-              error: _response.status
-            });
-
-          case 13:
-            _context2.prev = 13;
-            _context2.t0 = _context2["catch"](1);
-            return _context2.abrupt("return", {
-              failed: true,
-              error: response.status
-            });
-
-          case 16:
-          case "end":
-            return _context2.stop();
-        }
-      }
-    }, _callee2, null, [[1, 13]]);
-  }));
-
-  return function UserDetails() {
-    return _ref2.apply(this, arguments);
-  };
-}();
-
-/* harmony default export */ __webpack_exports__["a"] = (UserDetails);
-
-/***/ }),
-
-/***/ 472:
+/***/ 477:
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
@@ -1528,7 +1442,7 @@ module.exports = {"colorBorderDark":"#9ca7b0","colorGray50":"#4f5b64","colorBack
 
 /***/ }),
 
-/***/ 484:
+/***/ 489:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1536,88 +1450,100 @@ module.exports = {"colorBorderDark":"#9ca7b0","colorGray50":"#4f5b64","colorBack
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./src/scripts/stickyService.js
-var stickyService = __webpack_require__(46);
+var stickyService = __webpack_require__(49);
 
 // EXTERNAL MODULE: ./src/scripts/backtotop.js
-var backtotop = __webpack_require__(399);
+var backtotop = __webpack_require__(395);
 
 // EXTERNAL MODULE: ./src/scripts/anchor.js
-var scripts_anchor = __webpack_require__(400);
+var scripts_anchor = __webpack_require__(396);
 
 // EXTERNAL MODULE: ./src/scripts/sticky-sort-filter.js
-var sticky_sort_filter = __webpack_require__(401);
+var sticky_sort_filter = __webpack_require__(397);
 
 // EXTERNAL MODULE: ./src/scripts/sticky-sku-details.js
-var sticky_sku_details = __webpack_require__(402);
+var sticky_sku_details = __webpack_require__(398);
 
 // EXTERNAL MODULE: ./src/scripts/sticky-sku-scroll.js
-var sticky_sku_scroll = __webpack_require__(403);
+var sticky_sku_scroll = __webpack_require__(399);
 
 // EXTERNAL MODULE: ./src/scripts/mobile-search-scroll.js
-var mobile_search_scroll = __webpack_require__(404);
+var mobile_search_scroll = __webpack_require__(400);
 
 // EXTERNAL MODULE: ./src/scripts/navigation-overlay.js
-var navigation_overlay = __webpack_require__(405);
+var navigation_overlay = __webpack_require__(401);
 
 // EXTERNAL MODULE: ./src/scripts/navigation.js
-var navigation = __webpack_require__(406);
+var navigation = __webpack_require__(402);
 
 // EXTERNAL MODULE: ./src/scripts/navigation-level2.js
-var navigation_level2 = __webpack_require__(155);
+var navigation_level2 = __webpack_require__(157);
 
 // EXTERNAL MODULE: ./src/scripts/iframe.js
-var iframe = __webpack_require__(407);
+var iframe = __webpack_require__(403);
 
 // EXTERNAL MODULE: ./src/scripts/backtosearch.js
-var backtosearch = __webpack_require__(408);
+var backtosearch = __webpack_require__(404);
 
 // EXTERNAL MODULE: ./src/scripts/footer.js + 1 modules
-var footer = __webpack_require__(485);
+var footer = __webpack_require__(490);
 
 // EXTERNAL MODULE: ./src/scripts/banner.js
-var banner = __webpack_require__(409);
+var banner = __webpack_require__(405);
 
 // EXTERNAL MODULE: ./src/scripts/breadcrumb.js
-var breadcrumb = __webpack_require__(410);
+var breadcrumb = __webpack_require__(406);
 
 // EXTERNAL MODULE: ./src/scripts/header.js
-var scripts_header = __webpack_require__(411);
+var scripts_header = __webpack_require__(407);
 
 // EXTERNAL MODULE: ./src/scripts/collapsible.js
-var collapsible = __webpack_require__(412);
+var collapsible = __webpack_require__(408);
 
 // EXTERNAL MODULE: ./src/scripts/skulist.js
-var skulist = __webpack_require__(84);
+var skulist = __webpack_require__(88);
 
 // EXTERNAL MODULE: ./src/scripts/continueButton.js
-var continueButton = __webpack_require__(413);
+var continueButton = __webpack_require__(409);
 
 // EXTERNAL MODULE: ./src/scripts/textModifier.js
-var textModifier = __webpack_require__(414);
+var textModifier = __webpack_require__(410);
 
 // EXTERNAL MODULE: ./node_modules/core-js/features/object/assign.js
-var object_assign = __webpack_require__(415);
-
-// EXTERNAL MODULE: ./node_modules/core-js/features/promise/index.js
-var promise = __webpack_require__(425);
-
-// EXTERNAL MODULE: ./node_modules/core-js/features/array/find.js
-var find = __webpack_require__(450);
-
-// EXTERNAL MODULE: ./node_modules/core-js/features/array/from.js
-var from = __webpack_require__(457);
+var object_assign = __webpack_require__(411);
 
 // EXTERNAL MODULE: ./node_modules/core-js/features/object/entries.js
-var entries = __webpack_require__(462);
-
-// EXTERNAL MODULE: ./node_modules/core-js/features/string/repeat.js
-var repeat = __webpack_require__(465);
+var entries = __webpack_require__(420);
 
 // EXTERNAL MODULE: ./node_modules/core-js/features/object/values.js
-var values = __webpack_require__(469);
+var values = __webpack_require__(423);
+
+// EXTERNAL MODULE: ./node_modules/core-js/features/object/keys.js
+var keys = __webpack_require__(426);
+
+// EXTERNAL MODULE: ./node_modules/core-js/features/object/get-own-property-names.js
+var get_own_property_names = __webpack_require__(429);
+
+// EXTERNAL MODULE: ./node_modules/core-js/features/object/to-string.js
+var to_string = __webpack_require__(433);
+
+// EXTERNAL MODULE: ./node_modules/core-js/features/promise/index.js
+var promise = __webpack_require__(439);
+
+// EXTERNAL MODULE: ./node_modules/core-js/features/array/find.js
+var find = __webpack_require__(461);
+
+// EXTERNAL MODULE: ./node_modules/core-js/features/array/from.js
+var from = __webpack_require__(468);
+
+// EXTERNAL MODULE: ./node_modules/core-js/features/string/repeat.js
+var repeat = __webpack_require__(473);
 
 // CONCATENATED MODULE: ./src/polyfills.js
 // polyfills found here: https://github.com/zloirock/core-js
+
+
+
 
 
 
@@ -1668,19 +1594,19 @@ var modal = __webpack_require__(18);
 var screenSizes = __webpack_require__(19);
 
 // EXTERNAL MODULE: ./src/scripts/mobileNav.js
-var scripts_mobileNav = __webpack_require__(126);
+var scripts_mobileNav = __webpack_require__(128);
 
 // EXTERNAL MODULE: ./src/scripts/domElements.js
-var domElements = __webpack_require__(26);
+var domElements = __webpack_require__(25);
 
 // EXTERNAL MODULE: ./node_modules/react-svg/es/react-svg.js
 var react_svg = __webpack_require__(3);
 
 // EXTERNAL MODULE: ./node_modules/whatwg-fetch/fetch.js
-var whatwg_fetch_fetch = __webpack_require__(34);
+var whatwg_fetch_fetch = __webpack_require__(35);
 
 // EXTERNAL MODULE: ./src/stores/sessionStore.js
-var stores_sessionStore = __webpack_require__(14);
+var stores_sessionStore = __webpack_require__(15);
 
 // CONCATENATED MODULE: ./src/my-account-dropdown/services/index.js
 
@@ -1758,10 +1684,10 @@ function _signOutRequest() {
   return _signOutRequest.apply(this, arguments);
 }
 // EXTERNAL MODULE: ./src/scripts/checkOutStatus.js
-var checkOutStatus = __webpack_require__(44);
+var checkOutStatus = __webpack_require__(47);
 
 // EXTERNAL MODULE: ./src/analytics/index.js + 1 modules
-var analytics = __webpack_require__(17);
+var analytics = __webpack_require__(14);
 
 // CONCATENATED MODULE: ./src/my-account-dropdown/my-account-user-details.js
 
@@ -1877,7 +1803,7 @@ var userFunctions = __webpack_require__(13);
 
 
 
-var keys = {
+var my_account_container_keys = {
   MyAccountContainer: 'my-account-dropdown'
 };
 
@@ -1953,7 +1879,7 @@ var my_account_container_MyAccountContainer = function MyAccountContainer(props)
   };
 
   return react_default.a.createElement("div", {
-    className: keys.MyAccountContainer
+    className: my_account_container_keys.MyAccountContainer
   }, loginState && react_default.a.createElement(my_account_user_details, {
     userName: userName,
     accountName: accountName,
@@ -1970,19 +1896,19 @@ var my_account_container_MyAccountContainer = function MyAccountContainer(props)
 var loginStatus = __webpack_require__(16);
 
 // EXTERNAL MODULE: ./src/my-account/services/UserDetailsLazy.js
-var UserDetailsLazy = __webpack_require__(61);
+var UserDetailsLazy = __webpack_require__(65);
 
 // EXTERNAL MODULE: ./src/my-account/services/SoldToDetailsLazy.js + 1 modules
-var SoldToDetailsLazy = __webpack_require__(56);
+var SoldToDetailsLazy = __webpack_require__(59);
 
 // EXTERNAL MODULE: ./src/stores/localStore.js
-var localStore = __webpack_require__(49);
+var localStore = __webpack_require__(45);
 
 // CONCATENATED MODULE: ./src/my-account/services/PunchoutLogin.js
 
 
 
-var _Promise = typeof Promise === 'undefined' ? __webpack_require__(86).Promise : Promise;
+var _Promise = typeof Promise === 'undefined' ? __webpack_require__(91).Promise : Promise;
 
 var PunchoutLogin_punchoutLogin = function punchoutLogin(url, body) {
   return new _Promise( /*#__PURE__*/function () {
@@ -2107,19 +2033,19 @@ var punchoutSetup = /*#__PURE__*/function () {
 
 /* harmony default export */ var PunchoutSetup = (punchoutSetup);
 // EXTERNAL MODULE: ./src/utils/parse-query-params/index.js
-var parse_query_params = __webpack_require__(106);
+var parse_query_params = __webpack_require__(110);
 
 // EXTERNAL MODULE: ./src/utils/remove-query-string/index.js
-var remove_query_string = __webpack_require__(156);
+var remove_query_string = __webpack_require__(158);
 
 // EXTERNAL MODULE: ./src/utils/buildUrl.js
-var buildUrl = __webpack_require__(232);
+var buildUrl = __webpack_require__(235);
 
 // EXTERNAL MODULE: ./src/sku-details/views/addToCartModal.js
-var addToCartModal = __webpack_require__(33);
+var addToCartModal = __webpack_require__(31);
 
 // EXTERNAL MODULE: ./src/eproc-setup-failure/styles/index.scss
-var styles = __webpack_require__(472);
+var styles = __webpack_require__(477);
 
 // CONCATENATED MODULE: ./src/eproc-setup-failure/EprocSetupFailure.js
 
@@ -2903,11 +2829,11 @@ my_account_dropdown_MyAccountDropDown.defaultProps = {
 /* harmony default export */ var my_account_dropdown = (my_account_dropdown_MyAccountDropDown);
 
 // EXTERNAL MODULE: ./node_modules/react-autosuggest/dist/index.js
-var dist = __webpack_require__(233);
+var dist = __webpack_require__(236);
 var dist_default = /*#__PURE__*/__webpack_require__.n(dist);
 
 // EXTERNAL MODULE: ./node_modules/throttle-debounce/index.umd.js
-var index_umd = __webpack_require__(157);
+var index_umd = __webpack_require__(159);
 
 // EXTERNAL MODULE: ./src/search/services/index.js
 var services = __webpack_require__(21);
@@ -2933,7 +2859,7 @@ overlay_OverLay.defaultProps = {
 };
 /* harmony default export */ var overlay = (overlay_OverLay);
 // EXTERNAL MODULE: ./src/styles/index.scss
-var src_styles = __webpack_require__(97);
+var src_styles = __webpack_require__(101);
 
 // CONCATENATED MODULE: ./src/search/components/searchbar.js
 
@@ -3455,7 +3381,119 @@ if (headerSearchBarContainer && globalEntry_header) {
 
 /***/ }),
 
-/***/ 56:
+/***/ 50:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
+/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
+/* harmony import */ var whatwg_fetch__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(35);
+/* harmony import */ var _utils_redirectFunctions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(26);
+
+
+
+
+
+var getData = /*#__PURE__*/function () {
+  var _ref = Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(url) {
+    var response;
+    return C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.next = 2;
+            return fetch(url, {
+              method: 'GET',
+              credentials: 'include',
+              headers: {
+                'Content-Type': 'application/json'
+              }
+            });
+
+          case 2:
+            response = _context.sent;
+            _context.next = 5;
+            return response;
+
+          case 5:
+            return _context.abrupt("return", _context.sent);
+
+          case 6:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function getData(_x) {
+    return _ref.apply(this, arguments);
+  };
+}();
+
+var UserDetails = /*#__PURE__*/function () {
+  var _ref2 = Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+    var url,
+        _response,
+        _args2 = arguments;
+
+    return C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            url = _args2.length > 0 && _args2[0] !== undefined ? _args2[0] : "https://stgservices.waters.com/api/waters/user/v1/details";
+            _context2.prev = 1;
+            _context2.next = 4;
+            return getData(url);
+
+          case 4:
+            _response = _context2.sent;
+
+            if (!(_response.status === 200)) {
+              _context2.next = 9;
+              break;
+            }
+
+            return _context2.abrupt("return", _response.json());
+
+          case 9:
+            if (_response.status === 401 && window.location.href.indexOf('my-account.html') !== -1) {
+              Object(_utils_redirectFunctions__WEBPACK_IMPORTED_MODULE_3__[/* signInRedirect */ "d"])();
+            }
+
+          case 10:
+            return _context2.abrupt("return", {
+              failed: true,
+              error: _response.status
+            });
+
+          case 13:
+            _context2.prev = 13;
+            _context2.t0 = _context2["catch"](1);
+            return _context2.abrupt("return", {
+              failed: true,
+              error: response.status
+            });
+
+          case 16:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2, null, [[1, 13]]);
+  }));
+
+  return function UserDetails() {
+    return _ref2.apply(this, arguments);
+  };
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (UserDetails);
+
+/***/ }),
+
+/***/ 59:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3471,10 +3509,10 @@ var asyncToGenerator = __webpack_require__(12);
 var loginStatus = __webpack_require__(16);
 
 // EXTERNAL MODULE: ./src/stores/sessionStore.js
-var stores_sessionStore = __webpack_require__(14);
+var stores_sessionStore = __webpack_require__(15);
 
 // EXTERNAL MODULE: ./node_modules/whatwg-fetch/fetch.js
-var whatwg_fetch_fetch = __webpack_require__(34);
+var whatwg_fetch_fetch = __webpack_require__(35);
 
 // CONCATENATED MODULE: ./src/my-account/services/SoldToDetails.js
 
@@ -3580,7 +3618,7 @@ var SoldToDetails = /*#__PURE__*/function () {
 
 /* harmony default export */ var services_SoldToDetails = (SoldToDetails);
 // EXTERNAL MODULE: ./src/scripts/domElements.js
-var domElements = __webpack_require__(26);
+var domElements = __webpack_require__(25);
 
 // EXTERNAL MODULE: ./src/utils/eCommerceFunctions.js
 var eCommerceFunctions = __webpack_require__(11);
@@ -3600,6 +3638,7 @@ var eCommerceFunctions = __webpack_require__(11);
         currentPage,
         soldToUrl,
         soldToDetails,
+        hasDefaultSoldTo,
         response,
         hideCartClass,
         headerNavigation_cartLI,
@@ -3621,24 +3660,38 @@ var eCommerceFunctions = __webpack_require__(11);
             return _context.abrupt("return", []);
 
           case 6:
-            soldToDetails = sessionStore.getSoldToDetails();
+            soldToDetails = sessionStore.getSoldToDetails(); //START Patches for EComm
 
-            if (!soldToDetails) {
-              _context.next = 9;
+            if (!(soldToDetails && soldToDetails.length !== 0)) {
+              _context.next = 12;
+              break;
+            }
+
+            hasDefaultSoldTo = false;
+            soldToDetails.map(function (soldTo) {
+              if ((soldTo.soldToFlag && soldTo.soldToFlag === 1 || soldTo.default_soldTo && soldTo.default_soldTo === 1) && soldTo.soldToInfo && soldTo.soldToInfo.length !== 0 && soldTo.billToInfo && soldTo.shipToInfo) {
+                hasDefaultSoldTo = true;
+                soldTo.soldToFlag = 1;
+                soldTo.default_soldTo = 1;
+              }
+            });
+
+            if (!hasDefaultSoldTo) {
+              _context.next = 12;
               break;
             }
 
             return _context.abrupt("return", soldToDetails);
 
-          case 9:
-            _context.next = 11;
+          case 12:
+            _context.next = 14;
             return service(soldToUrl);
 
-          case 11:
+          case 14:
             response = _context.sent;
 
             if (response.failed) {
-              _context.next = 18;
+              _context.next = 21;
               break;
             }
 
@@ -3657,10 +3710,10 @@ var eCommerceFunctions = __webpack_require__(11);
 
             return _context.abrupt("return", response);
 
-          case 18:
+          case 21:
             return _context.abrupt("return", []);
 
-          case 19:
+          case 22:
           case "end":
             return _context.stop();
         }
@@ -3675,30 +3728,30 @@ var eCommerceFunctions = __webpack_require__(11);
 
 /***/ }),
 
-/***/ 61:
+/***/ 65:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
+/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
+/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
 /* harmony import */ var _scripts_loginStatus__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(16);
-/* harmony import */ var _stores_sessionStore__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(14);
-/* harmony import */ var _services_UserDetails__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(47);
+/* harmony import */ var _stores_sessionStore__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(15);
+/* harmony import */ var _services_UserDetails__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(50);
 
 
 
 
 
 /* harmony default export */ __webpack_exports__["a"] = (/*#__PURE__*/(function () {
-  var _ref = Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(userDetailsUrl, checkSessionStore) {
+  var _ref = Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(userDetailsUrl, checkSessionStore) {
     var sessionStore,
         service,
         navBarControls,
         userDetails,
         response,
         _args = arguments;
-    return C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+    return C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
@@ -3721,7 +3774,7 @@ var eCommerceFunctions = __webpack_require__(11);
               break;
             }
 
-            console.info("UserDetails API cannot be initiated due to unavailibility of login cookie");
+            console.info("UserDetails API cannot be initiated due to unavailability of login cookie");
             return _context.abrupt("return", {});
 
           case 9:
@@ -3769,14 +3822,6 @@ var eCommerceFunctions = __webpack_require__(11);
     return _ref.apply(this, arguments);
   };
 })());
-
-/***/ }),
-
-/***/ 97:
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-module.exports = {"colorBorderDark":"#9ca7b0","colorGray50":"#4f5b64","colorBackgroundLight":"#f4f6f7","colorWhite":"#fff","colorBlue50":"#07b","borderRadius":"4px","spaceXXXS":".25em","spaceXXS":".5em","spaceXS":".75em","spaceS":"1em"};
 
 /***/ })
 

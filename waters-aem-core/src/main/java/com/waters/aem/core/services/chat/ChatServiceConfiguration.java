@@ -10,5 +10,5 @@ public @interface ChatServiceConfiguration {
     String chatUrl() default "https://avaya-emc-dev.waters.com:9443/csportalclient/refimplementation/chat.html";
 
     @AttributeDefinition(name = "Chat Status API", description = "chat Status Api for waters chat service.")
-    String chatStatusApi() default "https://stgservices.waters.com/api/waters/v1/chat/enabled/{countryCode}";
+    String chatStatusApi() default "https://stage1-services.waters.com/api/waters/v1/chat/enabled/{countryCode}";
 }
