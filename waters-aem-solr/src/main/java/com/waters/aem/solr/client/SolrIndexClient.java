@@ -1,10 +1,12 @@
 package com.waters.aem.solr.client;
 
+import org.apache.solr.client.solrj.SolrServerException;
+import org.apache.solr.common.SolrInputDocument;
+
 import java.io.IOException;
 import java.util.List;
 
-import org.apache.solr.client.solrj.SolrServerException;
-import org.apache.solr.common.SolrInputDocument;
+
 
 /**
  * Service for adding to and deleting records from the Solr index.

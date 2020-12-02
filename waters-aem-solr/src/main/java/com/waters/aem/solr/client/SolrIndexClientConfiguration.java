@@ -25,7 +25,11 @@ public @interface SolrIndexClientConfiguration {
     
     @AttributeDefinition(name = "Enable Batch Indexing",
             description = "If true, documents will be indexed in batch mode.")
-    public  boolean enableBatchIndexing() default false;
+    public  boolean enableBatchIndexing() default true;
+    
+    @AttributeDefinition(name = "Double the parallelism level",
+            description = "If true, threads will be two times the number of available processor.")
+    public  boolean doubleParallelismLevel() default true;
     
     @AttributeDefinition(name = "Number of documents in single batch",
             description = "Number of documents which will be indexed in single batch.")
