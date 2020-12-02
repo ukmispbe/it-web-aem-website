@@ -11,6 +11,8 @@ const searchResultsTranslationsJSON = {
     "filterSearchPlaceholder": "Search",
     "resultsText": "Showing {count} results",
     "resultsForText": "Showing {count} results for",
+    "categoryText": "Category:",
+    "inCategoryText": "in ",
     "relatedSearchesText": "Related Searches",
     "noResultsText": "Showing 0 results",
     "noResultsTitle": "We didn't find any results for your search.",

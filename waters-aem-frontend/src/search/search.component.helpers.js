@@ -371,6 +371,7 @@ const ResultsBody = ({
             <div className="cmp-search__container__header clearfix">
                 {!isEprocurementUser && <CategoryDropdown
                     categoryDownIcon={text.downIcon}
+                    categoryLabelPrefix={text.categoryText}
                     categoryIsSearchable={false}
                     categoryOnChange={categoryEvents.onCategoryDropdownChange}
                     categoryOptions={categoryProps.categories}
