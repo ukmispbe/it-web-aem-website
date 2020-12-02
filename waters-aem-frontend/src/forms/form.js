@@ -96,6 +96,8 @@ const Form = ({
     const regionalConfig = config.regionalConfig;
     const [displayForm, setDisplayForm] = useState(false);
     const [isInEditMode, setIsInEditMode] = useState(document.getElementById("header").hasAttribute("data-is-edit-mode"));
+    const [isAlreadyRegistered, setIsAlreadyRegistered] = useState(false);
+
     const captchaField = config.fields.filter(
         field => field.type === 'captcha'
     )[0];
@@ -157,11 +159,17 @@ const Form = ({
             for (var name in errors) {
                 if (errors.hasOwnProperty(name)) {
                     if (name !== "captcha") {
-                        const control = document.getElementById(name);
-                        if (control) {
-                            const mainControlDiv = control.parentElement.parentElement;
-                            if (mainControlDiv) {
-                                mainControlDiv.classList.add("cmp-form-field--invalid");
+                        if (name === "alreadyRegistered") {
+                            setIsAlreadyRegistered(true);
+                        }
+                        // If alreadyRegistered error is already set no need to change
+                        if (name !== "email" || !isAlreadyRegistered) {
+                            const control = document.getElementById(name);
+                            if (control) {
+                                const mainControlDiv = control.parentElement.parentElement;
+                                if (mainControlDiv) {
+                                    mainControlDiv.classList.add("cmp-form-field--invalid");
+                                }
                             }
                         }
                     }
@@ -279,9 +287,13 @@ const Form = ({
             activateField,
             deactivateField,
             setCountrySaved,
-            regionalConfig
+            regionalConfig,
+            setErrorBoundaryToTrue,
+            resetErrorBoundaryToFalse,
+            removeNotifications,
+            isAlreadyRegistered
         }),
-        [register]
+        [register, isAlreadyRegistered]
     );
 
     const submitErrorHandler = res => {

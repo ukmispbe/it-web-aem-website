@@ -64,7 +64,5 @@ export async function postDataRedirect(url, options, setError) {
     })
     .catch(error => {
         setError(error);
-        throwError(error);
-        reject(error);
     });
 };

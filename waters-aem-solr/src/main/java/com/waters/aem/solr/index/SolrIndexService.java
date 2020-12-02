@@ -19,7 +19,7 @@ public interface SolrIndexService extends PageEventHandlerConfiguration {
      * @throws IOException if error occurs communicating with Solr server
      * @throws SolrServerException if error occurs in Solr index request
      */
-    boolean addPageToIndex(String path) throws IOException, SolrServerException;
+     boolean addPageToIndex(String path) throws IOException, SolrServerException;
 
     /**
      * Remove a page from the Solr index.
@@ -29,7 +29,7 @@ public interface SolrIndexService extends PageEventHandlerConfiguration {
      * @throws IOException if error occurs communicating with Solr server
      * @throws SolrServerException if error occurs in Solr index request
      */
-    boolean deletePageFromIndex(String path) throws IOException, SolrServerException;
+     boolean deletePageFromIndex(String path) throws IOException, SolrServerException;
 
     /**
      * Add/update an asset in the Solr index.
@@ -66,4 +66,22 @@ public interface SolrIndexService extends PageEventHandlerConfiguration {
      * @return excluded locales
      */
     List<String> getLocales();
+
+	/**
+	 * @param paths
+	 * @return
+	 * @throws SolrServerException 
+	 * @throws IOException 
+	 */
+	boolean addPageToIndex(List<String> paths) throws IOException, SolrServerException;
+
+	
+	/**
+	 * @param paths
+	 * @return
+	 * @throws IOException
+	 * @throws SolrServerException
+	 */
+	boolean deletePageFromIndex(List<String> paths) throws IOException, SolrServerException;
+
 }

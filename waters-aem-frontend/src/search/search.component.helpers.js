@@ -96,6 +96,7 @@ const Aside = ({
     asideEvents,
     children
 }) => {
+
     return (
         <div className="container__left cmp-search__sort-filter" data-locator="left-container-filter">
             <BtnHideSortFilter
@@ -111,13 +112,15 @@ const Aside = ({
             <BtnDoneSortFilter
                 text={text}
                 collapseFilters={asideEvents.onCollapseFilters} />
-            <div className="cmp-search__sort-filter__container">
-                <Sort
-                    sortValue={asideProps.sortByValue}
-                    sortHandler={asideEvents.onSort}
-                    text={text} />
-                {children}
-            </div>
+
+                <div className="cmp-search__sort-filter__container">
+                    <Sort
+                        sortValue={asideProps.sortByValue}
+                        sortHandler={asideEvents.onSort}
+                        text={text} />
+                        {children}
+                </div>
+
         </div>
     );
 }
@@ -411,8 +414,6 @@ const ResultsBody = ({
                     searchParams={searchParams}
                     resultsProps={resultsProps}
                     resultsEvents={resultsEvents} />
-
-
             </div>
 
             <Pagination

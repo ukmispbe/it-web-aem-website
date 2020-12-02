@@ -153,6 +153,24 @@ const eventTypes = {
         error: {
             event: 'orderDetailsPageError'
         }
+    },
+    quoteHistory: {
+        name: 'quoteHistory',
+        load: {
+            event: 'quoteHistoryPageLoad'
+        },
+        error: {
+            event: 'quoteHistoryError'
+        }
+    },
+    quoteDetails: {
+        name: 'quoteDetails',
+        load: {
+            event: 'quoteDetailsPageLoad'
+        },
+        error: {
+            event: 'quoteDetailsPageError'
+        }
     }
 }
 

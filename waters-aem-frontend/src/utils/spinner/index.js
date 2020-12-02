@@ -54,7 +54,10 @@ class LoadingSpinner extends Component {
 LoadingSpinner.propTypes = {
     loading: PropTypes.bool.isRequired,
     type: PropTypes.string,
-    size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    size: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
+    ]),
     color: PropTypes.string
 };
 

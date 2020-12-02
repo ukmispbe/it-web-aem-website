@@ -94,3 +94,25 @@ hr.small-accent-rule {
     height: $height-medium; 
     margin: 0 $space-xs;
 }
+
+.h-small {
+    border-top: $border-divider-small;
+  }
+  .h-large {
+    border-top: $border-divider-large;
+  }
+  
+  .v-small {
+    border-left: $border-divider-small;
+    height: 1em;
+    margin: 0 $space-xxs;
+  }
+  .v-large {
+    border-left: $border-divider-large;
+    height: $height-medium;
+    margin: 0 $space-xs;
+  }
+  
+  .h-accent {
+    border-top: 4px solid $color-accent;
+  }
