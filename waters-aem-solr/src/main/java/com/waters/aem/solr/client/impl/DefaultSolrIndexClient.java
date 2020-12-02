@@ -43,6 +43,33 @@ public class DefaultSolrIndexClient implements SolrIndexClient {
     
     private volatile String password;
 
+    /**
+     * This methods takes List<SolrInputDocument> documents as input and adds those to solr
+     */
+    @Override
+    public boolean addToIndex(final List<SolrInputDocument> documents) throws IOException, SolrServerException {
+    	  UpdateRequest req = new UpdateRequest();
+    	    req.add(documents);
+    	    req.setCommitWithin(commitWithinMs);
+    	    if(enableAuthentication) {
+    	    req.setBasicAuthCredentials(userName,password);
+    	    }
+    	return processResponse(req.process(solrClient, collection), req);
+    }
+
+    /**
+     * This methods takes List<String> ids as input and deletes those from solr
+     */
+    @Override
+    public boolean deleteFromIndex(final List<String> ids) throws IOException, SolrServerException {
+    	UpdateRequest req = new UpdateRequest();
+        req.deleteById(ids);
+        req.setCommitWithin(commitWithinMs);
+        if(enableAuthentication) {
+	    req.setBasicAuthCredentials(userName, password);
+        }
+    	return processResponse(req.process(solrClient, collection), req);
+    }
     @Override
     public boolean addToIndex(final SolrInputDocument document) throws IOException, SolrServerException {
     	  UpdateRequest req = new UpdateRequest();
@@ -64,7 +91,7 @@ public class DefaultSolrIndexClient implements SolrIndexClient {
         }
     	return processResponse(req.process(solrClient, collection), req);
     }
-
+    
 	@Activate
     @Modified
     protected void activate(final SolrIndexClientConfiguration configuration) {
