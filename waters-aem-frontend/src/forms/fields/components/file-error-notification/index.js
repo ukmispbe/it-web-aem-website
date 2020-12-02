@@ -13,7 +13,7 @@ const Notification = ({
   icon,
   elementLocator,
 }) => (
-    <div className={`notification ${variation} ${type} ${className}`} data-locator={elementLocator}>
+    <div className={`file-error-notification ${variation} ${type} ${className}`} data-locator={elementLocator}>
       {icon && <ReactSVG className="icon" src={icon} data-locator={`${elementLocator}-icon`} aria-hidden={true} />}
       <div>
         {title && (
