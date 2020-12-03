@@ -23,6 +23,7 @@ import SkuList from '../sku-list';
 import Results from './components/results';
 import { propTypes, defaultProps } from './search.component.props';
 import { isEprocurementUser } from '../utils/userFunctions';
+import Radial from '../navigation/Radial';
 
 const FilterTagList = ({
     text,
@@ -94,10 +95,16 @@ const Aside = ({
     text,
     asideProps,
     asideEvents,
-    children
+    children,
+    items,
+    activeIndex,
+    categoryClick,
 }) => {
     return (
         <div className="container__left cmp-search__sort-filter" data-locator="left-container-filter">
+            {!isEprocurementUser() && <Radial items={items}
+                activeIndex={activeIndex}
+                onClick={categoryClick} />}
             <BtnHideSortFilter
                 text={text}
                 onClick={asideEvents.onHideSortFilterClick} />
