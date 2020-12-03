@@ -15,6 +15,7 @@ exports[`Feature: Aside Component Scenario: Rendering When children are provided
     </div>
     <div
       className="cmp-category-items"
+      role="radiogroup"
     />
   </div>
   <div
@@ -138,6 +139,7 @@ exports[`Feature: Aside Component Scenario: Rendering When no children are provi
     </div>
     <div
       className="cmp-category-items"
+      role="radiogroup"
     />
   </div>
   <div

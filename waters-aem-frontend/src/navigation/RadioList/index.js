@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 
 import { elementLocator } from "../../utils/eCommerceFunctions.js";
 
-const Radial = ({items, activeIndex, onClick}) => {
+const RadioList = ({items, activeIndex, onClick}) => {
     const radialRef = React.useRef();
     return (
         <div className="cmp-category-wrapper">
             <div><h3>Category</h3></div>
-            <div ref={radialRef} className="cmp-category-items">
+            <div role="radiogroup" ref={radialRef} className="cmp-category-items">
                 {items.map((item, index) => <Radio key={`CategoryRadio-${index}`} name={item.name} count={item.count} index={index} isActive={index === activeIndex} onClick={onClick} />)}
             </div>
         </div>
@@ -41,15 +41,15 @@ Radio.defaultProps = {
     onClick: () => {}
 }
 
-Radial.propTypes = {
+RadioList.propTypes = {
     items: PropTypes.array.isRequired,
     activeIndex: PropTypes.number.isRequired,
     onClick: PropTypes.func.isRequired
 }
 
-Radial.defaultProps = {
+RadioList.defaultProps = {
     items: [],
     activeIndex: -1,
     onClick: () => {}
 }
-export default Radial;
+export default RadioList;
