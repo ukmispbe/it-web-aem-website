@@ -17,7 +17,7 @@
 
     .cmp-category-wrapper {
 
-        @include mobile {
+        @include  tablet-and-under {
             display: none;
         }
 
