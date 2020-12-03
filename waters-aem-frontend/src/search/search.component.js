@@ -1,7 +1,6 @@
 import React from 'react';
 import { propTypes, defaultProps } from './search.component.props';
 import { Aside, Menu, ResultsBody } from './search.component.helpers';
-import Tabs from '../navigation/tabs';
 import SearchBreadcrumb from '../common/search-breadcrumb';
 
 const SearchComponent = props => {
@@ -13,18 +12,17 @@ const SearchComponent = props => {
             <SearchBreadcrumb 
                 text={props.text}
                 searchParams={props.searchParams} />
-            {!props.isEprocurementUser && <Tabs className="cmp-search__categories-tabs"
-                items={props.categoryProps.categories}
-                activeIndex={props.categoryProps.activeIndex}
-                onClick={props.categoryEvents.onCategoryTabClick} />}
-
             <div>
                 <div className="overlay" />
                 <Aside 
                     sortFilterIsPristine={props.asideProps.sortFilterIsPristine}
                     text={props.text}
                     asideProps={props.asideProps}
-                    asideEvents={props.asideEvents}>
+                    asideEvents={props.asideEvents}
+                    items={props.categoryProps.categories}
+                    activeIndex={props.categoryProps.activeIndex}
+                    categoryClick={props.categoryEvents.onCategoryTabClick}
+                    >
 
                     <Menu 
                         text={props.text}
