@@ -1,7 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import HeaderSearchBar from "./header-search-bar";
-import HeaderSearchModal from "./header-search-modal";
 import Search from './search/index';
 import TagCloud from './search/components/tagcloud';
 import ImageCarousel from './image-carousel';
@@ -104,47 +102,6 @@ if (spinnerContainer) {
     ); 
 }
 // End Bind Loader component on Demand
-
-const headerSearchBarContainer = document.getElementById('header-search-bar');
-const headerMobileSearchContainer = document.getElementById('mobile-header-search-container');
-
-if (headerMobileSearchContainer && headerSearchBarContainer && header) {
-    const data = getAuthoredDataForSearchBar(headerSearchBarContainer, header);
-    const searchLabels = {
-        clear: data.clearLabel,
-        search: data.searchLabel,
-        autoSuggest: data.autoSuggestLabel,
-    }
-    ReactDOM.render(
-        <HeaderSearchBar
-            iconSearch={data.iconSearch}
-            iconClear={data.iconClear}
-            searchPath={data.searchPath}
-            placeholderTablet={data.placeholderTablet}
-            placeholderMobile={data.placeholderMobile}
-            baseUrl={data.baseUrl}
-            isocode={data.isocode}
-            customStyle={data.customStyle}
-            labels={searchLabels}
-        />,
-        headerSearchBarContainer
-    );
-
-    ReactDOM.render(
-        <HeaderSearchModal
-            iconSearch={data.iconSearch}
-            iconClear={data.iconClear}
-            searchPath={data.searchPath}
-            placeholderTablet={data.placeholderTablet}
-            placeholderMobile={data.placeholderMobile}
-            baseUrl={data.baseUrl}
-            isocode={data.isocode}
-            customStyle={data.customStyle}
-            labels={searchLabels}
-        />,
-        headerMobileSearchContainer
-    );
-}
 
 const searchAppContainer = document.getElementById('js-search-app');
 
