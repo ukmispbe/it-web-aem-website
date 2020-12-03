@@ -6,6 +6,19 @@ exports[`Feature: Aside Component Scenario: Rendering When children are provided
   data-locator="left-container-filter"
 >
   <div
+    className="cmp-category-wrapper"
+  >
+    <div>
+      <h3>
+        Category
+      </h3>
+    </div>
+    <div
+      className="cmp-category-items"
+      role="radiogroup"
+    />
+  </div>
+  <div
     className="cmp-search-hide-btn clearfix"
   >
     <a
@@ -116,6 +129,19 @@ exports[`Feature: Aside Component Scenario: Rendering When no children are provi
   className="container__left cmp-search__sort-filter"
   data-locator="left-container-filter"
 >
+  <div
+    className="cmp-category-wrapper"
+  >
+    <div>
+      <h3>
+        Category
+      </h3>
+    </div>
+    <div
+      className="cmp-category-items"
+      role="radiogroup"
+    />
+  </div>
   <div
     className="cmp-search-hide-btn clearfix"
   >
