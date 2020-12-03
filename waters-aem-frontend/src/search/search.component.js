@@ -1,24 +1,28 @@
 import React from 'react';
 import { propTypes, defaultProps } from './search.component.props';
 import { Aside, Menu, ResultsBody } from './search.component.helpers';
-import Tabs from '../navigation/tabs';
-import ResultsCount from './components/results-count';
+import SearchBreadcrumb from '../common/search-breadcrumb';
 
 const SearchComponent = props => {
+    // Append Facet Description & spelling of keyword
+    props.searchParams.contentTypeSelected = props.filterTagsProps.contentTypeSelected;
+    props.searchParams.spell_suggestion = props.filterTagsProps.spell_suggestion;
     return (
         <>
-            {!props.isEprocurementUser && <Tabs className="cmp-search__categories-tabs"
-                items={props.categoryProps.categories}
-                activeIndex={props.categoryProps.activeIndex}
-                onClick={props.categoryEvents.onCategoryTabClick} />}
-
+            <SearchBreadcrumb 
+                text={props.text}
+                searchParams={props.searchParams} />
             <div>
                 <div className="overlay" />
                 <Aside 
                     sortFilterIsPristine={props.asideProps.sortFilterIsPristine}
                     text={props.text}
                     asideProps={props.asideProps}
-                    asideEvents={props.asideEvents}>
+                    asideEvents={props.asideEvents}
+                    items={props.categoryProps.categories}
+                    activeIndex={props.categoryProps.activeIndex}
+                    categoryClick={props.categoryEvents.onCategoryTabClick}
+                    >
 
                     <Menu 
                         text={props.text}

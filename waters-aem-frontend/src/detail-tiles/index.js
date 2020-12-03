@@ -1,8 +1,6 @@
 import React from 'react';
 import ReactSVG from 'react-svg';
-
 import ErrorBoundary from './../search/ErrorBoundary';
-
 import useProfile from './hooks/useProfile';
 import Tile from './views/tile';
 import { personalSubmit, changePasswordSubmit } from '../forms/services/submit';

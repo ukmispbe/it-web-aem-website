@@ -8,6 +8,7 @@ describe('Feature: NoResults React Component', () => {
             it('Then the snapshot should match', () => {
                 const searchText = {
                     noResultsIcon: 'PATH_TO_ICON',
+                    noResultsText: 'TEXT',
                     noResultsTitle: 'TITLE',
                     noResultsDescription: 'DESCRIPTION',
                     noResultsSearchLinkText: 'LINK_TEXT'

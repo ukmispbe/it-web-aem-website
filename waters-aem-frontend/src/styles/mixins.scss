@@ -134,3 +134,58 @@
     -webkit-hyphens: auto;
     hyphens: auto;
 }
+
+@mixin inline-tag-list {
+    display: flex;
+    flex-wrap: wrap;
+
+    a {
+        @include font-small;
+        line-height: $line-height-text;
+        display: block;
+        float: left;
+        padding: $space-xxxs $space-xs ($space-xxxs + .05em) ($space-l - $space-xxxs);
+        margin: 0 $space-xxs $space-xxs 0;
+        text-decoration: none;
+        background-color: $color-gray-20;
+        position: relative;
+        border-radius: $border-radius;
+
+        @include tablet {
+            max-height: fit-content;
+            margin: 0 $space-xxs $space-xxs 0;
+        }
+
+        @include mobile {
+            padding: ($space-xxxs + .05em) $space-xs ($space-xxxs + .1em) ($space-l - $space-xxxs);
+            max-height: fit-content;
+            margin: 0 $space-xxs $space-xxs 0;
+        }
+
+        svg {
+            position: absolute;
+            top: 9px;
+            left: 8px;
+            width: $icon-s;
+            height: $icon-s;
+            .st0 {
+                stroke: $color-icon;
+                stroke-width: 2px;
+            }
+            @include tablet-and-under {
+                top: 9px;
+                margin: 0;
+            }
+            @include mobile {
+                top: 9px;
+            }
+        }
+        &.cmp-search-filters__tags__clear {
+            color: $color-font-light;
+            background-color: $color-gray-50;
+            .st0 {
+                stroke: $color-white;
+            }
+        }
+    }
+}

@@ -1,0 +1,106 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Feature: RadioList Component Scenario: Rendering RadioList When categories are provided Then it should match snapshot 1`] = `
+<div
+  className="cmp-category-wrapper"
+>
+  <div>
+    <h3>
+      Category
+    </h3>
+  </div>
+  <div
+    className="cmp-category-items"
+    role="radiogroup"
+  >
+    <div
+      className="cmp-category-item active"
+      onClick={[Function]}
+    >
+      <input
+        aria-checked={true}
+        aria-disabled="false"
+        aria-labelledby="Library"
+        aria-required="false"
+        checked={true}
+        class="valid"
+        data-locator="Library"
+        id="Library"
+        name="Library"
+        readonly=""
+        role="radio"
+        type="radio"
+      />
+      <a
+        class="radio  valid"
+        id="Library_link"
+      >
+        <div
+          class="selector"
+        />
+      </a>
+      <span
+        className="cmp-radio__radio-label"
+        data-locator="library"
+      >
+        Library
+         (
+        1525
+        )
+      </span>
+    </div>
+    <div
+      className="cmp-category-item"
+      onClick={[Function]}
+    >
+      <input
+        aria-checked={false}
+        aria-disabled="false"
+        aria-labelledby="Shop"
+        aria-required="false"
+        checked={false}
+        class="valid"
+        data-locator="Shop"
+        id="Shop"
+        name="Shop"
+        readonly=""
+        role="radio"
+        type="radio"
+      />
+      <a
+        class="radio  valid"
+        id="Shop_link"
+      >
+        <div
+          class="selector"
+        />
+      </a>
+      <span
+        className="cmp-radio__radio-label"
+        data-locator="shop"
+      >
+        Shop
+         (
+        8243
+        )
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Feature: RadioList Component Scenario: Rendering RadioList When no categories are provided Then it should match snapshot 1`] = `
+<div
+  className="cmp-category-wrapper"
+>
+  <div>
+    <h3>
+      Category
+    </h3>
+  </div>
+  <div
+    className="cmp-category-items"
+    role="radiogroup"
+  />
+</div>
+`;

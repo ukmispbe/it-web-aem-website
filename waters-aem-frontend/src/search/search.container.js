@@ -145,7 +145,7 @@ class SearchContainer extends Component {
             spell_suggestion: '',
             erroredOut: false,
             categoryTabs: [],
-            activeTabIndex: -1,
+            activeTabIndex: 0,
             tabHistory: {},
             facetGroupsSelectedOrder: [],
             collapseAllFilters: false,
@@ -501,9 +501,9 @@ class SearchContainer extends Component {
         newState.filterMap =
             res.num_found !== 0
                 ? Object.assign({}, this.getFilterMap(
-                      this.props.filterMap,
-                      res.facets[this.parentCategory]
-                  ))
+                    this.props.filterMap,
+                    res.facets[this.parentCategory]
+                ))
                 : [];
 
         newState.loading = false;

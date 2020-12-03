@@ -3,70 +3,7 @@ import ReactSVG from 'react-svg';
 import Select, { components } from 'react-select';
 import PropTypes from 'prop-types';
 import ScreenSizes from '../../scripts/screenSizes';
-import variables from '../../../src/styles/variables.scss';
-
-/* istanbul ignore next */
-const customStyles = {
-    indicatorSeparator: () => ({
-        display: 'none',
-    }),
-    option: (provided, state) => ({
-        ...provided,
-        color: variables.colorGray50,
-        padding: '0.75em 1em',
-        backgroundColor: state.isSelected ? variables.colorBackgroundLight : variables.colorWhite,
-        cursor: !state.isSelected ? 'pointer' : 'default',
-        '&:hover': {
-            color: !state.isSelected ? variables.colorBlue50 : variables.colorGray50,
-            backgroundColor: !state.isSelected ? variables.colorWhite : variables.colorBackgroundLight,
-        },
-        margin: 0,
-    }),
-    control: (provided, state) => ({
-        ...provided,
-        'border-radius': variables.borderRadius,
-        padding: '0.3em 0.5em',
-        color: variables.colorGray50,
-        'border-color': state.isFocused ? variables.colorBorderDark : variables.colorBorderDark,
-        outline: 'none',
-        cursor: 'pointer',
-        'box-shadow': 'none',
-        '&:hover': {
-            outline: 'none',
-            color: variables.colorBlue50,
-            borderColor: variables.colorBlue50,
-        },
-    }),
-    singleValue: (provided, state) => {
-        return {};
-    },
-    menu: provided => ({
-        ...provided,
-        marginTop: 0,
-        borderRadius: 0,
-        width: 'calc(100% - 2px)',
-        marginLeft: '1px',
-        marginBottom: 0,
-        padding: 0,
-    }),
-    menuList: provided => ({
-        ...provided,
-        paddingBottom: 0,
-        paddingTop: 0,
-    }),
-};
-
-const DropdownIndicator = props => {
-    return (
-        <components.DropdownIndicator {...props}>
-            <ReactSVG
-                src={props.theme.dropdownIndicator}
-                className = "dropDownIcon"
-            />
-        </components.DropdownIndicator>
-    );
-};
-
+import customDropdownStyles from '../../utils/dropdown/custom-styles';
 
 const getOptions = options => {
     let newList = options.filter(item => item.count !== 0).map((a, index) => { 
@@ -75,10 +12,34 @@ const getOptions = options => {
             label: a.translation
         }
     })
-    
+
     return newList;
 };
- 
+
+const dropdownComponents = label => {
+    let prefix = label !='' ? label + ' ': '';
+
+    return {
+        SingleValue: ({ children, ...props }) => {
+            return (
+                <components.SingleValue {...props}>
+                    {prefix + children}
+                </components.SingleValue>
+            );
+        },
+        DropdownIndicator: ({ children, ...props }) => {
+            return (
+                <components.DropdownIndicator {...props}>
+                    <ReactSVG
+                        src={props.theme.dropdownIndicator}
+                        className = "dropDownIcon"
+                    />
+                </components.DropdownIndicator>
+            );
+        }
+    };
+};
+
 const CategoryDropdown = props => {
     const options = getOptions(props.categoryOptions);
 
@@ -90,11 +51,11 @@ const CategoryDropdown = props => {
                     value={options[props.categoryValue]}
                     onChange={props.categoryOnChange}
                     isSearchable={props.categoryIsSearchable}
-                    styles={customStyles}
+                    styles={customDropdownStyles}
                     placeholder={props.categoryPlaceholder}
                     classNamePrefix={'cmp-custom-dropdown'}
-                    components={{ DropdownIndicator }}
-                    theme={{ dropdownIndicator: props.categoryDownIcon }}
+                    components={dropdownComponents(props.categoryLabelPrefix)}
+                    theme={{dropdownIndicator: props.categoryDownIcon}}
                 />
             </div>
         );
@@ -110,6 +71,7 @@ const CategoryDropdown = props => {
 CategoryDropdown.propTypes = {
     categoryOptions: PropTypes.array.isRequired,
     categoryOnChange: PropTypes.func.isRequired,
+    categoryLabelPrefix: PropTypes.string,
     categoryIsSearchable: PropTypes.bool,
     categoryPlaceholder: PropTypes.string,
     categoryDownIcon: PropTypes.string.isRequired,
@@ -119,6 +81,7 @@ CategoryDropdown.propTypes = {
 CategoryDropdown.defaultProps = {
     categoryOptions: [],
     categoryOnChange: () => {},
+    categoryLabelPrefix: '',
     categoryIsSearchable: false,
     categoryPlaceholder: '',
     categoryDownIcon: '',

@@ -6,6 +6,19 @@ exports[`Feature: Aside Component Scenario: Rendering When children are provided
   data-locator="left-container-filter"
 >
   <div
+    className="cmp-category-wrapper"
+  >
+    <div>
+      <h3>
+        Category
+      </h3>
+    </div>
+    <div
+      className="cmp-category-items"
+      role="radiogroup"
+    />
+  </div>
+  <div
     className="cmp-search-hide-btn clearfix"
   >
     <a
@@ -61,17 +74,17 @@ exports[`Feature: Aside Component Scenario: Rendering When children are provided
           onKeyDown={[Function]}
         >
           <div
-            className="css-xov0tq-control cmp-custom-dropdown__control"
+            className="css-28883k-control cmp-custom-dropdown__control"
             onMouseDown={[Function]}
             onTouchEnd={[Function]}
           >
             <div
-              className="css-1hwfws3 cmp-custom-dropdown__value-container cmp-custom-dropdown__value-container--has-value"
+              className="css-1hwfws3 cmp-custom-dropdown__value-container"
             >
               <div
-                className="css-0 cmp-custom-dropdown__single-value"
+                className="css-151xaom-placeholder cmp-custom-dropdown__placeholder"
               >
-                Most Recent
+                
               </div>
               <input
                 className="css-gj7qu5-dummyInput"
@@ -117,6 +130,19 @@ exports[`Feature: Aside Component Scenario: Rendering When no children are provi
   data-locator="left-container-filter"
 >
   <div
+    className="cmp-category-wrapper"
+  >
+    <div>
+      <h3>
+        Category
+      </h3>
+    </div>
+    <div
+      className="cmp-category-items"
+      role="radiogroup"
+    />
+  </div>
+  <div
     className="cmp-search-hide-btn clearfix"
   >
     <a
@@ -172,17 +198,17 @@ exports[`Feature: Aside Component Scenario: Rendering When no children are provi
           onKeyDown={[Function]}
         >
           <div
-            className="css-xov0tq-control cmp-custom-dropdown__control"
+            className="css-28883k-control cmp-custom-dropdown__control"
             onMouseDown={[Function]}
             onTouchEnd={[Function]}
           >
             <div
-              className="css-1hwfws3 cmp-custom-dropdown__value-container cmp-custom-dropdown__value-container--has-value"
+              className="css-1hwfws3 cmp-custom-dropdown__value-container"
             >
               <div
-                className="css-0 cmp-custom-dropdown__single-value"
+                className="css-151xaom-placeholder cmp-custom-dropdown__placeholder"
               >
-                Most Recent
+                
               </div>
               <input
                 className="css-gj7qu5-dummyInput"
@@ -445,26 +471,34 @@ exports[`Feature: ResultsBody Component Scenario: Rendering When sorting by best
     className="cmp-search__sorted-container"
   >
     <div
-      className="cmp-search__resultsCount-container"
-      data-locator="results-count-container"
+      className="cmp-search__resultsCount"
+      data-locator="results-count"
     >
-      <h2
-        className="cmp-search__resultsCount"
-        data-locator="results-count"
+      <span
+        class="results"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Showing <span class='count'>0</span> results for",
+          }
+        }
+      />
+      
+      <div
+        class="query-box"
       >
-        Showing 1-0 of 0 results 
-        <span>
-          for 
-          <strong>
-            <q
-              className="query"
-            >
-              
-            </q>
-            .
-          </strong>
-        </span>
-      </h2>
+        <h1
+          className="query"
+        >
+          
+        </h1>
+         
+         
+         
+        
+      </div>
+      <hr
+        className="small-accent-rule"
+      />
     </div>
     <div
       className="cmp-search-filters__emptytags"
@@ -517,26 +551,34 @@ exports[`Feature: ResultsBody Component Scenario: Rendering When sorting by most
     className="cmp-search__sorted-container"
   >
     <div
-      className="cmp-search__resultsCount-container"
-      data-locator="results-count-container"
+      className="cmp-search__resultsCount"
+      data-locator="results-count"
     >
-      <h2
-        className="cmp-search__resultsCount"
-        data-locator="results-count"
+      <span
+        class="results"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Showing <span class='count'>0</span> results for",
+          }
+        }
+      />
+      
+      <div
+        class="query-box"
       >
-        Showing 1-0 of 0 results 
-        <span>
-          for 
-          <strong>
-            <q
-              className="query"
-            >
-              
-            </q>
-            .
-          </strong>
-        </span>
-      </h2>
+        <h1
+          className="query"
+        >
+          
+        </h1>
+         
+         
+         
+        
+      </div>
+      <hr
+        className="small-accent-rule"
+      />
     </div>
     <div
       className="cmp-search-filters__emptytags"

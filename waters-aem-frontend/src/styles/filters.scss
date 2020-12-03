@@ -248,67 +248,31 @@
         }
     }
     &__tags {
-        display: flex;
-        flex-wrap: wrap;
+        @include inline-tag-list;
         margin-top: $space-xs;
         margin-bottom: $space-l;
 
-        a {
-            @include font-small;
-            line-height: $line-height-text;
-            display: block;
-            float: left;
-            padding: $space-xxxs $space-xs ($space-xxxs + .05em) ($space-l - $space-xxxs);
-            margin: 0 $space-xxs 0 0;
-            text-decoration: none;
-            background-color: $color-gray-20;
-            position: relative;
-            border-radius: $border-radius;
+        @include tablet {
+            width: 100%;
+            padding: 0;
+            margin-bottom: $space-m;
 
-            @include tablet {
-                max-height: fit-content;
+            a {
                 margin: 0 $space-xxs $space-xxs 0;
-            }
-
-            @include mobile {
-                padding: ($space-xxxs + .05em) $space-xs ($space-xxxs + .1em) ($space-l - $space-xxxs);
-                max-height: fit-content;
-                margin: 0 $space-xxs $space-xxs 0;
-            }
-
-            svg {
-                position: absolute;
-                top: 9px;
-                left: 8px;
-                width: $icon-s;
-                height: $icon-s;
-                .st0 {
-                    stroke: $color-icon;
-                    stroke-width: 2px;
-                }
-                @include tablet-and-under {
-                    top: 9px;
-                    margin: 0;
-                }
-                @include mobile {
-                    top: 9px;
-                }
-            }
-            &.cmp-search-filters__tags__clear {
-                color: $color-font-light;
-                background-color: $color-gray-50;
-                .st0 {
-                    stroke: $color-white;
-                }
             }
         }
-        @include tablet-and-under {
+
+        @include mobile {
             margin-top: 0;
-            margin-bottom: 0;
+            margin-bottom: $space-s;
+
+            a {
+                margin: 0 $space-xxs $space-xxs 0;
+            }
         }
     }
     &__emptytags {
-        height: $space-l;
+        height: $space-xxs;
 
         @include tablet-and-under {
             height: 0;
