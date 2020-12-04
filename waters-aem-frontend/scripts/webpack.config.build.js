@@ -55,7 +55,7 @@ module.exports = {
     plugins: [
         new MiniCssExtractPlugin({
             filename: '[name].css',
-            chunkFilename: '[name].css',
+            chunkFilename: '[name].css'
         })
     ],
     module: {

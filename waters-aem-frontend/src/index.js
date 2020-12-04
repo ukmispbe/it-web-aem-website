@@ -1,16 +1,21 @@
 import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import Search from './search/index';
+// const Search = React.lazy(() => import(/* webpackChunkName: "searchresults" */'./search/index'));
 import TagCloud from './search/components/tagcloud';
 // import ImageCarousel from './image-carousel';
 const ImageCarousel = React.lazy(() => import(/* webpackChunkName: "imagegallery" */'./image-carousel'));
-import UserGreeting from './user-greetings/UserGreeting';
-import QuickOrder from './quick-order/QuickOrder';
+// import UserGreeting from './user-greetings/UserGreeting';
+const UserGreeting = React.lazy(() => import(/* webpackChunkName: "usergreetings" */'./user-greetings/UserGreeting'));
+// import QuickOrder from './quick-order/QuickOrder';
+const QuickOrder = React.lazy(() => import(/* webpackChunkName: "quickorder" */'./quick-order/QuickOrder'));
 import LinkButton from './link-button/LinkButton';
 import LegalLinkModal from './legal-link-modal/LegalLinkModal';
 
 import SkuDetails from './sku-details';
+// const SkuDetails = React.lazy(() => import(/* webpackChunkName: "skudetails" */ './sku-details'));
 import SkuList from './sku-list';
+// const SkuList = React.lazy(() => import(/* webpackChunkName: "skulist" */ './sku-list'));
 import SkuMessage from './sku-message';
 // import Form from './forms/form';
 import {
@@ -29,7 +34,8 @@ const Chat = React.lazy(() => import(/* webpackChunkName: "chat" */'./chat'));
 import DetailTiles from './detail-tiles';
 import DigitalData from './scripts/DigitalData';
 import WeChat from './wechat';
-import MyAccountRouter from './my-account';
+// import MyAccountRouter from './my-account';
+const MyAccountRouter = React.lazy(() => import(/* webpackChunkName: "myaccount" */'./my-account'));
 import CountrySelector from './country-selector';
 import SessionStore from './stores/sessionStore';
 import LoginStatus from "./scripts/loginStatus";
@@ -127,16 +133,18 @@ if (searchAppContainer) {
 
     const data = getAuthoredDataForSearchApp(searchAppContainer);
     ReactDOM.render(
-        <Search
-            defaultFacet="category_facet:waters%253Acategory%252Fapplicationslibrary"
-            searchDefaults={{ rows: 25 }}
-            searchServicePath={data.searchPath}
-            searchLocale={data.locale}
-            searchText={text}
-            filterMap={filterMap}
-            isocode={data.isocode}
-            baseSignInUrl={baseSignInUrlString}
-        />,
+        <Suspense fallback={<div>Loading...</div>}>
+            <Search
+                defaultFacet="category_facet:waters%253Acategory%252Fapplicationslibrary"
+                searchDefaults={{ rows: 25 }}
+                searchServicePath={data.searchPath}
+                searchLocale={data.locale}
+                searchText={text}
+                filterMap={filterMap}
+                isocode={data.isocode}
+                baseSignInUrl={baseSignInUrlString}
+            />
+        </Suspense>,
         searchAppContainer
     );
 }
@@ -224,16 +232,18 @@ if (skuDetailsContainer) {
 
     function skuDetailsRender(skuDetailsContainer) {
         ReactDOM.render(
-            <SkuDetails
-                config={skuDetailsConfig}
-                price={skuDetailsListPrice}
-                countryRestricted={skuCountryRestricted}
-                skuNumber={skuNumber}
-                titleText={skuTitle}
-                discontinued={skuDiscontinued}
-                replacementSkuCode={replacementSkuCode}
-                replacementSkuHref={replacementSkuHref}
-            />,
+            <Suspense fallback={<div>Loading...</div>}>
+                <SkuDetails
+                    config={skuDetailsConfig}
+                    price={skuDetailsListPrice}
+                    countryRestricted={skuCountryRestricted}
+                    skuNumber={skuNumber}
+                    titleText={skuTitle}
+                    discontinued={skuDiscontinued}
+                    replacementSkuCode={replacementSkuCode}
+                    replacementSkuHref={replacementSkuHref}
+                />
+            </Suspense>,
             skuDetailsContainer
         );
     }
@@ -251,11 +261,13 @@ if (skuListContainer) {
         : '';
 
     ReactDOM.render(
-        <SkuList
-            skuConfig={skuDetailsConfig}
-            data={skuListData}
-            title={skuListTitle}
-        />,
+        <Suspense fallback={<div>Loading...</div>}>
+            <SkuList
+                skuConfig={skuDetailsConfig}
+                data={skuListData}
+                title={skuListTitle}
+            />
+        </Suspense>,
         skuListContainer
     );
 }
@@ -559,7 +571,7 @@ if (myAccountPage) {
         document.getElementById('cmp-my-account').innerHTML
     );
 
-    ReactDOM.render(<MyAccountRouter {...config} />, myAccountPage);
+    ReactDOM.render(<Suspense fallback={<div>Loading...</div>}><MyAccountRouter {...config} /></Suspense>, myAccountPage);
 }
 
 const countryModalRoot = document.getElementById('country-selector-root');
@@ -596,7 +608,7 @@ if (userGreetingContainer) {
 function userGreeting(userGreetingContainer) {
     const props = JSON.parse(document.getElementById("cmp-user-greetings").innerHTML);
     ReactDOM.render(
-        <UserGreeting {...props} />,
+        <Suspense fallback={<div>Loading...</div>}><UserGreeting {...props} /></Suspense>,
         userGreetingContainer
     );
 }
@@ -620,7 +632,7 @@ function quickOrder(container) {
     const props = JSON.parse(document.getElementById("cmp-quick-order").innerHTML);
     const skuConfig = JSON.parse(document.getElementById('commerce-configs-json').innerHTML);
     ReactDOM.render(
-        <QuickOrder {...props} skuConfig={skuConfig} />,
+        <Suspense fallback={<div>Loading...</div>}><QuickOrder {...props} skuConfig={skuConfig} /></Suspense>,
         container
     );
 }

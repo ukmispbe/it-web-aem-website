@@ -1,22 +1,31 @@
 const compConfig = [
     {
-        aemCompName: 'forms',
+        aemCompName: 'forms'
     },
     {
-        aemCompName: 'imagegallery',
+        aemCompName: 'imagegallery'
     },
     {
-        aemCompName: 'video',
+        aemCompName: 'video'
     },
     {
-        aemCompName: 'chat',
+        aemCompName: 'chat'
+    },
+    {
+        aemCompName: 'myaccount'
+    },
+    {
+        aemCompName: 'quickorder'
+    },
+    {
+        aemCompName: 'usergreetings'
     }
-]
+];
 
 const jsPathConfig = [];
 
 for (let fileConfig of compConfig) {
-    const { aemCompName } = fileConfig;
+    const { aemCompName, enableCSS } = fileConfig;
     const filePath = `waters-aem-ui.apps/src/main/content/jcr_root/apps/waters/components/content/${aemCompName}/clientlib-${aemCompName}`;
 
     jsPathConfig.push({
@@ -24,13 +33,12 @@ for (let fileConfig of compConfig) {
         fileName: `${aemCompName}.js`
     });
 
-    if (fileConfig.enableCSS === true) {
+    if (enableCSS === true) {
         jsPathConfig.push({
             aemPath: filePath,
             fileName: `${aemCompName}.css`
         });
     }
-
 }
 
 module.exports = {

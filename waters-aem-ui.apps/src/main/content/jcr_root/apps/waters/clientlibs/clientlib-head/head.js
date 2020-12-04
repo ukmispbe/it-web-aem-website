@@ -148,14 +148,14 @@
 /******/
 /******/
 /******/ 	// add entry module to deferred list
-/******/ 	deferredModules.push([380,1,2,0]);
+/******/ 	deferredModules.push([385,1,2,0]);
 /******/ 	// run deferred modules when ready
 /******/ 	return checkDeferredModules();
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 12:
+/***/ 25:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -170,22 +170,22 @@ __webpack_require__.d(__webpack_exports__, "d", function() { return /* binding *
 __webpack_require__.d(__webpack_exports__, "h", function() { return /* binding */ shopAllCartContext; });
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray.js + 3 modules
-var slicedToArray = __webpack_require__(14);
+var slicedToArray = __webpack_require__(20);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js
-var classCallCheck = __webpack_require__(4);
+var classCallCheck = __webpack_require__(6);
 
 // EXTERNAL MODULE: ./src/scripts/inlineSVG.js
-var inlineSVG = __webpack_require__(53);
+var inlineSVG = __webpack_require__(49);
 
 // EXTERNAL MODULE: ./src/scripts/DigitalData.js
-var DigitalData = __webpack_require__(23);
+var DigitalData = __webpack_require__(17);
 
 // EXTERNAL MODULE: ./src/stores/sessionStore.js
-var sessionStore = __webpack_require__(13);
+var sessionStore = __webpack_require__(5);
 
 // EXTERNAL MODULE: ./src/stores/cookieStore.js
-var cookieStore = __webpack_require__(46);
+var cookieStore = __webpack_require__(42);
 
 // CONCATENATED MODULE: ./src/analytics/eventTypes.js
 var eventTypes = {
@@ -544,12 +544,12 @@ var _analytics$analyticTy = Object(slicedToArray["a" /* default */])(analytics.a
 
 /***/ }),
 
-/***/ 380:
+/***/ 385:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _analytics__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(12);
+/* harmony import */ var _analytics__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(25);
 // head JS entry file
 
 _analytics__WEBPACK_IMPORTED_MODULE_0__[/* default */ "b"].siteLoad();
