@@ -31,19 +31,24 @@ class HeaderSearchModal extends Component {
     }
   };
 
+  windowResizeHandler = () => {
+    if (!this.state.mobileSearchOpen) {
+      return;
+    }
+    // Trigger the action only when screen width changes
+    if (this.prevWindowWidth === window.innerWidth) {
+      this.elementNoScrollDebounce(true);
+      return;
+    }
+    this.prevWindowWidth = window.innerWidth;
+    this.hideSearchModalDebounce();
+  };
+
   componentDidMount() {
     window.addEventListener("showMobileSearch", this.showSearchModal, false);
 
     // this is for desktop
-    window.addEventListener("resize", () => {
-      // Trigger the action only when screen width changes
-      if (this.prevWindowWidth === window.innerWidth) {
-        this.elementNoScrollDebounce(true);
-        return;
-      }
-      this.prevWindowWidth = window.innerWidth;
-      this.hideSearchModalDebounce();
-    });
+    window.addEventListener("resize", this.windowResizeHandler);
 
     // this is for iPad orientation
     window.addEventListener("orientationchange", this.hideSearchModalDebounce);
@@ -51,7 +56,7 @@ class HeaderSearchModal extends Component {
 
   componentWillUnmount() {
     window.removeEventListener("showMobileSearch", this.showSearchModal);
-    window.removeEventListener("resize", this.hideSearchModalDebounce);
+    window.removeEventListener("resize", this.windowResizeHandler);
     window.removeEventListener(
       "orientationchange",
       this.hideSearchModalDebounce
