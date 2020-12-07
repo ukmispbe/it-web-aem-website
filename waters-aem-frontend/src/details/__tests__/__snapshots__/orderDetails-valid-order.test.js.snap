@@ -125,7 +125,7 @@ Array [
       >
         <div
           className="cmp-order-details__order-subtotal_left"
-          data-locator="order-subtotal-left"
+          data-locator="order-summary-label-sub-total"
         >
           Subtotal
            
@@ -133,7 +133,7 @@ Array [
         </div>
         <div
           className="cmp-order-details__order-subtotal_right"
-          data-locator="order-subtotal-right"
+          data-locator="order-summary-price-sub-total"
         >
           0000000000043.35
         </div>
@@ -143,13 +143,13 @@ Array [
       >
         <div
           className="cmp-order-details__order-savings_left"
-          data-locator="order-savings-left"
+          data-locator="order-summary-label-total-discount"
         >
           Savings
         </div>
         <div
           className="cmp-order-details__order-savings_right"
-          data-locator="order-savings-right"
+          data-locator="order-summary-price-total-discount"
         >
           -
           0000000000007.65
@@ -160,13 +160,13 @@ Array [
       >
         <div
           className="cmp-order-details__order-shipping_left"
-          data-locator="order-shipping-left"
+          data-locator="order-summary-label-total-shipping-handling"
         >
           Shipping and Handling 
         </div>
         <div
           className="cmp-order-details__order-shipping_right"
-          data-locator="order-shipping-right"
+          data-locator="order-summary-price-total-shipping-handling"
         >
           0000000000000
         </div>
@@ -176,13 +176,13 @@ Array [
       >
         <div
           className="cmp-order-details__order-tax_left"
-          data-locator="order-tax-left"
+          data-locator="order-summary-label-estimated-tax"
         >
           Tax
         </div>
         <div
           className="cmp-order-details__order-tax_right"
-          data-locator="order-tax-right"
+          data-locator="order-summary-price-estimated-tax"
         >
           0000000000000
         </div>
@@ -192,11 +192,11 @@ Array [
       >
         <div
           className="cmp-order-details__order-total_left"
-          data-locator="order-total-left"
+          data-locator="order-summary-label-total-price"
         />
         <div
           className="cmp-order-details__order-total_right"
-          data-locator="order-total-right"
+          data-locator="order-summary-price-total-price"
         >
           <h1>
             0000000000043.35

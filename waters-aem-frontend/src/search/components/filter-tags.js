@@ -76,7 +76,7 @@ const ContentTypeTag = props => {
             onClick={props.onRemove}
             data-locator="content-type-tag-hide">
             <ReactSVG src={props.text.closeIcon} />
-            <span>{`${props.text['contentType']}: ${props.selected.facetTranslation}`}</span>
+            <span>{`${props.text['resultType']}: ${props.selected.facetTranslation}`}</span>
         </a>;
 }
 
