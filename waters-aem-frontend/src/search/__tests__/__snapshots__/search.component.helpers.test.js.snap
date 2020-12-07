@@ -269,7 +269,7 @@ exports[`Feature: FilterTagList Component Scenario: Rendering When content type 
   >
     <div />
     <span>
-      Content Type: Application Note
+      Result Type: Application Note
     </span>
   </a>
 </div>
@@ -365,7 +365,7 @@ exports[`Feature: FilterTagList Component Scenario: Rendering When sub facet fil
   >
     <div />
     <span>
-      Content Type: Application Note
+      Result Type: Application Note
     </span>
   </a>
 </div>

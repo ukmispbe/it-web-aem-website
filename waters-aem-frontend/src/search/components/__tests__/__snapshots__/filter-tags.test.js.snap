@@ -25,7 +25,7 @@ exports[`Feature: Filter Tags Scenario: Content type tag When content type is se
 >
   <div />
   <span>
-    Content Type: Application Note
+    Result Type: Application Note
   </span>
 </a>
 `;

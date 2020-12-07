@@ -29,6 +29,7 @@ const searchResultsTranslationsJSON = {
     "filterIcon": "/content/dam/waters/en/brand-assets/icons/filter.svg",
     "checkmarkIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
     "contentType": "Content Type",
+    "resultType": "Result Type",
     "filterBy": "Filter By",
     "keyWordLabel": "Keyword",
     "showResultCount": "Show {count} Results"
