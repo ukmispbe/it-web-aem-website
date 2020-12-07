@@ -16,7 +16,7 @@ export default async (userDetailsUrl, checkSessionStore, sessionStore = new Sess
     // Don't get User Details if not logged in
     if (!loginStatus.state()) {
         console.info(
-            "UserDetails API cannot be initiated due to unavailibility of login cookie"
+            "UserDetails API cannot be initiated due to unavailability of login cookie"
         );
         return {};
     }

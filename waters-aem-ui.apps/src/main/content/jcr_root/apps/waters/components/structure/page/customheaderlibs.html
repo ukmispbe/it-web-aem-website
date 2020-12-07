@@ -2,8 +2,9 @@
 
 <link rel="stylesheet" href="https://use.typekit.net/fko8taa.css">
 
-<sly data-sly-use.clientLib="/libs/granite/sightly/templates/clientlib.html"
+<sly data-sly-use.clientLib="/apps/granite/sightly/templates/clientlib.html"
      data-sly-call="${clientlib.css @ categories='waters.common'}"/>
+<sly data-sly-call="${clientlib.css @ categories='waters.global'}"/>
 <sly data-sly-call="${clientlib.css @ categories='waters.site'}"/>
 
 <!--/* Load authoring related client libraries */-->
@@ -19,4 +20,7 @@
     };
 </script>
 
-<sly data-sly-call="${clientlib.js @ categories='waters.head'}"/>
+<sly data-sly-call="${clientlib.js @ categories='waters.common', option='defer'}"/>
+<sly data-sly-call="${clientlib.js @ categories='waters.head', option='defer'}"/>
+<sly data-sly-call="${clientlib.js @ categories='waters.global', option='defer'}"/>
+<sly data-sly-call="${clientlib.js @ categories='waters.site', option='defer'}"/>

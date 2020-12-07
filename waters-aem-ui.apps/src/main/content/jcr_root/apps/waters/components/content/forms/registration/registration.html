@@ -8,6 +8,7 @@
             "redirectUrl": "${registration.redirectEcommLink.href @ context='unsafe'}",
             "buttonText": "${'CONTINUE' @ i18n, context='text'}",
             "elementLocator": "check-email-form",
+			"buttonLocator": "continue",
             "needsToBeSignedOut": true,
             "isTwoStepRegistrationForm" : ${registration.twoStepRegistrationForm @ context='unsafe'},
             "icons": {
@@ -51,6 +52,7 @@
             "redirectUrl": "${registration.redirectLink.href @ context='unsafe'}",
             "needsToBeSignedOut": true,
             "elementLocator": "registration-form",
+			"buttonLocator": "create-account",
             "icons": {
                 "checkmarkIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
                 "validIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",

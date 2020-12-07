@@ -117,6 +117,14 @@ public class Commerce {
     @Inject
     private Boolean quoteDisabled;
 
+    @DialogField(fieldDescription = "Enable this to always allow PO payment.",
+            value = "true",
+            ranking = 12)
+    @CheckBox(title = "explicitAllowPO",
+            text = "Always allow PO payment")
+    @Inject
+    private Boolean explicitAllowPO;
+
     public String getAddToCartUrl() {
         return addToCartUrl;
     }

@@ -99,7 +99,8 @@ Aside.propTypes = {
         title: PropTypes.string,
         links: PropTypes.arrayOf(PropTypes.shape({
             text: PropTypes.string,
-            url: PropTypes.string        }))
+            url: PropTypes.string
+        }))
     }))
 }
 
