@@ -167,7 +167,7 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
 
             final DisplayableSku displayableSku = new DisplayableSku(sku, siteContext);
             List excludedLocales = solrService.getLocales();
-            document.setField("eprocUrl", updateUrlForEprocBasedOnLocaleConfig(excludedLocales, page.getHref().replace(page.getParent(4).getPath(),WatersConstants.ORDER_ROOT_PATH)));
+
             setDocumentStringField(document,"unspsc",sku.getUnspsc());
 
             setDocumentStringField(document, "skucode", sku.getCode());
@@ -199,7 +199,11 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
             addFacets(document, sku);
 
             addDate(document, page);
+            //for eprocSpecific changes
+            document.setField("eprocUrl", updateUrlForEprocBasedOnLocaleConfig(excludedLocales, page.getHref().replace(page.getParent(4).getPath(),WatersConstants.ORDER_ROOT_PATH)));
+            String[] eprocValues = new String [] {sku.getCode(),page.getTitle(TitleType.PAGE_TITLE).or(page.getTitle())};
 
+            document.setField("autosuggest_eproc",eprocValues );
         }
     }
 
