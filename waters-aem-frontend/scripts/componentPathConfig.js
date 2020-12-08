@@ -1,9 +1,10 @@
 const compConfig = [
     {
-        aemCompName: 'forms'
+        aemCompName: 'forms',
+        enableCSS: true
     },
     {
-        aemCompName: 'imagegallery'
+        aemCompName: 'imagegallery',
     },
     {
         aemCompName: 'video'
@@ -12,10 +13,21 @@ const compConfig = [
         aemCompName: 'chat'
     },
     {
-        aemCompName: 'myaccount'
+        aemCompName: 'myaccount',
+        enableCSS: true
     },
     {
         aemCompName: 'quickorder'
+    },
+    {
+        aemCompName: 'searchresults',
+        enableCSS: true
+    },
+    {
+        aemCompName: 'skudetails'
+    },
+    {
+        aemCompName: 'skulist'
     },
     {
         aemCompName: 'usergreetings'
@@ -36,7 +48,8 @@ for (let fileConfig of compConfig) {
     if (enableCSS === true) {
         jsPathConfig.push({
             aemPath: filePath,
-            fileName: `${aemCompName}.css`
+            fileName: `${aemCompName}.css`,
+            filePath: `etc.clientlibs/waters/components/content/${aemCompName}/clientlib-${aemCompName}.css`
         });
     }
 }

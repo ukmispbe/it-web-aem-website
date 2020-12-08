@@ -834,12 +834,16 @@ var AddToCart = /*#__PURE__*/function (_React$Component) {
   Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(AddToCart, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.props.onRef(this);
+      if (this.props.onRef) {
+        this.props.onRef(this);
+      }
     }
   }, {
     key: "componentWillUnmount",
     value: function componentWillUnmount() {
-      this.props.onRef(undefined);
+      if (this.props.onRef) {
+        this.props.onRef(undefined);
+      }
     }
   }, {
     key: "cartAPIRequest",

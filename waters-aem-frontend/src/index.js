@@ -1,6 +1,7 @@
 import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
-import Search from './search/index';
+// import Search from './search/index';
+const Search = React.lazy(() => import(/* webpackChunkName: "searchresults" */'./search/index'));
 // const Search = React.lazy(() => import(/* webpackChunkName: "searchresults" */'./search/index'));
 import TagCloud from './search/components/tagcloud';
 // import ImageCarousel from './image-carousel';
@@ -12,10 +13,10 @@ const QuickOrder = React.lazy(() => import(/* webpackChunkName: "quickorder" */'
 import LinkButton from './link-button/LinkButton';
 import LegalLinkModal from './legal-link-modal/LegalLinkModal';
 
-import SkuDetails from './sku-details';
-// const SkuDetails = React.lazy(() => import(/* webpackChunkName: "skudetails" */ './sku-details'));
-import SkuList from './sku-list';
-// const SkuList = React.lazy(() => import(/* webpackChunkName: "skulist" */ './sku-list'));
+// import SkuDetails from './sku-details';
+const SkuDetails = React.lazy(() => import(/* webpackChunkName: "skudetails" */ './sku-details'));
+// import SkuList from './sku-list';
+const SkuList = React.lazy(() => import(/* webpackChunkName: "skulist" */ './sku-list'));
 import SkuMessage from './sku-message';
 // import Form from './forms/form';
 import {

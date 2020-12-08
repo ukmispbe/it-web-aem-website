@@ -148,14 +148,26 @@
 /******/
 /******/
 /******/ 	// add entry module to deferred list
-/******/ 	deferredModules.push([385,1,2,0]);
+/******/ 	deferredModules.push([300,1,2,0]);
 /******/ 	// run deferred modules when ready
 /******/ 	return checkDeferredModules();
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 25:
+/***/ 300:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _analytics__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(36);
+// head JS entry file
+
+_analytics__WEBPACK_IMPORTED_MODULE_0__[/* default */ "b"].siteLoad();
+
+/***/ }),
+
+/***/ 36:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -170,19 +182,19 @@ __webpack_require__.d(__webpack_exports__, "d", function() { return /* binding *
 __webpack_require__.d(__webpack_exports__, "h", function() { return /* binding */ shopAllCartContext; });
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray.js + 3 modules
-var slicedToArray = __webpack_require__(20);
+var slicedToArray = __webpack_require__(8);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js
-var classCallCheck = __webpack_require__(6);
+var classCallCheck = __webpack_require__(13);
 
 // EXTERNAL MODULE: ./src/scripts/inlineSVG.js
-var inlineSVG = __webpack_require__(49);
+var inlineSVG = __webpack_require__(41);
 
 // EXTERNAL MODULE: ./src/scripts/DigitalData.js
-var DigitalData = __webpack_require__(17);
+var DigitalData = __webpack_require__(7);
 
 // EXTERNAL MODULE: ./src/stores/sessionStore.js
-var sessionStore = __webpack_require__(5);
+var sessionStore = __webpack_require__(2);
 
 // EXTERNAL MODULE: ./src/stores/cookieStore.js
 var cookieStore = __webpack_require__(42);
@@ -541,18 +553,6 @@ var _analytics$analyticTy = Object(slicedToArray["a" /* default */])(analytics.a
     shopAllCartContext = _analytics$analyticTy[3];
 
 
-
-/***/ }),
-
-/***/ 385:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _analytics__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(25);
-// head JS entry file
-
-_analytics__WEBPACK_IMPORTED_MODULE_0__[/* default */ "b"].siteLoad();
 
 /***/ })
 

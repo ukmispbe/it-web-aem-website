@@ -8,35 +8,35 @@
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js
-var classCallCheck = __webpack_require__(6);
+var classCallCheck = __webpack_require__(13);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass.js
-var createClass = __webpack_require__(8);
+var createClass = __webpack_require__(17);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js
-var possibleConstructorReturn = __webpack_require__(11);
+var possibleConstructorReturn = __webpack_require__(20);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js
-var getPrototypeOf = __webpack_require__(12);
+var getPrototypeOf = __webpack_require__(21);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits.js + 1 modules
-var inherits = __webpack_require__(13);
+var inherits = __webpack_require__(22);
 
 // EXTERNAL MODULE: ./node_modules/react/index.js
 var react = __webpack_require__(0);
 var react_default = /*#__PURE__*/__webpack_require__.n(react);
 
 // EXTERNAL MODULE: ./node_modules/react-svg/es/react-svg.js
-var react_svg = __webpack_require__(3);
+var react_svg = __webpack_require__(10);
 
 // EXTERNAL MODULE: ./node_modules/whatwg-fetch/fetch.js
-var fetch = __webpack_require__(43);
+var fetch = __webpack_require__(37);
 
 // CONCATENATED MODULE: ./src/chat/services/index.js
 
 
 
-var _Promise = typeof Promise === 'undefined' ? __webpack_require__(155).Promise : Promise;
+var _Promise = typeof Promise === 'undefined' ? __webpack_require__(139).Promise : Promise;
 
 
 

@@ -1,13 +1,13 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[13],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[16],{
 
-/***/ 506:
+/***/ 497:
 /***/ (function(module, exports) {
 
 /* (ignored) */
 
 /***/ }),
 
-/***/ 521:
+/***/ 522:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -15,32 +15,32 @@
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js
-var classCallCheck = __webpack_require__(6);
+var classCallCheck = __webpack_require__(13);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass.js
-var createClass = __webpack_require__(8);
+var createClass = __webpack_require__(17);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js
-var possibleConstructorReturn = __webpack_require__(11);
+var possibleConstructorReturn = __webpack_require__(20);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js
-var getPrototypeOf = __webpack_require__(12);
+var getPrototypeOf = __webpack_require__(21);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits.js + 1 modules
-var inherits = __webpack_require__(13);
+var inherits = __webpack_require__(22);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js
-var assertThisInitialized = __webpack_require__(26);
+var assertThisInitialized = __webpack_require__(38);
 
 // EXTERNAL MODULE: ./node_modules/react/index.js
 var react = __webpack_require__(0);
 var react_default = /*#__PURE__*/__webpack_require__.n(react);
 
 // EXTERNAL MODULE: ./node_modules/@brightcove/react-player-loader/dist/brightcove-react-player-loader.es.js
-var brightcove_react_player_loader_es = __webpack_require__(505);
+var brightcove_react_player_loader_es = __webpack_require__(496);
 
 // EXTERNAL MODULE: ./src/scripts/screenSizes.js
-var screenSizes = __webpack_require__(21);
+var screenSizes = __webpack_require__(12);
 
 // CONCATENATED MODULE: ./src/video/video-modal-body.js
 
@@ -94,11 +94,11 @@ var video_modal_body_VideoModalBody = /*#__PURE__*/function (_React$Component) {
 
 /* harmony default export */ var video_modal_body = (video_modal_body_VideoModalBody);
 // EXTERNAL MODULE: ./node_modules/react-lines-ellipsis/lib/index.js
-var lib = __webpack_require__(119);
+var lib = __webpack_require__(487);
 var lib_default = /*#__PURE__*/__webpack_require__.n(lib);
 
 // EXTERNAL MODULE: ./node_modules/react-lines-ellipsis/lib/responsiveHOC.js
-var responsiveHOC = __webpack_require__(507);
+var responsiveHOC = __webpack_require__(498);
 var responsiveHOC_default = /*#__PURE__*/__webpack_require__.n(responsiveHOC);
 
 // CONCATENATED MODULE: ./src/video/video-description.js

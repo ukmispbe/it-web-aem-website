@@ -148,21 +148,21 @@
 /******/
 /******/
 /******/ 	// add entry module to deferred list
-/******/ 	deferredModules.push([491,1,2,0]);
+/******/ 	deferredModules.push([477,1,2,0]);
 /******/ 	// run deferred modules when ready
 /******/ 	return checkDeferredModules();
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 134:
+/***/ 112:
 /***/ (function(module, exports) {
 
 /* (ignored) */
 
 /***/ }),
 
-/***/ 14:
+/***/ 137:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -170,13 +170,13 @@
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return parameterValues; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return parameterDefaults; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return searchMapper; });
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
+/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
 /* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(6);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(8);
-/* harmony import */ var whatwg_fetch__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(43);
-/* harmony import */ var _stores_sessionStore__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(5);
+/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3);
+/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(13);
+/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(17);
+/* harmony import */ var whatwg_fetch__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(37);
+/* harmony import */ var _stores_sessionStore__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(2);
 
 
 
@@ -184,7 +184,7 @@
 
 
 
-var queryString = __webpack_require__(28);
+var queryString = __webpack_require__(60);
 
 var parameterValues = {
   undefined: 'undefined',
@@ -681,14 +681,14 @@ var searchMapper = {
 
 /***/ }),
 
-/***/ 227:
+/***/ 207:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
+/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
 /* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
-/* harmony import */ var _scripts_dateRange__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(228);
+/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3);
+/* harmony import */ var _scripts_dateRange__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(208);
 
 
 
@@ -762,20 +762,20 @@ var ServletService = {
 
 /***/ }),
 
-/***/ 234:
+/***/ 219:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/regenerator/index.js
-var regenerator = __webpack_require__(2);
+var regenerator = __webpack_require__(1);
 var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
-var asyncToGenerator = __webpack_require__(4);
+var asyncToGenerator = __webpack_require__(3);
 
 // EXTERNAL MODULE: ./src/scripts/DigitalData.js
-var DigitalData = __webpack_require__(17);
+var DigitalData = __webpack_require__(7);
 
 // CONCATENATED MODULE: ./src/json-script-blocks/globalTranslations.js
 var script = document.getElementById('global-translations-json');
@@ -902,7 +902,119 @@ var systemWideNotification_SystemWideNotification = function SystemWideNotificat
 
 /***/ }),
 
-/***/ 25:
+/***/ 29:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3);
+/* harmony import */ var whatwg_fetch__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(37);
+/* harmony import */ var _utils_redirectFunctions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(14);
+
+
+
+
+
+var getData = /*#__PURE__*/function () {
+  var _ref = Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(url) {
+    var response;
+    return C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.next = 2;
+            return fetch(url, {
+              method: 'GET',
+              credentials: 'include',
+              headers: {
+                'Content-Type': 'application/json'
+              }
+            });
+
+          case 2:
+            response = _context.sent;
+            _context.next = 5;
+            return response;
+
+          case 5:
+            return _context.abrupt("return", _context.sent);
+
+          case 6:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function getData(_x) {
+    return _ref.apply(this, arguments);
+  };
+}();
+
+var UserDetails = /*#__PURE__*/function () {
+  var _ref2 = Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+    var url,
+        _response,
+        _args2 = arguments;
+
+    return C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            url = _args2.length > 0 && _args2[0] !== undefined ? _args2[0] : "https://stgservices.waters.com/api/waters/user/v1/details";
+            _context2.prev = 1;
+            _context2.next = 4;
+            return getData(url);
+
+          case 4:
+            _response = _context2.sent;
+
+            if (!(_response.status === 200)) {
+              _context2.next = 9;
+              break;
+            }
+
+            return _context2.abrupt("return", _response.json());
+
+          case 9:
+            if (_response.status === 401 && window.location.href.indexOf('my-account.html') !== -1) {
+              Object(_utils_redirectFunctions__WEBPACK_IMPORTED_MODULE_3__[/* signInRedirect */ "d"])();
+            }
+
+          case 10:
+            return _context2.abrupt("return", {
+              failed: true,
+              error: _response.status
+            });
+
+          case 13:
+            _context2.prev = 13;
+            _context2.t0 = _context2["catch"](1);
+            return _context2.abrupt("return", {
+              failed: true,
+              error: response.status
+            });
+
+          case 16:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2, null, [[1, 13]]);
+  }));
+
+  return function UserDetails() {
+    return _ref2.apply(this, arguments);
+  };
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (UserDetails);
+
+/***/ }),
+
+/***/ 36:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -917,19 +1029,19 @@ __webpack_require__.d(__webpack_exports__, "d", function() { return /* binding *
 __webpack_require__.d(__webpack_exports__, "h", function() { return /* binding */ shopAllCartContext; });
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray.js + 3 modules
-var slicedToArray = __webpack_require__(20);
+var slicedToArray = __webpack_require__(8);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js
-var classCallCheck = __webpack_require__(6);
+var classCallCheck = __webpack_require__(13);
 
 // EXTERNAL MODULE: ./src/scripts/inlineSVG.js
-var inlineSVG = __webpack_require__(49);
+var inlineSVG = __webpack_require__(41);
 
 // EXTERNAL MODULE: ./src/scripts/DigitalData.js
-var DigitalData = __webpack_require__(17);
+var DigitalData = __webpack_require__(7);
 
 // EXTERNAL MODULE: ./src/stores/sessionStore.js
-var sessionStore = __webpack_require__(5);
+var sessionStore = __webpack_require__(2);
 
 // EXTERNAL MODULE: ./src/stores/cookieStore.js
 var cookieStore = __webpack_require__(42);
@@ -1291,119 +1403,7 @@ var _analytics$analyticTy = Object(slicedToArray["a" /* default */])(analytics.a
 
 /***/ }),
 
-/***/ 41:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
-/* harmony import */ var whatwg_fetch__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(43);
-/* harmony import */ var _utils_redirectFunctions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(27);
-
-
-
-
-
-var getData = /*#__PURE__*/function () {
-  var _ref = Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(url) {
-    var response;
-    return C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            _context.next = 2;
-            return fetch(url, {
-              method: 'GET',
-              credentials: 'include',
-              headers: {
-                'Content-Type': 'application/json'
-              }
-            });
-
-          case 2:
-            response = _context.sent;
-            _context.next = 5;
-            return response;
-
-          case 5:
-            return _context.abrupt("return", _context.sent);
-
-          case 6:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  }));
-
-  return function getData(_x) {
-    return _ref.apply(this, arguments);
-  };
-}();
-
-var UserDetails = /*#__PURE__*/function () {
-  var _ref2 = Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-    var url,
-        _response,
-        _args2 = arguments;
-
-    return C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
-      while (1) {
-        switch (_context2.prev = _context2.next) {
-          case 0:
-            url = _args2.length > 0 && _args2[0] !== undefined ? _args2[0] : "https://stgservices.waters.com/api/waters/user/v1/details";
-            _context2.prev = 1;
-            _context2.next = 4;
-            return getData(url);
-
-          case 4:
-            _response = _context2.sent;
-
-            if (!(_response.status === 200)) {
-              _context2.next = 9;
-              break;
-            }
-
-            return _context2.abrupt("return", _response.json());
-
-          case 9:
-            if (_response.status === 401 && window.location.href.indexOf('my-account.html') !== -1) {
-              Object(_utils_redirectFunctions__WEBPACK_IMPORTED_MODULE_3__[/* signInRedirect */ "d"])();
-            }
-
-          case 10:
-            return _context2.abrupt("return", {
-              failed: true,
-              error: _response.status
-            });
-
-          case 13:
-            _context2.prev = 13;
-            _context2.t0 = _context2["catch"](1);
-            return _context2.abrupt("return", {
-              failed: true,
-              error: response.status
-            });
-
-          case 16:
-          case "end":
-            return _context2.stop();
-        }
-      }
-    }, _callee2, null, [[1, 13]]);
-  }));
-
-  return function UserDetails() {
-    return _ref2.apply(this, arguments);
-  };
-}();
-
-/* harmony default export */ __webpack_exports__["a"] = (UserDetails);
-
-/***/ }),
-
-/***/ 468:
+/***/ 383:
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
@@ -1411,7 +1411,104 @@ module.exports = {"colorBorderDark":"#9ca7b0","colorGray50":"#4f5b64","colorBack
 
 /***/ }),
 
-/***/ 491:
+/***/ 39:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3);
+/* harmony import */ var _scripts_loginStatus__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(9);
+/* harmony import */ var _stores_sessionStore__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(2);
+/* harmony import */ var _services_UserDetails__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(29);
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = (/*#__PURE__*/(function () {
+  var _ref = Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(userDetailsUrl, checkSessionStore) {
+    var sessionStore,
+        service,
+        navBarControls,
+        userDetails,
+        response,
+        _args = arguments;
+    return C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            sessionStore = _args.length > 2 && _args[2] !== undefined ? _args[2] : new _stores_sessionStore__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"]();
+            service = _args.length > 3 && _args[3] !== undefined ? _args[3] : _services_UserDetails__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"];
+            // Don't get User Details if My-Account Drop Down is not present
+            navBarControls = document.getElementsByClassName("cmp-header__top-bar__nav");
+
+            if (!(navBarControls.length === 0)) {
+              _context.next = 6;
+              break;
+            }
+
+            console.info("UserDetails API cannot be initiated due to nav bar controls");
+            return _context.abrupt("return", {});
+
+          case 6:
+            if (_scripts_loginStatus__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"].state()) {
+              _context.next = 9;
+              break;
+            }
+
+            console.info("UserDetails API cannot be initiated due to unavailability of login cookie");
+            return _context.abrupt("return", {});
+
+          case 9:
+            if (!checkSessionStore) {
+              _context.next = 13;
+              break;
+            }
+
+            userDetails = sessionStore.getUserDetails();
+
+            if (!(userDetails && Object.keys(userDetails).length !== 0)) {
+              _context.next = 13;
+              break;
+            }
+
+            return _context.abrupt("return", userDetails);
+
+          case 13:
+            _context.next = 15;
+            return service(userDetailsUrl);
+
+          case 15:
+            response = _context.sent;
+
+            if (response.failed) {
+              _context.next = 19;
+              break;
+            }
+
+            sessionStore.setUserDetails(response);
+            return _context.abrupt("return", response);
+
+          case 19:
+            return _context.abrupt("return", {});
+
+          case 20:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function (_x, _x2) {
+    return _ref.apply(this, arguments);
+  };
+})());
+
+/***/ }),
+
+/***/ 477:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1419,94 +1516,94 @@ module.exports = {"colorBorderDark":"#9ca7b0","colorGray50":"#4f5b64","colorBack
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./src/scripts/stickyService.js
-var stickyService = __webpack_require__(40);
+var stickyService = __webpack_require__(46);
 
 // EXTERNAL MODULE: ./src/scripts/backtotop.js
-var backtotop = __webpack_require__(386);
+var backtotop = __webpack_require__(301);
 
 // EXTERNAL MODULE: ./src/scripts/anchor.js
-var scripts_anchor = __webpack_require__(387);
+var scripts_anchor = __webpack_require__(302);
 
 // EXTERNAL MODULE: ./src/scripts/sticky-sort-filter.js
-var sticky_sort_filter = __webpack_require__(388);
+var sticky_sort_filter = __webpack_require__(303);
 
 // EXTERNAL MODULE: ./src/scripts/sticky-sku-details.js
-var sticky_sku_details = __webpack_require__(389);
+var sticky_sku_details = __webpack_require__(304);
 
 // EXTERNAL MODULE: ./src/scripts/sticky-sku-scroll.js
-var sticky_sku_scroll = __webpack_require__(390);
+var sticky_sku_scroll = __webpack_require__(305);
 
 // EXTERNAL MODULE: ./src/scripts/mobile-search-scroll.js
-var mobile_search_scroll = __webpack_require__(391);
+var mobile_search_scroll = __webpack_require__(306);
 
 // EXTERNAL MODULE: ./src/scripts/navigation-overlay.js
-var navigation_overlay = __webpack_require__(392);
+var navigation_overlay = __webpack_require__(307);
 
 // EXTERNAL MODULE: ./src/scripts/navigation.js
-var navigation = __webpack_require__(393);
+var navigation = __webpack_require__(308);
 
 // EXTERNAL MODULE: ./src/scripts/navigation-level2.js
-var navigation_level2 = __webpack_require__(152);
+var navigation_level2 = __webpack_require__(134);
 
 // EXTERNAL MODULE: ./src/scripts/iframe.js
-var iframe = __webpack_require__(394);
+var iframe = __webpack_require__(309);
 
 // EXTERNAL MODULE: ./src/scripts/backtosearch.js
-var backtosearch = __webpack_require__(395);
+var backtosearch = __webpack_require__(310);
 
 // EXTERNAL MODULE: ./src/scripts/footer.js + 1 modules
-var footer = __webpack_require__(492);
+var footer = __webpack_require__(478);
 
 // EXTERNAL MODULE: ./src/scripts/banner.js
-var banner = __webpack_require__(396);
+var banner = __webpack_require__(311);
 
 // EXTERNAL MODULE: ./src/scripts/breadcrumb.js
-var breadcrumb = __webpack_require__(397);
+var breadcrumb = __webpack_require__(312);
 
 // EXTERNAL MODULE: ./src/scripts/header.js
-var scripts_header = __webpack_require__(398);
+var scripts_header = __webpack_require__(313);
 
 // EXTERNAL MODULE: ./src/scripts/collapsible.js
-var collapsible = __webpack_require__(399);
+var collapsible = __webpack_require__(314);
 
 // EXTERNAL MODULE: ./src/scripts/skulist.js
-var skulist = __webpack_require__(77);
+var skulist = __webpack_require__(220);
 
 // EXTERNAL MODULE: ./src/scripts/continueButton.js
-var continueButton = __webpack_require__(400);
+var continueButton = __webpack_require__(315);
 
 // EXTERNAL MODULE: ./src/scripts/textModifier.js
-var textModifier = __webpack_require__(401);
+var textModifier = __webpack_require__(316);
 
 // EXTERNAL MODULE: ./node_modules/core-js/features/object/assign.js
-var object_assign = __webpack_require__(402);
+var object_assign = __webpack_require__(317);
 
 // EXTERNAL MODULE: ./node_modules/core-js/features/object/entries.js
-var entries = __webpack_require__(411);
+var entries = __webpack_require__(326);
 
 // EXTERNAL MODULE: ./node_modules/core-js/features/object/values.js
-var values = __webpack_require__(414);
+var values = __webpack_require__(329);
 
 // EXTERNAL MODULE: ./node_modules/core-js/features/object/keys.js
-var keys = __webpack_require__(417);
+var keys = __webpack_require__(332);
 
 // EXTERNAL MODULE: ./node_modules/core-js/features/object/get-own-property-names.js
-var get_own_property_names = __webpack_require__(420);
+var get_own_property_names = __webpack_require__(335);
 
 // EXTERNAL MODULE: ./node_modules/core-js/features/object/to-string.js
-var to_string = __webpack_require__(424);
+var to_string = __webpack_require__(339);
 
 // EXTERNAL MODULE: ./node_modules/core-js/features/promise/index.js
-var promise = __webpack_require__(430);
+var promise = __webpack_require__(345);
 
 // EXTERNAL MODULE: ./node_modules/core-js/features/array/find.js
-var find = __webpack_require__(452);
+var find = __webpack_require__(367);
 
 // EXTERNAL MODULE: ./node_modules/core-js/features/array/from.js
-var from = __webpack_require__(459);
+var from = __webpack_require__(374);
 
 // EXTERNAL MODULE: ./node_modules/core-js/features/string/repeat.js
-var repeat = __webpack_require__(464);
+var repeat = __webpack_require__(379);
 
 // CONCATENATED MODULE: ./src/polyfills.js
 // polyfills found here: https://github.com/zloirock/core-js
@@ -1525,57 +1622,57 @@ var react = __webpack_require__(0);
 var react_default = /*#__PURE__*/__webpack_require__.n(react);
 
 // EXTERNAL MODULE: ./node_modules/react-dom/index.js
-var react_dom = __webpack_require__(18);
+var react_dom = __webpack_require__(6);
 var react_dom_default = /*#__PURE__*/__webpack_require__.n(react_dom);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/regenerator/index.js
-var regenerator = __webpack_require__(2);
+var regenerator = __webpack_require__(1);
 var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
-var asyncToGenerator = __webpack_require__(4);
+var asyncToGenerator = __webpack_require__(3);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectSpread.js
-var objectSpread = __webpack_require__(9);
+var objectSpread = __webpack_require__(16);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js
-var classCallCheck = __webpack_require__(6);
+var classCallCheck = __webpack_require__(13);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass.js
-var createClass = __webpack_require__(8);
+var createClass = __webpack_require__(17);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js
-var possibleConstructorReturn = __webpack_require__(11);
+var possibleConstructorReturn = __webpack_require__(20);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js
-var getPrototypeOf = __webpack_require__(12);
+var getPrototypeOf = __webpack_require__(21);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits.js + 1 modules
-var inherits = __webpack_require__(13);
+var inherits = __webpack_require__(22);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js
-var assertThisInitialized = __webpack_require__(26);
+var assertThisInitialized = __webpack_require__(38);
 
 // EXTERNAL MODULE: ./src/utils/modal/index.js + 1 modules
-var modal = __webpack_require__(19);
+var modal = __webpack_require__(11);
 
 // EXTERNAL MODULE: ./src/scripts/screenSizes.js
-var screenSizes = __webpack_require__(21);
+var screenSizes = __webpack_require__(12);
 
 // EXTERNAL MODULE: ./src/scripts/mobileNav.js
-var scripts_mobileNav = __webpack_require__(125);
+var scripts_mobileNav = __webpack_require__(104);
 
 // EXTERNAL MODULE: ./src/scripts/domElements.js
-var domElements = __webpack_require__(22);
+var domElements = __webpack_require__(19);
 
 // EXTERNAL MODULE: ./node_modules/react-svg/es/react-svg.js
-var react_svg = __webpack_require__(3);
+var react_svg = __webpack_require__(10);
 
 // EXTERNAL MODULE: ./node_modules/whatwg-fetch/fetch.js
-var whatwg_fetch_fetch = __webpack_require__(43);
+var whatwg_fetch_fetch = __webpack_require__(37);
 
 // EXTERNAL MODULE: ./src/stores/sessionStore.js
-var stores_sessionStore = __webpack_require__(5);
+var stores_sessionStore = __webpack_require__(2);
 
 // CONCATENATED MODULE: ./src/my-account-dropdown/services/index.js
 
@@ -1653,10 +1750,10 @@ function _signOutRequest() {
   return _signOutRequest.apply(this, arguments);
 }
 // EXTERNAL MODULE: ./src/scripts/checkOutStatus.js
-var checkOutStatus = __webpack_require__(39);
+var checkOutStatus = __webpack_require__(61);
 
 // EXTERNAL MODULE: ./src/analytics/index.js + 1 modules
-var analytics = __webpack_require__(25);
+var analytics = __webpack_require__(36);
 
 // CONCATENATED MODULE: ./src/my-account-dropdown/my-account-user-details.js
 
@@ -1704,7 +1801,7 @@ var funcs = {
   renderSwitchAccountLink: my_account_user_details_renderSwitchAccountLink
 };
 // EXTERNAL MODULE: ./src/scripts/ecommerce.js
-var ecommerce = __webpack_require__(29);
+var ecommerce = __webpack_require__(62);
 
 // CONCATENATED MODULE: ./src/my-account-dropdown/my-account-item-list.js
 
@@ -1761,7 +1858,7 @@ var my_account_item_list_MyAccountItemList = function MyAccountItemList(props) {
 /* harmony default export */ var my_account_item_list = (my_account_item_list_MyAccountItemList);
 
 // EXTERNAL MODULE: ./src/utils/userFunctions.js
-var userFunctions = __webpack_require__(7);
+var userFunctions = __webpack_require__(15);
 
 // CONCATENATED MODULE: ./src/my-account-dropdown/my-account-container.js
 
@@ -1862,22 +1959,22 @@ var my_account_container_MyAccountContainer = function MyAccountContainer(props)
 /* harmony default export */ var my_account_container = (my_account_container_MyAccountContainer);
 
 // EXTERNAL MODULE: ./src/scripts/loginStatus.js
-var loginStatus = __webpack_require__(10);
+var loginStatus = __webpack_require__(9);
 
 // EXTERNAL MODULE: ./src/my-account/services/UserDetailsLazy.js
-var UserDetailsLazy = __webpack_require__(57);
+var UserDetailsLazy = __webpack_require__(39);
 
 // EXTERNAL MODULE: ./src/my-account/services/SoldToDetailsLazy.js + 1 modules
-var SoldToDetailsLazy = __webpack_require__(66);
+var SoldToDetailsLazy = __webpack_require__(50);
 
 // EXTERNAL MODULE: ./src/stores/localStore.js
-var localStore = __webpack_require__(56);
+var localStore = __webpack_require__(109);
 
 // CONCATENATED MODULE: ./src/my-account/services/PunchoutLogin.js
 
 
 
-var _Promise = typeof Promise === 'undefined' ? __webpack_require__(155).Promise : Promise;
+var _Promise = typeof Promise === 'undefined' ? __webpack_require__(139).Promise : Promise;
 
 var PunchoutLogin_punchoutLogin = function punchoutLogin(url, body) {
   return new _Promise( /*#__PURE__*/function () {
@@ -2002,19 +2099,19 @@ var punchoutSetup = /*#__PURE__*/function () {
 
 /* harmony default export */ var PunchoutSetup = (punchoutSetup);
 // EXTERNAL MODULE: ./src/utils/parse-query-params/index.js
-var parse_query_params = __webpack_require__(107);
+var parse_query_params = __webpack_require__(89);
 
 // EXTERNAL MODULE: ./src/utils/remove-query-string/index.js
-var remove_query_string = __webpack_require__(153);
+var remove_query_string = __webpack_require__(135);
 
 // EXTERNAL MODULE: ./src/utils/buildUrl.js
-var buildUrl = __webpack_require__(229);
+var buildUrl = __webpack_require__(209);
 
 // EXTERNAL MODULE: ./src/sku-details/views/addToCartModal.js
-var addToCartModal = __webpack_require__(54);
+var addToCartModal = __webpack_require__(53);
 
 // EXTERNAL MODULE: ./src/eproc-setup-failure/styles/index.scss
-var styles = __webpack_require__(468);
+var styles = __webpack_require__(383);
 
 // CONCATENATED MODULE: ./src/eproc-setup-failure/EprocSetupFailure.js
 
@@ -2798,14 +2895,14 @@ my_account_dropdown_MyAccountDropDown.defaultProps = {
 /* harmony default export */ var my_account_dropdown = (my_account_dropdown_MyAccountDropDown);
 
 // EXTERNAL MODULE: ./node_modules/react-autosuggest/dist/index.js
-var dist = __webpack_require__(230);
+var dist = __webpack_require__(210);
 var dist_default = /*#__PURE__*/__webpack_require__.n(dist);
 
 // EXTERNAL MODULE: ./node_modules/throttle-debounce/index.umd.js
-var index_umd = __webpack_require__(154);
+var index_umd = __webpack_require__(136);
 
 // EXTERNAL MODULE: ./src/search/services/index.js
-var services = __webpack_require__(14);
+var services = __webpack_require__(137);
 
 // CONCATENATED MODULE: ./src/search/components/overlay.js
 
@@ -2828,7 +2925,7 @@ overlay_OverLay.defaultProps = {
 };
 /* harmony default export */ var overlay = (overlay_OverLay);
 // EXTERNAL MODULE: ./src/styles/index.scss
-var src_styles = __webpack_require__(91);
+var src_styles = __webpack_require__(77);
 
 // CONCATENATED MODULE: ./src/search/components/searchbar.js
 
@@ -3350,17 +3447,252 @@ if (headerSearchBarContainer && globalEntry_header) {
 
 /***/ }),
 
-/***/ 54:
+/***/ 50:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+// EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/regenerator/index.js
+var regenerator = __webpack_require__(1);
+var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
+
+// EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
+var asyncToGenerator = __webpack_require__(3);
+
+// EXTERNAL MODULE: ./src/scripts/loginStatus.js
+var loginStatus = __webpack_require__(9);
+
+// EXTERNAL MODULE: ./src/stores/sessionStore.js
+var stores_sessionStore = __webpack_require__(2);
+
+// EXTERNAL MODULE: ./node_modules/whatwg-fetch/fetch.js
+var whatwg_fetch_fetch = __webpack_require__(37);
+
+// CONCATENATED MODULE: ./src/my-account/services/SoldToDetails.js
+
+
+
+
+var getData = /*#__PURE__*/function () {
+  var _ref = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee(url) {
+    var response;
+    return regenerator_default.a.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.next = 2;
+            return fetch(url, {
+              method: 'GET',
+              credentials: 'include',
+              headers: {
+                'Content-Type': 'application/json'
+              }
+            });
+
+          case 2:
+            response = _context.sent;
+            _context.next = 5;
+            return response;
+
+          case 5:
+            return _context.abrupt("return", _context.sent);
+
+          case 6:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function getData(_x) {
+    return _ref.apply(this, arguments);
+  };
+}();
+
+var SoldToDetails = /*#__PURE__*/function () {
+  var _ref2 = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee2(url) {
+    var _response, json, returnArray;
+
+    return regenerator_default.a.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            _context2.prev = 0;
+            _context2.next = 3;
+            return getData(url);
+
+          case 3:
+            _response = _context2.sent;
+            _context2.next = 6;
+            return _response.json();
+
+          case 6:
+            json = _context2.sent;
+
+            if (!(_response.status === 200)) {
+              _context2.next = 12;
+              break;
+            }
+
+            returnArray = Array.isArray(json.customers) ? json.customers : [];
+            return _context2.abrupt("return", returnArray);
+
+          case 12:
+            if (_response.status === 401 && window.location.href.indexOf('my-account.html') !== -1) {
+              signInRedirect();
+            }
+
+          case 13:
+            return _context2.abrupt("return", {
+              failed: true,
+              error: _response.status
+            });
+
+          case 16:
+            _context2.prev = 16;
+            _context2.t0 = _context2["catch"](0);
+            return _context2.abrupt("return", {
+              failed: true,
+              error: response.status
+            });
+
+          case 19:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2, null, [[0, 16]]);
+  }));
+
+  return function SoldToDetails(_x2) {
+    return _ref2.apply(this, arguments);
+  };
+}();
+
+/* harmony default export */ var services_SoldToDetails = (SoldToDetails);
+// EXTERNAL MODULE: ./src/scripts/domElements.js
+var domElements = __webpack_require__(19);
+
+// EXTERNAL MODULE: ./src/utils/eCommerceFunctions.js
+var eCommerceFunctions = __webpack_require__(23);
+
+// CONCATENATED MODULE: ./src/my-account/services/SoldToDetailsLazy.js
+
+
+
+
+
+
+
+/* harmony default export */ var SoldToDetailsLazy = __webpack_exports__["a"] = (/*#__PURE__*/(function () {
+  var _ref = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee(soldToDetailsUrl, userId, salesOrg) {
+    var sessionStore,
+        service,
+        currentPage,
+        soldToUrl,
+        soldToDetails,
+        hasDefaultSoldTo,
+        response,
+        hideCartClass,
+        headerNavigation_cartLI,
+        _args = arguments;
+    return regenerator_default.a.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            sessionStore = _args.length > 3 && _args[3] !== undefined ? _args[3] : new stores_sessionStore["a" /* default */]();
+            service = _args.length > 4 && _args[4] !== undefined ? _args[4] : services_SoldToDetails;
+            currentPage = window.location.href;
+            soldToUrl = "".concat(soldToDetailsUrl, "/").concat(userId, "?salesOrg=").concat(salesOrg);
+
+            if (!((!loginStatus["a" /* default */].state() || currentPage.indexOf("sign-in") !== -1 || currentPage.indexOf("create-account") !== -1 || currentPage.indexOf("trouble-signing-in") !== -1 || currentPage.indexOf("update-password") !== -1 || currentPage.indexOf("reset-password") !== -1) && currentPage.indexOf('choose-account') !== -1)) {
+              _context.next = 6;
+              break;
+            }
+
+            return _context.abrupt("return", []);
+
+          case 6:
+            soldToDetails = sessionStore.getSoldToDetails(); //START Patches for EComm
+
+            if (!(soldToDetails && soldToDetails.length !== 0)) {
+              _context.next = 12;
+              break;
+            }
+
+            hasDefaultSoldTo = false;
+            soldToDetails.map(function (soldTo) {
+              if ((soldTo.soldToFlag && soldTo.soldToFlag === 1 || soldTo.default_soldTo && soldTo.default_soldTo === 1) && soldTo.soldToInfo && soldTo.soldToInfo.length !== 0 && soldTo.billToInfo && soldTo.shipToInfo) {
+                hasDefaultSoldTo = true;
+                soldTo.soldToFlag = 1;
+                soldTo.default_soldTo = 1;
+              }
+            });
+
+            if (!hasDefaultSoldTo) {
+              _context.next = 12;
+              break;
+            }
+
+            return _context.abrupt("return", soldToDetails);
+
+          case 12:
+            _context.next = 14;
+            return service(soldToUrl);
+
+          case 14:
+            response = _context.sent;
+
+            if (response.failed) {
+              _context.next = 21;
+              break;
+            }
+
+            sessionStore.setSoldToDetails(response); // Show or Hide Cart Icon dependent upon eCommerce Status
+
+            hideCartClass = "top-bar__nav__cart--hide";
+            headerNavigation_cartLI = document.querySelector(".top-bar__nav__cart");
+
+            if (headerNavigation_cartLI) {
+              if (Object(eCommerceFunctions["e" /* isCartHidden */])()) {
+                domElements["a" /* default */].addClass(headerNavigation_cartLI, hideCartClass);
+              } else {
+                domElements["a" /* default */].removeClass(headerNavigation_cartLI, hideCartClass);
+              }
+            }
+
+            return _context.abrupt("return", response);
+
+          case 21:
+            return _context.abrupt("return", []);
+
+          case 22:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function (_x, _x2, _x3) {
+    return _ref.apply(this, arguments);
+  };
+})());
+
+/***/ }),
+
+/***/ 53:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(9);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(20);
+/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(16);
+/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(8);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(0);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _scripts_ErrorMessages__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(55);
-/* harmony import */ var _utils_modal__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(19);
+/* harmony import */ var _scripts_ErrorMessages__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(71);
+/* harmony import */ var _utils_modal__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(11);
 /* harmony import */ var _utils_eCommerceFunctions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(23);
 
 
@@ -3486,339 +3818,7 @@ AddToCartModalBody.whyDidYouRender = true;
 
 /***/ }),
 
-/***/ 57:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
-/* harmony import */ var _scripts_loginStatus__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(10);
-/* harmony import */ var _stores_sessionStore__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(5);
-/* harmony import */ var _services_UserDetails__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(41);
-
-
-
-
-
-/* harmony default export */ __webpack_exports__["a"] = (/*#__PURE__*/(function () {
-  var _ref = Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(userDetailsUrl, checkSessionStore) {
-    var sessionStore,
-        service,
-        navBarControls,
-        userDetails,
-        response,
-        _args = arguments;
-    return C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            sessionStore = _args.length > 2 && _args[2] !== undefined ? _args[2] : new _stores_sessionStore__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"]();
-            service = _args.length > 3 && _args[3] !== undefined ? _args[3] : _services_UserDetails__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"];
-            // Don't get User Details if My-Account Drop Down is not present
-            navBarControls = document.getElementsByClassName("cmp-header__top-bar__nav");
-
-            if (!(navBarControls.length === 0)) {
-              _context.next = 6;
-              break;
-            }
-
-            console.info("UserDetails API cannot be initiated due to nav bar controls");
-            return _context.abrupt("return", {});
-
-          case 6:
-            if (_scripts_loginStatus__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"].state()) {
-              _context.next = 9;
-              break;
-            }
-
-            console.info("UserDetails API cannot be initiated due to unavailability of login cookie");
-            return _context.abrupt("return", {});
-
-          case 9:
-            if (!checkSessionStore) {
-              _context.next = 13;
-              break;
-            }
-
-            userDetails = sessionStore.getUserDetails();
-
-            if (!(userDetails && Object.keys(userDetails).length !== 0)) {
-              _context.next = 13;
-              break;
-            }
-
-            return _context.abrupt("return", userDetails);
-
-          case 13:
-            _context.next = 15;
-            return service(userDetailsUrl);
-
-          case 15:
-            response = _context.sent;
-
-            if (response.failed) {
-              _context.next = 19;
-              break;
-            }
-
-            sessionStore.setUserDetails(response);
-            return _context.abrupt("return", response);
-
-          case 19:
-            return _context.abrupt("return", {});
-
-          case 20:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  }));
-
-  return function (_x, _x2) {
-    return _ref.apply(this, arguments);
-  };
-})());
-
-/***/ }),
-
-/***/ 66:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-
-// EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/regenerator/index.js
-var regenerator = __webpack_require__(2);
-var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
-
-// EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
-var asyncToGenerator = __webpack_require__(4);
-
-// EXTERNAL MODULE: ./src/scripts/loginStatus.js
-var loginStatus = __webpack_require__(10);
-
-// EXTERNAL MODULE: ./src/stores/sessionStore.js
-var stores_sessionStore = __webpack_require__(5);
-
-// EXTERNAL MODULE: ./node_modules/whatwg-fetch/fetch.js
-var whatwg_fetch_fetch = __webpack_require__(43);
-
-// CONCATENATED MODULE: ./src/my-account/services/SoldToDetails.js
-
-
-
-
-var getData = /*#__PURE__*/function () {
-  var _ref = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee(url) {
-    var response;
-    return regenerator_default.a.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            _context.next = 2;
-            return fetch(url, {
-              method: 'GET',
-              credentials: 'include',
-              headers: {
-                'Content-Type': 'application/json'
-              }
-            });
-
-          case 2:
-            response = _context.sent;
-            _context.next = 5;
-            return response;
-
-          case 5:
-            return _context.abrupt("return", _context.sent);
-
-          case 6:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  }));
-
-  return function getData(_x) {
-    return _ref.apply(this, arguments);
-  };
-}();
-
-var SoldToDetails = /*#__PURE__*/function () {
-  var _ref2 = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee2(url) {
-    var _response, json, returnArray;
-
-    return regenerator_default.a.wrap(function _callee2$(_context2) {
-      while (1) {
-        switch (_context2.prev = _context2.next) {
-          case 0:
-            _context2.prev = 0;
-            _context2.next = 3;
-            return getData(url);
-
-          case 3:
-            _response = _context2.sent;
-            _context2.next = 6;
-            return _response.json();
-
-          case 6:
-            json = _context2.sent;
-
-            if (!(_response.status === 200)) {
-              _context2.next = 12;
-              break;
-            }
-
-            returnArray = Array.isArray(json.customers) ? json.customers : [];
-            return _context2.abrupt("return", returnArray);
-
-          case 12:
-            if (_response.status === 401 && window.location.href.indexOf('my-account.html') !== -1) {
-              signInRedirect();
-            }
-
-          case 13:
-            return _context2.abrupt("return", {
-              failed: true,
-              error: _response.status
-            });
-
-          case 16:
-            _context2.prev = 16;
-            _context2.t0 = _context2["catch"](0);
-            return _context2.abrupt("return", {
-              failed: true,
-              error: response.status
-            });
-
-          case 19:
-          case "end":
-            return _context2.stop();
-        }
-      }
-    }, _callee2, null, [[0, 16]]);
-  }));
-
-  return function SoldToDetails(_x2) {
-    return _ref2.apply(this, arguments);
-  };
-}();
-
-/* harmony default export */ var services_SoldToDetails = (SoldToDetails);
-// EXTERNAL MODULE: ./src/scripts/domElements.js
-var domElements = __webpack_require__(22);
-
-// EXTERNAL MODULE: ./src/utils/eCommerceFunctions.js
-var eCommerceFunctions = __webpack_require__(23);
-
-// CONCATENATED MODULE: ./src/my-account/services/SoldToDetailsLazy.js
-
-
-
-
-
-
-
-/* harmony default export */ var SoldToDetailsLazy = __webpack_exports__["a"] = (/*#__PURE__*/(function () {
-  var _ref = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee(soldToDetailsUrl, userId, salesOrg) {
-    var sessionStore,
-        service,
-        currentPage,
-        soldToUrl,
-        soldToDetails,
-        hasDefaultSoldTo,
-        response,
-        hideCartClass,
-        headerNavigation_cartLI,
-        _args = arguments;
-    return regenerator_default.a.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            sessionStore = _args.length > 3 && _args[3] !== undefined ? _args[3] : new stores_sessionStore["a" /* default */]();
-            service = _args.length > 4 && _args[4] !== undefined ? _args[4] : services_SoldToDetails;
-            currentPage = window.location.href;
-            soldToUrl = "".concat(soldToDetailsUrl, "/").concat(userId, "?salesOrg=").concat(salesOrg);
-
-            if (!((!loginStatus["a" /* default */].state() || currentPage.indexOf("sign-in") !== -1 || currentPage.indexOf("create-account") !== -1 || currentPage.indexOf("trouble-signing-in") !== -1 || currentPage.indexOf("update-password") !== -1 || currentPage.indexOf("reset-password") !== -1) && currentPage.indexOf('choose-account') !== -1)) {
-              _context.next = 6;
-              break;
-            }
-
-            return _context.abrupt("return", []);
-
-          case 6:
-            soldToDetails = sessionStore.getSoldToDetails(); //START Patches for EComm
-
-            if (!(soldToDetails && soldToDetails.length !== 0)) {
-              _context.next = 12;
-              break;
-            }
-
-            hasDefaultSoldTo = false;
-            soldToDetails.map(function (soldTo) {
-              if ((soldTo.soldToFlag && soldTo.soldToFlag === 1 || soldTo.default_soldTo && soldTo.default_soldTo === 1) && soldTo.soldToInfo && soldTo.soldToInfo.length !== 0 && soldTo.billToInfo && soldTo.shipToInfo) {
-                hasDefaultSoldTo = true;
-                soldTo.soldToFlag = 1;
-                soldTo.default_soldTo = 1;
-              }
-            });
-
-            if (!hasDefaultSoldTo) {
-              _context.next = 12;
-              break;
-            }
-
-            return _context.abrupt("return", soldToDetails);
-
-          case 12:
-            _context.next = 14;
-            return service(soldToUrl);
-
-          case 14:
-            response = _context.sent;
-
-            if (response.failed) {
-              _context.next = 21;
-              break;
-            }
-
-            sessionStore.setSoldToDetails(response); // Show or Hide Cart Icon dependent upon eCommerce Status
-
-            hideCartClass = "top-bar__nav__cart--hide";
-            headerNavigation_cartLI = document.querySelector(".top-bar__nav__cart");
-
-            if (headerNavigation_cartLI) {
-              if (Object(eCommerceFunctions["e" /* isCartHidden */])()) {
-                domElements["a" /* default */].addClass(headerNavigation_cartLI, hideCartClass);
-              } else {
-                domElements["a" /* default */].removeClass(headerNavigation_cartLI, hideCartClass);
-              }
-            }
-
-            return _context.abrupt("return", response);
-
-          case 21:
-            return _context.abrupt("return", []);
-
-          case 22:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  }));
-
-  return function (_x, _x2, _x3) {
-    return _ref.apply(this, arguments);
-  };
-})());
-
-/***/ }),
-
-/***/ 91:
+/***/ 77:
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin

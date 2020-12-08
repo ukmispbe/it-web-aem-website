@@ -53,6 +53,12 @@
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
+/******/ 	// object to store loaded CSS chunks
+/******/ 	var installedCssChunks = {
+/******/ 		10: 0,
+/******/ 		8: 0
+/******/ 	}
+/******/
 /******/ 	// object to store loaded and loading chunks
 /******/ 	// undefined = chunk not loaded, null = chunk preloaded/prefetched
 /******/ 	// Promise = chunk loading, 0 = chunk loaded
@@ -65,7 +71,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "" + ({"3":"chat","4":"forms","7":"imagegallery","9":"myaccount","11":"quickorder","12":"usergreetings","13":"video"}[chunkId]||chunkId) + ".js"
+/******/ 		return __webpack_require__.p + "" + ({"3":"chat","4":"forms","7":"imagegallery","9":"myaccount","11":"quickorder","12":"searchresults","13":"skudetails","14":"skulist","15":"usergreetings","16":"video"}[chunkId]||chunkId) + ".js"
 /******/ 	}
 /******/
 /******/ 	// The require function
@@ -97,6 +103,46 @@
 /******/ 	__webpack_require__.e = function requireEnsure(chunkId) {
 /******/ 		var promises = [];
 /******/
+/******/
+/******/ 		// mini-css-extract-plugin CSS loading
+/******/ 		var cssChunks = {"4":1,"9":1,"12":1};
+/******/ 		if(installedCssChunks[chunkId]) promises.push(installedCssChunks[chunkId]);
+/******/ 		else if(installedCssChunks[chunkId] !== 0 && cssChunks[chunkId]) {
+/******/ 			promises.push(installedCssChunks[chunkId] = new Promise(function(resolve, reject) {
+/******/ 				var href = "/etc.clientlibs/waters/components/content/" + ({"3":"chat","4":"forms","7":"imagegallery","9":"myaccount","11":"quickorder","12":"searchresults","13":"skudetails","14":"skulist","15":"usergreetings","16":"video"}[chunkId]||chunkId) + "/clientlib-" + ({"3":"chat","4":"forms","7":"imagegallery","9":"myaccount","11":"quickorder","12":"searchresults","13":"skudetails","14":"skulist","15":"usergreetings","16":"video"}[chunkId]||chunkId) + ".css";
+/******/ 				var fullhref = __webpack_require__.p + href;
+/******/ 				var existingLinkTags = document.getElementsByTagName("link");
+/******/ 				for(var i = 0; i < existingLinkTags.length; i++) {
+/******/ 					var tag = existingLinkTags[i];
+/******/ 					var dataHref = tag.getAttribute("data-href") || tag.getAttribute("href");
+/******/ 					if(tag.rel === "stylesheet" && (dataHref === href || dataHref === fullhref)) return resolve();
+/******/ 				}
+/******/ 				var existingStyleTags = document.getElementsByTagName("style");
+/******/ 				for(var i = 0; i < existingStyleTags.length; i++) {
+/******/ 					var tag = existingStyleTags[i];
+/******/ 					var dataHref = tag.getAttribute("data-href");
+/******/ 					if(dataHref === href || dataHref === fullhref) return resolve();
+/******/ 				}
+/******/ 				var linkTag = document.createElement("link");
+/******/ 				linkTag.rel = "stylesheet";
+/******/ 				linkTag.type = "text/css";
+/******/ 				linkTag.onload = resolve;
+/******/ 				linkTag.onerror = function(event) {
+/******/ 					var request = event && event.target && event.target.src || fullhref;
+/******/ 					var err = new Error("Loading CSS chunk " + chunkId + " failed.\n(" + request + ")");
+/******/ 					err.request = request;
+/******/ 					delete installedCssChunks[chunkId]
+/******/ 					linkTag.parentNode.removeChild(linkTag)
+/******/ 					reject(err);
+/******/ 				};
+/******/ 				linkTag.href = fullhref;
+/******/
+/******/ 				var head = document.getElementsByTagName("head")[0];
+/******/ 				head.appendChild(linkTag);
+/******/ 			}).then(function() {
+/******/ 				installedCssChunks[chunkId] = 0;
+/******/ 			}));
+/******/ 		}
 /******/
 /******/ 		// JSONP chunk loading for javascript
 /******/
@@ -218,1087 +264,21 @@
 /******/
 /******/
 /******/ 	// add entry module to deferred list
-/******/ 	deferredModules.push([383,1,2,0]);
+/******/ 	deferredModules.push([298,1,2,0]);
 /******/ 	// run deferred modules when ready
 /******/ 	return checkDeferredModules();
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 102:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(8);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(11);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(12);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(13);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(0);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _services_index__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(36);
-/* harmony import */ var _scripts_skulist__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(77);
-/* harmony import */ var _analytics__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(25);
-/* harmony import */ var _stores_localStore__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(56);
-/* harmony import */ var _scripts_loginStatus__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(10);
-
-
-
-
-
-
-
-
-
-
-
-
-var AddToCart = /*#__PURE__*/function (_React$Component) {
-  Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])(AddToCart, _React$Component);
-
-  function AddToCart(props) {
-    var _this;
-
-    Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(this, AddToCart);
-
-    _this = Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(this, Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(AddToCart).call(this, props));
-
-    _this.onChangeSku = function (skuNumber) {
-      _this.setState({
-        skuNumber: skuNumber
-      });
-    };
-
-    _this.quantityInput = function (e) {
-      var cartValue = Number(e.target.value.replace(/[^\w\s]/gi, '')); // Cast the value as a number, and regex out anything but whole numbers
-      // Doing it this way instead of setting the input as a number because even with input set to type="number" special characters can be input
-      // also there were a problems with negatives/resetting to zero as number type
-
-      if (cartValue < 0 || isNaN(cartValue)) {
-        cartValue = 0;
-      }
-
-      _this.setState({
-        addToCartQty: cartValue
-      });
-    };
-
-    _this.addToCart = function () {
-      if (_this.state.skuNumber) {
-        if (_this.state.addToCartQty > 0) {
-          _this.cartAPIRequest();
-        } else {
-          // TODO: Make this also an error modal?
-          _this.setState({
-            addToCartQty: 1
-          }, function () {
-            return _this.cartAPIRequest();
-          });
-        }
-      }
-    };
-
-    _this.skuRemoveNegative = function (e) {
-      _scripts_skulist__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"].SkuRemoveNegative(e);
-    };
-
-    _this.skuQuantityInput = function (e) {
-      _scripts_skulist__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"].SkuQuantityInput(e);
-      var value = e.target.value;
-
-      _this.setState({
-        addToCartQty: value
-      });
-    };
-
-    _this.addToCartAnalytics = function (response) {
-      var localStore = new _stores_localStore__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"]();
-      var cartId = _scripts_loginStatus__WEBPACK_IMPORTED_MODULE_10__[/* default */ "a"].state() ? localStore.getCartId() : localStore.getGUID();
-      var addToCartModel = {
-        addContext: _this.props.analyticsConfig.context,
-        name: _this.props.analyticsConfig.name,
-        price: _this.props.analyticsConfig.price,
-        quantity: _this.state.addToCartQty.toString(),
-        sku: _this.state.skuNumber,
-        cartId: cartId
-      };
-
-      if (typeof response == 'boolean' || response.statusCode === 'success') {
-        addToCartModel.success = response.toString();
-      }
-
-      if (_this.props.analyticsConfig.hasOwnProperty('availableDate')) {
-        if (_this.props.analyticsConfig.availableDate) {
-          addToCartModel.stockDate = _this.props.analyticsConfig.availableDate;
-        }
-      }
-
-      if (_this.props.analyticsConfig.hasOwnProperty('availableQuantity')) {
-        if (_this.props.analyticsConfig.availableQuantity) {
-          addToCartModel.stockQuantity = _this.props.analyticsConfig.availableQuantity.toString();
-        }
-      }
-
-      if (_this.props.analyticsConfig.hasOwnProperty('productStatus')) {
-        if (_this.props.analyticsConfig.productStatus) {
-          addToCartModel.stockMessage = _this.props.analyticsConfig.productStatus;
-        }
-      }
-
-      _analytics__WEBPACK_IMPORTED_MODULE_8__[/* default */ "b"].setAnalytics(_analytics__WEBPACK_IMPORTED_MODULE_8__[/* analyticTypes */ "a"].cart.name, addToCartModel);
-    };
-
-    _this.state = {
-      skuNumber: _this.props.skuNumber,
-      addToCartLabel: _this.props.addToCartLabel,
-      addToCartQty: _this.props.addToCartQty,
-      addToCartUrl: _this.props.addToCartUrl,
-      isCommerceApiMigrated: _this.props.isCommerceApiMigrated,
-      toggleErrorModal: _this.props.toggleErrorModal,
-      toggleParentModal: _this.props.toggleParentModal,
-      errorObj: _this.props.errorObj,
-      skuResponse: _this.props.skuResponse
-    };
-    return _this;
-  }
-
-  Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(AddToCart, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      this.props.onRef(this);
-    }
-  }, {
-    key: "componentWillUnmount",
-    value: function componentWillUnmount() {
-      this.props.onRef(undefined);
-    }
-  }, {
-    key: "cartAPIRequest",
-    value: function cartAPIRequest() {
-      var _this2 = this;
-
-      Object(_services_index__WEBPACK_IMPORTED_MODULE_6__[/* addToCart */ "a"])(this.props.isCommerceApiMigrated, this.props.addToCartUrl, this.state.skuNumber, this.state.addToCartQty, this.state.toggleErrorModal).then(function (response) {
-        // If any other type of error eg 400, 401, 404 return 
-        if (Object.keys(response).length === 0) {
-          return;
-        } // Check for an errors object in the response. If present display the error modal instead of the View Cart
-
-
-        var cartAPIError = response.errors;
-
-        if (!response.errors) {
-          _this2.state.skuResponse(response);
-
-          _this2.state.toggleParentModal(true);
-
-          _this2.addToCartAnalytics(response);
-        } else {
-          var status = cartAPIError[0].code;
-          var errTemp = {
-            "ok": false,
-            "status": status
-          };
-
-          _this2.setState({
-            errorObj: errTemp
-          });
-
-          _this2.state.toggleErrorModal(errTemp);
-        }
-      })["catch"](function (err) {
-        _this2.setState({
-          errorObj: err
-        });
-
-        _this2.state.toggleErrorModal(err);
-      });
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this3 = this;
-
-      return react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_5___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("form", null, react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("input", {
-        className: "cmp-sku-details__quantity",
-        placeholder: "Qty",
-        value: this.state.addToCartQty,
-        onChange: this.skuQuantityInput,
-        onKeyPress: this.skuRemoveNegative,
-        "data-locator": "input-sku-qty",
-        "aria-label": this.props.qtyLabel
-      })), react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("a", {
-        className: "cmp-button ".concat(!this.state.skuNumber.trim() && 'disabled'),
-        onClick: function onClick() {
-          return _this3.addToCart();
-        },
-        "data-locator": "link-add-to-cart"
-      }, this.props.addToCartLabel));
-    }
-  }]);
-
-  return AddToCart;
-}(react__WEBPACK_IMPORTED_MODULE_5___default.a.Component);
-
-AddToCart.defaultProps = {
-  addToCartQty: null,
-  onRef: function onRef() {},
-  skuResponse: function skuResponse() {},
-  qtyLabel: ''
-};
-/* harmony default export */ __webpack_exports__["default"] = (AddToCart);
-
-/***/ }),
-
-/***/ 103:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(20);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(0);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _utils_generateTiles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(120);
-/* harmony import */ var _my_account_services_UserDetailsLazy__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(57);
-/* harmony import */ var _my_account_services_SoldToDetailsLazy__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(66);
-/* harmony import */ var _scripts_loginStatus__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(10);
-/* harmony import */ var _utils_redirectFunctions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(27);
-/* harmony import */ var _utils_userFunctions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(7);
-
-
-
-
-
-
-
-
-/* harmony default export */ __webpack_exports__["a"] = (function (userDetailsUrl, soldToDetailsUrl, type, icon) {
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(),
-      _useState2 = Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(_useState, 2),
-      data = _useState2[0],
-      setData = _useState2[1];
-
-  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])([]),
-      _useState4 = Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(_useState3, 2),
-      tiles = _useState4[0],
-      setTiles = _useState4[1];
-
-  function getData() {
-    var checkSessionStore = false;
-    Object(_my_account_services_UserDetailsLazy__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(userDetailsUrl, checkSessionStore).then(function (userDetails) {
-      if (userDetails.phone) {
-        userDetails.phone = userDetails.phone.replace(/\D/g, '');
-      }
-
-      if (userDetails && userDetails.userId && userDetails.salesOrg) {
-        if (type !== 'password') {
-          Object(_my_account_services_SoldToDetailsLazy__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])(soldToDetailsUrl, userDetails.userId, userDetails.salesOrg).then(function (soldToDetails) {
-            var mergeAPIs = Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_7__[/* matchAddresses */ "r"])(userDetails, soldToDetails);
-            setData(mergeAPIs);
-          });
-        } else {
-          setData(userDetails);
-        }
-      }
-    });
-  }
-
-  Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
-    if (!_scripts_loginStatus__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"].state()) {
-      var isInEditMode = document.getElementById("header").hasAttribute("data-is-edit-mode");
-
-      if (!isInEditMode) {
-        Object(_utils_redirectFunctions__WEBPACK_IMPORTED_MODULE_6__[/* notLoggedInRedirect */ "c"])();
-        return null;
-      }
-    }
-  }, []);
-  Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
-    getData();
-  }, []);
-  Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
-    setTiles(Object(_utils_generateTiles__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(data, type, icon));
-  }, [data]);
-  return {
-    data: data,
-    tiles: tiles,
-    setData: setData
-  };
-});
-
-/***/ }),
-
-/***/ 104:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(8);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(11);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(12);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(13);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(0);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var react_svg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(3);
-/* harmony import */ var _scripts_ErrorMessages__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(55);
-
-
-
-
-
-
-
-
-
-var Stock = /*#__PURE__*/function (_React$Component) {
-  Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])(Stock, _React$Component);
-
-  function Stock(props) {
-    Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(this, Stock);
-
-    return Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(this, Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(Stock).call(this, props));
-  }
-
-  Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(Stock, [{
-    key: "renderStockError",
-    value: function renderStockError() {
-      return react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("span", null, react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("span", {
-        className: "cmp-sku-".concat(this.props.skuType, "__stockdetails"),
-        "data-locator": "sku-".concat(this.props.skuType, "-stockdetails")
-      }, _scripts_ErrorMessages__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"].ErrorMessages(this.props.errorObj).serviceUnavailable, react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(react_svg__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"], {
-        src: this.props.skuInfo.lowStockIcon,
-        className: "cmp-sku-".concat(this.props.skuType, "__stockdetails--outofstock"),
-        "data-locator": "sku-".concat(this.props.skuType, "-stockdetails-outofstock")
-      })), react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("div", {
-        className: "cmp-sku-".concat(this.props.skuType, "__order"),
-        "data-locator": "sku-".concat(this.props.skuType, "-order")
-      }, _scripts_ErrorMessages__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"].ErrorMessages(this.props.errorObj).tryAgainLater));
-    }
-  }, {
-    key: "renderInStock",
-    value: function renderInStock() {
-      return react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("span", null, react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("span", {
-        className: "cmp-sku-".concat(this.props.skuType, "__stockdetails"),
-        "data-locator": "sku-".concat(this.props.skuType, "-stockdetails")
-      }, this.props.skuInfo.inStockLabel, react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(react_svg__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"], {
-        src: this.props.skuInfo.inStockIcon,
-        className: "cmp-sku-".concat(this.props.skuType, "__stockdetails--instock"),
-        "data-locator": "sku-".concat(this.props.skuType, "-stockdetails-instock")
-      })), react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("div", {
-        className: "cmp-sku-".concat(this.props.skuType, "__order"),
-        "data-locator": "sku-".concat(this.props.skuType, "-order")
-      }, this.props.skuInfo.orderNowLabel));
-    }
-  }, {
-    key: "renderContactWaters",
-    value: function renderContactWaters() {
-      return react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("span", null, react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("span", {
-        className: "cmp-sku-".concat(this.props.skuType, "__stockdetails"),
-        "data-locator": "sku-".concat(this.props.skuType, "-stockdetails")
-      }, this.props.skuInfo.contactWatersLabel), react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("div", {
-        className: "cmp-sku-".concat(this.props.skuType, "__order"),
-        "data-locator": "sku-".concat(this.props.skuType, "-order")
-      }, this.props.skuInfo.contactWatersInfoLabel));
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      if (this.props && this.props.errorObj && this.props.errorObj.ok === false) {
-        return this.renderStockError();
-      } else {
-        if (this.props.skuAvailability.availableQuantity > 0) {
-          return this.renderInStock();
-        } else {
-          return this.renderContactWaters();
-        }
-      }
-    }
-  }]);
-
-  return Stock;
-}(react__WEBPACK_IMPORTED_MODULE_5___default.a.Component);
-
-/* harmony default export */ __webpack_exports__["default"] = (Stock);
-
-/***/ }),
-
-/***/ 105:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3);
-/* harmony import */ var _utils_eCommerceFunctions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(23);
-
-
-
-
-function UnavailablePrice(props) {
-  var label = props.label,
-      icon = props.icon,
-      text = props.text;
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-    className: "cmp-sku-list__cust-price-label",
-    "data-locator": "sku-price-label",
-    "aria-label": label
-  }, label), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "cmp-sku-list__unavailable"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_svg__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"], {
-    "aria-hidden": "true",
-    src: icon,
-    "data-locator": Object(_utils_eCommerceFunctions__WEBPACK_IMPORTED_MODULE_2__[/* elementLocator */ "a"])("icon ".concat(text))
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-    "aria-label": text,
-    "data-locator": Object(_utils_eCommerceFunctions__WEBPACK_IMPORTED_MODULE_2__[/* elementLocator */ "a"])(text)
-  }, text)));
-}
-
-/* harmony default export */ __webpack_exports__["default"] = (UnavailablePrice);
-
-/***/ }),
-
-/***/ 106:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js
-var classCallCheck = __webpack_require__(6);
-
-// EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass.js
-var createClass = __webpack_require__(8);
-
-// EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js
-var possibleConstructorReturn = __webpack_require__(11);
-
-// EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js
-var getPrototypeOf = __webpack_require__(12);
-
-// EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits.js + 1 modules
-var inherits = __webpack_require__(13);
-
-// EXTERNAL MODULE: ./node_modules/react/index.js
-var react = __webpack_require__(0);
-var react_default = /*#__PURE__*/__webpack_require__.n(react);
-
-// EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectSpread.js
-var objectSpread = __webpack_require__(9);
-
-// EXTERNAL MODULE: ./node_modules/react-svg/es/react-svg.js
-var react_svg = __webpack_require__(3);
-
-// EXTERNAL MODULE: ./src/sku-details/services/index.js
-var services = __webpack_require__(36);
-
-// EXTERNAL MODULE: ./src/utils/modal/index.js + 1 modules
-var modal = __webpack_require__(19);
-
-// EXTERNAL MODULE: ./src/utils/spinner/index.js
-var spinner = __webpack_require__(52);
-
-// EXTERNAL MODULE: ./src/scripts/loginStatus.js
-var loginStatus = __webpack_require__(10);
-
-// EXTERNAL MODULE: ./src/sku-message/index.js
-var sku_message = __webpack_require__(31);
-
-// EXTERNAL MODULE: ./src/scripts/checkOutStatus.js
-var checkOutStatus = __webpack_require__(39);
-
-// EXTERNAL MODULE: ./src/scripts/ecommerce.js
-var ecommerce = __webpack_require__(29);
-
-// EXTERNAL MODULE: ./src/scripts/sku-details.js
-var sku_details = __webpack_require__(47);
-
-// EXTERNAL MODULE: ./src/scripts/stickyService.js
-var stickyService = __webpack_require__(40);
-
-// EXTERNAL MODULE: ./src/analytics/index.js + 1 modules
-var analytics = __webpack_require__(25);
-
-// EXTERNAL MODULE: ./src/utils/userFunctions.js
-var userFunctions = __webpack_require__(7);
-
-// EXTERNAL MODULE: ./src/utils/eCommerceFunctions.js
-var eCommerceFunctions = __webpack_require__(23);
-
-// EXTERNAL MODULE: ./src/constants/index.js
-var constants = __webpack_require__(24);
-
-// CONCATENATED MODULE: ./src/sku-list/views/listItem.js
-
-
-
-
-
-
-
-
-// import Stock from '../../sku-details/views/stock';
-var Stock = react_default.a.lazy(function () {
-  return Promise.resolve(/* import() */).then(__webpack_require__.bind(null, 104));
-}); // import Price from '../../sku-details/views/price';
-
-var Price = react_default.a.lazy(function () {
-  return Promise.resolve(/* import() */).then(__webpack_require__.bind(null, 76));
-}); // import UnavailablePrice from '../../sku-details/views/unavailablePrice';
-
-var UnavailablePrice = react_default.a.lazy(function () {
-  return Promise.resolve(/* import() */).then(__webpack_require__.bind(null, 105));
-});
- // import AddToCart from '../../sku-details/views/addToCart';
-
-var AddToCart = react_default.a.lazy(function () {
-  return Promise.resolve(/* import() */).then(__webpack_require__.bind(null, 102));
-}); // import AddToCartBody from '../../sku-details/views/addToCartModal';
-
-var AddToCartBody = react_default.a.lazy(function () {
-  return Promise.resolve(/* import() */).then(__webpack_require__.bind(null, 54));
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-var listItem_ListItem = /*#__PURE__*/function (_React$Component) {
-  Object(inherits["a" /* default */])(ListItem, _React$Component);
-
-  function ListItem(props) {
-    var _this;
-
-    Object(classCallCheck["a" /* default */])(this, ListItem);
-
-    _this = Object(possibleConstructorReturn["a" /* default */])(this, Object(getPrototypeOf["a" /* default */])(ListItem).call(this, props));
-
-    _this.getCustPricing = function (pricingUrl, skuNumber, userInfo, propListPrice) {
-      Object(services["c" /* getPricing */])(pricingUrl, skuNumber, userInfo.dynamicSoldTo, userInfo.salesOrg).then(function (response) {
-        if (response.status && response.status === 200) {
-          var match = Object(services["d" /* matchListItems */])(skuNumber, response);
-          var listPriceValue = match.listPrice !== '' && match.listPrice != undefined ? match.listPrice : propListPrice;
-
-          _this.setState({
-            skuData: match,
-            custPrice: match.custPrice,
-            listPrice: listPriceValue,
-            loading: false
-          }, function () {//this.checkPricingAnalytics();
-          });
-        } else {
-          // Add Error Object to State
-          _this.setState({
-            errorPriceType: [constants["a" /* BAD_REQUEST_CODE */], constants["d" /* SERVER_ERROR_CODE */]].includes(Object(eCommerceFunctions["c" /* getHttpStatusFromErrors */])(response.errors, response.status)) ? Object(userFunctions["p" /* isEprocurementUser */])() ? constants["e" /* UNAVAILABLE_PRICE_WITH_ADD_TO_CART */] : constants["b" /* LIST_PRICE_WITH_ADD_TO_CART */] : constants["c" /* NO_PRICE_NO_ADD_TO_CART */],
-            loading: false
-          });
-        }
-      })["catch"](function (err) {
-        // Add Error Object to State
-        _this.setState({
-          errorPriceType: constants["c" /* NO_PRICE_NO_ADD_TO_CART */],
-          loading: false
-        });
-      });
-    };
-
-    _this.toggleErrorModal = function (err) {
-      // Add Error Object to State
-      _this.setState({
-        errorObjCart: err
-      });
-
-      _this.setState({
-        modalShown: !_this.state.modalShown
-      });
-    };
-
-    _this.toggleModal = function () {
-      _this.setState({
-        modalShown: !_this.state.modalShown
-      }, function () {
-        if (sku_details["a" /* default */].exists()) {
-          if (!_this.state.modalShown) {
-            //Firefox bug -->
-            //if on a sku page and the modal was just open, make call to check whether to stick again
-            //this will unstick the current element if necessary
-            var SKUDetailsSticky = stickyService["a" /* default */].findStickyEl(sku_details["a" /* default */].element);
-
-            if (SKUDetailsSticky) {
-              stickyService["a" /* default */].conditionsToStick(SKUDetailsSticky);
-            }
-          }
-        }
-      });
-    };
-
-    _this.checkAvailability = function (skuNumber) {
-      Object(services["b" /* getAvailability */])(_this.state.availabilityUrl, _this.state.userCountry, skuNumber).then(function (response) {
-        _this.setState({
-          skuAvailability: response,
-          analyticsConfig: Object(objectSpread["a" /* default */])({}, _this.state.analyticsConfig, response)
-        }, function () {
-          _this.checkAvailabilityAnalytics();
-        });
-      })["catch"](function (err) {
-        // Add Error Object to State
-        _this.setState({
-          errorObjAvailability: err
-        });
-      });
-    };
-
-    _this.checkAvailabilityAnalytics = function () {
-      var availabilityModel = {
-        name: _this.state.analyticsConfig.name,
-        price: _this.state.analyticsConfig.price,
-        sku: _this.state.analyticsConfig.sku
-      };
-
-      if (_this.state.analyticsConfig.hasOwnProperty('availableDate')) {
-        availabilityModel.stockDate = _this.state.analyticsConfig.availableDate;
-      }
-
-      if (_this.state.analyticsConfig.hasOwnProperty('availableQuantity')) {
-        availabilityModel.stockQuantity = _this.state.analyticsConfig.availableQuantity.toString();
-      }
-
-      if (_this.state.analyticsConfig.hasOwnProperty('productStatus')) {
-        availabilityModel.stockMessage = _this.state.analyticsConfig.productStatus;
-      }
-
-      analytics["b" /* default */].setAnalytics(analytics["a" /* analyticTypes */].stock.name, availabilityModel);
-    };
-
-    _this.handleItemClick = function () {
-      if (_this.props.onItemClick) {
-        _this.props.onItemClick();
-      }
-    };
-
-    _this.renderListOrUnavailablePrice = function () {
-      var _this$state = _this.state,
-          listPrice = _this$state.listPrice,
-          skuInfo = _this$state.skuInfo,
-          errorPriceType = _this$state.errorPriceType;
-
-      if (errorPriceType === constants["e" /* UNAVAILABLE_PRICE_WITH_ADD_TO_CART */]) {
-        return react_default.a.createElement(UnavailablePrice, {
-          label: skuInfo.custPriceLabel,
-          icon: skuInfo.lowStockIcon,
-          text: skuInfo.unavailablePriceLabel
-        });
-      } else {
-        if (typeof listPrice !== 'undefined') {
-          return react_default.a.createElement(Price, {
-            label: skuInfo.listPriceLabel,
-            price: listPrice,
-            isListPrice: true
-          });
-        }
-      }
-    };
-
-    _this.renderPricing = function () {
-      var _this$state2 = _this.state,
-          custPrice = _this$state2.custPrice,
-          listPrice = _this$state2.listPrice,
-          skuInfo = _this$state2.skuInfo,
-          errorPriceType = _this$state2.errorPriceType;
-
-      if (loginStatus["a" /* default */].state()) {
-        var price = typeof custPrice !== 'undefined' ? custPrice : listPrice;
-
-        if (errorPriceType !== '') {
-          return _this.renderListOrUnavailablePrice();
-        } else {
-          return react_default.a.createElement(Price, {
-            label: skuInfo.custPriceLabel,
-            price: price,
-            isListPrice: false
-          });
-        }
-      } else {
-        return _this.renderListOrUnavailablePrice();
-      }
-    };
-
-    _this.renderBuyInfoPartial = function () {
-      var _this$state3 = _this.state,
-          custPrice = _this$state3.custPrice,
-          listPrice = _this$state3.listPrice,
-          loading = _this$state3.loading,
-          skuInfo = _this$state3.skuInfo,
-          skuAvailability = _this$state3.skuAvailability,
-          errorConfig = _this$state3.errorConfig,
-          modalConfig = _this$state3.modalConfig,
-          errorObjCart = _this$state3.errorObjCart,
-          errorObjAvailability = _this$state3.errorObjAvailability;
-      var _this$props = _this.props,
-          relatedSku = _this$props.relatedSku,
-          skuConfig = _this$props.skuConfig;
-      var isErrorModal = Object.keys(errorObjCart).length !== 0;
-      return react_default.a.createElement("div", {
-        className: "cmp-sku-details__buyinfo"
-      }, loginStatus["a" /* default */].state() && typeof custPrice !== 'undefined' && custPrice !== listPrice && react_default.a.createElement("div", {
-        className: "cmp-sku-list__list-price",
-        "data-locator": "list-price-label",
-        "aria-label": "".concat(skuInfo.listPriceLabel, " ").concat(listPrice)
-      }, "".concat(skuInfo.listPriceLabel, " ").concat(listPrice)), react_default.a.createElement("div", {
-        className: "cmp-sku-list__priceinfo"
-      }, loading ? react_default.a.createElement(spinner["a" /* default */], {
-        loading: loading,
-        type: "inline"
-      }) : _this.renderPricing()), react_default.a.createElement("div", {
-        className: "cmp-sku-details__availability",
-        onClick: function onClick(e) {
-          return _this.checkAvailability(relatedSku.code);
-        }
-      }, (skuAvailability.productStatus || _this.state && errorObjAvailability && errorObjAvailability.ok === false) && react_default.a.createElement(Stock, {
-        skuInfo: skuInfo,
-        skuNumber: relatedSku.code,
-        skuAvailability: skuAvailability,
-        skuType: "details",
-        errorObj: errorObjAvailability
-      }), !skuAvailability.productStatus && !(_this.state && errorObjAvailability && errorObjAvailability.ok === false) && react_default.a.createElement("span", {
-        className: "cmp-sku-list__checkavailability"
-      }, skuConfig.skuInfo.seeAvailabilityLabel, react_default.a.createElement(react_svg["a" /* default */], {
-        alt: skuConfig.skuInfo.seeAvailabilityLabel,
-        src: skuConfig.skuInfo.refreshIcon,
-        "data-locator": "check-availability"
-      }))), react_default.a.createElement("div", {
-        className: "cmp-sku-list__buttons"
-      }, react_default.a.createElement(AddToCart, {
-        toggleParentModal: _this.toggleModal,
-        skuNumber: relatedSku.code,
-        addToCartLabel: skuConfig.addToCartLabel,
-        addToCartQty: skuConfig.defaultSkuQty,
-        addToCartUrl: skuConfig.addToCartUrl,
-        isCommerceApiMigrated: skuConfig.isCommerceApiMigrated,
-        toggleErrorModal: _this.toggleErrorModal,
-        analyticsConfig: _this.state.analyticsConfig,
-        qtyLabel: skuConfig.qtyAriaLabel
-      }), react_default.a.createElement(modal["b" /* default */], {
-        isOpen: _this.state.modalShown,
-        onClose: _this.toggleModal,
-        className: "cmp-add-to-cart-modal"
-      }, !isErrorModal && react_default.a.createElement(modal["a" /* Header */], {
-        title: modalConfig.title,
-        icon: modalConfig.icon,
-        className: modal["c" /* keys */].HeaderWithAddedMarginTop
-      }), isErrorModal && react_default.a.createElement(modal["a" /* Header */], {
-        title: errorConfig.title,
-        icon: errorConfig.icon,
-        className: modal["c" /* keys */].HeaderWithAddedMarginTopError
-      }), react_default.a.createElement(AddToCartBody, {
-        config: modalConfig,
-        errorObjCart: errorObjCart
-      }))));
-    };
-
-    _this.renderBuyInfoCommerceView = function () {
-      if (ecommerce["a" /* default */].isDisabledState()) {
-        return null;
-      } else {
-        if (ecommerce["a" /* default */].isPartialState() && loginStatus["a" /* default */].state() && checkOutStatus["a" /* default */].state() || !ecommerce["a" /* default */].isPartialState() && !ecommerce["a" /* default */].isDisabledState()) {
-          return react_default.a.createElement(react_default.a.Fragment, null, _this.renderBuyInfoPartial());
-        } else {
-          return null;
-        }
-      }
-    };
-
-    _this.renderBuyInfo = function () {
-      if (_this.props.isEProcurementUserRestricted) {
-        return null;
-      }
-
-      var buyInfoCommerceView = _this.renderBuyInfoCommerceView();
-
-      var _this$props2 = _this.props,
-          relatedSku = _this$props2.relatedSku,
-          skuConfig = _this$props2.skuConfig;
-
-      if (relatedSku.discontinued) {
-        var discontinuedMessage = skuConfig.skuInfo.discontinuedWithReplacementWithCode;
-
-        if (!relatedSku.replacementskucode || !relatedSku.replacementskuurl) {
-          discontinuedMessage = skuConfig.skuInfo.discontinuedNoReplacementCode;
-        }
-
-        return react_default.a.createElement(sku_message["a" /* default */], {
-          icon: skuConfig.skuInfo.lowStockIcon,
-          message: discontinuedMessage,
-          link: relatedSku.replacementskuurl,
-          linkMessage: relatedSku.replacementskucode
-        });
-      } else if (_this.state.errorPriceType === constants["c" /* NO_PRICE_NO_ADD_TO_CART */]) {
-        return react_default.a.createElement(sku_message["a" /* default */], {
-          icon: skuConfig.skuInfo.lowStockIcon,
-          message: skuConfig.skuInfo.skuErrorMessage
-        });
-      } else {
-        return buyInfoCommerceView;
-      }
-    };
-
-    _this.renderBreadcrumb = function () {
-      var _this$props3 = _this.props,
-          relatedSku = _this$props3.relatedSku,
-          skuConfig = _this$props3.skuConfig;
-
-      if (skuConfig.showBreadcrumbs) {
-        return react_default.a.createElement("div", {
-          className: "cmp-search__results-item-breadcrumb skuitem",
-          "data-locator": "search-results-breadcrumb"
-        }, react_default.a.createElement("div", {
-          "aria-label": relatedSku.category_facet
-        }, relatedSku.category_facet), react_default.a.createElement(react_svg["a" /* default */], {
-          src: skuConfig.skuInfo.nextIcon,
-          "aria-hidden": "true"
-        }), react_default.a.createElement("div", {
-          "aria-label": relatedSku.contenttype_facet
-        }, relatedSku.contenttype_facet));
-      }
-
-      return react_default.a.createElement(react_default.a.Fragment, null);
-    };
-
-    _this.isDisabled = function () {
-      if (ecommerce["a" /* default */].isPartialState()) {
-        var conditions = loginStatus["a" /* default */].state() && checkOutStatus["a" /* default */].state();
-        return !conditions;
-      } else {
-        return ecommerce["a" /* default */].isDisabledState();
-      }
-    };
-
-    _this.state = {
-      modalShown: false,
-      modalConfig: Object(objectSpread["a" /* default */])({}, _this.props.skuConfig.modalInfo, {
-        textHeading: _this.props.relatedSku.code,
-        text: _this.props.relatedSku.title,
-        partNumberLabel: _this.props.skuConfig.skuInfo.partNumberLabel
-      }),
-      errorConfig: Object(objectSpread["a" /* default */])({}, _this.props.skuConfig.errorInfo, {
-        textHeading: _this.props.relatedSku.code,
-        text: _this.props.relatedSku.title,
-        partNumberLabel: _this.props.skuConfig.skuInfo.partNumberLabel
-      }),
-      listPrice: _this.props.relatedSku.formattedPrice,
-      custPrice: undefined,
-      skuInfo: _this.props.skuConfig.skuInfo,
-      skuNumber: _this.props.relatedSku.code,
-      userInfo: _this.props.userInfo,
-      userCountry: _this.props.skuConfig.countryCode,
-      availabilityUrl: _this.props.skuConfig.availabilityUrl,
-      pricingUrl: _this.props.skuConfig.pricingUrl,
-      addToCartUrl: _this.props.skuConfig.addToCartUrl,
-      loading: true,
-      skuAvailability: {},
-      skuData: _this.props.relatedSku,
-      analyticsConfig: {
-        context: sku_details["a" /* default */].exists() ? analytics["d" /* relatedCartContext */] : analytics["e" /* searchCartContext */],
-        name: _this.props.relatedSku.title,
-        price: _this.props.relatedSku.formattedPrice,
-        custPrice: '',
-        sku: _this.props.relatedSku.code
-      },
-      errorObjCart: {},
-      errorObjAvailability: {},
-      errorPriceType: ''
-    };
-    return _this;
-  }
-
-  Object(createClass["a" /* default */])(ListItem, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      var _this$state4 = this.state,
-          pricingUrl = _this$state4.pricingUrl,
-          skuNumber = _this$state4.skuNumber,
-          userInfo = _this$state4.userInfo;
-
-      if (loginStatus["a" /* default */].state()) {
-        if (Object.keys(userInfo).length > 0 && userInfo.callCustApi) {
-          this.getCustPricing(pricingUrl, skuNumber, userInfo, this.props.relatedSku.formattedPrice);
-        } else {
-          this.setState({
-            loading: false
-          });
-        }
-      } else {
-        this.setState({
-          loading: false
-        });
-      }
-    } //Note: getCustPricing Method should be an exact match between SKU Details and SKU List
-
-  }, {
-    key: "componentWillReceiveProps",
-    value: function componentWillReceiveProps(nextProps) {
-      var differentDynamicSoldToId = this.props.userInfo.dynamicSoldTo !== nextProps.userInfo.dynamicSoldTo;
-      var differentSalesOrg = this.props.userInfo.salesOrg !== nextProps.userInfo.salesOrg;
-      return differentDynamicSoldToId || differentSalesOrg;
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this$props4 = this.props,
-          relatedSku = _this$props4.relatedSku,
-          skuConfig = _this$props4.skuConfig;
-      var buyInfo = this.renderBuyInfo();
-      var breadcrumbs = this.renderBreadcrumb();
-      var disabledClass = this.isDisabled() ? 'disabled' : '';
-
-      if (!relatedSku.primaryImageThumbnail || relatedSku.primaryImageThumbnail === "") {
-        relatedSku.primaryImageThumbnail = skuConfig.skuInfo.noThumbnailImage;
-      }
-
-      var imageAltLabel = relatedSku.primaryImageAlt ? relatedSku.primaryImageAlt : relatedSku.title;
-      return react_default.a.createElement("div", {
-        className: 'cmp-sku-list__container ' + disabledClass
-      }, react_default.a.createElement("div", {
-        className: "cmp-sku-list__right"
-      }, react_default.a.createElement("img", {
-        src: relatedSku.primaryImageThumbnail,
-        alt: relatedSku.title,
-        "data-locator": "product-image"
-      })), react_default.a.createElement("div", {
-        className: "cmp-sku-details__left"
-      }, react_default.a.createElement("div", {
-        className: "cmp-sku-list__code",
-        "data-locator": "product-number",
-        "aria-label": skuConfig.skuInfo.partNumberLabel + " " + relatedSku.code
-      }, skuConfig.skuInfo.partNumberLabel + " " + relatedSku.code), react_default.a.createElement("a", {
-        onClick: this.handleItemClick,
-        href: relatedSku.skuPageHref ? relatedSku.skuPageHref : null
-      }, react_default.a.createElement("div", {
-        className: "cmp-sku-details__title",
-        "data-locator": "product-title"
-      }, relatedSku.title)), buyInfo, breadcrumbs));
-    }
-  }]);
-
-  return ListItem;
-}(react_default.a.Component);
-
-listItem_ListItem.defaultProps = {
-  key: '',
-  relatedSku: {},
-  skuConfig: {},
-  baseSignInUrl: '',
-  onItemClick: function onItemClick() {},
-  userInfo: {},
-  isEProcurementUserRestricted: false
-};
-/* harmony default export */ var listItem = (listItem_ListItem);
-// EXTERNAL MODULE: ./src/scripts/signIn.js
-var scripts_signIn = __webpack_require__(73);
-
-// CONCATENATED MODULE: ./src/sku-list/index.js
-
-
-
-
-
-// entry point for SKU. Move this up to global entry point if we want babel to polyfill everything we need at build time
-
-
-
-
-
-
-
-var sku_list_SkuList = /*#__PURE__*/function (_React$Component) {
-  Object(inherits["a" /* default */])(SkuList, _React$Component);
-
-  function SkuList(props) {
-    var _this;
-
-    Object(classCallCheck["a" /* default */])(this, SkuList);
-
-    _this = Object(possibleConstructorReturn["a" /* default */])(this, Object(getPrototypeOf["a" /* default */])(SkuList).call(this, props));
-    _this.state = {
-      skuConfig: _this.props.skuConfig,
-      skuAvailability: {},
-      addToCartQty: undefined,
-      skuInfo: _this.props.skuConfig.skuInfo,
-      userCountry: _this.props.skuConfig.countryCode,
-      isEProcurementUserRestricted: !Object(userFunctions["p" /* isEprocurementUser */])() && Object(userFunctions["q" /* isEprocurementUserRole */])(),
-      userInfo: Object(userFunctions["a" /* callCustomerPriceApi */])(_this.props.skuConfig.isCustomerPriceApiDisabled)
-    };
-    return _this;
-  }
-
-  Object(createClass["a" /* default */])(SkuList, [{
-    key: "renderSignIn",
-    value: function renderSignIn() {
-      if (!loginStatus["a" /* default */].state()) {
-        return react_default.a.createElement(scripts_signIn["a" /* default */], {
-          signInUrl: this.props.skuConfig.baseSignInUrl,
-          signInIcon: this.props.skuConfig.skuInfo.signinIcon,
-          signInText1: this.props.skuConfig.skuInfo.signInText1,
-          signInText2: this.props.skuConfig.skuInfo.signInText2,
-          signInText3: this.props.skuConfig.skuInfo.signInText3
-        });
-      } else {
-        return react_default.a.createElement(react_default.a.Fragment, null);
-      }
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this2 = this;
-
-      var signIn = this.renderSignIn();
-      return react_default.a.createElement(react_default.a.Fragment, null, this.props.data.length > 0 && //only return template if data exists
-      react_default.a.createElement(react_default.a.Fragment, null, this.props.title && react_default.a.createElement("div", {
-        className: "cmp-sku-list__title"
-      }, this.props.title), signIn, this.props.data.map(function (record, index) {
-        return react_default.a.createElement(listItem, {
-          key: index,
-          relatedSku: record,
-          skuConfig: _this2.props.skuConfig,
-          baseSignInUrl: _this2.props.baseSignInUrl,
-          onItemClick: _this2.props.onItemClick,
-          userInfo: _this2.state.userInfo,
-          isEProcurementUserRestricted: _this2.state.isEProcurementUserRestricted
-        });
-      })));
-    }
-  }]);
-
-  return SkuList;
-}(react_default.a.Component);
-
-sku_list_SkuList.defaultProps = {
-  skuConfig: {},
-  data: [],
-  title: ''
-};
-/* harmony default export */ var sku_list = __webpack_exports__["default"] = (sku_list_SkuList);
-
-/***/ }),
-
-/***/ 134:
+/***/ 112:
 /***/ (function(module, exports) {
 
 /* (ignored) */
 
 /***/ }),
 
-/***/ 135:
+/***/ 113:
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
@@ -1306,534 +286,7 @@ module.exports = {"colorBorderDark":"#9ca7b0","colorGray50":"#4f5b64","colorBack
 
 /***/ }),
 
-/***/ 14:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SearchService; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return parameterValues; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return parameterDefaults; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return searchMapper; });
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(6);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(8);
-/* harmony import */ var whatwg_fetch__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(43);
-/* harmony import */ var _stores_sessionStore__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(5);
-
-
-
-
-
-
-
-var queryString = __webpack_require__(28);
-
-var parameterValues = {
-  undefined: 'undefined',
-  sort: {
-    mostRecent: 'most-recent',
-    mostRelevant: 'most-relevant'
-  }
-};
-var parameterDefaults = {
-  page: 1,
-  rows: 25,
-  keyword: '*:*',
-  category: '',
-  content_type: '',
-  sort: parameterValues.sort.mostRecent,
-  selectedFacets: {},
-  contentTypeSelected: {}
-};
-
-var SearchService = /*#__PURE__*/function () {
-  function SearchService(isocode) {
-    var _this = this;
-
-    var path = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'https://stgservices.waters.com/api/waters/search';
-
-    var _page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : parameterDefaults.page;
-
-    var _rows = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : parameterDefaults.rows;
-
-    var _sort = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : parameterDefaults.sort;
-
-    var multiselect = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : true;
-    var throwError = arguments.length > 6 ? arguments[6] : undefined;
-
-    Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(this, SearchService);
-
-    this.getCategories = function (_ref) {
-      var _ref$keyword = _ref.keyword,
-          keyword = _ref$keyword === void 0 ? parameterDefaults.keyword : _ref$keyword,
-          _ref$page = _ref.page,
-          page = _ref$page === void 0 ? parameterDefaults.page : _ref$page,
-          _ref$sort = _ref.sort,
-          sort = _ref$sort === void 0 ? parameterDefaults.sort : _ref$sort;
-
-      var paramString = _this.getQueryParamString({
-        keyword: keyword,
-        page: page,
-        sort: sort
-      });
-
-      var searchString = "".concat(_this.path, "?").concat(paramString);
-      return window.fetch(searchString).then(function (response) {
-        if (response.ok) {
-          return response.json();
-        } else {
-          _this.throwError(response);
-        }
-      })["catch"](function (err) {
-        return console.log(err);
-      });
-    };
-
-    this.getResultsByCategory = function () {
-      var _ref2 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-          _ref2$keyword = _ref2.keyword,
-          keyword = _ref2$keyword === void 0 ? parameterDefaults.keyword : _ref2$keyword,
-          _ref2$facets = _ref2.facets,
-          facets = _ref2$facets === void 0 ? {} : _ref2$facets,
-          _ref2$page = _ref2.page,
-          page = _ref2$page === void 0 ? parameterDefaults.page : _ref2$page,
-          _ref2$sort = _ref2.sort,
-          sort = _ref2$sort === void 0 ? parameterDefaults.sort : _ref2$sort,
-          _ref2$category = _ref2.category,
-          category = _ref2$category === void 0 ? parameterDefaults.category : _ref2$category;
-
-      var paramString = _this.getQueryParamString({
-        keyword: keyword,
-        page: page,
-        sort: sort
-      });
-
-      var searchString = "".concat(_this.path, "/category_facet$").concat(category.toLowerCase(), ":").concat(encodeURIComponent(encodeURIComponent(category)), "?").concat(paramString);
-      return window.fetch(searchString).then(function (response) {
-        if (response.ok) {
-          return response.json();
-        } else {
-          _this.throwError(response);
-        }
-      })["catch"](function (err) {
-        return console.log(err);
-      });
-    };
-
-    this.getContentType = function (contentTypeKey, contentTypeValue) {
-      var _ref3 = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {},
-          _ref3$keyword = _ref3.keyword,
-          keyword = _ref3$keyword === void 0 ? parameterDefaults.keyword : _ref3$keyword,
-          _ref3$facets = _ref3.facets,
-          facets = _ref3$facets === void 0 ? {} : _ref3$facets,
-          _ref3$page = _ref3.page,
-          page = _ref3$page === void 0 ? parameterDefaults.page : _ref3$page,
-          _ref3$sort = _ref3.sort,
-          sort = _ref3$sort === void 0 ? parameterDefaults.sort : _ref3$sort,
-          _ref3$category = _ref3.category,
-          category = _ref3$category === void 0 ? parameterDefaults.category : _ref3$category;
-
-      var paramString = _this.getQueryParamString({
-        keyword: keyword,
-        page: page,
-        sort: sort
-      });
-
-      var searchString = "".concat(_this.path, "/category_facet$").concat(category.toLowerCase(), ":").concat(encodeURIComponent(encodeURIComponent(category)), "&contenttype_facet$").concat(contentTypeKey, ":").concat(encodeURIComponent(encodeURIComponent(contentTypeValue)), "?").concat(paramString);
-      return window.fetch(searchString).then(function (response) {
-        if (response.ok) {
-          return response.json();
-        } else {
-          _this.throwError(response);
-
-          return response;
-        }
-      });
-    };
-
-    this.getSubFacet = function (contentTypeName, contentTypeValue) {
-      var _ref4 = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {},
-          _ref4$keyword = _ref4.keyword,
-          keyword = _ref4$keyword === void 0 ? parameterDefaults.keyword : _ref4$keyword,
-          _ref4$facets = _ref4.facets,
-          facets = _ref4$facets === void 0 ? {} : _ref4$facets,
-          _ref4$page = _ref4.page,
-          page = _ref4$page === void 0 ? parameterDefaults.page : _ref4$page,
-          _ref4$sort = _ref4.sort,
-          sort = _ref4$sort === void 0 ? parameterDefaults.sort : _ref4$sort,
-          _ref4$category = _ref4.category,
-          category = _ref4$category === void 0 ? parameterDefaults.category : _ref4$category;
-
-      var paramString = _this.getQueryParamString({
-        keyword: keyword,
-        page: page,
-        sort: sort
-      });
-
-      var facetString = _this.getQueryFacetString(facets);
-
-      var searchString = "".concat(_this.path, "/category_facet$").concat(category.toLowerCase(), ":").concat(encodeURIComponent(encodeURIComponent(category)), "&contenttype_facet$").concat(contentTypeName.replace('_facet', ''), ":").concat(encodeURIComponent(encodeURIComponent(contentTypeValue))).concat(facetString, "?").concat(paramString);
-      return window.fetch(searchString).then(function (response) {
-        if (response.ok) {
-          return response.json();
-        } else {
-          _this.throwError(response);
-
-          return response;
-        }
-      });
-    };
-
-    this.getSuggestedKeywords = /*#__PURE__*/function () {
-      var _ref5 = Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(rows, term) {
-        var searchString, callService, response;
-        return C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                searchString = "".concat(_this.path, "/v1/autocomplete?term=").concat(term, "&rows=").concat(rows, "&isocode=").concat(_this.options.isocode);
-                callService = window.fetch(searchString).then(function (response) {
-                  if (response.ok) {
-                    return response.json();
-                  } else {
-                    _this.throwError(response);
-
-                    return response.json();
-                  }
-                });
-                _context.next = 4;
-                return callService;
-
-              case 4:
-                response = _context.sent;
-                return _context.abrupt("return", response.suggestions);
-
-              case 6:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee);
-      }));
-
-      return function (_x, _x2) {
-        return _ref5.apply(this, arguments);
-      };
-    }();
-
-    this.getUrlParameter = function (sParam, sPageURL) {
-      var sURLVariables = sPageURL.split('&');
-
-      for (var i = 0; i < sURLVariables.length; i++) {
-        var sParameterName = sURLVariables[i].split('=');
-
-        if (sParameterName[0] === sParam) {
-          return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
-        }
-      }
-    };
-
-    this.mapFacetGroupsToArray = function (facetParam) {
-      if (Array.isArray(facetParam)) {
-        var facetArray = facetParam.map(function (item) {
-          var splitArray = item.split(':');
-          return splitArray.length === 2 ? splitArray[0] : '';
-        });
-        return facetArray.filter(function (item) {
-          return item !== '';
-        });
-      } else if (facetParam) {
-        var splitArray = facetParam.split(':');
-        return splitArray.length === 2 ? [splitArray[0]] : [];
-      }
-
-      return [];
-    };
-
-    this.buildParameters = function (searchValue) {
-      var keyword = searchValue ? searchValue : parameterDefaults.keyword;
-      var sort = keyword === parameterDefaults.keyword ? parameterDefaults.sort : parameterValues.sort.mostRelevant;
-      return {
-        keyword: keyword,
-        sort: sort
-      };
-    };
-
-    this.stringifyParameters = function (parameters) {
-      return Object.keys(parameters).length !== 0 ? Object.keys(parameters).reduce(function (accumulator, currentValue) {
-        return "".concat(accumulator, "=").concat(parameters[accumulator], "&").concat(currentValue, "=").concat(parameters[currentValue]);
-      }) : '';
-    };
-
-    this.setUrlParameter = function (searchTerm, searchPath) {
-      var parameters = _this.buildParameters(searchTerm);
-
-      var querystring = _this.stringifyParameters(parameters);
-
-      window.location.href = "".concat(searchPath, "?").concat(querystring);
-    };
-
-    this.isDefaultKeyword = function (value) {
-      return value === parameterDefaults.keyword;
-    };
-
-    this.setStorageForPagePosition = function () {
-      var scrolled = (window.pageYOffset || window.document.scrollTop) - (window.document.clientTop || 0);
-
-      _this.sessionStore.setPreviousPagePosition(scrolled);
-
-      _this.sessionStore.setFromSearchURL(window.location.href);
-    };
-
-    this.setStorageForTabHistory = function (tabHistory) {
-      _this.sessionStore.setSearchTabHistory(tabHistory);
-    };
-
-    this.setStorageForPagination = function () {
-      var scrolled = (window.pageYOffset || window.document.scrollTop) - (window.document.clientTop || 0);
-
-      _this.sessionStore.setPreviousPaginationClick(scrolled);
-    };
-
-    this.getSessionStore = function () {
-      var previousPagePosition = _this.sessionStore.getPreviousPagePositionEnabled() ? _this.sessionStore.getPreviousPagePosition() : null;
-      return {
-        previousPagePosition: previousPagePosition,
-        fromSearchURL: _this.sessionStore.getFromSearchURL(),
-        searchTabHistory: _this.sessionStore.getSearchTabHistory(),
-        previousPaginationClick: _this.sessionStore.getPreviousPaginationClick()
-      };
-    };
-
-    this.clearSessionStore = function () {
-      _this.sessionStore.removePreviousPagePosition();
-
-      _this.sessionStore.removePreviousPagePositionEnabled();
-
-      _this.sessionStore.removeFromSearchURL();
-
-      _this.sessionStore.removeSearchTabHistory();
-
-      _this.sessionStore.removePreviousPaginationClick();
-    };
-
-    this.scrollToPosition = function (position) {
-      window.scrollTo(0, position);
-
-      _this.sessionStore.removePreviousPagePosition();
-
-      _this.sessionStore.removePreviousPagePositionEnabled();
-    };
-
-    this.scrollToTop = function () {
-      window.scrollTo(0, 0);
-
-      _this.sessionStore.removePreviousPagePositionEnabled();
-    };
-
-    this.path = path;
-    this.options = {
-      isocode: isocode,
-      page: _page,
-      rows: _rows,
-      sort: _sort,
-      multiselect: multiselect
-    };
-    this.throwError = throwError;
-    this.sessionStore = new _stores_sessionStore__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"]();
-  }
-
-  Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(SearchService, [{
-    key: "getParamsFromString",
-    value: function getParamsFromString() {
-      var str = window.location.search;
-      var obj = queryString.parse(str);
-      obj.selectedFacets = {};
-
-      if (Array.isArray(obj.facet)) {
-        for (var i = 0; i < obj.facet.length; i++) {
-          var facetSplit = obj.facet[i].split(':');
-          var decodedFacetValue = decodeURIComponent(facetSplit[1]);
-
-          if (!obj.selectedFacets[facetSplit[0]]) {
-            obj.selectedFacets[facetSplit[0]] = [];
-          }
-
-          obj.selectedFacets[facetSplit[0]].push(decodedFacetValue);
-        }
-      } else {
-        if (obj.facet) {
-          var _facetSplit = obj.facet.split(':');
-
-          var _decodedFacetValue = decodeURIComponent(_facetSplit[1]);
-
-          if (!obj.selectedFacets[_facetSplit[0]]) {
-            obj.selectedFacets[_facetSplit[0]] = [];
-          }
-
-          obj.selectedFacets[_facetSplit[0]].push(_decodedFacetValue);
-        }
-      }
-
-      return obj;
-    }
-  }, {
-    key: "getQueryParamString",
-    value: function getQueryParamString() {
-      var _ref6 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-          _ref6$keyword = _ref6.keyword,
-          keyword = _ref6$keyword === void 0 ? parameterDefaults.keyword : _ref6$keyword,
-          _ref6$page = _ref6.page,
-          page = _ref6$page === void 0 ? parameterDefaults.page : _ref6$page,
-          _ref6$sort = _ref6.sort,
-          sort = _ref6$sort === void 0 ? parameterDefaults.sort : _ref6$sort,
-          _ref6$category = _ref6.category,
-          category = _ref6$category === void 0 ? parameterDefaults.category : _ref6$category,
-          _ref6$content_type = _ref6.content_type,
-          content_type = _ref6$content_type === void 0 ? parameterDefaults.content_type : _ref6$content_type;
-
-      var facets = arguments.length > 1 ? arguments[1] : undefined;
-      var fullParams = Object.assign({}, this.options, {
-        keyword: keyword,
-        page: page,
-        sort: sort,
-        category: category,
-        content_type: content_type
-      });
-      if (!fullParams.category) delete fullParams.category;
-      if (!fullParams.content_type) delete fullParams.content_type;
-      var paramString = queryString.stringify(fullParams);
-
-      if (facets) {
-        for (var i = 0; i <= Object.keys(facets).length; i++) {
-          var key = Object.keys(facets)[i];
-          var facet = facets[key];
-
-          if (facet) {
-            for (var n = 0; n < facet.length; n++) {
-              var f = encodeURIComponent(facet[n]);
-              paramString = paramString + "&facet=".concat(key, ":").concat(encodeURI(f));
-            }
-          }
-        }
-      }
-
-      return paramString;
-    }
-  }, {
-    key: "getQueryFacetString",
-    value: function getQueryFacetString(facets) {
-      var facetString = '';
-
-      for (var i = 0; i <= Object.keys(facets).length; i++) {
-        var facetName = Object.keys(facets)[i];
-        var category = facetName ? "".concat(facetName, "$").concat(facetName.replace('_facet', '')) : null;
-        var facet = facets[facetName];
-
-        if (facet && category) {
-          if (i === 0) {
-            facetString = facetString + "&".concat(category, ":");
-          } else {
-            facetString = facetString + "&".concat(category, ":");
-          }
-
-          for (var f = 0; f <= facet.length; f++) {
-            var filter = facet[f];
-
-            if (filter) {
-              facetString = filter ? facetString + "".concat(f > 0 ? encodeURIComponent('||') : '').concat(encodeURIComponent(encodeURIComponent(filter))) : facetString;
-            }
-          }
-        } else if (category) {
-          facetString = facetString + "&".concat(category, ":");
-        }
-      }
-
-      return facetString;
-    }
-  }, {
-    key: "createQueryObject",
-    value: function createQueryObject(params) {
-      var obj = {};
-      obj['keyword'] = params.keyword;
-      obj['page'] = params.page || parameterDefaults.page;
-      obj['facets'] = {};
-      obj['sort'] = params.sort;
-      if (params.category) obj['category'] = params.category;
-      if (params.content_type) obj['content_type'] = params.content_type;
-
-      if (params.facet) {
-        var facets = params.facet;
-
-        if (Array.isArray(facets)) {
-          for (var n = 0; n <= facets.length; n++) {
-            var facet = facets[n];
-
-            if (facet) {
-              var splitName = facet.split(':');
-
-              if (Array.isArray(obj['facets'][splitName[0]])) {
-                obj['facets'][splitName[0]].push(decodeURIComponent(splitName[1]));
-              } else {
-                obj['facets'][splitName[0]] = [decodeURIComponent(splitName[1])];
-              }
-            }
-          }
-        } else if (facets) {
-          var _splitName = facets.split(':');
-
-          obj['facets'][_splitName[0]] = [decodeURIComponent(_splitName[1])];
-        }
-      }
-
-      return obj;
-    }
-  }]);
-
-  return SearchService;
-}();
-
-var searchMapper = {
-  mapFacetGroups: function mapFacetGroups(contentType, filterMap, facets) {
-    var facetName = "".concat(contentType, "_facet");
-    var facet = Array.isArray(filterMap.orderedFacets) ? filterMap.orderedFacets.find(function (item) {
-      return item.facetName === facetName;
-    }) : null;
-
-    if (!facet) {
-      return;
-    }
-
-    var orderedFacets = facet.orderedFacets.filter(function (item) {
-      return facets[item.facetName];
-    });
-    var mapping = orderedFacets.map(function (facet) {
-      return {
-        name: facet.facetName,
-        category: facet.facetValue,
-        translation: facet.facetTranslation,
-        facets: facets[facet.facetName],
-        isExpanded: false
-      };
-    });
-    return mapping;
-  }
-};
-
-
-/***/ }),
-
-/***/ 15:
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-module.exports = {"colorBorderDark":"#9ca7b0","colorGray50":"#4f5b64","colorBackgroundLight":"#f4f6f7","colorWhite":"#fff","colorBlue50":"#07b","borderRadius":"4px","spaceXXXS":".25em","spaceXXS":".5em","spaceXS":".75em","spaceS":"1em"};
-
-/***/ }),
-
-/***/ 151:
+/***/ 133:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1841,3356 +294,33 @@ module.exports = {"colorBorderDark":"#9ca7b0","colorGray50":"#4f5b64","colorBack
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./src/styles/index.scss
-var styles = __webpack_require__(91);
+var styles = __webpack_require__(77);
 
 // EXTERNAL MODULE: ./node_modules/react/index.js
 var react = __webpack_require__(0);
 var react_default = /*#__PURE__*/__webpack_require__.n(react);
 
 // EXTERNAL MODULE: ./node_modules/react-dom/index.js
-var react_dom = __webpack_require__(18);
+var react_dom = __webpack_require__(6);
 var react_dom_default = /*#__PURE__*/__webpack_require__.n(react_dom);
 
-// EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectSpread.js
-var objectSpread = __webpack_require__(9);
-
-// EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 3 modules
-var toConsumableArray = __webpack_require__(78);
-
-// EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/regenerator/index.js
-var regenerator = __webpack_require__(2);
-var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
-
-// EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
-var asyncToGenerator = __webpack_require__(4);
-
-// EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/typeof.js
-var esm_typeof = __webpack_require__(37);
-
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js
-var classCallCheck = __webpack_require__(6);
+var classCallCheck = __webpack_require__(13);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass.js
-var createClass = __webpack_require__(8);
+var createClass = __webpack_require__(17);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js
-var possibleConstructorReturn = __webpack_require__(11);
+var possibleConstructorReturn = __webpack_require__(20);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js
-var getPrototypeOf = __webpack_require__(12);
+var getPrototypeOf = __webpack_require__(21);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits.js + 1 modules
-var inherits = __webpack_require__(13);
+var inherits = __webpack_require__(22);
 
-// EXTERNAL MODULE: ./src/search/services/index.js
-var services = __webpack_require__(14);
-
-// EXTERNAL MODULE: ./node_modules/query-string/index.js
-var query_string = __webpack_require__(28);
-
-// EXTERNAL MODULE: ./node_modules/react-router-dom/es/withRouter.js + 1 modules
-var withRouter = __webpack_require__(515);
-
-// EXTERNAL MODULE: ./node_modules/react-svg/es/react-svg.js
-var react_svg = __webpack_require__(3);
-
-// CONCATENATED MODULE: ./src/search/components/no-results.js
-
-
-
-var no_results_NoResults = function NoResults(_ref) {
-  var searchText = _ref.searchText,
-      query = _ref.query;
-  var forQuery = react_default.a.createElement("span", null, "for \"", react_default.a.createElement("strong", null, query), "\"");
-  return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("h2", {
-    className: "cmp-search__resultsCount noresults"
-  }, "Showing 0 results", ' ', " ", forQuery), react_default.a.createElement("div", {
-    className: "cmp-search__no-results"
-  }, react_default.a.createElement(react_svg["a" /* default */], {
-    className: "icon",
-    src: searchText.noResultsIcon
-  }), react_default.a.createElement("h2", null, searchText.noResultsTitle), react_default.a.createElement("p", null, searchText.noResultsDescription, react_default.a.createElement("a", {
-    href: window.location.href.split('?')[0]
-  }, searchText.noResultsSearchLinkText))));
-};
-
-/* harmony default export */ var no_results = (no_results_NoResults);
-// EXTERNAL MODULE: ./node_modules/validator/index.js
-var validator = __webpack_require__(50);
-var validator_default = /*#__PURE__*/__webpack_require__.n(validator);
-
-// EXTERNAL MODULE: ./src/scripts/domElements.js
-var domElements = __webpack_require__(22);
-
-// EXTERNAL MODULE: ./src/scripts/screenSizes.js
-var screenSizes = __webpack_require__(21);
-
-// EXTERNAL MODULE: ./src/analytics/index.js + 1 modules
-var analytics = __webpack_require__(25);
-
-// EXTERNAL MODULE: ./node_modules/react-spinners/index.js
-var react_spinners = __webpack_require__(85);
-
-// CONCATENATED MODULE: ./src/search/components/spinner.js
-
-
-
-
-
-
-
-
-var spinner_LoadingSpinner = /*#__PURE__*/function (_Component) {
-  Object(inherits["a" /* default */])(LoadingSpinner, _Component);
-
-  function LoadingSpinner() {
-    Object(classCallCheck["a" /* default */])(this, LoadingSpinner);
-
-    return Object(possibleConstructorReturn["a" /* default */])(this, Object(getPrototypeOf["a" /* default */])(LoadingSpinner).call(this));
-  }
-
-  Object(createClass["a" /* default */])(LoadingSpinner, [{
-    key: "componentWillMount",
-    value: function componentWillMount() {
-      window.scrollTo(0, 0);
-      window.document.documentElement.classList.add('showing-spinner');
-    }
-  }, {
-    key: "componentWillUnmount",
-    value: function componentWillUnmount() {
-      window.document.documentElement.classList.remove('showing-spinner');
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      return react_default.a.createElement("div", {
-        className: "cmp-search-overlay"
-      }, react_default.a.createElement(react_spinners["ClipLoader"], {
-        sizeUnit: 'px',
-        size: 64,
-        color: '#ffffff',
-        loading: this.props.loading
-      }));
-    }
-  }]);
-
-  return LoadingSpinner;
-}(react["Component"]);
-
-/* harmony default export */ var spinner = (spinner_LoadingSpinner);
-// CONCATENATED MODULE: ./src/search/components/loading.js
-
-
-
-var loading_Loading = function Loading(_ref) {
-  var visible = _ref.visible;
-
-  if (!visible) {
-    return react_default.a.createElement(react_default.a.Fragment, null);
-  }
-
-  return react_default.a.createElement("div", null, react_default.a.createElement("div", {
-    className: "overlay"
-  }), react_default.a.createElement(spinner, {
-    loading: true
-  }));
-};
-
-loading_Loading.defaultProps = {
-  visible: false
-};
-/* harmony default export */ var components_loading = (loading_Loading);
-// EXTERNAL MODULE: ./node_modules/prop-types/index.js
-var prop_types = __webpack_require__(1);
-var prop_types_default = /*#__PURE__*/__webpack_require__.n(prop_types);
-
-// CONCATENATED MODULE: ./src/search/search.component.props.js
-
-var propTypes = {
-  text: prop_types_default.a.object.isRequired,
-  filterMap: prop_types_default.a.any.isRequired,
-  skuConfig: prop_types_default.a.object.isRequired,
-  searchParams: prop_types_default.a.object.isRequired,
-  category: prop_types_default.a.any,
-  categoryProps: prop_types_default.a.shape({
-    categories: prop_types_default.a.arrayOf(prop_types_default.a.object).isRequired,
-    activeIndex: prop_types_default.a.number.isRequired
-  }).isRequired,
-  categoryEvents: prop_types_default.a.shape({
-    onCategoryTabClick: prop_types_default.a.func.isRequired,
-    onCategoryDropdownChange: prop_types_default.a.func.isRequired
-  }).isRequired,
-  showSortFilterProps: prop_types_default.a.shape({
-    collapseFilters: prop_types_default.a.func.isRequired
-  }).isRequired,
-  showSortFilterEvents: prop_types_default.a.shape({
-    onSetupFilters: prop_types_default.a.func.isRequired,
-    onResetToSavedState: prop_types_default.a.func.isRequired,
-    onClose: prop_types_default.a.func.isRequired
-  }).isRequired,
-  asideProps: prop_types_default.a.shape({
-    sortFilterIsPristine: prop_types_default.a.bool,
-    count: prop_types_default.a.number,
-    sortValue: prop_types_default.a.number
-  }).isRequired,
-  asideEvents: prop_types_default.a.shape({
-    onHideSortFilterClick: prop_types_default.a.func,
-    onApplySortFilter: prop_types_default.a.func,
-    onCollapseFilters: prop_types_default.a.func,
-    onSort: prop_types_default.a.func
-  }).isRequired,
-  menuProps: prop_types_default.a.shape({
-    showContentTypeMenu: prop_types_default.a.bool.isRequired,
-    showFacetMenu: prop_types_default.a.bool.isRequired,
-    heading: prop_types_default.a.string
-  }).isRequired,
-  resultsProps: prop_types_default.a.shape({
-    rows: prop_types_default.a.number.isRequired,
-    count: prop_types_default.a.number.isRequired,
-    query: prop_types_default.a.string,
-    current: prop_types_default.a.number.isRequired,
-    noQuery: prop_types_default.a.bool,
-    spell_check: prop_types_default.a.bool.isRequired,
-    spell_related_suggestions: prop_types_default.a.array.isRequired,
-    spell_suggestion: prop_types_default.a.string,
-    items: prop_types_default.a.any,
-    isSkuList: prop_types_default.a.bool.isRequired,
-    pagination: prop_types_default.a.object.isRequired
-  }).isRequired,
-  resultsEvents: prop_types_default.a.shape({
-    onRelatedSuggestionClick: prop_types_default.a.func.isRequired,
-    onResultsItemClick: prop_types_default.a.func.isRequired,
-    onPageChange: prop_types_default.a.func.isRequired
-  }).isRequired,
-  contentTypeMenuProps: prop_types_default.a.shape({
-    items: prop_types_default.a.array.isRequired
-  }).isRequired,
-  contentTypeMenuEvents: prop_types_default.a.shape({
-    onContentTypeItemClick: prop_types_default.a.func.isRequired
-  }).isRequired,
-  facetMenuProps: prop_types_default.a.shape({
-    selectedValue: prop_types_default.a.string,
-    previousIcon: prop_types_default.a.string
-  }).isRequired,
-  facetMenuEvents: prop_types_default.a.shape({
-    onContentTypeRemoval: prop_types_default.a.func.isRequired
-  }).isRequired,
-  subFacetFiltersProps: prop_types_default.a.shape({
-    items: prop_types_default.a.array | prop_types_default.a.object,
-    filterMap: prop_types_default.a.array.isRequired | prop_types_default.a.object,
-    defaultFacet: prop_types_default.a.string,
-    selectedFacets: prop_types_default.a.object.isRequired,
-    contentType: prop_types_default.a.string,
-    facetGroupsSelectedOrder: prop_types_default.a.array.isRequired,
-    collapseAllFilters: prop_types_default.a.bool.isRequired,
-    activeIndex: prop_types_default.a.number.isRequired
-  }).isRequired,
-  subFacetFiltersEvents: prop_types_default.a.shape({
-    onFilterSelect: prop_types_default.a.func.isRequired,
-    onGroupClick: prop_types_default.a.func.isRequired
-  }).isRequired,
-  filterTagsProps: prop_types_default.a.shape({
-    keyword: prop_types_default.a.string,
-    spell_suggestion: prop_types_default.a.string,
-    contentTypeSelected: prop_types_default.a.object.isRequired,
-    selectedFacets: prop_types_default.a.object.isRequired,
-    facets: prop_types_default.a.object.isRequired | prop_types_default.a.array,
-    defaultFacet: prop_types_default.a.string,
-    contentType: prop_types_default.a.string
-  }).isRequired,
-  filterTagsEvents: prop_types_default.a.shape({
-    onClearAll: prop_types_default.a.func.isRequired,
-    onKeywordRemove: prop_types_default.a.func.isRequired,
-    onContentTypeRemove: prop_types_default.a.func.isRequired,
-    onSubFacetRemove: prop_types_default.a.func.isRequired
-  }).isRequired
-};
-var defaultProps = {
-  text: {},
-  filterMap: {},
-  skuConfig: {},
-  searchParams: {},
-  category: '',
-  categoryProps: {
-    categories: [],
-    activeIndex: -1
-  },
-  categoryEvents: {
-    onCategoryTabClick: function onCategoryTabClick() {},
-    onCategoryDropdownChange: function onCategoryDropdownChange() {}
-  },
-  showSortFilterProps: {
-    collapseFilters: function collapseFilters() {}
-  },
-  showSortFilterEvents: {
-    onSetupFilters: function onSetupFilters() {},
-    onResetToSavedState: function onResetToSavedState() {},
-    onClose: function onClose() {}
-  },
-  asideProps: {
-    sortFilterIsPristine: false,
-    count: 0,
-    sortValue: 1
-  },
-  asideEvents: {
-    onHideSortFilterClick: function onHideSortFilterClick() {},
-    onApplySortFilter: function onApplySortFilter() {},
-    onCollapseFilters: function onCollapseFilters() {},
-    onSort: function onSort() {}
-  },
-  menuProps: {
-    showContentTypeMenu: false,
-    showFacetMenu: false,
-    heading: ''
-  },
-  resultsProps: {
-    rows: 0,
-    count: 0,
-    query: "",
-    current: 0,
-    noQuery: false,
-    spell_check: false,
-    spell_related_suggestions: [],
-    spell_suggestion: '',
-    items: [],
-    isSkuList: false,
-    pagination: {}
-  },
-  resultsEvents: {
-    onRelatedSuggestionClick: function onRelatedSuggestionClick() {},
-    onResultsItemClick: function onResultsItemClick() {},
-    onPageChange: function onPageChange() {}
-  },
-  contentTypeMenuProps: {
-    items: []
-  },
-  contentTypeMenuEvents: {
-    onContentTypeItemClick: function onContentTypeItemClick() {}
-  },
-  facetMenuProps: {
-    selectedValue: '',
-    previousIcon: ''
-  },
-  facetMenuEvents: {
-    onContentTypeRemoval: function onContentTypeRemoval() {}
-  },
-  subFacetFiltersProps: {
-    items: [],
-    filterMap: {},
-    defaultFacet: '',
-    selectedFacets: {},
-    contentType: '',
-    facetGroupsSelectedOrder: [],
-    collapseAllFilters: false,
-    activeIndex: -1
-  },
-  subFacetFiltersEvents: {
-    onFilterSelect: function onFilterSelect() {},
-    onGroupClick: function onGroupClick() {}
-  },
-  filterTagsProps: {
-    keyword: '',
-    spell_suggestion: '',
-    contentTypeSelected: {},
-    selectedFacets: {},
-    facets: {},
-    defaultFacet: '',
-    contentType: ''
-  },
-  filterTagsEvents: {
-    onClearAll: function onClearAll() {},
-    onKeywordRemove: function onKeywordRemove() {},
-    onContentTypeRemove: function onContentTypeRemove() {},
-    onSubFacetRemove: function onSubFacetRemove() {}
-  }
-};
-
-// EXTERNAL MODULE: ./node_modules/react-paginate/dist/react-paginate.js
-var react_paginate = __webpack_require__(111);
-var react_paginate_default = /*#__PURE__*/__webpack_require__.n(react_paginate);
-
-// CONCATENATED MODULE: ./src/search/components/content-type-menu.js
-
-
-var content_type_menu_ContentTypeMenu = function ContentTypeMenu(props) {
-  var Items = function Items() {
-    return props.items.map(function (item) {
-      return react_default.a.createElement("div", {
-        key: item.facetName,
-        className: "content-type-menu-container__item",
-        onClick: function onClick() {
-          return props.onClick(item);
-        }
-      }, react_default.a.createElement("div", null, react_default.a.createElement("a", {
-        href: "#",
-        onClick: function onClick(e) {
-          e.preventDefault();
-          return false;
-        },
-        "data-count": " (".concat(item.count, ")")
-      }, item.facetTranslation)));
-    });
-  };
-
-  return react_default.a.createElement("div", {
-    className: "content-type-menu-container"
-  }, react_default.a.createElement("div", {
-    className: "content-type-menu-container__heading"
-  }, props.heading), react_default.a.createElement("div", {
-    className: "content-type-menu-container__body"
-  }, Items()));
-};
-
-content_type_menu_ContentTypeMenu.defaultProps = {
-  heading: '',
-  items: [],
-  onClick: function onClick() {}
-};
-/* harmony default export */ var content_type_menu = (content_type_menu_ContentTypeMenu);
-// CONCATENATED MODULE: ./src/search/components/facet-menu.js
-
-
-
-var facet_menu_FacetMenu = function FacetMenu(props) {
-  return react_default.a.createElement("div", {
-    className: "facet-menu-container",
-    "data-locator": "facet-menu-container"
-  }, react_default.a.createElement("div", {
-    className: "facet-menu-container__heading",
-    "data-locator": "facet-menu-container-heading"
-  }, props.filterTags, react_default.a.createElement("div", {
-    className: "heading--with-selected-value",
-    "data-locator": "heading-with-selected-value"
-  }, react_default.a.createElement("div", {
-    className: "back-btn"
-  }, react_default.a.createElement("a", {
-    href: "javascript:void(0)",
-    onClick: props.onClear,
-    "data-locator": "link-back-button"
-  }, react_default.a.createElement(react_svg["a" /* default */], {
-    src: props.previousIcon
-  }), " ", props.heading)), react_default.a.createElement("h3", null, props.selectedValue))), react_default.a.createElement("div", {
-    className: "facet-menu-container__body",
-    "data-locator": "facet-menu-container-body"
-  }, props.children));
-};
-
-facet_menu_FacetMenu.defaultProps = {
-  heading: '',
-  selectedValue: '',
-  previousIcon: '',
-  filterTags: react_default.a.createElement(react_default.a.Fragment, null),
-  onClear: function onClear() {}
-};
-/* harmony default export */ var facet_menu = (facet_menu_FacetMenu);
-// CONCATENATED MODULE: ./src/search/components/filter-section.js
-
-
-
-
-
-
-
-
-
-var filter_section_FilterSection = /*#__PURE__*/function (_Component) {
-  Object(inherits["a" /* default */])(FilterSection, _Component);
-
-  function FilterSection(props) {
-    var _this;
-
-    Object(classCallCheck["a" /* default */])(this, FilterSection);
-
-    _this = Object(possibleConstructorReturn["a" /* default */])(this, Object(getPrototypeOf["a" /* default */])(FilterSection).call(this, props));
-
-    _this.setStateForItems = function (items) {
-      return _this.setState({
-        items: items
-      });
-    };
-
-    _this.setStateForSearchValue = function (searchValue) {
-      return _this.setState({
-        searchValue: searchValue
-      });
-    };
-
-    _this.isEmpty = function (value) {
-      return validator_default.a.isEmpty(value, {
-        ignore_whitespace: false
-      });
-    };
-
-    _this.lengthLessThan = function (value, lengthComparison) {
-      return value.length < lengthComparison;
-    };
-
-    _this.valueStartsWith = function (value, valueComparison) {
-      return value.toLowerCase().startsWith(valueComparison.toLowerCase());
-    };
-
-    _this.filterList = function (value, minCharSearch, items) {
-      return _this.isEmpty(value) || _this.lengthLessThan(value, minCharSearch) ? items : items.filter(function (item) {
-        return _this.valueStartsWith(item.value, value);
-      });
-    };
-
-    _this.handleSearchChange = function (value, minCharSearch, items) {
-      _this.setStateForSearchValue(value);
-
-      _this.setStateForItems(_this.filterList(value, minCharSearch, items));
-    };
-
-    _this.handleClearClick = function (minCharSearch, items) {
-      _this.setStateForSearchValue('');
-
-      _this.setStateForItems(_this.filterList('', minCharSearch, items));
-    };
-
-    _this.getFacetSearch = function (items, minItemSearch) {
-      if (items.length >= minItemSearch) {
-        return react_default.a.createElement("div", {
-          className: "cmp-search-filters__filter__search"
-        }, !_this.state.searchValue.length ? react_default.a.createElement(react_svg["a" /* default */], {
-          src: _this.props.text.searchIcon,
-          className: "searchIcon"
-        }) : react_default.a.createElement(react_svg["a" /* default */], {
-          src: _this.props.text.closeIcon,
-          className: "closeIcon",
-          onClick: function onClick() {
-            return _this.handleClearClick(_this.props.minCharSearch, _this.props.facet.facets);
-          }
-        }), react_default.a.createElement("input", {
-          type: "input",
-          placeholder: "Search",
-          onChange: function onChange(e) {
-            return _this.handleSearchChange(e.target.value, _this.props.minCharSearch, _this.props.facet.facets);
-          },
-          value: _this.state.searchValue,
-          ref: _this.searchRef
-        }));
-      }
-    };
-
-    _this.state = {
-      items: props.facet.facets,
-      searchValue: ''
-    };
-    _this.searchRef = react_default.a.createRef();
-    return _this;
-  }
-
-  Object(createClass["a" /* default */])(FilterSection, [{
-    key: "componentDidUpdate",
-    value: function componentDidUpdate(prevProps) {
-      /*
-          This will check if the facets have been modified
-          due to other facets being checked off.  If so,
-          set state using the updated facets props.
-      */
-      var prevFacets = JSON.stringify(prevProps.facet.facets);
-      var currFacets = JSON.stringify(this.props.facet.facets);
-
-      if (!validator_default.a.equals(prevFacets, currFacets)) {
-        this.setStateForItems(this.props.facet.facets);
-        /*
-            Since the facets prop has changed check to see
-            if there is a search value so it can be
-            applied on the updated facets props
-        */
-
-        if (this.searchRef.current && !this.isEmpty(this.state.searchValue)) {
-          this.handleSearchChange(this.state.searchValue, this.props.minCharSearch, this.props.facet.facets);
-        }
-      }
-    }
-  }, {
-    key: "checkHandler",
-    value: function checkHandler(event) {
-      event.currentTarget.nextElementSibling.click();
-    }
-  }, {
-    key: "getFacetOptions",
-    value: function getFacetOptions() {
-      var _this2 = this;
-
-      var options = this.state.items;
-      var option = options.map(function (item, index) {
-        var checked = false;
-
-        if (_this2.props.selectedFacets[_this2.props.facet.name]) {
-          for (var i = 0; i < _this2.props.selectedFacets[_this2.props.facet.name].length; i++) {
-            var f = _this2.props.selectedFacets[_this2.props.facet.name][i];
-            if (f === item.value) checked = true;
-          }
-        }
-
-        return react_default.a.createElement("li", {
-          className: "cmp-search-filters__filter__item",
-          key: "".concat(item.value, "#_").concat(index)
-        }, react_default.a.createElement("a", {
-          href: "javascript:void(0)",
-          className: 'checkbox ' + (checked ? 'checked' : ''),
-          onClick: _this2.checkHandler.bind(_this2),
-          "data-locator": "search-filters-filter-item"
-        }, react_default.a.createElement(react_svg["a" /* default */], {
-          src: _this2.props.text.checkmarkIcon
-        })), react_default.a.createElement("input", {
-          type: "checkbox",
-          name: "".concat(_this2.props.name, ":").concat(item.value),
-          onChange: function onChange(e) {
-            return _this2.props.selectHandler(item.value, _this2.props.facet.name, e);
-          },
-          checked: checked
-        }), react_default.a.createElement("label", {
-          htmlFor: "".concat(_this2.props.name, ":").concat(item.value)
-        }, item.value, ' ', react_default.a.createElement("span", {
-          className: "cmp-search-filters__filter__item__count"
-        }, "(", item.count, ")")));
-      });
-      return option;
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var props = this.props;
-      var className = "cmp-search-filters__filter ".concat(props.isExpanded ? 'expanded' : '');
-      return react_default.a.createElement("li", {
-        className: className,
-        "data-locator": "search-filters-filter"
-      }, react_default.a.createElement("a", {
-        href: "javascript:void(0);",
-        className: "filter-toggle",
-        item: props.item,
-        onClick: function onClick(e) {
-          return props.handleInput(e, props.item);
-        },
-        "data-locator": "link-search-filter"
-      }, react_default.a.createElement(react_svg["a" /* default */], {
-        src: props.text.expandIcon,
-        className: "expandIcon"
-      }), react_default.a.createElement(react_svg["a" /* default */], {
-        src: props.text.collapseIcon,
-        className: "collapseIcon"
-      }), react_default.a.createElement(react_svg["a" /* default */], {
-        src: props.text.nextIcon,
-        className: "mobileIcon"
-      }), props.facet.translation), react_default.a.createElement("div", {
-        className: "facet-container"
-      }, this.getFacetSearch(this.props.facet.facets, this.props.minItemSearch), react_default.a.createElement("ul", null, this.getFacetOptions())));
-    }
-  }]);
-
-  return FilterSection;
-}(react["Component"]);
-
-/* harmony default export */ var filter_section = (filter_section_FilterSection);
-// CONCATENATED MODULE: ./src/search/components/filter.js
-
-
-
-
-
-
-
-
-
-
-
-var filter_Filter = /*#__PURE__*/function (_Component) {
-  Object(inherits["a" /* default */])(Filter, _Component);
-
-  function Filter(props) {
-    var _this;
-
-    Object(classCallCheck["a" /* default */])(this, Filter);
-
-    _this = Object(possibleConstructorReturn["a" /* default */])(this, Object(getPrototypeOf["a" /* default */])(Filter).call(this, props));
-
-    _this.collapseAllFilters = function () {
-      var facetGroups = _this.mapFacetGroupsState(-1, _this.getMappings());
-
-      _this.setState({
-        facetGroups: facetGroups
-      });
-    };
-
-    _this.mapFacetGroupsState = function (activeIndex, mappings) {
-      // defensive programming
-      if (!mappings || !Array.isArray(mappings)) {
-        return [];
-      }
-
-      if (activeIndex === -1) {
-        return mappings;
-      }
-
-      var facetGroups = mappings.map(function (group, groupIndex) {
-        if (groupIndex === activeIndex) {
-          // expand the group that was clicked
-          return Object(objectSpread["a" /* default */])({}, group, {
-            isExpanded: true
-          });
-        } else {
-          // ensures all other groups are not expanded
-          return Object(objectSpread["a" /* default */])({}, group, {
-            isExpanded: false
-          });
-        }
-      });
-      return facetGroups;
-    };
-
-    _this.setState_ActiveFacet = function () {
-      var mappings = _this.getMappings();
-
-      var facetGroups = _this.mapFacetGroupsState(_this.props.activeIndex, mappings);
-
-      var facetName = _this.props.activeIndex !== -1 ? _this.props.facetGroupsSelectedOrder[_this.props.activeIndex] : '';
-
-      _this.setState({
-        facetName: facetName,
-        facetGroups: facetGroups
-      });
-    };
-
-    _this.getMappings = function () {
-      return services["d" /* searchMapper */].mapFacetGroups(_this.props.contentType, _this.props.filterMap, _this.props.facets);
-    };
-
-    _this.state = {
-      lastIndex: -1,
-      facetName: '',
-      isExpanded: false,
-      facetGroups: _this.mapFacetGroupsState(-1, _this.getMappings())
-    };
-    return _this;
-  }
-
-  Object(createClass["a" /* default */])(Filter, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      this.setState_ActiveFacet();
-    }
-  }, {
-    key: "componentDidUpdate",
-    value: function componentDidUpdate(prevProps) {
-      /*
-          Check if content type was removed and there is an expanded filter.
-          If so, reset state so all filters are collapsed.
-      */
-      if (prevProps.contentType && !this.props.contentType && this.props.activeIndex !== -1) {
-        var classNameFilterActive = 'filter-active';
-
-        if (Array.from(document.body.classList).find(function (item) {
-          return item === classNameFilterActive;
-        })) {
-          document.body.classList.remove(classNameFilterActive);
-        } //this.setState({activeIndex: -1, facetName: "", isExpanded: false, lastIndex: -1});
-
-
-        this.props.onGroupClick(-1);
-        return;
-      }
-      /*
-          This will validate the selected facet group.
-          If the facet groups have been modified due to other facets being checked off,
-          then this will recaludate the active index because it may have changed.
-      */
-
-
-      if (this.props.activeIndex !== -1) {
-        var prevFacets = JSON.stringify(prevProps.facets);
-        var currFacets = JSON.stringify(this.props.facets);
-
-        if (!validator_default.a.equals(prevFacets, currFacets)) {
-          // When the facets have changed it indicates that the facet groups were reordered
-          // therefore, it will not have the same index in the array since the array has changed
-          this.setState_ActiveFacet();
-        }
-      }
-
-      if (!prevProps.collapseAllFilters && this.props.collapseAllFilters) {
-        this.collapseAllFilters();
-      }
-    }
-  }, {
-    key: "filterHandler",
-    value: function filterHandler(facetName, index) {
-      // defensive programming
-      if (!this.state.facetGroups || this.state.facetGroups.length === 0) {
-        return;
-      }
-
-      if (this.state.facetGroups[index].isExpanded) {
-        var facetGroups = this.mapFacetGroupsState(-1, this.getMappings());
-        this.setState({
-          facetGroups: facetGroups,
-          lastIndex: -1
-        });
-        document.body.classList.remove('filter-active');
-        this.props.onGroupClick(facetName, -1);
-      } else {
-        var lastIndex = this.props.activeIndex === -1 ? index : this.props.activeIndex;
-
-        var _facetGroups = this.mapFacetGroupsState(index, this.getMappings());
-
-        this.setState({
-          facetGroups: _facetGroups,
-          lastIndex: lastIndex
-        });
-        document.body.classList.add('filter-active');
-        this.props.onGroupClick(facetName, index);
-      }
-    }
-  }, {
-    key: "getFilters",
-    value: function getFilters() {
-      var _this2 = this;
-
-      if (this.props.showTagsOnly) return react_default.a.createElement(react_default.a.Fragment, null);
-      var props = this.props;
-      var mappings = this.state.facetGroups;
-      var filters = Array.isArray(mappings) ? mappings.map(function (item, index) {
-        return react_default.a.createElement(filter_section, {
-          key: "".concat(item.category, "#_").concat(index),
-          last: _this2.state.lastIndex,
-          selected: _this2.props.activeIndex,
-          item: index,
-          handleInput: function handleInput(e) {
-            return _this2.filterHandler(item.name, index);
-          },
-          text: props.text,
-          facet: item,
-          selectHandler: props.selectHandler,
-          selectedFacets: props.selectedFacets,
-          minItemSearch: 21,
-          minCharSearch: 2,
-          activeCategory: _this2.state.facetName,
-          isExpanded: item.isExpanded
-        });
-      }) : [];
-      return react_default.a.createElement("ul", null, filters);
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      return react_default.a.createElement("div", {
-        id: "js-search-filters",
-        className: "cmp-search-filters"
-      }, this.props.facets && this.getFilters());
-    }
-  }]);
-
-  return Filter;
-}(react["Component"]);
-
-filter_Filter.defaultProps = {
-  facets: null,
-  filterMap: {
-    orderedFacets: []
-  },
-  showTagsOnly: false,
-  facetGroupsSelectedOrder: [],
-  collapseAllFilters: false,
-  onGroupClick: function onGroupClick() {}
-};
-/* harmony default export */ var filter = (filter_Filter);
-// EXTERNAL MODULE: ./node_modules/react-select/dist/react-select.esm.js + 1 modules
-var react_select_esm = __webpack_require__(45);
-
-// EXTERNAL MODULE: ./src/styles/variables.scss
-var variables = __webpack_require__(15);
-var variables_default = /*#__PURE__*/__webpack_require__.n(variables);
-
-// CONCATENATED MODULE: ./src/search/components/category-dropdown.js
-
-
-
-
-
-
-/* istanbul ignore next */
-
-var customStyles = {
-  indicatorSeparator: function indicatorSeparator() {
-    return {
-      display: 'none'
-    };
-  },
-  option: function option(provided, state) {
-    return Object(objectSpread["a" /* default */])({}, provided, {
-      color: variables_default.a.colorGray50,
-      padding: '0.75em 1em',
-      backgroundColor: state.isSelected ? variables_default.a.colorBackgroundLight : variables_default.a.colorWhite,
-      cursor: !state.isSelected ? 'pointer' : 'default',
-      '&:hover': {
-        color: !state.isSelected ? variables_default.a.colorBlue50 : variables_default.a.colorGray50,
-        backgroundColor: !state.isSelected ? variables_default.a.colorWhite : variables_default.a.colorBackgroundLight
-      },
-      margin: 0
-    });
-  },
-  control: function control(provided, state) {
-    return Object(objectSpread["a" /* default */])({}, provided, {
-      'border-radius': variables_default.a.borderRadius,
-      padding: '0.3em 0.5em',
-      color: variables_default.a.colorGray50,
-      'border-color': state.isFocused ? variables_default.a.colorBorderDark : variables_default.a.colorBorderDark,
-      outline: 'none',
-      cursor: 'pointer',
-      'box-shadow': 'none',
-      '&:hover': {
-        outline: 'none',
-        color: variables_default.a.colorBlue50,
-        borderColor: variables_default.a.colorBlue50
-      }
-    });
-  },
-  singleValue: function singleValue(provided, state) {
-    return {};
-  },
-  menu: function menu(provided) {
-    return Object(objectSpread["a" /* default */])({}, provided, {
-      marginTop: 0,
-      borderRadius: 0,
-      width: 'calc(100% - 2px)',
-      marginLeft: '1px',
-      marginBottom: 0,
-      padding: 0
-    });
-  },
-  menuList: function menuList(provided) {
-    return Object(objectSpread["a" /* default */])({}, provided, {
-      paddingBottom: 0,
-      paddingTop: 0
-    });
-  }
-};
-
-var category_dropdown_DropdownIndicator = function DropdownIndicator(props) {
-  return react_default.a.createElement(react_select_esm["a" /* components */].DropdownIndicator, props, react_default.a.createElement(react_svg["a" /* default */], {
-    src: props.theme.dropdownIndicator,
-    className: "dropDownIcon"
-  }));
-};
-
-var getOptions = function getOptions(options) {
-  var newList = options.filter(function (item) {
-    return item.count !== 0;
-  }).map(function (a, index) {
-    return {
-      value: index,
-      label: a.translation
-    };
-  });
-  return newList;
-};
-
-var category_dropdown_CategoryDropdown = function CategoryDropdown(props) {
-  var options = getOptions(props.categoryOptions);
-
-  var mobileView = function mobileView() {
-    return react_default.a.createElement("div", {
-      className: "cmp-search-category-dropdown"
-    }, react_default.a.createElement(react_select_esm["c" /* default */], {
-      options: options,
-      value: options[props.categoryValue],
-      onChange: props.categoryOnChange,
-      isSearchable: props.categoryIsSearchable,
-      styles: customStyles,
-      placeholder: props.categoryPlaceholder,
-      classNamePrefix: 'cmp-custom-dropdown',
-      components: {
-        DropdownIndicator: category_dropdown_DropdownIndicator
-      },
-      theme: {
-        dropdownIndicator: props.categoryDownIcon
-      }
-    }));
-  };
-
-  return react_default.a.createElement(react_default.a.Fragment, null, screenSizes["a" /* default */].isTabletAndUnder() ? mobileView() : null);
-};
-
-category_dropdown_CategoryDropdown.defaultProps = {
-  categoryOptions: [],
-  categoryOnChange: function categoryOnChange() {},
-  categoryIsSearchable: false,
-  categoryPlaceholder: '',
-  categoryDownIcon: '',
-  categoryValue: 0
-};
-/* harmony default export */ var category_dropdown = (category_dropdown_CategoryDropdown);
-// CONCATENATED MODULE: ./src/search/components/btn-hide-sort-filter.js
-
-
-
-
-
-
-
-
-var btn_hide_sort_filter_HideSortFilter = /*#__PURE__*/function (_Component) {
-  Object(inherits["a" /* default */])(HideSortFilter, _Component);
-
-  function HideSortFilter(props) {
-    var _this;
-
-    Object(classCallCheck["a" /* default */])(this, HideSortFilter);
-
-    _this = Object(possibleConstructorReturn["a" /* default */])(this, Object(getPrototypeOf["a" /* default */])(HideSortFilter).call(this, props));
-    _this.state = {
-      value: ''
-    };
-    return _this;
-  }
-
-  Object(createClass["a" /* default */])(HideSortFilter, [{
-    key: "render",
-    value: function render() {
-      var props = this.props;
-      return react_default.a.createElement("div", {
-        className: "cmp-search-hide-btn clearfix"
-      }, react_default.a.createElement("a", {
-        href: "javascript:void(0);",
-        onClick: props.onClick,
-        className: "btn-hide-sort-filter",
-        "data-locator": "link-hide-search-button"
-      }, react_default.a.createElement(react_svg["a" /* default */], {
-        src: props.text.closeIcon
-      }), props.text.sortAndFilterButton));
-    }
-  }]);
-
-  return HideSortFilter;
-}(react["Component"]);
-
-/* harmony default export */ var btn_hide_sort_filter = (btn_hide_sort_filter_HideSortFilter);
-// EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js
-var assertThisInitialized = __webpack_require__(26);
-
-// CONCATENATED MODULE: ./src/search/components/btn-apply-sort-filter.js
-
-
-
-
-
-
-
-
-
-
-var btn_apply_sort_filter_ApplySortFilter = /*#__PURE__*/function (_Component) {
-  Object(inherits["a" /* default */])(ApplySortFilter, _Component);
-
-  function ApplySortFilter(props) {
-    var _this;
-
-    Object(classCallCheck["a" /* default */])(this, ApplySortFilter);
-
-    _this = Object(possibleConstructorReturn["a" /* default */])(this, Object(getPrototypeOf["a" /* default */])(ApplySortFilter).call(this, props));
-
-    _this.buttonCaption = function () {
-      return _this.props.isPristine ? _this.props.text.applyButton : _this.props.text.showResultCount.replace(/[{]count[}]/, _this.props.count);
-    };
-
-    _this.handleClick = function () {
-      _this.props.applyFilters();
-
-      if (screenSizes["a" /* default */].isMobile()) {
-        // show the header after filters are applied
-        var header = domElements["a" /* default */].getHeader();
-        header.style.display = '';
-      }
-    };
-
-    _this.state = {
-      value: ''
-    };
-    _this.handleInput = _this.handleInput.bind(Object(assertThisInitialized["a" /* default */])(Object(assertThisInitialized["a" /* default */])(_this)));
-    return _this;
-  }
-
-  Object(createClass["a" /* default */])(ApplySortFilter, [{
-    key: "handleInput",
-    value: function handleInput(e) {
-      this.setState({
-        showSortFilters: true
-      });
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      return react_default.a.createElement("div", {
-        className: "cmp-search-apply-btn"
-      }, react_default.a.createElement("a", {
-        href: "javascript:void(0);",
-        onClick: this.handleClick,
-        className: "btn-apply-sort-filter",
-        "data-locator": "link-search-apply-button"
-      }, this.buttonCaption()));
-    }
-  }]);
-
-  return ApplySortFilter;
-}(react["Component"]);
-
-/* harmony default export */ var btn_apply_sort_filter = (btn_apply_sort_filter_ApplySortFilter);
-// CONCATENATED MODULE: ./src/search/components/btn-done-sort-filter.js
-
-
-
-
-
-
-
-
-var btn_done_sort_filter_DoneSortFilter = /*#__PURE__*/function (_Component) {
-  Object(inherits["a" /* default */])(DoneSortFilter, _Component);
-
-  function DoneSortFilter(props) {
-    var _this;
-
-    Object(classCallCheck["a" /* default */])(this, DoneSortFilter);
-
-    _this = Object(possibleConstructorReturn["a" /* default */])(this, Object(getPrototypeOf["a" /* default */])(DoneSortFilter).call(this, props));
-    _this.state = {
-      value: ''
-    };
-    _this.handleInput = _this.handleInput.bind(Object(assertThisInitialized["a" /* default */])(Object(assertThisInitialized["a" /* default */])(_this)));
-    return _this;
-  }
-
-  Object(createClass["a" /* default */])(DoneSortFilter, [{
-    key: "handleInput",
-    value: function handleInput(e) {
-      this.props.collapseFilters();
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var props = this.props;
-      return react_default.a.createElement("div", {
-        className: "cmp-search-done-btn"
-      }, react_default.a.createElement("a", {
-        href: "javascript:void(0);",
-        onClick: this.handleInput,
-        className: "btn-done-sort-filter",
-        "data-locator": "link-done-sort-filter"
-      }, props.text.doneButton));
-    }
-  }]);
-
-  return DoneSortFilter;
-}(react["Component"]);
-
-/* harmony default export */ var btn_done_sort_filter = (btn_done_sort_filter_DoneSortFilter);
-// CONCATENATED MODULE: ./src/search/components/dropdown.js
-
-
-
-
-
-var dropdown_customStyles = {
-  indicatorSeparator: function indicatorSeparator() {
-    return {
-      display: 'none'
-    };
-  },
-  option: function option(provided, state) {
-    return Object(objectSpread["a" /* default */])({}, provided, {
-      color: variables_default.a.colorGray50,
-      padding: '0.75em 1em',
-      backgroundColor: state.isSelected ? variables_default.a.colorBackgroundLight : variables_default.a.colorWhite,
-      cursor: !state.isSelected ? 'pointer' : 'default',
-      '&:hover': {
-        color: !state.isSelected ? variables_default.a.colorBlue50 : variables_default.a.colorGray50,
-        backgroundColor: !state.isSelected ? variables_default.a.colorWhite : variables_default.a.colorBackgroundLight
-      },
-      margin: 0
-    });
-  },
-  control: function control(provided, state) {
-    return Object(objectSpread["a" /* default */])({}, provided, {
-      'border-radius': variables_default.a.borderRadius,
-      padding: '0.3em 0.5em',
-      color: variables_default.a.colorGray50,
-      'border-color': state.isFocused ? variables_default.a.colorBorderDark : variables_default.a.colorBorderDark,
-      outline: 'none',
-      cursor: 'pointer',
-      'box-shadow': 'none',
-      '&:hover': {
-        outline: 'none',
-        color: variables_default.a.colorBlue50,
-        borderColor: variables_default.a.colorBlue50
-      }
-    });
-  },
-  singleValue: function singleValue(provided, state) {
-    return {};
-  },
-  menu: function menu(provided) {
-    return Object(objectSpread["a" /* default */])({}, provided, {
-      marginTop: 0,
-      borderRadius: 0,
-      width: 'calc(100% - 2px)',
-      marginLeft: '1px',
-      marginBottom: 0,
-      padding: 0
-    });
-  },
-  menuList: function menuList(provided) {
-    return Object(objectSpread["a" /* default */])({}, provided, {
-      paddingBottom: 0,
-      paddingTop: 0
-    });
-  }
-};
-
-var dropdown_DropdownIndicator = function DropdownIndicator(props) {
-  return react_default.a.createElement(react_select_esm["a" /* components */].DropdownIndicator, props, react_default.a.createElement(react_svg["a" /* default */], {
-    src: props.theme.dropdownIndicator
-  }));
-};
-
-var dropdown_Dropdown = function Dropdown(props) {
-  return react_default.a.createElement("div", {
-    "aria-describedby": "cmp-custom-dropdown__single-value",
-    tabindex: "0"
-  }, react_default.a.createElement(react_select_esm["c" /* default */], {
-    defaultValue: props.getOptions(props.text)[1],
-    options: props.getOptions(props.text),
-    value: props.sortValue && props.sortValue.value ? props.sortValue.value : props.getOptions(props.text)[props.sortValue - 1],
-    onChange: props.onChange,
-    isSearchable: props.isSearchable,
-    styles: dropdown_customStyles,
-    placeholder: props.placeholder,
-    classNamePrefix: 'cmp-custom-dropdown',
-    components: {
-      DropdownIndicator: dropdown_DropdownIndicator
-    },
-    theme: {
-      dropdownIndicator: props.text.downIcon
-    },
-    tabIndex: "-1"
-  }));
-};
-
-dropdown_Dropdown.defaultProps = {
-  isSearchable: false,
-  placeholder: ''
-};
-/* harmony default export */ var dropdown = (dropdown_Dropdown);
-// CONCATENATED MODULE: ./src/search/components/sort.js
-
-
-
-
-var sort_getOptions = function getOptions(text) {
-  return [{
-    value: 1,
-    label: text.sortByBestMatch
-  }, {
-    value: 2,
-    label: text.sortByMostRecent
-  }];
-};
-
-var sort_Sort = function Sort(props) {
-  return react_default.a.createElement("div", {
-    className: "cmp-search-sortby",
-    "data-locator": "sortby-label"
-  }, react_default.a.createElement("h3", null, props.text.sortByHeading), react_default.a.createElement(dropdown, {
-    getOptions: sort_getOptions,
-    sortValue: props.sortValue,
-    onChange: function onChange(e) {
-      return props.sortHandler(e);
-    },
-    isSearchable: false,
-    text: props.text
-  }));
-};
-
-/* harmony default export */ var sort = (sort_Sort);
-// CONCATENATED MODULE: ./src/search/components/btn-show-sort-filter.js
-
-
-
-
-
-
-
-
-
-
-
-var btn_show_sort_filter_ShowSortFilter = /*#__PURE__*/function (_Component) {
-  Object(inherits["a" /* default */])(ShowSortFilter, _Component);
-
-  function ShowSortFilter(props) {
-    var _this;
-
-    Object(classCallCheck["a" /* default */])(this, ShowSortFilter);
-
-    _this = Object(possibleConstructorReturn["a" /* default */])(this, Object(getPrototypeOf["a" /* default */])(ShowSortFilter).call(this, props));
-    _this.state = {
-      value: ''
-    };
-    _this.handleInput = _this.handleInput.bind(Object(assertThisInitialized["a" /* default */])(Object(assertThisInitialized["a" /* default */])(_this)));
-    _this.sortFilterBtnRef = react_default.a.createRef();
-    return _this;
-  }
-
-  Object(createClass["a" /* default */])(ShowSortFilter, [{
-    key: "handleInput",
-    value: function handleInput(e) {
-      var showFilterClass = 'show-sort-filters';
-      var header = domElements["a" /* default */].getHeader();
-      var sortFilterModal = domElements["a" /* default */].getSortFilterhModal();
-
-      if (document.body.classList.contains(showFilterClass)) {
-        this.setState({
-          showSortFilters: true
-        });
-        this.props.collapseFilters();
-        this.props.onClose();
-        header.style.display = '';
-        sortFilterModal.style.top = '';
-        domElements["a" /* default */].noScroll(false);
-      } else {
-        document.body.classList.add(showFilterClass);
-        this.setState({
-          showSortFilters: true
-        });
-        this.props.setupFilters();
-        this.props.collapseFilters();
-        domElements["a" /* default */].noScroll(true);
-
-        if (screenSizes["a" /* default */].isMobile()) {
-          // hide header so the sort filter is fixed at the top of the page
-          header.style.display = 'none'; // shift the sort filter modal to the bottom of the sort filter button
-
-          var sortFilterButtonBottom = this.sortFilterBtnRef.current.getBoundingClientRect().bottom;
-          sortFilterModal.style.top = "".concat(sortFilterButtonBottom - 1, "px");
-        }
-      }
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var props = this.props;
-      return react_default.a.createElement("div", {
-        className: "cmp-search-show-btn"
-      }, react_default.a.createElement("a", {
-        ref: this.sortFilterBtnRef,
-        href: "javascript:void(0);",
-        onClick: this.handleInput,
-        className: "btn-show-sort-filter"
-      }, react_default.a.createElement(react_svg["a" /* default */], {
-        src: props.text.filterIcon,
-        className: "filterIcon"
-      }), react_default.a.createElement(react_svg["a" /* default */], {
-        src: props.text.closeIcon,
-        className: "closeIcon"
-      }), props.text.sortAndFilterButton));
-    }
-  }]);
-
-  return ShowSortFilter;
-}(react["Component"]);
-
-/* harmony default export */ var btn_show_sort_filter = (btn_show_sort_filter_ShowSortFilter);
-// CONCATENATED MODULE: ./src/search/components/results-count.js
-
-
-var results_count_ResultsCount = function ResultsCount(props) {
-  var endResults = props.count > props.current * props.rows ? props.current * props.rows : props.count;
-  var startResults = props.current * props.rows - props.rows + 1;
-  var maxLength = 120;
-  var searchQuery = props.query && props.query.toString().length > maxLength ? props.query.substring(0, maxLength) + '...' : props.query;
-
-  var renderSearchTerm = function renderSearchTerm() {
-    return props.spell_suggestion ? getSuggestedQueryInfo() : getSearchQuery();
-  };
-
-  var getSuggestedQueryInfo = function getSuggestedQueryInfo() {
-    return react_default.a.createElement("span", null, "for\xA0", react_default.a.createElement("span", {
-      className: "text-strike"
-    }, searchQuery), "\xA0", react_default.a.createElement("strong", null, react_default.a.createElement("q", {
-      className: "query"
-    }, props.spell_suggestion), "."));
-  };
-
-  var getSearchQuery = function getSearchQuery() {
-    return react_default.a.createElement("span", null, "for\xA0", react_default.a.createElement("strong", null, react_default.a.createElement("q", {
-      className: "query"
-    }, searchQuery), "."));
-  };
-
-  var renderRelatedSuggestions = function renderRelatedSuggestions() {
-    return props.spell_related_suggestions.length !== 0 ? react_default.a.createElement("div", {
-      className: "cmp-search__related-suggestions"
-    }, "Related Searches ", getRelatedSuggestions()) : react_default.a.createElement(react_default.a.Fragment, null);
-  };
-
-  var getRelatedSuggestions = function getRelatedSuggestions() {
-    return props.spell_related_suggestions.length === 1 ? getRelatedSuggestionLink(props.spell_related_suggestions[0]) : getRelatedSuggestionLinks(props.spell_related_suggestions).reduce(function (prev, curr) {
-      return react_default.a.createElement(react_default.a.Fragment, null, prev, react_default.a.createElement("span", {
-        className: "vertical-bar"
-      }, "|"), curr);
-    });
-  };
-
-  var getRelatedSuggestionLink = function getRelatedSuggestionLink(word) {
-    return react_default.a.createElement("a", {
-      className: "item",
-      onClick: function onClick(e) {
-        return props.onRelatedSuggestionClick(word);
-      }
-    }, word);
-  };
-
-  var getRelatedSuggestionLinks = function getRelatedSuggestionLinks(words) {
-    return words.map(function (word) {
-      return getRelatedSuggestionLink(word);
-    });
-  };
-
-  var getResultsText = function getResultsText() {
-    return props.text.resultsText.replace(/[{]startResults[}]/, startResults.toLocaleString(undefined, {
-      maximumFractionDigits: 0
-    })).replace(/[{]endResults[}]/, endResults.toLocaleString(undefined, {
-      maximumFractionDigits: 0
-    })).replace(/[{]count[}]/, props.count.toLocaleString(undefined, {
-      maximumFractionDigits: 0
-    }));
-  };
-
-  return react_default.a.createElement("div", {
-    className: "cmp-search__resultsCount-container",
-    "data-locator": "results-count-container"
-  }, react_default.a.createElement("h2", {
-    className: "cmp-search__resultsCount",
-    "data-locator": "results-count"
-  }, getResultsText(), props.noQuery || props.query === '*:*' ? null : renderSearchTerm()), renderRelatedSuggestions());
-};
-
-/* harmony default export */ var results_count = (results_count_ResultsCount);
-// CONCATENATED MODULE: ./src/search/components/filter-tags.js
-
-
-
-
-var filter_tags_SubFacetTags = function SubFacetTags(props) {
-  var facets = props.facets ? props.facets : {};
-  var defaultFacet = "".concat(props.defaultFacet, "_facet");
-  var mapping = [];
-
-  for (var i = 0; i < props.filterMap.length; i++) {
-    if (props.filterMap[i].categoryFacetName === defaultFacet) {
-      var appLibrary = props.filterMap[i];
-      var categories = appLibrary.orderedFacets;
-
-      for (var c = 0; c < categories.length; c++) {
-        var category = categories[c];
-
-        if (facets[category.facetName]) {
-          mapping.push({
-            name: category.facetName,
-            category: category.facetValue,
-            translation: category.facetTranslation,
-            facets: facets[category.facetName]
-          });
-        }
-      }
-    }
-  }
-
-  var tags = props.selectedFacets && Object.keys(props.selectedFacets).length !== 0 ? Object.keys(props.selectedFacets).map(function (facet, index) {
-    var f = props.selectedFacets[facet];
-    var category = [];
-
-    var _loop = function _loop(_i) {
-      var selected = f[_i];
-
-      var _loop2 = function _loop2(n) {
-        var cat = mapping[n];
-
-        if (cat.name === facet) {
-          category.push(react_default.a.createElement("a", {
-            key: "facetTag-".concat(_i),
-            href: "javascript:void(0);",
-            onClick: function onClick() {
-              return props.removeTag({
-                categoryId: cat.name,
-                facet: selected
-              });
-            }
-          }, react_default.a.createElement(react_svg["a" /* default */], {
-            src: props.text.closeIcon
-          }), react_default.a.createElement("span", null, cat.translation, ": ", selected)));
-        }
-      };
-
-      for (var n = 0; n < mapping.length; n++) {
-        _loop2(n);
-      }
-    };
-
-    for (var _i2 = 0; _i2 < f.length; _i2++) {
-      _loop(_i2);
-    }
-
-    return category;
-  }) : null;
-  return react_default.a.createElement(react_default.a.Fragment, null, props.selectedFacets && tags);
-};
-
-var filter_tags_ContentTypeTag = function ContentTypeTag(props) {
-  var showTags = Object.entries(props.selected).length !== 0 ? true : false;
-  if (!showTags) return react_default.a.createElement(react_default.a.Fragment, null);
-  return react_default.a.createElement("a", {
-    href: "javascript:void(0);",
-    onClick: props.onRemove,
-    "data-locator": "content-type-tag-hide"
-  }, react_default.a.createElement(react_svg["a" /* default */], {
-    src: props.text.closeIcon
-  }), react_default.a.createElement("span", null, "".concat(props.text['contentType'], ": ").concat(props.selected.facetTranslation)));
-};
-
-var filter_tags_ClearAllTag = function ClearAllTag(props) {
-  return react_default.a.createElement("a", {
-    href: "javascript:void(0);",
-    className: "cmp-search-filters__tags__clear",
-    "data-locator": "link-search-filters-tag-clear",
-    "aria-label": props.text.clearAllFilters,
-    onClick: props.onRemove
-  }, react_default.a.createElement(react_svg["a" /* default */], {
-    src: props.text.closeIcon
-  }), react_default.a.createElement("span", null, props.text.clearAllFilters));
-};
-
-var filter_tags_KeywordTag = function KeywordTag(props) {
-  return react_default.a.createElement("a", {
-    href: "javascript:void(0);",
-    "aria-label": "".concat(props.text.keyWordLabel, ": ").concat(props.keyword),
-    onClick: props.onRemove
-  }, react_default.a.createElement(react_svg["a" /* default */], {
-    src: props.text.closeIcon
-  }), react_default.a.createElement("span", null, "".concat(props.text.keyWordLabel, ": ").concat(props.keyword)));
-};
-
-filter_tags_SubFacetTags.defaultProps = {
-  filterMap: [],
-  defaultFacet: '',
-  removeTag: function removeTag() {},
-  selectedFacets: {},
-  text: {}
-};
-filter_tags_ContentTypeTag.proptTypes = {
-  categoryKey: prop_types_default.a.string,
-  selected: prop_types_default.a.object.isRequired,
-  text: prop_types_default.a.object.isRequired,
-  onRemove: prop_types_default.a.func.isRequired
-};
-filter_tags_ContentTypeTag.defaultProps = {
-  categoryKey: '',
-  selected: {},
-  text: {},
-  onRemove: function onRemove() {}
-};
-filter_tags_ClearAllTag.proptTypes = {
-  text: prop_types_default.a.object.isRequired,
-  onRemove: prop_types_default.a.func.isRequired
-};
-filter_tags_ClearAllTag.defaultProps = {
-  text: {},
-  onRemove: function onRemove() {}
-};
-filter_tags_KeywordTag.defaultProps = {
-  keyword: '',
-  text: {},
-  onRemove: function onRemove() {}
-};
-
-// EXTERNAL MODULE: ./node_modules/react-lines-ellipsis/lib/index.js
-var lib = __webpack_require__(119);
-var lib_default = /*#__PURE__*/__webpack_require__.n(lib);
-
-// CONCATENATED MODULE: ./src/search/components/results.js
-
-
-
-
-var results_Result = function Result(_ref) {
-  var result = _ref.result,
-      locale = _ref.locale,
-      nextIcon = _ref.nextIcon,
-      onItemClick = _ref.onItemClick;
-  var thumbnail = react_default.a.createElement("div", {
-    className: "cmp-search__results-thumbnail"
-  }, react_default.a.createElement("img", {
-    src: result.thumbnail,
-    alt: result.title
-  }));
-  return react_default.a.createElement("li", {
-    className: "cmp-search__results-item",
-    key: result.literaturecode
-  }, result.thumbnail && thumbnail, react_default.a.createElement("div", {
-    className: "cmp-search__results-body ".concat(result.thumbnail ? 'cmp-search__results-body--image' : '')
-  }, react_default.a.createElement("a", {
-    href: result.url,
-    onClick: onItemClick,
-    className: "cmp-search__results-item-link"
-  }, react_default.a.createElement("span", {
-    className: "cmp-search__results-item-title"
-  }, result.title)), react_default.a.createElement("div", {
-    className: "cmp-search__results-item-description"
-  }, react_default.a.createElement("div", {
-    className: "cmp-search__results-item-description-text"
-  }, react_default.a.createElement(lib_default.a, {
-    text: result.description,
-    maxLine: "3",
-    ellipsis: "\u2026",
-    trimRight: true,
-    basedOn: "words",
-    clamped: "true"
-  }))), react_default.a.createElement("div", {
-    className: "cmp-search__results-item-breadcrumb"
-  }, react_default.a.createElement("div", null, result.category_facet), react_default.a.createElement(react_svg["a" /* default */], {
-    src: nextIcon
-  }), react_default.a.createElement("div", null, result.contenttype_facet))));
-};
-
-var results_Results = function Results(_ref2) {
-  var results = _ref2.results,
-      locale = _ref2.locale,
-      nextIcon = _ref2.nextIcon,
-      onItemClick = _ref2.onItemClick;
-  var mappedResults = Array.isArray(results) ? results.map(function (result, i) {
-    return react_default.a.createElement(results_Result, {
-      result: result,
-      locale: locale,
-      nextIcon: nextIcon,
-      key: i,
-      onItemClick: onItemClick
-    });
-  }) : [];
-  return react_default.a.createElement("div", {
-    className: "cmp-search__results-container"
-  }, react_default.a.createElement("ul", {
-    className: "cmp-search__results"
-  }, mappedResults));
-};
-
-/* harmony default export */ var components_results = (results_Results);
-// EXTERNAL MODULE: ./src/utils/userFunctions.js
-var userFunctions = __webpack_require__(7);
-
-// CONCATENATED MODULE: ./src/search/search.component.helpers.js
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- // import SkuList from '../sku-list';
-
-var SkuList = react_default.a.lazy(function () {
-  return Promise.resolve(/* import() */).then(__webpack_require__.bind(null, 106));
-});
-
-
-
-
-var search_component_helpers_FilterTagList = function FilterTagList(_ref) {
-  var text = _ref.text,
-      filterMap = _ref.filterMap,
-      filterTagsProps = _ref.filterTagsProps,
-      filterTagsEvents = _ref.filterTagsEvents;
-  var isKeywordSpecified = filterTagsProps.keyword && filterTagsProps.keyword !== services["b" /* parameterDefaults */].keyword;
-  var isContentTypeSelected = Object.entries(filterTagsProps.contentTypeSelected).length !== 0 && filterTagsProps.contentTypeSelected.facetTranslation;
-
-  if (!isKeywordSpecified && !isContentTypeSelected) {
-    return react_default.a.createElement("div", {
-      className: "cmp-search-filters__emptytags"
-    });
-  }
-
-  var keyword = filterTagsProps.spell_suggestion ? filterTagsProps.spell_suggestion : filterTagsProps.keyword;
-  var keyWordTag = isKeywordSpecified ? react_default.a.createElement(filter_tags_KeywordTag, {
-    keyword: keyword,
-    text: text,
-    onRemove: filterTagsEvents.onKeywordRemove
-  }) : react_default.a.createElement(react_default.a.Fragment, null);
-  var contentTypeTag = isContentTypeSelected ? react_default.a.createElement(filter_tags_ContentTypeTag, {
-    text: text,
-    selected: filterTagsProps.contentTypeSelected,
-    onRemove: filterTagsEvents.onContentTypeRemove
-  }) : react_default.a.createElement(react_default.a.Fragment, null);
-  var subFacetTags = Object.entries(filterTagsProps.selectedFacets).length !== 0 ? react_default.a.createElement(filter_tags_SubFacetTags, {
-    text: text,
-    selectedFacets: filterTagsProps.selectedFacets,
-    facets: filterTagsProps.facets,
-    removeTag: filterTagsEvents.onSubFacetRemove,
-    filterMap: filterMap,
-    defaultFacet: filterTagsProps.contentType
-  }) : react_default.a.createElement(react_default.a.Fragment, null);
-  return react_default.a.createElement("div", {
-    className: "cmp-search-filters__tags clearfix",
-    "data-locator": "search-filters-tags"
-  }, react_default.a.createElement(filter_tags_ClearAllTag, {
-    text: text,
-    onRemove: filterTagsEvents.onClearAll
-  }), keyWordTag, contentTypeTag, subFacetTags);
-};
-
-search_component_helpers_FilterTagList.defaultProps = {
-  text: defaultProps.text,
-  filterMap: defaultProps.filterMap,
-  filterTagsProps: defaultProps.filterTagsProps,
-  filterTagsEvents: defaultProps.filterTagsEvents
-};
-
-var search_component_helpers_Aside = function Aside(_ref2) {
-  var text = _ref2.text,
-      asideProps = _ref2.asideProps,
-      asideEvents = _ref2.asideEvents,
-      children = _ref2.children;
-  return react_default.a.createElement("div", {
-    className: "container__left cmp-search__sort-filter",
-    "data-locator": "left-container-filter"
-  }, react_default.a.createElement(btn_hide_sort_filter, {
-    text: text,
-    onClick: asideEvents.onHideSortFilterClick
-  }), react_default.a.createElement(btn_apply_sort_filter, {
-    text: text,
-    applyFilters: asideEvents.onApplySortFilter,
-    isPristine: asideProps.sortFilterIsPristine,
-    count: asideProps.count
-  }), react_default.a.createElement(btn_done_sort_filter, {
-    text: text,
-    collapseFilters: asideEvents.onCollapseFilters
-  }), react_default.a.createElement("div", {
-    className: "cmp-search__sort-filter__container"
-  }, react_default.a.createElement(sort, {
-    sortValue: asideProps.sortByValue,
-    sortHandler: asideEvents.onSort,
-    text: text
-  }), children));
-};
-
-search_component_helpers_Aside.defaultProps = {
-  text: defaultProps.text,
-  asideProps: defaultProps.asideProps,
-  asideEvents: defaultProps.asideEvents
-};
-
-var search_component_helpers_Menu = function Menu(_ref3) {
-  var text = _ref3.text,
-      filterMap = _ref3.filterMap,
-      menuProps = _ref3.menuProps,
-      contentTypeMenuProps = _ref3.contentTypeMenuProps,
-      contentTypeMenuEvents = _ref3.contentTypeMenuEvents,
-      facetMenuProps = _ref3.facetMenuProps,
-      facetMenuEvents = _ref3.facetMenuEvents,
-      subFacetFiltersProps = _ref3.subFacetFiltersProps,
-      subFacetFiltersEvents = _ref3.subFacetFiltersEvents,
-      filterTagsProps = _ref3.filterTagsProps,
-      filterTagsEvents = _ref3.filterTagsEvents;
-
-  if (menuProps.showContentTypeMenu) {
-    return react_default.a.createElement(content_type_menu, {
-      heading: menuProps.heading,
-      items: contentTypeMenuProps.items,
-      onClick: contentTypeMenuEvents.onContentTypeItemClick
-    });
-  }
-
-  var filterTags = search_component_helpers_FilterTagList({
-    text: text,
-    filterMap: filterMap,
-    filterTagsProps: filterTagsProps,
-    filterTagsEvents: filterTagsEvents
-  });
-
-  if (menuProps.showFacetMenu) {
-    return react_default.a.createElement(facet_menu, {
-      heading: menuProps.heading,
-      selectedValue: facetMenuProps.selectedValue,
-      previousIcon: facetMenuProps.previousIcon,
-      filterTags: filterTags,
-      onClear: facetMenuEvents.onContentTypeRemoval
-    }, react_default.a.createElement(filter, {
-      facets: subFacetFiltersProps.items,
-      text: text,
-      filterMap: subFacetFiltersProps.filterMap,
-      defaultFacet: subFacetFiltersProps.defaultFacet,
-      selectHandler: subFacetFiltersEvents.onFilterSelect,
-      selectedFacets: subFacetFiltersProps.selectedFacets,
-      contentType: subFacetFiltersProps.contentType,
-      facetGroupsSelectedOrder: subFacetFiltersProps.facetGroupsSelectedOrder,
-      collapseAllFilters: subFacetFiltersProps.collapseAllFilters,
-      activeIndex: subFacetFiltersProps.activeIndex,
-      onGroupClick: subFacetFiltersEvents.onGroupClick
-    }));
-  }
-};
-
-search_component_helpers_Menu.defaultProps = {
-  text: defaultProps.text,
-  filterMap: defaultProps.filterMap,
-  menuProps: defaultProps.menuProps,
-  contentTypeMenuProps: defaultProps.contentTypeMenuProps,
-  contentTypeMenuEvents: defaultProps.contentTypeMenuEvents,
-  facetMenuProps: defaultProps.facetMenuProps,
-  facetMenuEvents: defaultProps.facetMenuEvents,
-  subFacetFiltersProps: defaultProps.subFacetFiltersProps,
-  subFacetFiltersEvents: defaultProps.subFacetFiltersEvents,
-  filterTagsProps: defaultProps.filterTagsProps,
-  filterTagsEvents: defaultProps.filterTagsEvents
-};
-
-var search_component_helpers_SkuResults = function SkuResults(_ref4) {
-  var items = _ref4.items,
-      skuConfig = _ref4.skuConfig,
-      onItemClick = _ref4.onItemClick;
-  var isEprocUser = Object(userFunctions["p" /* isEprocurementUser */])();
-  var skuData = Array.isArray(items) ? items.map(function (item) {
-    return {
-      code: item.skucode,
-      category_facet: item.category_facet,
-      contenttype_facet: item.contenttype_facet,
-      skuPageHref: isEprocUser ? item.eprocUrl : item.url,
-      formattedPrice: item.displayprice,
-      primaryImageAlt: item.title,
-      primaryImageThumbnail: item.thumbnail,
-      discontinued: item.status !== 'Active',
-      // covers DiscontinueNoReplacement, DiscontinueWithReplacement, ObsoleteNoReplacement, and ObsoleteWithReplacement
-      replacementskuurl: item.replacementskuurl,
-      replacementskucode: item.replacementskucode,
-      title: item.title
-    };
-  }) : [];
-  return react_default.a.createElement(react["Suspense"], {
-    fallback: react_default.a.createElement("div", null, "Loading...")
-  }, react_default.a.createElement(SkuList, {
-    skuConfig: skuConfig,
-    data: skuData,
-    onItemClick: onItemClick
-  }));
-};
-
-search_component_helpers_SkuResults.defaultProps = {
-  skuConfig: defaultProps.skuConfig,
-  items: [],
-  onItemClick: function onItemClick() {}
-};
-
-var search_component_helpers_ResultsContent = function ResultsContent(_ref5) {
-  var text = _ref5.text,
-      skuConfig = _ref5.skuConfig,
-      searchParams = _ref5.searchParams,
-      resultsProps = _ref5.resultsProps,
-      resultsEvents = _ref5.resultsEvents;
-  var items = resultsProps.items[searchParams.page];
-
-  if (resultsProps.isSkuList) {
-    return react_default.a.createElement(search_component_helpers_SkuResults, {
-      items: items,
-      skuConfig: skuConfig,
-      onItemClick: resultsEvents.onResultsItemClick
-    });
-  }
-
-  return react_default.a.createElement(components_results, {
-    results: items,
-    nextIcon: text.nextIcon,
-    onItemClick: resultsEvents.onResultsItemClick
-  });
-};
-
-search_component_helpers_ResultsContent.defaultProps = {
-  text: defaultProps.text,
-  skuConfig: defaultProps.skuConfig,
-  searchParams: defaultProps.searchParams,
-  resultsProps: defaultProps.resultsProps,
-  resultsEvents: defaultProps.resultsEvents
-};
-
-var search_component_helpers_Pagination = function Pagination(_ref6) {
-  var resultsProps = _ref6.resultsProps,
-      resultsEvents = _ref6.resultsEvents,
-      nextIcon = _ref6.nextIcon,
-      previousIcon = _ref6.previousIcon;
-
-  if (resultsProps.count <= services["b" /* parameterDefaults */].rows) {
-    return react_default.a.createElement(react_default.a.Fragment, null);
-  }
-
-  var buildHref = function buildHref(href) {
-    return "".concat(window.location.href, "/page/").concat(href);
-  };
-
-  return react_default.a.createElement(react_paginate_default.a, {
-    pageCount: resultsProps.pagination.amount,
-    forcePage: resultsProps.pagination.current ? resultsProps.pagination.current - 1 : 0,
-    pageRangeDisplayed: 8,
-    marginPagesDisplayed: 1,
-    containerClassName: "paginate__container",
-    onPageChange: function onPageChange(num) {
-      return resultsEvents.onPageChange(num, 'clicked');
-    },
-    breakLabel: '…',
-    hrefBuilder: buildHref,
-    previousLabel: react_default.a.createElement(react_svg["a" /* default */], {
-      src: previousIcon
-    }),
-    nextLabel: react_default.a.createElement(react_svg["a" /* default */], {
-      src: nextIcon
-    }),
-    initialPage: resultsProps.pagination.current ? resultsProps.pagination.current - 1 : 0,
-    disableInitialCallback: true
-  });
-};
-
-search_component_helpers_Pagination.defaultProps = {
-  resultsProps: defaultProps.resultsProps,
-  resultsEvents: defaultProps.resultsEvents,
-  nextIcon: "",
-  previousIcon: ""
-};
-
-var search_component_helpers_ResultsBody = function ResultsBody(_ref7) {
-  var text = _ref7.text,
-      filterMap = _ref7.filterMap,
-      skuConfig = _ref7.skuConfig,
-      searchParams = _ref7.searchParams,
-      categoryProps = _ref7.categoryProps,
-      categoryEvents = _ref7.categoryEvents,
-      showSortFilterProps = _ref7.showSortFilterProps,
-      showSortFilterEvents = _ref7.showSortFilterEvents,
-      asideProps = _ref7.asideProps,
-      filterTagsProps = _ref7.filterTagsProps,
-      filterTagsEvents = _ref7.filterTagsEvents,
-      resultsProps = _ref7.resultsProps,
-      resultsEvents = _ref7.resultsEvents,
-      isEprocurementUser = _ref7.isEprocurementUser;
-  return react_default.a.createElement("div", {
-    className: "cmp-search__container"
-  }, react_default.a.createElement("div", {
-    className: "cmp-search__container__header clearfix"
-  }, !isEprocurementUser && react_default.a.createElement(category_dropdown, {
-    categoryDownIcon: text.downIcon,
-    categoryIsSearchable: false,
-    categoryOnChange: categoryEvents.onCategoryDropdownChange,
-    categoryOptions: categoryProps.categories,
-    categoryValue: categoryProps.activeIndex
-  }), react_default.a.createElement(btn_show_sort_filter, {
-    text: text,
-    setupFilters: showSortFilterEvents.onSetupFilters,
-    resetToSavedState: showSortFilterEvents.onResetToSavedState,
-    collapseFilters: showSortFilterProps.collapseFilters,
-    onClose: showSortFilterEvents.onClose
-  }), react_default.a.createElement("div", {
-    className: "cmp-search__sorted-by"
-  }, text.sortedBy, ":", ' ', asideProps.sortByText === 'most-relevant' ? text.sortByBestMatch : text.sortByMostRecent)), react_default.a.createElement("div", {
-    className: "cmp-search__sorted-container"
-  }, react_default.a.createElement(results_count, Object.assign({}, resultsProps, {
-    text: text,
-    onRelatedSuggestionClick: resultsEvents.onRelatedSuggestionClick
-  })), react_default.a.createElement(search_component_helpers_FilterTagList, {
-    text: text,
-    filterMap: filterMap,
-    filterTagsProps: filterTagsProps,
-    filterTagsEvents: filterTagsEvents
-  }), react_default.a.createElement(search_component_helpers_ResultsContent, {
-    text: text,
-    filterMap: filterMap,
-    skuConfig: skuConfig,
-    searchParams: searchParams,
-    resultsProps: resultsProps,
-    resultsEvents: resultsEvents
-  })), react_default.a.createElement(search_component_helpers_Pagination, {
-    resultsProps: resultsProps,
-    resultsEvents: resultsEvents,
-    nextIcon: text.nextIcon,
-    previousIcon: text.previousIcon
-  }));
-};
-
-search_component_helpers_ResultsBody.defaultProps = {
-  text: defaultProps.text,
-  filterMap: defaultProps.filterMap,
-  skuConfig: defaultProps.skuConfig,
-  searchParams: defaultProps.searchParams,
-  categoryProps: defaultProps.categoryProps,
-  categoryEvents: defaultProps.categoryEvents,
-  showSortFilterProps: defaultProps.showSortFilterProps,
-  showSortFilterEvents: defaultProps.showSortFilterEvents,
-  asideProps: defaultProps.asideProps,
-  filterTagsProps: defaultProps.filterTagsProps,
-  filterTagsEvents: defaultProps.filterTagsEvents,
-  resultsProps: defaultProps.resultsProps,
-  resultsEvents: defaultProps.resultsEvents
-};
-
-// EXTERNAL MODULE: ./src/navigation/tabs/index.js
-var tabs = __webpack_require__(92);
-
-// CONCATENATED MODULE: ./src/search/search.component.js
-
-
-
-
-
-
-var search_component_SearchComponent = function SearchComponent(props) {
-  return react_default.a.createElement(react_default.a.Fragment, null, !props.isEprocurementUser && react_default.a.createElement(tabs["a" /* default */], {
-    className: "cmp-search__categories-tabs",
-    items: props.categoryProps.categories,
-    activeIndex: props.categoryProps.activeIndex,
-    onClick: props.categoryEvents.onCategoryTabClick
-  }), react_default.a.createElement("div", null, react_default.a.createElement("div", {
-    className: "overlay"
-  }), react_default.a.createElement(search_component_helpers_Aside, {
-    sortFilterIsPristine: props.asideProps.sortFilterIsPristine,
-    text: props.text,
-    asideProps: props.asideProps,
-    asideEvents: props.asideEvents
-  }, react_default.a.createElement(search_component_helpers_Menu, {
-    text: props.text,
-    filterMap: props.filterMap,
-    menuProps: props.menuProps,
-    contentTypeMenuProps: props.contentTypeMenuProps,
-    contentTypeMenuEvents: props.contentTypeMenuEvents,
-    facetMenuProps: props.facetMenuProps,
-    facetMenuEvents: props.facetMenuEvents,
-    subFacetFiltersProps: props.subFacetFiltersProps,
-    subFacetFiltersEvents: props.subFacetFiltersEvents,
-    filterTagsProps: props.filterTagsProps,
-    filterTagsEvents: props.filterTagsEvents
-  })), react_default.a.createElement(search_component_helpers_ResultsBody, {
-    text: props.text,
-    filterMap: props.filterMap,
-    skuConfig: props.skuConfig,
-    searchParams: props.searchParams,
-    categoryProps: props.categoryProps,
-    categoryEvents: props.categoryEvents,
-    showSortFilterProps: props.showSortFilterProps,
-    showSortFilterEvents: props.showSortFilterEvents,
-    asideProps: props.asideProps,
-    filterTagsProps: props.filterTagsProps,
-    filterTagsEvents: props.filterTagsEvents,
-    resultsProps: props.resultsProps,
-    resultsEvents: props.resultsEvents,
-    isEprocurementUser: props.isEprocurementUser
-  })));
-};
-
-search_component_SearchComponent.defaultProps = defaultProps;
-/* harmony default export */ var search_component = (search_component_SearchComponent);
-// CONCATENATED MODULE: ./src/search/search.container.js
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var SEARCH_TYPES = {
-  INITIAL: 'initial',
-  CATEGORY_ONLY: 'category only',
-  CONTENT_TYPE: 'content type',
-  SUB_FACETS: 'sub facets'
-};
-
-var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
-  Object(inherits["a" /* default */])(SearchContainer, _Component);
-
-  function SearchContainer(props) {
-    var _this;
-
-    Object(classCallCheck["a" /* default */])(this, SearchContainer);
-
-    _this = Object(possibleConstructorReturn["a" /* default */])(this, Object(getPrototypeOf["a" /* default */])(SearchContainer).call(this, props));
-
-    _this.parseFacetsFromUrlToArray = function () {
-      return _this.search.mapFacetGroupsToArray(Object(query_string["parse"])(location.search).facet);
-    };
-
-    _this.addHistoryListener = function () {
-      _this.props.history.listen(function (location, action) {
-        var facetGroupsSelectedOrder = _this.parseFacetsFromUrlToArray();
-
-        _this.setState({
-          facetGroupsSelectedOrder: facetGroupsSelectedOrder
-        });
-
-        var query = _this.getQueryObject(Object(query_string["parse"])(location.search));
-
-        if (action === 'POP') {
-          _this.handleHistoryPop(query);
-        } else if (action === 'PUSH') {
-          _this.handleHistoryPush(query);
-        }
-      });
-    };
-
-    _this.addResizeListener = function () {
-      var checkWindowWidth = function checkWindowWidth() {
-        var newState = Object.assign({}, _this.state);
-        var desktop = window.matchMedia('screen and (min-width: 1200px)');
-        newState.isDesktop = desktop.matches;
-
-        _this.setState(newState);
-      };
-
-      window.addEventListener('resize', checkWindowWidth);
-      checkWindowWidth();
-    };
-
-    _this.initialState = function () {
-      var query = _this.search.getParamsFromString();
-
-      _this.query = query;
-
-      if ((Object(esm_typeof["a" /* default */])(_this.query.keyword) === services["c" /* parameterValues */].undefined || _this.query.keyword === services["b" /* parameterDefaults */].keyword) && Object(esm_typeof["a" /* default */])(_this.query.sort) === services["c" /* parameterValues */].undefined) {
-        _this.query.sort = services["c" /* parameterValues */].sort.mostRecent;
-      } else {
-        _this.query.sort = Object(esm_typeof["a" /* default */])(_this.query.sort) === services["c" /* parameterValues */].undefined ? services["c" /* parameterValues */].sort.mostRelevant : _this.query.sort;
-      }
-
-      var category = _this.query.category ? _this.query.category : '';
-      var contentType = _this.query.content_type ? _this.query.content_type : null;
-
-      var contentTypeElement = _this.findContentType(_this.props.filterMap, contentType);
-
-      var contentTypeSelected = contentTypeElement ? contentTypeElement : {};
-      var skuConfig = JSON.parse(document.getElementById('commerce-configs-json').innerHTML);
-      skuConfig.showBreadcrumbs = true;
-      skuConfig.baseSignInUrl = _this.props.baseSignInUrl;
-      return {
-        forceCollapseFilters: true,
-        loading: true,
-        searchParams: {},
-        results: {},
-        pagination: {
-          current: _this.query.page ? _this.query.page : services["b" /* parameterDefaults */].page
-        },
-        rows: _this.props.searchDefaults ? _this.props.searchDefaults && _this.props.searchDefaults.rows : services["b" /* parameterDefaults */].rows,
-        sort: _this.query.sort ? _this.query.sort : services["b" /* parameterDefaults */].sort,
-        selectedFacets: _this.query.selectedFacets || {},
-        unappliedFilters: {},
-        isDesktop: false,
-        isSkuList: false,
-        initialRender: true,
-        performedSearches: 0,
-        category: category,
-        contentType: contentType,
-        contentTypeSelected: contentTypeSelected,
-        skuConfig: skuConfig,
-        facets: [],
-        filterMap: [],
-        keyword: _this.query.keyword ? _this.query.keyword : services["b" /* parameterDefaults */].keyword,
-        spell_check: false,
-        spell_related_suggestions: [],
-        spell_suggestion: '',
-        erroredOut: false,
-        categoryTabs: [],
-        activeTabIndex: -1,
-        tabHistory: {},
-        facetGroupsSelectedOrder: [],
-        collapseAllFilters: false,
-        activeFilterIndex: -1,
-        count: 0
-      };
-    };
-
-    _this.handleHistoryPush = function (query) {
-      var categoryIndex = _this.state.categoryTabs.findIndex(function (category) {
-        return category.name === query.category;
-      });
-
-      var contentTypeElement = _this.findContentType(_this.props.filterMap, query.content_type);
-
-      _this.setState({
-        activeTabIndex: categoryIndex,
-        category: query.category,
-        sort: query.sort,
-        contentType: query.content_type,
-        contentTypeSelected: Object.assign({}, contentTypeElement),
-        selectedFacets: Object.entries(query.facets).length === 0 ? {} : Object.assign({}, query.facets)
-      }, /*#__PURE__*/Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee() {
-        return regenerator_default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                _context.next = 2;
-                return _this.performSearch(query);
-
-              case 2:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee);
-      })));
-    };
-
-    _this.isSkuList = function (category) {
-      var categoryKey = _this.findFacetNameProperty(_this.props.filterMap, category);
-
-      return validator_default.a.equals(categoryKey, 'shop');
-    };
-
-    _this.handleHistoryPop = function (query) {
-      var categoryIndex = _this.state.categoryTabs.findIndex(function (category) {
-        return category.name === query.category;
-      });
-
-      if (_this.state.activeTabIndex !== categoryIndex) {
-        _this.setCategorySelected(categoryIndex, query, query.category);
-      } else {
-        var contentTypeElement = _this.findContentType(_this.props.filterMap, query.content_type);
-
-        _this.setState({
-          category: query.category,
-          sort: query.sort,
-          contentType: query.content_type,
-          contentTypeSelected: Object.assign({}, contentTypeElement),
-          selectedFacets: Object.entries(query.facets).length === 0 ? {} : Object.assign({}, query.facets)
-        }, /*#__PURE__*/Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee2() {
-          return regenerator_default.a.wrap(function _callee2$(_context2) {
-            while (1) {
-              switch (_context2.prev = _context2.next) {
-                case 0:
-                  _context2.next = 2;
-                  return _this.performSearch(query);
-
-                case 2:
-                case "end":
-                  return _context2.stop();
-              }
-            }
-          }, _callee2);
-        })));
-      }
-    };
-
-    _this.findFacetNameProperty = function (filterMap, searchValue) {
-      if (!filterMap || !Array.isArray(filterMap)) {
-        return "";
-      }
-
-      var facet = filterMap.find(function (item) {
-        return item.categoryFacetValue === searchValue;
-      });
-
-      if (!facet) {
-        return "";
-      }
-
-      return facet.categoryFacetName.replace('_facet', '');
-    };
-
-    _this.findFacetTranslationProperty = function (filterMap, searchValue) {
-      if (!filterMap || !Array.isArray(filterMap)) {
-        return "";
-      }
-
-      var facet = filterMap.find(function (item) {
-        return item.categoryFacetValue === searchValue;
-      });
-
-      if (!facet) {
-        return "";
-      }
-
-      return facet.categoryFacetTranslation;
-    };
-
-    _this.mapCategories = function (categories) {
-      return !categories || !categories.facets || !categories.facets.category_facet ? [] : categories.facets.category_facet.filter(function (category) {
-        return category.count !== 0 && !!_this.findFacetNameProperty(_this.props.filterMap, category.value);
-      }).map(function (category) {
-        return {
-          translation: _this.findFacetTranslationProperty(_this.props.filterMap, category.value),
-          name: category.value,
-          count: category.count
-        };
-      });
-    };
-
-    _this.findMaxCategory = function (categories) {
-      if (!categories) {
-        return -1;
-      }
-
-      var counts = categories.map(function (category) {
-        return category.count;
-      });
-      var maxCount = Math.max.apply(Math, Object(toConsumableArray["a" /* default */])(counts));
-      return categories.findIndex(function (category) {
-        return category.count === maxCount;
-      });
-    };
-
-    _this.getQueryObject = function (q) {
-      return q ? _this.search.createQueryObject(q) : _this.search.createQueryObject(Object(query_string["parse"])(window.location.search));
-    };
-
-    _this.buildSearchParams = function (q) {
-      var query = q && Object.entries(q).length !== 0 ? Object(objectSpread["a" /* default */])({}, q) : _this.getQueryObject();
-
-      if (!query.sort && _this.state) {
-        query = Object.assign({}, query, {
-          sort: _this.state.sort
-        });
-      }
-
-      return query;
-    };
-
-    _this.calcRows = function () {
-      return _this.props.searchDefaults && _this.props.searchDefaults.rows ? _this.props.searchDefaults.rows : services["b" /* parameterDefaults */].rows;
-    };
-
-    _this.persistTabHistory = function (query) {
-      var tabHistory = _this.createTabHistoryEntryForCurrentTab(query);
-
-      _this.search.setStorageForTabHistory(tabHistory);
-    };
-
-    _this.executeSearch = function (query, rows) {
-      var searchType = _this.getSearchType(query);
-
-      if (searchType === SEARCH_TYPES.INITIAL) {
-        _this.executeInitialSearch(query);
-
-        return;
-      }
-
-      _this.setStateForActiveCategory(query);
-
-      _this.persistTabHistory(query);
-
-      switch (searchType) {
-        case SEARCH_TYPES.CATEGORY_ONLY:
-          _this.executeSearchByCategoryOnly(query, rows);
-
-          break;
-
-        case SEARCH_TYPES.CONTENT_TYPE:
-          _this.executeSearchByContentType(query, rows);
-
-          break;
-
-        case SEARCH_TYPES.SUB_FACETS:
-          _this.executeSearchBySubFacets(query, rows);
-
-          break;
-      }
-    };
-
-    _this.getSearchType = function (query) {
-      if (!query.category) {
-        return SEARCH_TYPES.INITIAL;
-      }
-
-      if (_this.isCategoryOnlySelected(query.category, query.content_type)) {
-        return SEARCH_TYPES.CATEGORY_ONLY;
-      }
-
-      if (query.content_type && !_this.isFacetsSelected(query.facets)) {
-        return SEARCH_TYPES.CONTENT_TYPE;
-      }
-
-      if (query.content_type && _this.isFacetsSelected(query.facets)) {
-        return SEARCH_TYPES.SUB_FACETS;
-      } // return a default value for defensive programming
-
-
-      return SEARCH_TYPES.INITIAL;
-    };
-
-    _this.executeInitialSearch = function (query) {
-      var maxCategory = _this.findMaxCategory(_this.state.categoryTabs);
-
-      if (maxCategory === -1) {
-        _this.setEmptyResults();
-
-        return;
-      }
-
-      var categoryName = _this.state.categoryTabs[maxCategory].name;
-
-      _this.setState({
-        activeTabIndex: maxCategory,
-        category: categoryName
-      });
-
-      query.category = categoryName;
-
-      _this.pushToHistory(query, _this.state.selectedFacets);
-    };
-
-    _this.setStateForActiveCategory = function (query) {
-      var categoryIndex = _this.state.categoryTabs.findIndex(function (category) {
-        return category.name === query.category;
-      });
-
-      var categoryName = categoryIndex !== -1 ? _this.state.categoryTabs[categoryIndex].name : '';
-
-      _this.setState({
-        activeTabIndex: categoryIndex,
-        category: categoryName
-      });
-    };
-
-    _this.executeSearchByCategoryOnly = function (query, rows) {
-      // deselects content type when user clicks the back button on browser
-      _this.setState({
-        category: query.category,
-        contentType: null,
-        contentTypeSelected: {}
-      });
-
-      if (!_this.props.hasError) {
-        _this.search.getResultsByCategory(query).then(function (res) {
-          if (res && !_this.props.hasError) {
-            _this.searchOnSuccess(query, rows, res, true);
-          } else {
-            _this.search.getResultsByCategory(query).then(function (results) {
-              if (!results) {
-                _this.setState({
-                  loading: false,
-                  erroredOut: true
-                });
-              } else {
-                var newQuery = Object.assign({}, query, {
-                  keyword: ''
-                });
-
-                _this.searchOnSuccess(newQuery, rows, results, true);
-              }
-            });
-          }
-        });
-      }
-    };
-
-    _this.executeSearchByContentType = function (query, rows) {
-      // no sub-facets have been selected, only the content type has been selected
-      var contentTypeValue = _this.getSelectedContentTypeValue();
-
-      _this.search.getContentType(query.content_type, contentTypeValue, query).then(function (res) {
-        return _this.searchOnSuccess(query, rows, res, false, 'success');
-      })["catch"](function (error) {
-        return _this.searchOnError(error);
-      });
-    };
-
-    _this.executeSearchBySubFacets = function (query, rows) {
-      // sub-facets have been selected
-      var contentTypeName = _this.getSelectedContentTypeName();
-
-      var contentTypeValue = _this.getSelectedContentTypeValue();
-
-      _this.search.getSubFacet(contentTypeName, contentTypeValue, query).then(function (res) {
-        return _this.searchOnSuccess(query, rows, res, false, 'success');
-      })["catch"](function (error) {
-        return _this.searchOnError(error);
-      });
-    };
-
-    _this.findContentType = function (items, content_type) {
-      return items.find(function (element) {
-        return element.categoryFacetName === "".concat(content_type, "_facet");
-      });
-    };
-
-    _this.isCategoryOnlySelected = function (category, content_type) {
-      return category && !content_type ? true : false;
-    };
-
-    _this.isFacetsSelected = function (selectedFacets) {
-      return Object.entries(selectedFacets).length !== 0 ? true : false;
-    };
-
-    _this.getFilterMap = function (authoredTags, backendFacets) {
-      var categoryFacetName = "".concat(_this.state.category.toLowerCase(), "_facet");
-      var category = authoredTags.find(function (authoredItem) {
-        return authoredItem.categoryFacetName === categoryFacetName;
-      });
-
-      if (!category) {
-        return;
-      }
-
-      var orderedFacets = category.orderedFacets.filter(function (facet) {
-        return backendFacets.find(function (beFacet) {
-          return beFacet.value === facet.facetValue;
-        });
-      });
-      var orderedFacetsWithCount = orderedFacets.map(function (facet) {
-        var authTag = authoredTags.find(function (authoredItem) {
-          return facet.facetValue === authoredItem.categoryFacetValue;
-        });
-        var beFacet = backendFacets.find(function (beFacet) {
-          return beFacet.value === facet.facetValue;
-        });
-        return Object(objectSpread["a" /* default */])({}, facet, {
-          orderedFacets: authTag ? authTag.orderedFacets : [],
-          count: beFacet ? beFacet.count : 0
-        });
-      });
-      return {
-        categoryFacetName: category.categoryFacetName,
-        categoryFacetValue: category.categoryFacetValue,
-        orderedFacets: orderedFacetsWithCount
-      };
-    };
-
-    _this.searchOnSuccess = function (query, rows, res) {
-      var initCategories = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
-      var newState = Object.assign({}, _this.state);
-      newState.filterMap = res.num_found !== 0 ? Object.assign({}, _this.getFilterMap(_this.props.filterMap, res.facets[_this.parentCategory])) : [];
-      newState.loading = false;
-      newState.rows = rows;
-      newState.count = parseInt(res.num_found);
-      newState.query = query.keyword;
-      newState.results = newState.results || {};
-      newState.results[query.page] = res.num_found !== 0 ? res.documents : [];
-      newState.noQuery = query.keyword ? false : true;
-      newState.sort = _this.state.sort;
-      newState.performedSearches = _this.state.performedSearches + 1;
-      newState.initialRender = false;
-      newState.erroredOut = false;
-      newState.pagination = {
-        current: query.page,
-        amount: Math.ceil(res.num_found / rows)
-      };
-      newState.noResults = !newState.results[query.page].length;
-      newState.facets = res.facets;
-
-      if ("activeIndex" in _this.state) {
-        newState.facets['activeIndex'] = _this.state.activeIndex;
-        newState.activeFilterIndex = _this.getActiveFilterIndex(_this.state.contentType, newState.filterMap, newState.facets, _this.state.activeIndex);
-      } else {
-        newState.facets['activeIndex'] = "";
-      }
-
-      newState.spell_check = res.hasOwnProperty('spell_check') ? res.spell_check : false;
-      newState.spell_related_suggestions = res.hasOwnProperty('spell_related_suggestions') ? res.spell_related_suggestions : [];
-      newState.spell_suggestion = res.hasOwnProperty('spell_suggestion') ? res.spell_suggestion : '';
-      newState.isSkuList = _this.isSkuList(query.category);
-
-      _this.setState(Object.assign({}, _this.state, newState), function () {
-        // collapse all facet groups when flag is true and the device is tablet or mobile
-        if (_this.state.forceCollapseFilters) {
-          if (screenSizes["a" /* default */].isTabletAndUnder()) {
-            _this.collapseFilters();
-          } // reset flag to false
-
-
-          _this.setState({
-            forceCollapseFilters: false
-          });
-        }
-      });
-
-      var sessionStore = _this.search.getSessionStore();
-
-      var scrollToPosition = sessionStore.previousPagePosition;
-      var previousPagePosition = sessionStore.previousPaginationClick;
-
-      if (scrollToPosition) {
-        _this.search.scrollToPosition(scrollToPosition);
-      } else if (_this.props.history && _this.props.history.action === 'POP' && previousPagePosition && previousPagePosition !== 'NaN' && _this.props.resetToDefault && _this.props.resetToDefault === false) {
-        setTimeout(function () {
-          _this.search.scrollToPosition(previousPagePosition);
-        }, 0);
-      } else if (!scrollToPosition && previousPagePosition) {
-        _this.search.scrollToTop();
-      } else {
-        if (newState.performedSearches > 1) {
-          _this.search.scrollToTop();
-        }
-      }
-
-      _this.submitAnalytics(Object(objectSpread["a" /* default */])({}, _this.state.searchParams, {
-        total: res.num_found
-      }));
-    };
-
-    _this.submitAnalytics = function (data) {
-      return analytics["b" /* default */].setAnalytics(analytics["a" /* analyticTypes */].search.name, data);
-    };
-
-    _this.getActiveFilterIndex = function (contentType, filterMap, facets, facetName) {
-      var mappings = services["d" /* searchMapper */].mapFacetGroups(contentType, filterMap, facets);
-      var activeFilterIndex = mappings && Array.isArray(mappings) ? mappings.findIndex(function (item) {
-        return item.name === facetName;
-      }) : _this.state.activeFilterIndex;
-
-      if (_this.state.activeFilterIndex !== activeFilterIndex) {
-        return activeFilterIndex;
-      }
-
-      return _this.state.activeFilterIndex;
-    };
-
-    _this.searchOnError = function (error) {
-      _this.setEmptyResults();
-    };
-
-    _this.setEmptyResults = function () {
-      var newState = Object.assign({}, _this.state);
-      newState.loading = false;
-      newState.rows = [];
-      newState.count = 0;
-      newState.noResults = true;
-      newState.results = {};
-
-      _this.setState(Object.assign({}, _this.state, newState));
-    };
-
-    _this.paginationClickHandler = function (page, e) {
-      if (e === 'clicked') {
-        _this.search.setStorageForPagination();
-      }
-
-      ;
-      var state = _this.state;
-      var newState = Object.assign({}, _this.state, {
-        pagination: {
-          amount: state.pagination.amount,
-          current: page.selected + 1
-        }
-      });
-
-      _this.setState(newState, function () {
-        var query = _this.getQueryObject();
-
-        query.page = page.selected + 1;
-
-        _this.pushToHistory(query, query.facets);
-      });
-    };
-
-    _this.sortHandler = function (e) {
-      var sortOption = parseInt(e.value) === 1 ? services["c" /* parameterValues */].sort.mostRelevant : services["c" /* parameterValues */].sort.mostRecent;
-
-      var query = _this.getQueryObject();
-
-      query.page = 1;
-      query.sort = sortOption;
-
-      _this.setState({
-        forceCollapseFilters: true
-      }, function () {
-        _this.pushToHistory(query, query.facets);
-      });
-    };
-
-    _this.categoryChangeHandler = function (e) {
-      return _this.handleCategorySelected(e.value);
-    };
-
-    _this.filterSelectHandler = function (facet, categoryId, e, activeIndex) {
-      var isChecked = e.target.checked;
-      var newState = Object.assign({}, _this.state);
-
-      if (isChecked) {
-        if (!newState.selectedFacets["".concat(categoryId)]) {
-          newState.selectedFacets["".concat(categoryId)] = [];
-        }
-
-        newState.selectedFacets["".concat(categoryId)].push(facet);
-      } else {
-        var filteredArr = newState.selectedFacets["".concat(categoryId)].filter(function (f, index) {
-          if (f === facet) {
-            return false;
-          } else {
-            return true;
-          }
-        });
-        newState.selectedFacets["".concat(categoryId)] = filteredArr;
-      }
-
-      _this.state['activeIndex'] = categoryId;
-
-      var query = _this.getQueryObject();
-
-      query.page = 1;
-      query.facets = Object(objectSpread["a" /* default */])({}, newState.selectedFacets);
-
-      _this.pushToHistory(query, query.facets);
-    };
-
-    _this.handleSubFacetRemove = function (tag) {
-      var newState = Object.assign({}, _this.state);
-      var filteredArr = newState.selectedFacets["".concat(tag.categoryId)].filter(function (f, index) {
-        if (f === tag.facet) {
-          return false;
-        } else {
-          return true;
-        }
-      });
-      newState.selectedFacets["".concat(tag.categoryId)] = filteredArr;
-
-      var query = _this.getQueryObject();
-
-      query.page = 1;
-      query.facets = Object(objectSpread["a" /* default */])({}, newState.selectedFacets);
-
-      _this.setState({
-        forceCollapseFilters: true
-      }, function () {
-        _this.pushToHistory(query, query.facets);
-      });
-    };
-
-    _this.applyFilters = function () {
-      _this.hideSortFiltersModal();
-
-      _this.deactivateFilters();
-
-      domElements["a" /* default */].noScroll(false);
-      setTimeout(function () {
-        _this.search.scrollToTop();
-      }, 1000);
-
-      _this.clearUnappliedFilters();
-    };
-
-    _this.resetToSavedState = function () {
-      _this.setState({
-        forceCollapseFilters: true
-      }, function () {
-        _this.pushToHistory(_this.state.savedState.searchParams, _this.state.savedState.searchParams.facets);
-      });
-    };
-
-    _this.collapseFilters = function () {
-      // setting to true will trigger componentDidUpdate method on the filter component
-      // which will take care of doing the actual collapsing of the facet groups
-      _this.setState({
-        collapseAllFilters: true
-      }, function () {
-        // reset back to false after state has been updated
-        _this.setState({
-          collapseAllFilters: false
-        });
-
-        setTimeout(_this.deactivateFilters, 0);
-      });
-    };
-
-    _this.deactivateFilters = function () {
-      return document.body.classList.remove('filter-active');
-    };
-
-    _this.hideSortFiltersModal = function () {
-      return document.body.classList.remove('show-sort-filters');
-    };
-
-    _this.setupFilters = function () {
-      if (!_this.state.isDesktop) {
-        var state = Object.assign({}, _this.state);
-        _this.savedSelectFilterState = JSON.stringify(state.selectedFacets);
-
-        _this.setState({
-          savedState: state
-        });
-      }
-    };
-
-    _this.handleContentTypeItemClick = function (item) {
-      var contentType = item.facetName.replace('_facet', '');
-
-      var query = _this.search.createQueryObject(Object(query_string["parse"])(window.location.search));
-
-      query.content_type = contentType;
-      query.page = 1;
-
-      _this.setState({
-        forceCollapseFilters: true,
-        activeFilterIndex: -1
-      }, function () {
-        _this.pushToHistory(query, query.facets);
-      });
-    };
-
-    _this.handleResetSearchToDefault = function () {
-      var query = _this.search.createQueryObject(Object(query_string["parse"])(window.location.search));
-
-      if (query.keyword && !_this.search.isDefaultKeyword(query.keyword)) {
-        _this.search.clearSessionStore();
-
-        _this.search.setUrlParameter('', window.location.pathname);
-      } else {
-        // no keyword has been selected so no need to reload page
-        // simply clear active filters and update the route
-        delete query.content_type;
-        delete query.facets;
-        query.page = services["b" /* parameterDefaults */].page;
-
-        _this.pushToHistory(query, query.facets);
-      }
-    };
-
-    _this.handleRemoveKeyword = function () {
-      _this.search.clearSessionStore();
-
-      var parameters = Object(query_string["parse"])(window.location.search);
-      parameters.keyword = services["b" /* parameterDefaults */].keyword;
-      parameters.page = services["b" /* parameterDefaults */].page;
-      window.location.href = "".concat(window.location.pathname, "?").concat(Object(query_string["stringify"])(parameters));
-    };
-
-    _this.handleRemoveContentType = function () {
-      var query = Object(query_string["parse"])(window.location.search);
-      delete query.content_type;
-      query.page = services["b" /* parameterDefaults */].page;
-
-      _this.pushToHistory(query, query.facets);
-    };
-
-    _this.getSelectedContentTypeName = function () {
-      var query = _this.getQueryObject();
-
-      var contentTypeElement = _this.findContentType(_this.props.filterMap, query.content_type);
-
-      var contentTypeName = contentTypeElement ? contentTypeElement.categoryFacetName : 'NA';
-      return contentTypeName;
-    };
-
-    _this.getSelectedContentTypeValue = function () {
-      var query = _this.getQueryObject();
-
-      var contentTypeElement = _this.findContentType(_this.props.filterMap, query.content_type);
-
-      var contentTypeValue = contentTypeElement ? contentTypeElement.categoryFacetValue : 'NA';
-      return contentTypeValue;
-    };
-
-    _this.getSelectedContentTypeTranslation = function () {
-      var query = _this.getQueryObject();
-
-      var contentTypeElement = _this.findContentType(_this.props.filterMap, query.content_type);
-
-      var categoryFacetTranslation = contentTypeElement ? contentTypeElement.categoryFacetTranslation : 'NA';
-      return categoryFacetTranslation;
-    };
-
-    _this.handleFilterGroupClick = function (facetName, index) {
-      var activeIndex = index === -1 ? '' : _this.state.activeIndex;
-
-      _this.setState({
-        activeFilterIndex: index,
-        activeIndex: activeIndex
-      });
-    };
-
-    _this.getSelectedContentType = function () {
-      if (_this.state.contentTypeSelected) {
-        if (_this.state.contentTypeSelected.hasOwnProperty('categoryFacetName')) {
-          return {
-            facetName: _this.state.contentTypeSelected.categoryFacetName,
-            facetValue: _this.state.contentTypeSelected.categoryFacetValue,
-            facetTranslation: _this.state.contentTypeSelected.categoryFacetTranslation
-          };
-        } else if (_this.state.contentTypeSelected.hasOwnProperty('facetName')) {
-          return _this.state.contentTypeSelected;
-        }
-      }
-
-      var query = _this.getQueryObject();
-
-      var contentType = _this.props.filterMap.find(function (item) {
-        return item.categoryFacetName === "".concat(query.content_type, "_facet");
-      });
-
-      return {
-        facetName: contentType ? contentType.categoryFacetName : '',
-        facetValue: contentType ? contentType.categoryFacetValue : '',
-        facetTranslation: contentType ? contentType.categoryFacetTranslation : ''
-      };
-    };
-
-    _this.handleRelatedSuggestionClick = function (suggestion) {
-      var parameters = Object(query_string["parse"])(window.location.search);
-      parameters.keyword = suggestion;
-      window.location.href = "".concat(window.location.pathname, "?").concat(Object(query_string["stringify"])(parameters));
-    };
-
-    _this.handleResultsItemClick = function () {
-      _this.search.setStorageForPagePosition();
-
-      _this.search.setStorageForTabHistory(_this.state.tabHistory);
-    };
-
-    _this.handleCategorySelected = function (index) {
-      if (_this.state.activeTabIndex === index) {
-        return;
-      }
-
-      var query = _this.getQueryObject();
-
-      _this.persistTabHistory(query);
-
-      _this.setCategorySelected(index, query, _this.state.categoryTabs[index].name);
-    };
-
-    _this.setCategorySelected = function (index, query, category) {
-      var tabHistoryEntrySelected = _this.getTabHistoryEntry(category);
-
-      if (Object.entries(tabHistoryEntrySelected.searchParams).length === 0) {
-        query.category = category;
-        query.page = services["b" /* parameterDefaults */].page;
-        query.sort = services["b" /* parameterDefaults */].sort;
-        delete query.content_type;
-        delete query.facets;
-
-        _this.setCategorySelectedState(index, query, services["b" /* parameterDefaults */].content_type, services["b" /* parameterDefaults */].contentTypeSelected, null);
-      } else {
-        _this.setCategorySelectedState(index, tabHistoryEntrySelected.searchParams, tabHistoryEntrySelected.contentType, tabHistoryEntrySelected.contentTypeSelected, tabHistoryEntrySelected.selectedFacets);
-      }
-    };
-
-    _this.createTabHistoryEntryForCurrentTab = function (query) {
-      var tabHistoryEntry = _this.getTabHistoryEntry(query.category);
-
-      tabHistoryEntry.searchParams = Object.assign({}, query);
-      tabHistoryEntry.contentType = _this.state.contentType;
-      tabHistoryEntry.contentTypeSelected = Object.assign({}, _this.state.contentTypeSelected);
-      tabHistoryEntry.selectedFacets = Object.assign({}, _this.state.selectedFacets);
-      return _this.setTabHistoryEntryState(query.category, tabHistoryEntry);
-    };
-
-    _this.getTabHistoryEntry = function (category) {
-      if (_this.state.tabHistory && _this.state.tabHistory.hasOwnProperty("".concat(category))) {
-        return _this.state.tabHistory["".concat(category)];
-      }
-
-      return {
-        searchParams: {},
-        contentType: '',
-        contentTypeSelected: {},
-        selectedFacets: null
-      };
-    };
-
-    _this.setTabHistoryEntryState = function (category, tabHistoryEntry) {
-      var tabHistory = _this.state.tabHistory ? _this.state.tabHistory : {};
-      tabHistory["".concat(category)] = tabHistoryEntry;
-
-      _this.setState({
-        tabHistory: tabHistory
-      });
-
-      return tabHistory;
-    };
-
-    _this.setCategorySelectedState = function (activeTabIndex, searchParams, contentType, contentTypeSelected, selectedFacets) {
-      _this.setState({
-        activeTabIndex: activeTabIndex,
-        searchParams: searchParams,
-        keyword: searchParams.keyword,
-        category: searchParams.category,
-        sort: searchParams.sort,
-        contentType: contentType,
-        contentTypeSelected: contentTypeSelected,
-        selectedFacets: selectedFacets ? selectedFacets : {},
-        forceCollapseFilters: screenSizes["a" /* default */].isTabletAndUnder()
-      });
-
-      setTimeout(function () {
-        _this.pushToHistory(searchParams, selectedFacets);
-      }, 0);
-    };
-
-    _this.handleHideSortFilterClick = function () {
-      var searchParamsStringify = JSON.stringify(_this.state.searchParams);
-      var savedParamsStringify = JSON.stringify(_this.state.savedState.searchParams);
-
-      if (searchParamsStringify !== savedParamsStringify) {
-        _this.resetToSavedState();
-      }
-
-      setTimeout(function () {
-        domElements["a" /* default */].noScroll(false);
-
-        _this.deactivateFilters();
-
-        _this.hideSortFiltersModal();
-      }, 0);
-    };
-
-    _this.categoryProps = function () {
-      return {
-        categories: _this.state.categoryTabs,
-        activeIndex: _this.state.activeTabIndex
-      };
-    };
-
-    _this.categoryEvents = function () {
-      return {
-        onCategoryTabClick: _this.handleCategorySelected,
-        onCategoryDropdownChange: _this.categoryChangeHandler
-      };
-    };
-
-    _this.showSortFilterProps = function () {
-      return {
-        collapseFilters: _this.collapseFilters
-      };
-    };
-
-    _this.showSortFilterEvents = function () {
-      return {
-        onSetupFilters: _this.setupFilters,
-        onResetToSavedState: _this.resetToSavedState,
-        onClose: _this.handleHideSortFilterClick
-      };
-    };
-
-    _this.resultsProps = function () {
-      return {
-        rows: _this.state.rows,
-        count: _this.state.count,
-        query: _this.state.query,
-        current: _this.state.pagination && _this.state.pagination.current ? parseInt(_this.state.pagination.current) : 1,
-        noQuery: _this.state.noQuery,
-        spell_check: _this.state.spell_check,
-        spell_related_suggestions: _this.state.spell_related_suggestions,
-        spell_suggestion: _this.state.spell_suggestion,
-        isSkuList: _this.state.isSkuList,
-        items: Array.isArray(_this.state.results) ? _this.state.results : _this.state.results ? _this.state.results : [],
-        pagination: _this.state.pagination
-      };
-    };
-
-    _this.resultsEvents = function () {
-      return {
-        onRelatedSuggestionClick: _this.handleRelatedSuggestionClick,
-        onResultsItemClick: _this.handleResultsItemClick,
-        onPageChange: _this.paginationClickHandler
-      };
-    };
-
-    _this.asideProps = function () {
-      return {
-        sortFilterIsPristine: _this.state.contentType || _this.state.keyword !== services["b" /* parameterDefaults */].keyword ? false : true,
-        count: _this.state.count,
-        sortByText: _this.state.sort,
-        sortByValue: _this.state.unappliedFilters && _this.state.unappliedFilters.sort ? _this.state.unappliedFilters.sort === services["c" /* parameterValues */].sort.mostRecent ? 2 : 1 : _this.state.sort === services["c" /* parameterValues */].sort.mostRecent ? 2 : 1
-      };
-    };
-
-    _this.asideEvents = function () {
-      return {
-        onHideSortFilterClick: _this.handleHideSortFilterClick,
-        onApplySortFilter: _this.applyFilters,
-        onCollapseFilters: _this.collapseFilters,
-        onSort: _this.sortHandler
-      };
-    };
-
-    _this.menuProps = function () {
-      return {
-        showContentTypeMenu: _this.isCategoryOnlySelected(_this.state.category, _this.state.contentType),
-        showFacetMenu: !_this.isCategoryOnlySelected(_this.state.category, _this.state.contentType),
-        heading: _this.props.searchText.filterBy
-      };
-    };
-
-    _this.contentTypeMenuProps = function () {
-      return {
-        items: _this.state.filterMap && _this.state.filterMap.orderedFacets ? _this.state.filterMap.orderedFacets : []
-      };
-    };
-
-    _this.contentTypeMenuEvents = function () {
-      return {
-        onContentTypeItemClick: _this.handleContentTypeItemClick
-      };
-    };
-
-    _this.facetMenuProps = function () {
-      return {
-        selectedValue: _this.getSelectedContentTypeTranslation(),
-        previousIcon: _this.props.searchText.previousIcon
-      };
-    };
-
-    _this.facetMenuEvents = function () {
-      return {
-        onContentTypeRemoval: _this.handleRemoveContentType
-      };
-    };
-
-    _this.subFacetFiltersEvents = function () {
-      return {
-        onFilterSelect: _this.filterSelectHandler,
-        onGroupClick: _this.handleFilterGroupClick
-      };
-    };
-
-    _this.subFacetFiltersProps = function () {
-      return {
-        items: _this.state.facets,
-        filterMap: _this.state.filterMap,
-        defaultFacet: _this.props.defaultFacet,
-        selectedFacets: _this.state.selectedFacets,
-        contentType: _this.state.contentType,
-        facetGroupsSelectedOrder: _this.state.facetGroupsSelectedOrder,
-        collapseAllFilters: _this.state.collapseAllFilters,
-        activeIndex: _this.state.activeFilterIndex
-      };
-    };
-
-    _this.filterTagsProps = function () {
-      return {
-        keyword: _this.state.keyword,
-        spell_suggestion: _this.state.spell_suggestion,
-        contentTypeSelected: _this.getSelectedContentType(),
-        selectedFacets: _this.state.unappliedFilters && _this.state.unappliedFilters.selectedFacets ? _this.state.unappliedFilters.selectedFacets : _this.state.selectedFacets,
-        facets: _this.state.facets,
-        contentType: _this.state.contentType
-      };
-    };
-
-    _this.filterTagsEvents = function () {
-      return {
-        onClearAll: _this.handleResetSearchToDefault,
-        onKeywordRemove: _this.handleRemoveKeyword,
-        onContentTypeRemove: _this.handleRemoveContentType,
-        onSubFacetRemove: _this.handleSubFacetRemove
-      };
-    };
-
-    _this.savedSelectFilterState = null;
-    _this.parentCategory = 'contenttype_facet';
-    _this.search = props.search;
-    _this.search.throwError = _this.props.setErrorBoundaryToTrue;
-    _this.state = _this.initialState();
-    return _this;
-  }
-
-  Object(createClass["a" /* default */])(SearchContainer, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      var _this2 = this;
-
-      this.addHistoryListener();
-      this.addResizeListener();
-      var facetGroupsSelectedOrder = this.parseFacetsFromUrlToArray();
-      var sessionStore = this.search.getSessionStore();
-      this.setState({
-        tabHistory: sessionStore.searchTabHistory,
-        facetGroupsSelectedOrder: facetGroupsSelectedOrder
-      }, function () {
-        _this2.performSearch();
-      });
-      this.setState({
-        isEprocurementUser: Object(userFunctions["p" /* isEprocurementUser */])()
-      });
-    }
-  }, {
-    key: "performSearch",
-    value: function () {
-      var _performSearch = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee3(q) {
-        var _this3 = this;
-
-        var query, rows, categories, categoriesWithData;
-        return regenerator_default.a.wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                // continue setting up the search
-                query = this.buildSearchParams(q);
-                rows = this.calcRows(); // update the component's state with pre-search values
-
-                this.setState({
-                  searchParams: query,
-                  loading: true,
-                  results: {},
-                  filterMap: {}
-                }); // fetch categories only once on the initial rendering
-                // store category tabs in the component's state
-
-                if (!this.state.initialRender) {
-                  _context3.next = 11;
-                  break;
-                }
-
-                _context3.next = 6;
-                return this.search.getCategories({
-                  keyword: query.keyword
-                });
-
-              case 6:
-                categories = _context3.sent;
-                // find the categories that have results
-                categoriesWithData = this.mapCategories(categories); // execute the search after the category tabs has been saved in the component's state
-
-                this.setState({
-                  categoryTabs: categoriesWithData,
-                  initialRender: false
-                }, function () {
-                  return _this3.executeSearch(query, rows);
-                });
-                _context3.next = 12;
-                break;
-
-              case 11:
-                // execute the search because the category tabs have already been saved in the component's state
-                this.executeSearch(query, rows);
-
-              case 12:
-              case "end":
-                return _context3.stop();
-            }
-          }
-        }, _callee3, this);
-      }));
-
-      function performSearch(_x) {
-        return _performSearch.apply(this, arguments);
-      }
-
-      return performSearch;
-    }()
-  }, {
-    key: "pushToHistory",
-    value: function pushToHistory(query, facets) {
-      this.props.history.push("?".concat(this.search.getQueryParamString(query, facets)));
-    }
-  }, {
-    key: "clearUnappliedFilters",
-    value: function clearUnappliedFilters() {
-      this.setState({
-        savedState: {}
-      });
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      if (this.state.loading && !screenSizes["a" /* default */].isTabletAndUnder()) {
-        return react_default.a.createElement(components_loading, {
-          visible: true
-        });
-      }
-
-      ;
-
-      if (this.state.noResults) {
-        return react_default.a.createElement(no_results, {
-          searchText: this.props.searchText,
-          query: this.state.keyword
-        });
-      }
-
-      return react_default.a.createElement(search_component, {
-        isEprocurementUser: this.state.isEprocurementUser,
-        text: this.props.searchText,
-        filterMap: this.props.filterMap,
-        skuConfig: this.state.skuConfig,
-        searchParams: this.state.searchParams,
-        category: this.state.category ? this.state.category : '',
-        categoryProps: this.categoryProps(),
-        categoryEvents: this.categoryEvents(),
-        showSortFilterProps: this.showSortFilterProps(),
-        showSortFilterEvents: this.showSortFilterEvents(),
-        resultsProps: this.resultsProps(),
-        resultsEvents: this.resultsEvents(),
-        asideProps: this.asideProps(),
-        asideEvents: this.asideEvents(),
-        menuProps: this.menuProps(),
-        contentTypeMenuProps: this.contentTypeMenuProps(),
-        contentTypeMenuEvents: this.contentTypeMenuEvents(),
-        facetMenuProps: this.facetMenuProps(),
-        facetMenuEvents: this.facetMenuEvents(),
-        subFacetFiltersProps: this.subFacetFiltersProps(),
-        subFacetFiltersEvents: this.subFacetFiltersEvents(),
-        filterTagsProps: this.filterTagsProps(),
-        filterTagsEvents: this.filterTagsEvents()
-      });
-    }
-  }]);
-
-  return SearchContainer;
-}(react["Component"]);
-
-/* harmony default export */ var search_container = (Object(withRouter["a" /* default */])(search_container_SearchContainer));
-// EXTERNAL MODULE: ./node_modules/react-router-dom/es/BrowserRouter.js
-var BrowserRouter = __webpack_require__(511);
-
-// EXTERNAL MODULE: ./node_modules/react-router-dom/es/Route.js
-var Route = __webpack_require__(512);
-
-// EXTERNAL MODULE: ./src/search/ErrorBoundary.js
-var ErrorBoundary = __webpack_require__(51);
-
-// CONCATENATED MODULE: ./src/search/index.js
-
-
-
-
-
-
-
-var search_SearchApp = function SearchApp(props) {
-  var isoCode = Object(userFunctions["p" /* isEprocurementUser */])() && Object(userFunctions["l" /* getIsoCode */])() || props.isocode;
-  var search = new services["a" /* SearchService */](isoCode, props.searchServicePath, services["b" /* parameterDefaults */].page, props.searchDefaults.rows, services["b" /* parameterDefaults */].sort, undefined, function () {});
-  return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement(BrowserRouter["a" /* default */], null, react_default.a.createElement(Route["a" /* default */], {
-    path: "",
-    render: function render() {
-      return react_default.a.createElement(ErrorBoundary["a" /* default */], null, react_default.a.createElement(search_container, {
-        defaultFacet: props.defaultFacet,
-        searchDefaults: props.searchDefaults,
-        searchServicePath: props.searchServicePath,
-        searchText: props.searchText,
-        searchLocale: props.searchLocale,
-        filterMap: props.filterMap,
-        isocode: isoCode,
-        search: search,
-        baseSignInUrl: props.baseSignInUrl
-      }));
-    }
-  })));
-};
-
-/* harmony default export */ var src_search = (search_SearchApp);
 // EXTERNAL MODULE: ./src/stores/sessionStore.js
-var stores_sessionStore = __webpack_require__(5);
+var sessionStore = __webpack_require__(2);
 
 // CONCATENATED MODULE: ./src/search/components/tagcloud.js
 
@@ -5210,7 +340,7 @@ var tagcloud_TagCloud = /*#__PURE__*/function (_Component) {
     Object(classCallCheck["a" /* default */])(this, TagCloud);
 
     _this = Object(possibleConstructorReturn["a" /* default */])(this, Object(getPrototypeOf["a" /* default */])(TagCloud).call(this, props));
-    _this.sessionStore = new stores_sessionStore["a" /* default */]();
+    _this.sessionStore = new sessionStore["a" /* default */]();
     return _this;
   }
 
@@ -5273,20 +403,20 @@ LinkButton.defaultProps = {
 };
 /* harmony default export */ var link_button_LinkButton = (LinkButton);
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray.js + 3 modules
-var slicedToArray = __webpack_require__(20);
+var slicedToArray = __webpack_require__(8);
 
 // EXTERNAL MODULE: ./node_modules/react-html-parser/lib/index.js
-var react_html_parser_lib = __webpack_require__(86);
-var react_html_parser_lib_default = /*#__PURE__*/__webpack_require__.n(react_html_parser_lib);
+var lib = __webpack_require__(72);
+var lib_default = /*#__PURE__*/__webpack_require__.n(lib);
 
 // EXTERNAL MODULE: ./src/utils/modal/index.js + 1 modules
-var modal = __webpack_require__(19);
+var modal = __webpack_require__(11);
 
 // EXTERNAL MODULE: ./src/sku-details/views/addToCartModal.js
-var addToCartModal = __webpack_require__(54);
+var addToCartModal = __webpack_require__(53);
 
 // EXTERNAL MODULE: ./src/legal-link-modal/styles/index.scss
-var legal_link_modal_styles = __webpack_require__(135);
+var legal_link_modal_styles = __webpack_require__(113);
 
 // CONCATENATED MODULE: ./src/legal-link-modal/LegalLinkModal.js
 
@@ -5382,7 +512,7 @@ function LegalLinkModal(props) {
   }), react_default.a.createElement(addToCartModal["default"], {
     config: {
       isOrderDetails: true,
-      text: react_html_parser_lib_default()("<main>".concat(bodyContent, "</main>"))
+      text: lib_default()("<main>".concat(bodyContent, "</main>"))
     },
     errorObjCart: {},
     onClose: function onClose() {}
@@ -5393,497 +523,23 @@ LegalLinkModal.defaultProps = {
   docIcon: ''
 };
 /* harmony default export */ var legal_link_modal_LegalLinkModal = (LegalLinkModal);
-// EXTERNAL MODULE: ./src/sku-details/views/stock.js
-var stock = __webpack_require__(104);
-
-// EXTERNAL MODULE: ./src/sku-details/views/price.js
-var views_price = __webpack_require__(76);
-
-// EXTERNAL MODULE: ./src/sku-details/views/unavailablePrice.js
-var unavailablePrice = __webpack_require__(105);
-
-// EXTERNAL MODULE: ./src/sku-details/views/addToCart.js
-var addToCart = __webpack_require__(102);
-
-// EXTERNAL MODULE: ./src/utils/spinner/index.js
-var utils_spinner = __webpack_require__(52);
-
-// EXTERNAL MODULE: ./src/scripts/loginStatus.js
-var loginStatus = __webpack_require__(10);
-
-// EXTERNAL MODULE: ./src/scripts/checkOutStatus.js
-var checkOutStatus = __webpack_require__(39);
-
 // EXTERNAL MODULE: ./src/sku-message/index.js
-var sku_message = __webpack_require__(31);
-
-// EXTERNAL MODULE: ./src/scripts/ecommerce.js
-var ecommerce = __webpack_require__(29);
-
-// EXTERNAL MODULE: ./src/sku-details/services/index.js
-var sku_details_services = __webpack_require__(36);
-
-// EXTERNAL MODULE: ./src/scripts/signIn.js
-var signIn = __webpack_require__(73);
-
-// EXTERNAL MODULE: ./src/scripts/DigitalData.js
-var DigitalData = __webpack_require__(17);
-
-// EXTERNAL MODULE: ./src/constants/index.js
-var constants = __webpack_require__(24);
-
-// CONCATENATED MODULE: ./src/sku-details/index.js
-
-
-
-
-
-
-
-// entry point for SKU. Move this up to global entry point if we want babel to polyfill everything we need at build time
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var sku_details_SkuDetails = /*#__PURE__*/function (_React$Component) {
-  Object(inherits["a" /* default */])(SkuDetails, _React$Component);
-
-  function SkuDetails(props) {
-    var _this;
-
-    Object(classCallCheck["a" /* default */])(this, SkuDetails);
-
-    _this = Object(possibleConstructorReturn["a" /* default */])(this, Object(getPrototypeOf["a" /* default */])(SkuDetails).call(this, props));
-
-    _this.handleScroll = function () {
-      try {
-        var isStickyAvailable = _this.state.isStickyAvailable;
-        var elem = document.querySelector('.cmp-sku-details');
-
-        if (elem) {
-          if (elem.classList.contains('cmp-sku-details--sticky')) {
-            if (!isStickyAvailable) {
-              _this.setState({
-                isStickyAvailable: true
-              });
-            }
-          } else {
-            if (isStickyAvailable) {
-              _this.setState({
-                isStickyAvailable: false
-              });
-            }
-          }
-        }
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
-    _this.getCustPricing = function (pricingUrl, skuNumber, userInfo, propListPrice) {
-      Object(sku_details_services["c" /* getPricing */])(pricingUrl, skuNumber, userInfo.dynamicSoldTo, userInfo.salesOrg).then(function (response) {
-        if (response.status && response.status === 200) {
-          var match = Object(sku_details_services["d" /* matchListItems */])(skuNumber, response);
-          var listPriceValue = match.listPrice !== '' && match.listPrice != undefined ? match.listPrice : propListPrice;
-
-          _this.setState({
-            skuData: match,
-            custPrice: match.custPrice,
-            listPrice: listPriceValue,
-            loading: false
-          }, function () {//this.checkPricingAnalytics();
-          });
-        } else {
-          // Add Error Object to State
-          _this.setState({
-            errorPriceType: [constants["a" /* BAD_REQUEST_CODE */], constants["d" /* SERVER_ERROR_CODE */]].includes(Object(eCommerceFunctions["c" /* getHttpStatusFromErrors */])(response.errors, response.status)) ? Object(userFunctions["p" /* isEprocurementUser */])() ? constants["e" /* UNAVAILABLE_PRICE_WITH_ADD_TO_CART */] : constants["b" /* LIST_PRICE_WITH_ADD_TO_CART */] : constants["c" /* NO_PRICE_NO_ADD_TO_CART */],
-            loading: false
-          });
-        }
-      })["catch"](function () {
-        // Add Error Object to State
-        _this.setState({
-          errorPriceType: constants["c" /* NO_PRICE_NO_ADD_TO_CART */],
-          loading: false
-        });
-      });
-    };
-
-    _this.toggleModal = function () {
-      _this.setState({
-        modalShown: !_this.state.modalShown
-      });
-    };
-
-    _this.toggleErrorModal = function (err) {
-      // Add Error Object to State
-      _this.setState({
-        errorObjCart: err
-      });
-
-      _this.setState({
-        modalShown: !_this.state.modalShown
-      });
-    };
-
-    _this.renderCountryRestricted = function () {
-      return react_default.a.createElement(sku_message["a" /* default */], {
-        icon: _this.state.skuInfo.lowStockIcon,
-        message: _this.props.countryRestricted
-      });
-    };
-
-    _this.renderDiscontinued = function () {
-      var discontinuedMessage = _this.props.config.skuInfo.discontinuedWithReplacementWithCode;
-
-      if (!_this.props.replacementSkuCode || !_this.props.replacementSkuHref) {
-        discontinuedMessage = _this.props.config.skuInfo.discontinuedNoReplacementCode;
-      }
-
-      return react_default.a.createElement(sku_message["a" /* default */], {
-        icon: _this.props.config.skuInfo.lowStockIcon,
-        message: discontinuedMessage,
-        link: _this.props.replacementSkuHref,
-        linkMessage: _this.props.replacementSkuCode
-      });
-    };
-
-    _this.renderEcommerceDisabled = function () {
-      return react_default.a.createElement(sku_message["a" /* default */], {
-        icon: _this.props.config.commerceConfig.disabledIcon,
-        message: _this.props.config.commerceConfig.disabledText
-      });
-    };
-
-    _this.renderEcommercePartialDisabled = function () {
-      return react_default.a.createElement(sku_message["a" /* default */], {
-        icon: _this.props.config.commerceConfig.disabledIcon,
-        message: _this.props.config.commerceConfig.partialDisabledText,
-        link: _this.props.config.commerceConfig.partialDisabledHref,
-        linkMessage: _this.props.config.commerceConfig.partialDisabledLinkText
-      });
-    };
-
-    _this.renderListOrUnavailablePrice = function () {
-      var _this$state = _this.state,
-          listPrice = _this$state.listPrice,
-          skuInfo = _this$state.skuInfo,
-          errorPriceType = _this$state.errorPriceType,
-          isStickyAvailable = _this$state.isStickyAvailable;
-      var isHiddenListPrice = errorPriceType === constants["c" /* NO_PRICE_NO_ADD_TO_CART */] && isStickyAvailable && Object(userFunctions["p" /* isEprocurementUser */])() ? true : false;
-
-      if (errorPriceType === constants["e" /* UNAVAILABLE_PRICE_WITH_ADD_TO_CART */] && !isStickyAvailable) {
-        return react_default.a.createElement(unavailablePrice["default"], {
-          label: skuInfo.custPriceLabel,
-          icon: skuInfo.lowStockIcon,
-          text: skuInfo.unavailablePriceLabel
-        });
-      } else {
-        if (typeof listPrice !== 'undefined' && !isHiddenListPrice) {
-          return react_default.a.createElement(views_price["default"], {
-            label: skuInfo.listPriceLabel,
-            price: listPrice,
-            isListPrice: true
-          });
-        } else {
-          return react_default.a.createElement(react_default.a.Fragment, null);
-        }
-      }
-    };
-
-    _this.renderPricing = function () {
-      var _this$state2 = _this.state,
-          custPrice = _this$state2.custPrice,
-          listPrice = _this$state2.listPrice,
-          skuInfo = _this$state2.skuInfo,
-          errorPriceType = _this$state2.errorPriceType;
-
-      if (loginStatus["a" /* default */].state()) {
-        var price = typeof custPrice !== 'undefined' ? custPrice : listPrice;
-
-        if (errorPriceType !== '') {
-          return _this.renderListOrUnavailablePrice();
-        } else {
-          return react_default.a.createElement(views_price["default"], {
-            label: skuInfo.custPriceLabel,
-            price: price,
-            isListPrice: false
-          });
-        }
-      } else {
-        return _this.renderListOrUnavailablePrice();
-      }
-    };
-
-    _this.renderBuyInfo = function () {
-      var _this$state3 = _this.state,
-          custPrice = _this$state3.custPrice,
-          listPrice = _this$state3.listPrice,
-          loading = _this$state3.loading,
-          skuInfo = _this$state3.skuInfo,
-          skuNumber = _this$state3.skuNumber,
-          errorObjAvailability = _this$state3.errorObjAvailability,
-          skuAvailability = _this$state3.skuAvailability,
-          errorObjCart = _this$state3.errorObjCart,
-          errorPriceType = _this$state3.errorPriceType,
-          isStickyAvailable = _this$state3.isStickyAvailable;
-      var config = _this.props.config;
-      var isErrorModal = false;
-
-      if (errorObjCart) {
-        isErrorModal = Object.keys(errorObjCart).length !== 0;
-      }
-
-      var isHiddenAddToCart = errorPriceType === constants["c" /* NO_PRICE_NO_ADD_TO_CART */] && isStickyAvailable ? true : false;
-      return react_default.a.createElement("div", {
-        className: "cmp-sku-details__buyinfo",
-        "data-locator": "sku-details-buyinfo"
-      }, loginStatus["a" /* default */].state() && typeof custPrice !== 'undefined' && custPrice !== listPrice && react_default.a.createElement("div", {
-        className: "cmp-sku-details__list-price"
-      }, "".concat(skuInfo.listPriceLabel, " ").concat(listPrice)), react_default.a.createElement("div", {
-        className: "cmp-sku-details__priceinfo",
-        "data-locator": "sku-details-priceinfo"
-      }, loading ? react_default.a.createElement(utils_spinner["a" /* default */], {
-        loading: loading,
-        type: "inline"
-      }) : _this.renderPricing()), react_default.a.createElement("div", {
-        className: "cmp-sku-details__availability",
-        "data-locator": "sku-details-availability"
-      }, react_default.a.createElement(stock["default"], {
-        skuInfo: skuInfo,
-        skuNumber: skuNumber,
-        skuAvailability: skuAvailability,
-        skuType: "details",
-        errorObj: errorObjAvailability
-      })), react_default.a.createElement("div", {
-        className: "cmp-sku-details__buttons".concat(isHiddenAddToCart ? ' cmp-sku-details__add-to-cart-hide' : ''),
-        "data-locator": "sku-details-add-to-cart-sec"
-      }, react_default.a.createElement(addToCart["default"], {
-        toggleParentModal: _this.toggleModal,
-        skuNumber: skuNumber,
-        addToCartLabel: config.addToCartLabel,
-        addToCartQty: config.defaultSkuQty,
-        addToCartUrl: config.addToCartUrl,
-        isCommerceApiMigrated: config.isCommerceApiMigrated,
-        toggleErrorModal: _this.toggleErrorModal,
-        analyticsConfig: _this.state.analyticsConfig
-      })), react_default.a.createElement(modal["b" /* default */], {
-        isOpen: _this.state.modalShown,
-        onClose: _this.toggleModal,
-        className: "cmp-add-to-cart-modal"
-      }, !isErrorModal && react_default.a.createElement(modal["a" /* Header */], {
-        title: _this.state.modalConfig.title,
-        icon: _this.state.modalConfig.icon,
-        className: modal["c" /* keys */].HeaderWithAddedMarginTop,
-        elementLocator: "add-to-cart-modal-header"
-      }), isErrorModal && react_default.a.createElement(modal["a" /* Header */], {
-        title: _this.state.errorInfo.title,
-        icon: _this.state.errorInfo.icon,
-        className: modal["c" /* keys */].HeaderWithAddedMarginTopError,
-        elementLocator: "add-to-cart-modal-header"
-      }), react_default.a.createElement(addToCartModal["default"], {
-        config: _this.state.modalConfig,
-        errorObjCart: _this.state.errorObjCart
-      })));
-    };
-
-    _this.renderActiveSku = function () {
-      if (ecommerce["a" /* default */].isDisabledState()) {
-        return _this.renderEcommerceDisabled();
-      } else {
-        if (ecommerce["a" /* default */].isPartialState() && loginStatus["a" /* default */].state() && checkOutStatus["a" /* default */].state() || !ecommerce["a" /* default */].isPartialState() && !ecommerce["a" /* default */].isDisabledState()) {
-          return react_default.a.createElement(react_default.a.Fragment, null, !loginStatus["a" /* default */].state() && react_default.a.createElement(signIn["a" /* default */], {
-            signInUrl: _this.props.config.baseSignInUrl,
-            signInIcon: _this.state.skuInfo.signinIcon,
-            signInText1: _this.state.skuInfo.signInText1,
-            signInText2: _this.state.skuInfo.signInText2,
-            signInText3: _this.state.skuInfo.signInText3
-          }) || loginStatus["a" /* default */].state() && react_default.a.createElement("div", {
-            className: "cmp-sku-signin-wrapper-not-displayed"
-          }), _this.renderBuyInfo());
-        } else {
-          return _this.renderEcommercePartialDisabled();
-        }
-      }
-    };
-
-    _this.renderEProcurementUserRestricted = function () {
-      return react_default.a.createElement(sku_message["a" /* default */], {
-        icon: _this.props.config.commerceConfig.disabledIcon,
-        message: _this.props.config.commerceConfig.eProcurementRestrictedText
-      });
-    };
-
-    _this.renderSkuPriceErrorMsg = function () {
-      return react_default.a.createElement(sku_message["a" /* default */], {
-        icon: _this.props.config.skuInfo.lowStockIcon,
-        message: _this.props.config.skuInfo.skuErrorMessage
-      });
-    };
-
-    _this.renderSkuPriceErrorMsg = function () {
-      return react_default.a.createElement(sku_message["a" /* default */], {
-        icon: _this.props.config.skuInfo.lowStockIcon,
-        message: _this.props.config.skuInfo.skuErrorMessage
-      });
-    };
-
-    _this.state = {
-      modalShown: false,
-      modalConfig: Object(objectSpread["a" /* default */])({}, _this.props.config.modalInfo, {
-        textHeading: _this.props.skuNumber,
-        text: _this.props.titleText,
-        partNumberLabel: _this.props.config.skuInfo.partNumberLabel
-      }),
-      code: _this.props.skuNumber,
-      skuInfo: _this.props.config.skuInfo,
-      skuNumber: _this.props.skuNumber,
-      userInfo: {},
-      userCountry: _this.props.config.countryCode,
-      isGlobal: _this.props.config.countryCode === DigitalData["a" /* default */].globalExperience,
-      userLocale: _this.props.config.locale,
-      availabilityUrl: _this.props.config.availabilityUrl,
-      pricingUrl: _this.props.config.pricingUrl,
-      addToCartUrl: _this.props.config.addToCartUrl,
-      loading: true,
-      skuAvailability: {},
-      addToCartQty: undefined,
-      custPrice: undefined,
-      custPriceApiDisabled: _this.props.config.isCustomerPriceApiDisabled,
-      listPrice: _this.props.price,
-      analyticsConfig: {
-        context: analytics["c" /* mainCartContext */],
-        name: _this.props.titleText,
-        price: _this.props.price,
-        sku: _this.props.skuNumber
-      },
-      errorObjCart: {},
-      errorObjAvailability: {},
-      errorPriceType: '',
-      discontinued: _this.props.discontinued == "true",
-      signInUrl: _this.props.baseSignInUrl,
-      errorInfo: _this.props.config.errorInfo,
-      isEProcurementUserRestricted: !Object(userFunctions["p" /* isEprocurementUser */])() && Object(userFunctions["q" /* isEprocurementUserRole */])(),
-      isStickyAvailable: false
-    };
-    _this.toggleModal = _this.toggleModal.bind(Object(assertThisInitialized["a" /* default */])(Object(assertThisInitialized["a" /* default */])(_this)));
-    return _this;
-  }
-
-  Object(createClass["a" /* default */])(SkuDetails, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      var _this2 = this;
-
-      var _this$state4 = this.state,
-          availabilityUrl = _this$state4.availabilityUrl,
-          custPriceApiDisabled = _this$state4.custPriceApiDisabled,
-          isGlobal = _this$state4.isGlobal,
-          pricingUrl = _this$state4.pricingUrl,
-          skuNumber = _this$state4.skuNumber,
-          userCountry = _this$state4.userCountry;
-
-      if (!isGlobal) {
-        if (loginStatus["a" /* default */].state()) {
-          var userInfo = Object(userFunctions["a" /* callCustomerPriceApi */])(custPriceApiDisabled);
-
-          if (Object.keys(userInfo).length > 0 && userInfo.callCustApi) {
-            this.setState({
-              userInfo: userInfo
-            }, function () {
-              _this2.getCustPricing(pricingUrl, skuNumber, userInfo, _this2.props.price);
-            });
-          } else {
-            this.setState({
-              loading: false
-            });
-          }
-        } else {
-          this.setState({
-            loading: false
-          });
-        }
-
-        Object(sku_details_services["b" /* getAvailability */])(availabilityUrl, userCountry, skuNumber).then(function (response) {
-          _this2.setState({
-            skuAvailability: response,
-            modalInfo: Object(objectSpread["a" /* default */])({}, _this2.props.config.modalInfo, {
-              textHeading: _this2.props.skuNumber,
-              text: _this2.props.titleText
-            }),
-            analyticsConfig: Object(objectSpread["a" /* default */])({}, _this2.state.analyticsConfig, response)
-          });
-        })["catch"](function (err) {
-          // Add Error Object to State
-          _this2.setState({
-            errorObjAvailability: err
-          });
-        });
-      }
-
-      window.addEventListener('scroll', this.handleScroll);
-    }
-  }, {
-    key: "componentWillUnmount",
-    value: function componentWillUnmount() {
-      window.removeEventListener('scroll', this.handleScroll);
-    } // Determines, cmp-sku-details--sticky class is added or not in the DOM
-
-  }, {
-    key: "render",
-    value: function render() {
-      if (this.state.isEProcurementUserRestricted) {
-        return this.renderEProcurementUserRestricted();
-      } else if (!this.state.listPrice || this.state.isGlobal) {
-        return this.renderCountryRestricted();
-      } else if (this.state.discontinued) {
-        return this.renderDiscontinued();
-      } else if (this.state.errorPriceType === constants["c" /* NO_PRICE_NO_ADD_TO_CART */] && !this.state.isStickyAvailable) {
-        return this.renderSkuPriceErrorMsg();
-      } else {
-        return this.renderActiveSku();
-      }
-    }
-  }]);
-
-  return SkuDetails;
-}(react_default.a.Component);
-
-sku_details_SkuDetails.defaultProps = {
-  config: {},
-  price: '',
-  countryRestricted: '',
-  skuNumber: '',
-  titleText: '',
-  discontinued: false,
-  replacementSkuCode: '',
-  replacementSkuHref: ''
-};
-/* harmony default export */ var sku_details = (sku_details_SkuDetails);
-// EXTERNAL MODULE: ./src/sku-list/index.js + 1 modules
-var sku_list = __webpack_require__(106);
+var sku_message = __webpack_require__(79);
 
 // EXTERNAL MODULE: ./src/forms/services/submit.js
-var services_submit = __webpack_require__(32);
+var services_submit = __webpack_require__(24);
 
 // EXTERNAL MODULE: ./src/detail-tiles/index.js + 1 modules
-var detail_tiles = __webpack_require__(67);
+var detail_tiles = __webpack_require__(51);
+
+// EXTERNAL MODULE: ./src/scripts/DigitalData.js
+var DigitalData = __webpack_require__(7);
+
+// EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js
+var assertThisInitialized = __webpack_require__(38);
+
+// EXTERNAL MODULE: ./node_modules/react-svg/es/react-svg.js
+var react_svg = __webpack_require__(10);
 
 // CONCATENATED MODULE: ./src/wechat/wechat-modal-body.js
 
@@ -6107,12 +763,15 @@ country_selector_CountrySelector.defaultProps = {
 };
 /* harmony default export */ var country_selector = (country_selector_CountrySelector);
 
+// EXTERNAL MODULE: ./src/scripts/loginStatus.js
+var loginStatus = __webpack_require__(9);
+
 // CONCATENATED MODULE: ./src/create-account-form/create-account-form.js
 
  // import Form from "../forms/form";
 
 var Form = react_default.a.lazy(function () {
-  return Promise.all(/* import() | forms */[__webpack_require__.e(1), __webpack_require__.e(2), __webpack_require__.e(0), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, 519));
+  return Promise.all(/* import() | forms */[__webpack_require__.e(1), __webpack_require__.e(2), __webpack_require__.e(0), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, 520));
 });
 
 
@@ -6156,40 +815,50 @@ var create_account_form_CreateAccountForm = function CreateAccountForm(_ref) {
 /* harmony default export */ var create_account_form = (create_account_form_CreateAccountForm);
 // CONCATENATED MODULE: ./src/create-account-form/index.js
 
+// EXTERNAL MODULE: ./src/utils/spinner/index.js
+var spinner = __webpack_require__(90);
+
 // CONCATENATED MODULE: ./src/index.js
 
+ // import Search from './search/index';
 
- // const Search = React.lazy(() => import(/* webpackChunkName: "searchresults" */'./search/index'));
+var Search = react_default.a.lazy(function () {
+  return Promise.all(/* import() | searchresults */[__webpack_require__.e(1), __webpack_require__.e(2), __webpack_require__.e(0), __webpack_require__.e(12)]).then(__webpack_require__.bind(null, 519));
+}); // const Search = React.lazy(() => import(/* webpackChunkName: "searchresults" */'./search/index'));
 
  // import ImageCarousel from './image-carousel';
 
 var ImageCarousel = react_default.a.lazy(function () {
-  return Promise.all(/* import() | imagegallery */[__webpack_require__.e(0), __webpack_require__.e(7)]).then(__webpack_require__.bind(null, 520));
+  return Promise.all(/* import() | imagegallery */[__webpack_require__.e(1), __webpack_require__.e(0), __webpack_require__.e(7)]).then(__webpack_require__.bind(null, 521));
 }); // import UserGreeting from './user-greetings/UserGreeting';
 
 var UserGreeting = react_default.a.lazy(function () {
-  return __webpack_require__.e(/* import() | usergreetings */ 12).then(__webpack_require__.bind(null, 517));
+  return __webpack_require__.e(/* import() | usergreetings */ 15).then(__webpack_require__.bind(null, 516));
 }); // import QuickOrder from './quick-order/QuickOrder';
 
 var QuickOrder = react_default.a.lazy(function () {
-  return __webpack_require__.e(/* import() | quickorder */ 11).then(__webpack_require__.bind(null, 522));
+  return Promise.all(/* import() | quickorder */[__webpack_require__.e(1), __webpack_require__.e(2), __webpack_require__.e(0), __webpack_require__.e(11)]).then(__webpack_require__.bind(null, 524));
 });
 
+ // import SkuDetails from './sku-details';
 
- // const SkuDetails = React.lazy(() => import(/* webpackChunkName: "skudetails" */ './sku-details'));
+var SkuDetails = react_default.a.lazy(function () {
+  return Promise.all(/* import() | skudetails */[__webpack_require__.e(1), __webpack_require__.e(2), __webpack_require__.e(0), __webpack_require__.e(13)]).then(__webpack_require__.bind(null, 517));
+}); // import SkuList from './sku-list';
 
- // const SkuList = React.lazy(() => import(/* webpackChunkName: "skulist" */ './sku-list'));
-
+var SkuList = react_default.a.lazy(function () {
+  return Promise.all(/* import() | skulist */[__webpack_require__.e(1), __webpack_require__.e(2), __webpack_require__.e(0), __webpack_require__.e(14)]).then(__webpack_require__.bind(null, 525));
+});
  // import Form from './forms/form';
 
  // import Video from './video/index';
 
 var Video = react_default.a.lazy(function () {
-  return Promise.all(/* import() | video */[__webpack_require__.e(0), __webpack_require__.e(13)]).then(__webpack_require__.bind(null, 521));
+  return Promise.all(/* import() | video */[__webpack_require__.e(1), __webpack_require__.e(0), __webpack_require__.e(16)]).then(__webpack_require__.bind(null, 522));
 }); // import Chat from './chat';
 
 var Chat = react_default.a.lazy(function () {
-  return __webpack_require__.e(/* import() | chat */ 3).then(__webpack_require__.bind(null, 523));
+  return Promise.all(/* import() | chat */[__webpack_require__.e(2), __webpack_require__.e(0), __webpack_require__.e(3)]).then(__webpack_require__.bind(null, 523));
 });
 
 
@@ -6255,7 +924,7 @@ if (spinnerContainer) {
       loading: showLoader,
       color: '#ffffff'
     };
-    react_dom_default.a.render(showLoader ? react_default.a.createElement(utils_spinner["a" /* default */], props) : null, container);
+    react_dom_default.a.render(showLoader ? react_default.a.createElement(spinner["a" /* default */], props) : null, container);
   };
 
   window.addEventListener("showLoaderEproc", function (_ref) {
@@ -6269,7 +938,7 @@ var searchAppContainer = document.getElementById('js-search-app');
 
 if (searchAppContainer) {
   var src_text = JSON.parse(document.getElementById('search-results-translations-json').innerHTML);
-  var src_filterMap = JSON.parse(document.getElementById('search-results-categories-json').innerHTML);
+  var filterMap = JSON.parse(document.getElementById('search-results-categories-json').innerHTML);
   var accountModalConfig = {};
   var baseSignInUrlString = "";
 
@@ -6281,7 +950,7 @@ if (searchAppContainer) {
   var src_data = getAuthoredDataForSearchApp(searchAppContainer);
   react_dom_default.a.render(react_default.a.createElement(react["Suspense"], {
     fallback: react_default.a.createElement("div", null, "Loading...")
-  }, react_default.a.createElement(src_search, {
+  }, react_default.a.createElement(Search, {
     defaultFacet: "category_facet:waters%253Acategory%252Fapplicationslibrary",
     searchDefaults: {
       rows: 25
@@ -6289,7 +958,7 @@ if (searchAppContainer) {
     searchServicePath: src_data.searchPath,
     searchLocale: src_data.locale,
     searchText: src_text,
-    filterMap: src_filterMap,
+    filterMap: filterMap,
     isocode: src_data.isocode,
     baseSignInUrl: baseSignInUrlString
   })), searchAppContainer);
@@ -6333,25 +1002,25 @@ if (imageGalleryContainers) {
 
 var src_skuDetailsContainer = document.querySelector('.cmp-sku-details__ecom');
 var skuDetailsConfig = JSON.parse(document.getElementById('commerce-configs-json').innerHTML);
-var src_skuData, skuDetailsListPrice;
+var skuData, skuDetailsListPrice;
 
 if (document.querySelector('.cmp-sku-details__ecom')) {
   // If a product is discontinued, the ecom class never gets added,
   // but not having a price is a valid option for some products
   // This check allows us to pass in a price of undefined without breaking the frontend
-  src_skuData = document.querySelector('.cmp-sku-details__ecom');
-  skuDetailsListPrice = src_skuData.dataset.price;
+  skuData = document.querySelector('.cmp-sku-details__ecom');
+  skuDetailsListPrice = skuData.dataset.price;
 }
 
 if (src_skuDetailsContainer) {
   var src_skuDetailsRender = function skuDetailsRender(skuDetailsContainer) {
     react_dom_default.a.render(react_default.a.createElement(react["Suspense"], {
       fallback: react_default.a.createElement("div", null, "Loading...")
-    }, react_default.a.createElement(sku_details, {
+    }, react_default.a.createElement(SkuDetails, {
       config: skuDetailsConfig,
       price: skuDetailsListPrice,
       countryRestricted: skuCountryRestricted,
-      skuNumber: src_skuNumber,
+      skuNumber: skuNumber,
       titleText: skuTitle,
       discontinued: skuDiscontinued,
       replacementSkuCode: replacementSkuCode,
@@ -6359,12 +1028,12 @@ if (src_skuDetailsContainer) {
     })), skuDetailsContainer);
   };
 
-  var src_skuNumber = src_skuData.dataset.skuCode;
-  var skuTitle = src_skuData.dataset.skuTitle;
-  var skuDiscontinued = src_skuData.dataset.discontinued;
-  var skuCountryRestricted = src_skuData.dataset.countryRestricted;
-  var replacementSkuCode = src_skuData.dataset.replacementSkuCode;
-  var replacementSkuHref = src_skuData.dataset.replacementSkuHref;
+  var skuNumber = skuData.dataset.skuCode;
+  var skuTitle = skuData.dataset.skuTitle;
+  var skuDiscontinued = skuData.dataset.discontinued;
+  var skuCountryRestricted = skuData.dataset.countryRestricted;
+  var replacementSkuCode = skuData.dataset.replacementSkuCode;
+  var replacementSkuHref = skuData.dataset.replacementSkuHref;
 
   if (skuDetailsConfig) {
     var _accountModalConfig = {};
@@ -6377,7 +1046,7 @@ if (src_skuDetailsContainer) {
   }
 
   if (loginStatus["a" /* default */].state()) {
-    var store = new stores_sessionStore["a" /* default */]();
+    var store = new sessionStore["a" /* default */]();
     waitUntilUserExists(store, src_skuDetailsContainer, src_skuDetailsRender);
   } else {
     src_skuDetailsRender(src_skuDetailsContainer);
@@ -6393,7 +1062,7 @@ if (skuListContainer) {
   var skuListTitle = skuListContainer.dataset.componenttitle ? skuListContainer.dataset.componenttitle : '';
   react_dom_default.a.render(react_default.a.createElement(react["Suspense"], {
     fallback: react_default.a.createElement("div", null, "Loading...")
-  }, react_default.a.createElement(sku_list["default"], {
+  }, react_default.a.createElement(SkuList, {
     skuConfig: skuDetailsConfig,
     data: skuListData,
     title: skuListTitle
@@ -6527,17 +1196,17 @@ if (registrationFormContainer) {
 var contactSupportFormContainer = document.getElementById('js-contact-support-form');
 
 if (contactSupportFormContainer) {
-  var src_config = JSON.parse(document.getElementById('cmp-contact-support-form').innerHTML);
-  var objData = src_config.fields.find(function (x) {
+  var config = JSON.parse(document.getElementById('cmp-contact-support-form').innerHTML);
+  var objData = config.fields.find(function (x) {
     return x.type === 'dropdown' && x.name === 'formCategoryType' && Object.keys(x).includes('defaultValue');
   });
   var src_Form = react_default.a.lazy(function () {
-    return Promise.all(/* import() | forms */[__webpack_require__.e(1), __webpack_require__.e(2), __webpack_require__.e(0), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, 519));
+    return Promise.all(/* import() | forms */[__webpack_require__.e(1), __webpack_require__.e(2), __webpack_require__.e(0), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, 520));
   });
   react_dom_default.a.render(react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement(react["Suspense"], {
     fallback: react_default.a.createElement("div", null, "Loading...")
   }, react_default.a.createElement(src_Form, {
-    config: src_config,
+    config: config,
     submitFn: services_submit["d" /* contactSupportSubmit */],
     callback: headerData.userDetailsUrl,
     isocode: DigitalData["a" /* default */].language,
@@ -6545,7 +1214,7 @@ if (contactSupportFormContainer) {
       formCategoryType: objData.defaultValue || ''
     }
   })), react_default.a.createElement(legal_link_modal_LegalLinkModal, {
-    docIcon: src_config.icons.docIcon || ''
+    docIcon: config.icons.docIcon || ''
   })), contactSupportFormContainer);
 }
 
@@ -6555,7 +1224,7 @@ if (troubleSigningInFormContainer) {
   var _config = JSON.parse(document.getElementById('js-trouble-signing-in-form').innerHTML);
 
   var _Form = react_default.a.lazy(function () {
-    return Promise.all(/* import() | forms */[__webpack_require__.e(1), __webpack_require__.e(2), __webpack_require__.e(0), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, 519));
+    return Promise.all(/* import() | forms */[__webpack_require__.e(1), __webpack_require__.e(2), __webpack_require__.e(0), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, 520));
   });
 
   react_dom_default.a.render( // replace isocode with a value supplied by AEM
@@ -6574,7 +1243,7 @@ if (chooseAccountFormContainer) {
   var _config2 = JSON.parse(document.getElementById('js-choose-account-form').innerHTML);
 
   var _Form2 = react_default.a.lazy(function () {
-    return Promise.all(/* import() | forms */[__webpack_require__.e(1), __webpack_require__.e(2), __webpack_require__.e(0), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, 519));
+    return Promise.all(/* import() | forms */[__webpack_require__.e(1), __webpack_require__.e(2), __webpack_require__.e(0), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, 520));
   });
 
   react_dom_default.a.render( // replace isocode with a value supplied by AEM
@@ -6595,7 +1264,7 @@ if (resetPasswordContainer) {
   _config3.submitEndpoint = "".concat(_config3.submitEndpoint).concat(_config3.isEproc === "true" ? '?isEproc=true' : '');
 
   var _Form3 = react_default.a.lazy(function () {
-    return Promise.all(/* import() | forms */[__webpack_require__.e(1), __webpack_require__.e(2), __webpack_require__.e(0), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, 519));
+    return Promise.all(/* import() | forms */[__webpack_require__.e(1), __webpack_require__.e(2), __webpack_require__.e(0), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, 520));
   });
 
   react_dom_default.a.render(react_default.a.createElement(react["Suspense"], {
@@ -6694,7 +1363,7 @@ if (signInFormContainer) {
   var _config9 = JSON.parse(document.getElementById("cmp-signin-form").innerHTML);
 
   var _Form4 = react_default.a.lazy(function () {
-    return Promise.all(/* import() | forms */[__webpack_require__.e(1), __webpack_require__.e(2), __webpack_require__.e(0), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, 519));
+    return Promise.all(/* import() | forms */[__webpack_require__.e(1), __webpack_require__.e(2), __webpack_require__.e(0), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, 520));
   });
 
   react_dom_default.a.render( // replace isocode with a value supplied by AEM
@@ -6712,7 +1381,7 @@ if (signInFormContainer) {
 var src_userGreetingContainer = document.getElementById("user-greetings");
 
 if (src_userGreetingContainer) {
-  var _store = new stores_sessionStore["a" /* default */]();
+  var _store = new sessionStore["a" /* default */]();
 
   waitUntilUserExists(_store, src_userGreetingContainer, userGreeting);
 } // Inject UserGreeting Component user-greetings container
@@ -6743,7 +1412,7 @@ function waitUntilUserExists(store, container, callback) {
 var quickOrderContainer = document.getElementById("quick-order");
 
 if (quickOrderContainer) {
-  var _store2 = new stores_sessionStore["a" /* default */]();
+  var _store2 = new sessionStore["a" /* default */]();
 
   waitUntilUserExists(_store2, quickOrderContainer, quickOrder);
 }
@@ -6779,10 +1448,10 @@ if (contactusContainer) {
   }), contactusContainer);
 }
 // EXTERNAL MODULE: ./node_modules/css-vars-ponyfill/dist/css-vars-ponyfill.esm.js
-var css_vars_ponyfill_esm = __webpack_require__(124);
+var css_vars_ponyfill_esm = __webpack_require__(103);
 
 // EXTERNAL MODULE: ./src/scripts/inlineSVG.js
-var inlineSVG = __webpack_require__(49);
+var inlineSVG = __webpack_require__(41);
 
 // CONCATENATED MODULE: ./src/entry.js
 
@@ -6842,511 +1511,6 @@ window.addEventListener('resize', addEllipses);
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BAD_REQUEST_CODE; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return SERVER_ERROR_CODE; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return UNAVAILABLE_PRICE_WITH_ADD_TO_CART; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return LIST_PRICE_WITH_ADD_TO_CART; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return NO_PRICE_NO_ADD_TO_CART; });
-var BAD_REQUEST_CODE = 400;
-var SERVER_ERROR_CODE = 500;
-var UNAVAILABLE_PRICE_WITH_ADD_TO_CART = 'unavailable_price_with_add-to-cart';
-var LIST_PRICE_WITH_ADD_TO_CART = 'list_price_with_add-to-cart';
-var NO_PRICE_NO_ADD_TO_CART = 'no_price_no_add-to-cart';
-
-/***/ }),
-
-/***/ 25:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, "a", function() { return /* binding */ analyticTypes; });
-__webpack_require__.d(__webpack_exports__, "f", function() { return /* binding */ setClickAnalytics; });
-__webpack_require__.d(__webpack_exports__, "g", function() { return /* binding */ setSelectDropdownAnalytics; });
-__webpack_require__.d(__webpack_exports__, "c", function() { return /* binding */ mainCartContext; });
-__webpack_require__.d(__webpack_exports__, "e", function() { return /* binding */ searchCartContext; });
-__webpack_require__.d(__webpack_exports__, "d", function() { return /* binding */ relatedCartContext; });
-__webpack_require__.d(__webpack_exports__, "h", function() { return /* binding */ shopAllCartContext; });
-
-// EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray.js + 3 modules
-var slicedToArray = __webpack_require__(20);
-
-// EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js
-var classCallCheck = __webpack_require__(6);
-
-// EXTERNAL MODULE: ./src/scripts/inlineSVG.js
-var inlineSVG = __webpack_require__(49);
-
-// EXTERNAL MODULE: ./src/scripts/DigitalData.js
-var DigitalData = __webpack_require__(17);
-
-// EXTERNAL MODULE: ./src/stores/sessionStore.js
-var sessionStore = __webpack_require__(5);
-
-// EXTERNAL MODULE: ./src/stores/cookieStore.js
-var cookieStore = __webpack_require__(42);
-
-// CONCATENATED MODULE: ./src/analytics/eventTypes.js
-var eventTypes = {
-  cart: {
-    name: 'cart',
-    event: 'scAddAEM',
-    context: ['Part Detail Page', 'Search: Global', 'Related Products', 'Shop All Products: Quick Add']
-  },
-  reOrder: {
-    name: 'reOrder',
-    event: 'scAddReorder',
-    context: 'Order History: Reorder'
-  },
-  stock: {
-    name: 'stock',
-    event: 'checkAvailability'
-  },
-  search: {
-    name: 'search',
-    event: 'search'
-  },
-  form: {
-    name: 'form',
-    registration: {
-      name: 'registrationForm',
-      load: {
-        event: 'registrationFormLoad'
-      },
-      submit: {
-        event: 'registrationFormSubmit'
-      },
-      error: {
-        event: 'registrationFormError'
-      }
-    },
-    checkEmail: {
-      name: 'checkEmailForm',
-      load: {
-        event: 'checkEmailFormLoad'
-      },
-      submit: {
-        event: 'checkEmailFormSubmit'
-      },
-      error: {
-        event: 'checkEmailFormError'
-      }
-    },
-    signin: {
-      name: 'signInForm',
-      load: {
-        event: 'signInFormLoad'
-      },
-      submit: {
-        event: 'signInFormSubmit'
-      },
-      error: {
-        event: 'signInFormError'
-      }
-    },
-    troublesigningin: {
-      name: 'troubleSignInForm',
-      load: {
-        event: 'troubleSignInFormLoad'
-      },
-      submit: {
-        event: 'troubleSignInFormSubmit'
-      },
-      error: {
-        event: 'troubleSignInFormError'
-      }
-    },
-    resetpassword: {
-      name: 'resetPasswordForm',
-      load: {
-        event: 'resetPasswordFormLoad'
-      },
-      submit: {
-        event: 'resetPasswordFormSubmit'
-      },
-      error: {
-        event: 'resetPasswordFormError'
-      }
-    },
-    updatepassword: {
-      name: 'updatePasswordForm',
-      load: {
-        event: 'legacyPasswordFormLoad'
-      },
-      submit: {
-        event: 'legacyPasswordFormSubmit'
-      },
-      error: {
-        event: 'legacyPasswordFormError'
-      }
-    },
-    changepassword: {
-      name: 'changePasswordForm',
-      load: {
-        event: 'changePasswordFormLoad'
-      },
-      submit: {
-        event: 'changePasswordFormSubmit'
-      },
-      error: {
-        event: 'changePasswordFormError'
-      }
-    },
-    personaldetails: {
-      name: 'personalDetailsForm',
-      load: {
-        event: 'personalDetailsFormLoad'
-      },
-      submit: {
-        event: 'personalDetailsFormSubmit'
-      },
-      error: {
-        event: 'personalDetailsFormError'
-      }
-    },
-    contactsupport: {
-      name: 'contactSupportForm',
-      load: {
-        event: 'contactSupportFormLoad'
-      },
-      submit: {
-        event: 'contactSupportFormSubmit'
-      },
-      error: {
-        event: 'contactSupportFormError'
-      }
-    }
-  },
-  linkClick: {
-    name: 'linkClick',
-    event: 'linkClick'
-  },
-  selectDropDown: {
-    name: 'selectDropDown',
-    event: 'selectDropDown'
-  },
-  orderHistory: {
-    name: 'orderHistory',
-    load: {
-      event: 'orderHistoryPageLoad'
-    },
-    error: {
-      event: 'orderHistoryError'
-    }
-  },
-  orderDetails: {
-    name: 'orderDetails',
-    load: {
-      event: 'orderDetailsPageLoad'
-    },
-    error: {
-      event: 'orderDetailsPageError'
-    }
-  },
-  quoteHistory: {
-    name: 'quoteHistory',
-    load: {
-      event: 'quoteHistoryPageLoad'
-    },
-    error: {
-      event: 'quoteHistoryError'
-    }
-  },
-  quoteDetails: {
-    name: 'quoteDetails',
-    load: {
-      event: 'quoteDetailsPageLoad'
-    },
-    error: {
-      event: 'quoteDetailsPageError'
-    }
-  }
-};
-/* harmony default export */ var analytics_eventTypes = (eventTypes);
-// CONCATENATED MODULE: ./src/analytics/index.js
-
-
-
-
-
-
-
-
-var analytics_Analytics = function Analytics() {
-  var _this = this;
-
-  Object(classCallCheck["a" /* default */])(this, Analytics);
-
-  this.setAnalytics = function (eventType, model) {
-    var thisAnalyticEvent = null;
-
-    if (eventType === 'form') {
-      if (model.formName === 'resetpassword' && model.formType && model.formType === 'update') {
-        model.formName = 'updatepassword';
-      }
-
-      if (model.formName !== 'chooseAccount') {
-        thisAnalyticEvent = _this.analyticTypes[eventType][model.formName][model.event];
-      }
-    } else if (eventType === 'orderHistory' || eventType === 'orderDetails') {
-      thisAnalyticEvent = _this.analyticTypes[eventType][model.event];
-    } else {
-      thisAnalyticEvent = _this.analyticTypes[eventType];
-    }
-
-    if (thisAnalyticEvent) {
-      var newModel = _this.buildModel(eventType, model);
-
-      if (newModel) {
-        _this.dispatchEvent(thisAnalyticEvent.event, newModel);
-      }
-    }
-  };
-
-  this.setClickAnalytics = function (menuLocation, linkName, href) {
-    var model = {
-      detail: {
-        url: href,
-        menuLocation: menuLocation,
-        key: 'LinkName',
-        value: linkName
-      }
-    };
-
-    _this.setAnalytics(_this.analyticTypes['linkClick'].name, model);
-  };
-
-  this.setSelectDropdownAnalytics = function (key, value) {
-    var model = {
-      detail: {
-        key: key,
-        value: value
-      }
-    };
-
-    _this.setAnalytics(_this.analyticTypes['selectDropDown'].name, model);
-  };
-
-  this.buildModel = function (name, model) {
-    var returnModel = null;
-
-    switch (name) {
-      case "stock":
-      case "cart":
-        returnModel = _this.mapCartAndStockModel(model);
-        break;
-
-      case "search":
-        returnModel = _this.mapSearchModel(model);
-        break;
-
-      case "form":
-        returnModel = _this.mapFormModel(model);
-        break;
-
-      default:
-        returnModel = model;
-        break;
-    }
-
-    return returnModel;
-  };
-
-  this.getUserData = function (model) {
-    var userLoggedIn = cookieStore["a" /* default */].getLoggedInStatus();
-    var store = new sessionStore["a" /* default */]();
-    var userDetails = store.getUserDetails();
-    model.page = DigitalData["a" /* default */].page ? DigitalData["a" /* default */].page : {};
-    model.detail.userLoggedIn = cookieStore["a" /* default */].getLoggedInStatus() ? "yes" : "no";
-
-    if (userDetails) {
-      model.detail.userID = userDetails.userId;
-    }
-
-    return model;
-  };
-
-  this.mapFormModel = function (model) {
-    model.event = _this.analyticTypes['form'][model.formName][model.event]['event'];
-    model.formName = _this.analyticTypes['form'][model.formName]['name'];
-    return model;
-  };
-
-  this.mapCartAndStockModel = function (model) {
-    return {
-      detail: {
-        products: [model]
-      }
-    };
-  };
-
-  this.mapSearchModel = function (model) {
-    if (!model) {
-      return {};
-    }
-
-    var category = model.category ? model.category : '';
-    var contentType = model.content_type ? model.content_type : '';
-    var facetsObj = model.facets ? model.facets : {};
-    var facets = Object.entries(facetsObj).map(function (item) {
-      return {
-        name: item[0],
-        values: item[1]
-      };
-    });
-    return {
-      detail: {
-        search: {
-          category: category,
-          contentType: contentType,
-          facets: facets,
-          totalResults: model.total
-        }
-      }
-    };
-  };
-
-  this.dispatchEvent = function (eventName, model) {
-    model = _this.getUserData(model); // Uncomment next two lines to test analytics
-    // console.log(eventName, model);
-    // alert(eventName);
-
-    document.dispatchEvent(new CustomEvent(eventName, model));
-  };
-
-  this.siteLoad = function () {
-    document.addEventListener('at-library-loaded', function (event) {
-      if (typeof adobe != 'undefined') {
-        document.addEventListener(adobe.target.event.CONTENT_RENDERING_SUCCEEDED, function (event) {
-          inlineSVG["a" /* default */].init('img.inline-svg', 'svg-inlined');
-        });
-      }
-    });
-  };
-
-  this.analyticTypes = analytics_eventTypes;
-};
-
-var analytics = new analytics_Analytics();
-/* harmony default export */ var src_analytics = __webpack_exports__["b"] = (analytics);
-var analyticTypes = analytics.analyticTypes;
-var setClickAnalytics = analytics.setClickAnalytics;
-var setSelectDropdownAnalytics = analytics.setSelectDropdownAnalytics;
-
-var _analytics$analyticTy = Object(slicedToArray["a" /* default */])(analytics.analyticTypes.cart.context, 4),
-    mainCartContext = _analytics$analyticTy[0],
-    searchCartContext = _analytics$analyticTy[1],
-    relatedCartContext = _analytics$analyticTy[2],
-    shopAllCartContext = _analytics$analyticTy[3];
-
-
-
-/***/ }),
-
-/***/ 31:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(8);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(11);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(12);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(13);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(0);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var react_svg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(3);
-
-
-
-
-
-
-
-
-var SkuMessage = /*#__PURE__*/function (_React$Component) {
-  Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])(SkuMessage, _React$Component);
-
-  function SkuMessage(props) {
-    var _this;
-
-    Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(this, SkuMessage);
-
-    _this = Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(this, Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(SkuMessage).call(this, props));
-
-    _this.renderLink = function (_ref) {
-      var label = _ref.label,
-          title = _ref.title,
-          url = _ref.url,
-          blank = _ref.blank;
-      return react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("a", {
-        href: url,
-        target: blank ? "_blank" : "",
-        rel: "noopener",
-        title: title
-      }, label);
-    };
-
-    _this.renderText = function (_ref2) {
-      var text = _ref2.text;
-      return text;
-    };
-
-    _this.displayError = function () {
-      return react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_5___default.a.Fragment, null, Array.isArray(_this.props.message) && _this.props.message.length > 0 && _this.props.message.map(function (block, index) {
-        var itemToRender = block.type === 'link' ? _this.renderLink(block) : _this.renderText(block);
-        var space = '';
-
-        if (block.rightSpace !== 'false' || typeof block.rightSpace == 'undefined') {
-          space = ' ';
-        }
-
-        return react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_5___default.a.Fragment, {
-          key: index
-        }, itemToRender, space);
-      }));
-    };
-
-    _this.displaySkuMsg = function () {
-      return react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_5___default.a.Fragment, null, _this.props.message, _this.props.linkMessage && _this.props.link && react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("a", {
-        href: _this.props.link
-      }, _this.props.linkMessage));
-    };
-
-    return _this;
-  }
-
-  Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(SkuMessage, [{
-    key: "render",
-    value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("div", {
-        className: "cmp-notification-wrapper ".concat(Array.isArray(this.props.message) ? 'sku-error-code' : ''),
-        "data-locator": "sku-msg-notification-wrapper"
-      }, react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(react_svg__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"], {
-        src: this.props.icon,
-        className: "cmp-notification-icon",
-        "data-locator": "sku-msg-notification-icon"
-      }), react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("div", {
-        className: "cmp-notification-body",
-        "data-locator": "sku-msg-notification-body"
-      }, react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("div", {
-        className: "cmp-notification-description",
-        "data-locator": "sku-msg-notification-description"
-      }, Array.isArray(this.props.message) ? this.displayError() : this.displaySkuMsg())));
-    }
-  }]);
-
-  return SkuMessage;
-}(react__WEBPACK_IMPORTED_MODULE_5___default.a.Component);
-
-/* harmony default export */ __webpack_exports__["a"] = (SkuMessage);
-
-/***/ }),
-
-/***/ 32:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return registrationSubmit; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return checkEmailResetPasswordSubmit; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return troubleSigningInSubmit; });
@@ -7357,18 +1521,18 @@ var SkuMessage = /*#__PURE__*/function (_React$Component) {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return chooseAccountSubmit; });
 /* unused harmony export submitAccount */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return contactSupportSubmit; });
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
+/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
 /* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
-/* harmony import */ var _scripts_scrollTo__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(35);
+/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3);
+/* harmony import */ var _scripts_scrollTo__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(27);
 /* harmony import */ var _scripts_scrollTo__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_scripts_scrollTo__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var query_string__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(28);
+/* harmony import */ var query_string__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(60);
 /* harmony import */ var query_string__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(query_string__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _stores_sessionStore__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(5);
-/* harmony import */ var _scripts_DigitalData__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(17);
-/* harmony import */ var _my_account_services_UserDetails__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(41);
-/* harmony import */ var _utils_redirectFunctions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(27);
-/* harmony import */ var _utils_userFunctions__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(7);
+/* harmony import */ var _stores_sessionStore__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(2);
+/* harmony import */ var _scripts_DigitalData__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(7);
+/* harmony import */ var _my_account_services_UserDetails__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(29);
+/* harmony import */ var _utils_redirectFunctions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(14);
+/* harmony import */ var _utils_userFunctions__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(15);
 
 
 
@@ -8267,340 +2431,15 @@ function _contactSupportSubmit() {
 
 /***/ }),
 
-/***/ 36:
+/***/ 29:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return addToCart; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return getAvailability; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return getPricing; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return matchListItems; });
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
+/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
 /* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
-/* harmony import */ var whatwg_fetch__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(43);
-/* harmony import */ var _stores_localStore__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(56);
-/* harmony import */ var _scripts_loginStatus__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(10);
-/* harmony import */ var _utils_serviceFunctions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(63);
-/* harmony import */ var _utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(7);
-
-
-
-
-
-
-
-
-
-var availabilityUrlRequest = function availabilityUrlRequest(url, countryCode, partNo) {
-  url = url.replace('{partnumber}', partNo).replace('{countryCode}', Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* isEprocurementUser */ "p"])() ? Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* getEprocUserCountryCode */ "h"])().toUpperCase() : countryCode);
-  return url;
-};
-
-var priceUrlRequest = function priceUrlRequest(endpoint, sku, soldToId, salesOrg) {
-  var url;
-  return url = "".concat(endpoint, "?productNumber=").concat(sku, "&customerNumber=").concat(soldToId, "&salesOrg=").concat(salesOrg);
-};
-
-var legacyAddToCartUrlRequest = function legacyAddToCartUrlRequest(url, partNo, quantity) {
-  url = url.replace('{partnumber}', partNo).replace('{quantity}', quantity);
-  return url;
-};
-
-var addToCartUrlRequest = function addToCartUrlRequest(url, partNo, quantity, cartId) {
-  var userId = Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* getUserId */ "o"])();
-  userId = userId !== '' ? userId : 'anonymous';
-  url = url.replace('{localeCountry}', Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* isEprocurementUser */ "p"])() ? Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* getEprocUserCountryCode */ "h"])().toLowerCase() : Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* getCountryCode */ "e"])()).replace('{localeLanguage}', Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* isEprocurementUser */ "p"])() ? Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* getEprocUserLanguage */ "i"])().toLowerCase() : Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* getLanguage */ "m"])()).replace('{userType}', userId).replace('{guid}', cartId ? cartId : 'null').concat('', '?successWithCart=true');
-  url = cartId ? url : url.concat('', "&createCart=".concat(!Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* isEprocurementUser */ "p"])()));
-  return url;
-};
-
-function addToCart(_x, _x2, _x3, _x4, _x5) {
-  return _addToCart.apply(this, arguments);
-}
-
-function _addToCart() {
-  _addToCart = Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(isCommerceApiMigrated, url, partNo, quantity, throwError) {
-    var products, options, localStore, cartId, urlRequest, response, json, _json, _options, _urlRequest, _response, _json2;
-
-    return C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            if (!(isCommerceApiMigrated === 'true' || isCommerceApiMigrated === true)) {
-              _context.next = 36;
-              break;
-            }
-
-            // Check if partNo is a single product or an array of products
-            products = '';
-
-            if (Array.isArray(partNo)) {
-              products = {
-                products: partNo
-              };
-            } else {
-              products = {
-                products: [{
-                  code: partNo,
-                  quantity: quantity
-                }]
-              };
-            }
-
-            options = {
-              method: 'POST',
-              credentials: 'include',
-              mode: 'cors',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify(products)
-            };
-            localStore = new _stores_localStore__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"]();
-            cartId = _scripts_loginStatus__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"].state() ? localStore.getCartId() : localStore.getGUID();
-            urlRequest = addToCartUrlRequest(url, partNo, quantity, cartId);
-            _context.next = 9;
-            return Object(_utils_serviceFunctions__WEBPACK_IMPORTED_MODULE_5__[/* fetchData */ "a"])(urlRequest, options, throwError);
-
-          case 9:
-            response = _context.sent;
-
-            if (!(response.status === 200)) {
-              _context.next = 18;
-              break;
-            }
-
-            _context.next = 13;
-            return response.json();
-
-          case 13:
-            json = _context.sent;
-
-            if (!cartId && json) {
-              _scripts_loginStatus__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"].state() && json.cart.code && localStore.setCartId(json.cart.code);
-              !_scripts_loginStatus__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"].state() && json.cart.guid && localStore.setGUID(json.cart.guid);
-            }
-
-            return _context.abrupt("return", json);
-
-          case 18:
-            if (!(response.status === 400)) {
-              _context.next = 32;
-              break;
-            }
-
-            _context.next = 21;
-            return response.json();
-
-          case 21:
-            _json = _context.sent;
-
-            if (!(_json && _json.errors && _json.errors.length && _json.errors[0].type === 'CartError')) {
-              _context.next = 28;
-              break;
-            }
-
-            _scripts_loginStatus__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"].state() && cartId && localStore.removeCartId();
-            !_scripts_loginStatus__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"].state() && cartId && localStore.removeGUID();
-            addToCart(isCommerceApiMigrated, url, partNo, quantity, throwError);
-            _context.next = 30;
-            break;
-
-          case 28:
-            throwError({
-              status: 500,
-              ok: false
-            });
-            return _context.abrupt("return", response.status);
-
-          case 30:
-            _context.next = 34;
-            break;
-
-          case 32:
-            throwError({
-              status: 500,
-              ok: false
-            });
-            return _context.abrupt("return", response.status);
-
-          case 34:
-            _context.next = 45;
-            break;
-
-          case 36:
-            _options = {
-              method: 'POST',
-              credentials: 'include',
-              body: JSON.stringify({
-                partNumbers: partNo,
-                quantity: quantity
-              })
-            };
-            _urlRequest = legacyAddToCartUrlRequest(url, partNo, quantity);
-            _context.next = 40;
-            return Object(_utils_serviceFunctions__WEBPACK_IMPORTED_MODULE_5__[/* fetchData */ "a"])(_urlRequest, _options, throwError);
-
-          case 40:
-            _response = _context.sent;
-            _context.next = 43;
-            return _response.json();
-
-          case 43:
-            _json2 = _context.sent;
-            return _context.abrupt("return", _json2);
-
-          case 45:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  }));
-  return _addToCart.apply(this, arguments);
-}
-
-function getAvailability(_x6, _x7, _x8) {
-  return _getAvailability.apply(this, arguments);
-}
-
-function _getAvailability() {
-  _getAvailability = Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(url, countryCode, partNo) {
-    var options, urlRequest, response, json;
-    return C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
-      while (1) {
-        switch (_context2.prev = _context2.next) {
-          case 0:
-            options = {
-              method: 'GET',
-              credentials: 'include'
-            };
-            urlRequest = availabilityUrlRequest(url, countryCode, partNo);
-            _context2.next = 4;
-            return Object(_utils_serviceFunctions__WEBPACK_IMPORTED_MODULE_5__[/* fetchData */ "a"])(urlRequest, options);
-
-          case 4:
-            response = _context2.sent;
-            _context2.next = 7;
-            return response.json();
-
-          case 7:
-            json = _context2.sent;
-            return _context2.abrupt("return", json);
-
-          case 9:
-          case "end":
-            return _context2.stop();
-        }
-      }
-    }, _callee2);
-  }));
-  return _getAvailability.apply(this, arguments);
-}
-
-function getPricing(_x9, _x10, _x11, _x12) {
-  return _getPricing.apply(this, arguments);
-}
-
-function _getPricing() {
-  _getPricing = Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(url, sku, soldToId, salesOrg) {
-    var options, urlRequest, response, json;
-    return C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
-      while (1) {
-        switch (_context3.prev = _context3.next) {
-          case 0:
-            if (Array.isArray(sku)) {
-              sku = sku.map(function (skuItem) {
-                return skuItem.code;
-              }).join(',');
-            }
-
-            options = {
-              method: 'GET',
-              credentials: 'include',
-              mode: 'cors'
-            };
-            urlRequest = priceUrlRequest(url, sku, soldToId, salesOrg);
-            _context3.next = 5;
-            return Object(_utils_serviceFunctions__WEBPACK_IMPORTED_MODULE_5__[/* fetchData */ "a"])(urlRequest, options);
-
-          case 5:
-            response = _context3.sent;
-            _context3.next = 8;
-            return response.json();
-
-          case 8:
-            json = _context3.sent;
-
-            if (response.status === 200) {
-              json.status = 200;
-            } else {
-              json.status = response.status;
-            }
-
-            return _context3.abrupt("return", json);
-
-          case 11:
-          case "end":
-            return _context3.stop();
-        }
-      }
-    }, _callee3);
-  }));
-  return _getPricing.apply(this, arguments);
-}
-
-var matchListItems = function matchListItems(skuListData, pricesAPIResults) {
-  var skuListItem = {
-    code: skuListData
-  };
-
-  for (var i = 0; i < pricesAPIResults.length; i++) {
-    if (skuListItem.code === pricesAPIResults[i].productNumber) {
-      skuListItem.custPrice = pricesAPIResults[i].netPrice.formattedValue;
-      skuListItem.custValue = pricesAPIResults[i].netPrice.value;
-      skuListItem.listPrice = pricesAPIResults[i].basePrice.formattedValue;
-      skuListItem.listValue = pricesAPIResults[i].basePrice.value;
-      skuListItem.currencyCode = pricesAPIResults[i].netPrice.currencyCode;
-    }
-  }
-
-  return skuListItem;
-};
-
-/***/ }),
-
-/***/ 383:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _styles_print_page_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(384);
-/* harmony import */ var _styles_print_page_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_styles_print_page_scss__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _entry__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(151);
-// Print Breaking CSS File
-
-
-
-/***/ }),
-
-/***/ 384:
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-
-/***/ }),
-
-/***/ 41:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
-/* harmony import */ var whatwg_fetch__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(43);
-/* harmony import */ var _utils_redirectFunctions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(27);
+/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3);
+/* harmony import */ var whatwg_fetch__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(37);
+/* harmony import */ var _utils_redirectFunctions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(14);
 
 
 
@@ -8704,242 +2543,37 @@ var UserDetails = /*#__PURE__*/function () {
 
 /***/ }),
 
-/***/ 51:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(8);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(11);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(12);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(13);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(0);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_5__);
-
-
-
-
-
-
-
-var ErrorBoundary = /*#__PURE__*/function (_React$Component) {
-  Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])(ErrorBoundary, _React$Component);
-
-  function ErrorBoundary(props) {
-    var _this;
-
-    Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(this, ErrorBoundary);
-
-    _this = Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(this, Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(ErrorBoundary).call(this, props));
-    _this.state = {
-      hasError: false,
-      hasErrored: false
-    };
-    return _this;
-  }
-
-  Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(ErrorBoundary, [{
-    key: "resetErrorBoundaryToFalse",
-    value: function resetErrorBoundaryToFalse() {
-      this.setState({
-        hasError: false
-      });
-    }
-  }, {
-    key: "removeNotifications",
-    value: function removeNotifications() {
-      this.setState({
-        hasError: false,
-        hasErrored: false
-      });
-      var notifications = document.querySelectorAll('.cmp-notification--dynamic[class*=cmp-notification--]');
-      Array.from(notifications).forEach(function (notification) {
-        if (notification) {
-          notification.classList.remove('error');
-        }
-      });
-    }
-  }, {
-    key: "setErrorBoundaryToTrue",
-    value: function setErrorBoundaryToTrue(response) {
-      var status = response.hasOwnProperty('code') ? response.code : "";
-      var notification = document.querySelector('.cmp-notification--dynamic.cmp-notification--error' + status);
-
-      if (notification) {
-        notification.classList.add('error');
-      }
-
-      this.setState({
-        hasError: true,
-        hasErrored: true
-      });
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_5___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_5___default.a.cloneElement(this.props.children, {
-        hasError: this.state.hasError,
-        hasErrored: this.state.hasErrored,
-        resetErrorBoundaryToFalse: this.resetErrorBoundaryToFalse.bind(this),
-        setErrorBoundaryToTrue: this.setErrorBoundaryToTrue.bind(this),
-        removeNotifications: this.removeNotifications.bind(this)
-      }));
-    }
-  }]);
-
-  return ErrorBoundary;
-}(react__WEBPACK_IMPORTED_MODULE_5___default.a.Component);
-
-/* harmony default export */ __webpack_exports__["a"] = (ErrorBoundary);
-
-/***/ }),
-
-/***/ 54:
+/***/ 298:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(9);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(20);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(0);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _scripts_ErrorMessages__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(55);
-/* harmony import */ var _utils_modal__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(19);
-/* harmony import */ var _utils_eCommerceFunctions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(23);
+/* harmony import */ var _styles_print_page_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(299);
+/* harmony import */ var _styles_print_page_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_styles_print_page_scss__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _entry__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(133);
+// Print Breaking CSS File
 
 
-
-
-
-
-var keys = {
-  AddToCartPrefix: 'cmp-atc-modal',
-  InfoTextWrapper: "cmp-atc-modal__information",
-  TextHeading: "cmp-atc-modal__information-header",
-  Text: "cmp-atc-modal__information-text",
-  ErrorText: "cmp-atc-modal__information-text error",
-  ButtonWrapper: 'cmp-atc-modal__btn',
-  AltButton: "cmp-button cmp-atc-modal__btn-alt",
-  MainButton: "cmp-button cmp-atc-modal__btn-main",
-  FullWidthButton: "cmp-button--fullWidth"
-};
-
-var AddToCartModalBody = function AddToCartModalBody(props) {
-  var errorObjCart = props.errorObjCart;
-
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])(Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({}, props.config)),
-      _useState2 = Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(_useState, 1),
-      state = _useState2[0];
-
-  var _useContext = Object(react__WEBPACK_IMPORTED_MODULE_2__["useContext"])(_utils_modal__WEBPACK_IMPORTED_MODULE_4__[/* useModalApi */ "d"]),
-      onClose = _useContext.onClose;
-
-  var text = state.text,
-      textHeading = state.textHeading,
-      partNumberLabel = state.partNumberLabel,
-      buttons = state.buttons,
-      isOrderDetails = state.isOrderDetails;
-
-  var InfoTextWrapper = function InfoTextWrapper(props) {
-    if (!isOrderDetails) {
-      if (!text || !textHeading) return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null);
-    } else {
-      if (!text) return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null);
-    }
-
-    return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
-      className: keys.InfoTextWrapper
-    }, props.children);
-  };
-
-  var TextHeading = function TextHeading() {
-    if (!textHeading) return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null);
-    return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
-      className: keys.TextHeading
-    }, partNumberLabel, "\xA0", textHeading);
-  };
-
-  var Text = function Text(props) {
-    if (!props.text) return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null);
-    return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
-      className: props.className,
-      "data-locator": "modal-information-text"
-    }, props.text);
-  };
-
-  var buttonType = function buttonType(btn) {
-    if (btn.action === 'close') {
-      if (!onClose) return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null);
-      return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("button", {
-        onClick: function onClick() {
-          return onClose();
-        },
-        className: keys.AltButton,
-        "data-locator": Object(_utils_eCommerceFunctions__WEBPACK_IMPORTED_MODULE_5__[/* elementLocator */ "a"])(btn.text),
-        "aria-label": btn.text
-      }, btn.text);
-    } else if (btn.action.indexOf('://') >= 0 || btn.action.indexOf('.com') >= 0) {
-      return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("a", Object.assign({
-        href: btn.action,
-        className: keys.MainButton,
-        target: btn.target || ''
-      }, btn.callback && {
-        onClick: function onClick(e) {
-          return btn.callback(e);
-        }
-      }, {
-        "data-locator": Object(_utils_eCommerceFunctions__WEBPACK_IMPORTED_MODULE_5__[/* elementLocator */ "a"])(btn.text),
-        role: "button",
-        "aria-label": btn.text
-      }), btn.text);
-    }
-  };
-
-  var Buttons = function Buttons() {
-    if (!buttons) return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null);
-    return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
-      className: keys.ButtonWrapper
-    }, buttons.map(function (btn, index) {
-      return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
-        className: keys.FullWidthButton,
-        key: "modal-btn-".concat(index),
-        "data-locator": "modal-btn-".concat(index)
-      }, btn.text ? buttonType(btn) : null);
-    }));
-  };
-
-  var Error = function Error() {
-    return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(InfoTextWrapper, null, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Text, {
-      className: keys.ErrorText,
-      text: _scripts_ErrorMessages__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"].ErrorMessages(errorObjCart).wereSorry
-    }));
-  };
-
-  var Body = function Body() {
-    return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(InfoTextWrapper, null, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(TextHeading, null), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Text, {
-      className: keys.Text,
-      text: text
-    })), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Buttons, null));
-  };
-
-  return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, errorObjCart && errorObjCart.ok === false ? react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Error, null) : react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Body, null));
-};
-
-AddToCartModalBody.whyDidYouRender = true;
-/* harmony default export */ __webpack_exports__["default"] = (AddToCartModalBody);
 
 /***/ }),
 
-/***/ 57:
+/***/ 299:
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
+/***/ 39:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
+/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
 /* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
-/* harmony import */ var _scripts_loginStatus__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(10);
-/* harmony import */ var _stores_sessionStore__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(5);
-/* harmony import */ var _services_UserDetails__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(41);
+/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3);
+/* harmony import */ var _scripts_loginStatus__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(9);
+/* harmony import */ var _stores_sessionStore__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(2);
+/* harmony import */ var _services_UserDetails__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(29);
 
 
 
@@ -9027,26 +2661,116 @@ AddToCartModalBody.whyDidYouRender = true;
 
 /***/ }),
 
-/***/ 66:
+/***/ 49:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(13);
+/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(17);
+/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(20);
+/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(21);
+/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(22);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(0);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_5__);
+
+
+
+
+
+
+
+var ErrorBoundary = /*#__PURE__*/function (_React$Component) {
+  Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])(ErrorBoundary, _React$Component);
+
+  function ErrorBoundary(props) {
+    var _this;
+
+    Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(this, ErrorBoundary);
+
+    _this = Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(this, Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(ErrorBoundary).call(this, props));
+    _this.state = {
+      hasError: false,
+      hasErrored: false
+    };
+    return _this;
+  }
+
+  Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(ErrorBoundary, [{
+    key: "resetErrorBoundaryToFalse",
+    value: function resetErrorBoundaryToFalse() {
+      this.setState({
+        hasError: false
+      });
+    }
+  }, {
+    key: "removeNotifications",
+    value: function removeNotifications() {
+      this.setState({
+        hasError: false,
+        hasErrored: false
+      });
+      var notifications = document.querySelectorAll('.cmp-notification--dynamic[class*=cmp-notification--]');
+      Array.from(notifications).forEach(function (notification) {
+        if (notification) {
+          notification.classList.remove('error');
+        }
+      });
+    }
+  }, {
+    key: "setErrorBoundaryToTrue",
+    value: function setErrorBoundaryToTrue(response) {
+      var status = response.hasOwnProperty('code') ? response.code : "";
+      var notification = document.querySelector('.cmp-notification--dynamic.cmp-notification--error' + status);
+
+      if (notification) {
+        notification.classList.add('error');
+      }
+
+      this.setState({
+        hasError: true,
+        hasErrored: true
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_5___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_5___default.a.cloneElement(this.props.children, {
+        hasError: this.state.hasError,
+        hasErrored: this.state.hasErrored,
+        resetErrorBoundaryToFalse: this.resetErrorBoundaryToFalse.bind(this),
+        setErrorBoundaryToTrue: this.setErrorBoundaryToTrue.bind(this),
+        removeNotifications: this.removeNotifications.bind(this)
+      }));
+    }
+  }]);
+
+  return ErrorBoundary;
+}(react__WEBPACK_IMPORTED_MODULE_5___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["a"] = (ErrorBoundary);
+
+/***/ }),
+
+/***/ 50:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/regenerator/index.js
-var regenerator = __webpack_require__(2);
+var regenerator = __webpack_require__(1);
 var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
-var asyncToGenerator = __webpack_require__(4);
+var asyncToGenerator = __webpack_require__(3);
 
 // EXTERNAL MODULE: ./src/scripts/loginStatus.js
-var loginStatus = __webpack_require__(10);
+var loginStatus = __webpack_require__(9);
 
 // EXTERNAL MODULE: ./src/stores/sessionStore.js
-var stores_sessionStore = __webpack_require__(5);
+var stores_sessionStore = __webpack_require__(2);
 
 // EXTERNAL MODULE: ./node_modules/whatwg-fetch/fetch.js
-var whatwg_fetch_fetch = __webpack_require__(43);
+var whatwg_fetch_fetch = __webpack_require__(37);
 
 // CONCATENATED MODULE: ./src/my-account/services/SoldToDetails.js
 
@@ -9152,7 +2876,7 @@ var SoldToDetails = /*#__PURE__*/function () {
 
 /* harmony default export */ var services_SoldToDetails = (SoldToDetails);
 // EXTERNAL MODULE: ./src/scripts/domElements.js
-var domElements = __webpack_require__(22);
+var domElements = __webpack_require__(19);
 
 // EXTERNAL MODULE: ./src/utils/eCommerceFunctions.js
 var eCommerceFunctions = __webpack_require__(23);
@@ -9262,7 +2986,7 @@ var eCommerceFunctions = __webpack_require__(23);
 
 /***/ }),
 
-/***/ 67:
+/***/ 51:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9272,16 +2996,16 @@ var react = __webpack_require__(0);
 var react_default = /*#__PURE__*/__webpack_require__.n(react);
 
 // EXTERNAL MODULE: ./node_modules/react-svg/es/react-svg.js
-var react_svg = __webpack_require__(3);
+var react_svg = __webpack_require__(10);
 
 // EXTERNAL MODULE: ./src/search/ErrorBoundary.js
-var ErrorBoundary = __webpack_require__(51);
+var ErrorBoundary = __webpack_require__(49);
 
 // EXTERNAL MODULE: ./src/detail-tiles/hooks/useProfile.js
-var useProfile = __webpack_require__(103);
+var useProfile = __webpack_require__(88);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray.js + 3 modules
-var slicedToArray = __webpack_require__(20);
+var slicedToArray = __webpack_require__(8);
 
 // CONCATENATED MODULE: ./src/detail-tiles/views/tile.js
 
@@ -9289,7 +3013,7 @@ var slicedToArray = __webpack_require__(20);
  // import Form from '../../forms/form';
 
 var Form = react_default.a.lazy(function () {
-  return Promise.all(/* import() | forms */[__webpack_require__.e(1), __webpack_require__.e(2), __webpack_require__.e(0), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, 519));
+  return Promise.all(/* import() | forms */[__webpack_require__.e(1), __webpack_require__.e(2), __webpack_require__.e(0), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, 520));
 });
 
 var tile_Tile = function Tile(_ref) {
@@ -9420,10 +3144,10 @@ var tile_Tile = function Tile(_ref) {
 
 /* harmony default export */ var views_tile = (tile_Tile);
 // EXTERNAL MODULE: ./src/forms/services/submit.js
-var services_submit = __webpack_require__(32);
+var services_submit = __webpack_require__(24);
 
 // EXTERNAL MODULE: ./src/utils/userFunctions.js
-var userFunctions = __webpack_require__(7);
+var userFunctions = __webpack_require__(15);
 
 // CONCATENATED MODULE: ./src/detail-tiles/index.js
 
@@ -9601,62 +3325,143 @@ var detail_tiles_DetailTiles = function DetailTiles(_ref) {
 
 /***/ }),
 
-/***/ 76:
+/***/ 53:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(8);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(11);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(12);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(13);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(0);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(16);
+/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(8);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(0);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _scripts_ErrorMessages__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(71);
+/* harmony import */ var _utils_modal__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(11);
+/* harmony import */ var _utils_eCommerceFunctions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(23);
 
 
 
 
 
 
-
-var Price = /*#__PURE__*/function (_React$Component) {
-  Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])(Price, _React$Component);
-
-  function Price(props) {
-    Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(this, Price);
-
-    return Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(this, Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(Price).call(this, props));
-  }
-
-  Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(Price, [{
-    key: "render",
-    value: function render() {
-      var priceLabelClass = this.props.isListPrice === true ? "cmp-sku-list__list-price-label" : "cmp-sku-list__cust-price-label";
-      return react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_5___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("div", {
-        className: priceLabelClass,
-        "data-locator": "sku-price-label",
-        "aria-label": this.props.label
-      }, this.props.label), this.props.price && react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("div", {
-        className: "cmp-sku__price",
-        "data-locator": "sku-price",
-        "aria-label": this.props.price
-      }, this.props.price));
-    }
-  }]);
-
-  return Price;
-}(react__WEBPACK_IMPORTED_MODULE_5___default.a.Component);
-
-Price.defaultProps = {
-  label: '',
-  price: ''
+var keys = {
+  AddToCartPrefix: 'cmp-atc-modal',
+  InfoTextWrapper: "cmp-atc-modal__information",
+  TextHeading: "cmp-atc-modal__information-header",
+  Text: "cmp-atc-modal__information-text",
+  ErrorText: "cmp-atc-modal__information-text error",
+  ButtonWrapper: 'cmp-atc-modal__btn',
+  AltButton: "cmp-button cmp-atc-modal__btn-alt",
+  MainButton: "cmp-button cmp-atc-modal__btn-main",
+  FullWidthButton: "cmp-button--fullWidth"
 };
-/* harmony default export */ __webpack_exports__["default"] = (Price);
+
+var AddToCartModalBody = function AddToCartModalBody(props) {
+  var errorObjCart = props.errorObjCart;
+
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])(Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({}, props.config)),
+      _useState2 = Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(_useState, 1),
+      state = _useState2[0];
+
+  var _useContext = Object(react__WEBPACK_IMPORTED_MODULE_2__["useContext"])(_utils_modal__WEBPACK_IMPORTED_MODULE_4__[/* useModalApi */ "d"]),
+      onClose = _useContext.onClose;
+
+  var text = state.text,
+      textHeading = state.textHeading,
+      partNumberLabel = state.partNumberLabel,
+      buttons = state.buttons,
+      isOrderDetails = state.isOrderDetails;
+
+  var InfoTextWrapper = function InfoTextWrapper(props) {
+    if (!isOrderDetails) {
+      if (!text || !textHeading) return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null);
+    } else {
+      if (!text) return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null);
+    }
+
+    return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+      className: keys.InfoTextWrapper
+    }, props.children);
+  };
+
+  var TextHeading = function TextHeading() {
+    if (!textHeading) return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null);
+    return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+      className: keys.TextHeading
+    }, partNumberLabel, "\xA0", textHeading);
+  };
+
+  var Text = function Text(props) {
+    if (!props.text) return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null);
+    return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+      className: props.className,
+      "data-locator": "modal-information-text"
+    }, props.text);
+  };
+
+  var buttonType = function buttonType(btn) {
+    if (btn.action === 'close') {
+      if (!onClose) return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null);
+      return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("button", {
+        onClick: function onClick() {
+          return onClose();
+        },
+        className: keys.AltButton,
+        "data-locator": Object(_utils_eCommerceFunctions__WEBPACK_IMPORTED_MODULE_5__[/* elementLocator */ "a"])(btn.text),
+        "aria-label": btn.text
+      }, btn.text);
+    } else if (btn.action.indexOf('://') >= 0 || btn.action.indexOf('.com') >= 0) {
+      return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("a", Object.assign({
+        href: btn.action,
+        className: keys.MainButton,
+        target: btn.target || ''
+      }, btn.callback && {
+        onClick: function onClick(e) {
+          return btn.callback(e);
+        }
+      }, {
+        "data-locator": Object(_utils_eCommerceFunctions__WEBPACK_IMPORTED_MODULE_5__[/* elementLocator */ "a"])(btn.text),
+        role: "button",
+        "aria-label": btn.text
+      }), btn.text);
+    }
+  };
+
+  var Buttons = function Buttons() {
+    if (!buttons) return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null);
+    return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+      className: keys.ButtonWrapper
+    }, buttons.map(function (btn, index) {
+      return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+        className: keys.FullWidthButton,
+        key: "modal-btn-".concat(index),
+        "data-locator": "modal-btn-".concat(index)
+      }, btn.text ? buttonType(btn) : null);
+    }));
+  };
+
+  var Error = function Error() {
+    return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(InfoTextWrapper, null, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Text, {
+      className: keys.ErrorText,
+      text: _scripts_ErrorMessages__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"].ErrorMessages(errorObjCart).wereSorry
+    }));
+  };
+
+  var Body = function Body() {
+    return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(InfoTextWrapper, null, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(TextHeading, null), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Text, {
+      className: keys.Text,
+      text: text
+    })), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Buttons, null));
+  };
+
+  return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, errorObjCart && errorObjCart.ok === false ? react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Error, null) : react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Body, null));
+};
+
+AddToCartModalBody.whyDidYouRender = true;
+/* harmony default export */ __webpack_exports__["default"] = (AddToCartModalBody);
 
 /***/ }),
 
-/***/ 91:
+/***/ 77:
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
@@ -9664,84 +3469,179 @@ module.exports = {"colorBorderDark":"#9ca7b0","colorGray50":"#4f5b64","colorBack
 
 /***/ }),
 
-/***/ 92:
+/***/ 79:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _scripts_fade_x_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(62);
-/* harmony import */ var _utils_eCommerceFunctions_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(23);
+/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(13);
+/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(17);
+/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(20);
+/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(21);
+/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(22);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(0);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var react_svg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(10);
 
 
 
 
-var Tabs = function Tabs(_ref) {
-  var className = _ref.className,
-      items = _ref.items,
-      activeIndex = _ref.activeIndex,
-      onClick = _ref.onClick,
-      enableFading = _ref.enableFading;
-  var tabsRef = react__WEBPACK_IMPORTED_MODULE_0___default.a.useRef();
-  react__WEBPACK_IMPORTED_MODULE_0___default.a.useEffect(function () {
-    var tabFader;
 
-    if (enableFading && items.length !== 0) {
-      tabFader = Object(_scripts_fade_x_js__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])('cmp-tabs', 0, 100);
-      tabsRef.current.addEventListener('scroll', tabFader);
-    }
 
-    return function () {
-      tabsRef.current.removeEventListener('scroll', tabFader);
+
+
+var SkuMessage = /*#__PURE__*/function (_React$Component) {
+  Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])(SkuMessage, _React$Component);
+
+  function SkuMessage(props) {
+    var _this;
+
+    Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(this, SkuMessage);
+
+    _this = Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(this, Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(SkuMessage).call(this, props));
+
+    _this.renderLink = function (_ref) {
+      var label = _ref.label,
+          title = _ref.title,
+          url = _ref.url,
+          blank = _ref.blank;
+      return react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("a", {
+        href: url,
+        target: blank ? "_blank" : "",
+        rel: "noopener",
+        title: title
+      }, label);
     };
-  }, []);
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "cmp-tabs-wrapper"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    ref: tabsRef,
-    className: "cmp-tabs ".concat(className)
-  }, items.map(function (item, index) {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Tab, {
-      key: "CategoryTab-".concat(index),
-      name: item.name,
-      index: index,
-      isActive: index === activeIndex,
-      onClick: onClick
-    });
-  })));
-};
 
-Tabs.defaultProps = {
-  className: "",
-  items: [],
-  activeIndex: -1,
-  onClick: function onClick() {},
-  enableFading: false
-};
+    _this.renderText = function (_ref2) {
+      var text = _ref2.text;
+      return text;
+    };
 
-var Tab = function Tab(_ref2) {
-  var index = _ref2.index,
-      name = _ref2.name,
-      isActive = _ref2.isActive,
-      _onClick = _ref2.onClick;
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "cmp-tabs__tab".concat(isActive ? " active" : ""),
-    onClick: function onClick() {
-      return _onClick(index);
+    _this.displayError = function () {
+      return react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_5___default.a.Fragment, null, Array.isArray(_this.props.message) && _this.props.message.length > 0 && _this.props.message.map(function (block, index) {
+        var itemToRender = block.type === 'link' ? _this.renderLink(block) : _this.renderText(block);
+        var space = '';
+
+        if (block.rightSpace !== 'false' || typeof block.rightSpace == 'undefined') {
+          space = ' ';
+        }
+
+        return react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_5___default.a.Fragment, {
+          key: index
+        }, itemToRender, space);
+      }));
+    };
+
+    _this.displaySkuMsg = function () {
+      return react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_5___default.a.Fragment, null, _this.props.message, _this.props.linkMessage && _this.props.link && react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("a", {
+        href: _this.props.link
+      }, _this.props.linkMessage));
+    };
+
+    return _this;
+  }
+
+  Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(SkuMessage, [{
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("div", {
+        className: "cmp-notification-wrapper ".concat(Array.isArray(this.props.message) ? 'sku-error-code' : ''),
+        "data-locator": "sku-msg-notification-wrapper"
+      }, react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(react_svg__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"], {
+        src: this.props.icon,
+        className: "cmp-notification-icon",
+        "data-locator": "sku-msg-notification-icon"
+      }), react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("div", {
+        className: "cmp-notification-body",
+        "data-locator": "sku-msg-notification-body"
+      }, react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("div", {
+        className: "cmp-notification-description",
+        "data-locator": "sku-msg-notification-description"
+      }, Array.isArray(this.props.message) ? this.displayError() : this.displaySkuMsg())));
     }
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-    className: "cmp-tabs__tab-label",
-    "data-locator": Object(_utils_eCommerceFunctions_js__WEBPACK_IMPORTED_MODULE_2__[/* elementLocator */ "a"])(name)
-  }, name));
-};
+  }]);
 
-Tab.defaultProps = {
-  name: "",
-  index: -1,
-  isActive: false,
-  onClick: function onClick() {}
-};
-/* harmony default export */ __webpack_exports__["a"] = (Tabs);
+  return SkuMessage;
+}(react__WEBPACK_IMPORTED_MODULE_5___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["a"] = (SkuMessage);
+
+/***/ }),
+
+/***/ 88:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(0);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _utils_generateTiles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(101);
+/* harmony import */ var _my_account_services_UserDetailsLazy__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(39);
+/* harmony import */ var _my_account_services_SoldToDetailsLazy__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(50);
+/* harmony import */ var _scripts_loginStatus__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(9);
+/* harmony import */ var _utils_redirectFunctions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(14);
+/* harmony import */ var _utils_userFunctions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(15);
+
+
+
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = (function (userDetailsUrl, soldToDetailsUrl, type, icon) {
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(),
+      _useState2 = Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(_useState, 2),
+      data = _useState2[0],
+      setData = _useState2[1];
+
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])([]),
+      _useState4 = Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(_useState3, 2),
+      tiles = _useState4[0],
+      setTiles = _useState4[1];
+
+  function getData() {
+    var checkSessionStore = false;
+    Object(_my_account_services_UserDetailsLazy__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(userDetailsUrl, checkSessionStore).then(function (userDetails) {
+      if (userDetails.phone) {
+        userDetails.phone = userDetails.phone.replace(/\D/g, '');
+      }
+
+      if (userDetails && userDetails.userId && userDetails.salesOrg) {
+        if (type !== 'password') {
+          Object(_my_account_services_SoldToDetailsLazy__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])(soldToDetailsUrl, userDetails.userId, userDetails.salesOrg).then(function (soldToDetails) {
+            var mergeAPIs = Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_7__[/* matchAddresses */ "r"])(userDetails, soldToDetails);
+            setData(mergeAPIs);
+          });
+        } else {
+          setData(userDetails);
+        }
+      }
+    });
+  }
+
+  Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
+    if (!_scripts_loginStatus__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"].state()) {
+      var isInEditMode = document.getElementById("header").hasAttribute("data-is-edit-mode");
+
+      if (!isInEditMode) {
+        Object(_utils_redirectFunctions__WEBPACK_IMPORTED_MODULE_6__[/* notLoggedInRedirect */ "c"])();
+        return null;
+      }
+    }
+  }, []);
+  Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
+    getData();
+  }, []);
+  Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
+    setTiles(Object(_utils_generateTiles__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(data, type, icon));
+  }, [data]);
+  return {
+    data: data,
+    tiles: tiles,
+    setData: setData
+  };
+});
 
 /***/ })
 

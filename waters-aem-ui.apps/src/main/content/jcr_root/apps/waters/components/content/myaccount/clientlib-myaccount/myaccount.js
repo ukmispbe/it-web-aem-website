@@ -1,5 +1,787 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[9],{
 
+/***/ 30:
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+module.exports = {"colorBorderDark":"#9ca7b0","colorGray50":"#4f5b64","colorBackgroundLight":"#f4f6f7","colorWhite":"#fff","colorBlue50":"#07b","borderRadius":"4px","spaceXXXS":".25em","spaceXXS":".5em","spaceXS":".75em","spaceS":"1em"};
+
+/***/ }),
+
+/***/ 36:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, "a", function() { return /* binding */ analyticTypes; });
+__webpack_require__.d(__webpack_exports__, "f", function() { return /* binding */ setClickAnalytics; });
+__webpack_require__.d(__webpack_exports__, "g", function() { return /* binding */ setSelectDropdownAnalytics; });
+__webpack_require__.d(__webpack_exports__, "c", function() { return /* binding */ mainCartContext; });
+__webpack_require__.d(__webpack_exports__, "e", function() { return /* binding */ searchCartContext; });
+__webpack_require__.d(__webpack_exports__, "d", function() { return /* binding */ relatedCartContext; });
+__webpack_require__.d(__webpack_exports__, "h", function() { return /* binding */ shopAllCartContext; });
+
+// EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray.js + 3 modules
+var slicedToArray = __webpack_require__(8);
+
+// EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js
+var classCallCheck = __webpack_require__(13);
+
+// EXTERNAL MODULE: ./src/scripts/inlineSVG.js
+var inlineSVG = __webpack_require__(41);
+
+// EXTERNAL MODULE: ./src/scripts/DigitalData.js
+var DigitalData = __webpack_require__(7);
+
+// EXTERNAL MODULE: ./src/stores/sessionStore.js
+var sessionStore = __webpack_require__(2);
+
+// EXTERNAL MODULE: ./src/stores/cookieStore.js
+var cookieStore = __webpack_require__(42);
+
+// CONCATENATED MODULE: ./src/analytics/eventTypes.js
+var eventTypes = {
+  cart: {
+    name: 'cart',
+    event: 'scAddAEM',
+    context: ['Part Detail Page', 'Search: Global', 'Related Products', 'Shop All Products: Quick Add']
+  },
+  reOrder: {
+    name: 'reOrder',
+    event: 'scAddReorder',
+    context: 'Order History: Reorder'
+  },
+  stock: {
+    name: 'stock',
+    event: 'checkAvailability'
+  },
+  search: {
+    name: 'search',
+    event: 'search'
+  },
+  form: {
+    name: 'form',
+    registration: {
+      name: 'registrationForm',
+      load: {
+        event: 'registrationFormLoad'
+      },
+      submit: {
+        event: 'registrationFormSubmit'
+      },
+      error: {
+        event: 'registrationFormError'
+      }
+    },
+    checkEmail: {
+      name: 'checkEmailForm',
+      load: {
+        event: 'checkEmailFormLoad'
+      },
+      submit: {
+        event: 'checkEmailFormSubmit'
+      },
+      error: {
+        event: 'checkEmailFormError'
+      }
+    },
+    signin: {
+      name: 'signInForm',
+      load: {
+        event: 'signInFormLoad'
+      },
+      submit: {
+        event: 'signInFormSubmit'
+      },
+      error: {
+        event: 'signInFormError'
+      }
+    },
+    troublesigningin: {
+      name: 'troubleSignInForm',
+      load: {
+        event: 'troubleSignInFormLoad'
+      },
+      submit: {
+        event: 'troubleSignInFormSubmit'
+      },
+      error: {
+        event: 'troubleSignInFormError'
+      }
+    },
+    resetpassword: {
+      name: 'resetPasswordForm',
+      load: {
+        event: 'resetPasswordFormLoad'
+      },
+      submit: {
+        event: 'resetPasswordFormSubmit'
+      },
+      error: {
+        event: 'resetPasswordFormError'
+      }
+    },
+    updatepassword: {
+      name: 'updatePasswordForm',
+      load: {
+        event: 'legacyPasswordFormLoad'
+      },
+      submit: {
+        event: 'legacyPasswordFormSubmit'
+      },
+      error: {
+        event: 'legacyPasswordFormError'
+      }
+    },
+    changepassword: {
+      name: 'changePasswordForm',
+      load: {
+        event: 'changePasswordFormLoad'
+      },
+      submit: {
+        event: 'changePasswordFormSubmit'
+      },
+      error: {
+        event: 'changePasswordFormError'
+      }
+    },
+    personaldetails: {
+      name: 'personalDetailsForm',
+      load: {
+        event: 'personalDetailsFormLoad'
+      },
+      submit: {
+        event: 'personalDetailsFormSubmit'
+      },
+      error: {
+        event: 'personalDetailsFormError'
+      }
+    },
+    contactsupport: {
+      name: 'contactSupportForm',
+      load: {
+        event: 'contactSupportFormLoad'
+      },
+      submit: {
+        event: 'contactSupportFormSubmit'
+      },
+      error: {
+        event: 'contactSupportFormError'
+      }
+    }
+  },
+  linkClick: {
+    name: 'linkClick',
+    event: 'linkClick'
+  },
+  selectDropDown: {
+    name: 'selectDropDown',
+    event: 'selectDropDown'
+  },
+  orderHistory: {
+    name: 'orderHistory',
+    load: {
+      event: 'orderHistoryPageLoad'
+    },
+    error: {
+      event: 'orderHistoryError'
+    }
+  },
+  orderDetails: {
+    name: 'orderDetails',
+    load: {
+      event: 'orderDetailsPageLoad'
+    },
+    error: {
+      event: 'orderDetailsPageError'
+    }
+  },
+  quoteHistory: {
+    name: 'quoteHistory',
+    load: {
+      event: 'quoteHistoryPageLoad'
+    },
+    error: {
+      event: 'quoteHistoryError'
+    }
+  },
+  quoteDetails: {
+    name: 'quoteDetails',
+    load: {
+      event: 'quoteDetailsPageLoad'
+    },
+    error: {
+      event: 'quoteDetailsPageError'
+    }
+  }
+};
+/* harmony default export */ var analytics_eventTypes = (eventTypes);
+// CONCATENATED MODULE: ./src/analytics/index.js
+
+
+
+
+
+
+
+
+var analytics_Analytics = function Analytics() {
+  var _this = this;
+
+  Object(classCallCheck["a" /* default */])(this, Analytics);
+
+  this.setAnalytics = function (eventType, model) {
+    var thisAnalyticEvent = null;
+
+    if (eventType === 'form') {
+      if (model.formName === 'resetpassword' && model.formType && model.formType === 'update') {
+        model.formName = 'updatepassword';
+      }
+
+      if (model.formName !== 'chooseAccount') {
+        thisAnalyticEvent = _this.analyticTypes[eventType][model.formName][model.event];
+      }
+    } else if (eventType === 'orderHistory' || eventType === 'orderDetails') {
+      thisAnalyticEvent = _this.analyticTypes[eventType][model.event];
+    } else {
+      thisAnalyticEvent = _this.analyticTypes[eventType];
+    }
+
+    if (thisAnalyticEvent) {
+      var newModel = _this.buildModel(eventType, model);
+
+      if (newModel) {
+        _this.dispatchEvent(thisAnalyticEvent.event, newModel);
+      }
+    }
+  };
+
+  this.setClickAnalytics = function (menuLocation, linkName, href) {
+    var model = {
+      detail: {
+        url: href,
+        menuLocation: menuLocation,
+        key: 'LinkName',
+        value: linkName
+      }
+    };
+
+    _this.setAnalytics(_this.analyticTypes['linkClick'].name, model);
+  };
+
+  this.setSelectDropdownAnalytics = function (key, value) {
+    var model = {
+      detail: {
+        key: key,
+        value: value
+      }
+    };
+
+    _this.setAnalytics(_this.analyticTypes['selectDropDown'].name, model);
+  };
+
+  this.buildModel = function (name, model) {
+    var returnModel = null;
+
+    switch (name) {
+      case "stock":
+      case "cart":
+        returnModel = _this.mapCartAndStockModel(model);
+        break;
+
+      case "search":
+        returnModel = _this.mapSearchModel(model);
+        break;
+
+      case "form":
+        returnModel = _this.mapFormModel(model);
+        break;
+
+      default:
+        returnModel = model;
+        break;
+    }
+
+    return returnModel;
+  };
+
+  this.getUserData = function (model) {
+    var userLoggedIn = cookieStore["a" /* default */].getLoggedInStatus();
+    var store = new sessionStore["a" /* default */]();
+    var userDetails = store.getUserDetails();
+    model.page = DigitalData["a" /* default */].page ? DigitalData["a" /* default */].page : {};
+    model.detail.userLoggedIn = cookieStore["a" /* default */].getLoggedInStatus() ? "yes" : "no";
+
+    if (userDetails) {
+      model.detail.userID = userDetails.userId;
+    }
+
+    return model;
+  };
+
+  this.mapFormModel = function (model) {
+    model.event = _this.analyticTypes['form'][model.formName][model.event]['event'];
+    model.formName = _this.analyticTypes['form'][model.formName]['name'];
+    return model;
+  };
+
+  this.mapCartAndStockModel = function (model) {
+    return {
+      detail: {
+        products: [model]
+      }
+    };
+  };
+
+  this.mapSearchModel = function (model) {
+    if (!model) {
+      return {};
+    }
+
+    var category = model.category ? model.category : '';
+    var contentType = model.content_type ? model.content_type : '';
+    var facetsObj = model.facets ? model.facets : {};
+    var facets = Object.entries(facetsObj).map(function (item) {
+      return {
+        name: item[0],
+        values: item[1]
+      };
+    });
+    return {
+      detail: {
+        search: {
+          category: category,
+          contentType: contentType,
+          facets: facets,
+          totalResults: model.total
+        }
+      }
+    };
+  };
+
+  this.dispatchEvent = function (eventName, model) {
+    model = _this.getUserData(model); // Uncomment next two lines to test analytics
+    // console.log(eventName, model);
+    // alert(eventName);
+
+    document.dispatchEvent(new CustomEvent(eventName, model));
+  };
+
+  this.siteLoad = function () {
+    document.addEventListener('at-library-loaded', function (event) {
+      if (typeof adobe != 'undefined') {
+        document.addEventListener(adobe.target.event.CONTENT_RENDERING_SUCCEEDED, function (event) {
+          inlineSVG["a" /* default */].init('img.inline-svg', 'svg-inlined');
+        });
+      }
+    });
+  };
+
+  this.analyticTypes = analytics_eventTypes;
+};
+
+var analytics = new analytics_Analytics();
+/* harmony default export */ var src_analytics = __webpack_exports__["b"] = (analytics);
+var analyticTypes = analytics.analyticTypes;
+var setClickAnalytics = analytics.setClickAnalytics;
+var setSelectDropdownAnalytics = analytics.setSelectDropdownAnalytics;
+
+var _analytics$analyticTy = Object(slicedToArray["a" /* default */])(analytics.analyticTypes.cart.context, 4),
+    mainCartContext = _analytics$analyticTy[0],
+    searchCartContext = _analytics$analyticTy[1],
+    relatedCartContext = _analytics$analyticTy[2],
+    shopAllCartContext = _analytics$analyticTy[3];
+
+
+
+/***/ }),
+
+/***/ 508:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return addToCart; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return getAvailability; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return getPricing; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return matchListItems; });
+/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3);
+/* harmony import */ var whatwg_fetch__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(37);
+/* harmony import */ var _stores_localStore__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(109);
+/* harmony import */ var _scripts_loginStatus__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(9);
+/* harmony import */ var _utils_serviceFunctions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(481);
+/* harmony import */ var _utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(15);
+
+
+
+
+
+
+
+
+
+var availabilityUrlRequest = function availabilityUrlRequest(url, countryCode, partNo) {
+  url = url.replace('{partnumber}', partNo).replace('{countryCode}', Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* isEprocurementUser */ "p"])() ? Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* getEprocUserCountryCode */ "h"])().toUpperCase() : countryCode);
+  return url;
+};
+
+var priceUrlRequest = function priceUrlRequest(endpoint, sku, soldToId, salesOrg) {
+  var url;
+  return url = "".concat(endpoint, "?productNumber=").concat(sku, "&customerNumber=").concat(soldToId, "&salesOrg=").concat(salesOrg);
+};
+
+var legacyAddToCartUrlRequest = function legacyAddToCartUrlRequest(url, partNo, quantity) {
+  url = url.replace('{partnumber}', partNo).replace('{quantity}', quantity);
+  return url;
+};
+
+var addToCartUrlRequest = function addToCartUrlRequest(url, partNo, quantity, cartId) {
+  var userId = Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* getUserId */ "o"])();
+  userId = userId !== '' ? userId : 'anonymous';
+  url = url.replace('{localeCountry}', Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* isEprocurementUser */ "p"])() ? Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* getEprocUserCountryCode */ "h"])().toLowerCase() : Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* getCountryCode */ "e"])()).replace('{localeLanguage}', Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* isEprocurementUser */ "p"])() ? Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* getEprocUserLanguage */ "i"])().toLowerCase() : Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* getLanguage */ "m"])()).replace('{userType}', userId).replace('{guid}', cartId ? cartId : 'null').concat('', '?successWithCart=true');
+  url = cartId ? url : url.concat('', "&createCart=".concat(!Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* isEprocurementUser */ "p"])()));
+  return url;
+};
+
+function addToCart(_x, _x2, _x3, _x4, _x5) {
+  return _addToCart.apply(this, arguments);
+}
+
+function _addToCart() {
+  _addToCart = Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(isCommerceApiMigrated, url, partNo, quantity, throwError) {
+    var products, options, localStore, cartId, urlRequest, response, json, _json, _options, _urlRequest, _response, _json2;
+
+    return C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            if (!(isCommerceApiMigrated === 'true' || isCommerceApiMigrated === true)) {
+              _context.next = 36;
+              break;
+            }
+
+            // Check if partNo is a single product or an array of products
+            products = '';
+
+            if (Array.isArray(partNo)) {
+              products = {
+                products: partNo
+              };
+            } else {
+              products = {
+                products: [{
+                  code: partNo,
+                  quantity: quantity
+                }]
+              };
+            }
+
+            options = {
+              method: 'POST',
+              credentials: 'include',
+              mode: 'cors',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(products)
+            };
+            localStore = new _stores_localStore__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"]();
+            cartId = _scripts_loginStatus__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"].state() ? localStore.getCartId() : localStore.getGUID();
+            urlRequest = addToCartUrlRequest(url, partNo, quantity, cartId);
+            _context.next = 9;
+            return Object(_utils_serviceFunctions__WEBPACK_IMPORTED_MODULE_5__[/* fetchData */ "a"])(urlRequest, options, throwError);
+
+          case 9:
+            response = _context.sent;
+
+            if (!(response.status === 200)) {
+              _context.next = 18;
+              break;
+            }
+
+            _context.next = 13;
+            return response.json();
+
+          case 13:
+            json = _context.sent;
+
+            if (!cartId && json) {
+              _scripts_loginStatus__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"].state() && json.cart.code && localStore.setCartId(json.cart.code);
+              !_scripts_loginStatus__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"].state() && json.cart.guid && localStore.setGUID(json.cart.guid);
+            }
+
+            return _context.abrupt("return", json);
+
+          case 18:
+            if (!(response.status === 400)) {
+              _context.next = 32;
+              break;
+            }
+
+            _context.next = 21;
+            return response.json();
+
+          case 21:
+            _json = _context.sent;
+
+            if (!(_json && _json.errors && _json.errors.length && _json.errors[0].type === 'CartError')) {
+              _context.next = 28;
+              break;
+            }
+
+            _scripts_loginStatus__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"].state() && cartId && localStore.removeCartId();
+            !_scripts_loginStatus__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"].state() && cartId && localStore.removeGUID();
+            addToCart(isCommerceApiMigrated, url, partNo, quantity, throwError);
+            _context.next = 30;
+            break;
+
+          case 28:
+            throwError({
+              status: 500,
+              ok: false
+            });
+            return _context.abrupt("return", response.status);
+
+          case 30:
+            _context.next = 34;
+            break;
+
+          case 32:
+            throwError({
+              status: 500,
+              ok: false
+            });
+            return _context.abrupt("return", response.status);
+
+          case 34:
+            _context.next = 45;
+            break;
+
+          case 36:
+            _options = {
+              method: 'POST',
+              credentials: 'include',
+              body: JSON.stringify({
+                partNumbers: partNo,
+                quantity: quantity
+              })
+            };
+            _urlRequest = legacyAddToCartUrlRequest(url, partNo, quantity);
+            _context.next = 40;
+            return Object(_utils_serviceFunctions__WEBPACK_IMPORTED_MODULE_5__[/* fetchData */ "a"])(_urlRequest, _options, throwError);
+
+          case 40:
+            _response = _context.sent;
+            _context.next = 43;
+            return _response.json();
+
+          case 43:
+            _json2 = _context.sent;
+            return _context.abrupt("return", _json2);
+
+          case 45:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+  return _addToCart.apply(this, arguments);
+}
+
+function getAvailability(_x6, _x7, _x8) {
+  return _getAvailability.apply(this, arguments);
+}
+
+function _getAvailability() {
+  _getAvailability = Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(url, countryCode, partNo) {
+    var options, urlRequest, response, json;
+    return C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            options = {
+              method: 'GET',
+              credentials: 'include'
+            };
+            urlRequest = availabilityUrlRequest(url, countryCode, partNo);
+            _context2.next = 4;
+            return Object(_utils_serviceFunctions__WEBPACK_IMPORTED_MODULE_5__[/* fetchData */ "a"])(urlRequest, options);
+
+          case 4:
+            response = _context2.sent;
+            _context2.next = 7;
+            return response.json();
+
+          case 7:
+            json = _context2.sent;
+            return _context2.abrupt("return", json);
+
+          case 9:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2);
+  }));
+  return _getAvailability.apply(this, arguments);
+}
+
+function getPricing(_x9, _x10, _x11, _x12) {
+  return _getPricing.apply(this, arguments);
+}
+
+function _getPricing() {
+  _getPricing = Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(url, sku, soldToId, salesOrg) {
+    var options, urlRequest, response, json;
+    return C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            if (Array.isArray(sku)) {
+              sku = sku.map(function (skuItem) {
+                return skuItem.code;
+              }).join(',');
+            }
+
+            options = {
+              method: 'GET',
+              credentials: 'include',
+              mode: 'cors'
+            };
+            urlRequest = priceUrlRequest(url, sku, soldToId, salesOrg);
+            _context3.next = 5;
+            return Object(_utils_serviceFunctions__WEBPACK_IMPORTED_MODULE_5__[/* fetchData */ "a"])(urlRequest, options);
+
+          case 5:
+            response = _context3.sent;
+            _context3.next = 8;
+            return response.json();
+
+          case 8:
+            json = _context3.sent;
+
+            if (response.status === 200) {
+              json.status = 200;
+            } else {
+              json.status = response.status;
+            }
+
+            return _context3.abrupt("return", json);
+
+          case 11:
+          case "end":
+            return _context3.stop();
+        }
+      }
+    }, _callee3);
+  }));
+  return _getPricing.apply(this, arguments);
+}
+
+var matchListItems = function matchListItems(skuListData, pricesAPIResults) {
+  var skuListItem = {
+    code: skuListData
+  };
+
+  for (var i = 0; i < pricesAPIResults.length; i++) {
+    if (skuListItem.code === pricesAPIResults[i].productNumber) {
+      skuListItem.custPrice = pricesAPIResults[i].netPrice.formattedValue;
+      skuListItem.custValue = pricesAPIResults[i].netPrice.value;
+      skuListItem.listPrice = pricesAPIResults[i].basePrice.formattedValue;
+      skuListItem.listValue = pricesAPIResults[i].basePrice.value;
+      skuListItem.currencyCode = pricesAPIResults[i].netPrice.currencyCode;
+    }
+  }
+
+  return skuListItem;
+};
+
+/***/ }),
+
+/***/ 510:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _scripts_fade_x_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(70);
+/* harmony import */ var _utils_eCommerceFunctions_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(23);
+
+
+
+
+var Tabs = function Tabs(_ref) {
+  var className = _ref.className,
+      items = _ref.items,
+      activeIndex = _ref.activeIndex,
+      onClick = _ref.onClick,
+      enableFading = _ref.enableFading;
+  var tabsRef = react__WEBPACK_IMPORTED_MODULE_0___default.a.useRef();
+  react__WEBPACK_IMPORTED_MODULE_0___default.a.useEffect(function () {
+    var tabFader;
+
+    if (enableFading && items.length !== 0) {
+      tabFader = Object(_scripts_fade_x_js__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])('cmp-tabs', 0, 100);
+      tabsRef.current.addEventListener('scroll', tabFader);
+    }
+
+    return function () {
+      tabsRef.current.removeEventListener('scroll', tabFader);
+    };
+  }, []);
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "cmp-tabs-wrapper"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    ref: tabsRef,
+    className: "cmp-tabs ".concat(className)
+  }, items.map(function (item, index) {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Tab, {
+      key: "CategoryTab-".concat(index),
+      name: item.name,
+      index: index,
+      isActive: index === activeIndex,
+      onClick: onClick
+    });
+  })));
+};
+
+Tabs.defaultProps = {
+  className: "",
+  items: [],
+  activeIndex: -1,
+  onClick: function onClick() {},
+  enableFading: false
+};
+
+var Tab = function Tab(_ref2) {
+  var index = _ref2.index,
+      name = _ref2.name,
+      isActive = _ref2.isActive,
+      _onClick = _ref2.onClick;
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "cmp-tabs__tab".concat(isActive ? " active" : ""),
+    onClick: function onClick() {
+      return _onClick(index);
+    }
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: "cmp-tabs__tab-label",
+    "data-locator": Object(_utils_eCommerceFunctions_js__WEBPACK_IMPORTED_MODULE_2__[/* elementLocator */ "a"])(name)
+  }, name));
+};
+
+Tab.defaultProps = {
+  name: "",
+  index: -1,
+  isActive: false,
+  onClick: function onClick() {}
+};
+/* harmony default export */ __webpack_exports__["a"] = (Tabs);
+
+/***/ }),
+
 /***/ 518:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -12,13 +794,13 @@ var react = __webpack_require__(0);
 var react_default = /*#__PURE__*/__webpack_require__.n(react);
 
 // EXTERNAL MODULE: ./node_modules/react-router-dom/es/HashRouter.js
-var HashRouter = __webpack_require__(514);
+var HashRouter = __webpack_require__(505);
 
 // EXTERNAL MODULE: ./node_modules/react-router-dom/es/Switch.js + 1 modules
-var Switch = __webpack_require__(516);
+var Switch = __webpack_require__(507);
 
 // EXTERNAL MODULE: ./node_modules/react-router-dom/es/Route.js
-var Route = __webpack_require__(512);
+var Route = __webpack_require__(503);
 
 // CONCATENATED MODULE: ./src/my-account/routes.js
 /* harmony default export */ var routes = ({
@@ -58,26 +840,26 @@ var Route = __webpack_require__(512);
   }
 });
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray.js + 3 modules
-var slicedToArray = __webpack_require__(20);
+var slicedToArray = __webpack_require__(8);
 
 // EXTERNAL MODULE: ./node_modules/react-router-dom/es/Link.js
-var es_Link = __webpack_require__(513);
+var es_Link = __webpack_require__(504);
 
 // EXTERNAL MODULE: ./node_modules/react-router-dom/es/withRouter.js + 1 modules
-var withRouter = __webpack_require__(515);
+var withRouter = __webpack_require__(506);
 
 // EXTERNAL MODULE: ./src/typography/title.js
-var typography_title = __webpack_require__(498);
+var typography_title = __webpack_require__(489);
 
 // EXTERNAL MODULE: ./node_modules/react-dom/index.js
-var react_dom = __webpack_require__(18);
+var react_dom = __webpack_require__(6);
 var react_dom_default = /*#__PURE__*/__webpack_require__.n(react_dom);
 
 // EXTERNAL MODULE: ./node_modules/react-svg/es/react-svg.js
-var react_svg = __webpack_require__(3);
+var react_svg = __webpack_require__(10);
 
 // EXTERNAL MODULE: ./src/scripts/screenSizes.js
-var screenSizes = __webpack_require__(21);
+var screenSizes = __webpack_require__(12);
 
 // CONCATENATED MODULE: ./src/my-account/components/breadcrumb.js
 
@@ -161,22 +943,22 @@ var breadcrumb_Breadcrumb = function Breadcrumb(props) {
 
 /* harmony default export */ var components_breadcrumb = (breadcrumb_Breadcrumb);
 // EXTERNAL MODULE: ./src/analytics/index.js + 1 modules
-var analytics = __webpack_require__(25);
+var analytics = __webpack_require__(36);
 
 // EXTERNAL MODULE: ./src/scripts/loginStatus.js
-var loginStatus = __webpack_require__(10);
+var loginStatus = __webpack_require__(9);
 
 // EXTERNAL MODULE: ./src/utils/redirectFunctions.js
-var redirectFunctions = __webpack_require__(27);
+var redirectFunctions = __webpack_require__(14);
 
 // EXTERNAL MODULE: ./src/utils/spinner/index.js
-var spinner = __webpack_require__(52);
+var spinner = __webpack_require__(90);
 
 // EXTERNAL MODULE: ./src/utils/eCommerceFunctions.js
 var eCommerceFunctions = __webpack_require__(23);
 
 // EXTERNAL MODULE: ./src/utils/userFunctions.js
-var userFunctions = __webpack_require__(7);
+var userFunctions = __webpack_require__(15);
 
 // CONCATENATED MODULE: ./src/my-account/aside.js
 
@@ -463,16 +1245,16 @@ var myaccount_MyAccount = function MyAccount(_ref2) {
 
 /* harmony default export */ var myaccount = (myaccount_MyAccount);
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectSpread.js
-var objectSpread = __webpack_require__(9);
+var objectSpread = __webpack_require__(16);
 
 // EXTERNAL MODULE: ./src/detail-tiles/hooks/useProfile.js
-var useProfile = __webpack_require__(103);
+var useProfile = __webpack_require__(88);
 
 // EXTERNAL MODULE: ./src/detail-tiles/index.js + 1 modules
-var detail_tiles = __webpack_require__(67);
+var detail_tiles = __webpack_require__(51);
 
 // EXTERNAL MODULE: ./src/detail-tiles/utils/generateTiles.js
-var generateTiles = __webpack_require__(120);
+var generateTiles = __webpack_require__(101);
 
 // CONCATENATED MODULE: ./src/my-profile/index.js
 
@@ -567,36 +1349,36 @@ var change_password_ChangePassword = function ChangePassword(_ref) {
 
 /* harmony default export */ var change_password = (change_password_ChangePassword);
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/regenerator/index.js
-var regenerator = __webpack_require__(2);
+var regenerator = __webpack_require__(1);
 var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
-var asyncToGenerator = __webpack_require__(4);
+var asyncToGenerator = __webpack_require__(3);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js
-var classCallCheck = __webpack_require__(6);
+var classCallCheck = __webpack_require__(13);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass.js
-var createClass = __webpack_require__(8);
+var createClass = __webpack_require__(17);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js
-var possibleConstructorReturn = __webpack_require__(11);
+var possibleConstructorReturn = __webpack_require__(20);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js
-var getPrototypeOf = __webpack_require__(12);
+var getPrototypeOf = __webpack_require__(21);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits.js + 1 modules
-var inherits = __webpack_require__(13);
+var inherits = __webpack_require__(22);
 
 // EXTERNAL MODULE: ./node_modules/react-paginate/dist/react-paginate.js
-var react_paginate = __webpack_require__(111);
+var react_paginate = __webpack_require__(486);
 var react_paginate_default = /*#__PURE__*/__webpack_require__.n(react_paginate);
 
 // EXTERNAL MODULE: ./node_modules/whatwg-fetch/fetch.js
-var fetch = __webpack_require__(43);
+var fetch = __webpack_require__(37);
 
 // EXTERNAL MODULE: ./src/utils/serviceFunctions.js
-var serviceFunctions = __webpack_require__(63);
+var serviceFunctions = __webpack_require__(481);
 
 // CONCATENATED MODULE: ./src/history/history.services.js
 
@@ -790,10 +1572,10 @@ delivery_status_DeliveryStatus.defaultProps = {
 };
 /* harmony default export */ var delivery_status = (delivery_status_DeliveryStatus);
 // EXTERNAL MODULE: ./src/utils/date-formatter/index.js
-var date_formatter = __webpack_require__(495);
+var date_formatter = __webpack_require__(482);
 
 // EXTERNAL MODULE: ./src/utils/get-locale/index.js
-var get_locale = __webpack_require__(496);
+var get_locale = __webpack_require__(483);
 
 // CONCATENATED MODULE: ./src/history/components/order-list-item.js
 
@@ -898,7 +1680,7 @@ var count_header_CountHeader = function CountHeader(props) {
 
 /* harmony default export */ var count_header = (count_header_CountHeader);
 // EXTERNAL MODULE: ./src/utils/dropdown/index.js
-var dropdown = __webpack_require__(499);
+var dropdown = __webpack_require__(490);
 
 // CONCATENATED MODULE: ./src/history/components/time-period-dropdown.js
 
@@ -975,7 +1757,7 @@ var filter_dropdown_FilterDropdown = function FilterDropdown(props) {
 
 /* harmony default export */ var filter_dropdown = (filter_dropdown_FilterDropdown);
 // EXTERNAL MODULE: ./src/navigation/tabs/index.js
-var navigation_tabs = __webpack_require__(92);
+var navigation_tabs = __webpack_require__(510);
 
 // CONCATENATED MODULE: ./src/history/order-history/index.js
 
@@ -1352,10 +2134,10 @@ var order_history_OrderHistory = /*#__PURE__*/function (_Component) {
 
 /* harmony default export */ var order_history = (order_history_OrderHistory);
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 3 modules
-var toConsumableArray = __webpack_require__(78);
+var toConsumableArray = __webpack_require__(138);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js + 1 modules
-var objectWithoutProperties = __webpack_require__(503);
+var objectWithoutProperties = __webpack_require__(494);
 
 // CONCATENATED MODULE: ./src/details/details.services.js
 
@@ -1764,25 +2546,25 @@ shipment_Shipment.defaultProps = {
 };
 /* harmony default export */ var components_shipment = (shipment_Shipment);
 // EXTERNAL MODULE: ./src/utils/get-isocode/index.js
-var get_isocode = __webpack_require__(500);
+var get_isocode = __webpack_require__(491);
 
 // EXTERNAL MODULE: ./src/utils/group-by/index.js
-var group_by = __webpack_require__(501);
+var group_by = __webpack_require__(492);
 
 // EXTERNAL MODULE: ./src/search/ErrorBoundary.js
-var ErrorBoundary = __webpack_require__(51);
+var ErrorBoundary = __webpack_require__(49);
 
 // EXTERNAL MODULE: ./src/utils/modal/index.js + 1 modules
-var modal = __webpack_require__(19);
+var modal = __webpack_require__(11);
 
 // EXTERNAL MODULE: ./src/sku-details/views/addToCartModal.js
-var addToCartModal = __webpack_require__(54);
+var addToCartModal = __webpack_require__(53);
 
 // EXTERNAL MODULE: ./src/sku-details/services/index.js
-var services = __webpack_require__(36);
+var services = __webpack_require__(508);
 
 // EXTERNAL MODULE: ./src/stores/localStore.js
-var stores_localStore = __webpack_require__(56);
+var stores_localStore = __webpack_require__(109);
 
 // CONCATENATED MODULE: ./src/details/order-details/index.js
 
