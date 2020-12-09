@@ -29,7 +29,12 @@
         hasCloudconfigSupport     = page.hasCloudconfigSupport}"/>
     <sly data-sly-test.appResourcesPath=${page.appResourcesPath} data-sly-call="${headResources.favicons @ path = appResourcesPath}"/>
 
+    <!--script to add and remove opacity style-->
+    <script>
+        !function(i){var e,t,n,o,a="at-body-style";function d(){return i.getElementsByTagName("head")[0]}e=d(),t=a,n="body {opacity: 1 !important}",e&&((o=i.createElement("style")).id=t,o.innerHTML=n,e.appendChild(o)),setTimeout(function(){var e,t,n;e=d(),t=a,!e||(n=i.getElementById(t))&&e.removeChild(n)},4e3)}((window,document));
+    </script>
+
     <!--launch script-->
-    <script data-sly-test="${header.launchScript}" src="${header.launchScript}"></script>
+    <script data-sly-test="${header.launchScript}" src="${header.launchScript}" defer></script>
 
 </template>
