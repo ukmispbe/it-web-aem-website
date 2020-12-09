@@ -65,7 +65,7 @@ public class AdjustPathReferencesLiveAction implements LiveAction {
                             if (prop.isMultiple()) {
                                 adjustMultiValuedProperties(prop, destinationLanguageCode,destinationUrl);
                             } else {
-                                adjustSingleValueProperty(prop, destinationLanguageCode,destinationUrl);
+                                adjustSingleValueProperty(prop, destinationLanguageCode,destinationUrl, target);
                             }
                         }
                     }
@@ -125,7 +125,7 @@ public class AdjustPathReferencesLiveAction implements LiveAction {
         }
     }
 
-    private void adjustSingleValueProperty(final Property prop, final String destinationLanguageCode, final String destinationUrl)
+    private void adjustSingleValueProperty(final Property prop, final String destinationLanguageCode, final String destinationUrl, final Resource targetResource)
     throws RepositoryException {
         final String value = prop.getString();
 
@@ -138,13 +138,16 @@ public class AdjustPathReferencesLiveAction implements LiveAction {
             else if (shouldAdjustReferences(destinationUrl)){
                 prop.setValue(value.replace(WatersConstants.ROOT_PATH_LANGUAGE_MASTERS, WatersConstants.ORDER_ROOT_PATH));
             }
-        }
-
-        else if (shouldAdjustReferences(destinationUrl) && prop.getParent().getPath().contains("/footer/par/experiencefragment") && prop.getName().contentEquals("fragmentPath")){
+        } else if (shouldAdjustReferences(destinationUrl) && prop.getParent().getPath().contains("/footer/par/experiencefragment") && prop.getName().contentEquals("fragmentPath")){
             prop.setValue("");
-        } else if (shouldAdjustReferences(destinationUrl) && prop.getParent().getName().equalsIgnoreCase("breadcrumb") && prop.getName().contentEquals("startLevel")){
-            prop.setValue("3");
-        }
+        } else if (shouldAdjustReferences(destinationUrl) && prop.getParent().getName().equalsIgnoreCase("breadcrumb")) {
+			Node breadcrumbNode = targetResource.adaptTo(Node.class);
+			breadcrumbNode.setProperty("startLevel", "3");
+			breadcrumbNode.setProperty("disableShadowing", "true");
+		} else if (shouldAdjustReferences(destinationUrl) && prop.getParent().getName().equalsIgnoreCase("navigation")) {
+			Node navigationNode = targetResource.adaptTo(Node.class);
+			navigationNode.setProperty("disableShadowing", "true");
+		}
     }
 
     // deprecated methods
