@@ -768,7 +768,6 @@ var loginStatus = __webpack_require__(9);
 
 // CONCATENATED MODULE: ./src/create-account-form/create-account-form.js
 
- // import Form from "../forms/form";
 
 var Form = react_default.a.lazy(function () {
   return Promise.all(/* import() | forms */[__webpack_require__.e(1), __webpack_require__.e(2), __webpack_require__.e(0), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, 520));
@@ -820,49 +819,38 @@ var spinner = __webpack_require__(90);
 
 // CONCATENATED MODULE: ./src/index.js
 
- // import Search from './search/index';
 
 var Search = react_default.a.lazy(function () {
   return Promise.all(/* import() | searchresults */[__webpack_require__.e(1), __webpack_require__.e(2), __webpack_require__.e(0), __webpack_require__.e(12)]).then(__webpack_require__.bind(null, 519));
-}); // const Search = React.lazy(() => import(/* webpackChunkName: "searchresults" */'./search/index'));
-
- // import ImageCarousel from './image-carousel';
+});
 
 var ImageCarousel = react_default.a.lazy(function () {
   return Promise.all(/* import() | imagegallery */[__webpack_require__.e(1), __webpack_require__.e(0), __webpack_require__.e(7)]).then(__webpack_require__.bind(null, 521));
-}); // import UserGreeting from './user-greetings/UserGreeting';
-
+});
 var UserGreeting = react_default.a.lazy(function () {
   return __webpack_require__.e(/* import() | usergreetings */ 15).then(__webpack_require__.bind(null, 516));
-}); // import QuickOrder from './quick-order/QuickOrder';
-
+});
 var QuickOrder = react_default.a.lazy(function () {
   return Promise.all(/* import() | quickorder */[__webpack_require__.e(1), __webpack_require__.e(2), __webpack_require__.e(0), __webpack_require__.e(11)]).then(__webpack_require__.bind(null, 524));
 });
 
- // import SkuDetails from './sku-details';
 
 var SkuDetails = react_default.a.lazy(function () {
   return Promise.all(/* import() | skudetails */[__webpack_require__.e(1), __webpack_require__.e(2), __webpack_require__.e(0), __webpack_require__.e(13)]).then(__webpack_require__.bind(null, 517));
-}); // import SkuList from './sku-list';
-
+});
 var SkuList = react_default.a.lazy(function () {
   return Promise.all(/* import() | skulist */[__webpack_require__.e(1), __webpack_require__.e(2), __webpack_require__.e(0), __webpack_require__.e(14)]).then(__webpack_require__.bind(null, 525));
 });
- // import Form from './forms/form';
 
- // import Video from './video/index';
 
 var Video = react_default.a.lazy(function () {
   return Promise.all(/* import() | video */[__webpack_require__.e(1), __webpack_require__.e(0), __webpack_require__.e(16)]).then(__webpack_require__.bind(null, 522));
-}); // import Chat from './chat';
-
+});
 var Chat = react_default.a.lazy(function () {
   return Promise.all(/* import() | chat */[__webpack_require__.e(2), __webpack_require__.e(0), __webpack_require__.e(3)]).then(__webpack_require__.bind(null, 523));
 });
 
 
- // import MyAccountRouter from './my-account';
 
 var MyAccountRouter = react_default.a.lazy(function () {
   return Promise.all(/* import() | myaccount */[__webpack_require__.e(1), __webpack_require__.e(2), __webpack_require__.e(0), __webpack_require__.e(9)]).then(__webpack_require__.bind(null, 518));
@@ -3010,7 +2998,6 @@ var slicedToArray = __webpack_require__(8);
 // CONCATENATED MODULE: ./src/detail-tiles/views/tile.js
 
 
- // import Form from '../../forms/form';
 
 var Form = react_default.a.lazy(function () {
   return Promise.all(/* import() | forms */[__webpack_require__.e(1), __webpack_require__.e(2), __webpack_require__.e(0), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, 520));

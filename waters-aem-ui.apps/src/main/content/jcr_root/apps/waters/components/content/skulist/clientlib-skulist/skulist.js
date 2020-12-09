@@ -790,24 +790,19 @@ var constants = __webpack_require__(512);
 
 
 
-// import Stock from '../../sku-details/views/stock';
 var Stock = react_default.a.lazy(function () {
   return Promise.all(/* import() | skudetails */[__webpack_require__.e(1), __webpack_require__.e(2), __webpack_require__.e(0), __webpack_require__.e(13)]).then(__webpack_require__.bind(null, 513));
-}); // import Price from '../../sku-details/views/price';
-
+});
 var Price = react_default.a.lazy(function () {
   return Promise.all(/* import() | skudetails */[__webpack_require__.e(1), __webpack_require__.e(2), __webpack_require__.e(0), __webpack_require__.e(13)]).then(__webpack_require__.bind(null, 514));
-}); // import UnavailablePrice from '../../sku-details/views/unavailablePrice';
-
+});
 var UnavailablePrice = react_default.a.lazy(function () {
   return Promise.all(/* import() | skudetails */[__webpack_require__.e(1), __webpack_require__.e(2), __webpack_require__.e(0), __webpack_require__.e(13)]).then(__webpack_require__.bind(null, 515));
 });
- // import AddToCart from '../../sku-details/views/addToCart';
 
 var AddToCart = react_default.a.lazy(function () {
   return Promise.all(/* import() | skudetails */[__webpack_require__.e(1), __webpack_require__.e(2), __webpack_require__.e(0), __webpack_require__.e(13)]).then(__webpack_require__.bind(null, 511));
-}); // import AddToCartBody from '../../sku-details/views/addToCartModal';
-
+});
 var AddToCartBody = react_default.a.lazy(function () {
   return Promise.all(/* import() | skudetails */[__webpack_require__.e(1), __webpack_require__.e(2), __webpack_require__.e(0), __webpack_require__.e(13)]).then(__webpack_require__.bind(null, 53));
 });

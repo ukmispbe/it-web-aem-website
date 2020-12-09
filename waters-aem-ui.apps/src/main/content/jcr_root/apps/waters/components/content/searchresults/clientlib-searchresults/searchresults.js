@@ -2660,7 +2660,6 @@ var userFunctions = __webpack_require__(15);
 
 
 
- // import SkuList from '../sku-list';
 
 var SkuList = react_default.a.lazy(function () {
   return Promise.all(/* import() | skulist */[__webpack_require__.e(1), __webpack_require__.e(2), __webpack_require__.e(0), __webpack_require__.e(14)]).then(__webpack_require__.bind(null, 525));
