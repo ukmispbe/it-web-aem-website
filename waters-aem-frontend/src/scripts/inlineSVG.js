@@ -1,4 +1,4 @@
-import svgInline from 'inline-svg';
+import svgInline from '../utils/inline-svg/inline-svg';
 
 const inlineSVG = {
     init: (svgSelector, initClass) => { 
