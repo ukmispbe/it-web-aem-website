@@ -1,24 +1,17 @@
 import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
-// import Search from './search/index';
 const Search = React.lazy(() => import(/* webpackChunkName: "searchresults" */'./search/index'));
-// const Search = React.lazy(() => import(/* webpackChunkName: "searchresults" */'./search/index'));
 import TagCloud from './search/components/tagcloud';
-// import ImageCarousel from './image-carousel';
 const ImageCarousel = React.lazy(() => import(/* webpackChunkName: "imagegallery" */'./image-carousel'));
-// import UserGreeting from './user-greetings/UserGreeting';
 const UserGreeting = React.lazy(() => import(/* webpackChunkName: "usergreetings" */'./user-greetings/UserGreeting'));
-// import QuickOrder from './quick-order/QuickOrder';
 const QuickOrder = React.lazy(() => import(/* webpackChunkName: "quickorder" */'./quick-order/QuickOrder'));
 import LinkButton from './link-button/LinkButton';
 import LegalLinkModal from './legal-link-modal/LegalLinkModal';
 
-// import SkuDetails from './sku-details';
 const SkuDetails = React.lazy(() => import(/* webpackChunkName: "skudetails" */ './sku-details'));
-// import SkuList from './sku-list';
 const SkuList = React.lazy(() => import(/* webpackChunkName: "skulist" */ './sku-list'));
 import SkuMessage from './sku-message';
-// import Form from './forms/form';
+
 import {
     registrationSubmit,
     resetPasswordSubmit,
@@ -28,14 +21,11 @@ import {
     contactSupportSubmit
 
 } from './forms/services/submit';
-// import Video from './video/index';
 const Video = React.lazy(() => import(/* webpackChunkName: "video" */'./video/index'));
-// import Chat from './chat';
 const Chat = React.lazy(() => import(/* webpackChunkName: "chat" */'./chat'));
 import DetailTiles from './detail-tiles';
 import DigitalData from './scripts/DigitalData';
 import WeChat from './wechat';
-// import MyAccountRouter from './my-account';
 const MyAccountRouter = React.lazy(() => import(/* webpackChunkName: "myaccount" */'./my-account'));
 import CountrySelector from './country-selector';
 import SessionStore from './stores/sessionStore';

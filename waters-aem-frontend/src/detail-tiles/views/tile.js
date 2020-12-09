@@ -1,7 +1,6 @@
 import React, { Suspense, useState } from 'react';
 import ReactSVG from 'react-svg';
 
-// import Form from '../../forms/form';
 const Form = React.lazy(() => import(/* webpackChunkName: "forms" */'../../forms/form'));
 
 const Tile = ({

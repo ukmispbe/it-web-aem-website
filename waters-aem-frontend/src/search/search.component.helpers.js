@@ -19,7 +19,6 @@ import {
     ClearAllTag,
     KeywordTag,
 } from './components/filter-tags';
-// import SkuList from '../sku-list';
 const SkuList = React.lazy(() => import(/* webpackChunkName: "skulist" */'../sku-list'));
 import Results from './components/results';
 import { propTypes, defaultProps } from './search.component.props';

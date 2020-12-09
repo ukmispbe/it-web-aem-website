@@ -1,5 +1,4 @@
 import React, { Suspense, useState, useEffect } from "react";
-// import Form from "../forms/form";
 const Form = React.lazy(() => import(/* webpackChunkName: "forms" */'../forms/form'));
 import { checkEmailResetPasswordSubmit } from "../forms/services/submit";
 
