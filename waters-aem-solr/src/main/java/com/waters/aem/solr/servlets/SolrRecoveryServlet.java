@@ -86,9 +86,8 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 				LOG.info("adding path to solr index : {}, including descendants : {}", pagePath,
 						includeDescendants);
 				if((boolean) props.get("enableBatchIndexing")) {
-
 					try {
-						success = addToIndex(page, includeDescendants,forkJoinPool, (int)props.get("documentsCount"));
+						success = addToIndex(page, includeDescendants,forkJoinPool, ((Number)props.get("documentsCount")).intValue());
 					} catch (InterruptedException | ExecutionException e) {
 						LOG.error("Indexing failed due to {}",e.getMessage());
 					}
