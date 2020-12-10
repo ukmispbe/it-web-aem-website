@@ -24,7 +24,12 @@
         .cmp-category-item {
             padding-bottom: $space-xxs;
             cursor: pointer;
-
+            
+            .inactive {
+                color:  #9ca7b0;
+                cursor: default;
+            }
+            
             .cmp-radio__radio-label {
                 vertical-align: top;
             }
@@ -39,6 +44,9 @@
             div.selector {
                 display: block;
             }
+        }
+        .inactive {
+            cursor: default;
         }
     }
     .radio {
@@ -71,6 +79,9 @@
         &.disabled {
             border: $border-disabled !important;
             color: $color-disabled !important;
+            cursor: default;
+        }
+        .inactive {
             cursor: default;
         }
     }
