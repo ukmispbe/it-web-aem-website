@@ -239,7 +239,7 @@ class SearchContainer extends Component {
         !categories || !categories.facets || !categories.facets.category_facet
             ? []
             : categories.facets.category_facet
-                  .filter(category => category.count !== 0 && !!this.findFacetNameProperty(this.props.filterMap, category.value))
+                  .filter(category => !!this.findFacetNameProperty(this.props.filterMap, category.value))
                   .map(category => {
                       return {
                           translation: this.findFacetTranslationProperty(this.props.filterMap, category.value),
@@ -530,7 +530,9 @@ class SearchContainer extends Component {
             newState.facets['activeIndex'] = this.state.activeIndex;
             newState.activeFilterIndex = this.getActiveFilterIndex(this.state.contentType, newState.filterMap, newState.facets, this.state.activeIndex);
         } else {
-            newState.facets['activeIndex'] = "";
+            if (newState.facets in this.state) {
+                newState.facets['activeIndex'] = "";
+            }
         }
 
         newState.spell_check = res.hasOwnProperty('spell_check')

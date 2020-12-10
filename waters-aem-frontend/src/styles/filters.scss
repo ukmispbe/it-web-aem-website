@@ -147,8 +147,15 @@
                     svg {
                         display: block;
                     }
-                }
+                }            
             }
+            .inactive {
+                color: $color-disabled;
+                cursor: default;           
+            }
+        }
+        .inactive {
+            color: $color-disabled;
         }
         &__search {
             position: relative;

@@ -15,17 +15,27 @@ const RadioList = ({items, activeIndex, onClick}) => {
     );
 }
 
-const Radio = ({index, name, count, isActive, onClick}) => 
-    <div className={`cmp-category-item${isActive ? " active" : ""}`} onClick={() => onClick(index)}>
-        <input type="radio" role="radio" 
-        name={name} id={name} aria-labelledby={name} aria-disabled="false" 
-        aria-checked={isActive} checked={isActive} aria-required="false" class="valid" readonly="" 
-        data-locator={name} />
-        <a class="radio  valid" id={name + '_link'} >
-            <div class="selector"></div>
-        </a>
-        <span className="cmp-radio__radio-label" data-locator={elementLocator(name)}>{name} ({count})</span>
-    </div>;
+const checkIfZero = (onClick, index, count)  => {
+    if (count !== 0) {
+        onClick(index);
+    }
+}
+
+const Radio = ({index, name, count, isActive, onClick}) => {
+    return (
+        <div className={`cmp-category-item${isActive ? " active" : ""}`}  onClick={() => checkIfZero(onClick, index, count)}>
+            <input type="radio" role="radio" 
+            name={name} id={name} aria-labelledby={name} aria-disabled="false" 
+            aria-checked={isActive} checked={isActive} aria-required="false" class={`${count === 0 ? "inactive" : ""}`} readonly="" 
+            data-locator={name} />
+            <a class={`radio ${count === 0 ? "inactive" : "valid"}`} id={name + '_link'} >
+                <div class={`selector ${count === 0 ? "inactive" : ""}`}></div>
+            </a>
+            <span className={`cmp-radio__radio-label ${count === 0 ? " inactive" : ""}`} data-locator={elementLocator(name)}>{name} ({count})</span>
+        </div>
+    );
+}
+
 
 Radio.propTypes = {
     name: PropTypes.string.isRequired,
