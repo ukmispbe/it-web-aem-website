@@ -150,12 +150,12 @@
                 }            
             }
             .inactive {
-                color:#9ca7b0;
+                color: $color-disabled;
                 cursor: default;           
             }
         }
         .inactive {
-            color:#9ca7b0;
+            color: $color-disabled;
         }
         &__search {
             position: relative;
