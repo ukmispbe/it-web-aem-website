@@ -73,8 +73,10 @@ class FilterSection extends Component {
         this.setStateForItems(this.filterList('', minCharSearch, items));
     };
 
-    checkHandler(event) {
-        event.currentTarget.nextElementSibling.click();
+    checkHandler(itemCount, event) {
+        if (itemCount !== 0) {
+            event.currentTarget.nextElementSibling.click();
+        }    
     }
 
     getFacetOptions() {
@@ -96,13 +98,13 @@ class FilterSection extends Component {
             }
             return (
                 <li
-                    className="cmp-search-filters__filter__item"
+                    className={`cmp-search-filters__filter__item ${item.count === 0 ? "inactive" : ""}`}
                     key={`${item.value}#_${index}`}
                 >
                     <a
                         href="javascript:void(0)"
-                        className={'checkbox ' + (checked ? 'checked' : '')}
-                        onClick={this.checkHandler.bind(this)}
+                        className={`checkbox ${item.count === 0 ? "inactive" : ""}` + (checked ? 'checked' : '')}
+                        onClick={this.checkHandler.bind(this, item.count)}
                         data-locator="search-filters-filter-item"
                     >
                         <ReactSVG src={this.props.text.checkmarkIcon} />
@@ -121,7 +123,7 @@ class FilterSection extends Component {
                     />
                     <label htmlFor={`${this.props.name}:${item.value}`}>
                         {item.value}{' '}
-                        <span className="cmp-search-filters__filter__item__count">
+                        <span className={`cmp-search-filters__filter__item__count ${item.count === 0 ? "inactive" : ""}`}>
                             ({item.count})
                         </span>
                     </label>

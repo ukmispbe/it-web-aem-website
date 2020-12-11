@@ -149,25 +149,18 @@
 /******/
 /******/
 /******/ 	// add entry module to deferred list
-/******/ 	deferredModules.push([392,1,2,0]);
+/******/ 	deferredModules.push([396,1,2,0]);
 /******/ 	// run deferred modules when ready
 /******/ 	return checkDeferredModules();
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 101:
+/***/ 104:
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
-module.exports = {"colorBorderDark":"#9ca7b0","colorGray50":"#4f5b64","colorBackgroundLight":"#f4f6f7","colorWhite":"#fff","colorBlue50":"#07b","borderRadius":"4px","spaceXXXS":".25em","spaceXXS":".5em","spaceXS":".75em","spaceS":"1em"};
-
-/***/ }),
-
-/***/ 139:
-/***/ (function(module, exports) {
-
-/* (ignored) */
+module.exports = {"colorBorderDark":"#9ca7b0","colorGray50":"#4f5b64","colorBackgroundLight":"#f6f8f9","colorWhite":"#fff","colorBlue50":"#07b","borderRadius":"4px","spaceXXXS":".25em","spaceXXS":".5em","spaceXS":".75em","spaceS":"1em"};
 
 /***/ }),
 
@@ -186,22 +179,22 @@ __webpack_require__.d(__webpack_exports__, "d", function() { return /* binding *
 __webpack_require__.d(__webpack_exports__, "h", function() { return /* binding */ shopAllCartContext; });
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray.js + 3 modules
-var slicedToArray = __webpack_require__(10);
+var slicedToArray = __webpack_require__(6);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js
 var classCallCheck = __webpack_require__(4);
 
-// EXTERNAL MODULE: ./src/scripts/inlineSVG.js
-var inlineSVG = __webpack_require__(57);
+// EXTERNAL MODULE: ./src/scripts/inlineSVG.js + 1 modules
+var inlineSVG = __webpack_require__(58);
 
 // EXTERNAL MODULE: ./src/scripts/DigitalData.js
-var DigitalData = __webpack_require__(22);
+var DigitalData = __webpack_require__(21);
 
 // EXTERNAL MODULE: ./src/stores/sessionStore.js
 var sessionStore = __webpack_require__(15);
 
 // EXTERNAL MODULE: ./src/stores/cookieStore.js
-var cookieStore = __webpack_require__(51);
+var cookieStore = __webpack_require__(52);
 
 // CONCATENATED MODULE: ./src/analytics/eventTypes.js
 var eventTypes = {
@@ -560,15 +553,22 @@ var _analytics$analyticTy = Object(slicedToArray["a" /* default */])(analytics.a
 
 /***/ }),
 
-/***/ 140:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 143:
+/***/ (function(module, exports) {
 
-// extracted by mini-css-extract-plugin
-module.exports = {"colorBorderDark":"#9ca7b0","colorGray50":"#4f5b64","colorBackgroundLight":"#f4f6f7","colorWhite":"#fff","colorBlue50":"#07b","borderRadius":"4px","spaceXXXS":".25em","spaceXXS":".5em","spaceXS":".75em","spaceS":"1em"};
+/* (ignored) */
 
 /***/ }),
 
-/***/ 156:
+/***/ 144:
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+module.exports = {"colorBorderDark":"#9ca7b0","colorGray50":"#4f5b64","colorBackgroundLight":"#f6f8f9","colorWhite":"#fff","colorBlue50":"#07b","borderRadius":"4px","spaceXXXS":".25em","spaceXXS":".5em","spaceXS":".75em","spaceS":"1em"};
+
+/***/ }),
+
+/***/ 160:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -576,21 +576,21 @@ module.exports = {"colorBorderDark":"#9ca7b0","colorGray50":"#4f5b64","colorBack
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./src/styles/index.scss
-var styles = __webpack_require__(101);
+var styles = __webpack_require__(104);
 
 // EXTERNAL MODULE: ./node_modules/react/index.js
 var react = __webpack_require__(0);
 var react_default = /*#__PURE__*/__webpack_require__.n(react);
 
 // EXTERNAL MODULE: ./node_modules/react-dom/index.js
-var react_dom = __webpack_require__(24);
+var react_dom = __webpack_require__(23);
 var react_dom_default = /*#__PURE__*/__webpack_require__.n(react_dom);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectSpread.js
-var objectSpread = __webpack_require__(6);
+var objectSpread = __webpack_require__(10);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 3 modules
-var toConsumableArray = __webpack_require__(34);
+var toConsumableArray = __webpack_require__(35);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/regenerator/index.js
 var regenerator = __webpack_require__(2);
@@ -618,13 +618,13 @@ var getPrototypeOf = __webpack_require__(8);
 var inherits = __webpack_require__(9);
 
 // EXTERNAL MODULE: ./src/search/services/index.js
-var services = __webpack_require__(21);
+var services = __webpack_require__(20);
 
 // EXTERNAL MODULE: ./node_modules/query-string/index.js
-var query_string = __webpack_require__(28);
+var query_string = __webpack_require__(29);
 
 // EXTERNAL MODULE: ./node_modules/react-router-dom/es/withRouter.js + 1 modules
-var withRouter = __webpack_require__(497);
+var withRouter = __webpack_require__(500);
 
 // EXTERNAL MODULE: ./node_modules/react-svg/es/react-svg.js
 var react_svg = __webpack_require__(3);
@@ -639,7 +639,7 @@ var no_results_NoResults = function NoResults(_ref) {
   var forQuery = react_default.a.createElement("span", null, "for \"", react_default.a.createElement("strong", null, query), "\"");
   return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("h2", {
     className: "cmp-search__resultsCount noresults"
-  }, "Showing 0 results", ' ', " ", forQuery), react_default.a.createElement("div", {
+  }, searchText.noResultsText, " ", ' ', " ", forQuery), react_default.a.createElement("div", {
     className: "cmp-search__no-results"
   }, react_default.a.createElement(react_svg["a" /* default */], {
     className: "icon",
@@ -651,68 +651,21 @@ var no_results_NoResults = function NoResults(_ref) {
 
 /* harmony default export */ var no_results = (no_results_NoResults);
 // EXTERNAL MODULE: ./node_modules/validator/index.js
-var validator = __webpack_require__(58);
+var validator = __webpack_require__(59);
 var validator_default = /*#__PURE__*/__webpack_require__.n(validator);
 
 // EXTERNAL MODULE: ./src/scripts/domElements.js
 var domElements = __webpack_require__(25);
 
 // EXTERNAL MODULE: ./src/scripts/screenSizes.js
-var screenSizes = __webpack_require__(19);
+var screenSizes = __webpack_require__(17);
 
 // EXTERNAL MODULE: ./src/analytics/index.js + 1 modules
 var analytics = __webpack_require__(14);
 
-// EXTERNAL MODULE: ./node_modules/react-spinners/index.js
-var react_spinners = __webpack_require__(96);
+// EXTERNAL MODULE: ./src/utils/spinner/index.js
+var spinner = __webpack_require__(27);
 
-// CONCATENATED MODULE: ./src/search/components/spinner.js
-
-
-
-
-
-
-
-
-var spinner_LoadingSpinner = /*#__PURE__*/function (_Component) {
-  Object(inherits["a" /* default */])(LoadingSpinner, _Component);
-
-  function LoadingSpinner() {
-    Object(classCallCheck["a" /* default */])(this, LoadingSpinner);
-
-    return Object(possibleConstructorReturn["a" /* default */])(this, Object(getPrototypeOf["a" /* default */])(LoadingSpinner).call(this));
-  }
-
-  Object(createClass["a" /* default */])(LoadingSpinner, [{
-    key: "componentWillMount",
-    value: function componentWillMount() {
-      window.scrollTo(0, 0);
-      window.document.documentElement.classList.add('showing-spinner');
-    }
-  }, {
-    key: "componentWillUnmount",
-    value: function componentWillUnmount() {
-      window.document.documentElement.classList.remove('showing-spinner');
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      return react_default.a.createElement("div", {
-        className: "cmp-search-overlay"
-      }, react_default.a.createElement(react_spinners["ClipLoader"], {
-        sizeUnit: 'px',
-        size: 64,
-        color: '#ffffff',
-        loading: this.props.loading
-      }));
-    }
-  }]);
-
-  return LoadingSpinner;
-}(react["Component"]);
-
-/* harmony default export */ var spinner = (spinner_LoadingSpinner);
 // CONCATENATED MODULE: ./src/search/components/loading.js
 
 
@@ -726,7 +679,7 @@ var loading_Loading = function Loading(_ref) {
 
   return react_default.a.createElement("div", null, react_default.a.createElement("div", {
     className: "overlay"
-  }), react_default.a.createElement(spinner, {
+  }), react_default.a.createElement(spinner["a" /* default */], {
     loading: true
   }));
 };
@@ -889,7 +842,9 @@ var defaultProps = {
     spell_suggestion: '',
     items: [],
     isSkuList: false,
-    pagination: {}
+    pagination: {},
+    categoryOptions: [],
+    categoryValue: 0
   },
   resultsEvents: {
     onRelatedSuggestionClick: function onRelatedSuggestionClick() {},
@@ -941,7 +896,7 @@ var defaultProps = {
 };
 
 // EXTERNAL MODULE: ./node_modules/react-paginate/dist/react-paginate.js
-var react_paginate = __webpack_require__(61);
+var react_paginate = __webpack_require__(64);
 var react_paginate_default = /*#__PURE__*/__webpack_require__.n(react_paginate);
 
 // CONCATENATED MODULE: ./src/search/components/content-type-menu.js
@@ -1141,8 +1096,10 @@ var filter_section_FilterSection = /*#__PURE__*/function (_Component) {
     }
   }, {
     key: "checkHandler",
-    value: function checkHandler(event) {
-      event.currentTarget.nextElementSibling.click();
+    value: function checkHandler(itemCount, event) {
+      if (itemCount !== 0) {
+        event.currentTarget.nextElementSibling.click();
+      }
     }
   }, {
     key: "getFacetOptions",
@@ -1161,12 +1118,12 @@ var filter_section_FilterSection = /*#__PURE__*/function (_Component) {
         }
 
         return react_default.a.createElement("li", {
-          className: "cmp-search-filters__filter__item",
+          className: "cmp-search-filters__filter__item ".concat(item.count === 0 ? "inactive" : ""),
           key: "".concat(item.value, "#_").concat(index)
         }, react_default.a.createElement("a", {
           href: "javascript:void(0)",
-          className: 'checkbox ' + (checked ? 'checked' : ''),
-          onClick: _this2.checkHandler.bind(_this2),
+          className: "checkbox ".concat(item.count === 0 ? "inactive" : "") + (checked ? 'checked' : ''),
+          onClick: _this2.checkHandler.bind(_this2, item.count),
           "data-locator": "search-filters-filter-item"
         }, react_default.a.createElement(react_svg["a" /* default */], {
           src: _this2.props.text.checkmarkIcon
@@ -1180,7 +1137,7 @@ var filter_section_FilterSection = /*#__PURE__*/function (_Component) {
         }), react_default.a.createElement("label", {
           htmlFor: "".concat(_this2.props.name, ":").concat(item.value)
         }, item.value, ' ', react_default.a.createElement("span", {
-          className: "cmp-search-filters__filter__item__count"
+          className: "cmp-search-filters__filter__item__count ".concat(item.count === 0 ? "inactive" : "")
         }, "(", item.count, ")")));
       });
       return option;
@@ -1431,12 +1388,14 @@ filter_Filter.defaultProps = {
   onGroupClick: function onGroupClick() {}
 };
 /* harmony default export */ var filter = (filter_Filter);
-// EXTERNAL MODULE: ./node_modules/react-select/dist/react-select.esm.js + 1 modules
-var react_select_esm = __webpack_require__(39);
+// EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js + 1 modules
+var objectWithoutProperties = __webpack_require__(61);
 
-// EXTERNAL MODULE: ./src/styles/variables.scss
-var variables = __webpack_require__(17);
-var variables_default = /*#__PURE__*/__webpack_require__.n(variables);
+// EXTERNAL MODULE: ./node_modules/react-select/dist/react-select.esm.js + 1 modules
+var react_select_esm = __webpack_require__(48);
+
+// EXTERNAL MODULE: ./src/utils/dropdown/custom-styles.js
+var custom_styles = __webpack_require__(98);
 
 // CONCATENATED MODULE: ./src/search/components/category-dropdown.js
 
@@ -1445,70 +1404,6 @@ var variables_default = /*#__PURE__*/__webpack_require__.n(variables);
 
 
 
-/* istanbul ignore next */
-
-var customStyles = {
-  indicatorSeparator: function indicatorSeparator() {
-    return {
-      display: 'none'
-    };
-  },
-  option: function option(provided, state) {
-    return Object(objectSpread["a" /* default */])({}, provided, {
-      color: variables_default.a.colorGray50,
-      padding: '0.75em 1em',
-      backgroundColor: state.isSelected ? variables_default.a.colorBackgroundLight : variables_default.a.colorWhite,
-      cursor: !state.isSelected ? 'pointer' : 'default',
-      '&:hover': {
-        color: !state.isSelected ? variables_default.a.colorBlue50 : variables_default.a.colorGray50,
-        backgroundColor: !state.isSelected ? variables_default.a.colorWhite : variables_default.a.colorBackgroundLight
-      },
-      margin: 0
-    });
-  },
-  control: function control(provided, state) {
-    return Object(objectSpread["a" /* default */])({}, provided, {
-      'border-radius': variables_default.a.borderRadius,
-      padding: '0.3em 0.5em',
-      color: variables_default.a.colorGray50,
-      'border-color': state.isFocused ? variables_default.a.colorBorderDark : variables_default.a.colorBorderDark,
-      outline: 'none',
-      cursor: 'pointer',
-      'box-shadow': 'none',
-      '&:hover': {
-        outline: 'none',
-        color: variables_default.a.colorBlue50,
-        borderColor: variables_default.a.colorBlue50
-      }
-    });
-  },
-  singleValue: function singleValue(provided, state) {
-    return {};
-  },
-  menu: function menu(provided) {
-    return Object(objectSpread["a" /* default */])({}, provided, {
-      marginTop: 0,
-      borderRadius: 0,
-      width: 'calc(100% - 2px)',
-      marginLeft: '1px',
-      marginBottom: 0,
-      padding: 0
-    });
-  },
-  menuList: function menuList(provided) {
-    return Object(objectSpread["a" /* default */])({}, provided, {
-      paddingBottom: 0,
-      paddingTop: 0
-    });
-  }
-};
-
-var category_dropdown_DropdownIndicator = function DropdownIndicator(props) {
-  return react_default.a.createElement(react_select_esm["a" /* components */].DropdownIndicator, props, react_default.a.createElement(react_svg["a" /* default */], {
-    src: props.theme.dropdownIndicator,
-    className: "dropDownIcon"
-  }));
-};
 
 var category_dropdown_getOptions = function getOptions(options) {
   var newList = options.filter(function (item) {
@@ -1522,6 +1417,27 @@ var category_dropdown_getOptions = function getOptions(options) {
   return newList;
 };
 
+var category_dropdown_dropdownComponents = function dropdownComponents(label) {
+  var prefix = label != '' ? label + ' ' : '';
+  return {
+    SingleValue: function SingleValue(_ref) {
+      var children = _ref.children,
+          props = Object(objectWithoutProperties["a" /* default */])(_ref, ["children"]);
+
+      return react_default.a.createElement(react_select_esm["a" /* components */].SingleValue, props, prefix + children);
+    },
+    DropdownIndicator: function DropdownIndicator(_ref2) {
+      var children = _ref2.children,
+          props = Object(objectWithoutProperties["a" /* default */])(_ref2, ["children"]);
+
+      return react_default.a.createElement(react_select_esm["a" /* components */].DropdownIndicator, props, react_default.a.createElement(react_svg["a" /* default */], {
+        src: props.theme.dropdownIndicator,
+        className: "dropDownIcon"
+      }));
+    }
+  };
+};
+
 var category_dropdown_CategoryDropdown = function CategoryDropdown(props) {
   var options = category_dropdown_getOptions(props.categoryOptions);
 
@@ -1533,12 +1449,10 @@ var category_dropdown_CategoryDropdown = function CategoryDropdown(props) {
       value: options[props.categoryValue],
       onChange: props.categoryOnChange,
       isSearchable: props.categoryIsSearchable,
-      styles: customStyles,
+      styles: custom_styles["a" /* default */],
       placeholder: props.categoryPlaceholder,
       classNamePrefix: 'cmp-custom-dropdown',
-      components: {
-        DropdownIndicator: category_dropdown_DropdownIndicator
-      },
+      components: category_dropdown_dropdownComponents(props.categoryLabelPrefix),
       theme: {
         dropdownIndicator: props.categoryDownIcon
       }
@@ -1551,6 +1465,7 @@ var category_dropdown_CategoryDropdown = function CategoryDropdown(props) {
 category_dropdown_CategoryDropdown.defaultProps = {
   categoryOptions: [],
   categoryOnChange: function categoryOnChange() {},
+  categoryLabelPrefix: '',
   categoryIsSearchable: false,
   categoryPlaceholder: '',
   categoryDownIcon: '',
@@ -1603,7 +1518,7 @@ var btn_hide_sort_filter_HideSortFilter = /*#__PURE__*/function (_Component) {
 
 /* harmony default export */ var btn_hide_sort_filter = (btn_hide_sort_filter_HideSortFilter);
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js
-var assertThisInitialized = __webpack_require__(20);
+var assertThisInitialized = __webpack_require__(19);
 
 // CONCATENATED MODULE: ./src/search/components/btn-apply-sort-filter.js
 
@@ -1721,104 +1636,10 @@ var btn_done_sort_filter_DoneSortFilter = /*#__PURE__*/function (_Component) {
 }(react["Component"]);
 
 /* harmony default export */ var btn_done_sort_filter = (btn_done_sort_filter_DoneSortFilter);
-// CONCATENATED MODULE: ./src/search/components/dropdown.js
+// EXTERNAL MODULE: ./src/utils/dropdown/index.js
+var dropdown = __webpack_require__(65);
 
-
-
-
-
-var dropdown_customStyles = {
-  indicatorSeparator: function indicatorSeparator() {
-    return {
-      display: 'none'
-    };
-  },
-  option: function option(provided, state) {
-    return Object(objectSpread["a" /* default */])({}, provided, {
-      color: variables_default.a.colorGray50,
-      padding: '0.75em 1em',
-      backgroundColor: state.isSelected ? variables_default.a.colorBackgroundLight : variables_default.a.colorWhite,
-      cursor: !state.isSelected ? 'pointer' : 'default',
-      '&:hover': {
-        color: !state.isSelected ? variables_default.a.colorBlue50 : variables_default.a.colorGray50,
-        backgroundColor: !state.isSelected ? variables_default.a.colorWhite : variables_default.a.colorBackgroundLight
-      },
-      margin: 0
-    });
-  },
-  control: function control(provided, state) {
-    return Object(objectSpread["a" /* default */])({}, provided, {
-      'border-radius': variables_default.a.borderRadius,
-      padding: '0.3em 0.5em',
-      color: variables_default.a.colorGray50,
-      'border-color': state.isFocused ? variables_default.a.colorBorderDark : variables_default.a.colorBorderDark,
-      outline: 'none',
-      cursor: 'pointer',
-      'box-shadow': 'none',
-      '&:hover': {
-        outline: 'none',
-        color: variables_default.a.colorBlue50,
-        borderColor: variables_default.a.colorBlue50
-      }
-    });
-  },
-  singleValue: function singleValue(provided, state) {
-    return {};
-  },
-  menu: function menu(provided) {
-    return Object(objectSpread["a" /* default */])({}, provided, {
-      marginTop: 0,
-      borderRadius: 0,
-      width: 'calc(100% - 2px)',
-      marginLeft: '1px',
-      marginBottom: 0,
-      padding: 0
-    });
-  },
-  menuList: function menuList(provided) {
-    return Object(objectSpread["a" /* default */])({}, provided, {
-      paddingBottom: 0,
-      paddingTop: 0
-    });
-  }
-};
-
-var dropdown_DropdownIndicator = function DropdownIndicator(props) {
-  return react_default.a.createElement(react_select_esm["a" /* components */].DropdownIndicator, props, react_default.a.createElement(react_svg["a" /* default */], {
-    src: props.theme.dropdownIndicator
-  }));
-};
-
-var dropdown_Dropdown = function Dropdown(props) {
-  return react_default.a.createElement("div", {
-    "aria-describedby": "cmp-custom-dropdown__single-value",
-    tabindex: "0"
-  }, react_default.a.createElement(react_select_esm["c" /* default */], {
-    defaultValue: props.getOptions(props.text)[1],
-    options: props.getOptions(props.text),
-    value: props.sortValue && props.sortValue.value ? props.sortValue.value : props.getOptions(props.text)[props.sortValue - 1],
-    onChange: props.onChange,
-    isSearchable: props.isSearchable,
-    styles: dropdown_customStyles,
-    placeholder: props.placeholder,
-    classNamePrefix: 'cmp-custom-dropdown',
-    components: {
-      DropdownIndicator: dropdown_DropdownIndicator
-    },
-    theme: {
-      dropdownIndicator: props.text.downIcon
-    },
-    tabIndex: "-1"
-  }));
-};
-
-dropdown_Dropdown.defaultProps = {
-  isSearchable: false,
-  placeholder: ''
-};
-/* harmony default export */ var dropdown = (dropdown_Dropdown);
 // CONCATENATED MODULE: ./src/search/components/sort.js
-
 
 
 
@@ -1836,7 +1657,7 @@ var sort_Sort = function Sort(props) {
   return react_default.a.createElement("div", {
     className: "cmp-search-sortby",
     "data-locator": "sortby-label"
-  }, react_default.a.createElement("h3", null, props.text.sortByHeading), react_default.a.createElement(dropdown, {
+  }, react_default.a.createElement("h3", null, props.text.sortByHeading), react_default.a.createElement(dropdown["a" /* default */], {
     getOptions: sort_getOptions,
     sortValue: props.sortValue,
     onChange: function onChange(e) {
@@ -1939,79 +1760,126 @@ var btn_show_sort_filter_ShowSortFilter = /*#__PURE__*/function (_Component) {
 // CONCATENATED MODULE: ./src/search/components/results-count.js
 
 
-var results_count_ResultsCount = function ResultsCount(props) {
-  var endResults = props.count > props.current * props.rows ? props.current * props.rows : props.count;
-  var startResults = props.current * props.rows - props.rows + 1;
+
+function ResultsCount(props) {
   var maxLength = 120;
   var searchQuery = props.query && props.query.toString().length > maxLength ? props.query.substring(0, maxLength) + '...' : props.query;
 
-  var renderSearchTerm = function renderSearchTerm() {
-    return props.spell_suggestion ? getSuggestedQueryInfo() : getSearchQuery();
+  var getSearchQuery = function getSearchQuery(query) {
+    return react_default.a.createElement("h1", {
+      className: "query"
+    }, query);
   };
 
-  var getSuggestedQueryInfo = function getSuggestedQueryInfo() {
-    return react_default.a.createElement("span", null, "for\xA0", react_default.a.createElement("span", {
+  var getSuggestedQuery = function getSuggestedQuery() {
+    return react_default.a.createElement("span", {
       className: "text-strike"
-    }, searchQuery), "\xA0", react_default.a.createElement("strong", null, react_default.a.createElement("q", {
-      className: "query"
-    }, props.spell_suggestion), "."));
+    }, searchQuery);
   };
 
-  var getSearchQuery = function getSearchQuery() {
-    return react_default.a.createElement("span", null, "for\xA0", react_default.a.createElement("strong", null, react_default.a.createElement("q", {
-      className: "query"
-    }, searchQuery), "."));
+  var getRelatedSuggestionsTags = function getRelatedSuggestionsTags(words) {
+    return words.map(function (word) {
+      return react_default.a.createElement("a", {
+        href: "javascript:void(0);",
+        "aria-label": word,
+        className: "item",
+        onClick: function onClick(e) {
+          return props.onRelatedSuggestionClick(word);
+        }
+      }, react_default.a.createElement(react_svg["a" /* default */], {
+        src: props.text.searchIcon
+      }), react_default.a.createElement("span", null, word));
+    });
+  };
+
+  var getOptions = function getOptions(options) {
+    var categoryOptionsList = options.map(function (a, index) {
+      return {
+        value: index,
+        label: a.translation
+      };
+    });
+    return categoryOptionsList;
+  };
+
+  var categoryLabel = '';
+
+  if (Array.isArray(props.categoryOptions) && props.categoryOptions.length) {
+    var options = getOptions(props.categoryOptions);
+    categoryLabel = options[props.categoryValue].label;
+  }
+
+  var renderResultsText = function renderResultsText(resultsText) {
+    return resultsText.replace(/[{]count[}]/, "<span class='count'>" + props.count.toLocaleString(undefined, {
+      maximumFractionDigits: 0
+    }) + "</span>");
+  };
+
+  var renderSearchQuery = function renderSearchQuery() {
+    return props.spell_suggestion ? getSearchQuery(props.spell_suggestion) : getSearchQuery(searchQuery);
+  };
+
+  var renderSuggestedSearchQuery = function renderSuggestedSearchQuery() {
+    return props.spell_suggestion ? getSuggestedQuery() : '';
+  };
+
+  var renderCategoryText = function renderCategoryText(selectedCategory) {
+    return selectedCategory !== "" ? react_default.a.createElement("span", {
+      "class": "category"
+    }, props.text.inCategoryText + selectedCategory) : '';
   };
 
   var renderRelatedSuggestions = function renderRelatedSuggestions() {
-    return props.spell_related_suggestions.length !== 0 ? react_default.a.createElement("div", {
-      className: "cmp-search__related-suggestions"
-    }, "Related Searches ", getRelatedSuggestions()) : react_default.a.createElement(react_default.a.Fragment, null);
-  };
+    if (props.spell_related_suggestions.length !== 0) {
+      return react_default.a.createElement("div", {
+        className: "cmp-search__related-suggestions"
+      }, react_default.a.createElement("span", {
+        "class": "related-searches-text"
+      }, props.text.relatedSearchesText), getRelatedSuggestionsTags(props.spell_related_suggestions));
+    } else {
+      return react_default.a.createElement(react_default.a.Fragment, null);
+    }
 
-  var getRelatedSuggestions = function getRelatedSuggestions() {
-    return props.spell_related_suggestions.length === 1 ? getRelatedSuggestionLink(props.spell_related_suggestions[0]) : getRelatedSuggestionLinks(props.spell_related_suggestions).reduce(function (prev, curr) {
-      return react_default.a.createElement(react_default.a.Fragment, null, prev, react_default.a.createElement("span", {
-        className: "vertical-bar"
-      }, "|"), curr);
-    });
-  };
-
-  var getRelatedSuggestionLink = function getRelatedSuggestionLink(word) {
-    return react_default.a.createElement("a", {
-      className: "item",
-      onClick: function onClick(e) {
-        return props.onRelatedSuggestionClick(word);
-      }
-    }, word);
-  };
-
-  var getRelatedSuggestionLinks = function getRelatedSuggestionLinks(words) {
-    return words.map(function (word) {
-      return getRelatedSuggestionLink(word);
-    });
-  };
-
-  var getResultsText = function getResultsText() {
-    return props.text.resultsText.replace(/[{]startResults[}]/, startResults.toLocaleString(undefined, {
-      maximumFractionDigits: 0
-    })).replace(/[{]endResults[}]/, endResults.toLocaleString(undefined, {
-      maximumFractionDigits: 0
-    })).replace(/[{]count[}]/, props.count.toLocaleString(undefined, {
-      maximumFractionDigits: 0
-    }));
+    ;
   };
 
   return react_default.a.createElement("div", {
-    className: "cmp-search__resultsCount-container",
-    "data-locator": "results-count-container"
-  }, react_default.a.createElement("h2", {
     className: "cmp-search__resultsCount",
     "data-locator": "results-count"
-  }, getResultsText(), props.noQuery || props.query === '*:*' ? null : renderSearchTerm()), renderRelatedSuggestions());
-};
+  }, props.noQuery || props.query === '*:*' && react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("div", {
+    "class": "query-box"
+  }, react_default.a.createElement("span", {
+    "class": "results",
+    dangerouslySetInnerHTML: {
+      __html: renderResultsText(props.text.resultsText)
+    }
+  })), react_default.a.createElement("hr", {
+    className: "small-accent-rule"
+  })), !props.noQuery && props.query !== '*:*' && react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("span", {
+    "class": "results",
+    dangerouslySetInnerHTML: {
+      __html: renderResultsText(props.text.resultsForText)
+    }
+  }), renderSuggestedSearchQuery(), react_default.a.createElement("div", {
+    "class": "query-box"
+  }, renderSearchQuery(), " ", " ", " ", renderCategoryText(categoryLabel)), react_default.a.createElement("hr", {
+    className: "small-accent-rule"
+  }), renderRelatedSuggestions()));
+}
 
-/* harmony default export */ var results_count = (results_count_ResultsCount);
+;
+ResultsCount.defaultProps = {
+  count: 0,
+  query: '',
+  noQuery: false,
+  spell_related_suggestions: [],
+  spell_suggestion: '',
+  onRelatedSuggestionClick: function onRelatedSuggestionClick() {},
+  text: {},
+  categoryOptions: [],
+  categoryValue: 0
+};
+/* harmony default export */ var results_count = (ResultsCount);
 // CONCATENATED MODULE: ./src/search/components/filter-tags.js
 
 
@@ -2091,7 +1959,7 @@ var filter_tags_ContentTypeTag = function ContentTypeTag(props) {
     "data-locator": "content-type-tag-hide"
   }, react_default.a.createElement(react_svg["a" /* default */], {
     src: props.text.closeIcon
-  }), react_default.a.createElement("span", null, "".concat(props.text['contentType'], ": ").concat(props.selected.facetTranslation)));
+  }), react_default.a.createElement("span", null, "".concat(props.text['resultType'], ": ").concat(props.selected.facetTranslation)));
 };
 
 var filter_tags_ClearAllTag = function ClearAllTag(props) {
@@ -2150,7 +2018,7 @@ filter_tags_KeywordTag.defaultProps = {
 };
 
 // EXTERNAL MODULE: ./src/scripts/ErrorMessages.js
-var ErrorMessages = __webpack_require__(62);
+var ErrorMessages = __webpack_require__(67);
 
 // CONCATENATED MODULE: ./src/sku-details/views/stock.js
 
@@ -2302,16 +2170,16 @@ function UnavailablePrice(props) {
 
 /* harmony default export */ var unavailablePrice = (UnavailablePrice);
 // EXTERNAL MODULE: ./node_modules/whatwg-fetch/fetch.js
-var whatwg_fetch_fetch = __webpack_require__(35);
+var whatwg_fetch_fetch = __webpack_require__(38);
 
 // EXTERNAL MODULE: ./src/stores/localStore.js
-var stores_localStore = __webpack_require__(45);
+var stores_localStore = __webpack_require__(47);
 
 // EXTERNAL MODULE: ./src/scripts/loginStatus.js
 var loginStatus = __webpack_require__(16);
 
 // EXTERNAL MODULE: ./src/utils/serviceFunctions.js
-var serviceFunctions = __webpack_require__(52);
+var serviceFunctions = __webpack_require__(53);
 
 // EXTERNAL MODULE: ./src/utils/userFunctions.js
 var userFunctions = __webpack_require__(13);
@@ -2603,7 +2471,7 @@ var matchListItems = function matchListItems(skuListData, pricesAPIResults) {
   return skuListItem;
 };
 // EXTERNAL MODULE: ./src/scripts/skulist.js
-var skulist = __webpack_require__(88);
+var skulist = __webpack_require__(91);
 
 // CONCATENATED MODULE: ./src/sku-details/views/addToCart.js
 
@@ -2812,13 +2680,10 @@ addToCart_AddToCart.defaultProps = {
 };
 /* harmony default export */ var views_addToCart = (addToCart_AddToCart);
 // EXTERNAL MODULE: ./src/sku-details/views/addToCartModal.js
-var addToCartModal = __webpack_require__(31);
+var addToCartModal = __webpack_require__(32);
 
 // EXTERNAL MODULE: ./src/utils/modal/index.js + 1 modules
 var modal = __webpack_require__(18);
-
-// EXTERNAL MODULE: ./src/utils/spinner/index.js
-var utils_spinner = __webpack_require__(27);
 
 // CONCATENATED MODULE: ./src/sku-message/index.js
 
@@ -2906,23 +2771,20 @@ var sku_message_SkuMessage = /*#__PURE__*/function (_React$Component) {
 
 /* harmony default export */ var sku_message = (sku_message_SkuMessage);
 // EXTERNAL MODULE: ./src/scripts/checkOutStatus.js
-var checkOutStatus = __webpack_require__(47);
+var checkOutStatus = __webpack_require__(49);
 
 // EXTERNAL MODULE: ./src/scripts/ecommerce.js
-var ecommerce = __webpack_require__(29);
+var ecommerce = __webpack_require__(30);
 
 // EXTERNAL MODULE: ./src/scripts/sku-details.js
-var sku_details = __webpack_require__(55);
+var sku_details = __webpack_require__(56);
 
 // EXTERNAL MODULE: ./src/scripts/stickyService.js
-var stickyService = __webpack_require__(49);
+var stickyService = __webpack_require__(50);
 
-// CONCATENATED MODULE: ./src/constants/index.js
-var BAD_REQUEST_CODE = 400;
-var SERVER_ERROR_CODE = 500;
-var UNAVAILABLE_PRICE_WITH_ADD_TO_CART = 'unavailable_price_with_add-to-cart';
-var LIST_PRICE_WITH_ADD_TO_CART = 'list_price_with_add-to-cart';
-var NO_PRICE_NO_ADD_TO_CART = 'no_price_no_add-to-cart';
+// EXTERNAL MODULE: ./src/constants/index.js
+var constants = __webpack_require__(28);
+
 // CONCATENATED MODULE: ./src/sku-list/views/listItem.js
 
 
@@ -2977,14 +2839,14 @@ var listItem_ListItem = /*#__PURE__*/function (_React$Component) {
         } else {
           // Add Error Object to State
           _this.setState({
-            errorPriceType: [BAD_REQUEST_CODE, SERVER_ERROR_CODE].includes(Object(eCommerceFunctions["c" /* getHttpStatusFromErrors */])(response.errors, response.status)) ? Object(userFunctions["p" /* isEprocurementUser */])() ? UNAVAILABLE_PRICE_WITH_ADD_TO_CART : LIST_PRICE_WITH_ADD_TO_CART : NO_PRICE_NO_ADD_TO_CART,
+            errorPriceType: [constants["a" /* BAD_REQUEST_CODE */], constants["e" /* SERVER_ERROR_CODE */]].includes(Object(eCommerceFunctions["c" /* getHttpStatusFromErrors */])(response.errors, response.status)) ? Object(userFunctions["p" /* isEprocurementUser */])() ? constants["f" /* UNAVAILABLE_PRICE_WITH_ADD_TO_CART */] : constants["c" /* LIST_PRICE_WITH_ADD_TO_CART */] : constants["d" /* NO_PRICE_NO_ADD_TO_CART */],
             loading: false
           });
         }
       })["catch"](function (err) {
         // Add Error Object to State
         _this.setState({
-          errorPriceType: NO_PRICE_NO_ADD_TO_CART,
+          errorPriceType: constants["d" /* NO_PRICE_NO_ADD_TO_CART */],
           loading: false
         });
       });
@@ -3070,7 +2932,7 @@ var listItem_ListItem = /*#__PURE__*/function (_React$Component) {
           skuInfo = _this$state.skuInfo,
           errorPriceType = _this$state.errorPriceType;
 
-      if (errorPriceType === UNAVAILABLE_PRICE_WITH_ADD_TO_CART) {
+      if (errorPriceType === constants["f" /* UNAVAILABLE_PRICE_WITH_ADD_TO_CART */]) {
         return react_default.a.createElement(unavailablePrice, {
           label: skuInfo.custPriceLabel,
           icon: skuInfo.lowStockIcon,
@@ -3134,7 +2996,7 @@ var listItem_ListItem = /*#__PURE__*/function (_React$Component) {
         "aria-label": "".concat(skuInfo.listPriceLabel, " ").concat(listPrice)
       }, "".concat(skuInfo.listPriceLabel, " ").concat(listPrice)), react_default.a.createElement("div", {
         className: "cmp-sku-list__priceinfo"
-      }, loading ? react_default.a.createElement(utils_spinner["a" /* default */], {
+      }, loading ? react_default.a.createElement(spinner["a" /* default */], {
         loading: loading,
         type: "inline"
       }) : _this.renderPricing()), react_default.a.createElement("div", {
@@ -3220,7 +3082,7 @@ var listItem_ListItem = /*#__PURE__*/function (_React$Component) {
           link: relatedSku.replacementskuurl,
           linkMessage: relatedSku.replacementskucode
         });
-      } else if (_this.state.errorPriceType === NO_PRICE_NO_ADD_TO_CART) {
+      } else if (_this.state.errorPriceType === constants["d" /* NO_PRICE_NO_ADD_TO_CART */]) {
         return react_default.a.createElement(sku_message, {
           icon: skuConfig.skuInfo.lowStockIcon,
           message: skuConfig.skuInfo.skuErrorMessage
@@ -3382,7 +3244,7 @@ listItem_ListItem.defaultProps = {
 };
 /* harmony default export */ var listItem = (listItem_ListItem);
 // EXTERNAL MODULE: ./src/scripts/signIn.js
-var scripts_signIn = __webpack_require__(78);
+var scripts_signIn = __webpack_require__(83);
 
 // CONCATENATED MODULE: ./src/sku-list/index.js
 
@@ -3467,7 +3329,7 @@ sku_list_SkuList.defaultProps = {
 };
 /* harmony default export */ var sku_list = (sku_list_SkuList);
 // EXTERNAL MODULE: ./node_modules/react-lines-ellipsis/lib/index.js
-var lib = __webpack_require__(79);
+var lib = __webpack_require__(84);
 var lib_default = /*#__PURE__*/__webpack_require__.n(lib);
 
 // CONCATENATED MODULE: ./src/search/components/results.js
@@ -3537,7 +3399,88 @@ var results_Results = function Results(_ref2) {
 };
 
 /* harmony default export */ var components_results = (results_Results);
+// CONCATENATED MODULE: ./src/navigation/RadioList/index.js
+
+
+
+var RadioList_RadioList = function RadioList(_ref) {
+  var items = _ref.items,
+      activeIndex = _ref.activeIndex,
+      onClick = _ref.onClick;
+  var radialRef = react_default.a.useRef();
+  return react_default.a.createElement("div", {
+    className: "cmp-category-wrapper"
+  }, react_default.a.createElement("div", null, react_default.a.createElement("h3", null, "Category")), react_default.a.createElement("div", {
+    role: "radiogroup",
+    ref: radialRef,
+    className: "cmp-category-items"
+  }, items.map(function (item, index) {
+    return react_default.a.createElement(RadioList_Radio, {
+      key: "CategoryRadio-".concat(index),
+      name: item.name,
+      count: item.count,
+      index: index,
+      isActive: index === activeIndex,
+      onClick: onClick
+    });
+  })));
+};
+
+var checkIfZero = function checkIfZero(onClick, index, count) {
+  if (count !== 0) {
+    onClick(index);
+  }
+};
+
+var RadioList_Radio = function Radio(_ref2) {
+  var index = _ref2.index,
+      name = _ref2.name,
+      count = _ref2.count,
+      isActive = _ref2.isActive,
+      _onClick = _ref2.onClick;
+  return react_default.a.createElement("div", {
+    className: "cmp-category-item".concat(isActive ? " active" : ""),
+    onClick: function onClick() {
+      return checkIfZero(_onClick, index, count);
+    }
+  }, react_default.a.createElement("input", {
+    type: "radio",
+    role: "radio",
+    name: name,
+    id: name,
+    "aria-labelledby": name,
+    "aria-disabled": "false",
+    "aria-checked": isActive,
+    checked: isActive,
+    "aria-required": "false",
+    "class": "".concat(count === 0 ? "inactive" : ""),
+    readonly: "",
+    "data-locator": name
+  }), react_default.a.createElement("a", {
+    "class": "radio ".concat(count === 0 ? "inactive" : "valid"),
+    id: name + '_link'
+  }, react_default.a.createElement("div", {
+    "class": "selector ".concat(count === 0 ? "inactive" : "")
+  })), react_default.a.createElement("span", {
+    className: "cmp-radio__radio-label ".concat(count === 0 ? " inactive" : ""),
+    "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])(name)
+  }, name, " (", count, ")"));
+};
+
+RadioList_Radio.defaultProps = {
+  name: "",
+  index: -1,
+  isActive: false,
+  onClick: function onClick() {}
+};
+RadioList_RadioList.defaultProps = {
+  items: [],
+  activeIndex: -1,
+  onClick: function onClick() {}
+};
+/* harmony default export */ var navigation_RadioList = (RadioList_RadioList);
 // CONCATENATED MODULE: ./src/search/search.component.helpers.js
+
 
 
 
@@ -3611,11 +3554,18 @@ var search_component_helpers_Aside = function Aside(_ref2) {
   var text = _ref2.text,
       asideProps = _ref2.asideProps,
       asideEvents = _ref2.asideEvents,
-      children = _ref2.children;
+      children = _ref2.children,
+      items = _ref2.items,
+      activeIndex = _ref2.activeIndex,
+      categoryClick = _ref2.categoryClick;
   return react_default.a.createElement("div", {
     className: "container__left cmp-search__sort-filter",
     "data-locator": "left-container-filter"
-  }, react_default.a.createElement(btn_hide_sort_filter, {
+  }, !Object(userFunctions["p" /* isEprocurementUser */])() && react_default.a.createElement(navigation_RadioList, {
+    items: items,
+    activeIndex: activeIndex,
+    onClick: categoryClick
+  }), react_default.a.createElement(btn_hide_sort_filter, {
     text: text,
     onClick: asideEvents.onHideSortFilterClick
   }), react_default.a.createElement(btn_apply_sort_filter, {
@@ -3835,6 +3785,7 @@ var search_component_helpers_ResultsBody = function ResultsBody(_ref7) {
     className: "cmp-search__container__header clearfix"
   }, !isEprocurementUser && react_default.a.createElement(category_dropdown, {
     categoryDownIcon: text.downIcon,
+    categoryLabelPrefix: text.categoryText,
     categoryIsSearchable: false,
     categoryOnChange: categoryEvents.onCategoryDropdownChange,
     categoryOptions: categoryProps.categories,
@@ -3851,6 +3802,8 @@ var search_component_helpers_ResultsBody = function ResultsBody(_ref7) {
     className: "cmp-search__sorted-container"
   }, react_default.a.createElement(results_count, Object.assign({}, resultsProps, {
     text: text,
+    categoryOptions: categoryProps.categories,
+    categoryValue: categoryProps.activeIndex,
     onRelatedSuggestionClick: resultsEvents.onRelatedSuggestionClick
   })), react_default.a.createElement(search_component_helpers_FilterTagList, {
     text: text,
@@ -3888,100 +3841,196 @@ search_component_helpers_ResultsBody.defaultProps = {
   resultsEvents: defaultProps.resultsEvents
 };
 
-// EXTERNAL MODULE: ./src/scripts/fade-x.js
-var fade_x = __webpack_require__(70);
+// EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray.js + 3 modules
+var slicedToArray = __webpack_require__(6);
 
-// CONCATENATED MODULE: ./src/navigation/tabs/index.js
+// EXTERNAL MODULE: ./src/utils/redirectFunctions.js
+var redirectFunctions = __webpack_require__(24);
+
+// EXTERNAL MODULE: ./node_modules/react-ellipsis-text/index.js
+var react_ellipsis_text = __webpack_require__(124);
+var react_ellipsis_text_default = /*#__PURE__*/__webpack_require__.n(react_ellipsis_text);
+
+// CONCATENATED MODULE: ./src/common/search-breadcrumb/index.js
 
 
 
 
-var tabs_Tabs = function Tabs(_ref) {
-  var className = _ref.className,
-      items = _ref.items,
-      activeIndex = _ref.activeIndex,
-      onClick = _ref.onClick,
-      enableFading = _ref.enableFading;
-  var tabsRef = react_default.a.useRef();
-  react_default.a.useEffect(function () {
-    var tabFader;
 
-    if (enableFading && items.length !== 0) {
-      tabFader = Object(fade_x["a" /* default */])('cmp-tabs', 0, 100);
-      tabsRef.current.addEventListener('scroll', tabFader);
+
+var search_breadcrumb_SearchBreadcrumb = function SearchBreadcrumb(props) {
+  var _useState = Object(react["useState"])(screenSizes["a" /* default */].isMobile()),
+      _useState2 = Object(slicedToArray["a" /* default */])(_useState, 2),
+      isMobile = _useState2[0],
+      setIsMobile = _useState2[1];
+
+  Object(react["useEffect"])(function () {
+    var breadcrumb = document.querySelector('#searchBreadcrumb');
+    isMobile && breadcrumb && breadcrumb.classList.add('fader-fade--right');
+    !isMobile && breadcrumb && breadcrumb.classList.remove('fader-fade--right');
+  }, [props.searchParams]);
+
+  var renderBreadcrumbLink = function renderBreadcrumbLink(linkInfo) {
+    return react_default.a.createElement("li", {
+      className: "cmp-breadcrumb__item",
+      itemprop: "itemListElement",
+      itemscope: "",
+      itemtype: "http://schema.org/ListItem"
+    }, react_default.a.createElement("a", {
+      href: linkInfo.path,
+      className: "cmp-breadcrumb__item-link"
+    }, react_default.a.createElement("span", {
+      itemprop: "name"
+    }, react_default.a.createElement(react_ellipsis_text_default.a, {
+      text: linkInfo.title,
+      length: "20"
+    }))));
+  };
+
+  var renderBreadcrumb = function renderBreadcrumb(links) {
+    var parentLinks = links.map(function (link) {
+      return renderBreadcrumbLink(link);
+    });
+    return parentLinks;
+  };
+
+  var buildQueryString = function buildQueryString(baseUrl, options) {
+    var queryString = baseUrl + "?";
+
+    if (options.keywordParam && options.keywordParam !== "*:*") {
+      queryString += "keyword=".concat(options.keywordParam, "&");
     }
 
-    return function () {
-      tabsRef.current.removeEventListener('scroll', tabFader);
+    if (options.categoryParam) {
+      queryString += "category=".concat(options.categoryParam, "&");
+    }
+
+    if (options.contentTypeParam) {
+      queryString += "content_type=".concat(options.contentTypeParam, "&");
+    }
+
+    if (queryString.indexOf("&") !== -1) {
+      queryString = queryString.substr(0, queryString.length - 1);
+    }
+
+    return queryString;
+  };
+
+  var createLinkData = function createLinkData() {
+    var links = [];
+    var homeUrl = Object(redirectFunctions["a" /* getNamedHeaderLink */])("data-homepage-url");
+    var baseSearchUrl = Object(redirectFunctions["a" /* getNamedHeaderLink */])("data-search-path");
+    var correctKeyword = props.searchParams.keyword;
+
+    if (props.searchParams.spell_suggestion) {
+      correctKeyword = props.searchParams.spell_suggestion;
+    }
+
+    var homeLink = {
+      "title": props.text.homeLinkText,
+      "path": homeUrl
     };
-  }, []);
-  return react_default.a.createElement("div", {
-    className: "cmp-tabs-wrapper"
+    links.push(homeLink);
+    var searchLink = {
+      "title": props.text.searchLinkText,
+      "path": baseSearchUrl
+    };
+    links.push(searchLink);
+
+    if (correctKeyword && correctKeyword !== "*:*") {
+      var urlOptions = {
+        keywordParam: props.searchParams.keyword,
+        categoryParam: "",
+        contentTypeParam: ""
+      };
+      var queryString = buildQueryString(baseSearchUrl, urlOptions);
+      var queryLink = {
+        "title": correctKeyword,
+        "path": queryString
+      };
+      links.push(queryLink);
+    }
+
+    if (props.searchParams.category) {
+      var _urlOptions = {
+        keywordParam: correctKeyword,
+        categoryParam: props.searchParams.category,
+        contentTypeParam: ""
+      };
+
+      var _queryString = buildQueryString(baseSearchUrl, _urlOptions);
+
+      var categoryLink = {
+        "title": props.searchParams.category,
+        "path": _queryString
+      };
+      links.push(categoryLink);
+    }
+
+    if (props.searchParams.contentTypeSelected.facetTranslation) {
+      var _urlOptions2 = {
+        keywordParam: correctKeyword,
+        categoryParam: props.searchParams.category,
+        contentTypeParam: props.searchParams.content_type
+      };
+
+      var _queryString2 = buildQueryString(baseSearchUrl, _urlOptions2);
+
+      var _categoryLink = {
+        "title": props.searchParams.contentTypeSelected.facetTranslation,
+        "path": _queryString2
+      };
+      links.push(_categoryLink);
+    }
+
+    return links;
+  };
+
+  var linkData = createLinkData();
+  return react_default.a.createElement("nav", {
+    "class": "cmp-breadcrumb"
+  }, react_default.a.createElement("ol", {
+    id: "searchBreadcrumb",
+    "class": "cmp-breadcrumb__list fader-fade",
+    itemscope: "",
+    itemtype: "http://schema.org/BreadcrumbList"
   }, react_default.a.createElement("div", {
-    ref: tabsRef,
-    className: "cmp-tabs ".concat(className)
-  }, items.map(function (item, index) {
-    return react_default.a.createElement(tabs_Tab, {
-      key: "CategoryTab-".concat(index),
-      name: item.name,
-      index: index,
-      isActive: index === activeIndex,
-      onClick: onClick
-    });
+    "class": "fader-container fader-container--left",
+    style: {
+      width: 0 + "px"
+    }
+  }), renderBreadcrumb(linkData), react_default.a.createElement("div", {
+    "class": "fader-container fader-container--right",
+    style: {
+      width: 65 + "px"
+    }
   })));
 };
 
-tabs_Tabs.defaultProps = {
-  className: "",
-  items: [],
-  activeIndex: -1,
-  onClick: function onClick() {},
-  enableFading: false
-};
-
-var tabs_Tab = function Tab(_ref2) {
-  var index = _ref2.index,
-      name = _ref2.name,
-      isActive = _ref2.isActive,
-      _onClick = _ref2.onClick;
-  return react_default.a.createElement("div", {
-    className: "cmp-tabs__tab".concat(isActive ? " active" : ""),
-    onClick: function onClick() {
-      return _onClick(index);
-    }
-  }, react_default.a.createElement("span", {
-    className: "cmp-tabs__tab-label",
-    "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])(name)
-  }, name));
-};
-
-tabs_Tab.defaultProps = {
-  name: "",
-  index: -1,
-  isActive: false,
-  onClick: function onClick() {}
-};
-/* harmony default export */ var navigation_tabs = (tabs_Tabs);
+/* harmony default export */ var search_breadcrumb = (search_breadcrumb_SearchBreadcrumb);
 // CONCATENATED MODULE: ./src/search/search.component.js
 
 
 
 
 
-
 var search_component_SearchComponent = function SearchComponent(props) {
-  return react_default.a.createElement(react_default.a.Fragment, null, !props.isEprocurementUser && react_default.a.createElement(navigation_tabs, {
-    className: "cmp-search__categories-tabs",
-    items: props.categoryProps.categories,
-    activeIndex: props.categoryProps.activeIndex,
-    onClick: props.categoryEvents.onCategoryTabClick
+  // Append Facet Description & spelling of keyword
+  props.searchParams.contentTypeSelected = props.filterTagsProps.contentTypeSelected;
+  props.searchParams.spell_suggestion = props.filterTagsProps.spell_suggestion;
+  return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement(search_breadcrumb, {
+    text: props.text,
+    searchParams: props.searchParams
   }), react_default.a.createElement("div", null, react_default.a.createElement("div", {
     className: "overlay"
   }), react_default.a.createElement(search_component_helpers_Aside, {
     sortFilterIsPristine: props.asideProps.sortFilterIsPristine,
     text: props.text,
     asideProps: props.asideProps,
-    asideEvents: props.asideEvents
+    asideEvents: props.asideEvents,
+    items: props.categoryProps.categories,
+    activeIndex: props.categoryProps.activeIndex,
+    categoryClick: props.categoryEvents.onCategoryTabClick
   }, react_default.a.createElement(search_component_helpers_Menu, {
     text: props.text,
     filterMap: props.filterMap,
@@ -4137,7 +4186,7 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
         spell_suggestion: '',
         erroredOut: false,
         categoryTabs: [],
-        activeTabIndex: -1,
+        activeTabIndex: 0,
         tabHistory: {},
         facetGroupsSelectedOrder: [],
         collapseAllFilters: false,
@@ -4251,7 +4300,7 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
 
     _this.mapCategories = function (categories) {
       return !categories || !categories.facets || !categories.facets.category_facet ? [] : categories.facets.category_facet.filter(function (category) {
-        return category.count !== 0 && !!_this.findFacetNameProperty(_this.props.filterMap, category.value);
+        return !!_this.findFacetNameProperty(_this.props.filterMap, category.value);
       }).map(function (category) {
         return {
           translation: _this.findFacetTranslationProperty(_this.props.filterMap, category.value),
@@ -4517,7 +4566,9 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
         newState.facets['activeIndex'] = _this.state.activeIndex;
         newState.activeFilterIndex = _this.getActiveFilterIndex(_this.state.contentType, newState.filterMap, newState.facets, _this.state.activeIndex);
       } else {
-        newState.facets['activeIndex'] = "";
+        if (newState.facets in _this.state) {
+          newState.facets['activeIndex'] = "";
+        }
       }
 
       newState.spell_check = res.hasOwnProperty('spell_check') ? res.spell_check : false;
@@ -5266,10 +5317,10 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
 
 /* harmony default export */ var search_container = (Object(withRouter["a" /* default */])(search_container_SearchContainer));
 // EXTERNAL MODULE: ./node_modules/react-router-dom/es/BrowserRouter.js
-var BrowserRouter = __webpack_require__(492);
+var BrowserRouter = __webpack_require__(496);
 
 // EXTERNAL MODULE: ./node_modules/react-router-dom/es/Route.js
-var Route = __webpack_require__(493);
+var Route = __webpack_require__(497);
 
 // CONCATENATED MODULE: ./src/search/ErrorBoundary.js
 
@@ -5438,7 +5489,7 @@ var tagcloud_TagCloud = /*#__PURE__*/function (_Component) {
 
 /* harmony default export */ var tagcloud = (tagcloud_TagCloud);
 // EXTERNAL MODULE: ./node_modules/hammerjs/hammer.js
-var hammer = __webpack_require__(123);
+var hammer = __webpack_require__(127);
 var hammer_default = /*#__PURE__*/__webpack_require__.n(hammer);
 
 // CONCATENATED MODULE: ./src/image-carousel/image-viewer.js
@@ -6120,9 +6171,6 @@ image_carousel_ImageCarousel.defaultProps = {
   widths: ['128', '140', '256', '320', '375', '620', '770', '1280']
 };
 /* harmony default export */ var image_carousel = (image_carousel_ImageCarousel);
-// EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray.js + 3 modules
-var slicedToArray = __webpack_require__(10);
-
 // CONCATENATED MODULE: ./src/user-greetings/UserGreeting.js
 
 
@@ -6256,7 +6304,8 @@ var Input_Input = /*#__PURE__*/function (_PureComponent) {
           ariaLabel = _this$props2.ariaLabel,
           elementLocator = _this$props2.elementLocator,
           accept = _this$props2.accept,
-          maxInputLength = _this$props2.maxInputLength;
+          maxInputLength = _this$props2.maxInputLength,
+          setRef = _this$props2.setRef;
       return react_default.a.createElement(react_default.a.Fragment, null, showLabel && react_default.a.createElement("label", {
         htmlFor: id,
         className: "visually-hidden"
@@ -6280,7 +6329,10 @@ var Input_Input = /*#__PURE__*/function (_PureComponent) {
         onKeyUp: this.onKeyUp,
         onFocus: this.onFocus,
         accept: accept,
-        autoComplete: "off"
+        autoComplete: "off",
+        ref: function ref(_ref) {
+          return setRef(_ref);
+        }
       }));
     }
   }]);
@@ -6307,7 +6359,8 @@ Input_Input.defaultProps = {
   onKeyPress: function onKeyPress() {},
   onKeyUp: function onKeyUp() {},
   onFocus: function onFocus() {},
-  accept: ''
+  accept: '',
+  setRef: function setRef() {}
 };
 /* harmony default export */ var components_Input_Input = (Input_Input);
 // CONCATENATED MODULE: ./src/quick-order/QuickOrder.js
@@ -6579,11 +6632,11 @@ LinkButton.defaultProps = {
 };
 /* harmony default export */ var link_button_LinkButton = (LinkButton);
 // EXTERNAL MODULE: ./node_modules/react-html-parser/lib/index.js
-var react_html_parser_lib = __webpack_require__(97);
+var react_html_parser_lib = __webpack_require__(99);
 var react_html_parser_lib_default = /*#__PURE__*/__webpack_require__.n(react_html_parser_lib);
 
 // EXTERNAL MODULE: ./src/legal-link-modal/styles/index.scss
-var legal_link_modal_styles = __webpack_require__(140);
+var legal_link_modal_styles = __webpack_require__(144);
 
 // CONCATENATED MODULE: ./src/legal-link-modal/LegalLinkModal.js
 
@@ -6691,7 +6744,7 @@ LegalLinkModal.defaultProps = {
 };
 /* harmony default export */ var legal_link_modal_LegalLinkModal = (LegalLinkModal);
 // EXTERNAL MODULE: ./src/scripts/DigitalData.js
-var DigitalData = __webpack_require__(22);
+var DigitalData = __webpack_require__(21);
 
 // CONCATENATED MODULE: ./src/sku-details/index.js
 
@@ -6773,14 +6826,14 @@ var sku_details_SkuDetails = /*#__PURE__*/function (_React$Component) {
         } else {
           // Add Error Object to State
           _this.setState({
-            errorPriceType: [BAD_REQUEST_CODE, SERVER_ERROR_CODE].includes(Object(eCommerceFunctions["c" /* getHttpStatusFromErrors */])(response.errors, response.status)) ? Object(userFunctions["p" /* isEprocurementUser */])() ? UNAVAILABLE_PRICE_WITH_ADD_TO_CART : LIST_PRICE_WITH_ADD_TO_CART : NO_PRICE_NO_ADD_TO_CART,
+            errorPriceType: [constants["a" /* BAD_REQUEST_CODE */], constants["e" /* SERVER_ERROR_CODE */]].includes(Object(eCommerceFunctions["c" /* getHttpStatusFromErrors */])(response.errors, response.status)) ? Object(userFunctions["p" /* isEprocurementUser */])() ? constants["f" /* UNAVAILABLE_PRICE_WITH_ADD_TO_CART */] : constants["c" /* LIST_PRICE_WITH_ADD_TO_CART */] : constants["d" /* NO_PRICE_NO_ADD_TO_CART */],
             loading: false
           });
         }
       })["catch"](function () {
         // Add Error Object to State
         _this.setState({
-          errorPriceType: NO_PRICE_NO_ADD_TO_CART,
+          errorPriceType: constants["d" /* NO_PRICE_NO_ADD_TO_CART */],
           loading: false
         });
       });
@@ -6847,9 +6900,9 @@ var sku_details_SkuDetails = /*#__PURE__*/function (_React$Component) {
           skuInfo = _this$state.skuInfo,
           errorPriceType = _this$state.errorPriceType,
           isStickyAvailable = _this$state.isStickyAvailable;
-      var isHiddenListPrice = errorPriceType === NO_PRICE_NO_ADD_TO_CART && isStickyAvailable && Object(userFunctions["p" /* isEprocurementUser */])() ? true : false;
+      var isHiddenListPrice = errorPriceType === constants["d" /* NO_PRICE_NO_ADD_TO_CART */] && isStickyAvailable && Object(userFunctions["p" /* isEprocurementUser */])() ? true : false;
 
-      if (errorPriceType === UNAVAILABLE_PRICE_WITH_ADD_TO_CART && !isStickyAvailable) {
+      if (errorPriceType === constants["f" /* UNAVAILABLE_PRICE_WITH_ADD_TO_CART */] && !isStickyAvailable) {
         return react_default.a.createElement(unavailablePrice, {
           label: skuInfo.custPriceLabel,
           icon: skuInfo.lowStockIcon,
@@ -6911,7 +6964,7 @@ var sku_details_SkuDetails = /*#__PURE__*/function (_React$Component) {
         isErrorModal = Object.keys(errorObjCart).length !== 0;
       }
 
-      var isHiddenAddToCart = errorPriceType === NO_PRICE_NO_ADD_TO_CART && isStickyAvailable ? true : false;
+      var isHiddenAddToCart = errorPriceType === constants["d" /* NO_PRICE_NO_ADD_TO_CART */] && isStickyAvailable ? true : false;
       return react_default.a.createElement("div", {
         className: "cmp-sku-details__buyinfo",
         "data-locator": "sku-details-buyinfo"
@@ -6920,7 +6973,7 @@ var sku_details_SkuDetails = /*#__PURE__*/function (_React$Component) {
       }, "".concat(skuInfo.listPriceLabel, " ").concat(listPrice)), react_default.a.createElement("div", {
         className: "cmp-sku-details__priceinfo",
         "data-locator": "sku-details-priceinfo"
-      }, loading ? react_default.a.createElement(utils_spinner["a" /* default */], {
+      }, loading ? react_default.a.createElement(spinner["a" /* default */], {
         loading: loading,
         type: "inline"
       }) : _this.renderPricing()), react_default.a.createElement("div", {
@@ -7115,7 +7168,7 @@ var sku_details_SkuDetails = /*#__PURE__*/function (_React$Component) {
         return this.renderCountryRestricted();
       } else if (this.state.discontinued) {
         return this.renderDiscontinued();
-      } else if (this.state.errorPriceType === NO_PRICE_NO_ADD_TO_CART && !this.state.isStickyAvailable) {
+      } else if (this.state.errorPriceType === constants["d" /* NO_PRICE_NO_ADD_TO_CART */] && !this.state.isStickyAvailable) {
         return this.renderSkuPriceErrorMsg();
       } else {
         return this.renderActiveSku();
@@ -7138,17 +7191,17 @@ sku_details_SkuDetails.defaultProps = {
 };
 /* harmony default export */ var src_sku_details = (sku_details_SkuDetails);
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty.js
-var defineProperty = __webpack_require__(46);
+var defineProperty = __webpack_require__(37);
 
 // EXTERNAL MODULE: ./node_modules/react-hook-form/dist/react-hook-form.ie11.js
-var react_hook_form_ie11 = __webpack_require__(124);
+var react_hook_form_ie11 = __webpack_require__(128);
 var react_hook_form_ie11_default = /*#__PURE__*/__webpack_require__.n(react_hook_form_ie11);
 
 // EXTERNAL MODULE: ./src/forms/fields/utils/stateWatcher.js + 1 modules
-var stateWatcher = __webpack_require__(33);
+var stateWatcher = __webpack_require__(34);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectDestructuringEmpty.js
-var objectDestructuringEmpty = __webpack_require__(32);
+var objectDestructuringEmpty = __webpack_require__(33);
 
 // CONCATENATED MODULE: ./src/forms/fields/components/field-validation-display.js
 
@@ -7356,7 +7409,7 @@ var displaymessage_DisplayMessage = function DisplayMessage(_ref) {
 
 /* harmony default export */ var displaymessage = (react_default.a.memo(displaymessage_DisplayMessage));
 // EXTERNAL MODULE: ./src/forms/fields/patterns/index.js + 1 modules
-var patterns = __webpack_require__(43);
+var patterns = __webpack_require__(42);
 
 // CONCATENATED MODULE: ./src/forms/fields/components/requirements.js
 
@@ -7449,10 +7502,10 @@ var requirements_Requirements = function Requirements(_ref, ref) {
 
 /* harmony default export */ var components_requirements = (Object(react["forwardRef"])(requirements_Requirements));
 // EXTERNAL MODULE: ./src/forms/fields/utils/validations.js
-var validations = __webpack_require__(80);
+var validations = __webpack_require__(66);
 
 // EXTERNAL MODULE: ./src/utils/labelFunctions.js
-var labelFunctions = __webpack_require__(48);
+var labelFunctions = __webpack_require__(43);
 
 // CONCATENATED MODULE: ./src/forms/fields/input.js
 
@@ -8008,6 +8061,10 @@ var checkboxOrRadio_CheckboxOrRadio = function CheckboxOrRadio(_ref) {
 };
 
 /* harmony default export */ var checkboxOrRadio = (react_default.a.memo(checkboxOrRadio_CheckboxOrRadio));
+// EXTERNAL MODULE: ./src/styles/variables.scss
+var variables = __webpack_require__(26);
+var variables_default = /*#__PURE__*/__webpack_require__.n(variables);
+
 // CONCATENATED MODULE: ./src/forms/fields/styles/dropdown.scss.js
 
 
@@ -8209,7 +8266,7 @@ var select_Select = function Select(props) {
 
 
 
-var fields_dropdown_Dropdown = function Dropdown(_ref) {
+var dropdown_Dropdown = function Dropdown(_ref) {
   Object(objectDestructuringEmpty["a" /* default */])(_ref);
 
   var _useContext = Object(react["useContext"])(useFieldApi),
@@ -8248,7 +8305,7 @@ var fields_dropdown_Dropdown = function Dropdown(_ref) {
   }));
 };
 
-/* harmony default export */ var fields_dropdown = (react_default.a.memo(fields_dropdown_Dropdown));
+/* harmony default export */ var fields_dropdown = (react_default.a.memo(dropdown_Dropdown));
 // CONCATENATED MODULE: ./src/forms/fields/hr.js
 
 
@@ -8261,7 +8318,7 @@ var hr_Hr = function Hr(_ref) {
 
 /* harmony default export */ var hr = (react_default.a.memo(hr_Hr));
 // EXTERNAL MODULE: ./node_modules/react-google-recaptcha/lib/esm/index.js + 3 modules
-var esm = __webpack_require__(129);
+var esm = __webpack_require__(133);
 
 // CONCATENATED MODULE: ./src/forms/fields/captcha.js
 
@@ -8430,7 +8487,382 @@ var label_Label = function Label(_ref) {
 };
 
 /* harmony default export */ var fields_label = (react_default.a.memo(label_Label));
+// EXTERNAL MODULE: ./src/forms/fields/utils/fileAttachment.js
+var fileAttachment = __webpack_require__(60);
+
+// CONCATENATED MODULE: ./src/forms/fields/components/file-error-notification/index.js
+
+
+
+var file_error_notification_Notification = function Notification(_ref) {
+  var className = _ref.className,
+      variation = _ref.variation,
+      type = _ref.type,
+      title = _ref.title,
+      description = _ref.description,
+      link = _ref.link,
+      linkText = _ref.linkText,
+      icon = _ref.icon,
+      elementLocator = _ref.elementLocator;
+  return react_default.a.createElement("div", {
+    className: "file-error-notification ".concat(variation, " ").concat(type, " ").concat(className),
+    "data-locator": elementLocator
+  }, icon && react_default.a.createElement(react_svg["a" /* default */], {
+    className: "icon",
+    src: icon,
+    "data-locator": "".concat(elementLocator, "-icon"),
+    "aria-hidden": true
+  }), react_default.a.createElement("div", null, title && react_default.a.createElement("span", {
+    className: "title",
+    "data-locator": elementLocator && "".concat(elementLocator, "-title"),
+    "aria-label": title
+  }, title), description && react_default.a.createElement("span", {
+    className: "description",
+    "data-locator": elementLocator && "".concat(elementLocator, "-description"),
+    "aria-label": description
+  }, description), linkText && react_default.a.createElement("a", Object.assign({}, link, {
+    elementLocator: elementLocator && "".concat(elementLocator, "-link-text"),
+    "aria-label": linkText
+  }), linkText)));
+};
+
+file_error_notification_Notification.defaultProps = {
+  className: '',
+  variation: '',
+  type: '',
+  title: '',
+  description: '',
+  icon: '',
+  linkText: '',
+  link: {},
+  elementLocator: ''
+};
+/* harmony default export */ var file_error_notification = (file_error_notification_Notification);
+// CONCATENATED MODULE: ./src/forms/fields/components/divider/index.js
+
+
+function Divider(props) {
+  var type = props.type,
+      className = props.className,
+      elementLocator = props.elementLocator;
+  return react_default.a.createElement("div", {
+    className: "".concat(type, " ").concat(className),
+    "data-locator": elementLocator || "divider-".concat(type)
+  });
+}
+
+Divider.defaultProps = {
+  className: '',
+  type: 'v-large',
+  elementLocator: ''
+};
+/* harmony default export */ var divider = (Divider);
+// CONCATENATED MODULE: ./src/forms/fields/components/file-upload/index.js
+
+
+
+
+
+
+
+
+function FileUpload(props) {
+  var name = props.name,
+      setRef = props.setRef,
+      clearError = props.clearError,
+      className = props.className,
+      icons = props.icons,
+      chooseAFileToUpload = props.chooseAFileToUpload,
+      removeTextLabel = props.removeTextLabel,
+      attachmentFileValidMsg = props.attachmentFileValidMsg,
+      attachmentFileInvalidValidMsg = props.attachmentFileInvalidValidMsg,
+      accept = props.accept,
+      fileTypePattern = props.fileTypePattern,
+      attachmentFileSize = props.attachmentFileSize,
+      attachmentFileSizeErrorMsg = props.attachmentFileSizeErrorMsg,
+      maxAttachmentFileNameSizeWithExt = props.maxAttachmentFileNameSizeWithExt,
+      attachmentFileNameLengthErrorMsg = props.attachmentFileNameLengthErrorMsg,
+      attachmentFileNameErrorMsg = props.attachmentFileNameErrorMsg;
+  var upload = icons.upload,
+      preview = icons.preview,
+      valid = icons.valid,
+      invalid = icons.invalid;
+
+  var _useState = Object(react["useState"])(''),
+      _useState2 = Object(slicedToArray["a" /* default */])(_useState, 2),
+      file = _useState2[0],
+      setFile = _useState2[1];
+
+  var _useState3 = Object(react["useState"])(false),
+      _useState4 = Object(slicedToArray["a" /* default */])(_useState3, 2),
+      hasError = _useState4[0],
+      setHasError = _useState4[1];
+
+  var _useState5 = Object(react["useState"])(''),
+      _useState6 = Object(slicedToArray["a" /* default */])(_useState5, 2),
+      errorMsg = _useState6[0],
+      setErrorMsg = _useState6[1];
+
+  function pickedHandler(files) {
+    var pickedFile = {};
+    var fileValidation = {};
+    var fileType = new RegExp(fileTypePattern, 'i');
+    var labels = {
+      attachmentFileSizeErrorMsg: attachmentFileSizeErrorMsg,
+      attachmentFileNameLengthErrorMsg: attachmentFileNameLengthErrorMsg,
+      attachmentFileNameErrorMsg: attachmentFileNameErrorMsg
+    };
+    var config = {
+      maxAttachmentFileNameSizeWithExt: maxAttachmentFileNameSizeWithExt,
+      attachmentFileSize: attachmentFileSize
+    };
+
+    if (files && files.length === 1) {
+      var fileObj = files[0];
+      fileValidation = Object(fileAttachment["c" /* validateUploadFile */])(fileObj, labels, config);
+
+      if (!fileType.test(fileObj.name)) {
+        setHasError(true);
+        setErrorMsg(attachmentFileInvalidValidMsg);
+      } else if (fileValidation.status) {
+        setHasError(true);
+        setErrorMsg(fileValidation.error);
+      } else {
+        setHasError(false);
+        clearError(name);
+        setErrorMsg('');
+      }
+
+      pickedFile = fileObj;
+      setFile(pickedFile);
+    }
+
+    if (fileType.test(pickedFile.name) && !fileValidation.status) {
+      clearError(name);
+      setHasError(false);
+    }
+  }
+
+  function handleLinkClick(e) {
+    e.preventDefault();
+    var fileInput = document.getElementById(name);
+
+    if (fileInput && document.createEvent) {
+      fileInput.click();
+    }
+  }
+
+  function resetFile(e) {
+    e.preventDefault();
+    var fileInput = document.getElementById(name);
+    setFile();
+
+    if (fileInput) {
+      fileInput.value = '';
+    }
+
+    clearError(name);
+  }
+
+  return react_default.a.createElement("div", {
+    className: "file-empty file-upload-input ".concat(className, " ").concat(file ? 'has-file' : '')
+  }, react_default.a.createElement(components_Input_Input, {
+    showLabel: false,
+    id: name,
+    name: name,
+    className: "file-input",
+    type: "file",
+    accept: accept,
+    onChange: pickedHandler,
+    setRef: setRef
+  }), react_default.a.createElement("div", {
+    className: "select-file",
+    style: file ? {
+      display: 'none'
+    } : null
+  }, react_default.a.createElement("a", {
+    className: "file-upload-link",
+    onClick: handleLinkClick,
+    "data-locator": "upload-link-".concat(name),
+    "aria-label": chooseAFileToUpload,
+    role: "button",
+    href: ""
+  }, react_default.a.createElement(react_svg["a" /* default */], {
+    src: upload,
+    wrapper: "span",
+    "data-locator": "icon-".concat(name),
+    "aria-hidden": true
+  }), "".concat(chooseAFileToUpload, " (").concat(accept, ")"))), file && react_default.a.createElement("div", {
+    className: "file-upload__preview"
+  }, react_default.a.createElement("div", {
+    className: "file-info-sec"
+  }, react_default.a.createElement("div", {
+    className: "file-view"
+  }, react_default.a.createElement(react_svg["a" /* default */], {
+    className: "file-svg",
+    src: preview,
+    "data-locator": "file-svg",
+    "aria-hidden": true
+  }), react_default.a.createElement("span", {
+    "data-locator": "file-name-added",
+    "aria-label": file.name
+  }, file.name), react_default.a.createElement(divider, {
+    type: "v-small"
+  }), react_default.a.createElement("a", {
+    className: "file-remove-link",
+    onClick: resetFile,
+    elementLocator: "file-remove-link",
+    "aria-label": removeTextLabel,
+    role: "button",
+    href: ""
+  }, removeTextLabel)), react_default.a.createElement("div", {
+    className: "file-notify-sec"
+  }, react_default.a.createElement("div", {
+    className: "notify-container"
+  }, !hasError && react_default.a.createElement(file_error_notification, {
+    variation: "inline",
+    className: "file-notify",
+    type: "success",
+    description: attachmentFileValidMsg,
+    icon: valid,
+    elementLocator: "file-format-verified"
+  }), hasError && react_default.a.createElement(file_error_notification, {
+    variation: "inline",
+    className: "file-notify",
+    type: "error",
+    description: errorMsg,
+    icon: invalid
+  }))))));
+}
+
+;
+FileUpload.defaultProps = {
+  className: '',
+  name: 'fileUploadInput',
+  setRef: function setRef() {},
+  clearError: function clearError() {},
+  icons: {
+    upload: '',
+    preview: '',
+    valid: '',
+    invalid: ''
+  },
+  chooseAFileToUpload: '',
+  removeTextLabel: '',
+  attachmentFileValidMsg: '',
+  attachmentFileInvalidValidMsg: '',
+  attachmentFileSize: '5MB',
+  attachmentFileSizeErrorMsg: '',
+  maxAttachmentFileNameSizeWithExt: 32,
+  attachmentFileNameLengthErrorMsg: '',
+  attachmentFileNameErrorMsg: '',
+  accept: '.pdf, .jpg, .png',
+  fileTypePattern: '(\\.pdf|\.jpg|\.png)$'
+};
+/* harmony default export */ var file_upload = (FileUpload);
+// CONCATENATED MODULE: ./src/forms/fields/file.js
+
+
+
+
+
+
+
+function File(props) {
+  var name = props.name,
+      label = props.label,
+      optionalLabel = props.optionalLabel,
+      chooseAFileToUpload = props.chooseAFileToUpload,
+      removeTextLabel = props.removeTextLabel,
+      accept = props.accept,
+      attachmentFileValidMsg = props.attachmentFileValidMsg,
+      attachmentFileInvalidValidMsg = props.attachmentFileInvalidValidMsg,
+      attachmentFileSize = props.attachmentFileSize,
+      attachmentFileSizeErrorMsg = props.attachmentFileSizeErrorMsg,
+      maxAttachmentFileNameSizeWithExt = props.maxAttachmentFileNameSizeWithExt,
+      attachmentFileNameLengthErrorMsg = props.attachmentFileNameLengthErrorMsg,
+      attachmentFileNameErrorMsg = props.attachmentFileNameErrorMsg,
+      validation = props.validation,
+      icons = props.icons,
+      description = props.description,
+      matchRef = props.matchRef;
+  var inputRef = Object(react["useRef"])(null);
+
+  var _useContext = Object(react["useContext"])(useFieldApi),
+      emailValidationEndpoint = _useContext.emailValidationEndpoint;
+
+  var _useContext2 = Object(react["useContext"])(useFormApi),
+      register = _useContext2.register,
+      setError = _useContext2.setError,
+      clearError = _useContext2.clearError; // e.g. (\.pdf|\.jpg|\.png)$
+
+
+  var fileTypePattern = "(\\".concat(accept.replace(/[,]/g, '|\\').replace(/\s+/g, ''), ")$");
+  validation.fileTypePattern = fileTypePattern;
+  validation.attachmentFileSize = attachmentFileSize;
+  validation.maxAttachmentFileNameSizeWithExt = maxAttachmentFileNameSizeWithExt;
+  validation.attachmentFileInvalidValidMsg = attachmentFileInvalidValidMsg;
+  validation.attachmentFileSizeErrorMsg = attachmentFileSizeErrorMsg;
+  validation.attachmentFileNameLengthErrorMsg = attachmentFileNameLengthErrorMsg;
+  validation.attachmentFileNameErrorMsg = attachmentFileNameErrorMsg;
+
+  var getRegisterAttributes = function getRegisterAttributes(ref) {
+    inputRef.current = ref;
+    return Object(validations["a" /* getAttributes */])(ref, validation, matchRef, emailValidationEndpoint, setError, clearError);
+  };
+
+  function setRef(ref) {
+    register(ref, getRegisterAttributes(ref));
+  }
+
+  return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("label", {
+    htmlFor: name,
+    "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])(label) || 'form-field--label'
+  }, Object(labelFunctions["a" /* renderFormattedLabel */])(label, validation.required, optionalLabel)), description && react_default.a.createElement("div", {
+    className: "cmp-form_description"
+  }, description), react_default.a.createElement("div", {
+    className: "cmp-form-field file-upload-container"
+  }, react_default.a.createElement(file_upload, {
+    name: name,
+    setRef: setRef,
+    setError: setError,
+    clearError: clearError,
+    icons: icons,
+    chooseAFileToUpload: chooseAFileToUpload,
+    removeTextLabel: removeTextLabel,
+    attachmentFileValidMsg: attachmentFileValidMsg,
+    attachmentFileInvalidValidMsg: attachmentFileInvalidValidMsg,
+    attachmentFileSize: attachmentFileSize,
+    attachmentFileSizeErrorMsg: attachmentFileSizeErrorMsg,
+    maxAttachmentFileNameSizeWithExt: maxAttachmentFileNameSizeWithExt,
+    attachmentFileNameLengthErrorMsg: attachmentFileNameLengthErrorMsg,
+    attachmentFileNameErrorMsg: attachmentFileNameErrorMsg,
+    accept: accept,
+    fileTypePattern: fileTypePattern
+  })));
+}
+
+File.defaultProps = {
+  name: '',
+  icons: {},
+  chooseAFileToUpload: '',
+  removeTextLabel: '',
+  attachmentFileValidMsg: '',
+  attachmentFileInvalidValidMsg: '',
+  attachmentFileSize: '5MB',
+  attachmentFileSizeErrorMsg: '',
+  maxAttachmentFileNameSizeWithExt: 32,
+  attachmentFileNameLengthErrorMsg: '',
+  attachmentFileNameErrorMsg: '',
+  accept: '',
+  validation: {},
+  label: '',
+  optionalLabel: '',
+  description: ''
+};
+/* harmony default export */ var fields_file = (File);
 // CONCATENATED MODULE: ./src/forms/fields/index.js
+
 
 
 
@@ -8460,7 +8892,8 @@ var formType = {
   body: fields_body,
   link: fields_link,
   textwithlinks: textWithLinks,
-  label: fields_label
+  label: fields_label,
+  file: fields_file
 };
 
 var fields_Field = function Field(_ref) {
@@ -8485,11 +8918,8 @@ var fields_Field = function Field(_ref) {
 };
 
 /* harmony default export */ var forms_fields = (react_default.a.memo(fields_Field));
-// EXTERNAL MODULE: ./src/utils/redirectFunctions.js
-var redirectFunctions = __webpack_require__(26);
-
 // EXTERNAL MODULE: ./src/my-account/services/SoldToDetailsLazy.js + 1 modules
-var SoldToDetailsLazy = __webpack_require__(59);
+var SoldToDetailsLazy = __webpack_require__(62);
 
 // CONCATENATED MODULE: ./src/forms/form.js
 
@@ -8871,7 +9301,7 @@ var form_Form = function Form(_ref) {
   if (isInEditMode || config.getRadioOptions && config.options || displayForm && !config.getRadioOptions) {
     return react_default.a.createElement(react_default.a.Fragment, null, renderForm());
   } else {
-    return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement(utils_spinner["a" /* default */], {
+    return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement(spinner["a" /* default */], {
       loading: !displayForm
     }), renderForm());
   }
@@ -8886,13 +9316,16 @@ var form_ErrorBoundaryForm = function ErrorBoundaryForm(props) {
 var useFormApi = FormApi;
 var useFieldApi = FieldApi;
 // EXTERNAL MODULE: ./src/scripts/scrollTo.js
-var scrollTo = __webpack_require__(40);
+var scrollTo = __webpack_require__(41);
 var scrollTo_default = /*#__PURE__*/__webpack_require__.n(scrollTo);
 
 // EXTERNAL MODULE: ./src/my-account/services/UserDetails.js
-var UserDetails = __webpack_require__(50);
+var UserDetails = __webpack_require__(51);
 
 // CONCATENATED MODULE: ./src/forms/services/submit.js
+
+
+
 
 
 
@@ -9742,11 +10175,13 @@ function contactSupportSubmit(_x13) {
 
 function _contactSupportSubmit() {
   _contactSupportSubmit = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee11(data) {
-    var isCaptcha, response, responseBody;
+    var _objectSpread2, isCaptcha, attachmentFieldName, _yield$convertFileInt, fileName, base64Value, encodeValue, formData, response, responseBody;
+
     return regenerator_default.a.wrap(function _callee11$(_context11) {
       while (1) {
         switch (_context11.prev = _context11.next) {
           case 0:
+            _context11.prev = 0;
             isCaptcha = data.hasOwnProperty('captcha');
 
             if (isCaptcha) {
@@ -9754,15 +10189,25 @@ function _contactSupportSubmit() {
               delete data.captcha;
             }
 
-            _context11.next = 4;
-            return postData(this.url, data);
+            attachmentFieldName = Object(fileAttachment["b" /* getAttachmentFieldName */])(data);
+            _context11.next = 6;
+            return Object(fileAttachment["a" /* convertFileIntoBase64 */])(data[attachmentFieldName]);
 
-          case 4:
+          case 6:
+            _yield$convertFileInt = _context11.sent;
+            fileName = _yield$convertFileInt.fileName;
+            base64Value = _yield$convertFileInt.base64Value;
+            encodeValue = base64Value.replace(/^[^,]*,/, '');
+            formData = Object(objectSpread["a" /* default */])({}, data, (_objectSpread2 = {}, Object(defineProperty["a" /* default */])(_objectSpread2, attachmentFieldName, encodeValue), Object(defineProperty["a" /* default */])(_objectSpread2, "hasAttachment", encodeValue ? 'Y' : 'N'), Object(defineProperty["a" /* default */])(_objectSpread2, "fileName", fileName), _objectSpread2));
+            _context11.next = 13;
+            return postData(this.url, formData);
+
+          case 13:
             response = _context11.sent;
-            _context11.next = 7;
+            _context11.next = 16;
             return response.json();
 
-          case 7:
+          case 16:
             responseBody = _context11.sent;
             // remove all previous server error notifications
             this.setError();
@@ -9779,17 +10224,25 @@ function _contactSupportSubmit() {
               scrollTo_default()(0);
             }
 
-          case 10:
+            _context11.next = 24;
+            break;
+
+          case 21:
+            _context11.prev = 21;
+            _context11.t0 = _context11["catch"](0);
+            console.error(_context11.t0);
+
+          case 24:
           case "end":
             return _context11.stop();
         }
       }
-    }, _callee11, this);
+    }, _callee11, this, [[0, 21]]);
   }));
   return _contactSupportSubmit.apply(this, arguments);
 }
 // EXTERNAL MODULE: ./node_modules/@brightcove/react-player-loader/dist/brightcove-react-player-loader.es.js
-var brightcove_react_player_loader_es = __webpack_require__(125);
+var brightcove_react_player_loader_es = __webpack_require__(129);
 
 // CONCATENATED MODULE: ./src/video/video-modal-body.js
 
@@ -9843,7 +10296,7 @@ var video_modal_body_VideoModalBody = /*#__PURE__*/function (_React$Component) {
 
 /* harmony default export */ var video_modal_body = (video_modal_body_VideoModalBody);
 // EXTERNAL MODULE: ./node_modules/react-lines-ellipsis/lib/responsiveHOC.js
-var responsiveHOC = __webpack_require__(126);
+var responsiveHOC = __webpack_require__(130);
 var responsiveHOC_default = /*#__PURE__*/__webpack_require__.n(responsiveHOC);
 
 // CONCATENATED MODULE: ./src/video/video-description.js
@@ -9992,7 +10445,7 @@ var video_VideoContainer = /*#__PURE__*/function (_React$Component) {
 
 
 
-var _Promise = typeof Promise === 'undefined' ? __webpack_require__(91).Promise : Promise;
+var _Promise = typeof Promise === 'undefined' ? __webpack_require__(89).Promise : Promise;
 
 
 
@@ -10117,10 +10570,10 @@ var chat_Chat = /*#__PURE__*/function (_React$Component) {
 
 /* harmony default export */ var chat = (chat_Chat);
 // EXTERNAL MODULE: ./src/detail-tiles/utils/generateTiles.js
-var generateTiles = __webpack_require__(81);
+var generateTiles = __webpack_require__(85);
 
 // EXTERNAL MODULE: ./src/my-account/services/UserDetailsLazy.js
-var UserDetailsLazy = __webpack_require__(65);
+var UserDetailsLazy = __webpack_require__(70);
 
 // CONCATENATED MODULE: ./src/detail-tiles/hooks/useProfile.js
 
@@ -10599,10 +11052,10 @@ var wechat_WeChat = /*#__PURE__*/function (_React$Component) {
 /* harmony default export */ var wechat = (wechat_WeChat);
 
 // EXTERNAL MODULE: ./node_modules/react-router-dom/es/HashRouter.js
-var HashRouter = __webpack_require__(495);
+var HashRouter = __webpack_require__(499);
 
 // EXTERNAL MODULE: ./node_modules/react-router-dom/es/Switch.js + 1 modules
-var Switch = __webpack_require__(496);
+var Switch = __webpack_require__(501);
 
 // CONCATENATED MODULE: ./src/my-account/routes.js
 /* harmony default export */ var routes = ({
@@ -10642,10 +11095,10 @@ var Switch = __webpack_require__(496);
   }
 });
 // EXTERNAL MODULE: ./node_modules/react-router-dom/es/Link.js
-var es_Link = __webpack_require__(494);
+var es_Link = __webpack_require__(498);
 
 // EXTERNAL MODULE: ./src/typography/title.js
-var typography_title = __webpack_require__(82);
+var typography_title = __webpack_require__(86);
 
 // CONCATENATED MODULE: ./src/my-account/components/breadcrumb.js
 
@@ -10790,7 +11243,7 @@ var aside_Aside = function Aside(props) {
       config: props.breadcrumbs
     }));
   } else {
-    return react_default.a.createElement(utils_spinner["a" /* default */], {
+    return react_default.a.createElement(spinner["a" /* default */], {
       loading: !displayTile
     });
   }
@@ -11005,7 +11458,7 @@ var myaccount_MyAccount = function MyAccount(_ref2) {
       });
     }))));
   } else {
-    return react_default.a.createElement(utils_spinner["a" /* default */], {
+    return react_default.a.createElement(spinner["a" /* default */], {
       loading: !displayTile
     });
   }
@@ -11296,10 +11749,10 @@ delivery_status_DeliveryStatus.defaultProps = {
 };
 /* harmony default export */ var delivery_status = (delivery_status_DeliveryStatus);
 // EXTERNAL MODULE: ./src/utils/date-formatter/index.js
-var date_formatter = __webpack_require__(41);
+var date_formatter = __webpack_require__(44);
 
 // EXTERNAL MODULE: ./src/utils/get-locale/index.js
-var get_locale = __webpack_require__(42);
+var get_locale = __webpack_require__(45);
 
 // CONCATENATED MODULE: ./src/history/components/order-list-item.js
 
@@ -11403,9 +11856,6 @@ var count_header_CountHeader = function CountHeader(props) {
 };
 
 /* harmony default export */ var count_header = (count_header_CountHeader);
-// EXTERNAL MODULE: ./src/utils/dropdown/index.js
-var utils_dropdown = __webpack_require__(83);
-
 // CONCATENATED MODULE: ./src/history/components/time-period-dropdown.js
 
 
@@ -11430,7 +11880,7 @@ var time_period_dropdown_TimePeriod = function TimePeriod(props) {
   return react_default.a.createElement("div", {
     className: "cmp-order-list-timeperiod",
     "data-locator": "cmp-order-list-timeperiod"
-  }, react_default.a.createElement(utils_dropdown["a" /* default */], {
+  }, react_default.a.createElement(dropdown["a" /* default */], {
     getOptions: time_period_dropdown_getOptions,
     onChange: function onChange(e) {
       return props.onChange(e);
@@ -11468,7 +11918,7 @@ var filter_dropdown_getOptions = function getOptions(text) {
 var filter_dropdown_FilterDropdown = function FilterDropdown(props) {
   return react_default.a.createElement("div", {
     className: "cmp-order-list-dropdownfilters"
-  }, react_default.a.createElement(utils_dropdown["a" /* default */], {
+  }, react_default.a.createElement(dropdown["a" /* default */], {
     getOptions: filter_dropdown_getOptions,
     onChange: function onChange(e) {
       return props.onChange(e);
@@ -11480,6 +11930,80 @@ var filter_dropdown_FilterDropdown = function FilterDropdown(props) {
 };
 
 /* harmony default export */ var filter_dropdown = (filter_dropdown_FilterDropdown);
+// EXTERNAL MODULE: ./src/scripts/fade-x.js
+var fade_x = __webpack_require__(74);
+
+// CONCATENATED MODULE: ./src/navigation/tabs/index.js
+
+
+
+
+var tabs_Tabs = function Tabs(_ref) {
+  var className = _ref.className,
+      items = _ref.items,
+      activeIndex = _ref.activeIndex,
+      onClick = _ref.onClick,
+      enableFading = _ref.enableFading;
+  var tabsRef = react_default.a.useRef();
+  react_default.a.useEffect(function () {
+    var tabFader;
+
+    if (enableFading && items.length !== 0) {
+      tabFader = Object(fade_x["a" /* default */])('cmp-tabs', 0, 100);
+      tabsRef.current.addEventListener('scroll', tabFader);
+    }
+
+    return function () {
+      tabsRef.current.removeEventListener('scroll', tabFader);
+    };
+  }, []);
+  return react_default.a.createElement("div", {
+    className: "cmp-tabs-wrapper"
+  }, react_default.a.createElement("div", {
+    ref: tabsRef,
+    className: "cmp-tabs ".concat(className)
+  }, items.map(function (item, index) {
+    return react_default.a.createElement(tabs_Tab, {
+      key: "CategoryTab-".concat(index),
+      name: item.name,
+      index: index,
+      isActive: index === activeIndex,
+      onClick: onClick
+    });
+  })));
+};
+
+tabs_Tabs.defaultProps = {
+  className: "",
+  items: [],
+  activeIndex: -1,
+  onClick: function onClick() {},
+  enableFading: false
+};
+
+var tabs_Tab = function Tab(_ref2) {
+  var index = _ref2.index,
+      name = _ref2.name,
+      isActive = _ref2.isActive,
+      _onClick = _ref2.onClick;
+  return react_default.a.createElement("div", {
+    className: "cmp-tabs__tab".concat(isActive ? " active" : ""),
+    onClick: function onClick() {
+      return _onClick(index);
+    }
+  }, react_default.a.createElement("span", {
+    className: "cmp-tabs__tab-label",
+    "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])(name)
+  }, name));
+};
+
+tabs_Tab.defaultProps = {
+  name: "",
+  index: -1,
+  isActive: false,
+  onClick: function onClick() {}
+};
+/* harmony default export */ var navigation_tabs = (tabs_Tabs);
 // CONCATENATED MODULE: ./src/history/order-history/index.js
 
 
@@ -11833,7 +12357,7 @@ var order_history_OrderHistory = /*#__PURE__*/function (_Component) {
     value: function render() {
       var _this5 = this;
 
-      return react_default.a.createElement(react_default.a.Fragment, null, this.state.loading ? react_default.a.createElement(utils_spinner["a" /* default */], {
+      return react_default.a.createElement(react_default.a.Fragment, null, this.state.loading ? react_default.a.createElement(spinner["a" /* default */], {
         loading: this.state.loading
       }) : null, !this.state.loading && react_default.a.createElement(react_default.a.Fragment, null, this.renderTabs(), react_default.a.createElement("div", {
         className: "cmp-order-list__header clearfix",
@@ -11854,9 +12378,6 @@ var order_history_OrderHistory = /*#__PURE__*/function (_Component) {
 }(react["Component"]);
 
 /* harmony default export */ var order_history = (order_history_OrderHistory);
-// EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js + 1 modules
-var objectWithoutProperties = __webpack_require__(85);
-
 // CONCATENATED MODULE: ./src/details/details.services.js
 
 
@@ -12264,10 +12785,10 @@ shipment_Shipment.defaultProps = {
 };
 /* harmony default export */ var components_shipment = (shipment_Shipment);
 // EXTERNAL MODULE: ./src/utils/get-isocode/index.js
-var get_isocode = __webpack_require__(84);
+var get_isocode = __webpack_require__(87);
 
 // EXTERNAL MODULE: ./src/utils/group-by/index.js
-var group_by = __webpack_require__(63);
+var group_by = __webpack_require__(68);
 
 // CONCATENATED MODULE: ./src/details/order-details/index.js
 
@@ -12740,7 +13261,7 @@ var order_details_OrderDetails = /*#__PURE__*/function (_Component) {
           isLoading = _this$state5.isLoading,
           errorOrderNotFound = _this$state5.errorOrderNotFound,
           errorServiceError = _this$state5.errorServiceError;
-      return react_default.a.createElement(react_default.a.Fragment, null, isLoading && react_default.a.createElement(utils_spinner["a" /* default */], {
+      return react_default.a.createElement(react_default.a.Fragment, null, isLoading && react_default.a.createElement(spinner["a" /* default */], {
         loading: isLoading
       }), !isLoading && errorOrderNotFound && this.renderNotFoundError(), !errorOrderNotFound && !errorServiceError && !isLoading && this.renderDetailsSection(), !errorOrderNotFound && !errorServiceError && !isLoading && this.renderOrderShipmentList(), react_default.a.createElement(modal["b" /* default */], {
         isOpen: this.state.modalShown,
@@ -13220,7 +13741,7 @@ var quote_history_QuoteHistory = /*#__PURE__*/function (_Component) {
     value: function render() {
       var _this5 = this;
 
-      return react_default.a.createElement(react_default.a.Fragment, null, this.state.loading ? react_default.a.createElement(utils_spinner["a" /* default */], {
+      return react_default.a.createElement(react_default.a.Fragment, null, this.state.loading ? react_default.a.createElement(spinner["a" /* default */], {
         loading: this.state.loading
       }) : null, !this.state.loading && react_default.a.createElement(react_default.a.Fragment, null, this.renderTabs(), react_default.a.createElement("div", {
         className: "cmp-order-list__header clearfix",
@@ -13710,7 +14231,7 @@ var quote_details_QuoteDetails = /*#__PURE__*/function (_Component) {
           isLoading = _this$state5.isLoading,
           errorOrderNotFound = _this$state5.errorOrderNotFound,
           errorServiceError = _this$state5.errorServiceError;
-      return react_default.a.createElement(react_default.a.Fragment, null, isLoading && react_default.a.createElement(utils_spinner["a" /* default */], {
+      return react_default.a.createElement(react_default.a.Fragment, null, isLoading && react_default.a.createElement(spinner["a" /* default */], {
         loading: isLoading
       }), !isLoading && errorOrderNotFound && this.renderNotFoundError(), !errorOrderNotFound && !errorServiceError && !isLoading && this.renderDetailsSection(), !errorOrderNotFound && !errorServiceError && !isLoading && this.renderOrderShipmentList(), react_default.a.createElement(modal["b" /* default */], {
         isOpen: this.state.modalShown,
@@ -14040,7 +14561,7 @@ if (spinnerContainer) {
       loading: showLoader,
       color: '#ffffff'
     };
-    react_dom_default.a.render(showLoader ? react_default.a.createElement(utils_spinner["a" /* default */], props) : null, container);
+    react_dom_default.a.render(showLoader ? react_default.a.createElement(spinner["a" /* default */], props) : null, container);
   };
 
   window.addEventListener("showLoaderEproc", function (_ref) {
@@ -14516,10 +15037,10 @@ if (contactusContainer) {
   }), contactusContainer);
 }
 // EXTERNAL MODULE: ./node_modules/css-vars-ponyfill/dist/css-vars-ponyfill.esm.js
-var css_vars_ponyfill_esm = __webpack_require__(127);
+var css_vars_ponyfill_esm = __webpack_require__(131);
 
-// EXTERNAL MODULE: ./src/scripts/inlineSVG.js
-var inlineSVG = __webpack_require__(57);
+// EXTERNAL MODULE: ./src/scripts/inlineSVG.js + 1 modules
+var inlineSVG = __webpack_require__(58);
 
 // CONCATENATED MODULE: ./src/entry.js
 
@@ -14575,22 +15096,14 @@ window.addEventListener('resize', addEllipses);
 
 /***/ }),
 
-/***/ 17:
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-module.exports = {"colorBorderDark":"#9ca7b0","colorGray50":"#4f5b64","colorBackgroundLight":"#f4f6f7","colorWhite":"#fff","colorBlue50":"#07b","borderRadius":"4px","spaceXXXS":".25em","spaceXXS":".5em","spaceXS":".75em","spaceS":"1em"};
-
-/***/ }),
-
-/***/ 187:
+/***/ 190:
 /***/ (function(module, exports) {
 
 /* (ignored) */
 
 /***/ }),
 
-/***/ 21:
+/***/ 20:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -14603,7 +15116,7 @@ module.exports = {"colorBorderDark":"#9ca7b0","colorGray50":"#4f5b64","colorBack
 /* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
 /* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4);
 /* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(5);
-/* harmony import */ var whatwg_fetch__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(35);
+/* harmony import */ var whatwg_fetch__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(38);
 /* harmony import */ var _stores_sessionStore__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(15);
 
 
@@ -14612,7 +15125,7 @@ module.exports = {"colorBorderDark":"#9ca7b0","colorGray50":"#4f5b64","colorBack
 
 
 
-var queryString = __webpack_require__(28);
+var queryString = __webpack_require__(29);
 
 var parameterValues = {
   undefined: 'undefined',
@@ -15109,15 +15622,42 @@ var searchMapper = {
 
 /***/ }),
 
-/***/ 31:
+/***/ 26:
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+module.exports = {"colorBorderDark":"#9ca7b0","colorGray50":"#4f5b64","colorBackgroundLight":"#f6f8f9","colorWhite":"#fff","colorBlue50":"#07b","borderRadius":"4px","spaceXXXS":".25em","spaceXXS":".5em","spaceXS":".75em","spaceS":"1em"};
+
+/***/ }),
+
+/***/ 28:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6);
-/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(10);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BAD_REQUEST_CODE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return SERVER_ERROR_CODE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return UNAVAILABLE_PRICE_WITH_ADD_TO_CART; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return LIST_PRICE_WITH_ADD_TO_CART; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return NO_PRICE_NO_ADD_TO_CART; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return FILENAME_REGX; });
+var BAD_REQUEST_CODE = 400;
+var SERVER_ERROR_CODE = 500;
+var UNAVAILABLE_PRICE_WITH_ADD_TO_CART = 'unavailable_price_with_add-to-cart';
+var LIST_PRICE_WITH_ADD_TO_CART = 'list_price_with_add-to-cart';
+var NO_PRICE_NO_ADD_TO_CART = 'no_price_no_add-to-cart';
+var FILENAME_REGX = /\*|\/|\?|\!|\<|\>|\"|\||\\|\:/gm;
+
+/***/ }),
+
+/***/ 32:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(10);
+/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(0);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _scripts_ErrorMessages__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(62);
+/* harmony import */ var _scripts_ErrorMessages__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(67);
 /* harmony import */ var _utils_modal__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(18);
 /* harmony import */ var _utils_eCommerceFunctions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(11);
 
@@ -15244,28 +15784,28 @@ AddToCartModalBody.whyDidYouRender = true;
 
 /***/ }),
 
-/***/ 392:
+/***/ 396:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _styles_print_page_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(393);
+/* harmony import */ var _styles_print_page_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(397);
 /* harmony import */ var _styles_print_page_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_styles_print_page_scss__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _entry__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(156);
+/* harmony import */ var _entry__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(160);
 // Print Breaking CSS File
 
 
 
 /***/ }),
 
-/***/ 393:
+/***/ 397:
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
 
 /***/ }),
 
-/***/ 43:
+/***/ 42:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -15280,13 +15820,13 @@ var classCallCheck = __webpack_require__(4);
 var createClass = __webpack_require__(5);
 
 // EXTERNAL MODULE: ./node_modules/whatwg-fetch/fetch.js
-var fetch = __webpack_require__(35);
+var fetch = __webpack_require__(38);
 
 // CONCATENATED MODULE: ./src/forms/services/EmailService.js
 
 
 
-var _Promise = typeof Promise === 'undefined' ? __webpack_require__(91).Promise : Promise;
+var _Promise = typeof Promise === 'undefined' ? __webpack_require__(89).Promise : Promise;
 
 
 
@@ -15340,7 +15880,11 @@ var EmailService_EmailService = /*#__PURE__*/function () {
 }();
 
 /* harmony default export */ var services_EmailService = (EmailService_EmailService);
+// EXTERNAL MODULE: ./src/forms/fields/utils/fileAttachment.js
+var fileAttachment = __webpack_require__(60);
+
 // CONCATENATED MODULE: ./src/forms/fields/patterns/index.js
+
 
 
 var test = function test(value, regex) {
@@ -15359,6 +15903,45 @@ var removeError = function removeError() {
     }
   });
   return true;
+};
+
+var patterns_getFileValidation = function getFileValidation(fileObj, validation) {
+  var status = false;
+  var errorMsg = '';
+  var fileTypePattern = validation.fileTypePattern,
+      attachmentFileSize = validation.attachmentFileSize,
+      maxAttachmentFileNameSizeWithExt = validation.maxAttachmentFileNameSizeWithExt,
+      attachmentFileInvalidValidMsg = validation.attachmentFileInvalidValidMsg,
+      attachmentFileSizeErrorMsg = validation.attachmentFileSizeErrorMsg,
+      attachmentFileNameLengthErrorMsg = validation.attachmentFileNameLengthErrorMsg,
+      attachmentFileNameErrorMsg = validation.attachmentFileNameErrorMsg;
+  var labels = {
+    attachmentFileSizeErrorMsg: attachmentFileSizeErrorMsg,
+    attachmentFileNameLengthErrorMsg: attachmentFileNameLengthErrorMsg,
+    attachmentFileNameErrorMsg: attachmentFileNameErrorMsg
+  };
+  var config = {
+    maxAttachmentFileNameSizeWithExt: maxAttachmentFileNameSizeWithExt,
+    attachmentFileSize: attachmentFileSize
+  };
+
+  if (fileObj) {
+    var fileValidation = Object(fileAttachment["c" /* validateUploadFile */])(fileObj, labels, config);
+    var fileType = new RegExp(fileTypePattern, 'i');
+
+    if (!fileType.test(fileObj.name)) {
+      status = true;
+      errorMsg = attachmentFileInvalidValidMsg;
+    } else if (fileValidation.status) {
+      status = true;
+      errorMsg = fileValidation.error;
+    }
+  }
+
+  return {
+    status: status,
+    errorMsg: errorMsg
+  };
 };
 
 var functions = {
@@ -15550,20 +16133,42 @@ var functions = {
         return true;
       }
     }
+  },
+  fileValidation: function fileValidation(value, ref, validation, setError, clearError) {
+    if (ref) {
+      if (value && value.length === 1) {
+        var _getFileValidation = patterns_getFileValidation(value[0], validation),
+            status = _getFileValidation.status,
+            errorMsg = _getFileValidation.errorMsg;
+
+        if (status) {
+          setError(ref.name, ref.name, errorMsg, ref);
+          return false;
+        }
+
+        clearError(ref.name);
+        return true;
+      } else {
+        clearError(ref.name);
+        return true;
+      }
+    }
+
+    return true;
   }
 };
 
 /***/ }),
 
-/***/ 50:
+/***/ 51:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
 /* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
-/* harmony import */ var whatwg_fetch__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(35);
-/* harmony import */ var _utils_redirectFunctions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(26);
+/* harmony import */ var whatwg_fetch__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(38);
+/* harmony import */ var _utils_redirectFunctions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(24);
 
 
 
@@ -15667,7 +16272,7 @@ var UserDetails = /*#__PURE__*/function () {
 
 /***/ }),
 
-/***/ 59:
+/***/ 62:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -15686,7 +16291,7 @@ var loginStatus = __webpack_require__(16);
 var stores_sessionStore = __webpack_require__(15);
 
 // EXTERNAL MODULE: ./node_modules/whatwg-fetch/fetch.js
-var whatwg_fetch_fetch = __webpack_require__(35);
+var whatwg_fetch_fetch = __webpack_require__(38);
 
 // CONCATENATED MODULE: ./src/my-account/services/SoldToDetails.js
 
@@ -15902,7 +16507,7 @@ var eCommerceFunctions = __webpack_require__(11);
 
 /***/ }),
 
-/***/ 65:
+/***/ 70:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -15911,7 +16516,7 @@ var eCommerceFunctions = __webpack_require__(11);
 /* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
 /* harmony import */ var _scripts_loginStatus__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(16);
 /* harmony import */ var _stores_sessionStore__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(15);
-/* harmony import */ var _services_UserDetails__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(50);
+/* harmony import */ var _services_UserDetails__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(51);
 
 
 

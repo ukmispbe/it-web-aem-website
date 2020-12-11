@@ -17,7 +17,7 @@ function ResultsCount(props) {
     });
 
     const getOptions = options => {
-        let categoryOptionsList = options.filter(category => category.count !== 0).map((a, index) => { 
+        let categoryOptionsList = options.map((a, index) => { 
             return {
                 value: index,
                 label: a.translation
