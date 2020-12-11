@@ -14,7 +14,7 @@
         }
 
         &-text {
-            @include font-body;
+            @include font-h3;
             color: $color-black;
             font-weight: $font-weight-regular;
         }
