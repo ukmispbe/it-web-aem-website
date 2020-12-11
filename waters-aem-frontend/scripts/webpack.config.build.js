@@ -55,7 +55,7 @@ module.exports = {
     plugins: [
         new MiniCssExtractPlugin({
             filename: '[name].css',
-            chunkFilename: '[id].css',
+            chunkFilename: '/etc.clientlibs/waters/components/content/[name]/clientlib-[name].css',
         })
     ],
     module: {

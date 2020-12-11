@@ -143,7 +143,7 @@ public class PageRedirectServlet
         ValueMap valueMap = resource.adaptTo(ValueMap.class);
         String redirectTarget = "";
         if (valueMap != null) {
-            redirectTarget = valueMap.get("redirectType", "");
+            redirectTarget = valueMap.get("redirectType", valueMap.get("sling:redirectStatus",""));
         }
         return redirectTarget;
     }
