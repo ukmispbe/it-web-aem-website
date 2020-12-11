@@ -49,6 +49,19 @@ class DeliveryStatus extends Component {
         let deliveryStatusClass = '';
 
         switch(status) {
+            case "Pending":
+                deliveryStatus = labels.pendingLabel;
+                icon = icons.openIcon;
+            break;
+            case "Quote Replaced":
+                deliveryStatus = labels.quoteReplacedLabel;
+                icon = icons.replacedIcon;
+            break;
+            case "Rejected":
+                deliveryStatus = labels.rejectedLabel;
+                icon = icons.rejectedIcon;
+                iconClassName= "rejected-icon";
+            break;
             case "Expired":
                 deliveryStatus = labels.expiredLabel;
                 icon = icons.expiredIcon;

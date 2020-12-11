@@ -9,15 +9,15 @@ import TimePeriodDropdown from '../components/time-period-dropdown';
 import FilterDropdown from '../components/filter-dropdown';
 import Tabs from '../../navigation/tabs';
 import Spinner from '../../utils/spinner';
+import {getSoldToId, getDummySoldToId, getUserId} from '../../utils/userFunctions'
 import Analytics, { analyticTypes, setClickAnalytics, setSelectDropdownAnalytics } from '../../analytics';
 
 class QuoteHistory extends Component {
     constructor(props) {
         super(props);
-        const today = new Date();
         this.state = {
             listItems: "",
-            fromDate: new Date(today.setDate(today.getDate() - 30)),
+            fromDate: 1,
             poNumber: "",
             orderNumber: "",
             activeTabFilter: "All",
@@ -27,7 +27,9 @@ class QuoteHistory extends Component {
             loading: true,
             noResults: false,
             error: false,
-            initialPageLoad: true
+            initialPageLoad: true,
+            currentPage:0,
+            pageSize:10
         }
 
         this.page = {
@@ -50,8 +52,8 @@ class QuoteHistory extends Component {
     }
 
     componentDidMount() {
-        const {fromDate, poNumber, orderNumber, activeTabFilter} = this.state;
-        this.retrieveData(fromDate, poNumber, orderNumber, activeTabFilter);
+        const {fromDate, activeTabFilter} = this.state;
+        this.retrieveData(fromDate, activeTabFilter);
     }
 
     setAnalytics = (event, detail={}) => {
@@ -70,23 +72,24 @@ class QuoteHistory extends Component {
     handleCategorySelected(e) {
         // 0 = All Quotes, 1 = Open Quotes, 2 = Closed Quotes
         let tabId;
-        let activeTabFilter = "All";
+        let activeTabFilterStatus = "All";
         (e.value || e.value === 0) ? tabId = e.value : tabId = e;
 
         if (tabId === 1) {
-            activeTabFilter = "Open";
+            activeTabFilterStatus = "OPEN";
         } else if (tabId === 2) {
-            activeTabFilter = "Closed";
+            activeTabFilterStatus = "CLOSED";
         }
 
-        setClickAnalytics(this.page.title, `${this.page.title} ${activeTabFilter} ${this.page.type}`, '#');
+        setClickAnalytics(this.page.title, `${this.page.title} ${activeTabFilterStatus} ${this.page.type}`, '#');
 
         this.setState({
-            activeTabFilter: activeTabFilter,
-            activeIndex: tabId
+            activeTabFilter: activeTabFilterStatus,
+            activeIndex: tabId,
+            currentPage:0
         }, () => {
-            const {fromDate, poNumber, orderNumber, activeTabFilter} = this.state 
-            this.retrieveData(fromDate, poNumber, orderNumber, activeTabFilter);
+            const {fromDate, activeTabFilter} = this.state 
+            this.retrieveData(fromDate, activeTabFilter);
         }); 
     }
 
@@ -95,10 +98,10 @@ class QuoteHistory extends Component {
         const selectedTimeframe = e.value;
         let now = new Date();
         let timeValue ='';
-        const days = 30;
+        const days = 1;
         const sixMonths = 6;
         const twelveMonths = 12;
-        const allTime = 15;
+        const allTime = 0;
 
         setSelectDropdownAnalytics(timePeriod, `${this.page.title} ${timePeriodOptions[selectedTimeframe -1]}`);
 
@@ -123,10 +126,11 @@ class QuoteHistory extends Component {
 
         this.setState({
             fromDate: timeValue.toISOString(),
-            activeTimePeriod: selectedTimeframe
+            activeTimePeriod: selectedTimeframe,
+            currentPage:0
         },() => {
-            const {fromDate, poNumber, orderNumber, activeTabFilter} = this.state 
-            this.retrieveData(fromDate, poNumber, orderNumber, activeTabFilter);
+            const {fromDate, activeTabFilter} = this.state 
+            this.retrieveData(fromDate, activeTabFilter);
         });
     }
 
@@ -135,42 +139,47 @@ class QuoteHistory extends Component {
             listItems: null,
             pageCount: 0,
             listCount: 0,
-            currentPage: 1,
+            currentPage: 0,
             noResults: true,
             loading: false
         }); 
     }
 
-    setResultsState = (filteredListItems) => {
+    setResultsState = (quoteData) => {
+        const {totalNumberOfResults = 0, quotes=[], numberOfPages, currentPage} = quoteData || {}
         this.setState({ 
-            listItems: filteredListItems,
-            pageCount: Math.ceil(filteredListItems.length / this.paginationDefaults.visibleRows),
-            listCount: filteredListItems.length,
-            currentPage: 1,
+            listItems: quotes,
+            pageCount: numberOfPages,
+            listCount: totalNumberOfResults,
+            currentPage: currentPage,
             noResults: false,
             loading: false
         });
     }
 
-    retrieveData = async (fromDate, poNumber, orderNumber, activeTabFilter) => {
-        const HistoryServiceObj = new HistoryService();
-        const fetchEndPoint = this.props.configs.fetchEndPoint;
-        const orders = await HistoryServiceObj.getQuoteListPost(fetchEndPoint, fromDate, poNumber, orderNumber, this.setError);
+    getQueryParam = (fetchEndPoint,fromDate,activeTabFilter) =>{
+      let url = fetchEndPoint;
+      const {currentPage, pageSize} = this.state;
+      const  userId = getUserId();
+      const soldToId = getSoldToId() || getDummySoldToId();
+      let queryParam = `userId=${userId}&soldToId=${soldToId}&currentPage=${currentPage}&pageSize=${pageSize}&fields=FULL`;
+      if(activeTabFilter && activeTabFilter !== "All"){
+        queryParam = `${queryParam}&state=${activeTabFilter}`;
+      }
+      if(fromDate){
+        queryParam = `${queryParam}&duration=${fromDate}`;
+      }
+      return `${url}?${queryParam}`;
+    }
 
-        if(orders && orders.length > 0){
-            let filteredListItems = orders;
-            if (activeTabFilter !== undefined && activeTabFilter !== "All" && activeTabFilter === "Open"){
-                filteredListItems = orders.filter(function(i) {
-                    return i.deliveryStatus === "Open" || i.deliveryStatus === "Partial";
-                })
-                if (filteredListItems.length > 0){
-                    this.setResultsState(filteredListItems)
-                } else {
-                    this.setNoResultsState()
-                }
-            } else {
-                this.setResultsState(filteredListItems)
-            }
+    retrieveData = async (fromDate, activeTabFilter) => {
+        const HistoryServiceObj = new HistoryService();
+        let fetchEndPoint = this.props.configs.fetchEndPoint;
+        fetchEndPoint = this.getQueryParam(fetchEndPoint,fromDate,activeTabFilter)
+        const quoteData = await HistoryServiceObj.getQuoteHistory(fetchEndPoint);
+        const {totalNumberOfResults = 0} = quoteData
+        if(quoteData && totalNumberOfResults > 0){
+            this.setResultsState(quoteData)
         } else {
             this.setNoResultsState()
         }
@@ -210,34 +219,27 @@ class QuoteHistory extends Component {
     renderCountHeader = () => {
         return (
             <CountHeader
-                rows={this.paginationDefaults.visibleRows}
+                rows={this.state.pageSize}
                 count={this.state.listCount}
-                current={this.state.currentPage}
+                current={this.state.currentPage + 1}
                 resultsText={this.props.configs.resultsText}
                 noResultsText={this.props.configs.noResultsFoundTitle}
             />
         );
     }
 
-    renderPaginatedResults = () => {
-        const rows = this.paginationDefaults.visibleRows;
-        const count = this.state.listCount;
-        const current = this.state.currentPage;
-        const endResults = count > current * rows ? current * rows : count;
-        const startResults = current * rows - rows;
-        let itemsToRender = this.state.listItems.slice(startResults, endResults);
-        return itemsToRender;
-    }
-
     paginationClickHandler = (page) => {
         this.setState({ 
-            currentPage: page.selected + 1
+            currentPage: page.selected
+        },() => {
+            const {fromDate, activeTabFilter} = this.state 
+            this.retrieveData(fromDate, activeTabFilter);
         }); 
         window.scroll(0,0);
     }
 
     renderPagination() {
-        if (this.state.listCount > this.paginationDefaults.visibleRows) {
+        if (this.state.listCount > this.state.pageSize) {
             const previousIcon = (
                 <ReactSVG src={this.paginationDefaults.previousIcon} />
             );
@@ -248,7 +250,7 @@ class QuoteHistory extends Component {
             return (
                 <ReactPaginate
                     pageCount={this.state.pageCount}
-                    forcePage={this.state.currentPage -1}
+                    forcePage={this.state.currentPage}
                     pageRangeDisplayed={this.paginationDefaults.pageRangeDisplayed}
                     marginPagesDisplayed={this.paginationDefaults.marginPagesDisplayed}
                     containerClassName="paginate__container"
@@ -256,7 +258,7 @@ class QuoteHistory extends Component {
                     breakLabel={'…'}
                     previousLabel={previousIcon}
                     nextLabel={nextIcon}
-                    initialPage={this.state.currentPage -1}
+                    initialPage={this.state.currentPage}
                     disableInitialCallback={true}
                     hrefBuilder={this.buildHref}
                 />
@@ -278,31 +280,35 @@ class QuoteHistory extends Component {
     }
 
     render() {
+        const {listCount,listItems, noResults, loading} = this.state;
         return (
             <>  
-                {this.state.loading ? ( <Spinner loading={this.state.loading} /> ) : null}
-                {!this.state.loading && (
+                {loading ? ( <Spinner loading={loading} /> ) : null}
+                {!loading && (
                     <>   
                     {this.renderTabs()}
                         <div className="cmp-order-list__header clearfix" data-locator="order-list-header-clearfix">
-                            {!this.state.noResults && this.renderDropDowns()}
+                            {!noResults && this.renderDropDowns()}
                             {this.renderCountHeader()}
                         </div>
 
-                        {this.state.noResults && this.renderNoResults()}
+                        {noResults && this.renderNoResults()}
 
-                        {this.state.listCount > 0 && this.renderPaginatedResults().map((item, index) => (               
+                        {listCount > 0 && listItems.map((item, index) => (               
                             <QuoteListItem
                                 data={item}
                                 numberText={this.props.configs.numberText}
                                 itemsText={this.props.configs.itemsText}
                                 shipment={this.props.configs.shipment}
+                                created={this.props.configs.created}
+                                expires={this.props.configs.expires}
+                                orderNumberText={this.props.configs.orderNumberText}
                                 icons={this.props.configs.icons}
                                 quoteAgainTitle={this.props.configs.quoteAgainTitle}
                                 index={index}
                             />
                         ))}
-                        {this.state.listCount > 0 && this.renderPagination()}           
+                        {listCount > 0 && this.renderPagination()}           
                     </>
                 )}
             </>
