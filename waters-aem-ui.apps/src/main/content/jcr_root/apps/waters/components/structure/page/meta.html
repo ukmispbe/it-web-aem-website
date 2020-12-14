@@ -33,12 +33,16 @@
         <meta name="robots" content="${metaPage.robotsTags @ join=', '}">
     </sly>
 
-    <sly data-sly-test="${!metaPage.noIndex && renderCanonical}">
+    <sly data-sly-test="${!metaPage.noIndex && renderCanonical && !metaPage.ErrorPage}">
         <link rel="canonical" href="${metaPage.canonicalUrl}">
 
         <link data-sly-repeat.hrefLang="${metaPage.hrefLangItems}" rel="alternate" href="${hrefLang.href}"
               hreflang="${hrefLang.languageTag}" />
         <link rel="alternate" href="${metaPage.defaultHreflang}" hreflang="x-default" />
+    </sly>
+    
+    <sly data-sly-test="${metaPage.ErrorPage}">
+    <link rel="canonical" href="${metaPage.canonicalUrlErrorPage @path=request.requestURI.toString}">
     </sly>
 
     <link rel="icon" sizes="192x192" href="/etc.clientlibs/waters/clientlibs/clientlib-resources/resources/icon-192x192.png">
