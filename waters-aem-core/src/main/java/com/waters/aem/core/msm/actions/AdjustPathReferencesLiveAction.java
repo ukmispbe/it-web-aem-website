@@ -147,6 +147,11 @@ public class AdjustPathReferencesLiveAction implements LiveAction {
 		} else if (shouldAdjustReferences(destinationUrl) && prop.getParent().getName().equalsIgnoreCase("navigation")) {
 			Node navigationNode = targetResource.adaptTo(Node.class);
 			navigationNode.setProperty("disableShadowing", "true");
+		} else if (shouldAdjustReferences(destinationUrl) && prop.getParent().getPath().contains("/root/sectioncontainer")) {
+			Node sectionContainerNode = targetResource.adaptTo(Node.class);
+			if(sectionContainerNode.getProperty("title").getString().equals("Product Support")) {
+				sectionContainerNode.setProperty("hideOnEproc", "true");
+			}
 		}
     }
 
