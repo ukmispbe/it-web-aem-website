@@ -151,6 +151,10 @@ public class MyAccount implements ComponentExporter {
         return accountService.getOrderListUrl();
     }
 
+    public String getQuoteHistoryURL() {
+        return accountService.getQuoteHistoryURL();
+    }
+
     public String getSearchUrl() {
         return searchService.getBaseUrl();
     }

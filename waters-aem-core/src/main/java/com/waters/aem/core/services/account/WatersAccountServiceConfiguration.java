@@ -56,4 +56,7 @@ public @interface WatersAccountServiceConfiguration {
 
     @AttributeDefinition(name = "Contact Support API Url", description = "Url for Contact Support API")
     String contactSupportUrl() default "https://dev1-services.waters.com/api/waters/contact/v1/support"; 
+
+    @AttributeDefinition(name = "Quote History API Url", description = "Url for Quote History API")
+    String quoteHistoryURL() default "https://api-sbox.waters.com/dev-waters-quote-exp-api-v1/api/quote";
 }
