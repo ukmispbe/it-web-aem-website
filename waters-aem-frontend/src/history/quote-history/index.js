@@ -17,10 +17,10 @@ class QuoteHistory extends Component {
         super(props);
         this.state = {
             listItems: "",
-            fromDate: 1,
+            noOfMonths: 1,
             poNumber: "",
             orderNumber: "",
-            activeTabFilter: "All",
+            activeTabFilter: "ALL",
             activeIndex: 0,
             activeTimePeriod: 1,
             errorObjHistory: {},
@@ -52,8 +52,8 @@ class QuoteHistory extends Component {
     }
 
     componentDidMount() {
-        const {fromDate, activeTabFilter} = this.state;
-        this.retrieveData(fromDate, activeTabFilter);
+        const {noOfMonths, activeTabFilter} = this.state;
+        this.retrieveData(noOfMonths, activeTabFilter);
     }
 
     setAnalytics = (event, detail={}) => {
@@ -72,7 +72,7 @@ class QuoteHistory extends Component {
     handleCategorySelected(e) {
         // 0 = All Quotes, 1 = Open Quotes, 2 = Closed Quotes
         let tabId;
-        let activeTabFilterStatus = "All";
+        let activeTabFilterStatus = "ALL";
         (e.value || e.value === 0) ? tabId = e.value : tabId = e;
 
         if (tabId === 1) {
@@ -88,17 +88,16 @@ class QuoteHistory extends Component {
             activeIndex: tabId,
             currentPage:0
         }, () => {
-            const {fromDate, activeTabFilter} = this.state 
-            this.retrieveData(fromDate, activeTabFilter);
+            const {noOfMonths, activeTabFilter} = this.state 
+            this.retrieveData(noOfMonths, activeTabFilter);
         }); 
     }
 
     timePeriodHandler(e) {
         const { timePeriod, timePeriodOptions } = this.page.analytics;
         const selectedTimeframe = e.value;
-        let now = new Date();
         let timeValue ='';
-        const days = 1;
+        const month = 1;
         const sixMonths = 6;
         const twelveMonths = 12;
         const allTime = 0;
@@ -107,30 +106,30 @@ class QuoteHistory extends Component {
 
         switch (selectedTimeframe) {
             case 1:
-                timeValue = new Date(now.setDate(now.getDate() - days));
+                timeValue = month;
                 break;
 
             case 2:
-                timeValue = new Date(now.setMonth(now.getMonth() - sixMonths));
+                timeValue = sixMonths;
                 break;
 
             case 3:
-                timeValue = new Date(now.setMonth(now.getMonth() - twelveMonths));
+                timeValue = twelveMonths;
                 break;
 
             case 4:
-                timeValue = new Date(now.setMonth(now.getMonth() - allTime));
+                timeValue = allTime;
                 break;
             default:
         }
 
         this.setState({
-            fromDate: timeValue.toISOString(),
+            noOfMonths: timeValue,
             activeTimePeriod: selectedTimeframe,
             currentPage:0
         },() => {
-            const {fromDate, activeTabFilter} = this.state 
-            this.retrieveData(fromDate, activeTabFilter);
+            const {noOfMonths, activeTabFilter} = this.state 
+            this.retrieveData(noOfMonths, activeTabFilter);
         });
     }
 
@@ -157,25 +156,25 @@ class QuoteHistory extends Component {
         });
     }
 
-    getQueryParam = (fetchEndPoint,fromDate,activeTabFilter) =>{
+    getQueryParam = (fetchEndPoint,noOfMonths,activeTabFilter) =>{
       let url = fetchEndPoint;
       const {currentPage, pageSize} = this.state;
       const  userId = getUserId();
       const soldToId = getSoldToId() || getDummySoldToId();
       let queryParam = `userId=${userId}&soldToId=${soldToId}&currentPage=${currentPage}&pageSize=${pageSize}&fields=FULL`;
-      if(activeTabFilter && activeTabFilter !== "All"){
+      if(activeTabFilter && activeTabFilter !== "ALL"){
         queryParam = `${queryParam}&state=${activeTabFilter}`;
       }
-      if(fromDate){
-        queryParam = `${queryParam}&duration=${fromDate}`;
+      if(noOfMonths){
+        queryParam = `${queryParam}&duration=${noOfMonths}`;
       }
       return `${url}?${queryParam}`;
     }
 
-    retrieveData = async (fromDate, activeTabFilter) => {
+    retrieveData = async (noOfMonths, activeTabFilter) => {
         const HistoryServiceObj = new HistoryService();
         let fetchEndPoint = this.props.configs.fetchEndPoint;
-        fetchEndPoint = this.getQueryParam(fetchEndPoint,fromDate,activeTabFilter)
+        fetchEndPoint = this.getQueryParam(fetchEndPoint,noOfMonths,activeTabFilter)
         const quoteData = await HistoryServiceObj.getQuoteHistory(fetchEndPoint);
         const {totalNumberOfResults = 0} = quoteData
         if(quoteData && totalNumberOfResults > 0){
@@ -232,8 +231,8 @@ class QuoteHistory extends Component {
         this.setState({ 
             currentPage: page.selected
         },() => {
-            const {fromDate, activeTabFilter} = this.state 
-            this.retrieveData(fromDate, activeTabFilter);
+            const {noOfMonths, activeTabFilter} = this.state 
+            this.retrieveData(noOfMonths, activeTabFilter);
         }); 
         window.scroll(0,0);
     }

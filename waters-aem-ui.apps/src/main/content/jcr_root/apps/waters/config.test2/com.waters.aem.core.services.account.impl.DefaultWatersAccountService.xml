@@ -18,5 +18,6 @@
           orderDetailsUrl="https://test2-www.waters.com:8443/api/waters/order/v1/details"
           searchUrl="https://test2-www.waters.com:8443/api/waters/search"
           orderListUrl="https://test2-www.waters.com:8443/api/waters/order/v1/list"
+          quoteHistoryURL="https://internal-api-dev.waters.com/qa-waters-quote-exp-api-v1/api/quote"
           chooseAccountEndpoint="https://test2-www.waters.com:8443/api/waters/user/v1/switchaccount"
           contactSupportUrl="https://test2-www.waters.com:8443/api/waters/contact/v1/support"/>
