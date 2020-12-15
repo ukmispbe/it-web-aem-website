@@ -128,6 +128,7 @@ public class AdjustPathReferencesLiveAction implements LiveAction {
     private void adjustSingleValueProperty(final Property prop, final String destinationLanguageCode, final String destinationUrl, final Resource targetResource)
     throws RepositoryException {
         final String value = prop.getString();
+        Node node = targetResource.adaptTo(Node.class);		
 
         if (isPossiblePath(value)) {
             final String languageCode = getPropertyLanguageCode(value);
@@ -138,19 +139,18 @@ public class AdjustPathReferencesLiveAction implements LiveAction {
             else if (shouldAdjustReferences(destinationUrl)){
                 prop.setValue(value.replace(WatersConstants.ROOT_PATH_LANGUAGE_MASTERS, WatersConstants.ORDER_ROOT_PATH));
             }
-        } else if (shouldAdjustReferences(destinationUrl) && prop.getParent().getPath().contains("/footer/par/experiencefragment") && prop.getName().contentEquals("fragmentPath")){
-            prop.setValue("");
-        } else if (shouldAdjustReferences(destinationUrl) && prop.getParent().getName().equalsIgnoreCase("breadcrumb")) {
-			Node breadcrumbNode = targetResource.adaptTo(Node.class);
-			breadcrumbNode.setProperty("startLevel", "3");
-			breadcrumbNode.setProperty("disableShadowing", "true");
-		} else if (shouldAdjustReferences(destinationUrl) && prop.getParent().getName().equalsIgnoreCase("navigation")) {
-			Node navigationNode = targetResource.adaptTo(Node.class);
-			navigationNode.setProperty("disableShadowing", "true");
-		} else if (shouldAdjustReferences(destinationUrl) && prop.getParent().getPath().contains("/root/sectioncontainer")) {
-			Node sectionContainerNode = targetResource.adaptTo(Node.class);
-			if(sectionContainerNode.getProperty("title").getString().equals("Product Support")) {
-				sectionContainerNode.setProperty("hideOnEproc", "true");
+		} else if (shouldAdjustReferences(destinationUrl)) {
+			if (prop.getParent().getName().equalsIgnoreCase("breadcrumb")) {
+				node.setProperty("disableShadowing", "true");
+				node.setProperty("startLevel", "3");
+			} else if (prop.getParent().getName().equalsIgnoreCase("navigation")) {
+				node.setProperty("disableShadowing", "true");
+			} else if (prop.getParent().getPath().contains("/footer/par/experiencefragment")) {
+				node.setProperty("fragmentPath", "");
+			} else if (prop.getParent().getPath().contains("/root/sectioncontainer")) {
+				if (node.getProperty("title").getString().equals("Product Support")) {
+					node.setProperty("hideOnEproc", "true");
+				}
 			}
 		}
     }
