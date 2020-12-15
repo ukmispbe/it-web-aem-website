@@ -34,6 +34,7 @@ class QuoteListItem extends Component {
                             {numberText + " " + quoteId}
                         </a>
                     </div>
+                    <div className="cmp-quote-data-section">
                     {quoteCreationDate && (<div className="cmp-order-list__date" data-locator="order-list-created-date">
                         {`${created} ${quoteCreationDate}`}
                     </div>)}
@@ -43,14 +44,16 @@ class QuoteListItem extends Component {
                     {showOrderNumber && orderNumber && (<div className="cmp-order-list__order-number-text" data-locator="quote-order-number">
                         {`${orderNumberText} ${orderNumber}`}
                     </div>)}
+                    </div>
+                    
                 </div>
                 <div className="cmp-order-list__right" data-locator="order-list-right">
                     <hr className="cmp-order-list_hr"/>
-                    <DeliveryStatus
+                    {quoteStatus && (<DeliveryStatus
                         status={quoteStatus}
                         labels={shipment}
                         icons={icons}
-                    />            
+                    />)}            
                 </div>
                 {totalPriceFormatted && (<div className="cmp-order-list__total cmp-order-list__left" data-locator="order-list-total">
                     {totalPriceFormatted}

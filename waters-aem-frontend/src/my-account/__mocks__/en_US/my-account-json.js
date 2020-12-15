@@ -240,6 +240,7 @@ export default {
         },
         icons: {
             openIcon: "/content/dam/waters/en/brand-assets/icons/refresh.svg",
+            pendingIcon: "/content/dam/waters/en/brand-assets/icons/pending.svg",
             partialIcon: "/content/dam/waters/en/brand-assets/icons/success.svg",
             replacedIcon: "/content/dam/waters/en/brand-assets/icons/repeat.svg",
             rejectedIcon: "/content/dam/waters/en/brand-assets/icons/attention.svg",
@@ -325,6 +326,7 @@ export default {
         },
         icons: {
             openIcon: "/content/dam/waters/en/brand-assets/icons/refresh.svg",
+            pendingIcon: "/content/dam/waters/en/brand-assets/icons/pending.svg",
             partialIcon: "/content/dam/waters/en/brand-assets/icons/success.svg",
             replacedIcon: "/content/dam/waters/en/brand-assets/icons/repeat.svg",
             rejectedIcon: "/content/dam/waters/en/brand-assets/icons/attention.svg",
