@@ -24,18 +24,25 @@ public final class SearchResultsCategory {
     private SiteContext siteContext;
 
     @DialogField(fieldLabel = "Category",
-        fieldDescription = "Select a tag corresponding to a top-level search category.",
-        ranking = 1)
+            fieldDescription = "Select a tag corresponding to a top-level search category.",
+            ranking = 1)
     @TagInputField(multiple = false)
     @WatersTagInject
     private Tag categoryTag;
 
     @DialogField(fieldLabel = "Ordered Facets",
-        fieldDescription = "Select facet tags in the order that they should be displayed on the Search Results page.",
-        ranking = 2)
+            fieldDescription = "Select facet tags in the order that they should be displayed on the Search Results page.",
+            ranking = 2)
     @TagInputField
     @WatersTagInject
     private List<Tag> orderedFacetTags = Collections.emptyList();
+
+    @DialogField(fieldLabel = "Sort By",
+            fieldDescription = "Select tags for sort order of Search Results.",
+            ranking = 3)
+    @TagInputField(rootPath = "/content/cq:tags/waters/sort-by")
+    @WatersTagInject
+    private List<Tag> sortBy = Collections.emptyList();
 
     public String getCategoryFacetValue() {
         // always english
@@ -52,11 +59,20 @@ public final class SearchResultsCategory {
 
     public List<Map<String, String>> getOrderedFacets() {
         return orderedFacetTags.stream()
-            .map(tag -> ImmutableMap.<String, String>builder()
-                .put("facetName", SearchUtils.getSolrFacetName(tag.getName()))
-                .put("facetValue", tag.getTitle())
-                .put("facetTranslation", tag.getTitle(siteContext.getLocale()))
-                .build())
-            .collect(Collectors.toList());
+                .map(tag -> ImmutableMap.<String, String>builder()
+                        .put("facetName", SearchUtils.getSolrFacetName(tag.getName()))
+                        .put("facetValue", tag.getTitle())
+                        .put("facetTranslation", tag.getTitle(siteContext.getLocale()))
+                        .build())
+                .collect(Collectors.toList());
+    }
+
+    public List<Map<String, String>> getSortBy() {
+        return sortBy.stream()
+                .map(tag -> ImmutableMap.<String, String>builder()
+                        .put("sortKey", tag.getName())
+                        .put("sortValue", tag.getTitle())
+                        .build())
+                .collect(Collectors.toList());
     }
 }
