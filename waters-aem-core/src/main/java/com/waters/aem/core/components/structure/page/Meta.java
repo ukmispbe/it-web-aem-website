@@ -100,6 +100,11 @@ public final class Meta extends AbstractComponent {
             .or(externalize(currentPage.getHref()));
     }
 
+    public String getCanonicalUrlErrorPage() {
+    	String path = get("path", "");
+        return externalize(path);
+    }
+
     public String getSeoTitle() {
         return get(PROPERTY_SEO_TITLE, "");
     }
@@ -274,5 +279,9 @@ public final class Meta extends AbstractComponent {
 
     private String externalize(final String path) {
         return externalizer.externalLink(resource.getResourceResolver(), Externalizer.PUBLISH, path);
+    }
+
+    public boolean isErrorPage() {
+        return currentPage.getHref().contains("error") || currentPage.getHref().contains("404");
     }
 }
