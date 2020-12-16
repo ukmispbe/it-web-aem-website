@@ -135,7 +135,6 @@ class QuoteHistory extends Component {
     }
 
     setNoResultsState = () => {
-        const {isQuoteData} = this.state;
         this.setState({ 
             listItems: null,
             pageCount: 0,
@@ -143,7 +142,6 @@ class QuoteHistory extends Component {
             currentPage: 0,
             noResults: true,
             loading: false,
-            isQuoteData: isQuoteData ? isQuoteData : false
         }); 
     }
 

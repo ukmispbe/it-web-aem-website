@@ -108,10 +108,12 @@
                 .cmp-order-list__date {
                     @include font-body; 
                     color: $color-gray-50;
+                    margin-bottom: $space-xxs;
                 }
                 .cmp-order-list__order-number-text{
                     @include font-body;
                     color: $color-link;
+                    margin-bottom: $space-xxs;
                 }
             }
 
