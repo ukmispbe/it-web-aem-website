@@ -52,6 +52,7 @@ class DeliveryStatus extends Component {
             case "Pending":
                 deliveryStatus = labels.pendingLabel;
                 icon = icons.pendingIcon;
+                iconClassName = "pending-icon";
             break;
             case "Quote Replaced":
                 deliveryStatus = labels.quoteReplacedLabel;
