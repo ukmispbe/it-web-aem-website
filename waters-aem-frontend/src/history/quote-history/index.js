@@ -29,7 +29,8 @@ class QuoteHistory extends Component {
             error: false,
             initialPageLoad: true,
             currentPage:0,
-            pageSize:10
+            pageSize:10,
+            isQuoteData:false
         }
 
         this.page = {
@@ -140,7 +141,7 @@ class QuoteHistory extends Component {
             listCount: 0,
             currentPage: 0,
             noResults: true,
-            loading: false
+            loading: false,
         }); 
     }
 
@@ -152,7 +153,8 @@ class QuoteHistory extends Component {
             listCount: totalNumberOfResults,
             currentPage: currentPage,
             noResults: false,
-            loading: false
+            loading: false,
+            isQuoteData: true,
         });
     }
 
@@ -189,7 +191,8 @@ class QuoteHistory extends Component {
 
     renderTabs = () => {
         const {tabs = [], blankItemTabs=[]} = this.props.configs || {};
-        const currentTabs = this.state.noResults ? blankItemTabs : tabs;
+        const {isQuoteData} = this.state;
+        const currentTabs = this.state.noResults && !isQuoteData ? blankItemTabs : tabs;
         return (                     
             <Tabs className="cmp-search__categories-tabs"
                 items={currentTabs}
@@ -279,7 +282,7 @@ class QuoteHistory extends Component {
     }
 
     render() {
-        const {listCount,listItems, noResults, loading} = this.state;
+        const {listCount,listItems, noResults, loading, isQuoteData} = this.state;
         return (
             <>  
                 {loading ? ( <Spinner loading={loading} /> ) : null}
@@ -287,7 +290,7 @@ class QuoteHistory extends Component {
                     <>   
                     {this.renderTabs()}
                         <div className="cmp-order-list__header clearfix" data-locator="order-list-header-clearfix">
-                            {!noResults && this.renderDropDowns()}
+                            {isQuoteData && this.renderDropDowns()}
                             {this.renderCountHeader()}
                         </div>
 

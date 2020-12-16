@@ -102,6 +102,9 @@
                         color: $color-link-hover;
                     }
                 }
+                .cmp-quote-data-section{
+                    margin-top: $space-xs;
+                }
                 .cmp-order-list__date {
                     @include font-body; 
                     color: $color-gray-50;
