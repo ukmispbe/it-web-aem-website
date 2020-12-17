@@ -1684,7 +1684,7 @@ function _signOutRequest() {
   return _signOutRequest.apply(this, arguments);
 }
 // EXTERNAL MODULE: ./src/scripts/checkOutStatus.js
-var checkOutStatus = __webpack_require__(49);
+var checkOutStatus = __webpack_require__(47);
 
 // EXTERNAL MODULE: ./src/analytics/index.js + 1 modules
 var analytics = __webpack_require__(14);
@@ -1839,7 +1839,7 @@ var my_account_container_MyAccountContainer = function MyAccountContainer(props)
 
   var filterItemList = function filterItemList(list) {
     return list.filter(function (item) {
-      return !(item.isHiddenForEprocUser === "true" && Object(userFunctions["q" /* isEprocurementUserRole */])());
+      return !(item.isHiddenForEprocUser === "true" && Object(userFunctions["s" /* isEprocurementUserRole */])());
     });
   };
 
@@ -1902,7 +1902,7 @@ var UserDetailsLazy = __webpack_require__(70);
 var SoldToDetailsLazy = __webpack_require__(62);
 
 // EXTERNAL MODULE: ./src/stores/localStore.js
-var localStore = __webpack_require__(47);
+var localStore = __webpack_require__(45);
 
 // CONCATENATED MODULE: ./src/my-account/services/PunchoutLogin.js
 
@@ -2743,7 +2743,7 @@ var my_account_dropdown_MyAccountDropDown = /*#__PURE__*/function (_React$Compon
 
                 window.addEventListener('resize', this.updateViewport, true);
 
-                if (!Object(userFunctions["p" /* isEprocurementUser */])()) {
+                if (!Object(userFunctions["r" /* isEprocurementUser */])()) {
                   _context5.next = 13;
                   break;
                 }
@@ -2916,8 +2916,8 @@ var searchbar_SearchBar = /*#__PURE__*/function (_Component) {
         'aria-label': _this.props.labels.autoSuggest
       };
 
-      if (Object(userFunctions["p" /* isEprocurementUser */])() && !_this.eprocIsoCode) {
-        _this.eprocIsoCode = Object(userFunctions["l" /* getIsoCode */])();
+      if (Object(userFunctions["r" /* isEprocurementUser */])() && !_this.eprocIsoCode) {
+        _this.eprocIsoCode = Object(userFunctions["m" /* getIsoCode */])();
         _this.search = _this.updateSearchService(_this.eprocIsoCode);
       }
 
@@ -3233,7 +3233,7 @@ var searchbar_SearchBar = /*#__PURE__*/function (_Component) {
     _this.inputElement = null;
     _this.eprocIsoCode = '';
     _this.searchBarRef = react_default.a.createRef();
-    _this.search = _this.updateSearchService(Object(userFunctions["p" /* isEprocurementUser */])() ? Object(userFunctions["l" /* getIsoCode */])() : _this.props.isocode);
+    _this.search = _this.updateSearchService(Object(userFunctions["r" /* isEprocurementUser */])() ? Object(userFunctions["m" /* getIsoCode */])() : _this.props.isocode);
 
     var searchValue = _this.search.getUrlParameter('keyword', window.location.search.substring(1));
 

@@ -85,6 +85,11 @@
             cursor: default;
         }
     }
+    .inactive {
+        &:hover {
+            border: $border-disabled;
+        }    
+    }
 }
 .cmp-search__container {
     position: relative;

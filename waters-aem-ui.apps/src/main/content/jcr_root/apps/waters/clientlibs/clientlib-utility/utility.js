@@ -241,31 +241,31 @@ function parseQueryParams(pathname) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return getCountryCode; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return getLanguage; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return getUserId; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return getLanguage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return getUserId; });
 /* unused harmony export getSalesOrg */
-/* unused harmony export getSoldToId */
-/* unused harmony export getDummySoldToId */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return getSoldToId; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return getDummySoldToId; });
 /* unused harmony export getSoldToIdSource */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return callCustomerPriceApi; });
 /* unused harmony export trimAndCapitalize */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return getOrderDetailsAddress; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return getFullCompanyAddress; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return getOrderDetailsAddress; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return getFullCompanyAddress; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return getCountryName; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return getFullName; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return getFullName; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return getAddressesByType; });
 /* unused harmony export getDefaultSoldTo */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return getDefaultSoldToAddresses; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return filterUserDetails; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return filterSoldToDetails; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return getIsoCode; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return getIsoCode; });
 /* unused harmony export getUserRole */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return isEprocurementUserRole; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return isEprocurementUserRole; });
 /* unused harmony export getUsertype */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return isEprocurementUser; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return getEprocUserCountryCode; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return getEprocUserLanguage; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return matchAddresses; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return isEprocurementUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return getEprocUserCountryCode; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return getEprocUserLanguage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "t", function() { return matchAddresses; });
 /* harmony import */ var whatwg_fetch__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(38);
 /* harmony import */ var _stores_sessionStore__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(15);
 /* harmony import */ var _scripts_loginStatus__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(16);
@@ -3296,76 +3296,7 @@ var renderFormattedLabelText = function renderFormattedLabelText(label, required
 
 /***/ }),
 
-/***/ 44:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-function dateFormatter(inputdate) {
-  var userLocale = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'en-US';
-
-  if (inputdate && inputdate !== "0000-00-00") {
-    var splitDate = inputdate.split('-');
-    var constructedDate = new Date(Date.UTC(splitDate[0], parseInt(splitDate[1], 10) - 1, splitDate[2], 12));
-    return constructedDate.toLocaleDateString(userLocale, {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    });
-  } else {
-    return '-';
-  }
-}
-
-function monthDayFormatter(inputdate) {
-  var userLocale = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'en-US';
-
-  if (inputdate && inputdate !== "0000-00-00") {
-    var splitDate = inputdate.split('-');
-    var constructedDate = new Date(Date.UTC(splitDate[0], parseInt(splitDate[1], 10) - 1, splitDate[2], 12));
-    return constructedDate.toLocaleDateString(userLocale, {
-      month: 'long',
-      day: 'numeric'
-    });
-  } else {
-    return '-';
-  }
-}
-
-/* harmony default export */ __webpack_exports__["a"] = ({
-  dateFormatter: dateFormatter,
-  monthDayFormatter: monthDayFormatter
-});
-
-/***/ }),
-
 /***/ 45:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var _scripts_DigitalData__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(21);
-
-
-function getLocale() {
-  var locale = "";
-  var localeLanguage = _scripts_DigitalData__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].language;
-  var localeCountry = _scripts_DigitalData__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].country;
-
-  if (!localeLanguage && !localeCountry || _scripts_DigitalData__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].country === _scripts_DigitalData__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].globalExperience) {
-    localeLanguage = 'en';
-    localeCountry = 'US';
-  }
-
-  locale = localeLanguage + "-" + localeCountry.toUpperCase();
-  return locale;
-}
-
-/* harmony default export */ __webpack_exports__["a"] = ({
-  getLocale: getLocale
-});
-
-/***/ }),
-
-/***/ 47:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3406,7 +3337,7 @@ var LocalStore = function LocalStore() {
 
 /***/ }),
 
-/***/ 49:
+/***/ 47:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3450,6 +3381,75 @@ var checkOutStatus = {
 
 };
 /* harmony default export */ __webpack_exports__["a"] = (checkOutStatus);
+
+/***/ }),
+
+/***/ 48:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+function dateFormatter(inputdate) {
+  var userLocale = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'en-US';
+
+  if (inputdate && inputdate !== "0000-00-00") {
+    var splitDate = inputdate.split('-');
+    var constructedDate = new Date(Date.UTC(splitDate[0], parseInt(splitDate[1], 10) - 1, splitDate[2], 12));
+    return constructedDate.toLocaleDateString(userLocale, {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  } else {
+    return '-';
+  }
+}
+
+function monthDayFormatter(inputdate) {
+  var userLocale = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'en-US';
+
+  if (inputdate && inputdate !== "0000-00-00") {
+    var splitDate = inputdate.split('-');
+    var constructedDate = new Date(Date.UTC(splitDate[0], parseInt(splitDate[1], 10) - 1, splitDate[2], 12));
+    return constructedDate.toLocaleDateString(userLocale, {
+      month: 'long',
+      day: 'numeric'
+    });
+  } else {
+    return '-';
+  }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+  dateFormatter: dateFormatter,
+  monthDayFormatter: monthDayFormatter
+});
+
+/***/ }),
+
+/***/ 49:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _scripts_DigitalData__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(21);
+
+
+function getLocale() {
+  var locale = "";
+  var localeLanguage = _scripts_DigitalData__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].language;
+  var localeCountry = _scripts_DigitalData__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].country;
+
+  if (!localeLanguage && !localeCountry || _scripts_DigitalData__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].country === _scripts_DigitalData__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].globalExperience) {
+    localeLanguage = 'en';
+    localeCountry = 'US';
+  }
+
+  locale = localeLanguage + "-" + localeCountry.toUpperCase();
+  return locale;
+}
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+  getLocale: getLocale
+});
 
 /***/ }),
 
@@ -4140,7 +4140,7 @@ function _postDataRedirect() {
 /* harmony import */ var _screenSizes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(17);
 /* harmony import */ var _ecommerce__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(30);
 /* harmony import */ var _loginStatus__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(16);
-/* harmony import */ var _checkOutStatus__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(49);
+/* harmony import */ var _checkOutStatus__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(47);
 
 
 
@@ -4497,7 +4497,7 @@ var getAttachmentFieldName = function getAttachmentFieldName(data) {
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3);
-/* harmony import */ var react_select__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(48);
+/* harmony import */ var react_select__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(46);
 /* harmony import */ var _custom_styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(98);
 
 
@@ -4866,7 +4866,7 @@ var newNotification = function newNotification(title, description, icon) {
 
 var buildAddress = function buildAddress(address) {
   var includeCountryName = false;
-  var addressArray = Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_2__[/* getFullCompanyAddress */ "j"])(address, includeCountryName);
+  var addressArray = Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_2__[/* getFullCompanyAddress */ "k"])(address, includeCountryName);
   return addressArray.map(function (x, i) {
     return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
       key: i + 1
@@ -4889,7 +4889,7 @@ var config = document.getElementById('json-config--cmp-detail-tiles--personal') 
       return [{
         name: 'personalDetailsTile',
         columns: [{
-          title: Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_2__[/* getFullName */ "k"])(data),
+          title: Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_2__[/* getFullName */ "l"])(data),
           rows: [{
             text: data.company,
             "class": 'company'

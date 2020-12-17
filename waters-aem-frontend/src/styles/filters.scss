@@ -151,7 +151,10 @@
             }
             .inactive {
                 color: $color-disabled;
-                cursor: default;           
+                cursor: default;    
+                &:hover {
+                    border: $border-disabled;
+                }       
             }
         }
         .inactive {

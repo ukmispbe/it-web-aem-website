@@ -1392,7 +1392,7 @@ filter_Filter.defaultProps = {
 var objectWithoutProperties = __webpack_require__(61);
 
 // EXTERNAL MODULE: ./node_modules/react-select/dist/react-select.esm.js + 1 modules
-var react_select_esm = __webpack_require__(48);
+var react_select_esm = __webpack_require__(46);
 
 // EXTERNAL MODULE: ./src/utils/dropdown/custom-styles.js
 var custom_styles = __webpack_require__(98);
@@ -2173,7 +2173,7 @@ function UnavailablePrice(props) {
 var whatwg_fetch_fetch = __webpack_require__(38);
 
 // EXTERNAL MODULE: ./src/stores/localStore.js
-var stores_localStore = __webpack_require__(47);
+var stores_localStore = __webpack_require__(45);
 
 // EXTERNAL MODULE: ./src/scripts/loginStatus.js
 var loginStatus = __webpack_require__(16);
@@ -2195,7 +2195,7 @@ var userFunctions = __webpack_require__(13);
 
 
 var services_availabilityUrlRequest = function availabilityUrlRequest(url, countryCode, partNo) {
-  url = url.replace('{partnumber}', partNo).replace('{countryCode}', Object(userFunctions["p" /* isEprocurementUser */])() ? Object(userFunctions["h" /* getEprocUserCountryCode */])().toUpperCase() : countryCode);
+  url = url.replace('{partnumber}', partNo).replace('{countryCode}', Object(userFunctions["r" /* isEprocurementUser */])() ? Object(userFunctions["i" /* getEprocUserCountryCode */])().toUpperCase() : countryCode);
   return url;
 };
 
@@ -2210,10 +2210,10 @@ var legacyAddToCartUrlRequest = function legacyAddToCartUrlRequest(url, partNo, 
 };
 
 var services_addToCartUrlRequest = function addToCartUrlRequest(url, partNo, quantity, cartId) {
-  var userId = Object(userFunctions["o" /* getUserId */])();
+  var userId = Object(userFunctions["q" /* getUserId */])();
   userId = userId !== '' ? userId : 'anonymous';
-  url = url.replace('{localeCountry}', Object(userFunctions["p" /* isEprocurementUser */])() ? Object(userFunctions["h" /* getEprocUserCountryCode */])().toLowerCase() : Object(userFunctions["e" /* getCountryCode */])()).replace('{localeLanguage}', Object(userFunctions["p" /* isEprocurementUser */])() ? Object(userFunctions["i" /* getEprocUserLanguage */])().toLowerCase() : Object(userFunctions["m" /* getLanguage */])()).replace('{userType}', userId).replace('{guid}', cartId ? cartId : 'null').concat('', '?successWithCart=true');
-  url = cartId ? url : url.concat('', "&createCart=".concat(!Object(userFunctions["p" /* isEprocurementUser */])()));
+  url = url.replace('{localeCountry}', Object(userFunctions["r" /* isEprocurementUser */])() ? Object(userFunctions["i" /* getEprocUserCountryCode */])().toLowerCase() : Object(userFunctions["e" /* getCountryCode */])()).replace('{localeLanguage}', Object(userFunctions["r" /* isEprocurementUser */])() ? Object(userFunctions["j" /* getEprocUserLanguage */])().toLowerCase() : Object(userFunctions["n" /* getLanguage */])()).replace('{userType}', userId).replace('{guid}', cartId ? cartId : 'null').concat('', '?successWithCart=true');
+  url = cartId ? url : url.concat('', "&createCart=".concat(!Object(userFunctions["r" /* isEprocurementUser */])()));
   return url;
 };
 
@@ -2771,7 +2771,7 @@ var sku_message_SkuMessage = /*#__PURE__*/function (_React$Component) {
 
 /* harmony default export */ var sku_message = (sku_message_SkuMessage);
 // EXTERNAL MODULE: ./src/scripts/checkOutStatus.js
-var checkOutStatus = __webpack_require__(49);
+var checkOutStatus = __webpack_require__(47);
 
 // EXTERNAL MODULE: ./src/scripts/ecommerce.js
 var ecommerce = __webpack_require__(30);
@@ -2839,7 +2839,7 @@ var listItem_ListItem = /*#__PURE__*/function (_React$Component) {
         } else {
           // Add Error Object to State
           _this.setState({
-            errorPriceType: [constants["a" /* BAD_REQUEST_CODE */], constants["e" /* SERVER_ERROR_CODE */]].includes(Object(eCommerceFunctions["c" /* getHttpStatusFromErrors */])(response.errors, response.status)) ? Object(userFunctions["p" /* isEprocurementUser */])() ? constants["f" /* UNAVAILABLE_PRICE_WITH_ADD_TO_CART */] : constants["c" /* LIST_PRICE_WITH_ADD_TO_CART */] : constants["d" /* NO_PRICE_NO_ADD_TO_CART */],
+            errorPriceType: [constants["a" /* BAD_REQUEST_CODE */], constants["e" /* SERVER_ERROR_CODE */]].includes(Object(eCommerceFunctions["c" /* getHttpStatusFromErrors */])(response.errors, response.status)) ? Object(userFunctions["r" /* isEprocurementUser */])() ? constants["f" /* UNAVAILABLE_PRICE_WITH_ADD_TO_CART */] : constants["c" /* LIST_PRICE_WITH_ADD_TO_CART */] : constants["d" /* NO_PRICE_NO_ADD_TO_CART */],
             loading: false
           });
         }
@@ -3275,7 +3275,7 @@ var sku_list_SkuList = /*#__PURE__*/function (_React$Component) {
       addToCartQty: undefined,
       skuInfo: _this.props.skuConfig.skuInfo,
       userCountry: _this.props.skuConfig.countryCode,
-      isEProcurementUserRestricted: !Object(userFunctions["p" /* isEprocurementUser */])() && Object(userFunctions["q" /* isEprocurementUserRole */])(),
+      isEProcurementUserRestricted: !Object(userFunctions["r" /* isEprocurementUser */])() && Object(userFunctions["s" /* isEprocurementUserRole */])(),
       userInfo: Object(userFunctions["a" /* callCustomerPriceApi */])(_this.props.skuConfig.isCustomerPriceApiDisabled)
     };
     return _this;
@@ -3561,7 +3561,7 @@ var search_component_helpers_Aside = function Aside(_ref2) {
   return react_default.a.createElement("div", {
     className: "container__left cmp-search__sort-filter",
     "data-locator": "left-container-filter"
-  }, !Object(userFunctions["p" /* isEprocurementUser */])() && react_default.a.createElement(navigation_RadioList, {
+  }, !Object(userFunctions["r" /* isEprocurementUser */])() && react_default.a.createElement(navigation_RadioList, {
     items: items,
     activeIndex: activeIndex,
     onClick: categoryClick
@@ -3660,7 +3660,7 @@ var search_component_helpers_SkuResults = function SkuResults(_ref4) {
   var items = _ref4.items,
       skuConfig = _ref4.skuConfig,
       onItemClick = _ref4.onItemClick;
-  var isEprocUser = Object(userFunctions["p" /* isEprocurementUser */])();
+  var isEprocUser = Object(userFunctions["r" /* isEprocurementUser */])();
   var skuData = Array.isArray(items) ? items.map(function (item) {
     return {
       code: item.skucode,
@@ -5186,7 +5186,7 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
         _this2.performSearch();
       });
       this.setState({
-        isEprocurementUser: Object(userFunctions["p" /* isEprocurementUser */])()
+        isEprocurementUser: Object(userFunctions["r" /* isEprocurementUser */])()
       });
     }
   }, {
@@ -5408,7 +5408,7 @@ var ErrorBoundary_ErrorBoundary = /*#__PURE__*/function (_React$Component) {
 
 
 var search_SearchApp = function SearchApp(props) {
-  var isoCode = Object(userFunctions["p" /* isEprocurementUser */])() && Object(userFunctions["l" /* getIsoCode */])() || props.isocode;
+  var isoCode = Object(userFunctions["r" /* isEprocurementUser */])() && Object(userFunctions["m" /* getIsoCode */])() || props.isocode;
   var search = new services["a" /* SearchService */](isoCode, props.searchServicePath, services["b" /* parameterDefaults */].page, props.searchDefaults.rows, services["b" /* parameterDefaults */].sort, undefined, function () {});
   return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement(BrowserRouter["a" /* default */], null, react_default.a.createElement(Route["a" /* default */], {
     path: "",
@@ -6826,7 +6826,7 @@ var sku_details_SkuDetails = /*#__PURE__*/function (_React$Component) {
         } else {
           // Add Error Object to State
           _this.setState({
-            errorPriceType: [constants["a" /* BAD_REQUEST_CODE */], constants["e" /* SERVER_ERROR_CODE */]].includes(Object(eCommerceFunctions["c" /* getHttpStatusFromErrors */])(response.errors, response.status)) ? Object(userFunctions["p" /* isEprocurementUser */])() ? constants["f" /* UNAVAILABLE_PRICE_WITH_ADD_TO_CART */] : constants["c" /* LIST_PRICE_WITH_ADD_TO_CART */] : constants["d" /* NO_PRICE_NO_ADD_TO_CART */],
+            errorPriceType: [constants["a" /* BAD_REQUEST_CODE */], constants["e" /* SERVER_ERROR_CODE */]].includes(Object(eCommerceFunctions["c" /* getHttpStatusFromErrors */])(response.errors, response.status)) ? Object(userFunctions["r" /* isEprocurementUser */])() ? constants["f" /* UNAVAILABLE_PRICE_WITH_ADD_TO_CART */] : constants["c" /* LIST_PRICE_WITH_ADD_TO_CART */] : constants["d" /* NO_PRICE_NO_ADD_TO_CART */],
             loading: false
           });
         }
@@ -6900,7 +6900,7 @@ var sku_details_SkuDetails = /*#__PURE__*/function (_React$Component) {
           skuInfo = _this$state.skuInfo,
           errorPriceType = _this$state.errorPriceType,
           isStickyAvailable = _this$state.isStickyAvailable;
-      var isHiddenListPrice = errorPriceType === constants["d" /* NO_PRICE_NO_ADD_TO_CART */] && isStickyAvailable && Object(userFunctions["p" /* isEprocurementUser */])() ? true : false;
+      var isHiddenListPrice = errorPriceType === constants["d" /* NO_PRICE_NO_ADD_TO_CART */] && isStickyAvailable && Object(userFunctions["r" /* isEprocurementUser */])() ? true : false;
 
       if (errorPriceType === constants["f" /* UNAVAILABLE_PRICE_WITH_ADD_TO_CART */] && !isStickyAvailable) {
         return react_default.a.createElement(unavailablePrice, {
@@ -7093,7 +7093,7 @@ var sku_details_SkuDetails = /*#__PURE__*/function (_React$Component) {
       discontinued: _this.props.discontinued == "true",
       signInUrl: _this.props.baseSignInUrl,
       errorInfo: _this.props.config.errorInfo,
-      isEProcurementUserRestricted: !Object(userFunctions["p" /* isEprocurementUser */])() && Object(userFunctions["q" /* isEprocurementUserRole */])(),
+      isEProcurementUserRestricted: !Object(userFunctions["r" /* isEprocurementUser */])() && Object(userFunctions["s" /* isEprocurementUserRole */])(),
       isStickyAvailable: false
     };
     _this.toggleModal = _this.toggleModal.bind(Object(assertThisInitialized["a" /* default */])(Object(assertThisInitialized["a" /* default */])(_this)));
@@ -9179,7 +9179,7 @@ var form_Form = function Form(_ref) {
           tempOption.label = item.name;
           tempAddress = Object(userFunctions["d" /* getAddressesByType */])(item, "soldToInfo")[0];
           delete tempAddress.name;
-          tempOption.address = Object(userFunctions["j" /* getFullCompanyAddress */])(tempAddress, false);
+          tempOption.address = Object(userFunctions["k" /* getFullCompanyAddress */])(tempAddress, false);
           return tempOption;
         });
         config.options = tempArray;
@@ -9797,7 +9797,7 @@ function _personalSubmit() {
               store.setUserDetails(responseBody);
               store.setPersonalDetailsUpdated();
               soldToDetails = store.getSoldToDetails();
-              mergedResponse = Object(userFunctions["r" /* matchAddresses */])(responseBody, soldToDetails);
+              mergedResponse = Object(userFunctions["t" /* matchAddresses */])(responseBody, soldToDetails);
               this.setProfileData(mergedResponse);
               model = {
                 "communications": data.communications
@@ -10605,7 +10605,7 @@ var UserDetailsLazy = __webpack_require__(70);
       if (userDetails && userDetails.userId && userDetails.salesOrg) {
         if (type !== 'password') {
           Object(SoldToDetailsLazy["a" /* default */])(soldToDetailsUrl, userDetails.userId, userDetails.salesOrg).then(function (soldToDetails) {
-            var mergeAPIs = Object(userFunctions["r" /* matchAddresses */])(userDetails, soldToDetails);
+            var mergeAPIs = Object(userFunctions["t" /* matchAddresses */])(userDetails, soldToDetails);
             setData(mergeAPIs);
           });
         } else {
@@ -10825,7 +10825,7 @@ var detail_tiles_DetailTiles = function DetailTiles(_ref) {
   var processFormData = function processFormData() {
     form.fields = form.fields.map(function (field) {
       // Check if disableForEprocUser flag is true and userRole is eproc
-      if (field.disableForEprocUser && Object(userFunctions["q" /* isEprocurementUserRole */])()) {
+      if (field.disableForEprocUser && Object(userFunctions["s" /* isEprocurementUserRole */])()) {
         field.disabled = true;
       }
 
@@ -11253,7 +11253,7 @@ var aside_Tile = function Tile(_ref) {
   var tile = _ref.tile,
       pathname = _ref.pathname;
 
-  if (tile.requiresEcommerce === "true" && Object(eCommerceFunctions["e" /* isCartHidden */])() || tile.isHiddenForEprocUser === "true" && Object(userFunctions["q" /* isEprocurementUserRole */])()) {
+  if (tile.requiresEcommerce === "true" && Object(eCommerceFunctions["e" /* isCartHidden */])() || tile.isHiddenForEprocUser === "true" && Object(userFunctions["s" /* isEprocurementUserRole */])()) {
     return react_default.a.createElement(react_default.a.Fragment, null);
   }
 
@@ -11404,7 +11404,7 @@ var link_tile_LinkTile = function LinkTile(_ref) {
 var myaccount_Tile = function Tile(_ref) {
   var tile = _ref.tile;
 
-  if (tile.requiresEcommerce === "true" && Object(eCommerceFunctions["e" /* isCartHidden */])() || tile.isHiddenForEprocUser === "true" && Object(userFunctions["q" /* isEprocurementUserRole */])()) {
+  if (tile.requiresEcommerce === "true" && Object(eCommerceFunctions["e" /* isCartHidden */])() || tile.isHiddenForEprocUser === "true" && Object(userFunctions["s" /* isEprocurementUserRole */])()) {
     return react_default.a.createElement(react_default.a.Fragment, null);
   }
 
@@ -11563,6 +11563,8 @@ var change_password_ChangePassword = function ChangePassword(_ref) {
 
 
 
+
+
 var history_services_HistoryService = /*#__PURE__*/function () {
   function HistoryService(url) {
     Object(classCallCheck["a" /* default */])(this, HistoryService);
@@ -11571,18 +11573,47 @@ var history_services_HistoryService = /*#__PURE__*/function () {
   }
 
   Object(createClass["a" /* default */])(HistoryService, [{
+    key: "getQuoteHistory",
+    value: function () {
+      var _getQuoteHistory = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee(url) {
+        var options, response;
+        return regenerator_default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                options = {
+                  method: 'GET',
+                  credentials: 'include',
+                  mode: 'cors'
+                };
+                _context.next = 3;
+                return Object(serviceFunctions["a" /* fetchData */])(url, options);
+
+              case 3:
+                response = _context.sent;
+                _context.next = 6;
+                return response.json();
+
+              case 6:
+                return _context.abrupt("return", _context.sent);
+
+              case 7:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+
+      function getQuoteHistory(_x) {
+        return _getQuoteHistory.apply(this, arguments);
+      }
+
+      return getQuoteHistory;
+    }()
+  }, {
     key: "getOrderListPost",
     value: function getOrderListPost(url, fromDate, poNumber, orderNumber, setError) {
-      var options = {};
-      options.orderNumber = orderNumber;
-      options.purchaseOrderNumber = poNumber;
-      options.fromDate = fromDate;
-      options.maxRecs = "";
-      return Object(serviceFunctions["b" /* postDataRedirect */])(url, options, setError);
-    }
-  }, {
-    key: "getQuoteListPost",
-    value: function getQuoteListPost(url, fromDate, poNumber, orderNumber, setError) {
       var options = {};
       options.orderNumber = orderNumber;
       options.purchaseOrderNumber = poNumber;
@@ -11654,6 +11685,22 @@ var delivery_status_DeliveryStatus = /*#__PURE__*/function (_Component) {
       var deliveryStatusClass = '';
 
       switch (status) {
+        case "Pending":
+          deliveryStatus = labels.pendingLabel;
+          icon = icons.openIcon;
+          break;
+
+        case "Quote Replaced":
+          deliveryStatus = labels.quoteReplacedLabel;
+          icon = icons.replacedIcon;
+          break;
+
+        case "Rejected":
+          deliveryStatus = labels.rejectedLabel;
+          icon = icons.rejectedIcon;
+          iconClassName = "rejected-icon";
+          break;
+
         case "Expired":
           deliveryStatus = labels.expiredLabel;
           icon = icons.expiredIcon;
@@ -11749,10 +11796,10 @@ delivery_status_DeliveryStatus.defaultProps = {
 };
 /* harmony default export */ var delivery_status = (delivery_status_DeliveryStatus);
 // EXTERNAL MODULE: ./src/utils/date-formatter/index.js
-var date_formatter = __webpack_require__(44);
+var date_formatter = __webpack_require__(48);
 
 // EXTERNAL MODULE: ./src/utils/get-locale/index.js
-var get_locale = __webpack_require__(45);
+var get_locale = __webpack_require__(49);
 
 // CONCATENATED MODULE: ./src/history/components/order-list-item.js
 
@@ -12974,7 +13021,7 @@ var order_details_OrderDetails = /*#__PURE__*/function (_Component) {
 
         if (account) {
           var includeCountryName = true;
-          var addressArray = Object(userFunctions["n" /* getOrderDetailsAddress */])(account, includeCountryName);
+          var addressArray = Object(userFunctions["o" /* getOrderDetailsAddress */])(account, includeCountryName);
           return react_default.a.createElement(react_default.a.Fragment, null, addressArray.map(function (addressLine) {
             return react_default.a.createElement("div", {
               className: "".concat(_this.rootStyle, "-address1"),
@@ -13298,22 +13345,6 @@ var order_details_ErrorBoundaryOrderDetails = function ErrorBoundaryOrderDetails
 
 
 
-
-
-var getShipmentStatus = function getShipmentStatus(data, index) {
-  var status = data;
-
-  if (index == 1) {
-    status = "Expired";
-  }
-
-  if (index == 2) {
-    status = "Order Placed";
-  }
-
-  return status;
-};
-
 var quote_list_item_QuoteListItem = /*#__PURE__*/function (_Component) {
   Object(inherits["a" /* default */])(QuoteListItem, _Component);
 
@@ -13331,16 +13362,30 @@ var quote_list_item_QuoteListItem = /*#__PURE__*/function (_Component) {
       }, _this.props.quoteAgainTitle);
     };
 
-    _this.userLocale = get_locale["a" /* default */].getLocale();
     return _this;
   }
 
   Object(createClass["a" /* default */])(QuoteListItem, [{
     key: "render",
     value: function render() {
-      var _this2 = this;
-
-      var deliveryStatus = getShipmentStatus(this.props.data.deliveryStatus, this.props.index);
+      var _this$props = this.props,
+          _this$props$data = _this$props.data,
+          data = _this$props$data === void 0 ? {} : _this$props$data,
+          numberText = _this$props.numberText,
+          created = _this$props.created,
+          expires = _this$props.expires,
+          shipment = _this$props.shipment,
+          icons = _this$props.icons,
+          orderNumberText = _this$props.orderNumberText;
+      var quoteId = data.quoteId,
+          orderNumber = data.orderNumber,
+          quoteCreationDate = data.quoteCreationDate,
+          quoteExpirationDate = data.quoteExpirationDate,
+          totalPriceFormatted = data.totalPriceFormatted,
+          quoteStatus = data.quoteStatus;
+      var showExpireDate = !!(quoteStatus === 'Pending' || quoteStatus === 'Quote Replaced' || quoteStatus === 'Rejected' || quoteStatus === 'Open');
+      var showOrderNumber = !!(quoteStatus === 'Order Placed');
+      var showQuoteAgainBtn = !!(quoteStatus === 'Expired');
       return react_default.a.createElement("div", {
         className: "cmp-order-list__container"
       }, react_default.a.createElement("div", {
@@ -13348,27 +13393,33 @@ var quote_list_item_QuoteListItem = /*#__PURE__*/function (_Component) {
       }, react_default.a.createElement("div", {
         className: "cmp-order-list__order-number"
       }, react_default.a.createElement("a", {
-        href: '#quotedetails?id=' + this.props.data.orderNumber,
+        href: '#quotedetails?id=' + quoteId,
         onClick: function onClick() {
-          return Object(analytics["f" /* setClickAnalytics */])("Quote History", "Quote Details, " + _this2.props.data.orderNumber, '#quotedetails?id=' + _this2.props.data.orderNumber);
+          return Object(analytics["f" /* setClickAnalytics */])("Quote History", "Quote Details, " + quoteId, '#quotedetails?id=' + quoteId);
         },
-        "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])("".concat(this.props.numberText, " ").concat(this.props.data.orderNumber))
-      }, this.props.numberText + " " + this.props.data.orderNumber)), react_default.a.createElement("div", {
+        "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])("".concat(numberText, " ").concat(quoteId))
+      }, numberText + " " + quoteId)), quoteCreationDate && react_default.a.createElement("div", {
         className: "cmp-order-list__date",
-        "data-locator": "order-list-date"
-      }, date_formatter["a" /* default */].dateFormatter(this.props.data.date, this.userLocale))), react_default.a.createElement("div", {
+        "data-locator": "order-list-created-date"
+      }, "".concat(created, " ").concat(quoteCreationDate)), showExpireDate && quoteExpirationDate && react_default.a.createElement("div", {
+        className: "cmp-order-list__date",
+        "data-locator": "order-list-expires-date"
+      }, "".concat(expires, " ").concat(quoteExpirationDate)), showOrderNumber && orderNumber && react_default.a.createElement("div", {
+        className: "cmp-order-list__order-number-text",
+        "data-locator": "quote-order-number"
+      }, "".concat(orderNumberText, " ").concat(orderNumber))), react_default.a.createElement("div", {
         className: "cmp-order-list__right",
         "data-locator": "order-list-right"
       }, react_default.a.createElement("hr", {
         className: "cmp-order-list_hr"
       }), react_default.a.createElement(delivery_status, {
-        status: deliveryStatus,
-        labels: this.props.shipment,
-        icons: this.props.icons
-      })), react_default.a.createElement("div", {
+        status: quoteStatus,
+        labels: shipment,
+        icons: icons
+      })), totalPriceFormatted && react_default.a.createElement("div", {
         className: "cmp-order-list__total cmp-order-list__left",
         "data-locator": "order-list-total"
-      }, this.props.data.orderTotal), this.props.index == 1 && react_default.a.createElement("div", {
+      }, totalPriceFormatted), showQuoteAgainBtn && react_default.a.createElement("div", {
         className: "cmp-order-list__right quote-again-section",
         "data-locator": "quote-history-quote-again"
       }, this.renderQuoteAgainButton()));
@@ -13380,6 +13431,7 @@ var quote_list_item_QuoteListItem = /*#__PURE__*/function (_Component) {
 
 /* harmony default export */ var quote_list_item = (quote_list_item_QuoteListItem);
 // CONCATENATED MODULE: ./src/history/quote-history/index.js
+
 
 
 
@@ -13433,54 +13485,71 @@ var quote_history_QuoteHistory = /*#__PURE__*/function (_Component) {
         listItems: null,
         pageCount: 0,
         listCount: 0,
-        currentPage: 1,
+        currentPage: 0,
         noResults: true,
         loading: false
       });
     };
 
-    _this.setResultsState = function (filteredListItems) {
+    _this.setResultsState = function (quoteData) {
+      var _ref = quoteData || {},
+          _ref$totalNumberOfRes = _ref.totalNumberOfResults,
+          totalNumberOfResults = _ref$totalNumberOfRes === void 0 ? 0 : _ref$totalNumberOfRes,
+          _ref$quotes = _ref.quotes,
+          quotes = _ref$quotes === void 0 ? [] : _ref$quotes,
+          numberOfPages = _ref.numberOfPages,
+          currentPage = _ref.currentPage;
+
       _this.setState({
-        listItems: filteredListItems,
-        pageCount: Math.ceil(filteredListItems.length / _this.paginationDefaults.visibleRows),
-        listCount: filteredListItems.length,
-        currentPage: 1,
+        listItems: quotes,
+        pageCount: numberOfPages,
+        listCount: totalNumberOfResults,
+        currentPage: currentPage,
         noResults: false,
         loading: false
       });
     };
 
+    _this.getQueryParam = function (fetchEndPoint, noOfMonths, activeTabFilter) {
+      var url = fetchEndPoint;
+      var _this$state = _this.state,
+          currentPage = _this$state.currentPage,
+          pageSize = _this$state.pageSize;
+      var userId = Object(userFunctions["q" /* getUserId */])();
+      var soldToId = Object(userFunctions["p" /* getSoldToId */])() || Object(userFunctions["h" /* getDummySoldToId */])();
+      var queryParam = "userId=".concat(userId, "&soldToId=").concat(soldToId, "&currentPage=").concat(currentPage, "&pageSize=").concat(pageSize, "&fields=FULL");
+
+      if (activeTabFilter && activeTabFilter !== "ALL") {
+        queryParam = "".concat(queryParam, "&state=").concat(activeTabFilter);
+      }
+
+      if (noOfMonths) {
+        queryParam = "".concat(queryParam, "&duration=").concat(noOfMonths);
+      }
+
+      return "".concat(url, "?").concat(queryParam);
+    };
+
     _this.retrieveData = /*#__PURE__*/function () {
-      var _ref = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee(fromDate, poNumber, orderNumber, activeTabFilter) {
-        var HistoryServiceObj, fetchEndPoint, orders, filteredListItems;
+      var _ref2 = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee(noOfMonths, activeTabFilter) {
+        var HistoryServiceObj, fetchEndPoint, quoteData, _quoteData$totalNumbe, totalNumberOfResults;
+
         return regenerator_default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 HistoryServiceObj = new history_services();
                 fetchEndPoint = _this.props.configs.fetchEndPoint;
-                _context.next = 4;
-                return HistoryServiceObj.getQuoteListPost(fetchEndPoint, fromDate, poNumber, orderNumber, _this.setError);
+                fetchEndPoint = _this.getQueryParam(fetchEndPoint, noOfMonths, activeTabFilter);
+                _context.next = 5;
+                return HistoryServiceObj.getQuoteHistory(fetchEndPoint);
 
-              case 4:
-                orders = _context.sent;
+              case 5:
+                quoteData = _context.sent;
+                _quoteData$totalNumbe = quoteData.totalNumberOfResults, totalNumberOfResults = _quoteData$totalNumbe === void 0 ? 0 : _quoteData$totalNumbe;
 
-                if (orders && orders.length > 0) {
-                  filteredListItems = orders;
-
-                  if (activeTabFilter !== undefined && activeTabFilter !== "All" && activeTabFilter === "Open") {
-                    filteredListItems = orders.filter(function (i) {
-                      return i.deliveryStatus === "Open" || i.deliveryStatus === "Partial";
-                    });
-
-                    if (filteredListItems.length > 0) {
-                      _this.setResultsState(filteredListItems);
-                    } else {
-                      _this.setNoResultsState();
-                    }
-                  } else {
-                    _this.setResultsState(filteredListItems);
-                  }
+                if (quoteData && totalNumberOfResults > 0) {
+                  _this.setResultsState(quoteData);
                 } else {
                   _this.setNoResultsState();
                 }
@@ -13491,7 +13560,7 @@ var quote_history_QuoteHistory = /*#__PURE__*/function (_Component) {
                   initialPageLoad: false
                 });
 
-              case 8:
+              case 10:
               case "end":
                 return _context.stop();
             }
@@ -13499,17 +13568,17 @@ var quote_history_QuoteHistory = /*#__PURE__*/function (_Component) {
         }, _callee);
       }));
 
-      return function (_x, _x2, _x3, _x4) {
-        return _ref.apply(this, arguments);
+      return function (_x, _x2) {
+        return _ref2.apply(this, arguments);
       };
     }();
 
     _this.renderTabs = function () {
-      var _ref2 = _this.props.configs || {},
-          _ref2$tabs = _ref2.tabs,
-          tabs = _ref2$tabs === void 0 ? [] : _ref2$tabs,
-          _ref2$blankItemTabs = _ref2.blankItemTabs,
-          blankItemTabs = _ref2$blankItemTabs === void 0 ? [] : _ref2$blankItemTabs;
+      var _ref3 = _this.props.configs || {},
+          _ref3$tabs = _ref3.tabs,
+          tabs = _ref3$tabs === void 0 ? [] : _ref3$tabs,
+          _ref3$blankItemTabs = _ref3.blankItemTabs,
+          blankItemTabs = _ref3$blankItemTabs === void 0 ? [] : _ref3$blankItemTabs;
 
       var currentTabs = _this.state.noResults ? blankItemTabs : tabs;
       return react_default.a.createElement(navigation_tabs, {
@@ -13541,29 +13610,23 @@ var quote_history_QuoteHistory = /*#__PURE__*/function (_Component) {
 
     _this.renderCountHeader = function () {
       return react_default.a.createElement(count_header, {
-        rows: _this.paginationDefaults.visibleRows,
+        rows: _this.state.pageSize,
         count: _this.state.listCount,
-        current: _this.state.currentPage,
+        current: _this.state.currentPage + 1,
         resultsText: _this.props.configs.resultsText,
         noResultsText: _this.props.configs.noResultsFoundTitle
       });
     };
 
-    _this.renderPaginatedResults = function () {
-      var rows = _this.paginationDefaults.visibleRows;
-      var count = _this.state.listCount;
-      var current = _this.state.currentPage;
-      var endResults = count > current * rows ? current * rows : count;
-      var startResults = current * rows - rows;
-
-      var itemsToRender = _this.state.listItems.slice(startResults, endResults);
-
-      return itemsToRender;
-    };
-
     _this.paginationClickHandler = function (page) {
       _this.setState({
-        currentPage: page.selected + 1
+        currentPage: page.selected
+      }, function () {
+        var _this$state2 = _this.state,
+            noOfMonths = _this$state2.noOfMonths,
+            activeTabFilter = _this$state2.activeTabFilter;
+
+        _this.retrieveData(noOfMonths, activeTabFilter);
       });
 
       window.scroll(0, 0);
@@ -13580,20 +13643,21 @@ var quote_history_QuoteHistory = /*#__PURE__*/function (_Component) {
       }, _this.props.configs.shopAllTitle))));
     };
 
-    var today = new Date();
     _this.state = {
       listItems: "",
-      fromDate: new Date(today.setDate(today.getDate() - 30)),
+      noOfMonths: 1,
       poNumber: "",
       orderNumber: "",
-      activeTabFilter: "All",
+      activeTabFilter: "ALL",
       activeIndex: 0,
       activeTimePeriod: 1,
       errorObjHistory: {},
       loading: true,
       noResults: false,
       error: false,
-      initialPageLoad: true
+      initialPageLoad: true,
+      currentPage: 0,
+      pageSize: 10
     };
     _this.page = {
       name: "Quote History",
@@ -13617,12 +13681,10 @@ var quote_history_QuoteHistory = /*#__PURE__*/function (_Component) {
   Object(createClass["a" /* default */])(QuoteHistory, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      var _this$state = this.state,
-          fromDate = _this$state.fromDate,
-          poNumber = _this$state.poNumber,
-          orderNumber = _this$state.orderNumber,
-          activeTabFilter = _this$state.activeTabFilter;
-      this.retrieveData(fromDate, poNumber, orderNumber, activeTabFilter);
+      var _this$state3 = this.state,
+          noOfMonths = _this$state3.noOfMonths,
+          activeTabFilter = _this$state3.activeTabFilter;
+      this.retrieveData(noOfMonths, activeTabFilter);
     }
   }, {
     key: "handleCategorySelected",
@@ -13631,27 +13693,26 @@ var quote_history_QuoteHistory = /*#__PURE__*/function (_Component) {
 
       // 0 = All Quotes, 1 = Open Quotes, 2 = Closed Quotes
       var tabId;
-      var activeTabFilter = "All";
+      var activeTabFilterStatus = "ALL";
       e.value || e.value === 0 ? tabId = e.value : tabId = e;
 
       if (tabId === 1) {
-        activeTabFilter = "Open";
+        activeTabFilterStatus = "OPEN";
       } else if (tabId === 2) {
-        activeTabFilter = "Closed";
+        activeTabFilterStatus = "CLOSED";
       }
 
-      Object(analytics["f" /* setClickAnalytics */])(this.page.title, "".concat(this.page.title, " ").concat(activeTabFilter, " ").concat(this.page.type), '#');
+      Object(analytics["f" /* setClickAnalytics */])(this.page.title, "".concat(this.page.title, " ").concat(activeTabFilterStatus, " ").concat(this.page.type), '#');
       this.setState({
-        activeTabFilter: activeTabFilter,
-        activeIndex: tabId
+        activeTabFilter: activeTabFilterStatus,
+        activeIndex: tabId,
+        currentPage: 0
       }, function () {
         var _this2$state = _this2.state,
-            fromDate = _this2$state.fromDate,
-            poNumber = _this2$state.poNumber,
-            orderNumber = _this2$state.orderNumber,
+            noOfMonths = _this2$state.noOfMonths,
             activeTabFilter = _this2$state.activeTabFilter;
 
-        _this2.retrieveData(fromDate, poNumber, orderNumber, activeTabFilter);
+        _this2.retrieveData(noOfMonths, activeTabFilter);
       });
     }
   }, {
@@ -13663,45 +13724,43 @@ var quote_history_QuoteHistory = /*#__PURE__*/function (_Component) {
           timePeriod = _this$page$analytics.timePeriod,
           timePeriodOptions = _this$page$analytics.timePeriodOptions;
       var selectedTimeframe = e.value;
-      var now = new Date();
       var timeValue = '';
-      var days = 30;
+      var month = 1;
       var sixMonths = 6;
       var twelveMonths = 12;
-      var allTime = 15;
+      var allTime = 0;
       Object(analytics["g" /* setSelectDropdownAnalytics */])(timePeriod, "".concat(this.page.title, " ").concat(timePeriodOptions[selectedTimeframe - 1]));
 
       switch (selectedTimeframe) {
         case 1:
-          timeValue = new Date(now.setDate(now.getDate() - days));
+          timeValue = month;
           break;
 
         case 2:
-          timeValue = new Date(now.setMonth(now.getMonth() - sixMonths));
+          timeValue = sixMonths;
           break;
 
         case 3:
-          timeValue = new Date(now.setMonth(now.getMonth() - twelveMonths));
+          timeValue = twelveMonths;
           break;
 
         case 4:
-          timeValue = new Date(now.setMonth(now.getMonth() - allTime));
+          timeValue = allTime;
           break;
 
         default:
       }
 
       this.setState({
-        fromDate: timeValue.toISOString(),
-        activeTimePeriod: selectedTimeframe
+        noOfMonths: timeValue,
+        activeTimePeriod: selectedTimeframe,
+        currentPage: 0
       }, function () {
         var _this3$state = _this3.state,
-            fromDate = _this3$state.fromDate,
-            poNumber = _this3$state.poNumber,
-            orderNumber = _this3$state.orderNumber,
+            noOfMonths = _this3$state.noOfMonths,
             activeTabFilter = _this3$state.activeTabFilter;
 
-        _this3.retrieveData(fromDate, poNumber, orderNumber, activeTabFilter);
+        _this3.retrieveData(noOfMonths, activeTabFilter);
       });
     }
   }, {
@@ -13709,7 +13768,7 @@ var quote_history_QuoteHistory = /*#__PURE__*/function (_Component) {
     value: function renderPagination() {
       var _this4 = this;
 
-      if (this.state.listCount > this.paginationDefaults.visibleRows) {
+      if (this.state.listCount > this.state.pageSize) {
         var previousIcon = react_default.a.createElement(react_svg["a" /* default */], {
           src: this.paginationDefaults.previousIcon
         });
@@ -13718,7 +13777,7 @@ var quote_history_QuoteHistory = /*#__PURE__*/function (_Component) {
         });
         return react_default.a.createElement(react_paginate_default.a, {
           pageCount: this.state.pageCount,
-          forcePage: this.state.currentPage - 1,
+          forcePage: this.state.currentPage,
           pageRangeDisplayed: this.paginationDefaults.pageRangeDisplayed,
           marginPagesDisplayed: this.paginationDefaults.marginPagesDisplayed,
           containerClassName: "paginate__container",
@@ -13728,7 +13787,7 @@ var quote_history_QuoteHistory = /*#__PURE__*/function (_Component) {
           breakLabel: '…',
           previousLabel: previousIcon,
           nextLabel: nextIcon,
-          initialPage: this.state.currentPage - 1,
+          initialPage: this.state.currentPage,
           disableInitialCallback: true,
           hrefBuilder: this.buildHref
         });
@@ -13741,22 +13800,30 @@ var quote_history_QuoteHistory = /*#__PURE__*/function (_Component) {
     value: function render() {
       var _this5 = this;
 
-      return react_default.a.createElement(react_default.a.Fragment, null, this.state.loading ? react_default.a.createElement(spinner["a" /* default */], {
-        loading: this.state.loading
-      }) : null, !this.state.loading && react_default.a.createElement(react_default.a.Fragment, null, this.renderTabs(), react_default.a.createElement("div", {
+      var _this$state4 = this.state,
+          listCount = _this$state4.listCount,
+          listItems = _this$state4.listItems,
+          noResults = _this$state4.noResults,
+          loading = _this$state4.loading;
+      return react_default.a.createElement(react_default.a.Fragment, null, loading ? react_default.a.createElement(spinner["a" /* default */], {
+        loading: loading
+      }) : null, !loading && react_default.a.createElement(react_default.a.Fragment, null, this.renderTabs(), react_default.a.createElement("div", {
         className: "cmp-order-list__header clearfix",
         "data-locator": "order-list-header-clearfix"
-      }, !this.state.noResults && this.renderDropDowns(), this.renderCountHeader()), this.state.noResults && this.renderNoResults(), this.state.listCount > 0 && this.renderPaginatedResults().map(function (item, index) {
+      }, !noResults && this.renderDropDowns(), this.renderCountHeader()), noResults && this.renderNoResults(), listCount > 0 && listItems.map(function (item, index) {
         return react_default.a.createElement(quote_list_item, {
           data: item,
           numberText: _this5.props.configs.numberText,
           itemsText: _this5.props.configs.itemsText,
           shipment: _this5.props.configs.shipment,
+          created: _this5.props.configs.created,
+          expires: _this5.props.configs.expires,
+          orderNumberText: _this5.props.configs.orderNumberText,
           icons: _this5.props.configs.icons,
           quoteAgainTitle: _this5.props.configs.quoteAgainTitle,
           index: index
         });
-      }), this.state.listCount > 0 && this.renderPagination()));
+      }), listCount > 0 && this.renderPagination()));
     }
   }]);
 
@@ -13947,7 +14014,7 @@ var quote_details_QuoteDetails = /*#__PURE__*/function (_Component) {
 
         if (account) {
           var includeCountryName = true;
-          var addressArray = Object(userFunctions["n" /* getOrderDetailsAddress */])(account, includeCountryName);
+          var addressArray = Object(userFunctions["o" /* getOrderDetailsAddress */])(account, includeCountryName);
           return react_default.a.createElement(react_default.a.Fragment, null, addressArray.map(function (addressLine) {
             return react_default.a.createElement("div", {
               className: "".concat(_this.rootStyle, "-address1"),
