@@ -446,6 +446,7 @@ export async function submitAccount(selectedAccount, urlChooseAccount) {
 
 export async function contactSupportSubmit(data) {
     try {
+        window.dispatchEvent(new CustomEvent("showLoaderEproc", { detail: { showLoader: true }}));
         const isCaptcha = data.hasOwnProperty('captcha');
         if (isCaptcha) {
             this.url = `${this.url}?captcha=${data.captcha}`;
@@ -473,8 +474,10 @@ export async function contactSupportSubmit(data) {
             this.setError(responseBody);
             scrollToY(0);
         }
+        window.dispatchEvent(new CustomEvent("showLoaderEproc", { detail: { showLoader: false }}));
     } catch (e) {
         console.error(e);
+        window.dispatchEvent(new CustomEvent("showLoaderEproc", { detail: { showLoader: false }}));
     }
 }
 
