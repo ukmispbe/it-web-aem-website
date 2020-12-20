@@ -1,5 +1,6 @@
 import 'whatwg-fetch';
 import SessionStore from '../../stores/sessionStore';
+import { getCategoryReferenceType } from '../../utils/userFunctions';
 
 const queryString = require('query-string');
 
@@ -155,7 +156,7 @@ class SearchService {
     };
 
     getSuggestedKeywords = async (rows, term) => {
-        const searchString = `${this.path}/v1/autocomplete?term=${term}&rows=${rows}&isocode=${this.options.isocode}`;
+        const searchString = `${this.path}/v1/autocomplete?term=${term}&rows=${rows}&isocode=${this.options.isocode}${getCategoryReferenceType()}`;
 
         const callService = window.fetch(searchString).then(response => {
             if (response.ok) {
