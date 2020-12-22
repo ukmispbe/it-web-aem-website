@@ -150,7 +150,8 @@ class SearchContainer extends Component {
             facetGroupsSelectedOrder: [],
             collapseAllFilters: false,
             activeFilterIndex: -1,
-            count: 0
+            count: 0,
+            allText: this.props.searchText.allText
         };
     }
 
@@ -239,7 +240,7 @@ class SearchContainer extends Component {
         !categories || !categories.facets || !categories.facets.category_facet
             ? []
             : categories.facets.category_facet
-                  .filter(category => !!this.findFacetNameProperty(this.props.filterMap, category.value))
+                .filter(category => category.count !== 0 && !!this.findFacetNameProperty(this.props.filterMap, category.value))
                   .map(category => {
                       return {
                           translation: this.findFacetTranslationProperty(this.props.filterMap, category.value),
@@ -266,7 +267,10 @@ class SearchContainer extends Component {
 
     buildSearchParams = q => {
         let query = (q && Object.entries(q).length !== 0) ? {...q} : this.getQueryObject();
-
+        // Default to "All" if no category sent.
+        if (!query.category) {
+            query.category = "All";
+        }
         if (!query.sort && this.state) {
             query = Object.assign({}, query, { sort: this.state.sort });
         }
@@ -293,11 +297,21 @@ class SearchContainer extends Component {
                 keyword: query.keyword,
             });
 
-            // find the categories that have results
+            // find the categories
             const categoriesWithData = this.mapCategories(categories);
 
+            // Add All Category to categories using num_found
+            // Do we need authoring to add this category?
+            // Translation
+            const allCategory = { 
+                "count": categories.num_found, 
+                "name": "All",  
+                "translation": this.state.allText
+            };
+            const newCategoriesWithData = [allCategory, ...categoriesWithData];
+
             // execute the search after the category tabs has been saved in the component's state
-            this.setState({ categoryTabs: categoriesWithData, initialRender: false }, () => this.executeSearch(query, rows));
+            this.setState({ categoryTabs: newCategoriesWithData, initialRender: false }, () => this.executeSearch(query, rows));
         } else {
             // execute the search because the category tabs have already been saved in the component's state
             this.executeSearch(query, rows);
@@ -505,6 +519,8 @@ class SearchContainer extends Component {
                     res.facets[this.parentCategory]
                 ))
                 : [];
+        // const categoriesWithData = this.mapCategories(res);
+        // newState.categoryTabs = categoriesWithData;
 
         newState.loading = false;
         newState.rows = rows;
@@ -932,7 +948,11 @@ class SearchContainer extends Component {
 
     setCategorySelected = (index, query, category) => {
         const tabHistoryEntrySelected = this.getTabHistoryEntry(category);
-
+        // // if category === all then clear category
+        // if (category === "All") {
+        //     tabHistoryEntrySelected.searchParams.category = "";
+        // }
+        
         if (Object.entries(tabHistoryEntrySelected.searchParams).length === 0) {
             query.category = category;
             query.page = parameterDefaults.page;
@@ -1093,7 +1113,7 @@ class SearchContainer extends Component {
         return {
             showContentTypeMenu: this.isCategoryOnlySelected(this.state.category, this.state.contentType),
             showFacetMenu: !this.isCategoryOnlySelected(this.state.category, this.state.contentType),
-            heading: this.props.searchText.filterBy
+            heading: this.props.searchText.anyResultTypeText
         };
     }
 

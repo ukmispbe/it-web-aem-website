@@ -13,11 +13,16 @@ const SearchBreadcrumb = (props) => {
         !isMobile && breadcrumb && breadcrumb.classList.remove('fader-fade--right');
     }, [props.searchParams]);
 
-    const renderBreadcrumbLink = (linkInfo => {
+    const renderBreadcrumbLink = ((linkInfo) => {
+        let title = linkInfo.title;
+        if (title === "All") {
+            title = props.text.allCategoriesText;
+        }
+
         return (
             <li className="cmp-breadcrumb__item" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
                 <a href={linkInfo.path} className='cmp-breadcrumb__item-link'>
-                    <span itemprop="name"><EllipsisText text={linkInfo.title} length={"20"} /></span>
+                    <span itemprop="name"><EllipsisText text={title} length={"20"} /></span>
                 </a>
             </li>
         )
