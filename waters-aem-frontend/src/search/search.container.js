@@ -301,8 +301,7 @@ class SearchContainer extends Component {
             const categoriesWithData = this.mapCategories(categories);
 
             // Add All Category to categories using num_found
-            // Do we need authoring to add this category?
-            // Translation
+
             const allCategory = { 
                 "count": categories.num_found, 
                 "name": "All",  
@@ -519,9 +518,6 @@ class SearchContainer extends Component {
                     res.facets[this.parentCategory]
                 ))
                 : [];
-        // const categoriesWithData = this.mapCategories(res);
-        // newState.categoryTabs = categoriesWithData;
-
         newState.loading = false;
         newState.rows = rows;
         newState.count = parseInt(res.num_found);
@@ -948,10 +944,6 @@ class SearchContainer extends Component {
 
     setCategorySelected = (index, query, category) => {
         const tabHistoryEntrySelected = this.getTabHistoryEntry(category);
-        // // if category === all then clear category
-        // if (category === "All") {
-        //     tabHistoryEntrySelected.searchParams.category = "";
-        // }
         
         if (Object.entries(tabHistoryEntrySelected.searchParams).length === 0) {
             query.category = category;
