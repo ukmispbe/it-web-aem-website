@@ -77,7 +77,7 @@ class SearchService {
             this.path
         }/category_facet$${category.toLowerCase()}:${encodeURIComponent(
             encodeURIComponent(category)
-        )}?${paramString}`;
+        )}?${paramString}${getCategoryReferenceType()}`;
 
         return window
             .fetch(searchString)
@@ -109,7 +109,7 @@ class SearchService {
             encodeURIComponent(category)
         )}&contenttype_facet$${contentTypeKey}:${encodeURIComponent(
             encodeURIComponent(contentTypeValue)
-        )}?${paramString}`;
+        )}?${paramString}${getCategoryReferenceType()}`;
 
         return window.fetch(searchString).then(response => {
             if (response.ok) {
@@ -143,7 +143,7 @@ class SearchService {
             ''
         )}:${encodeURIComponent(
             encodeURIComponent(contentTypeValue)
-        )}${facetString}?${paramString}`;
+        )}${facetString}?${paramString}${getCategoryReferenceType()}`;
 
         return window.fetch(searchString).then(response => {
             if (response.ok) {
