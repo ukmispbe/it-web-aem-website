@@ -21,7 +21,7 @@ const CategoryList = ({items, activeIndex, onClick}) => {
                 }
                 )}
             </div>
-            {activeIndex !== 0 && <div className="cmp-category-seperator" />}
+            {activeIndex !== 0 && <hr className="cmp-category-separator h-large" />}
         </div>
     );
 }

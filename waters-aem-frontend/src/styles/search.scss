@@ -37,8 +37,8 @@
                     display: inline;
                 }
                 svg {
-                    width: 16px;
-                    height: 16px;
+                    height: $icon-s;
+                    width: $icon-s;
                     margin-right: $space-xxxs;
                 }
             }
@@ -60,10 +60,8 @@
                 } 
             }
         }
-        .cmp-category-seperator {
-            width: 100%;
-            height: 4px;
-            background-color: #e3e6e9;
+        .cmp-category-separator {
+            height: 0px;
             margin: $space-s 0;
         }
     }
@@ -72,7 +70,6 @@
             border: $border-disabled;
         }    
     }
-
 }
 .cmp-search__container {
     position: relative;

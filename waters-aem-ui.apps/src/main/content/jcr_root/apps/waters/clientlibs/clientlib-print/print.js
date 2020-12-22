@@ -3462,8 +3462,8 @@ var CategoryList_CategoryList = function CategoryList(_ref) {
       backImage: backImage,
       isHidden: isHidden
     });
-  })), activeIndex !== 0 && react_default.a.createElement("div", {
-    className: "cmp-category-seperator"
+  })), activeIndex !== 0 && react_default.a.createElement("hr", {
+    className: "cmp-category-separator h-large"
   }));
 };
 
@@ -4593,9 +4593,7 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
     _this.searchOnSuccess = function (query, rows, res) {
       var initCategories = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
       var newState = Object.assign({}, _this.state);
-      newState.filterMap = res.num_found !== 0 ? Object.assign({}, _this.getFilterMap(_this.props.filterMap, res.facets[_this.parentCategory])) : []; // const categoriesWithData = this.mapCategories(res);
-      // newState.categoryTabs = categoriesWithData;
-
+      newState.filterMap = res.num_found !== 0 ? Object.assign({}, _this.getFilterMap(_this.props.filterMap, res.facets[_this.parentCategory])) : [];
       newState.loading = false;
       newState.rows = rows;
       newState.count = parseInt(res.num_found);
@@ -4987,11 +4985,7 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
     };
 
     _this.setCategorySelected = function (index, query, category) {
-      var tabHistoryEntrySelected = _this.getTabHistoryEntry(category); // // if category === all then clear category
-      // if (category === "All") {
-      //     tabHistoryEntrySelected.searchParams.category = "";
-      // }
-
+      var tabHistoryEntrySelected = _this.getTabHistoryEntry(category);
 
       if (Object.entries(tabHistoryEntrySelected.searchParams).length === 0) {
         query.category = category;
@@ -5282,8 +5276,6 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
                 categories = _context3.sent;
                 // find the categories
                 categoriesWithData = this.mapCategories(categories); // Add All Category to categories using num_found
-                // Do we need authoring to add this category?
-                // Translation
 
                 allCategory = {
                   "count": categories.num_found,
