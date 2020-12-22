@@ -362,7 +362,8 @@ class SearchService {
         Object.keys(parameters).length !== 0
             ? Object.keys(parameters).reduce(
                 (accumulator, currentValue) =>
-                    `${accumulator}=${parameters[accumulator]}&${currentValue}=${parameters[currentValue]}`
+                    `${accumulator ? accumulator + '&' : accumulator}${currentValue}=${encodeURIComponent(parameters[currentValue])}`,
+                ''
             )
             : '';
 
