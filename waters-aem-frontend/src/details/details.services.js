@@ -1,5 +1,7 @@
 import { fetch } from 'whatwg-fetch';
 
+import { getCategoryReferenceType } from '../utils/userFunctions';
+
 const getData = async (url) => {
     const response = await fetch(url, {
         method: 'GET',
@@ -42,7 +44,7 @@ const buildSearchURL = (endpoint, lineItems, isocode) => {
     skus = lineItems.map(lineItem => lineItem.materialNumber);
     rows = skus.length;
     keywords = skus.join(' ');
-    return url = `${endpoint}/category_facet$shop:Shop?keyword=${keywords}&rows=${rows}&isocode=${isocode}&multiselect=true&page=1&sort=most-relevant`;
+    return url = `${endpoint}/category_facet$shop:Shop?keyword=${keywords}&rows=${rows}&isocode=${isocode}&multiselect=true&page=1&sort=most-relevant${getCategoryReferenceType()}`;
 }
 
 export const getItemDetails = async (endpoint, lineItems, setError, isocode) => {
