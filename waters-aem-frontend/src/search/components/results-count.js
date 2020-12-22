@@ -30,7 +30,12 @@ function ResultsCount(props) {
     let categoryLabel = '';
     if (Array.isArray(props.categoryOptions) && props.categoryOptions.length){
         const options = getOptions(props.categoryOptions);
-        categoryLabel = options[props.categoryValue].label;
+        if (props.categoryValue === 0 || props.categoryValue === -1 ) {
+            categoryLabel = "All";     
+        }
+        else {
+            categoryLabel = options[props.categoryValue].label;
+        }
     }
 
     const renderResultsText = (resultsText) => resultsText.replace(/[{]count[}]/, "<span class='count'>" + props.count.toLocaleString(undefined, {maximumFractionDigits:0}) + "</span>");

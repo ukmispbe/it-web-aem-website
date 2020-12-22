@@ -3,9 +3,9 @@ jest.mock("../../../scripts/fade-x.js");
 import React from "react";
 import renderer from "react-test-renderer";
 import { shallow } from "enzyme";
-import RadioList from "../";
+import CategoryList from "..";
 
-describe("Feature: RadioList Component", () => {
+describe("Feature: CategoryList Component", () => {
     const propsWithOutItems = {
         items: [],
         activeIndex: -1,
@@ -37,10 +37,10 @@ describe("Feature: RadioList Component", () => {
         jest.restoreAllMocks();
     });
 
-    describe("Scenario: Rendering RadioList", () => {
+    describe("Scenario: Rendering CategoryList", () => {
         describe("When no categories are provided", () => {
             it("Then it should match snapshot", () => {
-                const json = renderer.create(<RadioList {...propsWithOutItems} />);
+                const json = renderer.create(<CategoryList {...propsWithOutItems} />);
                 
                 expect(json).toMatchSnapshot();
             });
@@ -48,7 +48,7 @@ describe("Feature: RadioList Component", () => {
 
         describe("When categories are provided", () => {
             it("Then it should match snapshot", () => {
-                const json = renderer.create(<RadioList {...propsWithItems} />);
+                const json = renderer.create(<CategoryList {...propsWithItems} />);
                 
                 expect(json).toMatchSnapshot();
             });
@@ -56,9 +56,9 @@ describe("Feature: RadioList Component", () => {
     });
 
     describe("Scenario: User Interaction", () => {
-        describe("When Radio Button is clicked", () => {
+        describe("When Category is clicked", () => {
             it("Then it should call the click handler property", () => {
-                const wrapper = shallow(<RadioList {...propsWithItems} />);
+                const wrapper = shallow(<CategoryList {...propsWithItems} />);
 
                 wrapper.find("Radio").first().simulate("click");
 

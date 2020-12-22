@@ -24,7 +24,7 @@ const SearchComponent = props => {
                     categoryClick={props.categoryEvents.onCategoryTabClick}
                     >
 
-                    <Menu 
+                    {props.category !== "All" && <Menu 
                         text={props.text}
                         filterMap={props.filterMap}
                         menuProps={props.menuProps}
@@ -35,7 +35,7 @@ const SearchComponent = props => {
                         subFacetFiltersProps={props.subFacetFiltersProps}
                         subFacetFiltersEvents={props.subFacetFiltersEvents}
                         filterTagsProps={props.filterTagsProps}
-                        filterTagsEvents={props.filterTagsEvents} />
+                        filterTagsEvents={props.filterTagsEvents} />}
 
                 </Aside>
 
