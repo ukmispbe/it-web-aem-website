@@ -1,5 +1,6 @@
 import 'whatwg-fetch';
 import SessionStore from '../../stores/sessionStore';
+import { getCategoryReferenceType } from '../../utils/userFunctions';
 
 const queryString = require('query-string');
 
@@ -76,7 +77,7 @@ class SearchService {
             this.path
         }/category_facet$${category.toLowerCase()}:${encodeURIComponent(
             encodeURIComponent(category)
-        )}?${paramString}`;
+        )}?${paramString}${getCategoryReferenceType()}`;
 
         return window
             .fetch(searchString)
@@ -108,7 +109,7 @@ class SearchService {
             encodeURIComponent(category)
         )}&contenttype_facet$${contentTypeKey}:${encodeURIComponent(
             encodeURIComponent(contentTypeValue)
-        )}?${paramString}`;
+        )}?${paramString}${getCategoryReferenceType()}`;
 
         return window.fetch(searchString).then(response => {
             if (response.ok) {
@@ -142,7 +143,7 @@ class SearchService {
             ''
         )}:${encodeURIComponent(
             encodeURIComponent(contentTypeValue)
-        )}${facetString}?${paramString}`;
+        )}${facetString}?${paramString}${getCategoryReferenceType()}`;
 
         return window.fetch(searchString).then(response => {
             if (response.ok) {
@@ -155,7 +156,7 @@ class SearchService {
     };
 
     getSuggestedKeywords = async (rows, term) => {
-        const searchString = `${this.path}/v1/autocomplete?term=${term}&rows=${rows}&isocode=${this.options.isocode}`;
+        const searchString = `${this.path}/v1/autocomplete?term=${term}&rows=${rows}&isocode=${this.options.isocode}${getCategoryReferenceType()}`;
 
         const callService = window.fetch(searchString).then(response => {
             if (response.ok) {
