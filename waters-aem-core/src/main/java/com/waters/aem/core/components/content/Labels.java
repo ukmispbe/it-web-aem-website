@@ -7,6 +7,7 @@ import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.Listener;
 import com.citytechinc.cq.component.annotations.Tab;
 import com.citytechinc.cq.component.annotations.widgets.MultiField;
+import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.waters.aem.core.components.content.links.BasicLink;
 import com.waters.aem.core.components.content.links.JsonFields;
 import org.apache.sling.api.SlingHttpServletRequest;
@@ -41,9 +42,20 @@ import static com.icfolson.aem.library.core.constants.ComponentConstants.*;
 public class Labels implements ComponentExporter {
 
     public static final String RESOURCE_TYPE = "waters/components/content/labels";
+    @Inject
+    private String category;
+
+    @DialogField(fieldLabel = "Category",
+            fieldDescription = "Enter Category Name",
+            required = true,
+            ranking = 1)
+    @TextField
+    public String getCategory() {
+        return category;
+    }
 
     @DialogField(fieldLabel = "Labels",
-            ranking = 1)
+            ranking = 2)
     @MultiField(composite = true)
     @Inject
     private List<JsonFields> labelList = new ArrayList<>();
