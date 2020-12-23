@@ -67,7 +67,7 @@ public class ProductData {
         properties.put("sku", sku.getCode());
         properties.put("message", sku.getLongDescription());
         for(SkuImage skuImage : sku.getImages()) {
-        	properties.put("thumbnailURL2", externalize(skuImage.getUrl().substring(skuImage.getUrl().indexOf("/content")))+ "/jcr:content/renditions/cq5dam.thumbnail.319.319.png");
+        	properties.put("thumbnailURL", externalize(skuImage.getUrl().substring(skuImage.getUrl().indexOf("/content")))+ "/jcr:content/renditions/cq5dam.thumbnail.319.319.png");
         }
         for(Classification classification : sku.getClassifications()) {
         	if(classification.getTitle().contains("Product Type")) {
