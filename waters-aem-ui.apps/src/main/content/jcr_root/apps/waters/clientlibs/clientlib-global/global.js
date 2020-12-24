@@ -569,11 +569,12 @@ var _analytics$analyticTy = Object(slicedToArray["a" /* default */])(analytics.a
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return searchMapper; });
 /* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
 /* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
+/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
 /* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4);
 /* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(5);
 /* harmony import */ var whatwg_fetch__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(38);
 /* harmony import */ var _stores_sessionStore__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(15);
+/* harmony import */ var _utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(10);
 
 
 
@@ -581,7 +582,8 @@ var _analytics$analyticTy = Object(slicedToArray["a" /* default */])(analytics.a
 
 
 
-var queryString = __webpack_require__(29);
+
+var queryString = __webpack_require__(30);
 
 var parameterValues = {
   undefined: 'undefined',
@@ -663,7 +665,12 @@ var SearchService = /*#__PURE__*/function () {
         sort: sort
       });
 
-      var searchString = "".concat(_this.path, "/category_facet$").concat(category.toLowerCase(), ":").concat(encodeURIComponent(encodeURIComponent(category)), "?").concat(paramString);
+      var searchString = "".concat(_this.path, "/category_facet$").concat(category.toLowerCase(), ":").concat(encodeURIComponent(encodeURIComponent(category)), "?").concat(paramString).concat(Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* getCategoryReferenceType */ "e"])());
+
+      if (category === "All") {
+        searchString = "".concat(_this.path, "?").concat(paramString);
+      }
+
       return window.fetch(searchString).then(function (response) {
         if (response.ok) {
           return response.json();
@@ -694,7 +701,7 @@ var SearchService = /*#__PURE__*/function () {
         sort: sort
       });
 
-      var searchString = "".concat(_this.path, "/category_facet$").concat(category.toLowerCase(), ":").concat(encodeURIComponent(encodeURIComponent(category)), "&contenttype_facet$").concat(contentTypeKey, ":").concat(encodeURIComponent(encodeURIComponent(contentTypeValue)), "?").concat(paramString);
+      var searchString = "".concat(_this.path, "/category_facet$").concat(category.toLowerCase(), ":").concat(encodeURIComponent(encodeURIComponent(category)), "&contenttype_facet$").concat(contentTypeKey, ":").concat(encodeURIComponent(encodeURIComponent(contentTypeValue)), "?").concat(paramString).concat(Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* getCategoryReferenceType */ "e"])());
       return window.fetch(searchString).then(function (response) {
         if (response.ok) {
           return response.json();
@@ -727,7 +734,7 @@ var SearchService = /*#__PURE__*/function () {
 
       var facetString = _this.getQueryFacetString(facets);
 
-      var searchString = "".concat(_this.path, "/category_facet$").concat(category.toLowerCase(), ":").concat(encodeURIComponent(encodeURIComponent(category)), "&contenttype_facet$").concat(contentTypeName.replace('_facet', ''), ":").concat(encodeURIComponent(encodeURIComponent(contentTypeValue))).concat(facetString, "?").concat(paramString);
+      var searchString = "".concat(_this.path, "/category_facet$").concat(category.toLowerCase(), ":").concat(encodeURIComponent(encodeURIComponent(category)), "&contenttype_facet$").concat(contentTypeName.replace('_facet', ''), ":").concat(encodeURIComponent(encodeURIComponent(contentTypeValue))).concat(facetString, "?").concat(paramString).concat(Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* getCategoryReferenceType */ "e"])());
       return window.fetch(searchString).then(function (response) {
         if (response.ok) {
           return response.json();
@@ -746,7 +753,7 @@ var SearchService = /*#__PURE__*/function () {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                searchString = "".concat(_this.path, "/v1/autocomplete?term=").concat(term, "&rows=").concat(rows, "&isocode=").concat(_this.options.isocode);
+                searchString = "".concat(_this.path, "/v1/autocomplete?term=").concat(term, "&rows=").concat(rows, "&isocode=").concat(_this.options.isocode).concat(Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* getCategoryReferenceType */ "e"])());
                 callService = window.fetch(searchString).then(function (response) {
                   if (response.ok) {
                     return response.json();
@@ -1084,7 +1091,7 @@ var searchMapper = {
 "use strict";
 /* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
 /* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
+/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
 /* harmony import */ var _scripts_dateRange__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(237);
 
 
@@ -1169,7 +1176,7 @@ var regenerator = __webpack_require__(2);
 var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
-var asyncToGenerator = __webpack_require__(12);
+var asyncToGenerator = __webpack_require__(13);
 
 // EXTERNAL MODULE: ./src/scripts/DigitalData.js
 var DigitalData = __webpack_require__(21);
@@ -1299,11 +1306,11 @@ var systemWideNotification_SystemWideNotification = function SystemWideNotificat
 
 /***/ }),
 
-/***/ 32:
+/***/ 33:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(10);
+/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(12);
 /* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(0);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
@@ -1564,10 +1571,10 @@ var regenerator = __webpack_require__(2);
 var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
-var asyncToGenerator = __webpack_require__(12);
+var asyncToGenerator = __webpack_require__(13);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectSpread.js
-var objectSpread = __webpack_require__(10);
+var objectSpread = __webpack_require__(12);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js
 var classCallCheck = __webpack_require__(4);
@@ -1735,7 +1742,7 @@ var funcs = {
   renderSwitchAccountLink: my_account_user_details_renderSwitchAccountLink
 };
 // EXTERNAL MODULE: ./src/scripts/ecommerce.js
-var ecommerce = __webpack_require__(30);
+var ecommerce = __webpack_require__(31);
 
 // CONCATENATED MODULE: ./src/my-account-dropdown/my-account-item-list.js
 
@@ -1792,7 +1799,7 @@ var my_account_item_list_MyAccountItemList = function MyAccountItemList(props) {
 /* harmony default export */ var my_account_item_list = (my_account_item_list_MyAccountItemList);
 
 // EXTERNAL MODULE: ./src/utils/userFunctions.js
-var userFunctions = __webpack_require__(13);
+var userFunctions = __webpack_require__(10);
 
 // CONCATENATED MODULE: ./src/my-account-dropdown/my-account-container.js
 
@@ -1839,7 +1846,7 @@ var my_account_container_MyAccountContainer = function MyAccountContainer(props)
 
   var filterItemList = function filterItemList(list) {
     return list.filter(function (item) {
-      return !(item.isHiddenForEprocUser === "true" && Object(userFunctions["s" /* isEprocurementUserRole */])());
+      return !(item.isHiddenForEprocUser === "true" && Object(userFunctions["t" /* isEprocurementUserRole */])());
     });
   };
 
@@ -2042,7 +2049,7 @@ var remove_query_string = __webpack_require__(162);
 var buildUrl = __webpack_require__(238);
 
 // EXTERNAL MODULE: ./src/sku-details/views/addToCartModal.js
-var addToCartModal = __webpack_require__(32);
+var addToCartModal = __webpack_require__(33);
 
 // EXTERNAL MODULE: ./src/eproc-setup-failure/styles/index.scss
 var styles = __webpack_require__(481);
@@ -2743,7 +2750,7 @@ var my_account_dropdown_MyAccountDropDown = /*#__PURE__*/function (_React$Compon
 
                 window.addEventListener('resize', this.updateViewport, true);
 
-                if (!Object(userFunctions["r" /* isEprocurementUser */])()) {
+                if (!Object(userFunctions["s" /* isEprocurementUser */])()) {
                   _context5.next = 13;
                   break;
                 }
@@ -2916,8 +2923,8 @@ var searchbar_SearchBar = /*#__PURE__*/function (_Component) {
         'aria-label': _this.props.labels.autoSuggest
       };
 
-      if (Object(userFunctions["r" /* isEprocurementUser */])() && !_this.eprocIsoCode) {
-        _this.eprocIsoCode = Object(userFunctions["m" /* getIsoCode */])();
+      if (Object(userFunctions["s" /* isEprocurementUser */])() && !_this.eprocIsoCode) {
+        _this.eprocIsoCode = Object(userFunctions["n" /* getIsoCode */])();
         _this.search = _this.updateSearchService(_this.eprocIsoCode);
       }
 
@@ -3233,7 +3240,7 @@ var searchbar_SearchBar = /*#__PURE__*/function (_Component) {
     _this.inputElement = null;
     _this.eprocIsoCode = '';
     _this.searchBarRef = react_default.a.createRef();
-    _this.search = _this.updateSearchService(Object(userFunctions["r" /* isEprocurementUser */])() ? Object(userFunctions["m" /* getIsoCode */])() : _this.props.isocode);
+    _this.search = _this.updateSearchService(Object(userFunctions["s" /* isEprocurementUser */])() ? Object(userFunctions["n" /* getIsoCode */])() : _this.props.isocode);
 
     var searchValue = _this.search.getUrlParameter('keyword', window.location.search.substring(1));
 
@@ -3583,7 +3590,7 @@ if (headerMobileSearchContainer && headerSearchBarContainer && globalEntry_heade
 "use strict";
 /* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
 /* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
+/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
 /* harmony import */ var whatwg_fetch__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(38);
 /* harmony import */ var _utils_redirectFunctions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(24);
 
@@ -3699,7 +3706,7 @@ var regenerator = __webpack_require__(2);
 var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
-var asyncToGenerator = __webpack_require__(12);
+var asyncToGenerator = __webpack_require__(13);
 
 // EXTERNAL MODULE: ./src/scripts/loginStatus.js
 var loginStatus = __webpack_require__(16);
@@ -3930,7 +3937,7 @@ var eCommerceFunctions = __webpack_require__(11);
 "use strict";
 /* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
 /* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
+/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
 /* harmony import */ var _scripts_loginStatus__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(16);
 /* harmony import */ var _stores_sessionStore__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(15);
 /* harmony import */ var _services_UserDetails__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(51);

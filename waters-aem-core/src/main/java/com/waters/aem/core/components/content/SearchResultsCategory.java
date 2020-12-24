@@ -72,6 +72,7 @@ public final class SearchResultsCategory {
                 .map(tag -> ImmutableMap.<String, String>builder()
                         .put("sortKey", tag.getName())
                         .put("sortValue", tag.getTitle())
+                        .put("sortTranslation", tag.getTitle(siteContext.getLocale()))
                         .build())
                 .collect(Collectors.toList());
     }

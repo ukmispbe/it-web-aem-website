@@ -73,11 +73,16 @@ class SearchService {
         category = parameterDefaults.category,
     } = {}) => {
         const paramString = this.getQueryParamString({ keyword, page, sort });
-        const searchString = `${
+
+        let searchString = `${
             this.path
         }/category_facet$${category.toLowerCase()}:${encodeURIComponent(
             encodeURIComponent(category)
         )}?${paramString}${getCategoryReferenceType()}`;
+
+        if (category === "All" ) {
+            searchString = `${this.path}?${paramString}`;
+        }
 
         return window
             .fetch(searchString)

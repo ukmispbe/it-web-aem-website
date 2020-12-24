@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Feature: RadioList Component Scenario: Rendering RadioList When categories are provided Then it should match snapshot 1`] = `
+exports[`Feature: CategoryList Component Scenario: Rendering CategoryList When categories are provided Then it should match snapshot 1`] = `
 <div
   className="cmp-category-wrapper"
 >
@@ -89,7 +89,7 @@ exports[`Feature: RadioList Component Scenario: Rendering RadioList When categor
 </div>
 `;
 
-exports[`Feature: RadioList Component Scenario: Rendering RadioList When no categories are provided Then it should match snapshot 1`] = `
+exports[`Feature: CategoryList Component Scenario: Rendering CategoryList When no categories are provided Then it should match snapshot 1`] = `
 <div
   className="cmp-category-wrapper"
 >

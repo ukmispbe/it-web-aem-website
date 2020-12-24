@@ -79,10 +79,27 @@ class FilterSection extends Component {
         }    
     }
 
-    getFacetOptions() {
-        const options = this.state.items;
+    filterAndSort = (options) => {
+        const zeroOptions = options.filter ((item) => {
+            if (item.count === 0) {
+                return item;
+            }
+        });
+        const nonZeroOptions = options.filter ((item) => {
+            if (item.count !== 0) {
+                return item;
+            }
+        });
+        const sortedZeroOptions = zeroOptions.sort((a, b) => (a.value > b.value) ? 1 : -1);
+        const sortedNonZeroOptions = nonZeroOptions.sort((a, b) => (a.value > b.value) ? 1 : -1);
+        const mergedOptions = [...sortedNonZeroOptions, ... sortedZeroOptions];
+        return mergedOptions;     
+    }
 
-        const option = options.map((item, index) => {
+    getFacetOptions() {
+        const sortedOptions = this.filterAndSort(this.state.items);
+
+        const option = sortedOptions.map((item, index) => {
             let checked = false;
             if (this.props.selectedFacets[this.props.facet.name]) {
                 for (
