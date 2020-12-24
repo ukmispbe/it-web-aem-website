@@ -303,7 +303,7 @@ class SearchContainer extends Component {
             // Add All Category to categories using num_found
 
             const allCategory = { 
-                "count": categories.num_found, 
+                "count": categories && categories.num_found || 0, 
                 "name": "All",  
                 "translation": this.state.allText
             };
