@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import CountHeader from '../../common/count-header';
 import DetailsListItem from './details-list-item';
-import DateFormatter from '../../utils/date-formatter'
-import GetLocale from '../../utils/get-locale'
+import DateFormatter from '../../utils/date-formatter';
+import GetLocale from '../../utils/get-locale';
+import { QUOTE_STATUS } from '../../constants';
 
 class QuoteShipment extends Component {
     constructor(props) {
@@ -15,11 +16,11 @@ class QuoteShipment extends Component {
     }
 
     ifShipped = () => {
-        let deliveryStatus = "Open";
+        let deliveryStatus = QUOTE_STATUS.OPEN;
         const {shippedDate} = this.props.data[0];
 
         if(shippedDate !== "" && shippedDate !== "0000-00-00"){
-            deliveryStatus = "Complete";
+            deliveryStatus = QUOTE_STATUS.COMPLETE;
         } 
         
         return deliveryStatus;
