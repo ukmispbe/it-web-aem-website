@@ -23,6 +23,54 @@
             padding: $space-xl 0 $space-xl;
         }
 
+        &__new-details-link-text {
+            background: $color-gray-10;
+            @include font-body;
+            color: $color-link;
+            width: 100%;
+            display: flex;  
+            flex-direction: row;
+            line-height: $icon-m; 
+            @include mobile {  
+                flex-direction: column;
+            } 
+            .new-details-link-section{
+                padding: $space-xxs 0;
+                .new-details-text{
+                    display: inline-block;
+                    vertical-align: top;
+                    line-height: $icon-m;
+                }
+                .new-details-icon {
+                    margin-right: $space-xxs;
+                    display: inline-block;
+                    padding-left: $space-xxxs;
+                    line-height: $icon-m; 
+                    svg {
+                        height: $icon-m;
+                        width: $icon-m;
+                        .st0,
+                        .st1, g {
+                            stroke-width: 1.5px;
+                            stroke: $color-link;
+                        }
+                    }
+                    &:hover {
+                        color: $color-link-hover;
+                        text-decoration: underline;
+                        transition: $hover-transition;
+                    }
+                }
+            }
+            .new-details-status-icon{
+                text-align: right;
+                @include mobile {  
+                    text-align: left;
+                } 
+            }
+            
+        }
+
         &__order-info {
             order: 1;
             flex-grow: 1;
@@ -35,7 +83,7 @@
             .cmp-order-details__order-number {
                 @include font-h3;
                 width: 100%;
-            }
+            };
 
             .cmp-order-details__order-date {
                 @include font-utility;
@@ -180,6 +228,15 @@
 
                 @include mobile {
                     margin-top: $space-m;
+                }
+
+                .showing-item-counter {
+                    @include mobile {
+                        display: none;
+                    }
+                    @include tablet {
+                        display: none;
+                    }
                 }
 
                 .order-shipment-header {
