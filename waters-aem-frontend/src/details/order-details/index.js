@@ -72,12 +72,9 @@ class OrderDetails extends Component {
     }
 
     getShipmentList = (airbills, orderDetails) => {
-        console.log("getShipmentList airbills = ",airbills);
-        console.log("getShipmentList orderDetails = ",orderDetails)
         let shipments = [];
         for (let i = 0; i < Object.keys(airbills).length; i++) {
             const values = Object.values(airbills)[i];
-            console.log("getShipmentList airbills values= ",values);
             shipments.push(
                 <Shipment
                     data={values}

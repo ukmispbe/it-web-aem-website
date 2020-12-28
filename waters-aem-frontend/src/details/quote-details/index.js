@@ -64,7 +64,6 @@ class QuoteDetails extends Component {
         const { detailsUrl, quoteId } = this.state;
         getQuoteDetails(detailsUrl, quoteId, this.setError)
             .then((data) => {
-                console.log("data = ",data);
                 const quotes = data && data.quotes || {};
                 const {entries = []} = quotes;
                 let totalItemsCount = 0;
