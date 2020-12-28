@@ -182,10 +182,10 @@ class QuoteDetails extends Component {
                 {showNewDetailsLinkSection && (<div className={`${this.rootStyle}__new-details-link-text`}>
                     <div className="new-details-link-section">
                         <div className="new-details-icon">
-                            <ReactSVG src={config.icons.pendingIcon} />
+                            <ReactSVG src={config.icons.newQuoteOrderIcon} />
                         </div>
                         {quoteStatus === QUOTE_STATUS.QUOTE_REPLACED && (<div className="new-details-text" data-locator="delivery-text">
-                            {`${config.newQuote}${replacedQuoteNumber}`}
+                            {`${config.newQuote}${quoteId}`}
                         </div>)}
                         {quoteStatus === QUOTE_STATUS.ORDER_PLACED && (<div className="new-details-text" data-locator="delivery-text">
                             {`${config.orderNumberText}${orderNumber}`}
@@ -203,7 +203,7 @@ class QuoteDetails extends Component {
                     </h3>
                 </div>
                 <div className={`${this.rootStyle}__order-summary`}>
-                {quoteStatus && !quoteStatus === QUOTE_STATUS.ORDER_PLACED && (<DeliveryStatus
+                {quoteStatus && quoteStatus !== QUOTE_STATUS.ORDER_PLACED && (<DeliveryStatus
                         status={quoteStatus}
                         labels={shipment}
                         icons={icons}

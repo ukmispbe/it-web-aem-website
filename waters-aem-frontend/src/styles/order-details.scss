@@ -26,7 +26,6 @@
         &__new-details-link-text {
             background: $color-gray-10;
             @include font-body;
-            color: $color-link;
             width: 100%;
             display: flex;  
             flex-direction: row;
@@ -36,6 +35,7 @@
             } 
             .new-details-link-section{
                 padding: $space-xxs 0;
+                color: $color-link;
                 .new-details-text{
                     display: inline-block;
                     vertical-align: top;
@@ -63,9 +63,12 @@
                 }
             }
             .new-details-status-icon{
+                flex: auto;
                 text-align: right;
+                padding: $space-xxs;
                 @include mobile {  
                     text-align: left;
+                    padding: $space-xxxs;
                 } 
             }
             
