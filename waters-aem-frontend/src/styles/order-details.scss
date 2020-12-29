@@ -65,7 +65,8 @@
             .new-details-status-icon{
                 flex: auto;
                 text-align: right;
-                padding: $space-xxs;
+                padding-top: $space-xxs;
+                padding-right: $space-xxs;
                 @include mobile {  
                     text-align: left;
                     padding: $space-xxxs;

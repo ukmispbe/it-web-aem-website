@@ -1,5 +1,5 @@
 import { fetch } from 'whatwg-fetch';
-import { getCategoryReferenceType,getSoldToId, getDummySoldToId, getUserId, getCountryCode, getLanguage } from '../utils/userFunctions';
+import { getCategoryReferenceType } from '../utils/userFunctions';
 
 const getData = async (url) => {
     const response = await fetch(url, {
@@ -25,14 +25,8 @@ export const getOrderDetails = async (endpoint, id, setError) => {
     }
 }
 
-export const getQuoteDetails = async (endpoint, id, setError) => {
-    const  userId = getUserId();
-    const soldToId = getSoldToId() || getDummySoldToId();
-    const countryCode = getCountryCode();
-    const language = getLanguage();
-    const url = `${endpoint}/${id}?soldToId=${soldToId}&userId=${userId}&countryCode=${countryCode}&language=${language}&fields=FULL`;
-
-    const response = await getData(url);
+export const getQuoteDetails = async (endpoint, setError) => {
+    const response = await getData(endpoint);
     const responseBody = await response.json();
 
     if(response.status === 200) {

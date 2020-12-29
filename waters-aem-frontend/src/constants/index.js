@@ -4,7 +4,7 @@ export const UNAVAILABLE_PRICE_WITH_ADD_TO_CART = 'unavailable_price_with_add-to
 export const LIST_PRICE_WITH_ADD_TO_CART = 'list_price_with_add-to-cart';
 export const NO_PRICE_NO_ADD_TO_CART = 'no_price_no_add-to-cart';
 export const FILENAME_REGX = /\*|\/|\?|\!|\<|\>|\"|\||\\|\:/gm;
-export const QUOTE_STATUS = {
+export const DELIVERY_STATUS = {
     OPEN: 'Open',
     PENDING: 'Pending',
     REJECTED: 'Rejected',

@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactSVG from 'react-svg';
 import { setClickAnalytics } from '../../analytics';
-import { QUOTE_STATUS } from '../../constants';
+import { DELIVERY_STATUS } from '../../constants';
 import { elementLocator } from '../../utils/eCommerceFunctions';
 
 class DeliveryStatus extends Component {
@@ -50,39 +50,39 @@ class DeliveryStatus extends Component {
         let deliveryStatusClass = '';
 
         switch(status) {
-            case QUOTE_STATUS.PENDING:
+            case DELIVERY_STATUS.PENDING:
                 deliveryStatus = labels.pendingLabel;
                 icon = icons.pendingIcon;
             break;
-            case QUOTE_STATUS.QUOTE_REPLACED:
+            case DELIVERY_STATUS.QUOTE_REPLACED:
                 deliveryStatus = labels.quoteReplacedLabel;
                 icon = icons.replacedIcon;
             break;
-            case QUOTE_STATUS.REJECTED:
+            case DELIVERY_STATUS.REJECTED:
                 deliveryStatus = labels.rejectedLabel;
                 icon = icons.rejectedIcon;
                 iconClassName= "rejected-icon";
             break;
-            case QUOTE_STATUS.EXPIRED:
+            case DELIVERY_STATUS.EXPIRED:
                 deliveryStatus = labels.expiredLabel;
                 icon = icons.expiredIcon;
                 iconClassName= "delivery-icon-disabled";
                 deliveryStatusClass = "disabled";
             break;
-            case QUOTE_STATUS.ORDER_PLACED:
+            case DELIVERY_STATUS.ORDER_PLACED:
                 deliveryStatus = labels.orderPlacedLabel;
                 icon = icons.orderPlacedIcon;
                 iconClassName = "delivery-icon-complete";
             break; 
-            case QUOTE_STATUS.OPEN:
+            case DELIVERY_STATUS.OPEN:
                 deliveryStatus = labels.openLabel;
                 icon = icons.openIcon;
             break;
-            case QUOTE_STATUS.PARTIAL:
+            case DELIVERY_STATUS.PARTIAL:
                 deliveryStatus = labels.partialLabel;
                 icon = icons.partialIcon;
             break;
-            case QUOTE_STATUS.COMPLETE:
+            case DELIVERY_STATUS.COMPLETE:
                 if(shipped.shippedDate && shipped.shippedDate !== ""){    
                     deliveryStatus = labels.completeShippedLabel + " " + shipped.shippedDate;
                 } else {  

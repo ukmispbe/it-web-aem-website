@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import ReactSVG from 'react-svg';
 import { getQuoteDetails } from '../details.services';
-import QuoteShipment from '../components/QuoteShipment'
+import Shipment from '../components/shipment';
 import Spinner from "../../utils/spinner";
 import ErrorBoundary from '../../search/ErrorBoundary';
 import Modal, { Header, keys } from '../../utils/modal';
 import AddToCartBody from '../../sku-details/views/addToCartModal';
 import Analytics, { analyticTypes } from '../../analytics';
-import { QUOTE_STATUS } from '../../constants';
+import { DELIVERY_STATUS } from '../../constants';
 import DeliveryStatus from '../../common/delivery-status';
+import { getSoldToId, getDummySoldToId, getUserId, getCountryCode, getLanguage } from '../../utils/userFunctions';
 
 class QuoteDetails extends Component {
     constructor({setErrorBoundaryToTrue, resetErrorBoundaryToFalse, removeNotifications, ...props}) {
@@ -18,14 +19,11 @@ class QuoteDetails extends Component {
             detailsUrl: props.config.fetchDetailsEndPoint,
             itemsUrl: props.config.fetchItemsEndPoint,
             quoteDetails: {},
-            airbills: {},
             errorServiceError: false,
             errorOrderNotFound: false,
             isLoading: true,
             modalShown: false,
             modalConfig: props.config.modalInfo,
-            isCommerceApiMigrated: false,
-            errorCartErrors: [],
             totalItemsCount:0
         }
     }
@@ -62,7 +60,12 @@ class QuoteDetails extends Component {
 
     async componentDidMount() {
         const { detailsUrl, quoteId } = this.state;
-        getQuoteDetails(detailsUrl, quoteId, this.setError)
+        const  userId = getUserId();
+        const soldToId = getSoldToId() || getDummySoldToId();
+        const countryCode = getCountryCode();
+        const language = getLanguage();
+        const url = `${detailsUrl}/${quoteId}?soldToId=${soldToId}&userId=${userId}&countryCode=${countryCode}&language=${language}&fields=FULL`;
+        getQuoteDetails(url, this.setError)
             .then((data) => {
                 const quotes = data && data.quotes || {};
                 const {entries = []} = quotes;
@@ -131,7 +134,7 @@ class QuoteDetails extends Component {
     renderReorderButton = className => {
         const {quoteDetails} = this.state;
         const {quoteStatus} = quoteDetails
-        return quoteStatus === QUOTE_STATUS.OPEN || quoteStatus === QUOTE_STATUS.PENDING && (
+        return quoteStatus === DELIVERY_STATUS.OPEN || quoteStatus === DELIVERY_STATUS.PENDING && (
             <div className={className} data-locator="quote-details-reorder">
                 <a className="cmp-button" href="/#" >
                     {this.props.config.reorderTitle}
@@ -143,7 +146,7 @@ class QuoteDetails extends Component {
     renderQuoteAgainButton = className => {
         const {quoteDetails} = this.state;
         const {quoteStatus} = quoteDetails
-        return quoteStatus === QUOTE_STATUS.EXPIRED && (
+        return quoteStatus === DELIVERY_STATUS.EXPIRED && (
             <div className={className} data-locator="quote-details-quote-again-cta">
                 <a className="cmp-button" href="/#" >
                     {this.props.config.quoteAgainTitle}
@@ -171,9 +174,9 @@ class QuoteDetails extends Component {
         const totalDiscountsValue = this.getValue(totalDiscounts,'formattedValue');
         const totalTaxValue = this.getValue(totalTax,'formattedValue');
         const totalPriceValue = this.getValue(totalPrice,'formattedValue');
-        const showExpireDate = !!(quoteStatus === QUOTE_STATUS.PENDING || quoteStatus === QUOTE_STATUS.REJECTED || quoteStatus === QUOTE_STATUS.OPEN);
-        const quoteNumber = quoteStatus === QUOTE_STATUS.QUOTE_REPLACED ? replacedQuoteNumber : quoteId;
-        const showNewDetailsLinkSection = (quoteStatus === QUOTE_STATUS.QUOTE_REPLACED || quoteStatus === QUOTE_STATUS.ORDER_PLACED)
+        const showExpireDate = !!(quoteStatus === DELIVERY_STATUS.PENDING || quoteStatus === DELIVERY_STATUS.REJECTED || quoteStatus === DELIVERY_STATUS.OPEN);
+        const quoteNumber = quoteStatus === DELIVERY_STATUS.QUOTE_REPLACED ? replacedQuoteNumber : quoteId;
+        const showNewDetailsLinkSection = (quoteStatus === DELIVERY_STATUS.QUOTE_REPLACED || quoteStatus === DELIVERY_STATUS.ORDER_PLACED)
         return (<>
             <div className={`${this.rootStyle}__container`}>
                 <h2 className={`${this.rootStyle}__title`} data-locator="product-title">
@@ -184,14 +187,14 @@ class QuoteDetails extends Component {
                         <div className="new-details-icon">
                             <ReactSVG src={config.icons.newQuoteOrderIcon} />
                         </div>
-                        {quoteStatus === QUOTE_STATUS.QUOTE_REPLACED && (<div className="new-details-text" data-locator="delivery-text">
+                        {quoteStatus === DELIVERY_STATUS.QUOTE_REPLACED && (<div className="new-details-text" data-locator="delivery-text">
                             {`${config.newQuote}${quoteId}`}
                         </div>)}
-                        {quoteStatus === QUOTE_STATUS.ORDER_PLACED && (<div className="new-details-text" data-locator="delivery-text">
+                        {quoteStatus === DELIVERY_STATUS.ORDER_PLACED && (<div className="new-details-text" data-locator="delivery-text">
                             {`${config.orderNumberText}${orderNumber}`}
                         </div>)}
                     </div>
-                    {quoteStatus && quoteStatus === QUOTE_STATUS.ORDER_PLACED && (<div className="new-details-status-icon"><DeliveryStatus
+                    {quoteStatus && quoteStatus === DELIVERY_STATUS.ORDER_PLACED && (<div className="new-details-status-icon"><DeliveryStatus
                         status={quoteStatus}
                         labels={shipment}
                         icons={icons}
@@ -203,7 +206,7 @@ class QuoteDetails extends Component {
                     </h3>
                 </div>
                 <div className={`${this.rootStyle}__order-summary`}>
-                {quoteStatus && quoteStatus !== QUOTE_STATUS.ORDER_PLACED && (<DeliveryStatus
+                {quoteStatus && quoteStatus !== DELIVERY_STATUS.ORDER_PLACED && (<DeliveryStatus
                         status={quoteStatus}
                         labels={shipment}
                         icons={icons}
@@ -277,14 +280,15 @@ class QuoteDetails extends Component {
                 <>
                     <div className="cmp-order-details__order-shipment-list" data-locator="order-shipment-list">
                         <hr className="order-shipment-list__hr"/>
-                        <QuoteShipment
+                        <Shipment
                             data={entries}
                             shipment={this.props.config.shipment}
                             icons={this.props.config.icons}
                             resultsText={this.props.config.resultsText}
                             noResultsFoundTitle={this.props.noResultsFoundTitle}
-                            totalItemsCount={totalItemsCount}
+                            totalItemsOrdered={totalItemsCount}
                             totalItems={entries.length}
+                            isQuoteDetails={true}
                         />
                     </div>
                     {this.renderReorderButton("order-shipment__reorder")}
