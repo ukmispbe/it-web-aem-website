@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import DeliveryStatus from '../../common/delivery-status';
 import { setClickAnalytics } from '../../analytics';
+import { DELIVERY_STATUS } from '../../constants';
 import { elementLocator } from '../../utils/eCommerceFunctions';
 class QuoteListItem extends Component {
     constructor(props) {
@@ -19,9 +20,9 @@ class QuoteListItem extends Component {
     render() {
         const {data = {}, numberText, created, expires, shipment, icons, orderNumberText} = this.props;
         const {quoteId,orderNumber, quoteCreationDate, quoteExpirationDate, totalPriceFormatted, quoteStatus} = data;
-        const showExpireDate = !!(quoteStatus === 'Pending' || quoteStatus === 'Quote Replaced' || quoteStatus === 'Rejected' || quoteStatus === 'Open');
-        const showOrderNumber = !!(quoteStatus === 'Order Placed');
-        const showQuoteAgainBtn = !!(quoteStatus === 'Expired');
+        const showExpireDate = !!(quoteStatus === DELIVERY_STATUS.PENDING || quoteStatus === DELIVERY_STATUS.QUOTE_REPLACED || quoteStatus === DELIVERY_STATUS.REJECTED || quoteStatus === DELIVERY_STATUS.OPEN);
+        const showOrderNumber = !!(quoteStatus === DELIVERY_STATUS.ORDER_PLACED);
+        const showQuoteAgainBtn = !!(quoteStatus === DELIVERY_STATUS.EXPIRED);
         return (
             <div className='cmp-order-list__container'>
                 <div className="cmp-order-list__left">

@@ -1,44 +1,30 @@
 import React, { Component } from 'react';
 import ReactSVG from 'react-svg';
-import { getQuoteDetails, getItemDetails, matchLineItems } from '../details.services';
-import Shipment from '../components/shipment'
-import DateFormatter from '../../utils/date-formatter'
-import GetLocale from "../../utils/get-locale";
-import GetIsocode from "../../utils/get-isocode";
+import { getQuoteDetails } from '../details.services';
+import Shipment from '../components/shipment';
 import Spinner from "../../utils/spinner";
-import GroupBy from '../../utils/group-by'
 import ErrorBoundary from '../../search/ErrorBoundary';
 import Modal, { Header, keys } from '../../utils/modal';
 import AddToCartBody from '../../sku-details/views/addToCartModal';
-import { addToCart } from '../../sku-details/services';
 import Analytics, { analyticTypes } from '../../analytics';
-import LocalStore from '../../stores/localStore';
-import loginStatus from '../../scripts/loginStatus';
-import { getOrderDetailsAddress, getCountryName } from '../../utils/userFunctions'
+import { DELIVERY_STATUS } from '../../constants';
+import DeliveryStatus from '../../common/delivery-status';
+import { getSoldToId, getDummySoldToId, getUserId, getCountryCode, getLanguage } from '../../utils/userFunctions';
 
 class QuoteDetails extends Component {
     constructor({setErrorBoundaryToTrue, resetErrorBoundaryToFalse, removeNotifications, ...props}) {
         super({setErrorBoundaryToTrue, resetErrorBoundaryToFalse, removeNotifications, ...props});
         this.state = {
             quoteId: this.getUrlParameter("id"),
-            userLocale: GetLocale.getLocale(),
-            userIsocode: GetIsocode.getIsocode(),
             detailsUrl: props.config.fetchDetailsEndPoint,
             itemsUrl: props.config.fetchItemsEndPoint,
-            reorderUrl: props.config.fetchReorderUrlEndPoint,
             quoteDetails: {},
-            reorderData: [],
-            airbills: {},
-            skusSoldCount: 0,
             errorServiceError: false,
             errorOrderNotFound: false,
             isLoading: true,
             modalShown: false,
             modalConfig: props.config.modalInfo,
-            isCommerceApiMigrated: false,
-            addToCartUrl: '',
-            viewCartUrl: '',
-            errorCartErrors: []
+            totalItemsCount:0
         }
     }
 
@@ -72,140 +58,32 @@ class QuoteDetails extends Component {
         }
     }
 
-    getShipmentList = (airbills, quoteDetails) => {
-        let shipments = [];
-        for (let i = 0; i < Object.keys(airbills).length; i++) {
-            const values = Object.values(airbills)[i];
-            shipments.push(
-                <Shipment
-                    data={values}
-                    shipment={this.props.config.shipment}
-                    icons={this.props.config.icons}
-                    shipmentNumber={i+1}
-                    totalShipments={Object.keys(airbills).length}
-                    addToCartReorder= {this.addToCartReorder}
-                    totalItemsOrdered={quoteDetails.totalItemsOrdered}
-                />
-            )
-        }
-        return <>
-            <hr className="order-shipment-list__hr"/>
-            {Object.keys(airbills).length > 0 && shipments}
-        </>;
-    }
-
-    addReorderAnalytics = (response) => {
-        const localStore = new LocalStore();
-        const cartId = loginStatus.state() ? localStore.getCartId() : localStore.getGUID();
-        const cartModifications = response.cartModifications;
-        let items = {};
-        if (cartModifications) {
-            items = cartModifications.map((item) => {
-                return {
-                    "sku": item.entry.product.code,
-                    "qty": item.quantityAdded
-                }
-            })
-        }
-        let reOrderModel = {
-            detail: {
-                cartId,
-                "addContext": analyticTypes["reOrder"].context,
-                items
-            }
-        };
-        Analytics.setAnalytics(analyticTypes["reOrder"].name, reOrderModel);     
-    }
-
-    addToCartReorder = (e) => {
-        e.preventDefault();
-        const { isCommerceApiMigrated, addToCartUrl, reorderData } = this.state;
-        addToCart(isCommerceApiMigrated, addToCartUrl, reorderData, null, this.setError)     
-        .then(response => {
-            // Redirect if at least one item was successfully added to the cart
-            if(response && response.cartModifications && response.cartModifications.length) {
-                this.addReorderAnalytics(response);
-                window.location.href = this.state.viewCartUrl;
-            } else {
-                this.toggleModal();
-                response && response.errors && this.setState({ errorCartErrors: response.errors});
-                this.setError(response);
-                this.setState({ errorServiceError: false });
-            }
-        })
-        .catch(err => {
-            this.toggleModal();
-            this.setState({ errorServiceError: false });
-        });
-    }
-
     async componentDidMount() {
-        const commerceConfig = JSON.parse(
-            document.getElementById('commerce-configs-json').innerHTML
-        );
-        if(commerceConfig) {
-            this.setState({
-                isCommerceApiMigrated: JSON.parse(commerceConfig.isCommerceApiMigrated.toLowerCase()),
-                addToCartUrl: commerceConfig.addToCartUrl,
-                viewCartUrl: commerceConfig.viewCartUrl
-            });
-            if(commerceConfig.isCommerceApiMigrated.toLowerCase() === 'true') {
-                // Update modal config button with a callback and new cart url
-                const buttons = [...this.state.modalConfig.buttons];
-                buttons[0] = {
-                    ...buttons[0],
-                    action: commerceConfig.viewCartUrl,
-                    callback: this.addToCartReorder
-                }
-                const updatedModalConfig = {
-                    ...this.state.modalConfig,
-                    buttons: buttons
-                }
-                this.setState({
-                    modalConfig: updatedModalConfig
-                })
-            }
-        }
-
-        const { detailsUrl, itemsUrl, quoteId, userIsocode } = this.state;
-        getQuoteDetails(detailsUrl, quoteId, this.setError)
+        const { detailsUrl, quoteId } = this.state;
+        const  userId = getUserId();
+        const soldToId = getSoldToId() || getDummySoldToId();
+        const countryCode = getCountryCode();
+        const language = getLanguage();
+        const url = `${detailsUrl}/${quoteId}?soldToId=${soldToId}&userId=${userId}&countryCode=${countryCode}&language=${language}&fields=FULL`;
+        getQuoteDetails(url, this.setError)
             .then((data) => {
-                if(data && data.account && data.account.length) {
-                    // Add Country Names to data
-                    data.account.map(account => {
-                        const countryName = getCountryName(account.country, this.config);
-                        account.countryName = countryName;
-                        account.state = account.region;
-                    });
+                const quotes = data && data.quotes || {};
+                const {entries = []} = quotes;
+                let totalItemsCount = 0;
+                entries && entries.map(item=>{
+                    totalItemsCount = totalItemsCount + parseInt(item.quantity);
+                })
+                if(quotes) {
                     this.setState({
                         isLoading: false,
-                        quoteDetails: data
+                        quoteDetails: quotes,
+                        totalItemsCount
                     });
-                    const reorderData = data.lineItems.map(item => {
-                        return {code: item.materialNumber, quantity: item.orderedQuantity};
-                    });
-                    this.setState({
-                        reorderData: [...reorderData]
-                    })
-                    getItemDetails(itemsUrl, data.lineItems, this.setError, userIsocode)
-                        .then((itemData) => {
-                            if(itemData && itemData.documents && itemData.documents.length) {
-                                let mergedAPIs = matchLineItems(data, itemData.documents);
-                                this.setState({
-                                    airbills: GroupBy.groupBy(mergedAPIs.lineItems, 'airbill')
-                                });
-                            } else {
-                                this.setState({
-                                    airbills: GroupBy.groupBy(data.lineItems, 'airbill')
-                                });
-                            }
-                            this.setAnalytics('load');
-                        })
-
                 } else {
                     this.setState({
                         errorOrderNotFound: true,
-                        isLoading: false
+                        isLoading: false,
+                        totalItemsCount
                     });
                 }
             })
@@ -219,34 +97,33 @@ class QuoteDetails extends Component {
     config = document.getElementById('json-config--cmp-detail-tiles--personal')
         ? JSON.parse(document.getElementById('json-config--cmp-detail-tiles--personal').innerHTML) : '';
 
-    renderAddress = (addressType) => {
-        const {quoteDetails} = this.state;
-        if (quoteDetails.account){
-            const account = quoteDetails.account.filter(item => item.partnerType === addressType )[0];
-            if (account) {
-                const includeCountryName = true;
-                const addressArray = getOrderDetailsAddress(account, includeCountryName);
-                return (
-                    <>
-                        {addressArray.map((addressLine) => <div className={`${this.rootStyle}-address1`} data-locator="order-details-address">{addressLine}</div>)}
-                    </>
-                );
-            }
-        }
-        return null;
+    renderAddress = (address = {}) => {
+        const {name,address1,address2,address3,street,street2,city,stateName,postalCode} = address || {};
+        const cityValue = city && `${city},` || ''
+        return (
+            <>
+            {name && <div className={`${this.rootStyle}-address1`} data-locator="order-details-address">{name}</div>}
+            {address1 && <div className={`${this.rootStyle}-address1`} data-locator="order-details-address">{address1}</div>}
+            {address2 && <div className={`${this.rootStyle}-address1`} data-locator="order-details-address">{address2}</div>}
+            {address3 && <div className={`${this.rootStyle}-address1`} data-locator="order-details-address">{address3}</div>}
+            {street && <div className={`${this.rootStyle}-address1`} data-locator="order-details-address">{street}</div>}
+            {street2 && <div className={`${this.rootStyle}-address1`} data-locator="order-details-address">{street2}</div>}
+            <div className={`${this.rootStyle}-address1`} data-locator="order-details-address">{`${cityValue} ${stateName || ''} ${postalCode || ''}`}</div>
+            </>
+        );
     }
 
     renderItemCount = () => {
-        const { quoteDetails } = this.state;
+        const {totalItemsCount } = this.state;
         let label = "";
-        if (quoteDetails && quoteDetails.totalItemsOrdered) {
-            if (parseInt(quoteDetails.totalItemsOrdered) > 1) {
+        if (totalItemsCount > 0) {
+            if (totalItemsCount > 1) {
                 label = this.props.config.items;
-            } else if (parseInt(quoteDetails.totalItemsOrdered) === 1) {
+            } else if (totalItemsCount === 1) {
                 label = this.props.config.item;
             }
 
-            let itemCountLabel =  " (" + quoteDetails.totalItemsOrdered + " " + label + ")";
+            let itemCountLabel =  " (" + totalItemsCount + " " + label + ")";
             return itemCountLabel;
 
         } else {
@@ -254,87 +131,131 @@ class QuoteDetails extends Component {
         }
     }
 
-    renderReorderButton = () => {
-        return (
-            <a className="cmp-button" href="/#" >
-                {this.props.config.reorderTitle}
-            </a>
+    renderReorderButton = className => {
+        const {quoteDetails} = this.state;
+        const {quoteStatus} = quoteDetails
+        return quoteStatus === DELIVERY_STATUS.OPEN || quoteStatus === DELIVERY_STATUS.PENDING && (
+            <div className={className} data-locator="quote-details-reorder">
+                <a className="cmp-button" href="/#" >
+                    {this.props.config.reorderTitle}
+                </a>
+            </div>
         )
     }
 
+    renderQuoteAgainButton = className => {
+        const {quoteDetails} = this.state;
+        const {quoteStatus} = quoteDetails
+        return quoteStatus === DELIVERY_STATUS.EXPIRED && (
+            <div className={className} data-locator="quote-details-quote-again-cta">
+                <a className="cmp-button" href="/#" >
+                    {this.props.config.quoteAgainTitle}
+                </a>
+            </div>
+        )
+    }
+
+    getValue = (data,attribute,defaultValue = undefined) => {
+        let value = defaultValue
+        if(data){
+           value = data[attribute];
+        }
+       return value
+    }
+    
     renderDetailsSection = () => {
-        const { quoteDetails, userLocale } = this.state;
+        const { quoteDetails } = this.state;
         const { config } = this.props;
+        const {created, expires, shipTo, billTo,savings,shipping, tax, totalLabel,shipment,icons} = config;
+        const {quoteId,quoteCreationDate,quoteExpirationDate, subTotal,totalShippingAndHandling,totalDiscounts,totalTax,totalPrice, shipToInfo, billToInfo,quoteStatus, orderNumber, replacedQuoteNumber} =  quoteDetails;
         const notZeroDiscountFlag = parseFloat(quoteDetails.orderDiscountValue) !== 0 ? true : false;
+        const subTotalValue = this.getValue(subTotal,'formattedValue');
+        const ShippingAndHandlingValue = this.getValue(totalShippingAndHandling,'formattedValue');
+        const totalDiscountsValue = this.getValue(totalDiscounts,'formattedValue');
+        const totalTaxValue = this.getValue(totalTax,'formattedValue');
+        const totalPriceValue = this.getValue(totalPrice,'formattedValue');
+        const showExpireDate = !!(quoteStatus === DELIVERY_STATUS.PENDING || quoteStatus === DELIVERY_STATUS.REJECTED || quoteStatus === DELIVERY_STATUS.OPEN);
+        const quoteNumber = quoteStatus === DELIVERY_STATUS.QUOTE_REPLACED ? replacedQuoteNumber : quoteId;
+        const showNewDetailsLinkSection = (quoteStatus === DELIVERY_STATUS.QUOTE_REPLACED || quoteStatus === DELIVERY_STATUS.ORDER_PLACED)
         return (<>
             <div className={`${this.rootStyle}__container`}>
                 <h2 className={`${this.rootStyle}__title`} data-locator="product-title">
-                {config.quoteDetails}
+                {config.detailsTitle}
                 </h2>
+                {showNewDetailsLinkSection && (<div className={`${this.rootStyle}__new-details-link-text`}>
+                    <div className="new-details-link-section">
+                        <div className="new-details-icon">
+                            <ReactSVG src={config.icons.newQuoteOrderIcon} />
+                        </div>
+                        {quoteStatus === DELIVERY_STATUS.QUOTE_REPLACED && (<div className="new-details-text" data-locator="delivery-text">
+                            {`${config.newQuote}${quoteId}`}
+                        </div>)}
+                        {quoteStatus === DELIVERY_STATUS.ORDER_PLACED && (<div className="new-details-text" data-locator="delivery-text">
+                            {`${config.orderNumberText}${orderNumber}`}
+                        </div>)}
+                    </div>
+                    {quoteStatus && quoteStatus === DELIVERY_STATUS.ORDER_PLACED && (<div className="new-details-status-icon"><DeliveryStatus
+                        status={quoteStatus}
+                        labels={shipment}
+                        icons={icons}
+                    /> </div>)} 
+                </div>)}
                 <div className={`${this.rootStyle}__order-info`}>
-                    <h3 className={`${this.rootStyle}__order-number`} data-locator="product-number">
-                        {config.numberLabel + ": " + quoteDetails.orderNumber}
+                <h3 className={`${this.rootStyle}__order-number`} data-locator="product-number">
+                        {config.numberLabel + ": " + quoteNumber}
                     </h3>
-                    <div className={`${this.rootStyle}__order-date`} data-locator="order-date">
-                        {DateFormatter.dateFormatter(quoteDetails.date, userLocale)}
-                    </div>
+                </div>
+                <div className={`${this.rootStyle}__order-summary`}>
+                {quoteStatus && quoteStatus !== DELIVERY_STATUS.ORDER_PLACED && (<DeliveryStatus
+                        status={quoteStatus}
+                        labels={shipment}
+                        icons={icons}
+                    />)} 
+                </div>
+                <div className={`${this.rootStyle}__order-info`}>
+                    {quoteCreationDate && (<div className={`${this.rootStyle}__order-date`} data-locator="order-date">
+                        {`${created} ${quoteCreationDate}`}
+                    </div>)}
+                    {showExpireDate && quoteExpirationDate && (<div className={`${this.rootStyle}__order-date`} data-locator="order-date">
+                    {`${expires} ${quoteExpirationDate}`}
+                    </div>)}
                     <div className={`${this.rootStyle}__address-container`}>
-                        <div className={`${this.rootStyle}__ship-to`} data-locator="ship-to">
-                            <h4>{config.shipTo}</h4>
-                            {this.renderAddress("shipping")}
-                        </div>
-                        <div className={`${this.rootStyle}__bill-to`} data-locator="bill-to">
-                            <h4>{config.billTo}</h4>
-                            {this.renderAddress("billing")}
-                        </div>
-                    </div>
-                    <div className={`${this.rootStyle}__payment-container`}>
-                        <div className={`${this.rootStyle}__payment-method`} data-locator="payment-method">
-                            <h4>{config.paymentMethod}</h4>
-                            {quoteDetails.ccNum && (
-                                <>
-                                <ReactSVG src={config.paymentType.creditCard.icon}/>
-                                <div className="text">{config.paymentType.creditCard.label}</div>
-                                </>
-                            )}
-                            {!quoteDetails.ccNum && quoteDetails.purchaseOrderNumber && (
-                                <>
-                                <ReactSVG src={config.paymentType.purchaseOrder.icon}/>
-                                <div className="text">{config.paymentType.purchaseOrder.label}: {quoteDetails.purchaseOrderNumber}</div>
-                                </>
-                            )}
-                        </div>
+                        {shipToInfo && (<div className={`${this.rootStyle}__ship-to`} data-locator="ship-to">
+                            <h4>{shipTo}</h4>
+                            {this.renderAddress(shipToInfo)}
+                        </div>)}
+                        {billToInfo && (<div className={`${this.rootStyle}__bill-to`} data-locator="bill-to">
+                            <h4>{billTo}</h4>
+                            {this.renderAddress(billToInfo)}
+                        </div>)}
                     </div>
                 </div>
                 <div className={`${this.rootStyle}__order-summary`} data-locator="order-summary">
                     <h4>{config.summaryTitle}</h4>
                     <div className={`${this.rootStyle}__order-subtotal`}>
                         <div className={`${this.rootStyle}__order-subtotal_left`} data-locator="order-subtotal-left">{config.subTotal} {this.renderItemCount()}</div>
-                        <div className={`${this.rootStyle}__order-subtotal_right`} data-locator="order-subtotal-right">{quoteDetails.itemsSubTotal}</div>
+                        <div className={`${this.rootStyle}__order-subtotal_right`} data-locator="order-subtotal-right">{subTotalValue}</div>
                     </div>
                     {notZeroDiscountFlag && 
                         <div className={`${this.rootStyle}__order-savings`}>
-                            <div className={`${this.rootStyle}__order-savings_left`} data-locator="order-savings-left">{config.savings}</div>
-                            <div className={`${this.rootStyle}__order-savings_right`} data-locator="order-savings-right">{config.minusSign}{quoteDetails.orderDiscount}</div>
+                            <div className={`${this.rootStyle}__order-savings_left`} data-locator="order-savings-left">{savings}</div>
+                            <div className={`${this.rootStyle}__order-savings_right`} data-locator="order-savings-right">{config.minusSign}{totalDiscountsValue}</div>
                         </div>
                     }
                     <div className={`${this.rootStyle}__order-shipping`}>
-                        <div className={`${this.rootStyle}__order-shipping_left`} data-locator="order-shipping-left">{config.shipping}</div>
-                        <div className={`${this.rootStyle}__order-shipping_right`} data-locator="order-shipping-right">{quoteDetails.shippingAmount}</div>
+                        <div className={`${this.rootStyle}__order-shipping_left`} data-locator="order-shipping-left">{shipping}</div>
+                        <div className={`${this.rootStyle}__order-shipping_right`} data-locator="order-shipping-right">{ShippingAndHandlingValue}</div>
                     </div>
                     <div className={`${this.rootStyle}__order-tax`}>
-                        <div className={`${this.rootStyle}__order-tax_left`} data-locator="order-tax-left">{config.tax}</div>
-                        <div className={`${this.rootStyle}__order-tax_right`} data-locator="order-tax-right">{quoteDetails.taxAmount}</div>
+                        <div className={`${this.rootStyle}__order-tax_left`} data-locator="order-tax-left">{tax}</div>
+                        <div className={`${this.rootStyle}__order-tax_right`} data-locator="order-tax-right">{totalTaxValue}</div>
                     </div>
                     <div className={`${this.rootStyle}__order-total`}>
-                        <div className={`${this.rootStyle}__order-total_left`} data-locator="order-total-left">{config.totalLabel}</div>
-                        <div className={`${this.rootStyle}__order-total_right`} data-locator="order-total-right"><h1>{quoteDetails.orderTotal}</h1></div>
+                        <div className={`${this.rootStyle}__order-total_left`} data-locator="order-total-left">{totalLabel}</div>
+                        <div className={`${this.rootStyle}__order-total_right`} data-locator="order-total-right"><h1>{totalPriceValue}</h1></div>
                     </div>
-                    {this.state.isCommerceApiMigrated && (
-                        <div className={`${this.rootStyle}__reorder`} data-locator="order-details-reorder">
-                            {this.renderReorderButton()}
-                        </div>
-                    )}
+                    {this.renderReorderButton(`${this.rootStyle}__reorder`)}
+                    {this.renderQuoteAgainButton(`${this.rootStyle}__reorder`)}
                 </div>
             </div>
             </>
@@ -352,19 +273,32 @@ class QuoteDetails extends Component {
     }
 
     renderOrderShipmentList = () => {
-        const { airbills, quoteDetails } = this.state;
-        return (
-            <>
-                <div className="cmp-order-details__order-shipment-list" data-locator="order-shipment-list">
-                    {Object.keys(airbills).length > 0 && this.getShipmentList(airbills, quoteDetails)}
-                </div>
-                {this.state.isCommerceApiMigrated && (
-                    <div className="order-shipment__reorder" data-locator="order-shipment-reorder">
-                        {this.renderReorderButton()}
+        const { quoteDetails,totalItemsCount } = this.state;
+        const {entries = []} = quoteDetails;
+        if(entries && entries.length > 0){
+            return (
+                <>
+                    <div className="cmp-order-details__order-shipment-list" data-locator="order-shipment-list">
+                        <hr className="order-shipment-list__hr"/>
+                        <Shipment
+                            data={entries}
+                            shipment={this.props.config.shipment}
+                            icons={this.props.config.icons}
+                            resultsText={this.props.config.resultsText}
+                            noResultsFoundTitle={this.props.noResultsFoundTitle}
+                            totalItemsOrdered={totalItemsCount}
+                            totalItems={entries.length}
+                            isQuoteDetails={true}
+                        />
                     </div>
-                )}
-            </>
-        )
+                    {this.renderReorderButton("order-shipment__reorder")}
+                    {this.renderQuoteAgainButton("order-shipment__reorder")}
+                </>
+            )
+        }
+        else{
+            return null;
+        }
     }
 
     render() {

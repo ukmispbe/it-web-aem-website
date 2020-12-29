@@ -1,5 +1,4 @@
 import { fetch } from 'whatwg-fetch';
-
 import { getCategoryReferenceType } from '../utils/userFunctions';
 
 const getData = async (url) => {
@@ -26,10 +25,8 @@ export const getOrderDetails = async (endpoint, id, setError) => {
     }
 }
 
-export const getQuoteDetails = async (endpoint, id, setError) => {
-    const url = endpoint + "/" + id;
-
-    const response = await getData(url);
+export const getQuoteDetails = async (endpoint, setError) => {
+    const response = await getData(endpoint);
     const responseBody = await response.json();
 
     if(response.status === 200) {
