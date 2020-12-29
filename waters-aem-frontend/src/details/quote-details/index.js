@@ -9,7 +9,7 @@ import AddToCartBody from '../../sku-details/views/addToCartModal';
 import Analytics, { analyticTypes } from '../../analytics';
 import { DELIVERY_STATUS } from '../../constants';
 import DeliveryStatus from '../../common/delivery-status';
-import { getSoldToId, getDummySoldToId, getUserId, getCountryCode, getLanguage } from '../../utils/userFunctions';
+import { getSoldToId, getDummySoldToId, getUserId, getCountryCode, getLanguage, getFullCompanyAddress } from '../../utils/userFunctions';
 
 class QuoteDetails extends Component {
     constructor({setErrorBoundaryToTrue, resetErrorBoundaryToFalse, removeNotifications, ...props}) {
@@ -98,19 +98,15 @@ class QuoteDetails extends Component {
         ? JSON.parse(document.getElementById('json-config--cmp-detail-tiles--personal').innerHTML) : '';
 
     renderAddress = (address = {}) => {
-        const {name,address1,address2,address3,street,street2,city,stateName,postalCode} = address || {};
-        const cityValue = city && `${city},` || ''
-        return (
-            <>
-            {name && <div className={`${this.rootStyle}-address1`} data-locator="order-details-address">{name}</div>}
-            {address1 && <div className={`${this.rootStyle}-address1`} data-locator="order-details-address">{address1}</div>}
-            {address2 && <div className={`${this.rootStyle}-address1`} data-locator="order-details-address">{address2}</div>}
-            {address3 && <div className={`${this.rootStyle}-address1`} data-locator="order-details-address">{address3}</div>}
-            {street && <div className={`${this.rootStyle}-address1`} data-locator="order-details-address">{street}</div>}
-            {street2 && <div className={`${this.rootStyle}-address1`} data-locator="order-details-address">{street2}</div>}
-            <div className={`${this.rootStyle}-address1`} data-locator="order-details-address">{`${cityValue} ${stateName || ''} ${postalCode || ''}`}</div>
-            </>
-        );
+        if(address){
+            const addressArray = getFullCompanyAddress(address, false);
+            return (
+                <>
+                    {addressArray.map((addressLine) => <div className={`${this.rootStyle}-address1`} data-locator="order-details-address">{addressLine}</div>)}
+                </>
+            );
+        }
+        
     }
 
     renderItemCount = () => {
@@ -162,6 +158,13 @@ class QuoteDetails extends Component {
         }
        return value
     }
+
+    redirectNewItemURL = path =>{
+        const {location} = window;
+        const {host,pathname} = location;
+        const url = `${host}${pathname}${path}`;
+        window.location.href = url;
+      }
     
     renderDetailsSection = () => {
         const { quoteDetails } = this.state;
@@ -176,7 +179,8 @@ class QuoteDetails extends Component {
         const totalPriceValue = this.getValue(totalPrice,'formattedValue');
         const showExpireDate = !!(quoteStatus === DELIVERY_STATUS.PENDING || quoteStatus === DELIVERY_STATUS.REJECTED || quoteStatus === DELIVERY_STATUS.OPEN);
         const quoteNumber = quoteStatus === DELIVERY_STATUS.QUOTE_REPLACED ? replacedQuoteNumber : quoteId;
-        const showNewDetailsLinkSection = (quoteStatus === DELIVERY_STATUS.QUOTE_REPLACED || quoteStatus === DELIVERY_STATUS.ORDER_PLACED)
+        const showNewDetailsLinkSection = (quoteStatus === DELIVERY_STATUS.QUOTE_REPLACED || quoteStatus === DELIVERY_STATUS.ORDER_PLACED);
+        const newItemUrl = quoteStatus === DELIVERY_STATUS.ORDER_PLACED ? `#orderdetails?id=${orderNumber}` : `#quotedetails?id=${quoteId}`;
         return (<>
             <div className={`${this.rootStyle}__container`}>
                 <h2 className={`${this.rootStyle}__title`} data-locator="product-title">
@@ -184,6 +188,7 @@ class QuoteDetails extends Component {
                 </h2>
                 {showNewDetailsLinkSection && (<div className={`${this.rootStyle}__new-details-link-text`}>
                     <div className="new-details-link-section">
+                    <a href={newItemUrl} onClick={this.redirectNewItemURL(newItemUrl)}>
                         <div className="new-details-icon">
                             <ReactSVG src={config.icons.newQuoteOrderIcon} />
                         </div>
@@ -193,6 +198,7 @@ class QuoteDetails extends Component {
                         {quoteStatus === DELIVERY_STATUS.ORDER_PLACED && (<div className="new-details-text" data-locator="delivery-text">
                             {`${config.orderNumberText}${orderNumber}`}
                         </div>)}
+                    </a>    
                     </div>
                     {quoteStatus && quoteStatus === DELIVERY_STATUS.ORDER_PLACED && (<div className="new-details-status-icon"><DeliveryStatus
                         status={quoteStatus}
