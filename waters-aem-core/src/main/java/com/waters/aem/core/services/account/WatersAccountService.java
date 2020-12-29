@@ -122,9 +122,9 @@ public interface WatersAccountService {
       String getContactSupportUrl();
 
     /**
-      * Get the configured endpoint for quoteHistoryURL API.
+      * Get the configured endpoint for quoteHistoryUrl API.
       *
-      * @return quoteHistoryURL API URL
+      * @return quoteHistoryUrl API URL
       */
-      String getQuoteHistoryURL();  
+      String getQuoteHistoryUrl();  
 }
