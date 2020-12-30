@@ -16,7 +16,6 @@
     }
 
     .cmp-category-wrapper {
-
         @include  tablet-and-under {
             display: none;
         }
@@ -40,6 +39,9 @@
                     height: $icon-s;
                     width: $icon-s;
                     margin-right: $space-xxxs;
+                    .st0 {
+                        stroke: $color-link;
+                    }
                 }
             }
         }
@@ -50,18 +52,9 @@
                 color: black;
             }
         }
-        .cmp-category-items {
-            div:first-child {
-                .cmp-category-label {
-                    font-weight: $font-weight-light;
-                }    
-                .cmp-category-count {
-                    display: none;
-                } 
-            }
-        }
+
         .cmp-category-separator {
-            height: 0px;
+            height: 0;
             margin: $space-s 0;
         }
     }

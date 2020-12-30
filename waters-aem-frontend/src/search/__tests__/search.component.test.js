@@ -80,7 +80,7 @@ describe("Feature: Search Component", () => {
 
     describe("Scenario: Rendering", () => {
         describe("When searching by Category only", () => {
-            it("Then it should math snapshot", () => {
+            it("Then it should match snapshot", () => {
                 const json = renderer.create(<SearchComponent {...propsMockCategoryOnly} />);
 
                 expect(json).toMatchSnapshot();
@@ -89,7 +89,7 @@ describe("Feature: Search Component", () => {
         });
 
         describe("When searching by Content Type", () => {
-            it("Then it should math snapshot", () => {
+            it("Then it should match snapshot", () => {
                 const json = renderer.create(<SearchComponent {...propsMockContentType} />);
 
                 expect(json).toMatchSnapshot();

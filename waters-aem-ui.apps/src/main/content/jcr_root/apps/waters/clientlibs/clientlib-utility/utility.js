@@ -398,7 +398,7 @@ var getCategoryReferenceType = function getCategoryReferenceType() {
 
 /***/ }),
 
-/***/ 101:
+/***/ 100:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -443,7 +443,7 @@ var FeedbackSurvey = {
 
 /***/ }),
 
-/***/ 103:
+/***/ 102:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -503,7 +503,7 @@ var insertStyles = function insertStyles(cache, serialized, isStringTag) {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return getHttpStatusFromErrors; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return htmlParser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return getCompanyLogo; });
-/* harmony import */ var react_html_parser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(99);
+/* harmony import */ var react_html_parser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(98);
 /* harmony import */ var react_html_parser__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_html_parser__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _stores_sessionStore__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(15);
 /* harmony import */ var _scripts_loginStatus__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(16);
@@ -603,9 +603,9 @@ var getCompanyLogo = function getCompanyLogo(dir, company) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(37);
-/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
-/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(6);
+/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(37);
+/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
+/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(6);
 
 
 
@@ -617,13 +617,13 @@ function parseQueryParams(pathname) {
     var queryList = search.split('&');
     return queryList.reduce(function (accu, curr) {
       var _curr$split = curr.split('='),
-          _curr$split2 = Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(_curr$split, 2),
+          _curr$split2 = Object(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(_curr$split, 2),
           _curr$split2$ = _curr$split2[0],
           key = _curr$split2$ === void 0 ? '' : _curr$split2$,
           _curr$split2$2 = _curr$split2[1],
           value = _curr$split2$2 === void 0 ? '' : _curr$split2$2;
 
-      return key ? Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])({}, accu, Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({}, key, value && value.split('#')[0] || '')) : Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])({}, accu);
+      return key ? Object(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])({}, accu, Object(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({}, key, value && value.split('#')[0] || '')) : Object(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])({}, accu);
     }, {});
   }
 
@@ -634,13 +634,13 @@ function parseQueryParams(pathname) {
 
 /***/ }),
 
-/***/ 132:
+/***/ 133:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var _scripts_screenSizes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(17);
-/* harmony import */ var _scripts_navigation_level2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(161);
-/* harmony import */ var _feedbackSurvey__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(101);
+/* harmony import */ var _scripts_navigation_level2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(160);
+/* harmony import */ var _feedbackSurvey__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(100);
 /* harmony import */ var _domElements__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(25);
 
 
@@ -939,7 +939,7 @@ var loginStatus = {
 
 /***/ }),
 
-/***/ 161:
+/***/ 160:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1033,7 +1033,7 @@ var Reset = function Reset() {
 
 /***/ }),
 
-/***/ 162:
+/***/ 161:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1099,7 +1099,7 @@ var screenSizes = {
 
 /***/ }),
 
-/***/ 176:
+/***/ 175:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1172,7 +1172,7 @@ var modal_portal_ModalPortal = function ModalPortal(props) {
 
 /* harmony default export */ var modal_portal = (react_default.a.memo(modal_portal_ModalPortal));
 // EXTERNAL MODULE: ./src/scripts/feedbackSurvey.js
-var feedbackSurvey = __webpack_require__(101);
+var feedbackSurvey = __webpack_require__(100);
 
 // EXTERNAL MODULE: ./src/scripts/domElements.js
 var domElements = __webpack_require__(25);
@@ -1397,7 +1397,7 @@ var DigitalData = {
 
 /***/ }),
 
-/***/ 235:
+/***/ 234:
 /***/ (function(module, exports) {
 
 function scrollToElement(scrollTargetElementID, speed, easing) {
@@ -1486,7 +1486,7 @@ module.exports = scrollToElement;
 
 /***/ }),
 
-/***/ 237:
+/***/ 236:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1526,12 +1526,12 @@ var DateRange = function DateRange(startValue, endValue) {
 
 /***/ }),
 
-/***/ 238:
+/***/ 237:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(36);
-/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6);
+/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(36);
+/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6);
 
 
 
@@ -1542,9 +1542,9 @@ var setUrlPathVariables = function setUrlPathVariables() {
 
   if (!!urlPath) {
     for (var _i = 0, _Object$entries = Object.entries(pathVars); _i < _Object$entries.length; _i++) {
-      var _ref4 = _Object$entries[_i];
+      var _ref3 = _Object$entries[_i];
 
-      var _ref2 = Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(_ref4, 2);
+      var _ref2 = Object(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(_ref3, 2);
 
       var key = _ref2[0];
       var value = _ref2[1];
@@ -1560,12 +1560,12 @@ var createUrlSearchParams = function createUrlSearchParams() {
   var queryParams = [];
 
   for (var _i2 = 0, _Object$entries2 = Object.entries(query); _i2 < _Object$entries2.length; _i2++) {
-    var _ref8 = _Object$entries2[_i2];
+    var _ref6 = _Object$entries2[_i2];
 
-    var _ref6 = Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(_ref8, 2);
+    var _ref5 = Object(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(_ref6, 2);
 
-    var key = _ref6[0];
-    var value = _ref6[1];
+    var key = _ref5[0];
+    var value = _ref5[1];
     queryParams.push("".concat(key, "=").concat(value));
   }
 
@@ -1573,17 +1573,17 @@ var createUrlSearchParams = function createUrlSearchParams() {
 };
 
 var buildUrl = function buildUrl(options) {
-  if (Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(options) === "object") {
+  if (Object(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(options) === "object") {
     var pathname = options.pathname,
         query = options.query,
         pathVars = options.pathVars;
     var url = pathname;
 
-    if (Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(pathVars) === "object" && !!Object.keys(pathVars).length) {
+    if (Object(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(pathVars) === "object" && !!Object.keys(pathVars).length) {
       url = setUrlPathVariables(url, pathVars);
     }
 
-    if (Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(query) === "object" && !!Object.keys(query).length) {
+    if (Object(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(query) === "object" && !!Object.keys(query).length) {
       url += "?".concat(createUrlSearchParams(query));
     }
 
@@ -1718,11 +1718,11 @@ function hasClassListSupport() {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
-/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(5);
-/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(7);
-/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(8);
-/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(9);
+/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
+/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(5);
+/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(7);
+/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(8);
+/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(9);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(0);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var react_spinners__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(227);
@@ -1736,15 +1736,15 @@ function hasClassListSupport() {
 
 
 var LoadingSpinner = /*#__PURE__*/function (_Component) {
-  Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])(LoadingSpinner, _Component);
+  Object(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])(LoadingSpinner, _Component);
 
   function LoadingSpinner() {
-    Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(this, LoadingSpinner);
+    Object(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(this, LoadingSpinner);
 
-    return Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(this, Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(LoadingSpinner).call(this));
+    return Object(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(this, Object(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(LoadingSpinner).call(this));
   }
 
-  Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(LoadingSpinner, [{
+  Object(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(LoadingSpinner, [{
     key: "componentWillMount",
     value: function componentWillMount() {
       if (this.props.type === '' || this.props.type === 'overlay') {
@@ -1848,7 +1848,7 @@ var isDisabledState = function isDisabledState() {
 
 /***/ }),
 
-/***/ 346:
+/***/ 345:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2118,7 +2118,7 @@ var stateWatcher_useFormStateContext = function useFormStateContext() {
 
 /***/ }),
 
-/***/ 399:
+/***/ 405:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2181,11 +2181,11 @@ goTopBtnRelative.addEventListener('click', function (e) {
 
 /***/ }),
 
-/***/ 400:
+/***/ 406:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var _scrollToElement__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(235);
+/* harmony import */ var _scrollToElement__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(234);
 /* harmony import */ var _scrollToElement__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_scrollToElement__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _screenSizes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(17);
 /* harmony import */ var _fade_x__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(74);
@@ -2450,7 +2450,7 @@ if (anchorList) {
 
 /***/ }),
 
-/***/ 401:
+/***/ 407:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2479,7 +2479,7 @@ document.addEventListener('DOMContentLoaded', SortFilterSticky);
 
 /***/ }),
 
-/***/ 402:
+/***/ 408:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2520,7 +2520,7 @@ document.addEventListener('DOMContentLoaded', SkuDetailsSticky);
 
 /***/ }),
 
-/***/ 403:
+/***/ 409:
 /***/ (function(module, exports) {
 
 var anchorSkuScroll = function anchorSkuScroll() {
@@ -2543,7 +2543,53 @@ window.addEventListener('scroll', anchorSkuScroll());
 
 /***/ }),
 
-/***/ 404:
+/***/ 41:
+/***/ (function(module, exports) {
+
+function scrollToY(scrollTargetY, speed, easing) {
+  var scrollY = window.scrollY || document.documentElement.scrollTop,
+      scrollTargetY = scrollTargetY || 0,
+      speed = speed || 2000,
+      easing = easing || 'easeOutSine',
+      currentTime = 0;
+  var time = Math.max(0.1, Math.min(Math.abs(scrollY - scrollTargetY) / speed, 0.8));
+  var easingEquations = {
+    easeOutSine: function easeOutSine(pos) {
+      return Math.sin(pos * (Math.PI / 2));
+    },
+    easeInOutSine: function easeInOutSine(pos) {
+      return -0.5 * (Math.cos(Math.PI * pos) - 1);
+    },
+    easeInOutQuint: function easeInOutQuint(pos) {
+      if ((pos /= 0.5) < 1) {
+        return 0.5 * Math.pow(pos, 5);
+      }
+
+      return 0.5 * (Math.pow(pos - 2, 5) + 2);
+    }
+  };
+
+  function tick() {
+    currentTime += 1 / 60;
+    var p = currentTime / time;
+    var t = easingEquations[easing](p);
+
+    if (p < 1) {
+      requestAnimFrame(tick);
+      window.scrollTo(0, scrollY + (scrollTargetY - scrollY) * t);
+    } else {
+      window.scrollTo(0, scrollTargetY);
+    }
+  }
+
+  tick();
+}
+
+module.exports = scrollToY;
+
+/***/ }),
+
+/***/ 410:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2587,7 +2633,7 @@ document.addEventListener('DOMContentLoaded', androidSuggestionFix);
 
 /***/ }),
 
-/***/ 405:
+/***/ 411:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2685,7 +2731,7 @@ if (elem) {
 
 /***/ }),
 
-/***/ 406:
+/***/ 412:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2705,7 +2751,7 @@ document.addEventListener('DOMContentLoaded', FadeNav);
 
 /***/ }),
 
-/***/ 407:
+/***/ 413:
 /***/ (function(module, exports) {
 
 var pdfPluginVerification = function pdfPluginVerification() {
@@ -2780,7 +2826,7 @@ window.addEventListener('load', pdfPluginVerification);
 
 /***/ }),
 
-/***/ 408:
+/***/ 414:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2854,7 +2900,7 @@ if (link) {
 
 /***/ }),
 
-/***/ 409:
+/***/ 415:
 /***/ (function(module, exports) {
 
 var bannerReplacement = function bannerReplacement() {
@@ -2883,53 +2929,7 @@ window.addEventListener('load', bannerReplacement);
 
 /***/ }),
 
-/***/ 41:
-/***/ (function(module, exports) {
-
-function scrollToY(scrollTargetY, speed, easing) {
-  var scrollY = window.scrollY || document.documentElement.scrollTop,
-      scrollTargetY = scrollTargetY || 0,
-      speed = speed || 2000,
-      easing = easing || 'easeOutSine',
-      currentTime = 0;
-  var time = Math.max(0.1, Math.min(Math.abs(scrollY - scrollTargetY) / speed, 0.8));
-  var easingEquations = {
-    easeOutSine: function easeOutSine(pos) {
-      return Math.sin(pos * (Math.PI / 2));
-    },
-    easeInOutSine: function easeInOutSine(pos) {
-      return -0.5 * (Math.cos(Math.PI * pos) - 1);
-    },
-    easeInOutQuint: function easeInOutQuint(pos) {
-      if ((pos /= 0.5) < 1) {
-        return 0.5 * Math.pow(pos, 5);
-      }
-
-      return 0.5 * (Math.pow(pos - 2, 5) + 2);
-    }
-  };
-
-  function tick() {
-    currentTime += 1 / 60;
-    var p = currentTime / time;
-    var t = easingEquations[easing](p);
-
-    if (p < 1) {
-      requestAnimFrame(tick);
-      window.scrollTo(0, scrollY + (scrollTargetY - scrollY) * t);
-    } else {
-      window.scrollTo(0, scrollTargetY);
-    }
-  }
-
-  tick();
-}
-
-module.exports = scrollToY;
-
-/***/ }),
-
-/***/ 410:
+/***/ 416:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2949,19 +2949,19 @@ document.addEventListener('DOMContentLoaded', FadeBreadcrumb);
 
 /***/ }),
 
-/***/ 411:
+/***/ 417:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
-/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
+/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
+/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
 /* harmony import */ var _scripts_domElements__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(25);
 /* harmony import */ var _scripts_loginStatus__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(16);
-/* harmony import */ var _scripts_mobileNav__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(132);
+/* harmony import */ var _scripts_mobileNav__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(133);
 /* harmony import */ var _scripts_screenSizes__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(17);
-/* harmony import */ var _element_creators_services_servletService__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(236);
-/* harmony import */ var _element_creators_systemWideNotification__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(242);
+/* harmony import */ var _element_creators_services_servletService__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(235);
+/* harmony import */ var _element_creators_systemWideNotification__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(241);
 /* harmony import */ var _stores_sessionStore__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(15);
 /* harmony import */ var _scripts_inlineSVG__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(58);
 /* harmony import */ var _utils_eCommerceFunctions__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(11);
@@ -3051,9 +3051,9 @@ var handleSystemWideNotificationDismiss = function handleSystemWideNotificationD
 };
 
 var renderSystemWideNotification = /*#__PURE__*/function () {
-  var _ref = Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+  var _ref = Object(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
     var component, result, parent;
-    return C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+    return C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
@@ -3095,7 +3095,7 @@ window.addEventListener('load', headerInit);
 
 /***/ }),
 
-/***/ 412:
+/***/ 418:
 /***/ (function(module, exports) {
 
 var sectionContainers = document.querySelectorAll('.cmp-section-container--collapse');
@@ -3133,7 +3133,7 @@ if (sectionContainers.length > 0) {
 
 /***/ }),
 
-/***/ 413:
+/***/ 419:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3166,14 +3166,14 @@ if (continueBtns.length && continuePage) {
 
 /***/ }),
 
-/***/ 414:
+/***/ 420:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
-/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(37);
-/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(13);
+/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
+/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(37);
+/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(13);
 /* harmony import */ var _stores_sessionStore__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(15);
 /* harmony import */ var _my_account_services_UserDetailsLazy__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(70);
 
@@ -3188,9 +3188,9 @@ function textModifier() {
 }
 
 function _textModifier() {
-  _textModifier = Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])( /*#__PURE__*/C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+  _textModifier = Object(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])( /*#__PURE__*/C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
     var detailsUrl, checkSessionStore, userDetails, objMapping, textReplaceElements, replaceObj;
-    return C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+    return C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
@@ -3213,7 +3213,7 @@ function _textModifier() {
 
             if (userDetails) {
               textReplaceElements = document.querySelectorAll('.text-replace');
-              replaceObj = Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])({}, _stores_sessionStore__WEBPACK_IMPORTED_MODULE_3__[/* keys */ "b"].userDetails, userDetails);
+              replaceObj = Object(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])({}, _stores_sessionStore__WEBPACK_IMPORTED_MODULE_3__[/* keys */ "b"].userDetails, userDetails);
               Array.from(textReplaceElements).forEach(function (el) {
                 var matches = el.innerHTML.match(/{{(.*?)}}/gi);
                 Array.from(matches).forEach(function (match) {
@@ -3457,125 +3457,13 @@ function getLocale() {
 
 /***/ }),
 
-/***/ 494:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-
-// EXTERNAL MODULE: ./src/scripts/domElements.js
-var domElements = __webpack_require__(25);
-
-// CONCATENATED MODULE: ./src/utils/textTransform.js
-/**
- * Function is used to replace the placeholder text within the element using the transformationObject
- * @param {domElement} el DOM element
- * @param {object} transformationObject Object of key value pairs, key would maps placeholder and value would maps to text to be updated
- */
-var replaceTextWith = function replaceTextWith(el, transformationObject) {
-  var matches = el.innerHTML.match(/{{(.*?)}}/gi);
-  Array.from(matches).forEach(function (match) {
-    var key = match.replace('{{', '').replace('}}', '');
-    el.innerHTML = el.innerHTML.replace(match, transformationObject[key]);
-  });
-};
-// EXTERNAL MODULE: ./src/utils/parse-query-params/index.js
-var parse_query_params = __webpack_require__(113);
-
-// CONCATENATED MODULE: ./src/scripts/footer.js
-
-
-
-var scriptElement = document.getElementById('country-list-json');
-var countries = scriptElement && scriptElement.innerHTML.trim() ? JSON.parse(scriptElement.innerHTML) : [];
-
-if (Array.isArray(countries) && countries.length === 0) {
-  var regionSelector = document.querySelector('.cmp-footer__selector__region');
-
-  if (regionSelector) {
-    regionSelector.classList.add('one-country');
-  }
-}
-
-var languageSelector = document.querySelector('.cmp-footer__selector__language');
-var languageSelectorOptions = document.querySelector('.cmp-footer__selector__language--options');
-
-if (languageSelector) {
-  var children = languageSelectorOptions && Array.prototype.slice.call(languageSelectorOptions.childNodes);
-  var displayText = languageSelector.firstElementChild.innerText;
-  var longestAnchor = displayText.length;
-
-  if (children) {
-    children.forEach(function (e) {
-      if (e && e.tagName && e.tagName === 'A') {
-        if (e.innerText && e.innerText.length > longestAnchor) {
-          longestAnchor = e.innerText.length;
-        }
-      }
-    });
-
-    if (longestAnchor > displayText.length) {
-      var diff = longestAnchor - displayText.length;
-      var spacer = " ";
-      languageSelector.firstElementChild.innerText = displayText + spacer.repeat(diff * 5);
-    }
-  }
-
-  if (!languageSelector.classList.contains('one-link')) {
-    languageSelector.addEventListener('click', function () {
-      if (languageSelector.classList.contains('active')) {
-        languageSelector.classList.remove('active');
-      } else {
-        languageSelector.classList.add('active');
-      }
-    });
-    document.addEventListener("click", function (evt) {
-      var targetElement = evt.target; // clicked element
-
-      do {
-        if (targetElement == languageSelector) {
-          return;
-        }
-
-        targetElement = targetElement.parentNode;
-      } while (targetElement);
-
-      languageSelector.classList.remove('active');
-    });
-  }
-}
-
-document.addEventListener('mopinion_will_show', function (e) {
-  domElements["a" /* default */].noScroll(true);
-});
-document.addEventListener('mopinion_will_hide', function (e) {
-  domElements["a" /* default */].noScroll(false);
-});
-/**
- * Function is used to replace the text on check-your-email confirmation page for eproc users
- */
-
-var footer_replaceTextOnEmailConfirmation = function replaceTextOnEmailConfirmation() {
-  var element = document.getElementById('check-your-email-confirmation-text');
-
-  if (element) {
-    var userEmail = Object(parse_query_params["a" /* default */])(window.location.search)['email'] || '';
-    replaceTextWith(element, {
-      email: userEmail
-    });
-  }
-};
-
-footer_replaceTextOnEmailConfirmation();
-
-/***/ }),
-
 /***/ 50:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return scrollListener; });
-/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
-/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(5);
+/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
+/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(5);
 
 
 
@@ -3590,7 +3478,7 @@ var ticking = false;
 
 var Sticky = /*#__PURE__*/function () {
   function Sticky() {
-    Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(this, Sticky);
+    Object(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(this, Sticky);
 
     this.sumHeight = 0;
     this.currentStickyClasses = [];
@@ -3599,7 +3487,7 @@ var Sticky = /*#__PURE__*/function () {
     this.current = [];
   }
 
-  Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(Sticky, [{
+  Object(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(Sticky, [{
     key: "init",
     value: function init() {
       window.addEventListener('scroll', this.watch.bind(this));
@@ -3905,6 +3793,118 @@ var scrollListener = sticky.attachToScrollListener;
 
 /***/ }),
 
+/***/ 500:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+// EXTERNAL MODULE: ./src/scripts/domElements.js
+var domElements = __webpack_require__(25);
+
+// CONCATENATED MODULE: ./src/utils/textTransform.js
+/**
+ * Function is used to replace the placeholder text within the element using the transformationObject
+ * @param {domElement} el DOM element
+ * @param {object} transformationObject Object of key value pairs, key would maps placeholder and value would maps to text to be updated
+ */
+var replaceTextWith = function replaceTextWith(el, transformationObject) {
+  var matches = el.innerHTML.match(/{{(.*?)}}/gi);
+  Array.from(matches).forEach(function (match) {
+    var key = match.replace('{{', '').replace('}}', '');
+    el.innerHTML = el.innerHTML.replace(match, transformationObject[key]);
+  });
+};
+// EXTERNAL MODULE: ./src/utils/parse-query-params/index.js
+var parse_query_params = __webpack_require__(113);
+
+// CONCATENATED MODULE: ./src/scripts/footer.js
+
+
+
+var scriptElement = document.getElementById('country-list-json');
+var countries = scriptElement && scriptElement.innerHTML.trim() ? JSON.parse(scriptElement.innerHTML) : [];
+
+if (Array.isArray(countries) && countries.length === 0) {
+  var regionSelector = document.querySelector('.cmp-footer__selector__region');
+
+  if (regionSelector) {
+    regionSelector.classList.add('one-country');
+  }
+}
+
+var languageSelector = document.querySelector('.cmp-footer__selector__language');
+var languageSelectorOptions = document.querySelector('.cmp-footer__selector__language--options');
+
+if (languageSelector) {
+  var children = languageSelectorOptions && Array.prototype.slice.call(languageSelectorOptions.childNodes);
+  var displayText = languageSelector.firstElementChild.innerText;
+  var longestAnchor = displayText.length;
+
+  if (children) {
+    children.forEach(function (e) {
+      if (e && e.tagName && e.tagName === 'A') {
+        if (e.innerText && e.innerText.length > longestAnchor) {
+          longestAnchor = e.innerText.length;
+        }
+      }
+    });
+
+    if (longestAnchor > displayText.length) {
+      var diff = longestAnchor - displayText.length;
+      var spacer = " ";
+      languageSelector.firstElementChild.innerText = displayText + spacer.repeat(diff * 5);
+    }
+  }
+
+  if (!languageSelector.classList.contains('one-link')) {
+    languageSelector.addEventListener('click', function () {
+      if (languageSelector.classList.contains('active')) {
+        languageSelector.classList.remove('active');
+      } else {
+        languageSelector.classList.add('active');
+      }
+    });
+    document.addEventListener("click", function (evt) {
+      var targetElement = evt.target; // clicked element
+
+      do {
+        if (targetElement == languageSelector) {
+          return;
+        }
+
+        targetElement = targetElement.parentNode;
+      } while (targetElement);
+
+      languageSelector.classList.remove('active');
+    });
+  }
+}
+
+document.addEventListener('mopinion_will_show', function (e) {
+  domElements["a" /* default */].noScroll(true);
+});
+document.addEventListener('mopinion_will_hide', function (e) {
+  domElements["a" /* default */].noScroll(false);
+});
+/**
+ * Function is used to replace the text on check-your-email confirmation page for eproc users
+ */
+
+var footer_replaceTextOnEmailConfirmation = function replaceTextOnEmailConfirmation() {
+  var element = document.getElementById('check-your-email-confirmation-text');
+
+  if (element) {
+    var userEmail = Object(parse_query_params["a" /* default */])(window.location.search)['email'] || '';
+    replaceTextWith(element, {
+      email: userEmail
+    });
+  }
+};
+
+footer_replaceTextOnEmailConfirmation();
+
+/***/ }),
+
 /***/ 52:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -3974,10 +3974,10 @@ var cookieStore = {
 /* unused harmony export getData */
 /* unused harmony export postData */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return postDataRedirect; });
-/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
-/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
-/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(13);
+/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
+/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
+/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(13);
 /* harmony import */ var whatwg_fetch__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(38);
 /* harmony import */ var _redirectFunctions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(24);
 
@@ -3998,13 +3998,13 @@ function fetchData(_x, _x2) {
 }
 
 function _fetchData() {
-  _fetchData = Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])( /*#__PURE__*/C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(url, options) {
-    return C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+  _fetchData = Object(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])( /*#__PURE__*/C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(url, options) {
+    return C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
             return _context.abrupt("return", new _Promise(function (resolve, reject) {
-              fetch(url, Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])({}, options)).then(function (response) {
+              fetch(url, Object(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])({}, options)).then(function (response) {
                 resolve(response);
               })["catch"](function (err) {
                 throwError(err);
@@ -4028,9 +4028,9 @@ function getData(_x3) {
 }
 
 function _getData() {
-  _getData = Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])( /*#__PURE__*/C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(url) {
+  _getData = Object(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])( /*#__PURE__*/C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(url) {
     var response;
-    return C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+    return C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
@@ -4066,8 +4066,8 @@ function postData(_x4, _x5, _x6) {
 }
 
 function _postData() {
-  _postData = Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])( /*#__PURE__*/C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(url, options, setError) {
-    return C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+  _postData = Object(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])( /*#__PURE__*/C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(url, options, setError) {
+    return C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
@@ -4100,8 +4100,8 @@ function postDataRedirect(_x7, _x8, _x9) {
 }
 
 function _postDataRedirect() {
-  _postDataRedirect = Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])( /*#__PURE__*/C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(url, options, setError) {
-    return C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+  _postDataRedirect = Object(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])( /*#__PURE__*/C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(url, options, setError) {
+    return C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
       while (1) {
         switch (_context4.prev = _context4.next) {
           case 0:
@@ -4392,8 +4392,8 @@ var inlineSVG = {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return validateUploadFile; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return convertFileIntoBase64; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return getAttachmentFieldName; });
-/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(36);
-/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6);
+/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(36);
+/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6);
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(28);
 
 
@@ -4481,11 +4481,11 @@ var convertFileIntoBase64 = function convertFileIntoBase64(files) {
 var getAttachmentFieldName = function getAttachmentFieldName(data) {
   var name = '';
   Object.entries(data).forEach(function (_ref) {
-    var _ref2 = Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(_ref, 2),
+    var _ref2 = Object(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(_ref, 2),
         key = _ref2[0],
         value = _ref2[1];
 
-    if (Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(value) === 'object' && value.length > -1) {
+    if (Object(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(value) === 'object' && value.length > -1) {
       name = key;
     }
   });
@@ -4502,7 +4502,7 @@ var getAttachmentFieldName = function getAttachmentFieldName(data) {
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3);
 /* harmony import */ var react_select__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(46);
-/* harmony import */ var _custom_styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(98);
+/* harmony import */ var _custom_styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(97);
 
 
 
@@ -4551,7 +4551,7 @@ Dropdown.defaultProps = {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return getAttributes; });
-/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(12);
+/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(12);
 /* harmony import */ var _patterns__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(42);
 
 
@@ -4642,7 +4642,7 @@ var getAttributes = function getAttributes(ref, validation, matchRef, emailValid
     return obj;
   };
 
-  return Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({
+  return Object(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({
     required: validation && validation.required ? validation.requiredMsg ? validation.requiredMsg : "Required" : false
   }, setValidation(), setMinMax());
 };
@@ -4852,7 +4852,7 @@ var SignIn = function SignIn(props) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(29);
+/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(29);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(0);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _utils_userFunctions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(10);
@@ -4923,7 +4923,7 @@ var config = document.getElementById('json-config--cmp-detail-tiles--personal') 
     case 'shipToInfo':
     case 'billToInfo':
       var defaultSoldToAddresses = Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_2__[/* getDefaultSoldToAddresses */ "h"])(data.soldToAccounts);
-      return Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_2__[/* getAddressesByType */ "d"])(defaultSoldToAddresses, type).map(function (address) {
+      return Object(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_2__[/* getAddressesByType */ "d"])(defaultSoldToAddresses, type).map(function (address) {
         var tile = {
           name: type,
           columns: [{
@@ -5082,11 +5082,11 @@ if (quantitySkuList) {
 
 /***/ }),
 
-/***/ 98:
+/***/ 97:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(12);
+/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(12);
 /* harmony import */ var _styles_variables_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(26);
 /* harmony import */ var _styles_variables_scss__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_styles_variables_scss__WEBPACK_IMPORTED_MODULE_1__);
 
@@ -5098,7 +5098,7 @@ var customDropdownStyles = {
     };
   },
   option: function option(provided, state) {
-    return Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({}, provided, {
+    return Object(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({}, provided, {
       color: _styles_variables_scss__WEBPACK_IMPORTED_MODULE_1___default.a.colorGray50,
       padding: "".concat(_styles_variables_scss__WEBPACK_IMPORTED_MODULE_1___default.a.spaceXS, " ").concat(_styles_variables_scss__WEBPACK_IMPORTED_MODULE_1___default.a.spaceS),
       backgroundColor: state.isSelected ? _styles_variables_scss__WEBPACK_IMPORTED_MODULE_1___default.a.colorBackgroundLight : _styles_variables_scss__WEBPACK_IMPORTED_MODULE_1___default.a.colorWhite,
@@ -5111,7 +5111,7 @@ var customDropdownStyles = {
     });
   },
   control: function control(provided, state) {
-    return Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({}, provided, {
+    return Object(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({}, provided, {
       'border-radius': _styles_variables_scss__WEBPACK_IMPORTED_MODULE_1___default.a.borderRadius,
       padding: ".3em ".concat(_styles_variables_scss__WEBPACK_IMPORTED_MODULE_1___default.a.spaceXXS),
       color: _styles_variables_scss__WEBPACK_IMPORTED_MODULE_1___default.a.colorGray50,
@@ -5130,7 +5130,7 @@ var customDropdownStyles = {
     return {};
   },
   menu: function menu(provided) {
-    return Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({}, provided, {
+    return Object(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({}, provided, {
       marginTop: 0,
       borderRadius: 0,
       width: 'calc(100% - 2px)',
@@ -5140,7 +5140,7 @@ var customDropdownStyles = {
     });
   },
   menuList: function menuList(provided) {
-    return Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({}, provided, {
+    return Object(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({}, provided, {
       paddingBottom: 0,
       paddingTop: 0
     });

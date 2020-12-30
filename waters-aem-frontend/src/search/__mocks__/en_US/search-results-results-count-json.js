@@ -356,7 +356,7 @@ const searchResultsResultsPropsJSON = {
       "filterSearchPlaceholder": "Search",
       "resultsText": "Showing {count} results",
       "resultsForText": "Showing {count} results for ",
-      "categoryText": "Category:",
+      "categoryLabel": "Category:",
       "inCategoryText": "in ",
       "relatedSearchesText": "Related Searches",
       "noResultsText": "Showing 0 results",
@@ -377,7 +377,13 @@ const searchResultsResultsPropsJSON = {
       "resultType": "Result Type",
       "filterBy": "Filter By",
       "keyWordLabel": "Keyword",
-      "showResultCount": "Show {count} Results"
+      "showResultCount": "Show {count} Results",
+      "homeLinkText": "Home",
+      "searchLinkText": "Search",
+      "allResultsText": "Show All Results",
+      "categoryText": "Category",
+      "allCategoriesText": "All Categories",
+      "anyResultTypeText": "Any Result Type"
     },
     "categoryOptions": [
       {

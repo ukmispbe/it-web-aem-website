@@ -149,14 +149,14 @@
 /******/
 /******/
 /******/ 	// add entry module to deferred list
-/******/ 	deferredModules.push([396,1,2,0]);
+/******/ 	deferredModules.push([402,1,2,0]);
 /******/ 	// run deferred modules when ready
 /******/ 	return checkDeferredModules();
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 104:
+/***/ 103:
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
@@ -553,14 +553,14 @@ var _analytics$analyticTy = Object(slicedToArray["a" /* default */])(analytics.a
 
 /***/ }),
 
-/***/ 143:
+/***/ 142:
 /***/ (function(module, exports) {
 
 /* (ignored) */
 
 /***/ }),
 
-/***/ 144:
+/***/ 143:
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
@@ -568,7 +568,7 @@ module.exports = {"colorBorderDark":"#9ca7b0","colorGray50":"#4f5b64","colorBack
 
 /***/ }),
 
-/***/ 160:
+/***/ 159:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -576,7 +576,7 @@ module.exports = {"colorBorderDark":"#9ca7b0","colorGray50":"#4f5b64","colorBack
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./src/styles/index.scss
-var styles = __webpack_require__(104);
+var styles = __webpack_require__(103);
 
 // EXTERNAL MODULE: ./node_modules/react/index.js
 var react = __webpack_require__(0);
@@ -624,7 +624,7 @@ var services = __webpack_require__(20);
 var query_string = __webpack_require__(30);
 
 // EXTERNAL MODULE: ./node_modules/react-router-dom/es/withRouter.js + 1 modules
-var withRouter = __webpack_require__(500);
+var withRouter = __webpack_require__(506);
 
 // EXTERNAL MODULE: ./node_modules/react-svg/es/react-svg.js
 var react_svg = __webpack_require__(3);
@@ -1417,7 +1417,7 @@ var objectWithoutProperties = __webpack_require__(61);
 var react_select_esm = __webpack_require__(46);
 
 // EXTERNAL MODULE: ./src/utils/dropdown/custom-styles.js
-var custom_styles = __webpack_require__(98);
+var custom_styles = __webpack_require__(97);
 
 // CONCATENATED MODULE: ./src/search/components/category-dropdown.js
 
@@ -1818,26 +1818,24 @@ function ResultsCount(props) {
     var categoryOptionsList = options.map(function (a, index) {
       return {
         value: index,
-        label: a.translation
+        label: a.translation,
+        count: a.count
       };
     });
     return categoryOptionsList;
   };
 
   var categoryLabel = '';
+  var actualCount = props.count;
 
   if (Array.isArray(props.categoryOptions) && props.categoryOptions.length) {
     var options = getOptions(props.categoryOptions);
-
-    if (props.categoryValue === 0 || props.categoryValue === -1) {
-      categoryLabel = "All";
-    } else {
-      categoryLabel = options[props.categoryValue].label;
-    }
+    categoryLabel = props.categoryValue === 0 || props.categoryValue === -1 ? "All" : options[props.categoryValue].label;
+    actualCount = options[props.categoryValue].count;
   }
 
   var renderResultsText = function renderResultsText(resultsText) {
-    return resultsText.replace(/[{]count[}]/, "<span class='count'>" + props.count.toLocaleString(undefined, {
+    return resultsText.replace(/[{]count[}]/, "<span class='count'>" + actualCount.toLocaleString(undefined, {
       maximumFractionDigits: 0
     }) + "</span>");
   };
@@ -1873,7 +1871,7 @@ function ResultsCount(props) {
   return react_default.a.createElement("div", {
     className: "cmp-search__resultsCount",
     "data-locator": "results-count"
-  }, props.noQuery || props.query === '*:*' && react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("div", {
+  }, (props.noQuery || props.query === '*:*' || props.query === '') && react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("div", {
     "class": "query-box"
   }, react_default.a.createElement("span", {
     "class": "results",
@@ -1882,7 +1880,7 @@ function ResultsCount(props) {
     }
   })), react_default.a.createElement("hr", {
     className: "small-accent-rule"
-  })), !props.noQuery && props.query !== '*:*' && react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("span", {
+  })), !props.noQuery && props.query !== '*:*' && props.query !== '' && react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("span", {
     "class": "results",
     dangerouslySetInnerHTML: {
       __html: renderResultsText(props.text.resultsForText)
@@ -1968,8 +1966,8 @@ var filter_tags_SubFacetTags = function SubFacetTags(props) {
       }
     };
 
-    for (var _i = 0; _i < f.length; _i++) {
-      _loop(_i);
+    for (var _i2 = 0; _i2 < f.length; _i2++) {
+      _loop(_i2);
     }
 
     return category;
@@ -3426,33 +3424,49 @@ var results_Results = function Results(_ref2) {
 };
 
 /* harmony default export */ var components_results = (results_Results);
-// CONCATENATED MODULE: ./src/navigation/CategoryList/index.js
+// CONCATENATED MODULE: ./src/navigation/category-list/index.js
 
 
 
 
-var CategoryList_CategoryList = function CategoryList(_ref) {
+var category_list_CategoryList = function CategoryList(_ref) {
   var items = _ref.items,
+      text = _ref.text,
       activeIndex = _ref.activeIndex,
       onClick = _ref.onClick;
   var categoryRef = react_default.a.useRef();
+  var hasAllCategory = items.some(function (item) {
+    return item.name === 'All';
+  });
   return react_default.a.createElement("div", {
     className: "cmp-category-wrapper"
-  }, react_default.a.createElement("div", null, react_default.a.createElement("h3", null, "Category")), react_default.a.createElement("div", {
+  }, react_default.a.createElement("div", null, react_default.a.createElement("h3", null, text.categoryText)), react_default.a.createElement("div", {
     ref: categoryRef,
     className: "cmp-category-items"
   }, items.map(function (item, index) {
     var backImage;
+    var isHidden;
+    var hideCount = false;
 
-    if (index === 0) {
-      backImage = react_default.a.createElement(react_svg["a" /* default */], {
-        className: "cmp-categories-back",
-        src: "/content/dam/waters/en/brand-assets/icons/multiple.svg"
-      });
+    if (hasAllCategory) {
+      if (index === 0 && item.name == "All") {
+        backImage = react_default.a.createElement(react_svg["a" /* default */], {
+          className: "cmp-categories-back",
+          src: "/content/dam/waters/en/brand-assets/icons/multiple.svg"
+        });
+        hideCount = true;
+      }
+
+      if (activeIndex === index && item.name == "All") {
+        isHidden = true;
+      } else {
+        isHidden = determineIfHidden(items, index, activeIndex);
+      }
+    } else {
+      isHidden = false;
     }
 
-    var isHidden = determineIfHidden(items, index, activeIndex);
-    return react_default.a.createElement(CategoryList_Category, {
+    return react_default.a.createElement(category_list_Category, {
       key: "Category-".concat(index),
       name: item.translation,
       count: item.count,
@@ -3460,9 +3474,10 @@ var CategoryList_CategoryList = function CategoryList(_ref) {
       isActive: index === activeIndex,
       onClick: onClick,
       backImage: backImage,
-      isHidden: isHidden
+      isHidden: isHidden,
+      hideCount: hideCount
     });
-  })), activeIndex !== 0 && react_default.a.createElement("hr", {
+  })), (!hasAllCategory || hasAllCategory && activeIndex !== 0) && react_default.a.createElement("hr", {
     className: "cmp-category-separator h-large"
   }));
 };
@@ -3483,14 +3498,15 @@ var determineIfHidden = function determineIfHidden(items, index, activeIndex) {
   }
 };
 
-var CategoryList_Category = function Category(_ref2) {
+var category_list_Category = function Category(_ref2) {
   var index = _ref2.index,
       name = _ref2.name,
       count = _ref2.count,
       isActive = _ref2.isActive,
       _onClick = _ref2.onClick,
       backImage = _ref2.backImage,
-      isHidden = _ref2.isHidden;
+      isHidden = _ref2.isHidden,
+      hideCount = _ref2.hideCount;
   return react_default.a.createElement("div", {
     className: "cmp-category-item".concat(isActive ? " active" : "", " ").concat(isHidden ? " hidden" : ""),
     onClick: function onClick() {
@@ -3500,24 +3516,26 @@ var CategoryList_Category = function Category(_ref2) {
     className: "cmp-category-label",
     "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])(name)
   }, name), react_default.a.createElement("span", {
-    className: "cmp-category-count",
+    className: "cmp-category-count ".concat(hideCount ? " hidden" : ""),
     "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])(count)
   }, " (", count, ")"));
 };
 
-CategoryList_Category.defaultProps = {
+category_list_Category.defaultProps = {
   name: "",
   index: -1,
   isActive: false,
   onClick: function onClick() {},
-  isHidden: false
+  isHidden: false,
+  hideCount: false
 };
-CategoryList_CategoryList.defaultProps = {
+category_list_CategoryList.defaultProps = {
   items: [],
+  text: {},
   activeIndex: -1,
   onClick: function onClick() {}
 };
-/* harmony default export */ var navigation_CategoryList = (CategoryList_CategoryList);
+/* harmony default export */ var category_list = (category_list_CategoryList);
 // CONCATENATED MODULE: ./src/search/search.component.helpers.js
 
 
@@ -3600,8 +3618,9 @@ var search_component_helpers_Aside = function Aside(_ref2) {
   return react_default.a.createElement("div", {
     className: "container__left cmp-search__sort-filter",
     "data-locator": "left-container-filter"
-  }, !Object(userFunctions["s" /* isEprocurementUser */])() && react_default.a.createElement(navigation_CategoryList, {
+  }, !Object(userFunctions["s" /* isEprocurementUser */])() && react_default.a.createElement(category_list, {
     items: items,
+    text: text,
     activeIndex: activeIndex,
     onClick: categoryClick
   }), react_default.a.createElement(btn_hide_sort_filter, {
@@ -3824,7 +3843,7 @@ var search_component_helpers_ResultsBody = function ResultsBody(_ref7) {
     className: "cmp-search__container__header clearfix"
   }, !isEprocurementUser && react_default.a.createElement(category_dropdown, {
     categoryDownIcon: text.downIcon,
-    categoryLabelPrefix: text.categoryText,
+    categoryLabelPrefix: text.categoryLabel,
     categoryIsSearchable: false,
     categoryOnChange: categoryEvents.onCategoryDropdownChange,
     categoryOptions: categoryProps.categories,
@@ -3887,7 +3906,7 @@ var slicedToArray = __webpack_require__(6);
 var redirectFunctions = __webpack_require__(24);
 
 // EXTERNAL MODULE: ./node_modules/react-ellipsis-text/index.js
-var react_ellipsis_text = __webpack_require__(124);
+var react_ellipsis_text = __webpack_require__(125);
 var react_ellipsis_text_default = /*#__PURE__*/__webpack_require__.n(react_ellipsis_text);
 
 // CONCATENATED MODULE: ./src/common/search-breadcrumb/index.js
@@ -4237,7 +4256,7 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
         collapseAllFilters: false,
         activeFilterIndex: -1,
         count: 0,
-        allText: _this.props.searchText.allText
+        allResultsText: _this.props.searchText.allResultsText
       };
     };
 
@@ -4375,11 +4394,7 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
     };
 
     _this.buildSearchParams = function (q) {
-      var query = q && Object.entries(q).length !== 0 ? Object(objectSpread["a" /* default */])({}, q) : _this.getQueryObject(); // Default to "All" if no category sent.
-
-      if (!query.category) {
-        query.category = "All";
-      }
+      var query = q && Object.entries(q).length !== 0 ? Object(objectSpread["a" /* default */])({}, q) : _this.getQueryObject();
 
       if (!query.sort && _this.state) {
         query = Object.assign({}, query, {
@@ -4392,6 +4407,27 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
 
     _this.calcRows = function () {
       return _this.props.searchDefaults && _this.props.searchDefaults.rows ? _this.props.searchDefaults.rows : services["b" /* parameterDefaults */].rows;
+    };
+
+    _this.setAllCategory = function (categoriesWithData) {
+      //Add All Category to categories using Count of Authored Categories
+      var total = 0;
+
+      for (var i = 0; i < categoriesWithData.length; i++) {
+        total = total + categoriesWithData[i].count;
+      }
+
+      var allCategory = {
+        "translation": _this.state.allResultsText,
+        "name": "All",
+        "count": total
+      };
+
+      _this.setState({
+        count: total
+      });
+
+      return categoriesWithData = [allCategory].concat(Object(toConsumableArray["a" /* default */])(categoriesWithData));
     };
 
     _this.persistTabHistory = function (query) {
@@ -4561,32 +4597,37 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
       var category = authoredTags.find(function (authoredItem) {
         return authoredItem.categoryFacetName === categoryFacetName;
       });
+      var orderedFacetsMap = [];
 
       if (!category) {
         return;
       }
 
-      var orderedFacets = category.orderedFacets.filter(function (facet) {
-        return backendFacets.find(function (beFacet) {
-          return beFacet.value === facet.facetValue;
+      if (Array.isArray(category.orderedFacets) && category.orderedFacets.length > 0) {
+        var orderedFacets = category.orderedFacets.filter(function (facet) {
+          return backendFacets.find(function (beFacet) {
+            return beFacet.value === facet.facetValue;
+          });
         });
-      });
-      var orderedFacetsWithCount = orderedFacets.map(function (facet) {
-        var authTag = authoredTags.find(function (authoredItem) {
-          return facet.facetValue === authoredItem.categoryFacetValue;
+        var orderedFacetsWithCount = orderedFacets.map(function (facet) {
+          var authTag = authoredTags.find(function (authoredItem) {
+            return facet.facetValue === authoredItem.categoryFacetValue;
+          });
+          var beFacet = backendFacets.find(function (beFacet) {
+            return beFacet.value === facet.facetValue;
+          });
+          return Object(objectSpread["a" /* default */])({}, facet, {
+            orderedFacets: authTag ? authTag.orderedFacets : [],
+            count: beFacet ? beFacet.count : 0
+          });
         });
-        var beFacet = backendFacets.find(function (beFacet) {
-          return beFacet.value === facet.facetValue;
-        });
-        return Object(objectSpread["a" /* default */])({}, facet, {
-          orderedFacets: authTag ? authTag.orderedFacets : [],
-          count: beFacet ? beFacet.count : 0
-        });
-      });
+        orderedFacetsMap = orderedFacetsWithCount;
+      }
+
       return {
         categoryFacetName: category.categoryFacetName,
         categoryFacetValue: category.categoryFacetValue,
-        orderedFacets: orderedFacetsWithCount
+        orderedFacets: orderedFacetsMap
       };
     };
 
@@ -5245,7 +5286,7 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
       var _performSearch = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee3(q) {
         var _this3 = this;
 
-        var query, rows, categories, categoriesWithData, allCategory, newCategoriesWithData;
+        var query, rows, categories, categoriesWithData, categoriesWithAllData;
         return regenerator_default.a.wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
@@ -5263,7 +5304,7 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
                 // store category tabs in the component's state
 
                 if (!this.state.initialRender) {
-                  _context3.next = 13;
+                  _context3.next = 12;
                   break;
                 }
 
@@ -5275,29 +5316,23 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
               case 6:
                 categories = _context3.sent;
                 // find the categories
-                categoriesWithData = this.mapCategories(categories); // Add All Category to categories using num_found
-
-                allCategory = {
-                  "count": categories.num_found,
-                  "name": "All",
-                  "translation": this.state.allText
-                };
-                newCategoriesWithData = [allCategory].concat(Object(toConsumableArray["a" /* default */])(categoriesWithData)); // execute the search after the category tabs has been saved in the component's state
+                categoriesWithData = this.mapCategories(categories);
+                categoriesWithAllData = this.findFacetNameProperty(this.props.filterMap, "All") ? this.setAllCategory(categoriesWithData) : categoriesWithData; // execute the search after the category tabs has been saved in the component's state
 
                 this.setState({
-                  categoryTabs: newCategoriesWithData,
+                  categoryTabs: categoriesWithAllData,
                   initialRender: false
                 }, function () {
                   return _this3.executeSearch(query, rows);
                 });
-                _context3.next = 14;
+                _context3.next = 13;
                 break;
 
-              case 13:
+              case 12:
                 // execute the search because the category tabs have already been saved in the component's state
                 this.executeSearch(query, rows);
 
-              case 14:
+              case 13:
               case "end":
                 return _context3.stop();
             }
@@ -5374,10 +5409,10 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
 
 /* harmony default export */ var search_container = (Object(withRouter["a" /* default */])(search_container_SearchContainer));
 // EXTERNAL MODULE: ./node_modules/react-router-dom/es/BrowserRouter.js
-var BrowserRouter = __webpack_require__(496);
+var BrowserRouter = __webpack_require__(502);
 
 // EXTERNAL MODULE: ./node_modules/react-router-dom/es/Route.js
-var Route = __webpack_require__(497);
+var Route = __webpack_require__(503);
 
 // CONCATENATED MODULE: ./src/search/ErrorBoundary.js
 
@@ -5546,7 +5581,7 @@ var tagcloud_TagCloud = /*#__PURE__*/function (_Component) {
 
 /* harmony default export */ var tagcloud = (tagcloud_TagCloud);
 // EXTERNAL MODULE: ./node_modules/hammerjs/hammer.js
-var hammer = __webpack_require__(127);
+var hammer = __webpack_require__(128);
 var hammer_default = /*#__PURE__*/__webpack_require__.n(hammer);
 
 // CONCATENATED MODULE: ./src/image-carousel/image-viewer.js
@@ -6689,11 +6724,11 @@ LinkButton.defaultProps = {
 };
 /* harmony default export */ var link_button_LinkButton = (LinkButton);
 // EXTERNAL MODULE: ./node_modules/react-html-parser/lib/index.js
-var react_html_parser_lib = __webpack_require__(99);
+var react_html_parser_lib = __webpack_require__(98);
 var react_html_parser_lib_default = /*#__PURE__*/__webpack_require__.n(react_html_parser_lib);
 
 // EXTERNAL MODULE: ./src/legal-link-modal/styles/index.scss
-var legal_link_modal_styles = __webpack_require__(144);
+var legal_link_modal_styles = __webpack_require__(143);
 
 // CONCATENATED MODULE: ./src/legal-link-modal/LegalLinkModal.js
 
@@ -7251,7 +7286,7 @@ sku_details_SkuDetails.defaultProps = {
 var defineProperty = __webpack_require__(37);
 
 // EXTERNAL MODULE: ./node_modules/react-hook-form/dist/react-hook-form.ie11.js
-var react_hook_form_ie11 = __webpack_require__(128);
+var react_hook_form_ie11 = __webpack_require__(129);
 var react_hook_form_ie11_default = /*#__PURE__*/__webpack_require__.n(react_hook_form_ie11);
 
 // EXTERNAL MODULE: ./src/forms/fields/utils/stateWatcher.js + 1 modules
@@ -8375,7 +8410,7 @@ var hr_Hr = function Hr(_ref) {
 
 /* harmony default export */ var hr = (react_default.a.memo(hr_Hr));
 // EXTERNAL MODULE: ./node_modules/react-google-recaptcha/lib/esm/index.js + 3 modules
-var esm = __webpack_require__(133);
+var esm = __webpack_require__(134);
 
 // CONCATENATED MODULE: ./src/forms/fields/captcha.js
 
@@ -10314,7 +10349,7 @@ function _contactSupportSubmit() {
   return _contactSupportSubmit.apply(this, arguments);
 }
 // EXTERNAL MODULE: ./node_modules/@brightcove/react-player-loader/dist/brightcove-react-player-loader.es.js
-var brightcove_react_player_loader_es = __webpack_require__(129);
+var brightcove_react_player_loader_es = __webpack_require__(130);
 
 // CONCATENATED MODULE: ./src/video/video-modal-body.js
 
@@ -10368,7 +10403,7 @@ var video_modal_body_VideoModalBody = /*#__PURE__*/function (_React$Component) {
 
 /* harmony default export */ var video_modal_body = (video_modal_body_VideoModalBody);
 // EXTERNAL MODULE: ./node_modules/react-lines-ellipsis/lib/responsiveHOC.js
-var responsiveHOC = __webpack_require__(130);
+var responsiveHOC = __webpack_require__(131);
 var responsiveHOC_default = /*#__PURE__*/__webpack_require__.n(responsiveHOC);
 
 // CONCATENATED MODULE: ./src/video/video-description.js
@@ -11124,10 +11159,10 @@ var wechat_WeChat = /*#__PURE__*/function (_React$Component) {
 /* harmony default export */ var wechat = (wechat_WeChat);
 
 // EXTERNAL MODULE: ./node_modules/react-router-dom/es/HashRouter.js
-var HashRouter = __webpack_require__(499);
+var HashRouter = __webpack_require__(505);
 
 // EXTERNAL MODULE: ./node_modules/react-router-dom/es/Switch.js + 1 modules
-var Switch = __webpack_require__(501);
+var Switch = __webpack_require__(507);
 
 // CONCATENATED MODULE: ./src/my-account/routes.js
 /* harmony default export */ var routes = ({
@@ -11167,7 +11202,7 @@ var Switch = __webpack_require__(501);
   }
 });
 // EXTERNAL MODULE: ./node_modules/react-router-dom/es/Link.js
-var es_Link = __webpack_require__(498);
+var es_Link = __webpack_require__(504);
 
 // EXTERNAL MODULE: ./src/typography/title.js
 var typography_title = __webpack_require__(86);
@@ -14751,14 +14786,14 @@ if (tagCloudContainers) {
   for (var src_i = 0; src_i < tagCloudContainers.length; src_i++) {
     var src_json = JSON.parse(tagCloudContainers[src_i].getAttribute('data-json'));
 
-    var _data2 = getAuthoredDataForTagCloud(header, tagCloudContainers[src_i]);
+    var _data = getAuthoredDataForTagCloud(header, tagCloudContainers[src_i]);
 
     react_dom_default.a.render(react_default.a.createElement(tagcloud, {
-      tagCloudTitle: _data2.tagTitle,
-      searchPath: _data2.searchPath,
+      tagCloudTitle: _data.tagTitle,
+      searchPath: _data.searchPath,
       keywords: src_json,
-      category: _data2.category,
-      contentType: _data2.contentType
+      category: _data.category,
+      contentType: _data.contentType
     }), tagCloudContainers[src_i]);
   }
 }
@@ -15036,17 +15071,17 @@ if (changePasswordContainer) {
 var chatContainer = document.querySelector('.cmp-chat');
 
 if (chatContainer) {
-  var _data3 = getAuthoredDataForChat(chatContainer);
+  var _data2 = getAuthoredDataForChat(chatContainer);
 
   react_dom_default.a.render(react_default.a.createElement(chat, {
-    url: _data3.url,
-    statusApi: _data3.statusApi,
+    url: _data2.url,
+    statusApi: _data2.statusApi,
     countryCode: skuDetailsConfig.countryCode,
-    icon: _data3.icon,
-    availableText: _data3.availableText,
-    unavailableText: _data3.unavailableText,
-    text: _data3.text,
-    buttonText: _data3.buttonText,
+    icon: _data2.icon,
+    availableText: _data2.availableText,
+    unavailableText: _data2.unavailableText,
+    text: _data2.text,
+    buttonText: _data2.buttonText,
     offlineIcon: skuDetailsConfig.skuInfo.outOfStockIcon,
     onlineIcon: skuDetailsConfig.skuInfo.inStockIcon
   }), chatContainer);
@@ -15183,7 +15218,7 @@ if (contactusContainer) {
   }), contactusContainer);
 }
 // EXTERNAL MODULE: ./node_modules/css-vars-ponyfill/dist/css-vars-ponyfill.esm.js
-var css_vars_ponyfill_esm = __webpack_require__(131);
+var css_vars_ponyfill_esm = __webpack_require__(132);
 
 // EXTERNAL MODULE: ./src/scripts/inlineSVG.js + 1 modules
 var inlineSVG = __webpack_require__(58);
@@ -15242,7 +15277,7 @@ window.addEventListener('resize', addEllipses);
 
 /***/ }),
 
-/***/ 190:
+/***/ 191:
 /***/ (function(module, exports) {
 
 /* (ignored) */
@@ -15257,11 +15292,11 @@ window.addEventListener('resize', addEllipses);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return parameterValues; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return parameterDefaults; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return searchMapper; });
-/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
-/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
-/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4);
-/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(5);
+/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
+/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
+/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4);
+/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(5);
 /* harmony import */ var whatwg_fetch__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(38);
 /* harmony import */ var _stores_sessionStore__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(15);
 /* harmony import */ var _utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(10);
@@ -15308,7 +15343,7 @@ var SearchService = /*#__PURE__*/function () {
     var multiselect = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : true;
     var throwError = arguments.length > 6 ? arguments[6] : undefined;
 
-    Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(this, SearchService);
+    Object(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(this, SearchService);
 
     this.getCategories = function (_ref) {
       var _ref$keyword = _ref.keyword,
@@ -15437,9 +15472,9 @@ var SearchService = /*#__PURE__*/function () {
     };
 
     this.getSuggestedKeywords = /*#__PURE__*/function () {
-      var _ref5 = Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(rows, term) {
+      var _ref5 = Object(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(rows, term) {
         var searchString, callService, response;
-        return C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        return C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
@@ -15513,8 +15548,8 @@ var SearchService = /*#__PURE__*/function () {
 
     this.stringifyParameters = function (parameters) {
       return Object.keys(parameters).length !== 0 ? Object.keys(parameters).reduce(function (accumulator, currentValue) {
-        return "".concat(accumulator, "=").concat(parameters[accumulator], "&").concat(currentValue, "=").concat(parameters[currentValue]);
-      }) : '';
+        return "".concat(accumulator ? accumulator + '&' : accumulator).concat(currentValue, "=").concat(encodeURIComponent(parameters[currentValue]));
+      }, '') : '';
     };
 
     this.setUrlParameter = function (searchTerm, searchPath) {
@@ -15595,7 +15630,7 @@ var SearchService = /*#__PURE__*/function () {
     this.sessionStore = new _stores_sessionStore__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"]();
   }
 
-  Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(SearchService, [{
+  Object(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(SearchService, [{
     key: "getParamsFromString",
     value: function getParamsFromString() {
       var str = window.location.search;
@@ -15806,8 +15841,8 @@ var FILENAME_REGX = /\*|\/|\?|\!|\<|\>|\"|\||\\|\:/gm;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(12);
-/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6);
+/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(12);
+/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(0);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _scripts_ErrorMessages__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(67);
@@ -15834,8 +15869,8 @@ var keys = {
 var AddToCartModalBody = function AddToCartModalBody(props) {
   var errorObjCart = props.errorObjCart;
 
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])(Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({}, props.config)),
-      _useState2 = Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(_useState, 1),
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])(Object(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({}, props.config)),
+      _useState2 = Object(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(_useState, 1),
       state = _useState2[0];
 
   var _useContext = Object(react__WEBPACK_IMPORTED_MODULE_2__["useContext"])(_utils_modal__WEBPACK_IMPORTED_MODULE_4__[/* useModalApi */ "d"]),
@@ -15937,21 +15972,21 @@ AddToCartModalBody.whyDidYouRender = true;
 
 /***/ }),
 
-/***/ 396:
+/***/ 402:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _styles_print_page_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(397);
+/* harmony import */ var _styles_print_page_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(403);
 /* harmony import */ var _styles_print_page_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_styles_print_page_scss__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _entry__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(160);
+/* harmony import */ var _entry__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(159);
 // Print Breaking CSS File
 
 
 
 /***/ }),
 
-/***/ 397:
+/***/ 403:
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
@@ -16317,9 +16352,9 @@ var functions = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
-/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
+/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
+/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
 /* harmony import */ var whatwg_fetch__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(38);
 /* harmony import */ var _utils_redirectFunctions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(24);
 
@@ -16328,9 +16363,9 @@ var functions = {
 
 
 var getData = /*#__PURE__*/function () {
-  var _ref = Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(url) {
+  var _ref = Object(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(url) {
     var response;
-    return C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+    return C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
@@ -16365,12 +16400,12 @@ var getData = /*#__PURE__*/function () {
 }();
 
 var UserDetails = /*#__PURE__*/function () {
-  var _ref2 = Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+  var _ref2 = Object(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
     var url,
         _response,
         _args2 = arguments;
 
-    return C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+    return C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
@@ -16664,9 +16699,9 @@ var eCommerceFunctions = __webpack_require__(11);
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
-/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
+/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
+/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
 /* harmony import */ var _scripts_loginStatus__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(16);
 /* harmony import */ var _stores_sessionStore__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(15);
 /* harmony import */ var _services_UserDetails__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(51);
@@ -16676,14 +16711,14 @@ var eCommerceFunctions = __webpack_require__(11);
 
 
 /* harmony default export */ __webpack_exports__["a"] = (/*#__PURE__*/(function () {
-  var _ref = Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(userDetailsUrl, checkSessionStore) {
+  var _ref = Object(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(userDetailsUrl, checkSessionStore) {
     var sessionStore,
         service,
         navBarControls,
         userDetails,
         response,
         _args = arguments;
-    return C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+    return C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:

@@ -15,7 +15,9 @@ exports[`Feature: Aside Component Scenario: Rendering When children are provided
     </div>
     <div
       className="cmp-category-items"
-      role="radiogroup"
+    />
+    <hr
+      className="cmp-category-separator h-large"
     />
   </div>
   <div
@@ -139,7 +141,9 @@ exports[`Feature: Aside Component Scenario: Rendering When no children are provi
     </div>
     <div
       className="cmp-category-items"
-      role="radiogroup"
+    />
+    <hr
+      className="cmp-category-separator h-large"
     />
   </div>
   <div
@@ -474,27 +478,17 @@ exports[`Feature: ResultsBody Component Scenario: Rendering When sorting by best
       className="cmp-search__resultsCount"
       data-locator="results-count"
     >
-      <span
-        class="results"
-        dangerouslySetInnerHTML={
-          Object {
-            "__html": "Showing <span class='count'>0</span> results for",
-          }
-        }
-      />
-      
       <div
         class="query-box"
       >
-        <h1
-          className="query"
-        >
-          
-        </h1>
-         
-         
-         
-        
+        <span
+          class="results"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "Showing <span class='count'>0</span> results",
+            }
+          }
+        />
       </div>
       <hr
         className="small-accent-rule"
@@ -554,27 +548,17 @@ exports[`Feature: ResultsBody Component Scenario: Rendering When sorting by most
       className="cmp-search__resultsCount"
       data-locator="results-count"
     >
-      <span
-        class="results"
-        dangerouslySetInnerHTML={
-          Object {
-            "__html": "Showing <span class='count'>0</span> results for",
-          }
-        }
-      />
-      
       <div
         class="query-box"
       >
-        <h1
-          className="query"
-        >
-          
-        </h1>
-         
-         
-         
-        
+        <span
+          class="results"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "Showing <span class='count'>0</span> results",
+            }
+          }
+        />
       </div>
       <hr
         className="small-accent-rule"
