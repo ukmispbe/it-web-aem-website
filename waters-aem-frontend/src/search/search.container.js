@@ -267,10 +267,7 @@ class SearchContainer extends Component {
 
     buildSearchParams = q => {
         let query = (q && Object.entries(q).length !== 0) ? {...q} : this.getQueryObject();
-        // Default to "All" if no category sent.
-        // if (!query.category) {
-        //     query.category = "All";
-        // }
+
         if (!query.sort && this.state) {
             query = Object.assign({}, query, { sort: this.state.sort });
         }

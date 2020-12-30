@@ -4394,10 +4394,7 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
     };
 
     _this.buildSearchParams = function (q) {
-      var query = q && Object.entries(q).length !== 0 ? Object(objectSpread["a" /* default */])({}, q) : _this.getQueryObject(); // Default to "All" if no category sent.
-      // if (!query.category) {
-      //     query.category = "All";
-      // }
+      var query = q && Object.entries(q).length !== 0 ? Object(objectSpread["a" /* default */])({}, q) : _this.getQueryObject();
 
       if (!query.sort && _this.state) {
         query = Object.assign({}, query, {
