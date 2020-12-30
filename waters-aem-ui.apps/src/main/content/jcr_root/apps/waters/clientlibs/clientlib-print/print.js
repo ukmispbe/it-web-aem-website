@@ -3424,12 +3424,12 @@ var results_Results = function Results(_ref2) {
 };
 
 /* harmony default export */ var components_results = (results_Results);
-// CONCATENATED MODULE: ./src/navigation/CategoryList/index.js
+// CONCATENATED MODULE: ./src/navigation/category-list/index.js
 
 
 
 
-var CategoryList_CategoryList = function CategoryList(_ref) {
+var category_list_CategoryList = function CategoryList(_ref) {
   var items = _ref.items,
       text = _ref.text,
       activeIndex = _ref.activeIndex,
@@ -3438,7 +3438,7 @@ var CategoryList_CategoryList = function CategoryList(_ref) {
   var hasAllCategory = items.some(function (item) {
     return item.name === 'All';
   });
-  return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("div", {
+  return react_default.a.createElement("div", {
     className: "cmp-category-wrapper"
   }, react_default.a.createElement("div", null, react_default.a.createElement("h3", null, text.categoryText)), react_default.a.createElement("div", {
     ref: categoryRef,
@@ -3466,7 +3466,7 @@ var CategoryList_CategoryList = function CategoryList(_ref) {
       isHidden = false;
     }
 
-    return react_default.a.createElement(CategoryList_Category, {
+    return react_default.a.createElement(category_list_Category, {
       key: "Category-".concat(index),
       name: item.translation,
       count: item.count,
@@ -3479,7 +3479,7 @@ var CategoryList_CategoryList = function CategoryList(_ref) {
     });
   })), activeIndex !== 0 && react_default.a.createElement("hr", {
     className: "cmp-category-separator h-large"
-  })));
+  }));
 };
 
 var determineIfHidden = function determineIfHidden(items, index, activeIndex) {
@@ -3498,7 +3498,7 @@ var determineIfHidden = function determineIfHidden(items, index, activeIndex) {
   }
 };
 
-var CategoryList_Category = function Category(_ref2) {
+var category_list_Category = function Category(_ref2) {
   var index = _ref2.index,
       name = _ref2.name,
       count = _ref2.count,
@@ -3521,7 +3521,7 @@ var CategoryList_Category = function Category(_ref2) {
   }, " (", count, ")"));
 };
 
-CategoryList_Category.defaultProps = {
+category_list_Category.defaultProps = {
   name: "",
   index: -1,
   isActive: false,
@@ -3529,13 +3529,13 @@ CategoryList_Category.defaultProps = {
   isHidden: false,
   hideCount: false
 };
-CategoryList_CategoryList.defaultProps = {
+category_list_CategoryList.defaultProps = {
   items: [],
   text: {},
   activeIndex: -1,
   onClick: function onClick() {}
 };
-/* harmony default export */ var navigation_CategoryList = (CategoryList_CategoryList);
+/* harmony default export */ var category_list = (category_list_CategoryList);
 // CONCATENATED MODULE: ./src/search/search.component.helpers.js
 
 
@@ -3618,7 +3618,7 @@ var search_component_helpers_Aside = function Aside(_ref2) {
   return react_default.a.createElement("div", {
     className: "container__left cmp-search__sort-filter",
     "data-locator": "left-container-filter"
-  }, !Object(userFunctions["s" /* isEprocurementUser */])() && react_default.a.createElement(navigation_CategoryList, {
+  }, !Object(userFunctions["s" /* isEprocurementUser */])() && react_default.a.createElement(category_list, {
     items: items,
     text: text,
     activeIndex: activeIndex,
@@ -5307,7 +5307,7 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
                 // store category tabs in the component's state
 
                 if (!this.state.initialRender) {
-                  _context3.next = 13;
+                  _context3.next = 12;
                   break;
                 }
 
@@ -5320,8 +5320,7 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
                 categories = _context3.sent;
                 // find the categories
                 categoriesWithData = this.mapCategories(categories);
-                categoriesWithAllData = this.findFacetNameProperty(this.props.filterMap, "All") ? this.setAllCategory(categoriesWithData) : categoriesWithData;
-                console.log("ALLcategoriesWithData", categoriesWithAllData); // execute the search after the category tabs has been saved in the component's state
+                categoriesWithAllData = this.findFacetNameProperty(this.props.filterMap, "All") ? this.setAllCategory(categoriesWithData) : categoriesWithData; // execute the search after the category tabs has been saved in the component's state
 
                 this.setState({
                   categoryTabs: categoriesWithAllData,
@@ -5329,14 +5328,14 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
                 }, function () {
                   return _this3.executeSearch(query, rows);
                 });
-                _context3.next = 14;
+                _context3.next = 13;
                 break;
 
-              case 13:
+              case 12:
                 // execute the search because the category tabs have already been saved in the component's state
                 this.executeSearch(query, rows);
 
-              case 14:
+              case 13:
               case "end":
                 return _context3.stop();
             }
