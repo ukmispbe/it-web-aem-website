@@ -3477,7 +3477,7 @@ var category_list_CategoryList = function CategoryList(_ref) {
       isHidden: isHidden,
       hideCount: hideCount
     });
-  })), activeIndex !== 0 && react_default.a.createElement("hr", {
+  })), (!hasAllCategory || hasAllCategory && activeIndex !== 0) && react_default.a.createElement("hr", {
     className: "cmp-category-separator h-large"
   }));
 };

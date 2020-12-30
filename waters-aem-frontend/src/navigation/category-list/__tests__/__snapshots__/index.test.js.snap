@@ -51,6 +51,9 @@ exports[`Feature: CategoryList Component Scenario: Rendering CategoryList When c
       </span>
     </div>
   </div>
+  <hr
+    className="cmp-category-separator h-large"
+  />
 </div>
 `;
 
