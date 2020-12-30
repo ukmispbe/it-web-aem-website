@@ -188,7 +188,7 @@ class QuoteDetails extends Component {
                 </h2>
                 {showNewDetailsLinkSection && (<div className={`${this.rootStyle}__new-details-link-text`}>
                     <div className="new-details-link-section">
-                    <a href={newItemUrl} onClick={this.redirectNewItemURL(newItemUrl)}>
+                    <a href={newItemUrl} onClick={() => this.redirectNewItemURL(newItemUrl)}>
                         <div className="new-details-icon">
                             <ReactSVG src={config.icons.newQuoteOrderIcon} />
                         </div>
