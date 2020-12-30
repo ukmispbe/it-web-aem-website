@@ -655,7 +655,7 @@ describe('Feature: FilterTagList Component', () => {
             onKeywordRemove: jest.fn(),
             onContentTypeRemove: jest.fn(),
             onSubFacetRemove: jest.fn()
-         }
+        }
     };
 
     describe('Scenario: Rendering', () => {

@@ -23,7 +23,7 @@ import SkuList from '../sku-list';
 import Results from './components/results';
 import { propTypes, defaultProps } from './search.component.props';
 import { isEprocurementUser } from '../utils/userFunctions';
-import CategoryList from '../navigation/CategoryList';
+import CategoryList from '../navigation/category-list';
 
 const FilterTagList = ({
     text,
@@ -104,6 +104,7 @@ const Aside = ({
     return (
         <div className="container__left cmp-search__sort-filter" data-locator="left-container-filter">
             {!isEprocurementUser() && <CategoryList items={items}
+                text={text}
                 activeIndex={activeIndex}
                 onClick={categoryClick} />}
             <BtnHideSortFilter
@@ -381,7 +382,7 @@ const ResultsBody = ({
             <div className="cmp-search__container__header clearfix">
                 {!isEprocurementUser && <CategoryDropdown
                     categoryDownIcon={text.downIcon}
-                    categoryLabelPrefix={text.categoryText}
+                    categoryLabelPrefix={text.categoryLabel}
                     categoryIsSearchable={false}
                     categoryOnChange={categoryEvents.onCategoryDropdownChange}
                     categoryOptions={categoryProps.categories}

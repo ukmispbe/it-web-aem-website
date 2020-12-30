@@ -25,7 +25,7 @@
         "filterSearchPlaceholder": "${'Search' @ i18n, context='unsafe'}",
         "resultsText": "${'Showing {0} results' @ format=['{count}'], i18n, context='unsafe'}",
         "resultsForText": "${'Showing {0} results for ' @ format=['{count}'], i18n, context='unsafe'}",
-        "categoryText": "${'Category:' @ i18n, context='unsafe'}",
+        "categoryLabel": "${'Category:' @ i18n, context='unsafe'}",
         "inCategoryText": "${'in ' @ i18n, context='unsafe'}",
         "relatedSearchesText": "${'Related Searches' @ i18n, context='unsafe'}",
         "noResultsText": "${'Showing 0 results' @ i18n, context='unsafe'}",
@@ -49,11 +49,12 @@
         "showResultCount": "${'Show {0} Results' @ format=['{count}'], i18n, context='unsafe'}",
         "homeLinkText": "${'Home' @ i18n, context='unsafe'}",
         "searchLinkText": "${'Search' @ i18n, context='unsafe'}",
-        "allText": "${'Show All Results' @ i18n, context='unsafe'}",
+        "allResultsText": "${'Show All Results' @ i18n, context='unsafe'}",
+        "categoryText": "${'Category' @ i18n, context='unsafe'}",
         "allCategoriesText": "${'All Categories' @ i18n, context='unsafe'}",
         "anyResultTypeText": "${'Any Result Type' @ i18n, context='unsafe'}"
     }
 </script>
 
 <sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
-     data-sly-call="${patterns.placeholder @ show=true, text=component.title}"/>
+    data-sly-call="${patterns.placeholder @ show=true, text=component.title}"/>

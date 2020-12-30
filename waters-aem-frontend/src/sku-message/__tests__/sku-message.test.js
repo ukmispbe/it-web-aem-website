@@ -63,7 +63,6 @@ describe('Feature: SkuMessage React Component', () => {
                     message: ""
                 };
                 wrapper = shallow(<SkuMessage {...props} />);
-                wrapper.debug();
             });
             it('Then it should not populate the icon', () => {
                 const svgSrc = wrapper.find('ReactSVG').prop("src");

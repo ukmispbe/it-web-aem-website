@@ -151,7 +151,7 @@ class SearchContainer extends Component {
             collapseAllFilters: false,
             activeFilterIndex: -1,
             count: 0,
-            allText: this.props.searchText.allText
+            allResultsText: this.props.searchText.allResultsText
         };
     }
 
@@ -241,13 +241,13 @@ class SearchContainer extends Component {
             ? []
             : categories.facets.category_facet
                 .filter(category => category.count !== 0 && !!this.findFacetNameProperty(this.props.filterMap, category.value))
-                  .map(category => {
-                      return {
-                          translation: this.findFacetTranslationProperty(this.props.filterMap, category.value),
-                          name: category.value,
-                          count: category.count
+                    .map(category => {
+                        return {
+                            translation: this.findFacetTranslationProperty(this.props.filterMap, category.value),
+                            name: category.value,
+                            count: category.count
                         };
-                  });
+                    });
 
     findMaxCategory = categories => {
         if (!categories) {
@@ -268,9 +268,9 @@ class SearchContainer extends Component {
     buildSearchParams = q => {
         let query = (q && Object.entries(q).length !== 0) ? {...q} : this.getQueryObject();
         // Default to "All" if no category sent.
-        if (!query.category) {
-            query.category = "All";
-        }
+        // if (!query.category) {
+        //     query.category = "All";
+        // }
         if (!query.sort && this.state) {
             query = Object.assign({}, query, { sort: this.state.sort });
         }
@@ -300,21 +300,33 @@ class SearchContainer extends Component {
             // find the categories
             const categoriesWithData = this.mapCategories(categories);
 
-            // Add All Category to categories using num_found
-
-            const allCategory = { 
-                "count": categories && categories.num_found || 0, 
-                "name": "All",  
-                "translation": this.state.allText
-            };
-            const newCategoriesWithData = [allCategory, ...categoriesWithData];
+            const categoriesWithAllData = this.findFacetNameProperty(this.props.filterMap, "All")
+            ? this.setAllCategory(categoriesWithData)
+            : categoriesWithData;
 
             // execute the search after the category tabs has been saved in the component's state
-            this.setState({ categoryTabs: newCategoriesWithData, initialRender: false }, () => this.executeSearch(query, rows));
+            this.setState({ categoryTabs: categoriesWithAllData, initialRender: false }, () => this.executeSearch(query, rows));
         } else {
             // execute the search because the category tabs have already been saved in the component's state
             this.executeSearch(query, rows);
         }
+    }
+
+    setAllCategory = (categoriesWithData) => {
+        //Add All Category to categories using Count of Authored Categories
+
+        let total = 0;
+        for (let i = 0; i < categoriesWithData.length; i++) {
+            total = total + categoriesWithData[i].count;
+        }
+        const allCategory = { 
+            "translation": this.state.allResultsText,
+            "name": "All",
+            "count": total
+        };
+        this.setState({ count: total });
+        
+        return categoriesWithData = [allCategory, ...categoriesWithData]; 
     }
 
     persistTabHistory = query => {
@@ -476,35 +488,40 @@ class SearchContainer extends Component {
     getFilterMap = (authoredTags, backendFacets) => {
         const categoryFacetName = `${this.state.category.toLowerCase()}_facet`;
         const category = authoredTags.find(authoredItem => authoredItem.categoryFacetName === categoryFacetName);
+        let orderedFacetsMap = [];
 
         if (!category) {
             return;
         }
 
-        const orderedFacets = category.orderedFacets.filter(facet =>
-            backendFacets.find(beFacet => beFacet.value === facet.facetValue)
-        );
-
-        const orderedFacetsWithCount = orderedFacets.map(facet => {
-            const authTag = authoredTags.find(
-                authoredItem =>
-                    facet.facetValue === authoredItem.categoryFacetValue
-            );
-            const beFacet = backendFacets.find(
-                beFacet => beFacet.value === facet.facetValue
+        if (Array.isArray(category.orderedFacets) && category.orderedFacets.length > 0) {
+            const orderedFacets = category.orderedFacets.filter(facet =>
+                backendFacets.find(beFacet => beFacet.value === facet.facetValue)
             );
 
-            return {
-                ...facet,
-                orderedFacets: authTag ? authTag.orderedFacets : [],
-                count: beFacet ? beFacet.count : 0,
-            };
-        });
+            const orderedFacetsWithCount = orderedFacets.map(facet => {
+                const authTag = authoredTags.find(
+                    authoredItem =>
+                        facet.facetValue === authoredItem.categoryFacetValue
+                );
+                const beFacet = backendFacets.find(
+                    beFacet => beFacet.value === facet.facetValue
+                );
+
+                return {
+                    ...facet,
+                    orderedFacets: authTag ? authTag.orderedFacets : [],
+                    count: beFacet ? beFacet.count : 0
+                };
+            });
+
+            orderedFacetsMap = orderedFacetsWithCount;
+        }
 
         return {
             categoryFacetName: category.categoryFacetName,
             categoryFacetValue: category.categoryFacetValue,
-            orderedFacets: orderedFacetsWithCount,
+            orderedFacets: orderedFacetsMap
         };
     };
 

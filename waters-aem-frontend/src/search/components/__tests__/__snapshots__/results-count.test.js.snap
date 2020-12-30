@@ -12,7 +12,7 @@ exports[`Feature: ResultsCount React Component Scenario: Rendering When keyword 
       class="results"
       dangerouslySetInnerHTML={
         Object {
-          "__html": "Showing <span class='count'>24</span> results",
+          "__html": "Showing <span class='count'>633</span> results",
         }
       }
     />
@@ -32,7 +32,7 @@ exports[`Feature: ResultsCount React Component Scenario: Rendering When keyword 
     class="results"
     dangerouslySetInnerHTML={
       Object {
-        "__html": "Showing <span class='count'>24</span> results for ",
+        "__html": "Showing <span class='count'>633</span> results for ",
       }
     }
   />
@@ -55,7 +55,7 @@ exports[`Feature: ResultsCount React Component Scenario: Rendering When keyword 
     <span
       class="category"
     >
-      in Shop
+      in All
     </span>
   </div>
   <hr
@@ -73,7 +73,7 @@ exports[`Feature: ResultsCount React Component Scenario: Rendering When keyword 
     class="results"
     dangerouslySetInnerHTML={
       Object {
-        "__html": "Showing <span class='count'>24</span> results for ",
+        "__html": "Showing <span class='count'>633</span> results for ",
       }
     }
   />
@@ -92,7 +92,7 @@ exports[`Feature: ResultsCount React Component Scenario: Rendering When keyword 
     <span
       class="category"
     >
-      in Shop
+      in All
     </span>
   </div>
   <hr
@@ -110,7 +110,7 @@ exports[`Feature: ResultsCount React Component Scenario: Rendering When more tha
     class="results"
     dangerouslySetInnerHTML={
       Object {
-        "__html": "Showing <span class='count'>24</span> results for ",
+        "__html": "Showing <span class='count'>633</span> results for ",
       }
     }
   />
@@ -133,7 +133,7 @@ exports[`Feature: ResultsCount React Component Scenario: Rendering When more tha
     <span
       class="category"
     >
-      in Shop
+      in All
     </span>
   </div>
   <hr
@@ -182,7 +182,7 @@ exports[`Feature: ResultsCount React Component Scenario: Rendering When one rela
     class="results"
     dangerouslySetInnerHTML={
       Object {
-        "__html": "Showing <span class='count'>24</span> results for ",
+        "__html": "Showing <span class='count'>633</span> results for ",
       }
     }
   />
@@ -205,7 +205,7 @@ exports[`Feature: ResultsCount React Component Scenario: Rendering When one rela
     <span
       class="category"
     >
-      in Shop
+      in All
     </span>
   </div>
   <hr
@@ -238,12 +238,44 @@ exports[`Feature: ResultsCount React Component Scenario: Rendering When the numb
 <div
   className="cmp-search__resultsCount"
   data-locator="results-count"
-/>
+>
+  <div
+    class="query-box"
+  >
+    <span
+      class="results"
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": "Showing <span class='count'>633</span> results",
+        }
+      }
+    />
+  </div>
+  <hr
+    className="small-accent-rule"
+  />
+</div>
 `;
 
 exports[`Feature: ResultsCount React Component Scenario: Rendering When the number of results is less than the allowed page count Then the snapshot should match 1`] = `
 <div
   className="cmp-search__resultsCount"
   data-locator="results-count"
-/>
+>
+  <div
+    class="query-box"
+  >
+    <span
+      class="results"
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": "Showing <span class='count'>633</span> results",
+        }
+      }
+    />
+  </div>
+  <hr
+    className="small-accent-rule"
+  />
+</div>
 `;

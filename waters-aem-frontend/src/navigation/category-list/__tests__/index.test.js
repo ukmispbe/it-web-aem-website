@@ -7,6 +7,9 @@ import CategoryList from "..";
 
 describe("Feature: CategoryList Component", () => {
     const propsWithOutItems = {
+        text: {
+            categoryText: "Category"
+        },
         items: [],
         activeIndex: -1,
         onClick: jest.fn()

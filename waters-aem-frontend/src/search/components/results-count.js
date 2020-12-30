@@ -20,7 +20,8 @@ function ResultsCount(props) {
         let categoryOptionsList = options.map((a, index) => { 
             return {
                 value: index,
-                label: a.translation
+                label: a.translation,
+                count: a.count
             }
         })
 
@@ -28,20 +29,17 @@ function ResultsCount(props) {
     };
 
     let categoryLabel = '';
+    let actualCount = props.count;
     if (Array.isArray(props.categoryOptions) && props.categoryOptions.length){
         const options = getOptions(props.categoryOptions);
-        if (props.categoryValue === 0 || props.categoryValue === -1 ) {
-            categoryLabel = "All";     
-        }
-        else {
-            categoryLabel = options[props.categoryValue].label;
-        }
+        categoryLabel = props.categoryValue === 0 || props.categoryValue === -1 ? "All" : options[props.categoryValue].label;
+        actualCount = options[props.categoryValue].count;
     }
 
-    const renderResultsText = (resultsText) => resultsText.replace(/[{]count[}]/, "<span class='count'>" + props.count.toLocaleString(undefined, {maximumFractionDigits:0}) + "</span>");
+    const renderResultsText = (resultsText) => resultsText.replace(/[{]count[}]/, "<span class='count'>" + actualCount.toLocaleString(undefined, {maximumFractionDigits:0}) + "</span>");
     const renderSearchQuery = () => (props.spell_suggestion) ? getSearchQuery(props.spell_suggestion) : getSearchQuery(searchQuery);
     const renderSuggestedSearchQuery = () => (props.spell_suggestion) ? getSuggestedQuery() : '';
-    const renderCategoryText = (selectedCategory) => (selectedCategory !=="") ? <span class='category'>{props.text.inCategoryText + selectedCategory}</span> : '';
+    const renderCategoryText = (selectedCategory) => (selectedCategory !== "") ? <span class='category'>{props.text.inCategoryText + selectedCategory}</span> : '';
     const renderRelatedSuggestions = () => {
         if (props.spell_related_suggestions.length !== 0) {
             return <div className='cmp-search__related-suggestions'>
@@ -55,7 +53,7 @@ function ResultsCount(props) {
 
     return (
         <div className="cmp-search__resultsCount" data-locator="results-count">
-            {props.noQuery || props.query === '*:*' && (
+            {(props.noQuery || props.query === '*:*' || props.query === '') && (
                 <>
                     <div class='query-box'>
                         <span class='results' dangerouslySetInnerHTML={{__html: renderResultsText(props.text.resultsText)}} />
@@ -64,7 +62,7 @@ function ResultsCount(props) {
                 </>
             )}
 
-            {!props.noQuery && props.query !== '*:*' && (
+            {!props.noQuery && props.query !== '*:*' && props.query !== '' && (
                 <>
                     <span class='results' dangerouslySetInnerHTML={{__html: renderResultsText(props.text.resultsForText)}} />
                     {renderSuggestedSearchQuery()}

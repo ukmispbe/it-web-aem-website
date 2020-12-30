@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Feature: CategoryList Component Scenario: Rendering CategoryList When categories are provided Then it should match snapshot 1`] = `
+<div
+  className="cmp-category-wrapper"
+>
+  <div>
+    <h3>
+      Category
+    </h3>
+  </div>
+  <div
+    className="cmp-category-items"
+  >
+    <div
+      className="cmp-category-item active "
+      onClick={[Function]}
+    >
+      <span
+        className="cmp-category-label"
+        data-locator="library"
+      >
+        Library
+      </span>
+      <span
+        className="cmp-category-count "
+        data-locator={1525}
+      >
+         (
+        1525
+        )
+      </span>
+    </div>
+    <div
+      className="cmp-category-item "
+      onClick={[Function]}
+    >
+      <span
+        className="cmp-category-label"
+        data-locator="shop"
+      >
+        Shop
+      </span>
+      <span
+        className="cmp-category-count "
+        data-locator={8243}
+      >
+         (
+        8243
+        )
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Feature: CategoryList Component Scenario: Rendering CategoryList When no categories are provided Then it should match snapshot 1`] = `
+<div
+  className="cmp-category-wrapper"
+>
+  <div>
+    <h3>
+      Category
+    </h3>
+  </div>
+  <div
+    className="cmp-category-items"
+  />
+  <hr
+    className="cmp-category-separator h-large"
+  />
+</div>
+`;
