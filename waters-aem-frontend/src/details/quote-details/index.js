@@ -67,13 +67,13 @@ class QuoteDetails extends Component {
         const url = `${detailsUrl}/${quoteId}?soldToId=${soldToId}&userId=${userId}&countryCode=${countryCode}&language=${language}&fields=FULL`;
         getQuoteDetails(url, this.setError)
             .then((data) => {
-                const quotes = data && data.quotes || {};
-                const {entries = []} = quotes;
+                const quotes = data && data.quotes || undefined;
                 let totalItemsCount = 0;
-                entries && entries.map(item=>{
-                    totalItemsCount = totalItemsCount + parseInt(item.quantity);
-                })
                 if(quotes) {
+                    const {entries = []} = quotes;
+                    Array.isArray(entries) && entries.length > 0 && entries.map(item=>{
+                        totalItemsCount = totalItemsCount + parseInt(item.quantity);
+                    })
                     this.setState({
                         isLoading: false,
                         quoteDetails: quotes,
@@ -130,7 +130,7 @@ class QuoteDetails extends Component {
     renderReorderButton = className => {
         const {quoteDetails} = this.state;
         const {quoteStatus} = quoteDetails
-        return quoteStatus === DELIVERY_STATUS.OPEN || quoteStatus === DELIVERY_STATUS.PENDING && (
+        return !!(quoteStatus === DELIVERY_STATUS.OPEN || quoteStatus === DELIVERY_STATUS.PENDING) && (
             <div className={className} data-locator="quote-details-reorder">
                 <a className="cmp-button" href="/#" >
                     {this.props.config.reorderTitle}
@@ -158,13 +158,6 @@ class QuoteDetails extends Component {
         }
        return value
     }
-
-    redirectNewItemURL = path =>{
-        const {location} = window;
-        const {host,pathname} = location;
-        const url = `${host}${pathname}${path}`;
-        window.location.href = url;
-      }
     
     renderDetailsSection = () => {
         const { quoteDetails } = this.state;
@@ -188,7 +181,7 @@ class QuoteDetails extends Component {
                 </h2>
                 {showNewDetailsLinkSection && (<div className={`${this.rootStyle}__new-details-link-text`}>
                     <div className="new-details-link-section">
-                    <a href={newItemUrl} onClick={() => this.redirectNewItemURL(newItemUrl)}>
+                    <a href={newItemUrl}>
                         <div className="new-details-icon">
                             <ReactSVG src={config.icons.newQuoteOrderIcon} />
                         </div>
