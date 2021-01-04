@@ -234,15 +234,6 @@
                     margin-top: $space-m;
                 }
 
-                .showing-item-counter {
-                    @include mobile {
-                        display: none;
-                    }
-                    @include tablet {
-                        display: none;
-                    }
-                }
-
                 .order-shipment-header {
                     padding: 0;
                     width: 100%;
