@@ -171,9 +171,8 @@ class QuoteDetails extends Component {
         const totalTaxValue = this.getValue(totalTax,'formattedValue');
         const totalPriceValue = this.getValue(totalPrice,'formattedValue');
         const showExpireDate = !!(quoteStatus === DELIVERY_STATUS.PENDING || quoteStatus === DELIVERY_STATUS.REJECTED || quoteStatus === DELIVERY_STATUS.OPEN);
-        const quoteNumber = quoteStatus === DELIVERY_STATUS.QUOTE_REPLACED ? replacedQuoteNumber : quoteId;
         const showNewDetailsLinkSection = (quoteStatus === DELIVERY_STATUS.QUOTE_REPLACED || quoteStatus === DELIVERY_STATUS.ORDER_PLACED);
-        const newItemUrl = quoteStatus === DELIVERY_STATUS.ORDER_PLACED ? `#orderdetails?id=${orderNumber}` : `#quotedetails?id=${quoteId}`;
+        const newItemUrl = quoteStatus === DELIVERY_STATUS.ORDER_PLACED ? `#orderdetails?id=${orderNumber}` : `#quotedetails?id=${replacedQuoteNumber}`;
         return (<>
             <div className={`${this.rootStyle}__container`}>
                 <h2 className={`${this.rootStyle}__title`} data-locator="product-title">
@@ -186,7 +185,7 @@ class QuoteDetails extends Component {
                             <ReactSVG src={config.icons.newQuoteOrderIcon} />
                         </div>
                         {quoteStatus === DELIVERY_STATUS.QUOTE_REPLACED && (<div className="new-details-text" data-locator="delivery-text">
-                            {`${config.newQuote}${quoteId}`}
+                            {`${config.newQuote}${replacedQuoteNumber}`}
                         </div>)}
                         {quoteStatus === DELIVERY_STATUS.ORDER_PLACED && (<div className="new-details-text" data-locator="delivery-text">
                             {`${config.orderNumberText}${orderNumber}`}
@@ -201,7 +200,7 @@ class QuoteDetails extends Component {
                 </div>)}
                 <div className={`${this.rootStyle}__order-info`}>
                 <h3 className={`${this.rootStyle}__order-number`} data-locator="product-number">
-                        {config.numberLabel + ": " + quoteNumber}
+                        {config.numberLabel + ": " + quoteId}
                     </h3>
                 </div>
                 <div className={`${this.rootStyle}__order-summary`}>
