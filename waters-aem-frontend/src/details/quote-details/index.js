@@ -77,7 +77,8 @@ class QuoteDetails extends Component {
                     this.setState({
                         isLoading: false,
                         quoteDetails: quotes,
-                        totalItemsCount
+                        totalItemsCount,
+                        errorOrderNotFound:false
                     });
                 } else {
                     this.setState({
@@ -91,6 +92,16 @@ class QuoteDetails extends Component {
 
     async componentDidMount() {
         this.getQuoteDetailsData();
+    }
+
+    componentWillReceiveProps(){
+        const {quoteId} = this.state;
+        const urlQuoteId = this.getUrlParameter("id");
+        if(quoteId !== urlQuoteId){
+            this.setState({quoteId:urlQuoteId},()=>{
+                this.getQuoteDetailsData();
+            })
+        }
     }
 
     componentWillUnmount() {
@@ -145,8 +156,9 @@ class QuoteDetails extends Component {
 
     renderQuoteAgainButton = className => {
         const {quoteDetails} = this.state;
-        const {quoteStatus} = quoteDetails
-        return quoteStatus === DELIVERY_STATUS.EXPIRED && (
+        const {quoteStatus} = quoteDetails;
+        const status = false;
+        return status && quoteStatus === DELIVERY_STATUS.EXPIRED && (
             <div className={className} data-locator="quote-details-quote-again-cta">
                 <a className="cmp-button" href="/#" >
                     {this.props.config.quoteAgainTitle}
@@ -167,7 +179,7 @@ class QuoteDetails extends Component {
       if(quoteStatus === DELIVERY_STATUS.QUOTE_REPLACED){
            this.setState({quoteId:replacedQuoteNumber},()=>{
             this.getQuoteDetailsData();
-           })
+           });
       }
     }
     

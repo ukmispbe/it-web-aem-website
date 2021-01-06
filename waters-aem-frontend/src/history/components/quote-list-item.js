@@ -10,7 +10,8 @@ class QuoteListItem extends Component {
     }
 
     renderQuoteAgainButton = () => {
-        return (
+        const status = false;
+        return status && (
             <a className="cmp-button" href="/#" >
                 {this.props.quoteAgainTitle}
             </a>
