@@ -70,14 +70,9 @@ public class ProductData {
         properties.put("currencyCode", sku.getCurrencyCode(siteContext.getLocaleWithCountry().getCountry(), siteContext.getCurrencyIsoCode()));
         properties.put("sku", sku.getCode());
         properties.put("message", sku.getLongDescription());
-		for (SkuImage skuImage : sku.getImages()) {
-			if (sku.getImages().size() >= 1) {
-				skuImage = sku.getImages().get(0);
-				properties.put("thumbnailURL",
-						externalize(skuImage.getUrl().substring(skuImage.getUrl().indexOf("/content")))
-								+ thumbnailRendition);
-			}
-		}
+        properties.put("thumbnailURL",
+				externalize(sku.getImages().get(0).getUrl().substring(sku.getImages().get(0).getUrl().indexOf("/content")))
+						+ thumbnailRendition);
         for(Classification classification : sku.getClassifications()) {
         	if(classification.getTitle().contains("Product Type")) {
         		properties.put("productType", classification.getFeatureValues()[0]);
