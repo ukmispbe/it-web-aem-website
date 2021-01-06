@@ -66,7 +66,7 @@ public class ProductData {
         
         properties.put("name", sku.getTitle());
         properties.put("listPrice", displayableSku.getFormattedPrice());
-        properties.put("price", displayableSku.getPrice().toString());
+        properties.put("value", displayableSku.getPrice().toString());
         properties.put("currencyCode", sku.getCurrencyCode(siteContext.getLocaleWithCountry().getCountry(), siteContext.getCurrencyIsoCode()));
         properties.put("sku", sku.getCode());
         properties.put("message", sku.getLongDescription());
