@@ -157,8 +157,7 @@ class QuoteDetails extends Component {
     renderQuoteAgainButton = className => {
         const {quoteDetails} = this.state;
         const {quoteStatus} = quoteDetails;
-        const status = false;
-        return status && quoteStatus === DELIVERY_STATUS.EXPIRED && (
+        return quoteStatus === DELIVERY_STATUS.EXPIRED && (
             <div className={className} data-locator="quote-details-quote-again-cta">
                 <a className="cmp-button" href="/#" >
                     {this.props.config.quoteAgainTitle}
@@ -277,7 +276,8 @@ class QuoteDetails extends Component {
                         <div className={`${this.rootStyle}__order-total_right`} data-locator="order-summary-price-total-price"><h1>{totalPriceValue}</h1></div>
                     </div>
                     {this.renderReorderButton(`${this.rootStyle}__reorder`)}
-                    {this.renderQuoteAgainButton(`${this.rootStyle}__reorder`)}
+                    {/* quote button is not in scop for now. */}
+                    {/* {this.renderQuoteAgainButton(`${this.rootStyle}__reorder`)} */}
                 </div>
             </div>
             </>
@@ -314,7 +314,8 @@ class QuoteDetails extends Component {
                         />
                     </div>
                     {this.renderReorderButton("order-shipment__reorder")}
-                    {this.renderQuoteAgainButton("order-shipment__reorder")}
+                    {/* quote button is not in scop for now. */}
+                    {/* {this.renderQuoteAgainButton("order-shipment__reorder")} */}
                 </>
             )
         }

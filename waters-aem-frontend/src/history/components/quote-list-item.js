@@ -10,8 +10,7 @@ class QuoteListItem extends Component {
     }
 
     renderQuoteAgainButton = () => {
-        const status = false;
-        return status && (
+        return (
             <a className="cmp-button" href="/#" >
                 {this.props.quoteAgainTitle}
             </a>
@@ -60,11 +59,12 @@ class QuoteListItem extends Component {
                 {totalPriceFormatted && (<div className="cmp-order-list__total cmp-order-list__left" data-locator="order-list-total">
                     {totalPriceFormatted}
                 </div>)}
-                {showQuoteAgainBtn && (
+                {/* quote button is not in scop for now. */}
+                {/* {showQuoteAgainBtn && (
                     <div className="cmp-order-list__right quote-again-section" data-locator="quote-history-quote-again">
                         {this.renderQuoteAgainButton()}
                     </div>
-                )}
+                )} */}
 
             </div>
         );
