@@ -220,7 +220,6 @@ export async function personalSubmit(data) {
         if (responseBody && responseBody.userId && responseBody.salesOrg) {
                 SoldToDetailsLazy(this.soldToDetailsUrl, responseBody.userId, responseBody.salesOrg)
                 .then((soldToDetails) => {
-                    console.log("USE PROFILE soldToDetails", soldToDetails);
                     let mergeAPIs = matchAddresses(responseBody, soldToDetails);
                     this.setProfileData(mergeAPIs);
                 });
