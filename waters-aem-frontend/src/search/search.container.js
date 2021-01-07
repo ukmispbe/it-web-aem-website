@@ -267,7 +267,10 @@ class SearchContainer extends Component {
 
     buildSearchParams = q => {
         let query = (q && Object.entries(q).length !== 0) ? {...q} : this.getQueryObject();
-
+        // Default to "All" if no category sent.
+        if (!query.category) {
+            query.category = "All";
+        }
         if (!query.sort && this.state) {
             query = Object.assign({}, query, { sort: this.state.sort });
         }
@@ -286,50 +289,16 @@ class SearchContainer extends Component {
 
         // update the component's state with pre-search values
         this.setState({ searchParams: query, loading: true, results: {}, filterMap: {}});
-
-        // fetch categories only once on the initial rendering
-        // store category tabs in the component's state
-        if (this.state.initialRender) {
-            const categories = await this.search.getCategories({
-                keyword: query.keyword,
-            });
-
-            // find the categories
-            const categoriesWithData = this.mapCategories(categories);
-
-            const categoriesWithAllData = this.findFacetNameProperty(this.props.filterMap, "All")
-            ? this.setAllCategory(categoriesWithData)
-            : categoriesWithData;
-
-            // execute the search after the category tabs has been saved in the component's state
-            this.setState({ categoryTabs: categoriesWithAllData, initialRender: false }, () => this.executeSearch(query, rows));
-        } else {
-            // execute the search because the category tabs have already been saved in the component's state
-            this.executeSearch(query, rows);
-        }
-    }
-
-    setAllCategory = (categoriesWithData) => {
-        //Add All Category to categories using Count of Authored Categories
-
-        let total = 0;
-        for (let i = 0; i < categoriesWithData.length; i++) {
-            total = total + categoriesWithData[i].count;
-        }
-        const allCategory = { 
-            "translation": this.state.allResultsText,
-            "name": "All",
-            "count": total
-        };
-        this.setState({ count: total });
-        
-        return categoriesWithData = [allCategory, ...categoriesWithData]; 
+        // Execute the Search
+        this.executeSearch(query, rows);
     }
 
     persistTabHistory = query => {
-        const tabHistory = this.createTabHistoryEntryForCurrentTab(query);
-
-        this.search.setStorageForTabHistory(tabHistory);
+        // If category is undefined don't save to Tab History this occurs when no category is specified
+        if (query.category) {
+            const tabHistory = this.createTabHistoryEntryForCurrentTab(query);
+            this.search.setStorageForTabHistory(tabHistory);
+        }
     }
 
     executeSearch = (query, rows) => {
@@ -522,6 +491,23 @@ class SearchContainer extends Component {
         };
     };
 
+    setAllCategory = (categoriesWithData) => {
+        //Add All Category to categories using Count of Authored Categories
+
+        let total = 0;
+        for (let i = 0; i < categoriesWithData.length; i++) {
+            total = total + categoriesWithData[i].count;
+        }
+        const allCategory = { 
+            "translation": this.state.allResultsText,
+            "name": "All",
+            "count": total
+        };
+        this.setState({ count: total });        
+        categoriesWithData = [allCategory, ...categoriesWithData]; 
+        return categoriesWithData
+    }
+
     searchOnSuccess = (query, rows, res, initCategories = false) => {
         const newState = Object.assign({}, this.state);
 
@@ -532,6 +518,17 @@ class SearchContainer extends Component {
                     res.facets[this.parentCategory]
                 ))
                 : [];
+        
+        // Add the All Category to the categories retrieved from the API call iff the All category has been authored
+        const categoriesWithData = this.mapCategories(res);
+        const categoriesWithAllData = this.findFacetNameProperty(this.props.filterMap, "All")
+        ? this.setAllCategory(categoriesWithData)
+        : categoriesWithData;
+        // const categoriesWithData = this.mapCategories(res);
+        // const categoriesWithAllData = this.setAllCategory(categoriesWithData);
+        // // save the category tabs in the component's state
+        newState.categoryTabs = categoriesWithAllData;
+            
         newState.loading = false;
         newState.rows = rows;
         newState.count = parseInt(res.num_found);
@@ -1119,7 +1116,8 @@ class SearchContainer extends Component {
         return {
             showContentTypeMenu: this.isCategoryOnlySelected(this.state.category, this.state.contentType),
             showFacetMenu: !this.isCategoryOnlySelected(this.state.category, this.state.contentType),
-            heading: this.props.searchText.anyResultTypeText
+            heading: this.props.searchText.resultTypeText,
+            backLinkText: this.props.searchText.anyResultTypeText
         };
     }
 
@@ -1222,7 +1220,8 @@ class SearchContainer extends Component {
                     subFacetFiltersProps={this.subFacetFiltersProps()}
                     subFacetFiltersEvents={this.subFacetFiltersEvents()}
                     filterTagsProps={this.filterTagsProps()}
-                    filterTagsEvents={this.filterTagsEvents()} />;
+                    filterTagsEvents={this.filterTagsEvents()}
+                    clearSessionStore={this.props.search.clearSessionStore} />;
     }
 }
 

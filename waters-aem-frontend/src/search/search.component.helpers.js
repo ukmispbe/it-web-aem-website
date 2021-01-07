@@ -178,7 +178,7 @@ const Menu = ({
     if (menuProps.showFacetMenu) {
         return (
             <FacetMenu
-                heading={menuProps.heading}
+                heading={menuProps.backLinkText}
                 selectedValue={facetMenuProps.selectedValue}
                 previousIcon={facetMenuProps.previousIcon}
                 filterTags={filterTags}

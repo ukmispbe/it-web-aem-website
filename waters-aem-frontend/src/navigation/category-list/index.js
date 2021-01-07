@@ -55,7 +55,7 @@ const determineIfHidden = (items, index, activeIndex) => {
 }
 
 const Category = ({index, name, count, isActive, onClick, backImage, isHidden, hideCount}) => 
-    <div className={`cmp-category-item${isActive ? " active" : ""} ${isHidden ? " hidden" : ""}`} onClick={() => onClick(index)}>
+    <div className={`cmp-category-item${isActive ? " active" : ""} ${isHidden ? " hidden" : ""} ${backImage ? " backLink" : ""}`} onClick={() => onClick(index)}>
         {backImage}
         <span className="cmp-category-label" data-locator={elementLocator(name)}>{name}</span>
         <span className={`cmp-category-count ${hideCount ? " hidden" : ""}`} data-locator={elementLocator(count)}> ({count})</span>

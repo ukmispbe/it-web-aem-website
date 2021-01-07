@@ -46,6 +46,12 @@
             }
         }
 
+        .backLink {
+            .cmp-category-label {
+                font-weight: $font-weight-regular;
+            }
+        }
+
         .active {
             cursor: default;
             .cmp-category-label {

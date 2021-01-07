@@ -7,11 +7,36 @@ const SearchComponent = props => {
     // Append Facet Description & spelling of keyword
     props.searchParams.contentTypeSelected = props.filterTagsProps.contentTypeSelected;
     props.searchParams.spell_suggestion = props.filterTagsProps.spell_suggestion;
+
+    // Check if the All Category isn't authored 
+    if (props.filterMap) {
+        const facet = props.filterMap.find(item => item.categoryFacetValue === "All");
+        if (facet === undefined) {
+            // Remove the All Category in props.categoryProps.categories if it exists
+            if (props.categoryProps.categories[0].name === "All") {
+                props.categoryProps.categories.splice(0, 1);  
+            }
+            // if (props.category === "All") {
+            //     // Determine the property with the highest count and set as default 
+            //     const maximumCount = Math.max(...Array.from(props.categoryProps.categories, item  => item.count));
+            //     const maxCategory = props.categoryProps.categories.find(item => item.count === maximumCount);
+            //     props.category = maxCategory.name;
+            // }
+        }
+    }
+
+    // Determine the ActiveIndex from the Category
+    if (props.categoryProps.categories) {
+        const activeIndex = props.categoryProps.categories.findIndex(item => item.name === props.category);
+        props.categoryProps.activeIndex = activeIndex;
+    }
+
     return (
         <>
             <SearchBreadcrumb 
                 text={props.text}
-                searchParams={props.searchParams} />
+                searchParams={props.searchParams}
+                 clearSessionStore={props.clearSessionStore}/>
             <div>
                 <div className="overlay" />
                 <Aside 

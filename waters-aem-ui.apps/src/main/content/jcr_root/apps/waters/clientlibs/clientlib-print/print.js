@@ -149,14 +149,14 @@
 /******/
 /******/
 /******/ 	// add entry module to deferred list
-/******/ 	deferredModules.push([402,1,2,0]);
+/******/ 	deferredModules.push([396,1,2,0]);
 /******/ 	// run deferred modules when ready
 /******/ 	return checkDeferredModules();
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 103:
+/***/ 104:
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
@@ -164,7 +164,52 @@ module.exports = {"colorBorderDark":"#9ca7b0","colorGray50":"#4f5b64","colorBack
 
 /***/ }),
 
-/***/ 14:
+/***/ 143:
+/***/ (function(module, exports) {
+
+/* (ignored) */
+
+/***/ }),
+
+/***/ 144:
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+module.exports = {"colorBorderDark":"#9ca7b0","colorGray50":"#4f5b64","colorBackgroundLight":"#f6f8f9","colorWhite":"#fff","colorBlue50":"#07b","borderRadius":"4px","spaceXXXS":".25em","spaceXXS":".5em","spaceXS":".75em","spaceS":"1em"};
+
+/***/ }),
+
+/***/ 15:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BAD_REQUEST_CODE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return SERVER_ERROR_CODE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return UNAVAILABLE_PRICE_WITH_ADD_TO_CART; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return LIST_PRICE_WITH_ADD_TO_CART; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return NO_PRICE_NO_ADD_TO_CART; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return FILENAME_REGX; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return DELIVERY_STATUS; });
+var BAD_REQUEST_CODE = 400;
+var SERVER_ERROR_CODE = 500;
+var UNAVAILABLE_PRICE_WITH_ADD_TO_CART = 'unavailable_price_with_add-to-cart';
+var LIST_PRICE_WITH_ADD_TO_CART = 'list_price_with_add-to-cart';
+var NO_PRICE_NO_ADD_TO_CART = 'no_price_no_add-to-cart';
+var FILENAME_REGX = /\*|\/|\?|\!|\<|\>|\"|\||\\|\:/gm;
+var DELIVERY_STATUS = {
+  OPEN: 'Open',
+  PENDING: 'Pending',
+  REJECTED: 'Rejected',
+  EXPIRED: 'Expired',
+  ORDER_PLACED: 'Order Placed',
+  QUOTE_REPLACED: 'Quote Replaced',
+  PARTIAL: "Partial",
+  COMPLETE: "Complete"
+};
+
+/***/ }),
+
+/***/ 16:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -179,22 +224,22 @@ __webpack_require__.d(__webpack_exports__, "d", function() { return /* binding *
 __webpack_require__.d(__webpack_exports__, "h", function() { return /* binding */ shopAllCartContext; });
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray.js + 3 modules
-var slicedToArray = __webpack_require__(6);
+var slicedToArray = __webpack_require__(7);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js
 var classCallCheck = __webpack_require__(4);
 
 // EXTERNAL MODULE: ./src/scripts/inlineSVG.js + 1 modules
-var inlineSVG = __webpack_require__(58);
+var inlineSVG = __webpack_require__(56);
 
 // EXTERNAL MODULE: ./src/scripts/DigitalData.js
-var DigitalData = __webpack_require__(21);
+var DigitalData = __webpack_require__(22);
 
 // EXTERNAL MODULE: ./src/stores/sessionStore.js
-var sessionStore = __webpack_require__(15);
+var sessionStore = __webpack_require__(14);
 
 // EXTERNAL MODULE: ./src/stores/cookieStore.js
-var cookieStore = __webpack_require__(52);
+var cookieStore = __webpack_require__(49);
 
 // CONCATENATED MODULE: ./src/analytics/eventTypes.js
 var eventTypes = {
@@ -553,22 +598,7 @@ var _analytics$analyticTy = Object(slicedToArray["a" /* default */])(analytics.a
 
 /***/ }),
 
-/***/ 142:
-/***/ (function(module, exports) {
-
-/* (ignored) */
-
-/***/ }),
-
-/***/ 143:
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-module.exports = {"colorBorderDark":"#9ca7b0","colorGray50":"#4f5b64","colorBackgroundLight":"#f6f8f9","colorWhite":"#fff","colorBlue50":"#07b","borderRadius":"4px","spaceXXXS":".25em","spaceXXS":".5em","spaceXS":".75em","spaceS":"1em"};
-
-/***/ }),
-
-/***/ 159:
+/***/ 160:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -576,21 +606,21 @@ module.exports = {"colorBorderDark":"#9ca7b0","colorGray50":"#4f5b64","colorBack
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./src/styles/index.scss
-var styles = __webpack_require__(103);
+var styles = __webpack_require__(104);
 
 // EXTERNAL MODULE: ./node_modules/react/index.js
 var react = __webpack_require__(0);
 var react_default = /*#__PURE__*/__webpack_require__.n(react);
 
 // EXTERNAL MODULE: ./node_modules/react-dom/index.js
-var react_dom = __webpack_require__(23);
+var react_dom = __webpack_require__(24);
 var react_dom_default = /*#__PURE__*/__webpack_require__.n(react_dom);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectSpread.js
 var objectSpread = __webpack_require__(12);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 3 modules
-var toConsumableArray = __webpack_require__(29);
+var toConsumableArray = __webpack_require__(31);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/regenerator/index.js
 var regenerator = __webpack_require__(2);
@@ -609,22 +639,22 @@ var classCallCheck = __webpack_require__(4);
 var createClass = __webpack_require__(5);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js
-var possibleConstructorReturn = __webpack_require__(7);
+var possibleConstructorReturn = __webpack_require__(8);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js
-var getPrototypeOf = __webpack_require__(8);
+var getPrototypeOf = __webpack_require__(9);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits.js + 1 modules
-var inherits = __webpack_require__(9);
+var inherits = __webpack_require__(10);
 
 // EXTERNAL MODULE: ./src/search/services/index.js
-var services = __webpack_require__(20);
+var services = __webpack_require__(21);
 
 // EXTERNAL MODULE: ./node_modules/query-string/index.js
-var query_string = __webpack_require__(30);
+var query_string = __webpack_require__(29);
 
 // EXTERNAL MODULE: ./node_modules/react-router-dom/es/withRouter.js + 1 modules
-var withRouter = __webpack_require__(506);
+var withRouter = __webpack_require__(500);
 
 // EXTERNAL MODULE: ./node_modules/react-svg/es/react-svg.js
 var react_svg = __webpack_require__(3);
@@ -651,20 +681,20 @@ var no_results_NoResults = function NoResults(_ref) {
 
 /* harmony default export */ var no_results = (no_results_NoResults);
 // EXTERNAL MODULE: ./node_modules/validator/index.js
-var validator = __webpack_require__(59);
+var validator = __webpack_require__(57);
 var validator_default = /*#__PURE__*/__webpack_require__.n(validator);
 
 // EXTERNAL MODULE: ./src/scripts/domElements.js
-var domElements = __webpack_require__(25);
+var domElements = __webpack_require__(26);
 
 // EXTERNAL MODULE: ./src/scripts/screenSizes.js
-var screenSizes = __webpack_require__(17);
+var screenSizes = __webpack_require__(18);
 
 // EXTERNAL MODULE: ./src/analytics/index.js + 1 modules
-var analytics = __webpack_require__(14);
+var analytics = __webpack_require__(16);
 
 // EXTERNAL MODULE: ./src/utils/spinner/index.js
-var spinner = __webpack_require__(27);
+var spinner = __webpack_require__(28);
 
 // CONCATENATED MODULE: ./src/search/components/loading.js
 
@@ -896,7 +926,7 @@ var defaultProps = {
 };
 
 // EXTERNAL MODULE: ./node_modules/react-paginate/dist/react-paginate.js
-var react_paginate = __webpack_require__(64);
+var react_paginate = __webpack_require__(62);
 var react_paginate_default = /*#__PURE__*/__webpack_require__.n(react_paginate);
 
 // CONCATENATED MODULE: ./src/search/components/content-type-menu.js
@@ -1411,13 +1441,13 @@ filter_Filter.defaultProps = {
 };
 /* harmony default export */ var filter = (filter_Filter);
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js + 1 modules
-var objectWithoutProperties = __webpack_require__(61);
+var objectWithoutProperties = __webpack_require__(59);
 
 // EXTERNAL MODULE: ./node_modules/react-select/dist/react-select.esm.js + 1 modules
-var react_select_esm = __webpack_require__(46);
+var react_select_esm = __webpack_require__(45);
 
 // EXTERNAL MODULE: ./src/utils/dropdown/custom-styles.js
-var custom_styles = __webpack_require__(97);
+var custom_styles = __webpack_require__(96);
 
 // CONCATENATED MODULE: ./src/search/components/category-dropdown.js
 
@@ -1540,7 +1570,7 @@ var btn_hide_sort_filter_HideSortFilter = /*#__PURE__*/function (_Component) {
 
 /* harmony default export */ var btn_hide_sort_filter = (btn_hide_sort_filter_HideSortFilter);
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js
-var assertThisInitialized = __webpack_require__(19);
+var assertThisInitialized = __webpack_require__(20);
 
 // CONCATENATED MODULE: ./src/search/components/btn-apply-sort-filter.js
 
@@ -1659,7 +1689,7 @@ var btn_done_sort_filter_DoneSortFilter = /*#__PURE__*/function (_Component) {
 
 /* harmony default export */ var btn_done_sort_filter = (btn_done_sort_filter_DoneSortFilter);
 // EXTERNAL MODULE: ./src/utils/dropdown/index.js
-var dropdown = __webpack_require__(65);
+var dropdown = __webpack_require__(63);
 
 // CONCATENATED MODULE: ./src/search/components/sort.js
 
@@ -1831,7 +1861,7 @@ function ResultsCount(props) {
   if (Array.isArray(props.categoryOptions) && props.categoryOptions.length) {
     var options = getOptions(props.categoryOptions);
     categoryLabel = props.categoryValue === 0 || props.categoryValue === -1 ? "All" : options[props.categoryValue].label;
-    actualCount = options[props.categoryValue].count;
+    actualCount = props.categoryValue === -1 ? actualCount : options[props.categoryValue].count;
   }
 
   var renderResultsText = function renderResultsText(resultsText) {
@@ -1966,8 +1996,8 @@ var filter_tags_SubFacetTags = function SubFacetTags(props) {
       }
     };
 
-    for (var _i2 = 0; _i2 < f.length; _i2++) {
-      _loop(_i2);
+    for (var _i = 0; _i < f.length; _i++) {
+      _loop(_i);
     }
 
     return category;
@@ -2198,16 +2228,16 @@ function UnavailablePrice(props) {
 var whatwg_fetch_fetch = __webpack_require__(38);
 
 // EXTERNAL MODULE: ./src/stores/localStore.js
-var stores_localStore = __webpack_require__(45);
+var stores_localStore = __webpack_require__(52);
 
 // EXTERNAL MODULE: ./src/scripts/loginStatus.js
-var loginStatus = __webpack_require__(16);
+var loginStatus = __webpack_require__(17);
 
 // EXTERNAL MODULE: ./src/utils/serviceFunctions.js
-var serviceFunctions = __webpack_require__(53);
+var serviceFunctions = __webpack_require__(50);
 
 // EXTERNAL MODULE: ./src/utils/userFunctions.js
-var userFunctions = __webpack_require__(10);
+var userFunctions = __webpack_require__(6);
 
 // CONCATENATED MODULE: ./src/sku-details/services/index.js
 
@@ -2496,7 +2526,7 @@ var matchListItems = function matchListItems(skuListData, pricesAPIResults) {
   return skuListItem;
 };
 // EXTERNAL MODULE: ./src/scripts/skulist.js
-var skulist = __webpack_require__(91);
+var skulist = __webpack_require__(89);
 
 // CONCATENATED MODULE: ./src/sku-details/views/addToCart.js
 
@@ -2708,7 +2738,7 @@ addToCart_AddToCart.defaultProps = {
 var addToCartModal = __webpack_require__(33);
 
 // EXTERNAL MODULE: ./src/utils/modal/index.js + 1 modules
-var modal = __webpack_require__(18);
+var modal = __webpack_require__(19);
 
 // CONCATENATED MODULE: ./src/sku-message/index.js
 
@@ -2796,19 +2826,19 @@ var sku_message_SkuMessage = /*#__PURE__*/function (_React$Component) {
 
 /* harmony default export */ var sku_message = (sku_message_SkuMessage);
 // EXTERNAL MODULE: ./src/scripts/checkOutStatus.js
-var checkOutStatus = __webpack_require__(47);
+var checkOutStatus = __webpack_require__(46);
 
 // EXTERNAL MODULE: ./src/scripts/ecommerce.js
-var ecommerce = __webpack_require__(31);
+var ecommerce = __webpack_require__(30);
 
 // EXTERNAL MODULE: ./src/scripts/sku-details.js
-var sku_details = __webpack_require__(56);
+var sku_details = __webpack_require__(54);
 
 // EXTERNAL MODULE: ./src/scripts/stickyService.js
-var stickyService = __webpack_require__(50);
+var stickyService = __webpack_require__(47);
 
 // EXTERNAL MODULE: ./src/constants/index.js
-var constants = __webpack_require__(28);
+var constants = __webpack_require__(15);
 
 // CONCATENATED MODULE: ./src/sku-list/views/listItem.js
 
@@ -2864,14 +2894,14 @@ var listItem_ListItem = /*#__PURE__*/function (_React$Component) {
         } else {
           // Add Error Object to State
           _this.setState({
-            errorPriceType: [constants["a" /* BAD_REQUEST_CODE */], constants["e" /* SERVER_ERROR_CODE */]].includes(Object(eCommerceFunctions["c" /* getHttpStatusFromErrors */])(response.errors, response.status)) ? Object(userFunctions["s" /* isEprocurementUser */])() ? constants["f" /* UNAVAILABLE_PRICE_WITH_ADD_TO_CART */] : constants["c" /* LIST_PRICE_WITH_ADD_TO_CART */] : constants["d" /* NO_PRICE_NO_ADD_TO_CART */],
+            errorPriceType: [constants["a" /* BAD_REQUEST_CODE */], constants["f" /* SERVER_ERROR_CODE */]].includes(Object(eCommerceFunctions["c" /* getHttpStatusFromErrors */])(response.errors, response.status)) ? Object(userFunctions["s" /* isEprocurementUser */])() ? constants["g" /* UNAVAILABLE_PRICE_WITH_ADD_TO_CART */] : constants["d" /* LIST_PRICE_WITH_ADD_TO_CART */] : constants["e" /* NO_PRICE_NO_ADD_TO_CART */],
             loading: false
           });
         }
       })["catch"](function (err) {
         // Add Error Object to State
         _this.setState({
-          errorPriceType: constants["d" /* NO_PRICE_NO_ADD_TO_CART */],
+          errorPriceType: constants["e" /* NO_PRICE_NO_ADD_TO_CART */],
           loading: false
         });
       });
@@ -2957,7 +2987,7 @@ var listItem_ListItem = /*#__PURE__*/function (_React$Component) {
           skuInfo = _this$state.skuInfo,
           errorPriceType = _this$state.errorPriceType;
 
-      if (errorPriceType === constants["f" /* UNAVAILABLE_PRICE_WITH_ADD_TO_CART */]) {
+      if (errorPriceType === constants["g" /* UNAVAILABLE_PRICE_WITH_ADD_TO_CART */]) {
         return react_default.a.createElement(unavailablePrice, {
           label: skuInfo.custPriceLabel,
           icon: skuInfo.lowStockIcon,
@@ -3107,7 +3137,7 @@ var listItem_ListItem = /*#__PURE__*/function (_React$Component) {
           link: relatedSku.replacementskuurl,
           linkMessage: relatedSku.replacementskucode
         });
-      } else if (_this.state.errorPriceType === constants["d" /* NO_PRICE_NO_ADD_TO_CART */]) {
+      } else if (_this.state.errorPriceType === constants["e" /* NO_PRICE_NO_ADD_TO_CART */]) {
         return react_default.a.createElement(sku_message, {
           icon: skuConfig.skuInfo.lowStockIcon,
           message: skuConfig.skuInfo.skuErrorMessage
@@ -3269,7 +3299,7 @@ listItem_ListItem.defaultProps = {
 };
 /* harmony default export */ var listItem = (listItem_ListItem);
 // EXTERNAL MODULE: ./src/scripts/signIn.js
-var scripts_signIn = __webpack_require__(83);
+var scripts_signIn = __webpack_require__(82);
 
 // CONCATENATED MODULE: ./src/sku-list/index.js
 
@@ -3354,7 +3384,7 @@ sku_list_SkuList.defaultProps = {
 };
 /* harmony default export */ var sku_list = (sku_list_SkuList);
 // EXTERNAL MODULE: ./node_modules/react-lines-ellipsis/lib/index.js
-var lib = __webpack_require__(84);
+var lib = __webpack_require__(83);
 var lib_default = /*#__PURE__*/__webpack_require__.n(lib);
 
 // CONCATENATED MODULE: ./src/search/components/results.js
@@ -3508,7 +3538,7 @@ var category_list_Category = function Category(_ref2) {
       isHidden = _ref2.isHidden,
       hideCount = _ref2.hideCount;
   return react_default.a.createElement("div", {
-    className: "cmp-category-item".concat(isActive ? " active" : "", " ").concat(isHidden ? " hidden" : ""),
+    className: "cmp-category-item".concat(isActive ? " active" : "", " ").concat(isHidden ? " hidden" : "", " ").concat(backImage ? " backLink" : ""),
     onClick: function onClick() {
       return _onClick(index);
     }
@@ -3679,7 +3709,7 @@ var search_component_helpers_Menu = function Menu(_ref3) {
 
   if (menuProps.showFacetMenu) {
     return react_default.a.createElement(facet_menu, {
-      heading: menuProps.heading,
+      heading: menuProps.backLinkText,
       selectedValue: facetMenuProps.selectedValue,
       previousIcon: facetMenuProps.previousIcon,
       filterTags: filterTags,
@@ -3900,13 +3930,13 @@ search_component_helpers_ResultsBody.defaultProps = {
 };
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray.js + 3 modules
-var slicedToArray = __webpack_require__(6);
+var slicedToArray = __webpack_require__(7);
 
 // EXTERNAL MODULE: ./src/utils/redirectFunctions.js
-var redirectFunctions = __webpack_require__(24);
+var redirectFunctions = __webpack_require__(25);
 
 // EXTERNAL MODULE: ./node_modules/react-ellipsis-text/index.js
-var react_ellipsis_text = __webpack_require__(125);
+var react_ellipsis_text = __webpack_require__(100);
 var react_ellipsis_text_default = /*#__PURE__*/__webpack_require__.n(react_ellipsis_text);
 
 // CONCATENATED MODULE: ./src/common/search-breadcrumb/index.js
@@ -3935,20 +3965,45 @@ var search_breadcrumb_SearchBreadcrumb = function SearchBreadcrumb(props) {
       title = props.text.allCategoriesText;
     }
 
-    return react_default.a.createElement("li", {
-      className: "cmp-breadcrumb__item",
-      itemprop: "itemListElement",
-      itemscope: "",
-      itemtype: "http://schema.org/ListItem"
-    }, react_default.a.createElement("a", {
-      href: linkInfo.path,
-      className: "cmp-breadcrumb__item-link"
-    }, react_default.a.createElement("span", {
-      itemprop: "name"
-    }, react_default.a.createElement(react_ellipsis_text_default.a, {
-      text: title,
-      length: "20"
-    }))));
+    if (title !== "Search") {
+      return react_default.a.createElement("li", {
+        className: "cmp-breadcrumb__item",
+        itemprop: "itemListElement",
+        itemscope: "",
+        itemtype: "http://schema.org/ListItem"
+      }, react_default.a.createElement("a", {
+        href: linkInfo.path,
+        className: "cmp-breadcrumb__item-link"
+      }, react_default.a.createElement("span", {
+        itemprop: "name"
+      }, react_default.a.createElement(react_ellipsis_text_default.a, {
+        text: title,
+        length: "20"
+      }))));
+    } else {
+      return react_default.a.createElement("li", {
+        className: "cmp-breadcrumb__item",
+        itemprop: "itemListElement",
+        itemscope: "",
+        itemtype: "http://schema.org/ListItem"
+      }, react_default.a.createElement("a", {
+        onClick: function onClick(e) {
+          return clearSession(e, linkInfo.path);
+        },
+        className: "cmp-breadcrumb__item-link"
+      }, react_default.a.createElement("span", {
+        itemprop: "name"
+      }, react_default.a.createElement(react_ellipsis_text_default.a, {
+        text: title,
+        length: "20"
+      }))));
+    }
+  };
+
+  var clearSession = function clearSession(e, path) {
+    e.preventDefault();
+    props.clearSessionStore();
+    window.location.href = path;
   };
 
   var renderBreadcrumb = function renderBreadcrumb(links) {
@@ -4081,10 +4136,39 @@ var search_breadcrumb_SearchBreadcrumb = function SearchBreadcrumb(props) {
 var search_component_SearchComponent = function SearchComponent(props) {
   // Append Facet Description & spelling of keyword
   props.searchParams.contentTypeSelected = props.filterTagsProps.contentTypeSelected;
-  props.searchParams.spell_suggestion = props.filterTagsProps.spell_suggestion;
+  props.searchParams.spell_suggestion = props.filterTagsProps.spell_suggestion; // Check if the All Category isn't authored 
+
+  if (props.filterMap) {
+    var facet = props.filterMap.find(function (item) {
+      return item.categoryFacetValue === "All";
+    });
+
+    if (facet === undefined) {
+      // Remove the All Category in props.categoryProps.categories if it exists
+      if (props.categoryProps.categories[0].name === "All") {
+        props.categoryProps.categories.splice(0, 1);
+      } // if (props.category === "All") {
+      //     // Determine the property with the highest count and set as default 
+      //     const maximumCount = Math.max(...Array.from(props.categoryProps.categories, item  => item.count));
+      //     const maxCategory = props.categoryProps.categories.find(item => item.count === maximumCount);
+      //     props.category = maxCategory.name;
+      // }
+
+    }
+  } // Determine the ActiveIndex from the Category
+
+
+  if (props.categoryProps.categories) {
+    var activeIndex = props.categoryProps.categories.findIndex(function (item) {
+      return item.name === props.category;
+    });
+    props.categoryProps.activeIndex = activeIndex;
+  }
+
   return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement(search_breadcrumb, {
     text: props.text,
-    searchParams: props.searchParams
+    searchParams: props.searchParams,
+    clearSessionStore: props.clearSessionStore
   }), react_default.a.createElement("div", null, react_default.a.createElement("div", {
     className: "overlay"
   }), react_default.a.createElement(search_component_helpers_Aside, {
@@ -4394,7 +4478,11 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
     };
 
     _this.buildSearchParams = function (q) {
-      var query = q && Object.entries(q).length !== 0 ? Object(objectSpread["a" /* default */])({}, q) : _this.getQueryObject();
+      var query = q && Object.entries(q).length !== 0 ? Object(objectSpread["a" /* default */])({}, q) : _this.getQueryObject(); // Default to "All" if no category sent.
+
+      if (!query.category) {
+        query.category = "All";
+      }
 
       if (!query.sort && _this.state) {
         query = Object.assign({}, query, {
@@ -4409,31 +4497,13 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
       return _this.props.searchDefaults && _this.props.searchDefaults.rows ? _this.props.searchDefaults.rows : services["b" /* parameterDefaults */].rows;
     };
 
-    _this.setAllCategory = function (categoriesWithData) {
-      //Add All Category to categories using Count of Authored Categories
-      var total = 0;
-
-      for (var i = 0; i < categoriesWithData.length; i++) {
-        total = total + categoriesWithData[i].count;
-      }
-
-      var allCategory = {
-        "translation": _this.state.allResultsText,
-        "name": "All",
-        "count": total
-      };
-
-      _this.setState({
-        count: total
-      });
-
-      return categoriesWithData = [allCategory].concat(Object(toConsumableArray["a" /* default */])(categoriesWithData));
-    };
-
     _this.persistTabHistory = function (query) {
-      var tabHistory = _this.createTabHistoryEntryForCurrentTab(query);
+      // If category is undefined don't save to Tab History this occurs when no category is specified
+      if (query.category) {
+        var tabHistory = _this.createTabHistoryEntryForCurrentTab(query);
 
-      _this.search.setStorageForTabHistory(tabHistory);
+        _this.search.setStorageForTabHistory(tabHistory);
+      }
     };
 
     _this.executeSearch = function (query, rows) {
@@ -4631,10 +4701,40 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
       };
     };
 
+    _this.setAllCategory = function (categoriesWithData) {
+      //Add All Category to categories using Count of Authored Categories
+      var total = 0;
+
+      for (var i = 0; i < categoriesWithData.length; i++) {
+        total = total + categoriesWithData[i].count;
+      }
+
+      var allCategory = {
+        "translation": _this.state.allResultsText,
+        "name": "All",
+        "count": total
+      };
+
+      _this.setState({
+        count: total
+      });
+
+      categoriesWithData = [allCategory].concat(Object(toConsumableArray["a" /* default */])(categoriesWithData));
+      return categoriesWithData;
+    };
+
     _this.searchOnSuccess = function (query, rows, res) {
       var initCategories = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
       var newState = Object.assign({}, _this.state);
-      newState.filterMap = res.num_found !== 0 ? Object.assign({}, _this.getFilterMap(_this.props.filterMap, res.facets[_this.parentCategory])) : [];
+      newState.filterMap = res.num_found !== 0 ? Object.assign({}, _this.getFilterMap(_this.props.filterMap, res.facets[_this.parentCategory])) : []; // Add the All Category to the categories retrieved from the API call iff the All category has been authored
+
+      var categoriesWithData = _this.mapCategories(res);
+
+      var categoriesWithAllData = _this.findFacetNameProperty(_this.props.filterMap, "All") ? _this.setAllCategory(categoriesWithData) : categoriesWithData; // const categoriesWithData = this.mapCategories(res);
+      // const categoriesWithAllData = this.setAllCategory(categoriesWithData);
+      // // save the category tabs in the component's state
+
+      newState.categoryTabs = categoriesWithAllData;
       newState.loading = false;
       newState.rows = rows;
       newState.count = parseInt(res.num_found);
@@ -5184,7 +5284,8 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
       return {
         showContentTypeMenu: _this.isCategoryOnlySelected(_this.state.category, _this.state.contentType),
         showFacetMenu: !_this.isCategoryOnlySelected(_this.state.category, _this.state.contentType),
-        heading: _this.props.searchText.anyResultTypeText
+        heading: _this.props.searchText.resultTypeText,
+        backLinkText: _this.props.searchText.anyResultTypeText
       };
     };
 
@@ -5284,9 +5385,7 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
     key: "performSearch",
     value: function () {
       var _performSearch = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee3(q) {
-        var _this3 = this;
-
-        var query, rows, categories, categoriesWithData, categoriesWithAllData;
+        var query, rows;
         return regenerator_default.a.wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
@@ -5300,39 +5399,11 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
                   loading: true,
                   results: {},
                   filterMap: {}
-                }); // fetch categories only once on the initial rendering
-                // store category tabs in the component's state
+                }); // Execute the Search
 
-                if (!this.state.initialRender) {
-                  _context3.next = 12;
-                  break;
-                }
-
-                _context3.next = 6;
-                return this.search.getCategories({
-                  keyword: query.keyword
-                });
-
-              case 6:
-                categories = _context3.sent;
-                // find the categories
-                categoriesWithData = this.mapCategories(categories);
-                categoriesWithAllData = this.findFacetNameProperty(this.props.filterMap, "All") ? this.setAllCategory(categoriesWithData) : categoriesWithData; // execute the search after the category tabs has been saved in the component's state
-
-                this.setState({
-                  categoryTabs: categoriesWithAllData,
-                  initialRender: false
-                }, function () {
-                  return _this3.executeSearch(query, rows);
-                });
-                _context3.next = 13;
-                break;
-
-              case 12:
-                // execute the search because the category tabs have already been saved in the component's state
                 this.executeSearch(query, rows);
 
-              case 13:
+              case 4:
               case "end":
                 return _context3.stop();
             }
@@ -5399,7 +5470,8 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
         subFacetFiltersProps: this.subFacetFiltersProps(),
         subFacetFiltersEvents: this.subFacetFiltersEvents(),
         filterTagsProps: this.filterTagsProps(),
-        filterTagsEvents: this.filterTagsEvents()
+        filterTagsEvents: this.filterTagsEvents(),
+        clearSessionStore: this.props.search.clearSessionStore
       });
     }
   }]);
@@ -5409,10 +5481,10 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
 
 /* harmony default export */ var search_container = (Object(withRouter["a" /* default */])(search_container_SearchContainer));
 // EXTERNAL MODULE: ./node_modules/react-router-dom/es/BrowserRouter.js
-var BrowserRouter = __webpack_require__(502);
+var BrowserRouter = __webpack_require__(496);
 
 // EXTERNAL MODULE: ./node_modules/react-router-dom/es/Route.js
-var Route = __webpack_require__(503);
+var Route = __webpack_require__(497);
 
 // CONCATENATED MODULE: ./src/search/ErrorBoundary.js
 
@@ -5522,7 +5594,7 @@ var search_SearchApp = function SearchApp(props) {
 
 /* harmony default export */ var src_search = (search_SearchApp);
 // EXTERNAL MODULE: ./src/stores/sessionStore.js
-var stores_sessionStore = __webpack_require__(15);
+var stores_sessionStore = __webpack_require__(14);
 
 // CONCATENATED MODULE: ./src/search/components/tagcloud.js
 
@@ -5581,7 +5653,7 @@ var tagcloud_TagCloud = /*#__PURE__*/function (_Component) {
 
 /* harmony default export */ var tagcloud = (tagcloud_TagCloud);
 // EXTERNAL MODULE: ./node_modules/hammerjs/hammer.js
-var hammer = __webpack_require__(128);
+var hammer = __webpack_require__(126);
 var hammer_default = /*#__PURE__*/__webpack_require__.n(hammer);
 
 // CONCATENATED MODULE: ./src/image-carousel/image-viewer.js
@@ -6724,11 +6796,11 @@ LinkButton.defaultProps = {
 };
 /* harmony default export */ var link_button_LinkButton = (LinkButton);
 // EXTERNAL MODULE: ./node_modules/react-html-parser/lib/index.js
-var react_html_parser_lib = __webpack_require__(98);
+var react_html_parser_lib = __webpack_require__(97);
 var react_html_parser_lib_default = /*#__PURE__*/__webpack_require__.n(react_html_parser_lib);
 
 // EXTERNAL MODULE: ./src/legal-link-modal/styles/index.scss
-var legal_link_modal_styles = __webpack_require__(143);
+var legal_link_modal_styles = __webpack_require__(144);
 
 // CONCATENATED MODULE: ./src/legal-link-modal/LegalLinkModal.js
 
@@ -6836,7 +6908,7 @@ LegalLinkModal.defaultProps = {
 };
 /* harmony default export */ var legal_link_modal_LegalLinkModal = (LegalLinkModal);
 // EXTERNAL MODULE: ./src/scripts/DigitalData.js
-var DigitalData = __webpack_require__(21);
+var DigitalData = __webpack_require__(22);
 
 // CONCATENATED MODULE: ./src/sku-details/index.js
 
@@ -6918,14 +6990,14 @@ var sku_details_SkuDetails = /*#__PURE__*/function (_React$Component) {
         } else {
           // Add Error Object to State
           _this.setState({
-            errorPriceType: [constants["a" /* BAD_REQUEST_CODE */], constants["e" /* SERVER_ERROR_CODE */]].includes(Object(eCommerceFunctions["c" /* getHttpStatusFromErrors */])(response.errors, response.status)) ? Object(userFunctions["s" /* isEprocurementUser */])() ? constants["f" /* UNAVAILABLE_PRICE_WITH_ADD_TO_CART */] : constants["c" /* LIST_PRICE_WITH_ADD_TO_CART */] : constants["d" /* NO_PRICE_NO_ADD_TO_CART */],
+            errorPriceType: [constants["a" /* BAD_REQUEST_CODE */], constants["f" /* SERVER_ERROR_CODE */]].includes(Object(eCommerceFunctions["c" /* getHttpStatusFromErrors */])(response.errors, response.status)) ? Object(userFunctions["s" /* isEprocurementUser */])() ? constants["g" /* UNAVAILABLE_PRICE_WITH_ADD_TO_CART */] : constants["d" /* LIST_PRICE_WITH_ADD_TO_CART */] : constants["e" /* NO_PRICE_NO_ADD_TO_CART */],
             loading: false
           });
         }
       })["catch"](function () {
         // Add Error Object to State
         _this.setState({
-          errorPriceType: constants["d" /* NO_PRICE_NO_ADD_TO_CART */],
+          errorPriceType: constants["e" /* NO_PRICE_NO_ADD_TO_CART */],
           loading: false
         });
       });
@@ -6992,9 +7064,9 @@ var sku_details_SkuDetails = /*#__PURE__*/function (_React$Component) {
           skuInfo = _this$state.skuInfo,
           errorPriceType = _this$state.errorPriceType,
           isStickyAvailable = _this$state.isStickyAvailable;
-      var isHiddenListPrice = errorPriceType === constants["d" /* NO_PRICE_NO_ADD_TO_CART */] && isStickyAvailable && Object(userFunctions["s" /* isEprocurementUser */])() ? true : false;
+      var isHiddenListPrice = errorPriceType === constants["e" /* NO_PRICE_NO_ADD_TO_CART */] && isStickyAvailable && Object(userFunctions["s" /* isEprocurementUser */])() ? true : false;
 
-      if (errorPriceType === constants["f" /* UNAVAILABLE_PRICE_WITH_ADD_TO_CART */] && !isStickyAvailable) {
+      if (errorPriceType === constants["g" /* UNAVAILABLE_PRICE_WITH_ADD_TO_CART */] && !isStickyAvailable) {
         return react_default.a.createElement(unavailablePrice, {
           label: skuInfo.custPriceLabel,
           icon: skuInfo.lowStockIcon,
@@ -7056,7 +7128,7 @@ var sku_details_SkuDetails = /*#__PURE__*/function (_React$Component) {
         isErrorModal = Object.keys(errorObjCart).length !== 0;
       }
 
-      var isHiddenAddToCart = errorPriceType === constants["d" /* NO_PRICE_NO_ADD_TO_CART */] && isStickyAvailable ? true : false;
+      var isHiddenAddToCart = errorPriceType === constants["e" /* NO_PRICE_NO_ADD_TO_CART */] && isStickyAvailable ? true : false;
       return react_default.a.createElement("div", {
         className: "cmp-sku-details__buyinfo",
         "data-locator": "sku-details-buyinfo"
@@ -7260,7 +7332,7 @@ var sku_details_SkuDetails = /*#__PURE__*/function (_React$Component) {
         return this.renderCountryRestricted();
       } else if (this.state.discontinued) {
         return this.renderDiscontinued();
-      } else if (this.state.errorPriceType === constants["d" /* NO_PRICE_NO_ADD_TO_CART */] && !this.state.isStickyAvailable) {
+      } else if (this.state.errorPriceType === constants["e" /* NO_PRICE_NO_ADD_TO_CART */] && !this.state.isStickyAvailable) {
         return this.renderSkuPriceErrorMsg();
       } else {
         return this.renderActiveSku();
@@ -7286,7 +7358,7 @@ sku_details_SkuDetails.defaultProps = {
 var defineProperty = __webpack_require__(37);
 
 // EXTERNAL MODULE: ./node_modules/react-hook-form/dist/react-hook-form.ie11.js
-var react_hook_form_ie11 = __webpack_require__(129);
+var react_hook_form_ie11 = __webpack_require__(127);
 var react_hook_form_ie11_default = /*#__PURE__*/__webpack_require__.n(react_hook_form_ie11);
 
 // EXTERNAL MODULE: ./src/forms/fields/utils/stateWatcher.js + 1 modules
@@ -7594,7 +7666,7 @@ var requirements_Requirements = function Requirements(_ref, ref) {
 
 /* harmony default export */ var components_requirements = (Object(react["forwardRef"])(requirements_Requirements));
 // EXTERNAL MODULE: ./src/forms/fields/utils/validations.js
-var validations = __webpack_require__(66);
+var validations = __webpack_require__(64);
 
 // EXTERNAL MODULE: ./src/utils/labelFunctions.js
 var labelFunctions = __webpack_require__(43);
@@ -8154,7 +8226,7 @@ var checkboxOrRadio_CheckboxOrRadio = function CheckboxOrRadio(_ref) {
 
 /* harmony default export */ var checkboxOrRadio = (react_default.a.memo(checkboxOrRadio_CheckboxOrRadio));
 // EXTERNAL MODULE: ./src/styles/variables.scss
-var variables = __webpack_require__(26);
+var variables = __webpack_require__(27);
 var variables_default = /*#__PURE__*/__webpack_require__.n(variables);
 
 // CONCATENATED MODULE: ./src/forms/fields/styles/dropdown.scss.js
@@ -8410,7 +8482,7 @@ var hr_Hr = function Hr(_ref) {
 
 /* harmony default export */ var hr = (react_default.a.memo(hr_Hr));
 // EXTERNAL MODULE: ./node_modules/react-google-recaptcha/lib/esm/index.js + 3 modules
-var esm = __webpack_require__(134);
+var esm = __webpack_require__(133);
 
 // CONCATENATED MODULE: ./src/forms/fields/captcha.js
 
@@ -8580,7 +8652,7 @@ var label_Label = function Label(_ref) {
 
 /* harmony default export */ var fields_label = (react_default.a.memo(label_Label));
 // EXTERNAL MODULE: ./src/forms/fields/utils/fileAttachment.js
-var fileAttachment = __webpack_require__(60);
+var fileAttachment = __webpack_require__(58);
 
 // CONCATENATED MODULE: ./src/forms/fields/components/file-error-notification/index.js
 
@@ -9011,7 +9083,7 @@ var fields_Field = function Field(_ref) {
 
 /* harmony default export */ var forms_fields = (react_default.a.memo(fields_Field));
 // EXTERNAL MODULE: ./src/my-account/services/SoldToDetailsLazy.js + 1 modules
-var SoldToDetailsLazy = __webpack_require__(62);
+var SoldToDetailsLazy = __webpack_require__(60);
 
 // CONCATENATED MODULE: ./src/forms/form.js
 
@@ -9412,7 +9484,7 @@ var scrollTo = __webpack_require__(41);
 var scrollTo_default = /*#__PURE__*/__webpack_require__.n(scrollTo);
 
 // EXTERNAL MODULE: ./src/my-account/services/UserDetails.js
-var UserDetails = __webpack_require__(51);
+var UserDetails = __webpack_require__(48);
 
 // CONCATENATED MODULE: ./src/forms/services/submit.js
 
@@ -10349,7 +10421,7 @@ function _contactSupportSubmit() {
   return _contactSupportSubmit.apply(this, arguments);
 }
 // EXTERNAL MODULE: ./node_modules/@brightcove/react-player-loader/dist/brightcove-react-player-loader.es.js
-var brightcove_react_player_loader_es = __webpack_require__(130);
+var brightcove_react_player_loader_es = __webpack_require__(128);
 
 // CONCATENATED MODULE: ./src/video/video-modal-body.js
 
@@ -10403,7 +10475,7 @@ var video_modal_body_VideoModalBody = /*#__PURE__*/function (_React$Component) {
 
 /* harmony default export */ var video_modal_body = (video_modal_body_VideoModalBody);
 // EXTERNAL MODULE: ./node_modules/react-lines-ellipsis/lib/responsiveHOC.js
-var responsiveHOC = __webpack_require__(131);
+var responsiveHOC = __webpack_require__(129);
 var responsiveHOC_default = /*#__PURE__*/__webpack_require__.n(responsiveHOC);
 
 // CONCATENATED MODULE: ./src/video/video-description.js
@@ -10552,7 +10624,7 @@ var video_VideoContainer = /*#__PURE__*/function (_React$Component) {
 
 
 
-var _Promise = typeof Promise === 'undefined' ? __webpack_require__(89).Promise : Promise;
+var _Promise = typeof Promise === 'undefined' ? __webpack_require__(87).Promise : Promise;
 
 
 
@@ -10677,10 +10749,10 @@ var chat_Chat = /*#__PURE__*/function (_React$Component) {
 
 /* harmony default export */ var chat = (chat_Chat);
 // EXTERNAL MODULE: ./src/detail-tiles/utils/generateTiles.js
-var generateTiles = __webpack_require__(85);
+var generateTiles = __webpack_require__(84);
 
 // EXTERNAL MODULE: ./src/my-account/services/UserDetailsLazy.js
-var UserDetailsLazy = __webpack_require__(70);
+var UserDetailsLazy = __webpack_require__(69);
 
 // CONCATENATED MODULE: ./src/detail-tiles/hooks/useProfile.js
 
@@ -11159,10 +11231,10 @@ var wechat_WeChat = /*#__PURE__*/function (_React$Component) {
 /* harmony default export */ var wechat = (wechat_WeChat);
 
 // EXTERNAL MODULE: ./node_modules/react-router-dom/es/HashRouter.js
-var HashRouter = __webpack_require__(505);
+var HashRouter = __webpack_require__(499);
 
 // EXTERNAL MODULE: ./node_modules/react-router-dom/es/Switch.js + 1 modules
-var Switch = __webpack_require__(507);
+var Switch = __webpack_require__(501);
 
 // CONCATENATED MODULE: ./src/my-account/routes.js
 /* harmony default export */ var routes = ({
@@ -11202,10 +11274,10 @@ var Switch = __webpack_require__(507);
   }
 });
 // EXTERNAL MODULE: ./node_modules/react-router-dom/es/Link.js
-var es_Link = __webpack_require__(504);
+var es_Link = __webpack_require__(498);
 
 // EXTERNAL MODULE: ./src/typography/title.js
-var typography_title = __webpack_require__(86);
+var typography_title = __webpack_require__(85);
 
 // CONCATENATED MODULE: ./src/my-account/components/breadcrumb.js
 
@@ -11746,6 +11818,7 @@ var history_services_HistoryService = /*#__PURE__*/function () {
 
 
 
+
 var delivery_status_DeliveryStatus = /*#__PURE__*/function (_Component) {
   Object(inherits["a" /* default */])(DeliveryStatus, _Component);
 
@@ -11792,46 +11865,46 @@ var delivery_status_DeliveryStatus = /*#__PURE__*/function (_Component) {
       var deliveryStatusClass = '';
 
       switch (status) {
-        case "Pending":
+        case constants["b" /* DELIVERY_STATUS */].PENDING:
           deliveryStatus = labels.pendingLabel;
           icon = icons.pendingIcon;
           break;
 
-        case "Quote Replaced":
+        case constants["b" /* DELIVERY_STATUS */].QUOTE_REPLACED:
           deliveryStatus = labels.quoteReplacedLabel;
           icon = icons.replacedIcon;
           break;
 
-        case "Rejected":
+        case constants["b" /* DELIVERY_STATUS */].REJECTED:
           deliveryStatus = labels.rejectedLabel;
           icon = icons.rejectedIcon;
           iconClassName = "rejected-icon";
           break;
 
-        case "Expired":
+        case constants["b" /* DELIVERY_STATUS */].EXPIRED:
           deliveryStatus = labels.expiredLabel;
           icon = icons.expiredIcon;
           iconClassName = "delivery-icon-disabled";
           deliveryStatusClass = "disabled";
           break;
 
-        case "Order Placed":
+        case constants["b" /* DELIVERY_STATUS */].ORDER_PLACED:
           deliveryStatus = labels.orderPlacedLabel;
           icon = icons.orderPlacedIcon;
           iconClassName = "delivery-icon-complete";
           break;
 
-        case "Open":
+        case constants["b" /* DELIVERY_STATUS */].OPEN:
           deliveryStatus = labels.openLabel;
           icon = icons.openIcon;
           break;
 
-        case "Partial":
+        case constants["b" /* DELIVERY_STATUS */].PARTIAL:
           deliveryStatus = labels.partialLabel;
           icon = icons.partialIcon;
           break;
 
-        case "Complete":
+        case constants["b" /* DELIVERY_STATUS */].COMPLETE:
           if (shipped.shippedDate && shipped.shippedDate !== "") {
             deliveryStatus = labels.completeShippedLabel + " " + shipped.shippedDate;
           } else {
@@ -11903,10 +11976,10 @@ delivery_status_DeliveryStatus.defaultProps = {
 };
 /* harmony default export */ var delivery_status = (delivery_status_DeliveryStatus);
 // EXTERNAL MODULE: ./src/utils/date-formatter/index.js
-var date_formatter = __webpack_require__(48);
+var date_formatter = __webpack_require__(65);
 
 // EXTERNAL MODULE: ./src/utils/get-locale/index.js
-var get_locale = __webpack_require__(49);
+var get_locale = __webpack_require__(66);
 
 // CONCATENATED MODULE: ./src/history/components/order-list-item.js
 
@@ -12085,7 +12158,7 @@ var filter_dropdown_FilterDropdown = function FilterDropdown(props) {
 
 /* harmony default export */ var filter_dropdown = (filter_dropdown_FilterDropdown);
 // EXTERNAL MODULE: ./src/scripts/fade-x.js
-var fade_x = __webpack_require__(74);
+var fade_x = __webpack_require__(73);
 
 // CONCATENATED MODULE: ./src/navigation/tabs/index.js
 
@@ -12620,38 +12693,37 @@ var getOrderDetails = /*#__PURE__*/function () {
   };
 }();
 var getQuoteDetails = /*#__PURE__*/function () {
-  var _ref3 = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee3(endpoint, id, setError) {
-    var url, response, responseBody;
+  var _ref3 = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee3(endpoint, setError) {
+    var response, responseBody;
     return regenerator_default.a.wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
-            url = endpoint + "/" + id;
-            _context3.next = 3;
-            return details_services_getData(url);
+            _context3.next = 2;
+            return details_services_getData(endpoint);
 
-          case 3:
+          case 2:
             response = _context3.sent;
-            _context3.next = 6;
+            _context3.next = 5;
             return response.json();
 
-          case 6:
+          case 5:
             responseBody = _context3.sent;
 
             if (!(response.status === 200)) {
-              _context3.next = 11;
+              _context3.next = 10;
               break;
             }
 
             return _context3.abrupt("return", responseBody);
 
-          case 11:
+          case 10:
             setError({
               status: response.status,
               code: responseBody.code
             });
 
-          case 12:
+          case 11:
           case "end":
             return _context3.stop();
         }
@@ -12659,7 +12731,7 @@ var getQuoteDetails = /*#__PURE__*/function () {
     }, _callee3);
   }));
 
-  return function getQuoteDetails(_x5, _x6, _x7) {
+  return function getQuoteDetails(_x5, _x6) {
     return _ref3.apply(this, arguments);
   };
 }();
@@ -12714,7 +12786,7 @@ var getItemDetails = /*#__PURE__*/function () {
     }, _callee4);
   }));
 
-  return function getItemDetails(_x8, _x9, _x10, _x11) {
+  return function getItemDetails(_x7, _x8, _x9, _x10) {
     return _ref4.apply(this, arguments);
   };
 }();
@@ -12819,6 +12891,8 @@ details_list_item_DetailsListItem.defaultProps = {
 
 
 
+
+
 var shipment_Shipment = /*#__PURE__*/function (_Component) {
   Object(inherits["a" /* default */])(Shipment, _Component);
 
@@ -12830,11 +12904,11 @@ var shipment_Shipment = /*#__PURE__*/function (_Component) {
     _this = Object(possibleConstructorReturn["a" /* default */])(this, Object(getPrototypeOf["a" /* default */])(Shipment).call(this, props));
 
     _this.ifShipped = function () {
-      var deliveryStatus = "Open";
+      var deliveryStatus = constants["b" /* DELIVERY_STATUS */].OPEN;
       var shippedDate = _this.props.data[0].shippedDate;
 
       if (shippedDate !== "" && shippedDate !== "0000-00-00") {
-        deliveryStatus = "Complete";
+        deliveryStatus = constants["b" /* DELIVERY_STATUS */].COMPLETE;
       }
 
       return deliveryStatus;
@@ -12882,6 +12956,37 @@ var shipment_Shipment = /*#__PURE__*/function (_Component) {
       return false;
     };
 
+    _this.getDetailsItemData = function () {
+      var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      var _this$props$isQuoteDe = _this.props.isQuoteDetails,
+          isQuoteDetails = _this$props$isQuoteDe === void 0 ? false : _this$props$isQuoteDe;
+      var item = data;
+
+      if (isQuoteDetails && data) {
+        var _data$product = data.product,
+            product = _data$product === void 0 ? {} : _data$product,
+            _data$totalPrice = data.totalPrice,
+            totalPrice = _data$totalPrice === void 0 ? {} : _data$totalPrice,
+            quantity = data.quantity;
+        var code = product.code,
+            name = product.name,
+            sKUPageUrl = product.sKUPageUrl,
+            imageUrl = product.imageUrl;
+        var formattedValue = totalPrice.formattedValue;
+        item = {
+          materialNumber: code,
+          title: name,
+          materialDecription: name,
+          url: sKUPageUrl,
+          thumbnail: imageUrl,
+          unitPrice: formattedValue,
+          orderedQuantity: quantity
+        };
+      }
+
+      return item;
+    };
+
     _this.userLocale = get_locale["a" /* default */].getLocale();
     _this.skuConfig = JSON.parse(document.getElementById('commerce-configs-json').innerHTML);
     return _this;
@@ -12897,19 +13002,32 @@ var shipment_Shipment = /*#__PURE__*/function (_Component) {
           totalShipments = _this$props.totalShipments,
           shipment = _this$props.shipment,
           icons = _this$props.icons,
-          data = _this$props.data,
-          totalItemsOrdered = _this$props.totalItemsOrdered;
+          totalItems = _this$props.totalItems,
+          totalItemsOrdered = _this$props.totalItemsOrdered,
+          resultsText = _this$props.resultsText,
+          noResultsFoundTitle = _this$props.noResultsFoundTitle,
+          _this$props$isQuoteDe2 = _this$props.isQuoteDetails,
+          isQuoteDetails = _this$props$isQuoteDe2 === void 0 ? false : _this$props$isQuoteDe2;
       return react_default.a.createElement("div", {
         className: "order-shipment"
-      }, react_default.a.createElement("div", {
+      }, isQuoteDetails && react_default.a.createElement("div", {
+        className: "showing-item-counter",
+        "data-locator": "quote-showing-item-count-header"
+      }, react_default.a.createElement(count_header, {
+        rows: totalItems,
+        count: totalItems,
+        current: 1,
+        resultsText: resultsText,
+        noResultsText: noResultsFoundTitle
+      })), react_default.a.createElement("div", {
         className: "order-shipment-header"
       }, react_default.a.createElement("div", {
         className: "order-shipment-header__left"
-      }, totalShipments > 1 && react_default.a.createElement("div", {
+      }, totalShipments > 1 && !isQuoteDetails && react_default.a.createElement("div", {
         className: "order-shipment-header__shipment-count"
       }, shipment.shipmentText + " " + shipmentNumber), react_default.a.createElement("div", {
         className: "order-shipment-header__item-count"
-      }, this.renderItemCount(totalItemsOrdered, shipment))), react_default.a.createElement("div", {
+      }, this.renderItemCount(totalItemsOrdered, shipment))), !isQuoteDetails && react_default.a.createElement("div", {
         className: "order-shipment-header__right"
       }, react_default.a.createElement(delivery_status, {
         status: this.ifShipped(),
@@ -12917,11 +13035,12 @@ var shipment_Shipment = /*#__PURE__*/function (_Component) {
         icons: icons,
         shipped: this.orderShipped()
       }))), react_default.a.createElement("div", {
-        className: ""
+        className: "details-item-tiles-section",
+        "data-locator": "details-item-section"
       }, this.props.data.map(function (record, index) {
         return react_default.a.createElement(details_list_item, {
           key: index,
-          relatedSku: record,
+          relatedSku: _this2.getDetailsItemData(record),
           skuConfig: _this2.skuConfig
         });
       })));
@@ -12936,14 +13055,15 @@ shipment_Shipment.defaultProps = {
   shipment: {},
   icons: {},
   shipmentNumber: 1,
-  totalShipments: 1
+  totalShipments: 1,
+  isQuoteDetails: false
 };
 /* harmony default export */ var components_shipment = (shipment_Shipment);
 // EXTERNAL MODULE: ./src/utils/get-isocode/index.js
-var get_isocode = __webpack_require__(87);
+var get_isocode = __webpack_require__(130);
 
 // EXTERNAL MODULE: ./src/utils/group-by/index.js
-var group_by = __webpack_require__(68);
+var group_by = __webpack_require__(101);
 
 // CONCATENATED MODULE: ./src/details/order-details/index.js
 
@@ -13453,6 +13573,7 @@ var order_details_ErrorBoundaryOrderDetails = function ErrorBoundaryOrderDetails
 
 
 
+
 var quote_list_item_QuoteListItem = /*#__PURE__*/function (_Component) {
   Object(inherits["a" /* default */])(QuoteListItem, _Component);
 
@@ -13491,9 +13612,9 @@ var quote_list_item_QuoteListItem = /*#__PURE__*/function (_Component) {
           quoteExpirationDate = data.quoteExpirationDate,
           totalPriceFormatted = data.totalPriceFormatted,
           quoteStatus = data.quoteStatus;
-      var showExpireDate = !!(quoteStatus === 'Pending' || quoteStatus === 'Quote Replaced' || quoteStatus === 'Rejected' || quoteStatus === 'Open');
-      var showOrderNumber = !!(quoteStatus === 'Order Placed');
-      var showQuoteAgainBtn = !!(quoteStatus === 'Expired');
+      var showExpireDate = !!(quoteStatus === constants["b" /* DELIVERY_STATUS */].PENDING || quoteStatus === constants["b" /* DELIVERY_STATUS */].QUOTE_REPLACED || quoteStatus === constants["b" /* DELIVERY_STATUS */].REJECTED || quoteStatus === constants["b" /* DELIVERY_STATUS */].OPEN);
+      var showOrderNumber = !!(quoteStatus === constants["b" /* DELIVERY_STATUS */].ORDER_PLACED);
+      var showQuoteAgainBtn = !!(quoteStatus === constants["b" /* DELIVERY_STATUS */].EXPIRED);
       return react_default.a.createElement("div", {
         className: "cmp-order-list__container"
       }, react_default.a.createElement("div", {
@@ -13968,12 +14089,6 @@ var quote_history_QuoteHistory = /*#__PURE__*/function (_Component) {
 
 
 
-
-
-
-
-
-
 var quote_details_QuoteDetails = /*#__PURE__*/function (_Component) {
   Object(inherits["a" /* default */])(QuoteDetails, _Component);
 
@@ -14036,177 +14151,172 @@ var quote_details_QuoteDetails = /*#__PURE__*/function (_Component) {
       }
     };
 
-    _this.getShipmentList = function (airbills, quoteDetails) {
-      var shipments = [];
-
-      for (var i = 0; i < Object.keys(airbills).length; i++) {
-        var values = Object.values(airbills)[i];
-        shipments.push(react_default.a.createElement(components_shipment, {
-          data: values,
-          shipment: _this.props.config.shipment,
-          icons: _this.props.config.icons,
-          shipmentNumber: i + 1,
-          totalShipments: Object.keys(airbills).length,
-          addToCartReorder: _this.addToCartReorder,
-          totalItemsOrdered: quoteDetails.totalItemsOrdered
-        }));
-      }
-
-      return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("hr", {
-        className: "order-shipment-list__hr"
-      }), Object.keys(airbills).length > 0 && shipments);
-    };
-
-    _this.addReorderAnalytics = function (response) {
-      var localStore = new stores_localStore["a" /* default */]();
-      var cartId = loginStatus["a" /* default */].state() ? localStore.getCartId() : localStore.getGUID();
-      var cartModifications = response.cartModifications;
-      var items = {};
-
-      if (cartModifications) {
-        items = cartModifications.map(function (item) {
-          return {
-            "sku": item.entry.product.code,
-            "qty": item.quantityAdded
-          };
-        });
-      }
-
-      var reOrderModel = {
-        detail: {
-          cartId: cartId,
-          "addContext": analytics["a" /* analyticTypes */]["reOrder"].context,
-          items: items
-        }
-      };
-      analytics["b" /* default */].setAnalytics(analytics["a" /* analyticTypes */]["reOrder"].name, reOrderModel);
-    };
-
-    _this.addToCartReorder = function (e) {
-      e.preventDefault();
-      var _this$state = _this.state,
-          isCommerceApiMigrated = _this$state.isCommerceApiMigrated,
-          addToCartUrl = _this$state.addToCartUrl,
-          reorderData = _this$state.reorderData;
-      addToCart(isCommerceApiMigrated, addToCartUrl, reorderData, null, _this.setError).then(function (response) {
-        // Redirect if at least one item was successfully added to the cart
-        if (response && response.cartModifications && response.cartModifications.length) {
-          _this.addReorderAnalytics(response);
-
-          window.location.href = _this.state.viewCartUrl;
-        } else {
-          _this.toggleModal();
-
-          response && response.errors && _this.setState({
-            errorCartErrors: response.errors
-          });
-
-          _this.setError(response);
-
-          _this.setState({
-            errorServiceError: false
-          });
-        }
-      })["catch"](function (err) {
-        _this.toggleModal();
-
-        _this.setState({
-          errorServiceError: false
-        });
-      });
-    };
-
     _this.config = document.getElementById('json-config--cmp-detail-tiles--personal') ? JSON.parse(document.getElementById('json-config--cmp-detail-tiles--personal').innerHTML) : '';
 
-    _this.renderAddress = function (addressType) {
-      var quoteDetails = _this.state.quoteDetails;
+    _this.renderAddress = function () {
+      var address = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
-      if (quoteDetails.account) {
-        var account = quoteDetails.account.filter(function (item) {
-          return item.partnerType === addressType;
-        })[0];
-
-        if (account) {
-          var includeCountryName = true;
-          var addressArray = Object(userFunctions["p" /* getOrderDetailsAddress */])(account, includeCountryName);
-          return react_default.a.createElement(react_default.a.Fragment, null, addressArray.map(function (addressLine) {
-            return react_default.a.createElement("div", {
-              className: "".concat(_this.rootStyle, "-address1"),
-              "data-locator": "order-details-address"
-            }, addressLine);
-          }));
-        }
+      if (address) {
+        var addressArray = Object(userFunctions["l" /* getFullCompanyAddress */])(address, false);
+        return react_default.a.createElement(react_default.a.Fragment, null, addressArray.map(function (addressLine) {
+          return react_default.a.createElement("div", {
+            className: "".concat(_this.rootStyle, "-address1"),
+            "data-locator": "order-details-address"
+          }, addressLine);
+        }));
       }
-
-      return null;
     };
 
     _this.renderItemCount = function () {
-      var quoteDetails = _this.state.quoteDetails;
+      var totalItemsCount = _this.state.totalItemsCount;
       var label = "";
 
-      if (quoteDetails && quoteDetails.totalItemsOrdered) {
-        if (parseInt(quoteDetails.totalItemsOrdered) > 1) {
+      if (totalItemsCount > 0) {
+        if (totalItemsCount > 1) {
           label = _this.props.config.items;
-        } else if (parseInt(quoteDetails.totalItemsOrdered) === 1) {
+        } else if (totalItemsCount === 1) {
           label = _this.props.config.item;
         }
 
-        var itemCountLabel = " (" + quoteDetails.totalItemsOrdered + " " + label + ")";
+        var itemCountLabel = " (" + totalItemsCount + " " + label + ")";
         return itemCountLabel;
       } else {
         return label;
       }
     };
 
-    _this.renderReorderButton = function () {
-      return react_default.a.createElement("a", {
+    _this.renderReorderButton = function (className) {
+      var quoteDetails = _this.state.quoteDetails;
+      var quoteStatus = quoteDetails.quoteStatus;
+      return !!(quoteStatus === constants["b" /* DELIVERY_STATUS */].OPEN || quoteStatus === constants["b" /* DELIVERY_STATUS */].PENDING) && react_default.a.createElement("div", {
+        className: className,
+        "data-locator": "quote-details-reorder"
+      }, react_default.a.createElement("a", {
         className: "cmp-button",
         href: "/#"
-      }, _this.props.config.reorderTitle);
+      }, _this.props.config.reorderTitle));
+    };
+
+    _this.renderQuoteAgainButton = function (className) {
+      var quoteDetails = _this.state.quoteDetails;
+      var quoteStatus = quoteDetails.quoteStatus;
+      return quoteStatus === constants["b" /* DELIVERY_STATUS */].EXPIRED && react_default.a.createElement("div", {
+        className: className,
+        "data-locator": "quote-details-quote-again-cta"
+      }, react_default.a.createElement("a", {
+        className: "cmp-button",
+        href: "/#"
+      }, _this.props.config.quoteAgainTitle));
+    };
+
+    _this.getValue = function (data, attribute) {
+      var defaultValue = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : undefined;
+      var value = defaultValue;
+
+      if (data) {
+        value = data[attribute];
+      }
+
+      return value;
     };
 
     _this.renderDetailsSection = function () {
-      var _this$state2 = _this.state,
-          quoteDetails = _this$state2.quoteDetails,
-          userLocale = _this$state2.userLocale;
+      var quoteDetails = _this.state.quoteDetails;
       var config = _this.props.config;
+      var created = config.created,
+          expires = config.expires,
+          shipTo = config.shipTo,
+          billTo = config.billTo,
+          savings = config.savings,
+          shipping = config.shipping,
+          tax = config.tax,
+          totalLabel = config.totalLabel,
+          shipment = config.shipment,
+          icons = config.icons;
+      var quoteId = quoteDetails.quoteId,
+          quoteCreationDate = quoteDetails.quoteCreationDate,
+          quoteExpirationDate = quoteDetails.quoteExpirationDate,
+          subTotal = quoteDetails.subTotal,
+          totalShippingAndHandling = quoteDetails.totalShippingAndHandling,
+          totalDiscounts = quoteDetails.totalDiscounts,
+          totalTax = quoteDetails.totalTax,
+          totalPrice = quoteDetails.totalPrice,
+          shipToInfo = quoteDetails.shipToInfo,
+          billToInfo = quoteDetails.billToInfo,
+          quoteStatus = quoteDetails.quoteStatus,
+          orderNumber = quoteDetails.orderNumber,
+          replacedQuoteNumber = quoteDetails.replacedQuoteNumber;
       var notZeroDiscountFlag = parseFloat(quoteDetails.orderDiscountValue) !== 0 ? true : false;
+
+      var subTotalValue = _this.getValue(subTotal, 'formattedValue');
+
+      var ShippingAndHandlingValue = _this.getValue(totalShippingAndHandling, 'formattedValue');
+
+      var totalDiscountsValue = _this.getValue(totalDiscounts, 'formattedValue');
+
+      var totalTaxValue = _this.getValue(totalTax, 'formattedValue');
+
+      var totalPriceValue = _this.getValue(totalPrice, 'formattedValue');
+
+      var showExpireDate = !!(quoteStatus === constants["b" /* DELIVERY_STATUS */].PENDING || quoteStatus === constants["b" /* DELIVERY_STATUS */].REJECTED || quoteStatus === constants["b" /* DELIVERY_STATUS */].OPEN);
+      var quoteNumber = quoteStatus === constants["b" /* DELIVERY_STATUS */].QUOTE_REPLACED ? replacedQuoteNumber : quoteId;
+      var showNewDetailsLinkSection = quoteStatus === constants["b" /* DELIVERY_STATUS */].QUOTE_REPLACED || quoteStatus === constants["b" /* DELIVERY_STATUS */].ORDER_PLACED;
+      var newItemUrl = quoteStatus === constants["b" /* DELIVERY_STATUS */].ORDER_PLACED ? "#orderdetails?id=".concat(orderNumber) : "#quotedetails?id=".concat(quoteId);
       return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__container")
       }, react_default.a.createElement("h2", {
         className: "".concat(_this.rootStyle, "__title"),
         "data-locator": "product-title"
-      }, config.quoteDetails), react_default.a.createElement("div", {
+      }, config.detailsTitle), showNewDetailsLinkSection && react_default.a.createElement("div", {
+        className: "".concat(_this.rootStyle, "__new-details-link-text")
+      }, react_default.a.createElement("div", {
+        className: "new-details-link-section"
+      }, react_default.a.createElement("a", {
+        href: newItemUrl
+      }, react_default.a.createElement("div", {
+        className: "new-details-icon"
+      }, react_default.a.createElement(react_svg["a" /* default */], {
+        src: config.icons.newQuoteOrderIcon
+      })), quoteStatus === constants["b" /* DELIVERY_STATUS */].QUOTE_REPLACED && react_default.a.createElement("div", {
+        className: "new-details-text",
+        "data-locator": "delivery-text"
+      }, "".concat(config.newQuote).concat(quoteId)), quoteStatus === constants["b" /* DELIVERY_STATUS */].ORDER_PLACED && react_default.a.createElement("div", {
+        className: "new-details-text",
+        "data-locator": "delivery-text"
+      }, "".concat(config.orderNumberText).concat(orderNumber)))), quoteStatus && quoteStatus === constants["b" /* DELIVERY_STATUS */].ORDER_PLACED && react_default.a.createElement("div", {
+        className: "new-details-status-icon"
+      }, react_default.a.createElement(delivery_status, {
+        status: quoteStatus,
+        labels: shipment,
+        icons: icons
+      }), " ")), react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__order-info")
       }, react_default.a.createElement("h3", {
         className: "".concat(_this.rootStyle, "__order-number"),
         "data-locator": "product-number"
-      }, config.numberLabel + ": " + quoteDetails.orderNumber), react_default.a.createElement("div", {
+      }, config.numberLabel + ": " + quoteNumber)), react_default.a.createElement("div", {
+        className: "".concat(_this.rootStyle, "__order-summary")
+      }, quoteStatus && quoteStatus !== constants["b" /* DELIVERY_STATUS */].ORDER_PLACED && react_default.a.createElement(delivery_status, {
+        status: quoteStatus,
+        labels: shipment,
+        icons: icons
+      })), react_default.a.createElement("div", {
+        className: "".concat(_this.rootStyle, "__order-info")
+      }, quoteCreationDate && react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__order-date"),
         "data-locator": "order-date"
-      }, date_formatter["a" /* default */].dateFormatter(quoteDetails.date, userLocale)), react_default.a.createElement("div", {
+      }, "".concat(created, " ").concat(quoteCreationDate)), showExpireDate && quoteExpirationDate && react_default.a.createElement("div", {
+        className: "".concat(_this.rootStyle, "__order-date"),
+        "data-locator": "order-date"
+      }, "".concat(expires, " ").concat(quoteExpirationDate)), react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__address-container")
-      }, react_default.a.createElement("div", {
+      }, shipToInfo && react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__ship-to"),
         "data-locator": "ship-to"
-      }, react_default.a.createElement("h4", null, config.shipTo), _this.renderAddress("shipping")), react_default.a.createElement("div", {
+      }, react_default.a.createElement("h4", null, shipTo), _this.renderAddress(shipToInfo)), billToInfo && react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__bill-to"),
         "data-locator": "bill-to"
-      }, react_default.a.createElement("h4", null, config.billTo), _this.renderAddress("billing"))), react_default.a.createElement("div", {
-        className: "".concat(_this.rootStyle, "__payment-container")
-      }, react_default.a.createElement("div", {
-        className: "".concat(_this.rootStyle, "__payment-method"),
-        "data-locator": "payment-method"
-      }, react_default.a.createElement("h4", null, config.paymentMethod), quoteDetails.ccNum && react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement(react_svg["a" /* default */], {
-        src: config.paymentType.creditCard.icon
-      }), react_default.a.createElement("div", {
-        className: "text"
-      }, config.paymentType.creditCard.label)), !quoteDetails.ccNum && quoteDetails.purchaseOrderNumber && react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement(react_svg["a" /* default */], {
-        src: config.paymentType.purchaseOrder.icon
-      }), react_default.a.createElement("div", {
-        className: "text"
-      }, config.paymentType.purchaseOrder.label, ": ", quoteDetails.purchaseOrderNumber))))), react_default.a.createElement("div", {
+      }, react_default.a.createElement("h4", null, billTo), _this.renderAddress(billToInfo)))), react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__order-summary"),
         "data-locator": "order-summary"
       }, react_default.a.createElement("h4", null, config.summaryTitle), react_default.a.createElement("div", {
@@ -14217,42 +14327,39 @@ var quote_details_QuoteDetails = /*#__PURE__*/function (_Component) {
       }, config.subTotal, " ", _this.renderItemCount()), react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__order-subtotal_right"),
         "data-locator": "order-subtotal-right"
-      }, quoteDetails.itemsSubTotal)), notZeroDiscountFlag && react_default.a.createElement("div", {
+      }, subTotalValue)), notZeroDiscountFlag && react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__order-savings")
       }, react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__order-savings_left"),
         "data-locator": "order-savings-left"
-      }, config.savings), react_default.a.createElement("div", {
+      }, savings), react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__order-savings_right"),
         "data-locator": "order-savings-right"
-      }, config.minusSign, quoteDetails.orderDiscount)), react_default.a.createElement("div", {
+      }, config.minusSign, totalDiscountsValue)), react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__order-shipping")
       }, react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__order-shipping_left"),
         "data-locator": "order-shipping-left"
-      }, config.shipping), react_default.a.createElement("div", {
+      }, shipping), react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__order-shipping_right"),
         "data-locator": "order-shipping-right"
-      }, quoteDetails.shippingAmount)), react_default.a.createElement("div", {
+      }, ShippingAndHandlingValue)), react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__order-tax")
       }, react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__order-tax_left"),
         "data-locator": "order-tax-left"
-      }, config.tax), react_default.a.createElement("div", {
+      }, tax), react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__order-tax_right"),
         "data-locator": "order-tax-right"
-      }, quoteDetails.taxAmount)), react_default.a.createElement("div", {
+      }, totalTaxValue)), react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__order-total")
       }, react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__order-total_left"),
         "data-locator": "order-total-left"
-      }, config.totalLabel), react_default.a.createElement("div", {
+      }, totalLabel), react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__order-total_right"),
         "data-locator": "order-total-right"
-      }, react_default.a.createElement("h1", null, quoteDetails.orderTotal))), _this.state.isCommerceApiMigrated && react_default.a.createElement("div", {
-        className: "".concat(_this.rootStyle, "__reorder"),
-        "data-locator": "order-details-reorder"
-      }, _this.renderReorderButton()))));
+      }, react_default.a.createElement("h1", null, totalPriceValue))), _this.renderReorderButton("".concat(_this.rootStyle, "__reorder")), _this.renderQuoteAgainButton("".concat(_this.rootStyle, "__reorder")))));
     };
 
     _this.renderNotFoundError = function () {
@@ -14263,38 +14370,44 @@ var quote_details_QuoteDetails = /*#__PURE__*/function (_Component) {
     };
 
     _this.renderOrderShipmentList = function () {
-      var _this$state3 = _this.state,
-          airbills = _this$state3.airbills,
-          quoteDetails = _this$state3.quoteDetails;
-      return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("div", {
-        className: "cmp-order-details__order-shipment-list",
-        "data-locator": "order-shipment-list"
-      }, Object.keys(airbills).length > 0 && _this.getShipmentList(airbills, quoteDetails)), _this.state.isCommerceApiMigrated && react_default.a.createElement("div", {
-        className: "order-shipment__reorder",
-        "data-locator": "order-shipment-reorder"
-      }, _this.renderReorderButton()));
+      var _this$state = _this.state,
+          quoteDetails = _this$state.quoteDetails,
+          totalItemsCount = _this$state.totalItemsCount;
+      var _quoteDetails$entries = quoteDetails.entries,
+          entries = _quoteDetails$entries === void 0 ? [] : _quoteDetails$entries;
+
+      if (entries && entries.length > 0) {
+        return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("div", {
+          className: "cmp-order-details__order-shipment-list",
+          "data-locator": "order-shipment-list"
+        }, react_default.a.createElement("hr", {
+          className: "order-shipment-list__hr"
+        }), react_default.a.createElement(components_shipment, {
+          data: entries,
+          shipment: _this.props.config.shipment,
+          icons: _this.props.config.icons,
+          resultsText: _this.props.config.resultsText,
+          noResultsFoundTitle: _this.props.noResultsFoundTitle,
+          totalItemsOrdered: totalItemsCount,
+          totalItems: entries.length,
+          isQuoteDetails: true
+        })), _this.renderReorderButton("order-shipment__reorder"), _this.renderQuoteAgainButton("order-shipment__reorder"));
+      } else {
+        return null;
+      }
     };
 
     _this.state = {
       quoteId: _this.getUrlParameter("id"),
-      userLocale: get_locale["a" /* default */].getLocale(),
-      userIsocode: get_isocode["a" /* default */].getIsocode(),
       detailsUrl: props.config.fetchDetailsEndPoint,
       itemsUrl: props.config.fetchItemsEndPoint,
-      reorderUrl: props.config.fetchReorderUrlEndPoint,
       quoteDetails: {},
-      reorderData: [],
-      airbills: {},
-      skusSoldCount: 0,
       errorServiceError: false,
       errorOrderNotFound: false,
       isLoading: true,
       modalShown: false,
       modalConfig: props.config.modalInfo,
-      isCommerceApiMigrated: false,
-      addToCartUrl: '',
-      viewCartUrl: '',
-      errorCartErrors: []
+      totalItemsCount: 0
     };
     return _this;
   }
@@ -14305,87 +14418,44 @@ var quote_details_QuoteDetails = /*#__PURE__*/function (_Component) {
       var _componentDidMount = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee() {
         var _this2 = this;
 
-        var commerceConfig, buttons, updatedModalConfig, _this$state4, detailsUrl, itemsUrl, quoteId, userIsocode;
+        var _this$state2, detailsUrl, quoteId, userId, soldToId, countryCode, language, url;
 
         return regenerator_default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                commerceConfig = JSON.parse(document.getElementById('commerce-configs-json').innerHTML);
+                _this$state2 = this.state, detailsUrl = _this$state2.detailsUrl, quoteId = _this$state2.quoteId;
+                userId = Object(userFunctions["r" /* getUserId */])();
+                soldToId = Object(userFunctions["q" /* getSoldToId */])() || Object(userFunctions["i" /* getDummySoldToId */])();
+                countryCode = Object(userFunctions["f" /* getCountryCode */])();
+                language = Object(userFunctions["o" /* getLanguage */])();
+                url = "".concat(detailsUrl, "/").concat(quoteId, "?soldToId=").concat(soldToId, "&userId=").concat(userId, "&countryCode=").concat(countryCode, "&language=").concat(language, "&fields=FULL");
+                getQuoteDetails(url, this.setError).then(function (data) {
+                  var quotes = data && data.quotes || undefined;
+                  var totalItemsCount = 0;
 
-                if (commerceConfig) {
-                  this.setState({
-                    isCommerceApiMigrated: JSON.parse(commerceConfig.isCommerceApiMigrated.toLowerCase()),
-                    addToCartUrl: commerceConfig.addToCartUrl,
-                    viewCartUrl: commerceConfig.viewCartUrl
-                  });
-
-                  if (commerceConfig.isCommerceApiMigrated.toLowerCase() === 'true') {
-                    // Update modal config button with a callback and new cart url
-                    buttons = Object(toConsumableArray["a" /* default */])(this.state.modalConfig.buttons);
-                    buttons[0] = Object(objectSpread["a" /* default */])({}, buttons[0], {
-                      action: commerceConfig.viewCartUrl,
-                      callback: this.addToCartReorder
-                    });
-                    updatedModalConfig = Object(objectSpread["a" /* default */])({}, this.state.modalConfig, {
-                      buttons: buttons
-                    });
-                    this.setState({
-                      modalConfig: updatedModalConfig
-                    });
-                  }
-                }
-
-                _this$state4 = this.state, detailsUrl = _this$state4.detailsUrl, itemsUrl = _this$state4.itemsUrl, quoteId = _this$state4.quoteId, userIsocode = _this$state4.userIsocode;
-                getQuoteDetails(detailsUrl, quoteId, this.setError).then(function (data) {
-                  if (data && data.account && data.account.length) {
-                    // Add Country Names to data
-                    data.account.map(function (account) {
-                      var countryName = Object(userFunctions["g" /* getCountryName */])(account.country, _this2.config);
-                      account.countryName = countryName;
-                      account.state = account.region;
+                  if (quotes) {
+                    var _quotes$entries = quotes.entries,
+                        entries = _quotes$entries === void 0 ? [] : _quotes$entries;
+                    Array.isArray(entries) && entries.length > 0 && entries.map(function (item) {
+                      totalItemsCount = totalItemsCount + parseInt(item.quantity);
                     });
 
                     _this2.setState({
                       isLoading: false,
-                      quoteDetails: data
-                    });
-
-                    var reorderData = data.lineItems.map(function (item) {
-                      return {
-                        code: item.materialNumber,
-                        quantity: item.orderedQuantity
-                      };
-                    });
-
-                    _this2.setState({
-                      reorderData: Object(toConsumableArray["a" /* default */])(reorderData)
-                    });
-
-                    getItemDetails(itemsUrl, data.lineItems, _this2.setError, userIsocode).then(function (itemData) {
-                      if (itemData && itemData.documents && itemData.documents.length) {
-                        var mergedAPIs = matchLineItems(data, itemData.documents);
-
-                        _this2.setState({
-                          airbills: group_by["a" /* default */].groupBy(mergedAPIs.lineItems, 'airbill')
-                        });
-                      } else {
-                        _this2.setState({
-                          airbills: group_by["a" /* default */].groupBy(data.lineItems, 'airbill')
-                        });
-                      }
-
-                      _this2.setAnalytics('load');
+                      quoteDetails: quotes,
+                      totalItemsCount: totalItemsCount
                     });
                   } else {
                     _this2.setState({
                       errorOrderNotFound: true,
-                      isLoading: false
+                      isLoading: false,
+                      totalItemsCount: totalItemsCount
                     });
                   }
                 });
 
-              case 4:
+              case 7:
               case "end":
                 return _context.stop();
             }
@@ -14408,10 +14478,10 @@ var quote_details_QuoteDetails = /*#__PURE__*/function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this$state5 = this.state,
-          isLoading = _this$state5.isLoading,
-          errorOrderNotFound = _this$state5.errorOrderNotFound,
-          errorServiceError = _this$state5.errorServiceError;
+      var _this$state3 = this.state,
+          isLoading = _this$state3.isLoading,
+          errorOrderNotFound = _this$state3.errorOrderNotFound,
+          errorServiceError = _this$state3.errorServiceError;
       return react_default.a.createElement(react_default.a.Fragment, null, isLoading && react_default.a.createElement(spinner["a" /* default */], {
         loading: isLoading
       }), !isLoading && errorOrderNotFound && this.renderNotFoundError(), !errorOrderNotFound && !errorServiceError && !isLoading && this.renderDetailsSection(), !errorOrderNotFound && !errorServiceError && !isLoading && this.renderOrderShipmentList(), react_default.a.createElement(modal["b" /* default */], {
@@ -14786,14 +14856,14 @@ if (tagCloudContainers) {
   for (var src_i = 0; src_i < tagCloudContainers.length; src_i++) {
     var src_json = JSON.parse(tagCloudContainers[src_i].getAttribute('data-json'));
 
-    var _data = getAuthoredDataForTagCloud(header, tagCloudContainers[src_i]);
+    var _data2 = getAuthoredDataForTagCloud(header, tagCloudContainers[src_i]);
 
     react_dom_default.a.render(react_default.a.createElement(tagcloud, {
-      tagCloudTitle: _data.tagTitle,
-      searchPath: _data.searchPath,
+      tagCloudTitle: _data2.tagTitle,
+      searchPath: _data2.searchPath,
       keywords: src_json,
-      category: _data.category,
-      contentType: _data.contentType
+      category: _data2.category,
+      contentType: _data2.contentType
     }), tagCloudContainers[src_i]);
   }
 }
@@ -15071,17 +15141,17 @@ if (changePasswordContainer) {
 var chatContainer = document.querySelector('.cmp-chat');
 
 if (chatContainer) {
-  var _data2 = getAuthoredDataForChat(chatContainer);
+  var _data3 = getAuthoredDataForChat(chatContainer);
 
   react_dom_default.a.render(react_default.a.createElement(chat, {
-    url: _data2.url,
-    statusApi: _data2.statusApi,
+    url: _data3.url,
+    statusApi: _data3.statusApi,
     countryCode: skuDetailsConfig.countryCode,
-    icon: _data2.icon,
-    availableText: _data2.availableText,
-    unavailableText: _data2.unavailableText,
-    text: _data2.text,
-    buttonText: _data2.buttonText,
+    icon: _data3.icon,
+    availableText: _data3.availableText,
+    unavailableText: _data3.unavailableText,
+    text: _data3.text,
+    buttonText: _data3.buttonText,
     offlineIcon: skuDetailsConfig.skuInfo.outOfStockIcon,
     onlineIcon: skuDetailsConfig.skuInfo.inStockIcon
   }), chatContainer);
@@ -15218,10 +15288,10 @@ if (contactusContainer) {
   }), contactusContainer);
 }
 // EXTERNAL MODULE: ./node_modules/css-vars-ponyfill/dist/css-vars-ponyfill.esm.js
-var css_vars_ponyfill_esm = __webpack_require__(132);
+var css_vars_ponyfill_esm = __webpack_require__(131);
 
 // EXTERNAL MODULE: ./src/scripts/inlineSVG.js + 1 modules
-var inlineSVG = __webpack_require__(58);
+var inlineSVG = __webpack_require__(56);
 
 // CONCATENATED MODULE: ./src/entry.js
 
@@ -15277,14 +15347,14 @@ window.addEventListener('resize', addEllipses);
 
 /***/ }),
 
-/***/ 191:
+/***/ 190:
 /***/ (function(module, exports) {
 
 /* (ignored) */
 
 /***/ }),
 
-/***/ 20:
+/***/ 21:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -15292,14 +15362,14 @@ window.addEventListener('resize', addEllipses);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return parameterValues; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return parameterDefaults; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return searchMapper; });
-/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
-/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
-/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4);
-/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(5);
+/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
+/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
+/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4);
+/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(5);
 /* harmony import */ var whatwg_fetch__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(38);
-/* harmony import */ var _stores_sessionStore__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(15);
-/* harmony import */ var _utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(10);
+/* harmony import */ var _stores_sessionStore__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(14);
+/* harmony import */ var _utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(6);
 
 
 
@@ -15308,7 +15378,7 @@ window.addEventListener('resize', addEllipses);
 
 
 
-var queryString = __webpack_require__(30);
+var queryString = __webpack_require__(29);
 
 var parameterValues = {
   undefined: 'undefined',
@@ -15343,7 +15413,7 @@ var SearchService = /*#__PURE__*/function () {
     var multiselect = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : true;
     var throwError = arguments.length > 6 ? arguments[6] : undefined;
 
-    Object(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(this, SearchService);
+    Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(this, SearchService);
 
     this.getCategories = function (_ref) {
       var _ref$keyword = _ref.keyword,
@@ -15472,9 +15542,9 @@ var SearchService = /*#__PURE__*/function () {
     };
 
     this.getSuggestedKeywords = /*#__PURE__*/function () {
-      var _ref5 = Object(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(rows, term) {
+      var _ref5 = Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(rows, term) {
         var searchString, callService, response;
-        return C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        return C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
@@ -15630,7 +15700,7 @@ var SearchService = /*#__PURE__*/function () {
     this.sessionStore = new _stores_sessionStore__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"]();
   }
 
-  Object(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(SearchService, [{
+  Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(SearchService, [{
     key: "getParamsFromString",
     value: function getParamsFromString() {
       var str = window.location.search;
@@ -15810,7 +15880,7 @@ var searchMapper = {
 
 /***/ }),
 
-/***/ 26:
+/***/ 27:
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
@@ -15818,35 +15888,16 @@ module.exports = {"colorBorderDark":"#9ca7b0","colorGray50":"#4f5b64","colorBack
 
 /***/ }),
 
-/***/ 28:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BAD_REQUEST_CODE; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return SERVER_ERROR_CODE; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return UNAVAILABLE_PRICE_WITH_ADD_TO_CART; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return LIST_PRICE_WITH_ADD_TO_CART; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return NO_PRICE_NO_ADD_TO_CART; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return FILENAME_REGX; });
-var BAD_REQUEST_CODE = 400;
-var SERVER_ERROR_CODE = 500;
-var UNAVAILABLE_PRICE_WITH_ADD_TO_CART = 'unavailable_price_with_add-to-cart';
-var LIST_PRICE_WITH_ADD_TO_CART = 'list_price_with_add-to-cart';
-var NO_PRICE_NO_ADD_TO_CART = 'no_price_no_add-to-cart';
-var FILENAME_REGX = /\*|\/|\?|\!|\<|\>|\"|\||\\|\:/gm;
-
-/***/ }),
-
 /***/ 33:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(12);
-/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6);
+/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(12);
+/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(7);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(0);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _scripts_ErrorMessages__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(67);
-/* harmony import */ var _utils_modal__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(18);
+/* harmony import */ var _utils_modal__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(19);
 /* harmony import */ var _utils_eCommerceFunctions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(11);
 
 
@@ -15869,8 +15920,8 @@ var keys = {
 var AddToCartModalBody = function AddToCartModalBody(props) {
   var errorObjCart = props.errorObjCart;
 
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])(Object(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({}, props.config)),
-      _useState2 = Object(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(_useState, 1),
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])(Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({}, props.config)),
+      _useState2 = Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(_useState, 1),
       state = _useState2[0];
 
   var _useContext = Object(react__WEBPACK_IMPORTED_MODULE_2__["useContext"])(_utils_modal__WEBPACK_IMPORTED_MODULE_4__[/* useModalApi */ "d"]),
@@ -15972,21 +16023,21 @@ AddToCartModalBody.whyDidYouRender = true;
 
 /***/ }),
 
-/***/ 402:
+/***/ 396:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _styles_print_page_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(403);
+/* harmony import */ var _styles_print_page_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(397);
 /* harmony import */ var _styles_print_page_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_styles_print_page_scss__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _entry__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(159);
+/* harmony import */ var _entry__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(160);
 // Print Breaking CSS File
 
 
 
 /***/ }),
 
-/***/ 403:
+/***/ 397:
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
@@ -16014,7 +16065,7 @@ var fetch = __webpack_require__(38);
 
 
 
-var _Promise = typeof Promise === 'undefined' ? __webpack_require__(89).Promise : Promise;
+var _Promise = typeof Promise === 'undefined' ? __webpack_require__(87).Promise : Promise;
 
 
 
@@ -16069,7 +16120,7 @@ var EmailService_EmailService = /*#__PURE__*/function () {
 
 /* harmony default export */ var services_EmailService = (EmailService_EmailService);
 // EXTERNAL MODULE: ./src/forms/fields/utils/fileAttachment.js
-var fileAttachment = __webpack_require__(60);
+var fileAttachment = __webpack_require__(58);
 
 // CONCATENATED MODULE: ./src/forms/fields/patterns/index.js
 
@@ -16348,24 +16399,24 @@ var functions = {
 
 /***/ }),
 
-/***/ 51:
+/***/ 48:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
-/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
+/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
+/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
 /* harmony import */ var whatwg_fetch__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(38);
-/* harmony import */ var _utils_redirectFunctions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(24);
+/* harmony import */ var _utils_redirectFunctions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(25);
 
 
 
 
 
 var getData = /*#__PURE__*/function () {
-  var _ref = Object(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(url) {
+  var _ref = Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(url) {
     var response;
-    return C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+    return C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
@@ -16400,12 +16451,12 @@ var getData = /*#__PURE__*/function () {
 }();
 
 var UserDetails = /*#__PURE__*/function () {
-  var _ref2 = Object(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+  var _ref2 = Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
     var url,
         _response,
         _args2 = arguments;
 
-    return C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+    return C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
@@ -16460,7 +16511,7 @@ var UserDetails = /*#__PURE__*/function () {
 
 /***/ }),
 
-/***/ 62:
+/***/ 60:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -16473,10 +16524,10 @@ var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
 var asyncToGenerator = __webpack_require__(13);
 
 // EXTERNAL MODULE: ./src/scripts/loginStatus.js
-var loginStatus = __webpack_require__(16);
+var loginStatus = __webpack_require__(17);
 
 // EXTERNAL MODULE: ./src/stores/sessionStore.js
-var stores_sessionStore = __webpack_require__(15);
+var stores_sessionStore = __webpack_require__(14);
 
 // EXTERNAL MODULE: ./node_modules/whatwg-fetch/fetch.js
 var whatwg_fetch_fetch = __webpack_require__(38);
@@ -16585,7 +16636,7 @@ var SoldToDetails = /*#__PURE__*/function () {
 
 /* harmony default export */ var services_SoldToDetails = (SoldToDetails);
 // EXTERNAL MODULE: ./src/scripts/domElements.js
-var domElements = __webpack_require__(25);
+var domElements = __webpack_require__(26);
 
 // EXTERNAL MODULE: ./src/utils/eCommerceFunctions.js
 var eCommerceFunctions = __webpack_require__(11);
@@ -16695,30 +16746,30 @@ var eCommerceFunctions = __webpack_require__(11);
 
 /***/ }),
 
-/***/ 70:
+/***/ 69:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
-/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
-/* harmony import */ var _scripts_loginStatus__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(16);
-/* harmony import */ var _stores_sessionStore__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(15);
-/* harmony import */ var _services_UserDetails__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(51);
+/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
+/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
+/* harmony import */ var _scripts_loginStatus__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(17);
+/* harmony import */ var _stores_sessionStore__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(14);
+/* harmony import */ var _services_UserDetails__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(48);
 
 
 
 
 
 /* harmony default export */ __webpack_exports__["a"] = (/*#__PURE__*/(function () {
-  var _ref = Object(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(userDetailsUrl, checkSessionStore) {
+  var _ref = Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(userDetailsUrl, checkSessionStore) {
     var sessionStore,
         service,
         navBarControls,
         userDetails,
         response,
         _args = arguments;
-    return C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+    return C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
