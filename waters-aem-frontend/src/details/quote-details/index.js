@@ -94,16 +94,6 @@ class QuoteDetails extends Component {
         this.getQuoteDetailsData();
     }
 
-    componentWillReceiveProps(){
-        const {quoteId} = this.state;
-        const urlQuoteId = this.getUrlParameter("id");
-        if(quoteId !== urlQuoteId){
-            this.setState({quoteId:urlQuoteId},()=>{
-                this.getQuoteDetailsData();
-            })
-        }
-    }
-
     componentWillUnmount() {
         this.props.resetErrorBoundaryToFalse();
         this.props.removeNotifications();
@@ -145,7 +135,7 @@ class QuoteDetails extends Component {
     renderReorderButton = className => {
         const {quoteDetails} = this.state;
         const {quoteStatus} = quoteDetails
-        return !!(quoteStatus === DELIVERY_STATUS.OPEN || quoteStatus === DELIVERY_STATUS.PENDING) && (
+        return quoteStatus === DELIVERY_STATUS.OPEN && (
             <div className={className} data-locator="quote-details-reorder">
                 <a className="cmp-button" href="/#" >
                     {this.props.config.reorderTitle}
