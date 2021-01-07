@@ -308,6 +308,7 @@ class QuoteHistory extends Component {
                                 icons={this.props.configs.icons}
                                 quoteAgainTitle={this.props.configs.quoteAgainTitle}
                                 index={index}
+                                isShowQuoteAgainButton={this.props.configs.isShowQuoteAgainButton}
                             />
                         ))}
                         {listCount > 0 && this.renderPagination()}           
