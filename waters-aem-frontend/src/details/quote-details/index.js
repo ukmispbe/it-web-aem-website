@@ -94,6 +94,16 @@ class QuoteDetails extends Component {
         this.getQuoteDetailsData();
     }
 
+    componentWillReceiveProps(){
+        const {quoteId} = this.state;
+        const urlQuoteId = this.getUrlParameter("id");
+        if(quoteId !== urlQuoteId){
+            this.setState({quoteId:urlQuoteId},()=>{
+                this.getQuoteDetailsData();
+            })
+        }
+    }
+
     componentWillUnmount() {
         this.props.resetErrorBoundaryToFalse();
         this.props.removeNotifications();
@@ -175,7 +185,7 @@ class QuoteDetails extends Component {
     renderDetailsSection = () => {
         const { quoteDetails } = this.state;
         const { config } = this.props;
-        const {created, expires, shipTo, billTo,savings,shipping, tax, totalLabel,shipment,icons} = config;
+        const {created, expires, shipTo, billTo,savings,shipping, tax, totalLabel,shipment,icons, isShowQuoteAgainButton} = config;
         const {quoteId,quoteCreationDate,quoteExpirationDate, subTotal,totalShippingAndHandling,totalDiscounts,totalTax,totalPrice, shipToInfo, billToInfo,quoteStatus, orderNumber, replacedQuoteNumber} =  quoteDetails;
         const notZeroDiscountFlag = parseFloat(quoteDetails.orderDiscountValue) !== 0 ? true : false;
         const subTotalValue = this.getValue(subTotal,'formattedValue');
@@ -266,8 +276,7 @@ class QuoteDetails extends Component {
                         <div className={`${this.rootStyle}__order-total_right`} data-locator="order-summary-price-total-price"><h1>{totalPriceValue}</h1></div>
                     </div>
                     {this.renderReorderButton(`${this.rootStyle}__reorder`)}
-                    {/* quote button is not in scop for now. */}
-                    {/* {this.renderQuoteAgainButton(`${this.rootStyle}__reorder`)} */}
+                    {isShowQuoteAgainButton && this.renderQuoteAgainButton(`${this.rootStyle}__reorder`)}
                 </div>
             </div>
             </>
@@ -287,6 +296,7 @@ class QuoteDetails extends Component {
     renderOrderShipmentList = () => {
         const { quoteDetails,totalItemsCount } = this.state;
         const {entries = []} = quoteDetails;
+        const {isShowQuoteAgainButton} = this.props.config;
         if(entries && entries.length > 0){
             return (
                 <>
@@ -304,8 +314,7 @@ class QuoteDetails extends Component {
                         />
                     </div>
                     {this.renderReorderButton("order-shipment__reorder")}
-                    {/* quote button is not in scop for now. */}
-                    {/* {this.renderQuoteAgainButton("order-shipment__reorder")} */}
+                    {isShowQuoteAgainButton && this.renderQuoteAgainButton("order-shipment__reorder")}
                 </>
             )
         }
