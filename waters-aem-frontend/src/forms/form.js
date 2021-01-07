@@ -334,6 +334,7 @@ const Form = ({
                         setError: submitErrorHandler,
                         redirect: config.redirectUrl,
                         passwordUpdateUrl: config.passwordUpdateUrl,
+                        soldToDetailsUrl: config.soldToDetailsUrl,
                         callback: callback,
                         updateFailedAttempts: updateFailedAttempts,
                         setProfileData: setProfileData,

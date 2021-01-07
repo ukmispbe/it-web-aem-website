@@ -22,7 +22,7 @@ const MyProfile = ({ configs }) => {
     const renderDetailTiles = () => {
         const detailTiles = [];
         const personalConfig = setupConfig(configs.personalConfigId);
-        const profileReturnData =  useProfile(userDetailsUrl, soldToDetailsUrl, personalConfig.type, personalConfig.icons ? personalConfig.icons.refresh : {});
+        const profileReturnData = useProfile(userDetailsUrl, soldToDetailsUrl, personalConfig.type, personalConfig.icons ? personalConfig.icons.refresh : {});
         if (profileReturnData && profileReturnData.data && profileReturnData.tiles.length !== 0 ) {
             personalConfig.profileTiles = profileReturnData.tiles;
             personalConfig.profileData = profileReturnData.setData;
