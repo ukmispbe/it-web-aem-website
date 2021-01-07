@@ -65,9 +65,9 @@ public class ProductData {
         final DisplayableSku displayableSku = new DisplayableSku(sku, siteContext);
         
         properties.put("name", sku.getTitle());
-        properties.put("listPrice", displayableSku.getFormattedPrice());
+        properties.put("formattedValue", displayableSku.getFormattedPrice());
         properties.put("value", displayableSku.getPrice().toString());
-        properties.put("currencyCode", sku.getCurrencyCode(siteContext.getLocaleWithCountry().getCountry(), siteContext.getCurrencyIsoCode()));
+        properties.put("currencyIso", sku.getCurrencyCode(siteContext.getLocaleWithCountry().getCountry(), siteContext.getCurrencyIsoCode()));
         properties.put("sku", sku.getCode());
         properties.put("message", sku.getLongDescription());
         properties.put("thumbnailURL",
