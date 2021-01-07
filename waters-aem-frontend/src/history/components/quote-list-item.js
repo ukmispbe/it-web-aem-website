@@ -18,7 +18,7 @@ class QuoteListItem extends Component {
     }
     
     render() {
-        const {data = {}, numberText, created, expires, shipment, icons, orderNumberText} = this.props;
+        const {data = {}, numberText, created, expires, shipment, icons, orderNumberText, isShowQuoteAgainButton} = this.props;
         const {quoteId,orderNumber, quoteCreationDate, quoteExpirationDate, totalPriceFormatted, quoteStatus} = data;
         const showExpireDate = !!(quoteStatus === DELIVERY_STATUS.PENDING || quoteStatus === DELIVERY_STATUS.QUOTE_REPLACED || quoteStatus === DELIVERY_STATUS.REJECTED || quoteStatus === DELIVERY_STATUS.OPEN);
         const showOrderNumber = !!(quoteStatus === DELIVERY_STATUS.ORDER_PLACED);
@@ -59,7 +59,7 @@ class QuoteListItem extends Component {
                 {totalPriceFormatted && (<div className="cmp-order-list__total cmp-order-list__left" data-locator="order-list-total">
                     {totalPriceFormatted}
                 </div>)}
-                {showQuoteAgainBtn && (
+                {showQuoteAgainBtn && isShowQuoteAgainButton && (
                     <div className="cmp-order-list__right quote-again-section" data-locator="quote-history-quote-again">
                         {this.renderQuoteAgainButton()}
                     </div>
