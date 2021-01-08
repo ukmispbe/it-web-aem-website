@@ -209,7 +209,7 @@ class SearchContainer extends Component {
     }
 
     createStrippedFacetName = (facetName) => {
-        return facetName.replace(/\W/g, "").toLowerCase();
+        return facetName.replace(/\W_/g, "").toLowerCase();
     }
 
     findFacetNameProperty = (filterMap, searchValue) => {
