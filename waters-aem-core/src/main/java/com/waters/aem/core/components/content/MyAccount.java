@@ -8,9 +8,11 @@ import com.citytechinc.cq.component.annotations.Listener;
 import com.citytechinc.cq.component.annotations.widgets.MultiField;
 import com.citytechinc.cq.component.annotations.widgets.PathField;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
+import com.day.cq.i18n.I18n;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.icfolson.aem.library.api.link.Link;
+import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.api.page.PageManagerDecorator;
 import com.icfolson.aem.library.models.annotations.LinkInject;
 import com.waters.aem.core.components.content.links.BasicLink;
@@ -24,8 +26,10 @@ import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.OSGiService;
+import org.apache.sling.models.annotations.injectorspecific.Self;
 
 import javax.annotation.Nonnull;
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -65,6 +69,14 @@ public class MyAccount implements ComponentExporter {
     @Inject
     private PageManagerDecorator pageManager;
 
+    @Inject
+    private PageDecorator currentPage;
+
+    @Self
+    private SlingHttpServletRequest request;
+
+    private I18n i18n;
+
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
     @DialogField(fieldLabel = "Shop All Products path",
@@ -88,6 +100,11 @@ public class MyAccount implements ComponentExporter {
     @MultiField(composite = true)
     @Inject
     private List<BasicLink> links = new ArrayList<>();
+
+    @PostConstruct
+    private void initModel() {
+        i18n = new I18n(request.getResourceBundle(currentPage.getLanguage(true)));
+    }
 
     public List<BasicLink> getLinks() {
         return links;
@@ -163,5 +180,13 @@ public class MyAccount implements ComponentExporter {
     @Override
     public String getExportedType() {
         return RESOURCE_TYPE;
+    }
+
+    public Boolean getShowQuoteHistory() {
+        return currentPage.getInherited("showQuoteHistory", Boolean.FALSE);
+    }
+
+    public String getQuoteText() {
+        return getShowQuoteHistory() ? i18n.get(WatersConstants.QUOTE_HISTORY_TEXT) : "";
     }
 }

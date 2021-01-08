@@ -9,6 +9,7 @@ import com.citytechinc.cq.component.annotations.widgets.CheckBox;
 import com.citytechinc.cq.component.annotations.widgets.Html5SmartImage;
 import com.citytechinc.cq.component.annotations.widgets.PathField;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
+import com.day.cq.i18n.I18n;
 import com.day.cq.wcm.foundation.Image;
 import com.icfolson.aem.library.api.link.Link;
 import com.icfolson.aem.library.api.page.PageDecorator;
@@ -29,6 +30,7 @@ import com.waters.aem.core.services.commerce.WatersCommerceService;
 import com.waters.aem.core.services.launch.AdobeLaunchService;
 import com.waters.aem.core.services.solr.SolrSearchService;
 import com.waters.aem.core.utils.LinkUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
@@ -38,6 +40,7 @@ import org.apache.sling.models.annotations.injectorspecific.Self;
 import org.apache.sling.models.factory.ModelFactory;
 
 import javax.annotation.Nonnull;
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import java.util.Collections;
 
@@ -87,7 +90,8 @@ public final class Header extends AbstractComponent implements ComponentExporter
 
     @Inject
     private PageManagerDecorator pageManager;
-    
+
+    private I18n i18n;
 
     @DialogField(fieldLabel = "Header Logo",
         fieldDescription = "select header logo",
@@ -195,6 +199,32 @@ public final class Header extends AbstractComponent implements ComponentExporter
     @PathField(rootPath = WatersConstants.ROOT_PATH)
     @LinkInject(inherit = true)
     private Link ordersLink;
+
+    @DialogField(fieldLabel = "Quotes Link",
+            fieldDescription = "Select or Enter the Quotes Link",
+            tab = 2,
+            ranking = 8
+    )
+    @PathField(rootPath = WatersConstants.ROOT_PATH)
+    @LinkInject(inherit = true)
+    private Link quotesLink;
+
+    @PostConstruct
+    private void initModel() {
+        i18n = new I18n(request.getResourceBundle(currentPage.getLanguage(true)));
+    }
+
+    public String getQuotesLink() {
+        return getShowQuoteHistory() ? quotesLink.getHref().replace(WatersConstants.ROOT_PATH,"/nextgen") : StringUtils.EMPTY;
+    }
+
+    public Boolean getShowQuoteHistory() {
+        return currentPage.getInherited("showQuoteHistory", Boolean.FALSE);
+    }
+
+    public String getQuoteText() {
+        return getShowQuoteHistory() ? i18n.get(WatersConstants.QUOTE_HISTORY_TEXT) : "";
+    }
 
     @Nonnull
     @Override

@@ -126,6 +126,14 @@
                                         "class": "dropdown__item-list__my-orders",
                                         "linkName": "Order History",
                                         "isHiddenForEprocUser": "true"
+                                    },
+                                    {
+                                        "text": "${header.quoteText @ context='unsafe'}",
+                                        "url": "${!header.eprocurement && header.showQuoteHistory ? header.quotesLink : '' @ context='unsafe'}",
+                                        "target": "_self",
+                                        "class": "dropdown__item-list__my-quotes",
+                                        "linkName": "Quote History",
+                                        "isHiddenForEprocUser": "true"
                                     }
                                 ]
                             }

@@ -114,6 +114,8 @@ public final class WatersConstants {
 
     public static final Map<String,String> CURRENCY_FORMATS = ImmutableMap.<String, String>builder() .put("JPY","#,##0") .put("WON","#,##0") .build();
 
+    public static final String QUOTE_HISTORY_TEXT = "Quote History";
+
     private WatersConstants() {
 
     }
