@@ -29,8 +29,7 @@ class QuoteHistory extends Component {
             error: false,
             initialPageLoad: true,
             currentPage:0,
-            pageSize:10,
-            isQuoteData:false
+            pageSize:10
         }
 
         this.page = {
@@ -154,7 +153,6 @@ class QuoteHistory extends Component {
             currentPage: currentPage,
             noResults: false,
             loading: false,
-            isQuoteData: true,
         });
     }
 
@@ -190,12 +188,10 @@ class QuoteHistory extends Component {
     }
 
     renderTabs = () => {
-        const {tabs = [], blankItemTabs=[]} = this.props.configs || {};
-        const {isQuoteData} = this.state;
-        const currentTabs = this.state.noResults && !isQuoteData ? blankItemTabs : tabs;
+        const {tabs = []} = this.props.configs || {};
         return (                     
             <Tabs className="cmp-search__categories-tabs"
-                items={currentTabs}
+                items={tabs}
                 activeIndex={this.state.activeIndex}
                 onClick={e => this.handleCategorySelected(e)}
                 enableFading={true}
@@ -282,7 +278,7 @@ class QuoteHistory extends Component {
     }
 
     render() {
-        const {listCount,listItems, noResults, loading, isQuoteData} = this.state;
+        const {listCount,listItems, noResults, loading} = this.state;
         return (
             <>  
                 {loading ? ( <Spinner loading={loading} /> ) : null}
@@ -290,7 +286,7 @@ class QuoteHistory extends Component {
                     <>   
                     {this.renderTabs()}
                         <div className="cmp-order-list__header clearfix" data-locator="order-list-header-clearfix">
-                            {isQuoteData && this.renderDropDowns()}
+                            {this.renderDropDowns()}
                             {this.renderCountHeader()}
                         </div>
 
@@ -309,6 +305,7 @@ class QuoteHistory extends Component {
                                 quoteAgainTitle={this.props.configs.quoteAgainTitle}
                                 index={index}
                                 isShowQuoteAgainButton={this.props.configs.isShowQuoteAgainButton}
+								newQuote={this.props.configs.newQuote}
                             />
                         ))}
                         {listCount > 0 && this.renderPagination()}           
