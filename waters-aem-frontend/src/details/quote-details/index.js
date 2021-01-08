@@ -7,9 +7,10 @@ import ErrorBoundary from '../../search/ErrorBoundary';
 import Modal, { Header, keys } from '../../utils/modal';
 import AddToCartBody from '../../sku-details/views/addToCartModal';
 import Analytics, { analyticTypes } from '../../analytics';
-import { DELIVERY_STATUS } from '../../constants';
+import { DELIVERY_STATUS, STORE, CHECKOUT } from '../../constants';
 import DeliveryStatus from '../../common/delivery-status';
 import { getSoldToId, getDummySoldToId, getUserId, getCountryCode, getLanguage, getFullCompanyAddress } from '../../utils/userFunctions';
+import SessionStore from '../../stores/sessionStore';
 
 class QuoteDetails extends Component {
     constructor({setErrorBoundaryToTrue, resetErrorBoundaryToFalse, removeNotifications, ...props}) {
@@ -142,12 +143,23 @@ class QuoteDetails extends Component {
         }
     }
 
+    placeOrderForQuote = (e, quoteId) => {
+	   e.preventDefault();
+       if(quoteId){		
+        (new SessionStore()).setQuoteId(quoteId);
+        const countryCode = getCountryCode();
+        const language = getLanguage();
+		const checkoutUrl = `${window.location.origin}/${STORE}/${countryCode}/${language}/${CHECKOUT}`;
+        window.location.href = checkoutUrl;
+       }
+    }
+
     renderReorderButton = className => {
         const {quoteDetails} = this.state;
-        const {quoteStatus} = quoteDetails
+        const {quoteStatus, quoteId} = quoteDetails
         return quoteStatus === DELIVERY_STATUS.OPEN && (
             <div className={className} data-locator="quote-details-reorder">
-                <a className="cmp-button" href="/#" >
+                <a className="cmp-button" href="#" onClick={(e) => this.placeOrderForQuote(e,quoteId)} >
                     {this.props.config.reorderTitle}
                 </a>
             </div>
