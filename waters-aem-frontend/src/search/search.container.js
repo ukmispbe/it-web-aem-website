@@ -208,6 +208,10 @@ class SearchContainer extends Component {
         }
     }
 
+    createStrippedFacetName = (facetName) => {
+        return facetName.replace(/\W_/g, "").toLowerCase();
+    }
+
     findFacetNameProperty = (filterMap, searchValue) => {
         if (!filterMap || !Array.isArray(filterMap)) {
             return "";
@@ -483,7 +487,8 @@ class SearchContainer extends Component {
         Object.entries(selectedFacets).length !== 0 ? true : false;
 
     getFilterMap = (authoredTags, backendFacets) => {
-        const categoryFacetName = `${this.state.category.toLowerCase()}_facet`;
+        const strippedCategoryFacetName = this.createStrippedFacetName(this.state.category);
+        const categoryFacetName = `${strippedCategoryFacetName}_facet`;
         const category = authoredTags.find(authoredItem => authoredItem.categoryFacetName === categoryFacetName);
         let orderedFacetsMap = [];
 
