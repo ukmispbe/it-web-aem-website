@@ -25,10 +25,8 @@ import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.OSGiService;
-import org.apache.sling.models.annotations.injectorspecific.Self;
 
 import javax.annotation.Nonnull;
-import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -70,9 +68,6 @@ public class MyAccount implements ComponentExporter {
 
     @Inject
     private PageDecorator currentPage;
-
-    @Self
-    private SlingHttpServletRequest request;
 
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
