@@ -59,13 +59,13 @@ class QuoteDetails extends Component {
         }
     }
 
-    getQuoteDetailsData = () => {		
+    getQuoteDetailsData = () => {
         const { detailsUrl, quoteId } = this.state;
         const  userId = getUserId();
         const soldToId = getSoldToId() || getDummySoldToId();
         const countryCode = getCountryCode();
         const language = getLanguage();
-        const url = `${detailsUrl}/${quoteId}?soldToId=${soldToId}&userId=${userId}&countryCode=${countryCode}&language=${language}&fields=FULL`;		
+        const url = `${detailsUrl}/${quoteId}?soldToId=${soldToId}&userId=${userId}&countryCode=${countryCode}&language=${language}&fields=FULL`;
         getQuoteDetails(url, this.setError)
             .then((data) => {
                 const quotes = data && data.quotes || undefined;
