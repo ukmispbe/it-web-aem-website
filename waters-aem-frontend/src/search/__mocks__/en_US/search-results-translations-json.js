@@ -36,6 +36,7 @@ const searchResultsTranslationsJSON = {
     "homeLinkText": "Home",
     "searchLinkText": "Search",
     "allResultsText": "Show All Results",
+    "allResultsTextMobile": "All",
     "categoryText": "Category",
     "allCategoriesText": "All Categories",
     "anyResultTypeText": "Any Result Type"

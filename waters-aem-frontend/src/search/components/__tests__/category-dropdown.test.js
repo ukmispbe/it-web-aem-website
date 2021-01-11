@@ -45,6 +45,13 @@ describe('Feature: Category Dropdown Component', () => {
                         translation: 'Tab Dos',
                         count: 2,
                         isActive: false
+                    },
+                    {
+                        name: 'Tab3',
+                        translation: 'Tab Tres',
+                        mobileTranslation: 'Tab Tres',
+                        count: 3,
+                        isActive: false
                     }
                 ]};
 

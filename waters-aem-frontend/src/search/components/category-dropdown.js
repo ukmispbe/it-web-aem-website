@@ -7,9 +7,11 @@ import customDropdownStyles from '../../utils/dropdown/custom-styles';
 
 const getOptions = options => {
     let newList = options.filter(item => item.count !== 0).map((a, index) => { 
+        let mobileLabel = a.hasOwnProperty('mobileTranslation') && a.mobileTranslation 
+            ? a.mobileTranslation : a.translation;
         return {
             value: index,
-            label: a.translation
+            label: `${mobileLabel} (${a.count})`
         }
     })
 
