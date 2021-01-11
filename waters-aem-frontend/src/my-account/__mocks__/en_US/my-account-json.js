@@ -295,7 +295,7 @@ export default {
         tax: "Tax",
         minusSign: "-",
         orderTotal: "Order Total",
-        reorderTitle: "Reorder",
+        reorderTitle: "Place Order",
         created: "Created:",
         expires: "Expires:",
         orderNumberText: "Order Number:",
