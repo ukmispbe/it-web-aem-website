@@ -385,3 +385,9 @@ export const matchAddresses = (userDetailsAPIDetails, soldToAPIDetails) => {
 export const getCategoryReferenceType = () => {
     return isEprocurementUser() ? `&reference=sku` : '';
 }
+
+export const getCartCheckoutUrl = (initial, page) => {
+    const countryCode = getCountryCode();
+    const language = getLanguage();
+    return `${window.location.origin}/${initial}/${countryCode}/${language}/${page}`;
+}

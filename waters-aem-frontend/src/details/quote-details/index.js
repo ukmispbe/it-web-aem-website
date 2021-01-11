@@ -9,7 +9,7 @@ import AddToCartBody from '../../sku-details/views/addToCartModal';
 import Analytics, { analyticTypes } from '../../analytics';
 import { DELIVERY_STATUS, STORE, CHECKOUT } from '../../constants';
 import DeliveryStatus from '../../common/delivery-status';
-import { getSoldToId, getDummySoldToId, getUserId, getCountryCode, getLanguage, getFullCompanyAddress } from '../../utils/userFunctions';
+import { getSoldToId, getDummySoldToId, getUserId, getCountryCode, getLanguage, getFullCompanyAddress, getCartCheckoutUrl } from '../../utils/userFunctions';
 import SessionStore from '../../stores/sessionStore';
 
 class QuoteDetails extends Component {
@@ -59,13 +59,13 @@ class QuoteDetails extends Component {
         }
     }
 
-    getQuoteDetailsData = () => {
+    getQuoteDetailsData = () => {		
         const { detailsUrl, quoteId } = this.state;
         const  userId = getUserId();
         const soldToId = getSoldToId() || getDummySoldToId();
         const countryCode = getCountryCode();
         const language = getLanguage();
-        const url = `${detailsUrl}/${quoteId}?soldToId=${soldToId}&userId=${userId}&countryCode=${countryCode}&language=${language}&fields=FULL`;
+        const url = `${detailsUrl}/${quoteId}?soldToId=${soldToId}&userId=${userId}&countryCode=${countryCode}&language=${language}&fields=FULL`;		
         getQuoteDetails(url, this.setError)
             .then((data) => {
                 const quotes = data && data.quotes || undefined;
@@ -146,10 +146,8 @@ class QuoteDetails extends Component {
     placeOrderForQuote = (e, quoteId) => {
 	   e.preventDefault();
        if(quoteId){		
-        (new SessionStore()).setQuoteId(quoteId);
-        const countryCode = getCountryCode();
-        const language = getLanguage();
-		const checkoutUrl = `${window.location.origin}/${STORE}/${countryCode}/${language}/${CHECKOUT}`;
+        (new SessionStore()).setQuoteId(quoteId);        
+		const checkoutUrl =  getCartCheckoutUrl(STORE,CHECKOUT);
         window.location.href = checkoutUrl;
        }
     }
