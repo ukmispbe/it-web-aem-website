@@ -151,7 +151,8 @@ class SearchContainer extends Component {
             collapseAllFilters: false,
             activeFilterIndex: -1,
             count: 0,
-            allResultsText: this.props.searchText.allResultsText
+            allResultsText: this.props.searchText.allResultsText,
+            allResultsTextMobile: this.props.searchText.allResultsTextMobile
         };
     }
 
@@ -322,6 +323,7 @@ class SearchContainer extends Component {
         }
         const allCategory = { 
             "translation": this.state.allResultsText,
+            "mobileTranslation": this.state.allResultsTextMobile,
             "name": "All",
             "count": total
         };
