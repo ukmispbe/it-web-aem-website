@@ -26,10 +26,23 @@ export async function getData (url) {
             'Content-Type': 'application/json'
         }
     });
-    return await response;
+    return response;
 }
 
-export async function postData (url, options, setError) {
+export async function postData (url, data) {
+    const response = await fetch(url, {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    });
+
+    return response;
+};
+
+export async function postDataWithOptions (url, options, setError) {
     return fetch(url, {
         method: 'POST',
         credentials: 'include',

@@ -18,11 +18,12 @@ class QuoteListItem extends Component {
     }
     
     render() {
-        const {data = {}, numberText, created, expires, shipment, icons, orderNumberText} = this.props;
-        const {quoteId,orderNumber, quoteCreationDate, quoteExpirationDate, totalPriceFormatted, quoteStatus} = data;
-        const showExpireDate = !!(quoteStatus === DELIVERY_STATUS.PENDING || quoteStatus === DELIVERY_STATUS.QUOTE_REPLACED || quoteStatus === DELIVERY_STATUS.REJECTED || quoteStatus === DELIVERY_STATUS.OPEN);
+        const {data = {}, numberText, created, expires, shipment, icons, orderNumberText, isShowQuoteAgainButton, newQuote} = this.props;
+        const {quoteId,orderNumber, quoteCreationDate, quoteExpirationDate, totalPriceFormatted, quoteStatus, replacedQuoteNumber} = data;
+        const showExpireDate = !!(quoteStatus === DELIVERY_STATUS.PENDING || quoteStatus === DELIVERY_STATUS.REJECTED || quoteStatus === DELIVERY_STATUS.OPEN);
         const showOrderNumber = !!(quoteStatus === DELIVERY_STATUS.ORDER_PLACED);
         const showQuoteAgainBtn = !!(quoteStatus === DELIVERY_STATUS.EXPIRED);
+		const showQuoteReplacedNumber = !!(quoteStatus === DELIVERY_STATUS.QUOTE_REPLACED);
         return (
             <div className='cmp-order-list__container'>
                 <div className="cmp-order-list__left">
@@ -45,6 +46,9 @@ class QuoteListItem extends Component {
                     {showOrderNumber && orderNumber && (<div className="cmp-order-list__order-number-text" data-locator="quote-order-number">
                         {`${orderNumberText} ${orderNumber}`}
                     </div>)}
+					{showQuoteReplacedNumber && replacedQuoteNumber && (<div className="cmp-order-list__order-number-text" data-locator="quote-order-number">
+						{`${newQuote} ${replacedQuoteNumber}`}
+					</div>)}
                     </div>
                     
                 </div>
@@ -59,7 +63,7 @@ class QuoteListItem extends Component {
                 {totalPriceFormatted && (<div className="cmp-order-list__total cmp-order-list__left" data-locator="order-list-total">
                     {totalPriceFormatted}
                 </div>)}
-                {showQuoteAgainBtn && (
+                {showQuoteAgainBtn && isShowQuoteAgainButton && (
                     <div className="cmp-order-list__right quote-again-section" data-locator="quote-history-quote-again">
                         {this.renderQuoteAgainButton()}
                     </div>

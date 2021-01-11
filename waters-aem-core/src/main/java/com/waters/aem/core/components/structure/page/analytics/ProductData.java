@@ -41,6 +41,8 @@ public class ProductData {
     
     @Self
     private Resource resource;
+    
+    private String thumbnailRendition = "/jcr:content/renditions/cq5dam.thumbnail.319.319.png";
 
     public List<Map<String, Object>> getProducts() {
         final List<Map<String, Object>> productList = new ArrayList<>();
@@ -63,12 +65,14 @@ public class ProductData {
         final DisplayableSku displayableSku = new DisplayableSku(sku, siteContext);
         
         properties.put("name", sku.getTitle());
-        properties.put("listPrice", displayableSku.getFormattedPrice());
+        properties.put("formattedValue", displayableSku.getFormattedPrice());
+        properties.put("value", displayableSku.getPrice().toString());
+        properties.put("currencyIso", sku.getCurrencyCode(siteContext.getLocaleWithCountry().getCountry(), siteContext.getCurrencyIsoCode()));
         properties.put("sku", sku.getCode());
         properties.put("message", sku.getLongDescription());
-        for(SkuImage skuImage : sku.getImages()) {
-        	properties.put("thumbnailURL", externalize(skuImage.getUrl().substring(skuImage.getUrl().indexOf("/content")))+ "/jcr:content/renditions/cq5dam.thumbnail.319.319.png");
-        }
+        properties.put("thumbnailURL",
+				externalize(sku.getImages().get(0).getUrl().substring(sku.getImages().get(0).getUrl().indexOf("/content")))
+						+ thumbnailRendition);
         for(Classification classification : sku.getClassifications()) {
         	if(classification.getTitle().contains("Product Type")) {
         		properties.put("productType", classification.getFeatureValues()[0]);

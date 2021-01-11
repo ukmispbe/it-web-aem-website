@@ -58,7 +58,7 @@ class QuoteDetails extends Component {
         }
     }
 
-    async componentDidMount() {
+    getQuoteDetailsData = () => {
         const { detailsUrl, quoteId } = this.state;
         const  userId = getUserId();
         const soldToId = getSoldToId() || getDummySoldToId();
@@ -77,7 +77,8 @@ class QuoteDetails extends Component {
                     this.setState({
                         isLoading: false,
                         quoteDetails: quotes,
-                        totalItemsCount
+                        totalItemsCount,
+                        errorOrderNotFound:false
                     });
                 } else {
                     this.setState({
@@ -87,6 +88,20 @@ class QuoteDetails extends Component {
                     });
                 }
             })
+    }
+
+    async componentDidMount() {
+        this.getQuoteDetailsData();
+    }
+
+    componentWillReceiveProps(){
+        const {quoteId} = this.state;
+        const urlQuoteId = this.getUrlParameter("id");
+        if(quoteId !== urlQuoteId){
+            this.setState({quoteId:urlQuoteId},()=>{
+                this.getQuoteDetailsData();
+            })
+        }
     }
 
     componentWillUnmount() {
@@ -130,7 +145,7 @@ class QuoteDetails extends Component {
     renderReorderButton = className => {
         const {quoteDetails} = this.state;
         const {quoteStatus} = quoteDetails
-        return !!(quoteStatus === DELIVERY_STATUS.OPEN || quoteStatus === DELIVERY_STATUS.PENDING) && (
+        return quoteStatus === DELIVERY_STATUS.OPEN && (
             <div className={className} data-locator="quote-details-reorder">
                 <a className="cmp-button" href="/#" >
                     {this.props.config.reorderTitle}
@@ -141,7 +156,7 @@ class QuoteDetails extends Component {
 
     renderQuoteAgainButton = className => {
         const {quoteDetails} = this.state;
-        const {quoteStatus} = quoteDetails
+        const {quoteStatus} = quoteDetails;
         return quoteStatus === DELIVERY_STATUS.EXPIRED && (
             <div className={className} data-locator="quote-details-quote-again-cta">
                 <a className="cmp-button" href="/#" >
@@ -158,11 +173,19 @@ class QuoteDetails extends Component {
         }
        return value
     }
+
+    getNewQuoteItem = (quoteStatus,replacedQuoteNumber) => {
+      if(quoteStatus === DELIVERY_STATUS.QUOTE_REPLACED){
+           this.setState({quoteId:replacedQuoteNumber},()=>{
+            this.getQuoteDetailsData();
+           });
+      }
+    }
     
     renderDetailsSection = () => {
         const { quoteDetails } = this.state;
         const { config } = this.props;
-        const {created, expires, shipTo, billTo,savings,shipping, tax, totalLabel,shipment,icons} = config;
+        const {created, expires, shipTo, billTo,savings,shipping, tax, totalLabel,shipment,icons, isShowQuoteAgainButton} = config;
         const {quoteId,quoteCreationDate,quoteExpirationDate, subTotal,totalShippingAndHandling,totalDiscounts,totalTax,totalPrice, shipToInfo, billToInfo,quoteStatus, orderNumber, replacedQuoteNumber} =  quoteDetails;
         const notZeroDiscountFlag = parseFloat(quoteDetails.orderDiscountValue) !== 0 ? true : false;
         const subTotalValue = this.getValue(subTotal,'formattedValue');
@@ -171,9 +194,8 @@ class QuoteDetails extends Component {
         const totalTaxValue = this.getValue(totalTax,'formattedValue');
         const totalPriceValue = this.getValue(totalPrice,'formattedValue');
         const showExpireDate = !!(quoteStatus === DELIVERY_STATUS.PENDING || quoteStatus === DELIVERY_STATUS.REJECTED || quoteStatus === DELIVERY_STATUS.OPEN);
-        const quoteNumber = quoteStatus === DELIVERY_STATUS.QUOTE_REPLACED ? replacedQuoteNumber : quoteId;
         const showNewDetailsLinkSection = (quoteStatus === DELIVERY_STATUS.QUOTE_REPLACED || quoteStatus === DELIVERY_STATUS.ORDER_PLACED);
-        const newItemUrl = quoteStatus === DELIVERY_STATUS.ORDER_PLACED ? `#orderdetails?id=${orderNumber}` : `#quotedetails?id=${quoteId}`;
+        const newItemUrl = quoteStatus === DELIVERY_STATUS.ORDER_PLACED ? `#orderdetails?id=${orderNumber}` : `#quotedetails?id=${replacedQuoteNumber}`;
         return (<>
             <div className={`${this.rootStyle}__container`}>
                 <h2 className={`${this.rootStyle}__title`} data-locator="product-title">
@@ -181,12 +203,12 @@ class QuoteDetails extends Component {
                 </h2>
                 {showNewDetailsLinkSection && (<div className={`${this.rootStyle}__new-details-link-text`}>
                     <div className="new-details-link-section">
-                    <a href={newItemUrl}>
+                    <a href={newItemUrl} onClick={() => this.getNewQuoteItem(quoteStatus ,replacedQuoteNumber)}>
                         <div className="new-details-icon">
                             <ReactSVG src={config.icons.newQuoteOrderIcon} />
                         </div>
                         {quoteStatus === DELIVERY_STATUS.QUOTE_REPLACED && (<div className="new-details-text" data-locator="delivery-text">
-                            {`${config.newQuote}${quoteId}`}
+                            {`${config.newQuote}${replacedQuoteNumber}`}
                         </div>)}
                         {quoteStatus === DELIVERY_STATUS.ORDER_PLACED && (<div className="new-details-text" data-locator="delivery-text">
                             {`${config.orderNumberText}${orderNumber}`}
@@ -201,7 +223,7 @@ class QuoteDetails extends Component {
                 </div>)}
                 <div className={`${this.rootStyle}__order-info`}>
                 <h3 className={`${this.rootStyle}__order-number`} data-locator="product-number">
-                        {config.numberLabel + ": " + quoteNumber}
+                        {config.numberLabel + ": " + quoteId}
                     </h3>
                 </div>
                 <div className={`${this.rootStyle}__order-summary`}>
@@ -229,32 +251,32 @@ class QuoteDetails extends Component {
                         </div>)}
                     </div>
                 </div>
-                <div className={`${this.rootStyle}__order-summary`} data-locator="order-summary">
+                <div className={`${this.rootStyle}__order-summary`} data-locator="order-summary-cart-details">
                     <h4>{config.summaryTitle}</h4>
-                    <div className={`${this.rootStyle}__order-subtotal`}>
-                        <div className={`${this.rootStyle}__order-subtotal_left`} data-locator="order-subtotal-left">{config.subTotal} {this.renderItemCount()}</div>
-                        <div className={`${this.rootStyle}__order-subtotal_right`} data-locator="order-subtotal-right">{subTotalValue}</div>
+                    <div className={`${this.rootStyle}__order-subtotal`} data-locator="order-summary-line-sub-total">
+                        <div className={`${this.rootStyle}__order-subtotal_left`} data-locator="order-summary-label-sub-total">{config.subTotal} {this.renderItemCount()}</div>
+                        <div className={`${this.rootStyle}__order-subtotal_right`} data-locator="order-summary-price-sub-total">{subTotalValue}</div>
                     </div>
                     {notZeroDiscountFlag && 
-                        <div className={`${this.rootStyle}__order-savings`}>
-                            <div className={`${this.rootStyle}__order-savings_left`} data-locator="order-savings-left">{savings}</div>
-                            <div className={`${this.rootStyle}__order-savings_right`} data-locator="order-savings-right">{config.minusSign}{totalDiscountsValue}</div>
+                        <div className={`${this.rootStyle}__order-savings`} data-locator="order-summary-line-total-discount">
+                            <div className={`${this.rootStyle}__order-savings_left`} data-locator="order-summary-label-total-discount">{savings}</div>
+                            <div className={`${this.rootStyle}__order-savings_right`} data-locator="order-summary-price-total-discount">{config.minusSign}{totalDiscountsValue}</div>
                         </div>
                     }
-                    <div className={`${this.rootStyle}__order-shipping`}>
-                        <div className={`${this.rootStyle}__order-shipping_left`} data-locator="order-shipping-left">{shipping}</div>
-                        <div className={`${this.rootStyle}__order-shipping_right`} data-locator="order-shipping-right">{ShippingAndHandlingValue}</div>
+                    <div className={`${this.rootStyle}__order-shipping`} data-locator="order-summary-line-total-shipping-handling">
+                        <div className={`${this.rootStyle}__order-shipping_left`} data-locator="order-summary-label-total-shipping-handling">{shipping}</div>
+                        <div className={`${this.rootStyle}__order-shipping_right`} data-locator="order-summary-price-total-shipping-handling">{ShippingAndHandlingValue}</div>
                     </div>
-                    <div className={`${this.rootStyle}__order-tax`}>
-                        <div className={`${this.rootStyle}__order-tax_left`} data-locator="order-tax-left">{tax}</div>
-                        <div className={`${this.rootStyle}__order-tax_right`} data-locator="order-tax-right">{totalTaxValue}</div>
+                    <div className={`${this.rootStyle}__order-tax`} data-locator="order-summary-line-estimated-tax">
+                        <div className={`${this.rootStyle}__order-tax_left`} data-locator="order-summary-label-estimated-tax">{tax}</div>
+                        <div className={`${this.rootStyle}__order-tax_right`} data-locator="order-summary-price-estimated-tax">{totalTaxValue}</div>
                     </div>
-                    <div className={`${this.rootStyle}__order-total`}>
-                        <div className={`${this.rootStyle}__order-total_left`} data-locator="order-total-left">{totalLabel}</div>
-                        <div className={`${this.rootStyle}__order-total_right`} data-locator="order-total-right"><h1>{totalPriceValue}</h1></div>
+                    <div className={`${this.rootStyle}__order-total`} data-locator="order-summary-line-total-price">
+                        <div className={`${this.rootStyle}__order-total_left`} data-locator="order-summary-label-total-price">{totalLabel}</div>
+                        <div className={`${this.rootStyle}__order-total_right`} data-locator="order-summary-price-total-price"><h1>{totalPriceValue}</h1></div>
                     </div>
                     {this.renderReorderButton(`${this.rootStyle}__reorder`)}
-                    {this.renderQuoteAgainButton(`${this.rootStyle}__reorder`)}
+                    {isShowQuoteAgainButton && this.renderQuoteAgainButton(`${this.rootStyle}__reorder`)}
                 </div>
             </div>
             </>
@@ -274,6 +296,7 @@ class QuoteDetails extends Component {
     renderOrderShipmentList = () => {
         const { quoteDetails,totalItemsCount } = this.state;
         const {entries = []} = quoteDetails;
+        const {isShowQuoteAgainButton} = this.props.config;
         if(entries && entries.length > 0){
             return (
                 <>
@@ -291,7 +314,7 @@ class QuoteDetails extends Component {
                         />
                     </div>
                     {this.renderReorderButton("order-shipment__reorder")}
-                    {this.renderQuoteAgainButton("order-shipment__reorder")}
+                    {isShowQuoteAgainButton && this.renderQuoteAgainButton("order-shipment__reorder")}
                 </>
             )
         }
