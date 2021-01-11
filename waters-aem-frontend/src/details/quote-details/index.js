@@ -7,9 +7,10 @@ import ErrorBoundary from '../../search/ErrorBoundary';
 import Modal, { Header, keys } from '../../utils/modal';
 import AddToCartBody from '../../sku-details/views/addToCartModal';
 import Analytics, { analyticTypes } from '../../analytics';
-import { DELIVERY_STATUS } from '../../constants';
+import { DELIVERY_STATUS, STORE, CHECKOUT } from '../../constants';
 import DeliveryStatus from '../../common/delivery-status';
-import { getSoldToId, getDummySoldToId, getUserId, getCountryCode, getLanguage, getFullCompanyAddress } from '../../utils/userFunctions';
+import { getFullCompanyAddress, getCartCheckoutUrl, getUrlPath } from '../../utils/userFunctions';
+import SessionStore from '../../stores/sessionStore';
 
 class QuoteDetails extends Component {
     constructor({setErrorBoundaryToTrue, resetErrorBoundaryToFalse, removeNotifications, ...props}) {
@@ -59,21 +60,14 @@ class QuoteDetails extends Component {
     }
 
     getQuoteDetailsData = () => {
-        const { detailsUrl, quoteId } = this.state;
-        const  userId = getUserId();
-        const soldToId = getSoldToId() || getDummySoldToId();
-        const countryCode = getCountryCode();
-        const language = getLanguage();
-        const url = `${detailsUrl}/${quoteId}?soldToId=${soldToId}&userId=${userId}&countryCode=${countryCode}&language=${language}&fields=FULL`;
+        const { detailsUrl, quoteId } = this.state;       
+        const url = getUrlPath(detailsUrl, quoteId);
         getQuoteDetails(url, this.setError)
             .then((data) => {
                 const quotes = data && data.quotes || undefined;
                 let totalItemsCount = 0;
                 if(quotes) {
-                    const {entries = []} = quotes;
-                    Array.isArray(entries) && entries.length > 0 && entries.map(item=>{
-                        totalItemsCount = totalItemsCount + parseInt(item.quantity);
-                    })
+                    totalItemsCount = quotes.totalItems || 0;
                     this.setState({
                         isLoading: false,
                         quoteDetails: quotes,
@@ -142,12 +136,21 @@ class QuoteDetails extends Component {
         }
     }
 
+    placeOrderForQuote = (e, quoteId) => {
+	   e.preventDefault();
+       if(quoteId){		
+        (new SessionStore()).setQuoteId(quoteId);        
+		const checkoutUrl =  getCartCheckoutUrl(STORE,CHECKOUT);
+        window.location.href = checkoutUrl;
+       }
+    }
+
     renderReorderButton = className => {
         const {quoteDetails} = this.state;
-        const {quoteStatus} = quoteDetails
+        const {quoteStatus, quoteId} = quoteDetails
         return quoteStatus === DELIVERY_STATUS.OPEN && (
             <div className={className} data-locator="quote-details-reorder">
-                <a className="cmp-button" href="/#" >
+                <a className="cmp-button" href="#" onClick={(e) => this.placeOrderForQuote(e,quoteId)} >
                     {this.props.config.reorderTitle}
                 </a>
             </div>
@@ -186,13 +189,13 @@ class QuoteDetails extends Component {
         const { quoteDetails } = this.state;
         const { config } = this.props;
         const {created, expires, shipTo, billTo,savings,shipping, tax, totalLabel,shipment,icons, isShowQuoteAgainButton} = config;
-        const {quoteId,quoteCreationDate,quoteExpirationDate, subTotal,totalShippingAndHandling,totalDiscounts,totalTax,totalPrice, shipToInfo, billToInfo,quoteStatus, orderNumber, replacedQuoteNumber} =  quoteDetails;
+        const {quoteId,quoteCreationDate,quoteExpirationDate, subTotal,totalShippingAndHandling,totalDiscounts,totalTax,totalPriceWithTax, shipToInfo, billToInfo,quoteStatus, orderNumber, replacedQuoteNumber} =  quoteDetails;
         const notZeroDiscountFlag = parseFloat(quoteDetails.orderDiscountValue) !== 0 ? true : false;
         const subTotalValue = this.getValue(subTotal,'formattedValue');
         const ShippingAndHandlingValue = this.getValue(totalShippingAndHandling,'formattedValue');
         const totalDiscountsValue = this.getValue(totalDiscounts,'formattedValue');
         const totalTaxValue = this.getValue(totalTax,'formattedValue');
-        const totalPriceValue = this.getValue(totalPrice,'formattedValue');
+        const totalPriceValue = this.getValue(totalPriceWithTax,'formattedValue');
         const showExpireDate = !!(quoteStatus === DELIVERY_STATUS.PENDING || quoteStatus === DELIVERY_STATUS.REJECTED || quoteStatus === DELIVERY_STATUS.OPEN);
         const showNewDetailsLinkSection = (quoteStatus === DELIVERY_STATUS.QUOTE_REPLACED || quoteStatus === DELIVERY_STATUS.ORDER_PLACED);
         const newItemUrl = quoteStatus === DELIVERY_STATUS.ORDER_PLACED ? `#orderdetails?id=${orderNumber}` : `#quotedetails?id=${replacedQuoteNumber}`;

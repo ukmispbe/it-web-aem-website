@@ -14,3 +14,5 @@ export const DELIVERY_STATUS = {
     PARTIAL: "Partial",
     COMPLETE: "Complete"
 };
+export const STORE = 'store';
+export const CHECKOUT = 'checkout';

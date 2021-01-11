@@ -69,9 +69,9 @@ class Shipment extends Component {
         const {isQuoteDetails = false} = this.props;
         let item = data;
         if(isQuoteDetails && data){
-            const {product = {},totalPrice = {},quantity} = data;
+            const {product = {},basePrice = {},quantity} = data;
             const {code,name,sKUPageUrl,imageUrl} = product;
-            const {formattedValue} = totalPrice;
+            const {formattedValue} = basePrice;
             item = {
                 materialNumber: code,
                 title: name,
