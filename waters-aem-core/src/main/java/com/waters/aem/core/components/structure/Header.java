@@ -9,7 +9,6 @@ import com.citytechinc.cq.component.annotations.widgets.CheckBox;
 import com.citytechinc.cq.component.annotations.widgets.Html5SmartImage;
 import com.citytechinc.cq.component.annotations.widgets.PathField;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
-import com.day.cq.i18n.I18n;
 import com.day.cq.wcm.foundation.Image;
 import com.icfolson.aem.library.api.link.Link;
 import com.icfolson.aem.library.api.page.PageDecorator;
@@ -90,8 +89,6 @@ public final class Header extends AbstractComponent implements ComponentExporter
 
     @Inject
     private PageManagerDecorator pageManager;
-
-    private I18n i18n;
 
     @DialogField(fieldLabel = "Header Logo",
         fieldDescription = "select header logo",
@@ -209,21 +206,12 @@ public final class Header extends AbstractComponent implements ComponentExporter
     @LinkInject(inherit = true)
     private Link quotesLink;
 
-    @PostConstruct
-    private void initModel() {
-        i18n = new I18n(request.getResourceBundle(currentPage.getLanguage(true)));
-    }
-
     public String getQuotesLink() {
         return getShowQuoteHistory() ? quotesLink.getHref().replace(WatersConstants.ROOT_PATH,"/nextgen") : StringUtils.EMPTY;
     }
 
     public Boolean getShowQuoteHistory() {
         return currentPage.getInherited("showQuoteHistory", Boolean.FALSE);
-    }
-
-    public String getQuoteText() {
-        return getShowQuoteHistory() ? i18n.get(WatersConstants.QUOTE_HISTORY_TEXT) : "";
     }
 
     @Nonnull

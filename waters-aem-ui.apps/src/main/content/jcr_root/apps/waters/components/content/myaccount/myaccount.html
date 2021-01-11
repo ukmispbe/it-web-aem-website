@@ -42,7 +42,7 @@
                             "isHidden": "true"
                         },
                         {
-                            "text": "${myaccount.quoteText @ context='unsafe'}",
+                            "text": "${myaccount.showQuoteHistory ? 'Quote History' : '' @ i18n, context='unsafe'}",
                             "url": "${myaccount.showQuoteHistory ? '#quotehistory' : '' @ context='unsafe'}",
                             "linkName": "Quote History"
                         },

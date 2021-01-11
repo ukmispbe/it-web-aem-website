@@ -8,7 +8,6 @@ import com.citytechinc.cq.component.annotations.Listener;
 import com.citytechinc.cq.component.annotations.widgets.MultiField;
 import com.citytechinc.cq.component.annotations.widgets.PathField;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
-import com.day.cq.i18n.I18n;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.icfolson.aem.library.api.link.Link;
@@ -75,8 +74,6 @@ public class MyAccount implements ComponentExporter {
     @Self
     private SlingHttpServletRequest request;
 
-    private I18n i18n;
-
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
     @DialogField(fieldLabel = "Shop All Products path",
@@ -100,11 +97,6 @@ public class MyAccount implements ComponentExporter {
     @MultiField(composite = true)
     @Inject
     private List<BasicLink> links = new ArrayList<>();
-
-    @PostConstruct
-    private void initModel() {
-        i18n = new I18n(request.getResourceBundle(currentPage.getLanguage(true)));
-    }
 
     public List<BasicLink> getLinks() {
         return links;
@@ -186,7 +178,4 @@ public class MyAccount implements ComponentExporter {
         return currentPage.getInherited("showQuoteHistory", Boolean.FALSE);
     }
 
-    public String getQuoteText() {
-        return getShowQuoteHistory() ? i18n.get(WatersConstants.QUOTE_HISTORY_TEXT) : "";
-    }
 }

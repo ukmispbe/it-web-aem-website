@@ -128,7 +128,7 @@
                                         "isHiddenForEprocUser": "true"
                                     },
                                     {
-                                        "text": "${header.quoteText @ context='unsafe'}",
+                                        "text": "${header.showQuoteHistory ? 'Quote History' : '' @ i18n, context='unsafe'}",
                                         "url": "${!header.eprocurement && header.showQuoteHistory ? header.quotesLink : '' @ context='unsafe'}",
                                         "target": "_self",
                                         "class": "dropdown__item-list__my-quotes",
