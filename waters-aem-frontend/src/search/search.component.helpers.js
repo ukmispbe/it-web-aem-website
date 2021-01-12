@@ -99,6 +99,7 @@ const Aside = ({
     items,
     activeIndex,
     categoryClick,
+    clearSessionStore
 }) => {
 
     return (
@@ -106,7 +107,8 @@ const Aside = ({
             {!isEprocurementUser() && <CategoryList items={items}
                 text={text}
                 activeIndex={activeIndex}
-                onClick={categoryClick} />}
+                onClick={categoryClick} 
+                clearSessionStore={clearSessionStore} />}
             <BtnHideSortFilter
                 text={text}
                 onClick={asideEvents.onHideSortFilterClick} />
@@ -178,7 +180,7 @@ const Menu = ({
     if (menuProps.showFacetMenu) {
         return (
             <FacetMenu
-                heading={menuProps.heading}
+                heading={menuProps.backLinkText}
                 selectedValue={facetMenuProps.selectedValue}
                 previousIcon={facetMenuProps.previousIcon}
                 filterTags={filterTags}

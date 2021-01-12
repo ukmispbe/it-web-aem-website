@@ -149,14 +149,14 @@
 /******/
 /******/
 /******/ 	// add entry module to deferred list
-/******/ 	deferredModules.push([402,1,2,0]);
+/******/ 	deferredModules.push([396,1,2,0]);
 /******/ 	// run deferred modules when ready
 /******/ 	return checkDeferredModules();
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 103:
+/***/ 104:
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
@@ -164,7 +164,56 @@ module.exports = {"colorBorderDark":"#9ca7b0","colorGray50":"#4f5b64","colorBack
 
 /***/ }),
 
-/***/ 14:
+/***/ 143:
+/***/ (function(module, exports) {
+
+/* (ignored) */
+
+/***/ }),
+
+/***/ 144:
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+module.exports = {"colorBorderDark":"#9ca7b0","colorGray50":"#4f5b64","colorBackgroundLight":"#f6f8f9","colorWhite":"#fff","colorBlue50":"#07b","borderRadius":"4px","spaceXXXS":".25em","spaceXXS":".5em","spaceXS":".75em","spaceS":"1em"};
+
+/***/ }),
+
+/***/ 15:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BAD_REQUEST_CODE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return SERVER_ERROR_CODE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return UNAVAILABLE_PRICE_WITH_ADD_TO_CART; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return LIST_PRICE_WITH_ADD_TO_CART; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return NO_PRICE_NO_ADD_TO_CART; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return FILENAME_REGX; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return DELIVERY_STATUS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return STORE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return CHECKOUT; });
+var BAD_REQUEST_CODE = 400;
+var SERVER_ERROR_CODE = 500;
+var UNAVAILABLE_PRICE_WITH_ADD_TO_CART = 'unavailable_price_with_add-to-cart';
+var LIST_PRICE_WITH_ADD_TO_CART = 'list_price_with_add-to-cart';
+var NO_PRICE_NO_ADD_TO_CART = 'no_price_no_add-to-cart';
+var FILENAME_REGX = /\*|\/|\?|\!|\<|\>|\"|\||\\|\:/gm;
+var DELIVERY_STATUS = {
+  OPEN: 'Open',
+  PENDING: 'Pending',
+  REJECTED: 'Rejected',
+  EXPIRED: 'Expired',
+  ORDER_PLACED: 'Order Placed',
+  QUOTE_REPLACED: 'Quote Replaced',
+  PARTIAL: "Partial",
+  COMPLETE: "Complete"
+};
+var STORE = 'store';
+var CHECKOUT = 'checkout';
+
+/***/ }),
+
+/***/ 16:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -185,16 +234,16 @@ var slicedToArray = __webpack_require__(6);
 var classCallCheck = __webpack_require__(4);
 
 // EXTERNAL MODULE: ./src/scripts/inlineSVG.js + 1 modules
-var inlineSVG = __webpack_require__(58);
+var inlineSVG = __webpack_require__(57);
 
 // EXTERNAL MODULE: ./src/scripts/DigitalData.js
-var DigitalData = __webpack_require__(21);
+var DigitalData = __webpack_require__(22);
 
 // EXTERNAL MODULE: ./src/stores/sessionStore.js
-var sessionStore = __webpack_require__(15);
+var sessionStore = __webpack_require__(14);
 
 // EXTERNAL MODULE: ./src/stores/cookieStore.js
-var cookieStore = __webpack_require__(52);
+var cookieStore = __webpack_require__(51);
 
 // CONCATENATED MODULE: ./src/analytics/eventTypes.js
 var eventTypes = {
@@ -553,22 +602,7 @@ var _analytics$analyticTy = Object(slicedToArray["a" /* default */])(analytics.a
 
 /***/ }),
 
-/***/ 142:
-/***/ (function(module, exports) {
-
-/* (ignored) */
-
-/***/ }),
-
-/***/ 143:
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-module.exports = {"colorBorderDark":"#9ca7b0","colorGray50":"#4f5b64","colorBackgroundLight":"#f6f8f9","colorWhite":"#fff","colorBlue50":"#07b","borderRadius":"4px","spaceXXXS":".25em","spaceXXS":".5em","spaceXS":".75em","spaceS":"1em"};
-
-/***/ }),
-
-/***/ 159:
+/***/ 160:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -576,21 +610,21 @@ module.exports = {"colorBorderDark":"#9ca7b0","colorGray50":"#4f5b64","colorBack
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./src/styles/index.scss
-var styles = __webpack_require__(103);
+var styles = __webpack_require__(104);
 
 // EXTERNAL MODULE: ./node_modules/react/index.js
 var react = __webpack_require__(0);
 var react_default = /*#__PURE__*/__webpack_require__.n(react);
 
 // EXTERNAL MODULE: ./node_modules/react-dom/index.js
-var react_dom = __webpack_require__(23);
+var react_dom = __webpack_require__(24);
 var react_dom_default = /*#__PURE__*/__webpack_require__.n(react_dom);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectSpread.js
 var objectSpread = __webpack_require__(12);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 3 modules
-var toConsumableArray = __webpack_require__(29);
+var toConsumableArray = __webpack_require__(32);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/regenerator/index.js
 var regenerator = __webpack_require__(2);
@@ -600,7 +634,7 @@ var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
 var asyncToGenerator = __webpack_require__(13);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/typeof.js
-var esm_typeof = __webpack_require__(36);
+var esm_typeof = __webpack_require__(37);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js
 var classCallCheck = __webpack_require__(4);
@@ -609,22 +643,22 @@ var classCallCheck = __webpack_require__(4);
 var createClass = __webpack_require__(5);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js
-var possibleConstructorReturn = __webpack_require__(7);
+var possibleConstructorReturn = __webpack_require__(8);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js
-var getPrototypeOf = __webpack_require__(8);
+var getPrototypeOf = __webpack_require__(9);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits.js + 1 modules
-var inherits = __webpack_require__(9);
+var inherits = __webpack_require__(10);
 
 // EXTERNAL MODULE: ./src/search/services/index.js
-var services = __webpack_require__(20);
+var services = __webpack_require__(21);
 
 // EXTERNAL MODULE: ./node_modules/query-string/index.js
-var query_string = __webpack_require__(30);
+var query_string = __webpack_require__(29);
 
 // EXTERNAL MODULE: ./node_modules/react-router-dom/es/withRouter.js + 1 modules
-var withRouter = __webpack_require__(506);
+var withRouter = __webpack_require__(501);
 
 // EXTERNAL MODULE: ./node_modules/react-svg/es/react-svg.js
 var react_svg = __webpack_require__(3);
@@ -651,20 +685,20 @@ var no_results_NoResults = function NoResults(_ref) {
 
 /* harmony default export */ var no_results = (no_results_NoResults);
 // EXTERNAL MODULE: ./node_modules/validator/index.js
-var validator = __webpack_require__(59);
+var validator = __webpack_require__(58);
 var validator_default = /*#__PURE__*/__webpack_require__.n(validator);
 
 // EXTERNAL MODULE: ./src/scripts/domElements.js
-var domElements = __webpack_require__(25);
+var domElements = __webpack_require__(26);
 
 // EXTERNAL MODULE: ./src/scripts/screenSizes.js
-var screenSizes = __webpack_require__(17);
+var screenSizes = __webpack_require__(18);
 
 // EXTERNAL MODULE: ./src/analytics/index.js + 1 modules
-var analytics = __webpack_require__(14);
+var analytics = __webpack_require__(16);
 
 // EXTERNAL MODULE: ./src/utils/spinner/index.js
-var spinner = __webpack_require__(27);
+var spinner = __webpack_require__(28);
 
 // CONCATENATED MODULE: ./src/search/components/loading.js
 
@@ -896,7 +930,7 @@ var defaultProps = {
 };
 
 // EXTERNAL MODULE: ./node_modules/react-paginate/dist/react-paginate.js
-var react_paginate = __webpack_require__(64);
+var react_paginate = __webpack_require__(62);
 var react_paginate_default = /*#__PURE__*/__webpack_require__.n(react_paginate);
 
 // CONCATENATED MODULE: ./src/search/components/content-type-menu.js
@@ -1411,13 +1445,13 @@ filter_Filter.defaultProps = {
 };
 /* harmony default export */ var filter = (filter_Filter);
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js + 1 modules
-var objectWithoutProperties = __webpack_require__(61);
+var objectWithoutProperties = __webpack_require__(60);
 
 // EXTERNAL MODULE: ./node_modules/react-select/dist/react-select.esm.js + 1 modules
 var react_select_esm = __webpack_require__(46);
 
 // EXTERNAL MODULE: ./src/utils/dropdown/custom-styles.js
-var custom_styles = __webpack_require__(97);
+var custom_styles = __webpack_require__(96);
 
 // CONCATENATED MODULE: ./src/search/components/category-dropdown.js
 
@@ -1431,9 +1465,10 @@ var category_dropdown_getOptions = function getOptions(options) {
   var newList = options.filter(function (item) {
     return item.count !== 0;
   }).map(function (a, index) {
+    var mobileLabel = a.hasOwnProperty('mobileTranslation') && a.mobileTranslation ? a.mobileTranslation : a.translation;
     return {
       value: index,
-      label: a.translation
+      label: "".concat(mobileLabel, " (").concat(a.count, ")")
     };
   });
   return newList;
@@ -1540,7 +1575,7 @@ var btn_hide_sort_filter_HideSortFilter = /*#__PURE__*/function (_Component) {
 
 /* harmony default export */ var btn_hide_sort_filter = (btn_hide_sort_filter_HideSortFilter);
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js
-var assertThisInitialized = __webpack_require__(19);
+var assertThisInitialized = __webpack_require__(20);
 
 // CONCATENATED MODULE: ./src/search/components/btn-apply-sort-filter.js
 
@@ -1659,7 +1694,7 @@ var btn_done_sort_filter_DoneSortFilter = /*#__PURE__*/function (_Component) {
 
 /* harmony default export */ var btn_done_sort_filter = (btn_done_sort_filter_DoneSortFilter);
 // EXTERNAL MODULE: ./src/utils/dropdown/index.js
-var dropdown = __webpack_require__(65);
+var dropdown = __webpack_require__(63);
 
 // CONCATENATED MODULE: ./src/search/components/sort.js
 
@@ -1830,8 +1865,15 @@ function ResultsCount(props) {
 
   if (Array.isArray(props.categoryOptions) && props.categoryOptions.length) {
     var options = getOptions(props.categoryOptions);
-    categoryLabel = props.categoryValue === 0 || props.categoryValue === -1 ? "All" : options[props.categoryValue].label;
-    actualCount = options[props.categoryValue].count;
+    categoryLabel = props.categoryValue === 0 || props.categoryValue === -1 ? "All" : options[props.categoryValue].label; // If All is not authored then sum the categories
+
+    if (props.categoryValue !== -1) {
+      actualCount = props.count > options[props.categoryValue].count ? options[props.categoryValue].count : props.count;
+    } else {
+      actualCount = options.reduce(function (acc, curr) {
+        return acc + curr.count;
+      }, 0);
+    }
   }
 
   var renderResultsText = function renderResultsText(resultsText) {
@@ -1966,8 +2008,8 @@ var filter_tags_SubFacetTags = function SubFacetTags(props) {
       }
     };
 
-    for (var _i2 = 0; _i2 < f.length; _i2++) {
-      _loop(_i2);
+    for (var _i = 0; _i < f.length; _i++) {
+      _loop(_i);
     }
 
     return category;
@@ -2195,19 +2237,19 @@ function UnavailablePrice(props) {
 
 /* harmony default export */ var unavailablePrice = (UnavailablePrice);
 // EXTERNAL MODULE: ./node_modules/whatwg-fetch/fetch.js
-var whatwg_fetch_fetch = __webpack_require__(38);
+var whatwg_fetch_fetch = __webpack_require__(39);
 
 // EXTERNAL MODULE: ./src/stores/localStore.js
-var stores_localStore = __webpack_require__(45);
+var stores_localStore = __webpack_require__(53);
 
 // EXTERNAL MODULE: ./src/scripts/loginStatus.js
-var loginStatus = __webpack_require__(16);
+var loginStatus = __webpack_require__(17);
 
 // EXTERNAL MODULE: ./src/utils/serviceFunctions.js
-var serviceFunctions = __webpack_require__(53);
+var serviceFunctions = __webpack_require__(30);
 
 // EXTERNAL MODULE: ./src/utils/userFunctions.js
-var userFunctions = __webpack_require__(10);
+var userFunctions = __webpack_require__(7);
 
 // CONCATENATED MODULE: ./src/sku-details/services/index.js
 
@@ -2220,7 +2262,7 @@ var userFunctions = __webpack_require__(10);
 
 
 var services_availabilityUrlRequest = function availabilityUrlRequest(url, countryCode, partNo) {
-  url = url.replace('{partnumber}', partNo).replace('{countryCode}', Object(userFunctions["s" /* isEprocurementUser */])() ? Object(userFunctions["j" /* getEprocUserCountryCode */])().toUpperCase() : countryCode);
+  url = url.replace('{partnumber}', partNo).replace('{countryCode}', Object(userFunctions["u" /* isEprocurementUser */])() ? Object(userFunctions["k" /* getEprocUserCountryCode */])().toUpperCase() : countryCode);
   return url;
 };
 
@@ -2235,10 +2277,10 @@ var legacyAddToCartUrlRequest = function legacyAddToCartUrlRequest(url, partNo, 
 };
 
 var services_addToCartUrlRequest = function addToCartUrlRequest(url, partNo, quantity, cartId) {
-  var userId = Object(userFunctions["r" /* getUserId */])();
+  var userId = Object(userFunctions["t" /* getUserId */])();
   userId = userId !== '' ? userId : 'anonymous';
-  url = url.replace('{localeCountry}', Object(userFunctions["s" /* isEprocurementUser */])() ? Object(userFunctions["j" /* getEprocUserCountryCode */])().toLowerCase() : Object(userFunctions["f" /* getCountryCode */])()).replace('{localeLanguage}', Object(userFunctions["s" /* isEprocurementUser */])() ? Object(userFunctions["k" /* getEprocUserLanguage */])().toLowerCase() : Object(userFunctions["o" /* getLanguage */])()).replace('{userType}', userId).replace('{guid}', cartId ? cartId : 'null').concat('', '?successWithCart=true');
-  url = cartId ? url : url.concat('', "&createCart=".concat(!Object(userFunctions["s" /* isEprocurementUser */])()));
+  url = url.replace('{localeCountry}', Object(userFunctions["u" /* isEprocurementUser */])() ? Object(userFunctions["k" /* getEprocUserCountryCode */])().toLowerCase() : Object(userFunctions["g" /* getCountryCode */])()).replace('{localeLanguage}', Object(userFunctions["u" /* isEprocurementUser */])() ? Object(userFunctions["l" /* getEprocUserLanguage */])().toLowerCase() : Object(userFunctions["p" /* getLanguage */])()).replace('{userType}', userId).replace('{guid}', cartId ? cartId : 'null').concat('', '?successWithCart=true');
+  url = cartId ? url : url.concat('', "&createCart=".concat(!Object(userFunctions["u" /* isEprocurementUser */])()));
   return url;
 };
 
@@ -2496,7 +2538,7 @@ var matchListItems = function matchListItems(skuListData, pricesAPIResults) {
   return skuListItem;
 };
 // EXTERNAL MODULE: ./src/scripts/skulist.js
-var skulist = __webpack_require__(91);
+var skulist = __webpack_require__(89);
 
 // CONCATENATED MODULE: ./src/sku-details/views/addToCart.js
 
@@ -2705,10 +2747,10 @@ addToCart_AddToCart.defaultProps = {
 };
 /* harmony default export */ var views_addToCart = (addToCart_AddToCart);
 // EXTERNAL MODULE: ./src/sku-details/views/addToCartModal.js
-var addToCartModal = __webpack_require__(33);
+var addToCartModal = __webpack_require__(34);
 
 // EXTERNAL MODULE: ./src/utils/modal/index.js + 1 modules
-var modal = __webpack_require__(18);
+var modal = __webpack_require__(19);
 
 // CONCATENATED MODULE: ./src/sku-message/index.js
 
@@ -2796,19 +2838,19 @@ var sku_message_SkuMessage = /*#__PURE__*/function (_React$Component) {
 
 /* harmony default export */ var sku_message = (sku_message_SkuMessage);
 // EXTERNAL MODULE: ./src/scripts/checkOutStatus.js
-var checkOutStatus = __webpack_require__(47);
+var checkOutStatus = __webpack_require__(48);
 
 // EXTERNAL MODULE: ./src/scripts/ecommerce.js
 var ecommerce = __webpack_require__(31);
 
 // EXTERNAL MODULE: ./src/scripts/sku-details.js
-var sku_details = __webpack_require__(56);
+var sku_details = __webpack_require__(55);
 
 // EXTERNAL MODULE: ./src/scripts/stickyService.js
-var stickyService = __webpack_require__(50);
+var stickyService = __webpack_require__(49);
 
 // EXTERNAL MODULE: ./src/constants/index.js
-var constants = __webpack_require__(28);
+var constants = __webpack_require__(15);
 
 // CONCATENATED MODULE: ./src/sku-list/views/listItem.js
 
@@ -2864,14 +2906,14 @@ var listItem_ListItem = /*#__PURE__*/function (_React$Component) {
         } else {
           // Add Error Object to State
           _this.setState({
-            errorPriceType: [constants["a" /* BAD_REQUEST_CODE */], constants["e" /* SERVER_ERROR_CODE */]].includes(Object(eCommerceFunctions["c" /* getHttpStatusFromErrors */])(response.errors, response.status)) ? Object(userFunctions["s" /* isEprocurementUser */])() ? constants["f" /* UNAVAILABLE_PRICE_WITH_ADD_TO_CART */] : constants["c" /* LIST_PRICE_WITH_ADD_TO_CART */] : constants["d" /* NO_PRICE_NO_ADD_TO_CART */],
+            errorPriceType: [constants["a" /* BAD_REQUEST_CODE */], constants["g" /* SERVER_ERROR_CODE */]].includes(Object(eCommerceFunctions["c" /* getHttpStatusFromErrors */])(response.errors, response.status)) ? Object(userFunctions["u" /* isEprocurementUser */])() ? constants["i" /* UNAVAILABLE_PRICE_WITH_ADD_TO_CART */] : constants["e" /* LIST_PRICE_WITH_ADD_TO_CART */] : constants["f" /* NO_PRICE_NO_ADD_TO_CART */],
             loading: false
           });
         }
       })["catch"](function (err) {
         // Add Error Object to State
         _this.setState({
-          errorPriceType: constants["d" /* NO_PRICE_NO_ADD_TO_CART */],
+          errorPriceType: constants["f" /* NO_PRICE_NO_ADD_TO_CART */],
           loading: false
         });
       });
@@ -2957,7 +2999,7 @@ var listItem_ListItem = /*#__PURE__*/function (_React$Component) {
           skuInfo = _this$state.skuInfo,
           errorPriceType = _this$state.errorPriceType;
 
-      if (errorPriceType === constants["f" /* UNAVAILABLE_PRICE_WITH_ADD_TO_CART */]) {
+      if (errorPriceType === constants["i" /* UNAVAILABLE_PRICE_WITH_ADD_TO_CART */]) {
         return react_default.a.createElement(unavailablePrice, {
           label: skuInfo.custPriceLabel,
           icon: skuInfo.lowStockIcon,
@@ -3107,7 +3149,7 @@ var listItem_ListItem = /*#__PURE__*/function (_React$Component) {
           link: relatedSku.replacementskuurl,
           linkMessage: relatedSku.replacementskucode
         });
-      } else if (_this.state.errorPriceType === constants["d" /* NO_PRICE_NO_ADD_TO_CART */]) {
+      } else if (_this.state.errorPriceType === constants["f" /* NO_PRICE_NO_ADD_TO_CART */]) {
         return react_default.a.createElement(sku_message, {
           icon: skuConfig.skuInfo.lowStockIcon,
           message: skuConfig.skuInfo.skuErrorMessage
@@ -3269,7 +3311,7 @@ listItem_ListItem.defaultProps = {
 };
 /* harmony default export */ var listItem = (listItem_ListItem);
 // EXTERNAL MODULE: ./src/scripts/signIn.js
-var scripts_signIn = __webpack_require__(83);
+var scripts_signIn = __webpack_require__(82);
 
 // CONCATENATED MODULE: ./src/sku-list/index.js
 
@@ -3300,7 +3342,7 @@ var sku_list_SkuList = /*#__PURE__*/function (_React$Component) {
       addToCartQty: undefined,
       skuInfo: _this.props.skuConfig.skuInfo,
       userCountry: _this.props.skuConfig.countryCode,
-      isEProcurementUserRestricted: !Object(userFunctions["s" /* isEprocurementUser */])() && Object(userFunctions["t" /* isEprocurementUserRole */])(),
+      isEProcurementUserRestricted: !Object(userFunctions["u" /* isEprocurementUser */])() && Object(userFunctions["v" /* isEprocurementUserRole */])(),
       userInfo: Object(userFunctions["a" /* callCustomerPriceApi */])(_this.props.skuConfig.isCustomerPriceApiDisabled)
     };
     return _this;
@@ -3354,7 +3396,7 @@ sku_list_SkuList.defaultProps = {
 };
 /* harmony default export */ var sku_list = (sku_list_SkuList);
 // EXTERNAL MODULE: ./node_modules/react-lines-ellipsis/lib/index.js
-var lib = __webpack_require__(84);
+var lib = __webpack_require__(83);
 var lib_default = /*#__PURE__*/__webpack_require__.n(lib);
 
 // CONCATENATED MODULE: ./src/search/components/results.js
@@ -3429,11 +3471,13 @@ var results_Results = function Results(_ref2) {
 
 
 
+
 var category_list_CategoryList = function CategoryList(_ref) {
   var items = _ref.items,
       text = _ref.text,
       activeIndex = _ref.activeIndex,
-      onClick = _ref.onClick;
+      onClick = _ref.onClick,
+      clearSessionStore = _ref.clearSessionStore;
   var categoryRef = react_default.a.useRef();
   var hasAllCategory = items.some(function (item) {
     return item.name === 'All';
@@ -3475,7 +3519,8 @@ var category_list_CategoryList = function CategoryList(_ref) {
       onClick: onClick,
       backImage: backImage,
       isHidden: isHidden,
-      hideCount: hideCount
+      hideCount: hideCount,
+      clearSessionStore: clearSessionStore
     });
   })), (!hasAllCategory || hasAllCategory && activeIndex !== 0) && react_default.a.createElement("hr", {
     className: "cmp-category-separator h-large"
@@ -3506,11 +3551,12 @@ var category_list_Category = function Category(_ref2) {
       _onClick = _ref2.onClick,
       backImage = _ref2.backImage,
       isHidden = _ref2.isHidden,
-      hideCount = _ref2.hideCount;
+      hideCount = _ref2.hideCount,
+      clearSessionStore = _ref2.clearSessionStore;
   return react_default.a.createElement("div", {
-    className: "cmp-category-item".concat(isActive ? " active" : "", " ").concat(isHidden ? " hidden" : ""),
+    className: "cmp-category-item".concat(isActive ? " active" : "", " ").concat(isHidden ? " hidden" : "", " ").concat(backImage ? " backLink" : ""),
     onClick: function onClick() {
-      return _onClick(index);
+      return category_list_processClick(index, _onClick, backImage, clearSessionStore);
     }
   }, backImage, react_default.a.createElement("span", {
     className: "cmp-category-label",
@@ -3519,6 +3565,21 @@ var category_list_Category = function Category(_ref2) {
     className: "cmp-category-count ".concat(hideCount ? " hidden" : ""),
     "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])(count)
   }, " (", count, ")"));
+};
+
+var category_list_processClick = function processClick(index, onClick, backImage, clearSessionStore) {
+  if (backImage) {
+    clearSessionStore();
+    var parameters = Object(query_string["parse"])(window.location.search); // Remove content type and any selected facets. Set Category = "All" and reset the page
+
+    delete parameters.facet;
+    delete parameters.content_type;
+    parameters.category = "All";
+    parameters.page = "1";
+    window.location.href = "".concat(window.location.pathname, "?").concat(Object(query_string["stringify"])(parameters));
+  } else {
+    onClick(index);
+  }
 };
 
 category_list_Category.defaultProps = {
@@ -3614,15 +3675,17 @@ var search_component_helpers_Aside = function Aside(_ref2) {
       children = _ref2.children,
       items = _ref2.items,
       activeIndex = _ref2.activeIndex,
-      categoryClick = _ref2.categoryClick;
+      categoryClick = _ref2.categoryClick,
+      clearSessionStore = _ref2.clearSessionStore;
   return react_default.a.createElement("div", {
     className: "container__left cmp-search__sort-filter",
     "data-locator": "left-container-filter"
-  }, !Object(userFunctions["s" /* isEprocurementUser */])() && react_default.a.createElement(category_list, {
+  }, !Object(userFunctions["u" /* isEprocurementUser */])() && react_default.a.createElement(category_list, {
     items: items,
     text: text,
     activeIndex: activeIndex,
-    onClick: categoryClick
+    onClick: categoryClick,
+    clearSessionStore: clearSessionStore
   }), react_default.a.createElement(btn_hide_sort_filter, {
     text: text,
     onClick: asideEvents.onHideSortFilterClick
@@ -3679,7 +3742,7 @@ var search_component_helpers_Menu = function Menu(_ref3) {
 
   if (menuProps.showFacetMenu) {
     return react_default.a.createElement(facet_menu, {
-      heading: menuProps.heading,
+      heading: menuProps.backLinkText,
       selectedValue: facetMenuProps.selectedValue,
       previousIcon: facetMenuProps.previousIcon,
       filterTags: filterTags,
@@ -3718,7 +3781,7 @@ var search_component_helpers_SkuResults = function SkuResults(_ref4) {
   var items = _ref4.items,
       skuConfig = _ref4.skuConfig,
       onItemClick = _ref4.onItemClick;
-  var isEprocUser = Object(userFunctions["s" /* isEprocurementUser */])();
+  var isEprocUser = Object(userFunctions["u" /* isEprocurementUser */])();
   var skuData = Array.isArray(items) ? items.map(function (item) {
     return {
       code: item.skucode,
@@ -3903,10 +3966,10 @@ search_component_helpers_ResultsBody.defaultProps = {
 var slicedToArray = __webpack_require__(6);
 
 // EXTERNAL MODULE: ./src/utils/redirectFunctions.js
-var redirectFunctions = __webpack_require__(24);
+var redirectFunctions = __webpack_require__(25);
 
 // EXTERNAL MODULE: ./node_modules/react-ellipsis-text/index.js
-var react_ellipsis_text = __webpack_require__(125);
+var react_ellipsis_text = __webpack_require__(100);
 var react_ellipsis_text_default = /*#__PURE__*/__webpack_require__.n(react_ellipsis_text);
 
 // CONCATENATED MODULE: ./src/common/search-breadcrumb/index.js
@@ -3933,22 +3996,48 @@ var search_breadcrumb_SearchBreadcrumb = function SearchBreadcrumb(props) {
 
     if (title === "All") {
       title = props.text.allCategoriesText;
-    }
+    } // Call the clearSession Function if it's a Search link or a Keyword Link. (Have to  take into account a spelling suggestion)
 
-    return react_default.a.createElement("li", {
-      className: "cmp-breadcrumb__item",
-      itemprop: "itemListElement",
-      itemscope: "",
-      itemtype: "http://schema.org/ListItem"
-    }, react_default.a.createElement("a", {
-      href: linkInfo.path,
-      className: "cmp-breadcrumb__item-link"
-    }, react_default.a.createElement("span", {
-      itemprop: "name"
-    }, react_default.a.createElement(react_ellipsis_text_default.a, {
-      text: title,
-      length: "20"
-    }))));
+
+    if (title === "Search" || props.searchParams.keyword !== "" && title === props.searchParams.keyword || props.searchParams.spell_suggestion !== "" && title === props.searchParams.spell_suggestion) {
+      return react_default.a.createElement("li", {
+        className: "cmp-breadcrumb__item",
+        itemprop: "itemListElement",
+        itemscope: "",
+        itemtype: "http://schema.org/ListItem"
+      }, react_default.a.createElement("a", {
+        onClick: function onClick(e) {
+          return clearSession(e, linkInfo.path);
+        },
+        className: "cmp-breadcrumb__item-link"
+      }, react_default.a.createElement("span", {
+        itemprop: "name"
+      }, react_default.a.createElement(react_ellipsis_text_default.a, {
+        text: title,
+        length: "20"
+      }))));
+    } else {
+      return react_default.a.createElement("li", {
+        className: "cmp-breadcrumb__item",
+        itemprop: "itemListElement",
+        itemscope: "",
+        itemtype: "http://schema.org/ListItem"
+      }, react_default.a.createElement("a", {
+        href: linkInfo.path,
+        className: "cmp-breadcrumb__item-link"
+      }, react_default.a.createElement("span", {
+        itemprop: "name"
+      }, react_default.a.createElement(react_ellipsis_text_default.a, {
+        text: title,
+        length: "20"
+      }))));
+    }
+  };
+
+  var clearSession = function clearSession(e, path) {
+    e.preventDefault();
+    props.clearSessionStore();
+    window.location.href = path;
   };
 
   var renderBreadcrumb = function renderBreadcrumb(links) {
@@ -4081,10 +4170,33 @@ var search_breadcrumb_SearchBreadcrumb = function SearchBreadcrumb(props) {
 var search_component_SearchComponent = function SearchComponent(props) {
   // Append Facet Description & spelling of keyword
   props.searchParams.contentTypeSelected = props.filterTagsProps.contentTypeSelected;
-  props.searchParams.spell_suggestion = props.filterTagsProps.spell_suggestion;
+  props.searchParams.spell_suggestion = props.filterTagsProps.spell_suggestion; // Check if the All Category isn't authored 
+
+  if (props.filterMap) {
+    var facet = props.filterMap.find(function (item) {
+      return item.categoryFacetValue === "All";
+    });
+
+    if (facet === undefined) {
+      // Remove the All Category in props.categoryProps.categories if it exists
+      if (props.categoryProps.categories.length !== 0 && props.categoryProps.categories[0].name === "All") {
+        props.categoryProps.categories.splice(0, 1);
+      }
+    }
+  } // Determine the ActiveIndex from the Category
+
+
+  if (props.categoryProps.categories) {
+    var activeIndex = props.categoryProps.categories.findIndex(function (item) {
+      return item.name === props.category;
+    });
+    props.categoryProps.activeIndex = activeIndex;
+  }
+
   return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement(search_breadcrumb, {
     text: props.text,
-    searchParams: props.searchParams
+    searchParams: props.searchParams,
+    clearSessionStore: props.clearSessionStore
   }), react_default.a.createElement("div", null, react_default.a.createElement("div", {
     className: "overlay"
   }), react_default.a.createElement(search_component_helpers_Aside, {
@@ -4094,7 +4206,8 @@ var search_component_SearchComponent = function SearchComponent(props) {
     asideEvents: props.asideEvents,
     items: props.categoryProps.categories,
     activeIndex: props.categoryProps.activeIndex,
-    categoryClick: props.categoryEvents.onCategoryTabClick
+    categoryClick: props.categoryEvents.onCategoryTabClick,
+    clearSessionStore: props.clearSessionStore
   }, props.category !== "All" && react_default.a.createElement(search_component_helpers_Menu, {
     text: props.text,
     filterMap: props.filterMap,
@@ -4151,7 +4264,6 @@ search_component_SearchComponent.defaultProps = defaultProps;
 
 
 var SEARCH_TYPES = {
-  INITIAL: 'initial',
   CATEGORY_ONLY: 'category only',
   CONTENT_TYPE: 'content type',
   SUB_FACETS: 'sub facets'
@@ -4236,7 +4348,6 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
         unappliedFilters: {},
         isDesktop: false,
         isSkuList: false,
-        initialRender: true,
         performedSearches: 0,
         category: category,
         contentType: contentType,
@@ -4256,7 +4367,8 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
         collapseAllFilters: false,
         activeFilterIndex: -1,
         count: 0,
-        allResultsText: _this.props.searchText.allResultsText
+        allResultsText: _this.props.searchText.allResultsText,
+        allResultsTextMobile: _this.props.searchText.allResultsTextMobile
       };
     };
 
@@ -4331,6 +4443,10 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
       }
     };
 
+    _this.createStrippedFacetName = function (facetName) {
+      return facetName.replace(/[\W_]+/g, "").toLowerCase();
+    };
+
     _this.findFacetNameProperty = function (filterMap, searchValue) {
       if (!filterMap || !Array.isArray(filterMap)) {
         return "";
@@ -4394,7 +4510,11 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
     };
 
     _this.buildSearchParams = function (q) {
-      var query = q && Object.entries(q).length !== 0 ? Object(objectSpread["a" /* default */])({}, q) : _this.getQueryObject();
+      var query = q && Object.entries(q).length !== 0 ? Object(objectSpread["a" /* default */])({}, q) : _this.getQueryObject(); // Default to "All" if no category sent.
+
+      if (!query.category) {
+        query.category = "All";
+      }
 
       if (!query.sort && _this.state) {
         query = Object.assign({}, query, {
@@ -4409,41 +4529,17 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
       return _this.props.searchDefaults && _this.props.searchDefaults.rows ? _this.props.searchDefaults.rows : services["b" /* parameterDefaults */].rows;
     };
 
-    _this.setAllCategory = function (categoriesWithData) {
-      //Add All Category to categories using Count of Authored Categories
-      var total = 0;
-
-      for (var i = 0; i < categoriesWithData.length; i++) {
-        total = total + categoriesWithData[i].count;
-      }
-
-      var allCategory = {
-        "translation": _this.state.allResultsText,
-        "name": "All",
-        "count": total
-      };
-
-      _this.setState({
-        count: total
-      });
-
-      return categoriesWithData = [allCategory].concat(Object(toConsumableArray["a" /* default */])(categoriesWithData));
-    };
-
     _this.persistTabHistory = function (query) {
-      var tabHistory = _this.createTabHistoryEntryForCurrentTab(query);
+      // If category is undefined don't save to Tab History this occurs when no category is specified
+      if (query.category) {
+        var tabHistory = _this.createTabHistoryEntryForCurrentTab(query);
 
-      _this.search.setStorageForTabHistory(tabHistory);
+        _this.search.setStorageForTabHistory(tabHistory);
+      }
     };
 
     _this.executeSearch = function (query, rows) {
       var searchType = _this.getSearchType(query);
-
-      if (searchType === SEARCH_TYPES.INITIAL) {
-        _this.executeInitialSearch(query);
-
-        return;
-      }
 
       _this.setStateForActiveCategory(query);
 
@@ -4468,10 +4564,6 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
     };
 
     _this.getSearchType = function (query) {
-      if (!query.category) {
-        return SEARCH_TYPES.INITIAL;
-      }
-
       if (_this.isCategoryOnlySelected(query.category, query.content_type)) {
         return SEARCH_TYPES.CATEGORY_ONLY;
       }
@@ -4485,28 +4577,7 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
       } // return a default value for defensive programming
 
 
-      return SEARCH_TYPES.INITIAL;
-    };
-
-    _this.executeInitialSearch = function (query) {
-      var maxCategory = _this.findMaxCategory(_this.state.categoryTabs);
-
-      if (maxCategory === -1) {
-        _this.setEmptyResults();
-
-        return;
-      }
-
-      var categoryName = _this.state.categoryTabs[maxCategory].name;
-
-      _this.setState({
-        activeTabIndex: maxCategory,
-        category: categoryName
-      });
-
-      query.category = categoryName;
-
-      _this.pushToHistory(query, _this.state.selectedFacets);
+      return SEARCH_TYPES.CATEGORY_ONLY;
     };
 
     _this.setStateForActiveCategory = function (query) {
@@ -4593,7 +4664,9 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
     };
 
     _this.getFilterMap = function (authoredTags, backendFacets) {
-      var categoryFacetName = "".concat(_this.state.category.toLowerCase(), "_facet");
+      var strippedCategoryFacetName = _this.createStrippedFacetName(_this.state.category);
+
+      var categoryFacetName = "".concat(strippedCategoryFacetName, "_facet");
       var category = authoredTags.find(function (authoredItem) {
         return authoredItem.categoryFacetName === categoryFacetName;
       });
@@ -4631,10 +4704,40 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
       };
     };
 
+    _this.setAllCategory = function (categoriesWithData) {
+      //Add All Category to categories using Count of Authored Categories
+      var total = 0;
+
+      for (var i = 0; i < categoriesWithData.length; i++) {
+        total = total + categoriesWithData[i].count;
+      }
+
+      var allCategory = {
+        "translation": _this.state.allResultsText,
+        "mobileTranslation": _this.state.allResultsTextMobile,
+        "name": "All",
+        "count": total
+      };
+
+      _this.setState({
+        count: total
+      });
+
+      categoriesWithData = [allCategory].concat(Object(toConsumableArray["a" /* default */])(categoriesWithData));
+      return categoriesWithData;
+    };
+
     _this.searchOnSuccess = function (query, rows, res) {
       var initCategories = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+      // get the categoy Assigned to state
+      _this.state.category = _this.state.category ? _this.state.category : query.category;
       var newState = Object.assign({}, _this.state);
-      newState.filterMap = res.num_found !== 0 ? Object.assign({}, _this.getFilterMap(_this.props.filterMap, res.facets[_this.parentCategory])) : [];
+      newState.filterMap = res.num_found !== 0 ? Object.assign({}, _this.getFilterMap(_this.props.filterMap, res.facets[_this.parentCategory])) : []; // Add the All Category to the categories retrieved from the API call iff the All category has been authored
+
+      var categoriesWithData = _this.mapCategories(res);
+
+      var categoriesWithAllData = _this.findFacetNameProperty(_this.props.filterMap, "All") ? _this.setAllCategory(categoriesWithData) : categoriesWithData;
+      newState.categoryTabs = categoriesWithAllData;
       newState.loading = false;
       newState.rows = rows;
       newState.count = parseInt(res.num_found);
@@ -4644,7 +4747,6 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
       newState.noQuery = query.keyword ? false : true;
       newState.sort = _this.state.sort;
       newState.performedSearches = _this.state.performedSearches + 1;
-      newState.initialRender = false;
       newState.erroredOut = false;
       newState.pagination = {
         current: query.page,
@@ -5184,7 +5286,8 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
       return {
         showContentTypeMenu: _this.isCategoryOnlySelected(_this.state.category, _this.state.contentType),
         showFacetMenu: !_this.isCategoryOnlySelected(_this.state.category, _this.state.contentType),
-        heading: _this.props.searchText.anyResultTypeText
+        heading: _this.props.searchText.resultType,
+        backLinkText: _this.props.searchText.anyResultTypeText
       };
     };
 
@@ -5277,16 +5380,14 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
         _this2.performSearch();
       });
       this.setState({
-        isEprocurementUser: Object(userFunctions["s" /* isEprocurementUser */])()
+        isEprocurementUser: Object(userFunctions["u" /* isEprocurementUser */])()
       });
     }
   }, {
     key: "performSearch",
     value: function () {
       var _performSearch = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee3(q) {
-        var _this3 = this;
-
-        var query, rows, categories, categoriesWithData, categoriesWithAllData;
+        var query, rows;
         return regenerator_default.a.wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
@@ -5300,39 +5401,11 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
                   loading: true,
                   results: {},
                   filterMap: {}
-                }); // fetch categories only once on the initial rendering
-                // store category tabs in the component's state
+                }); // Execute the Search
 
-                if (!this.state.initialRender) {
-                  _context3.next = 12;
-                  break;
-                }
-
-                _context3.next = 6;
-                return this.search.getCategories({
-                  keyword: query.keyword
-                });
-
-              case 6:
-                categories = _context3.sent;
-                // find the categories
-                categoriesWithData = this.mapCategories(categories);
-                categoriesWithAllData = this.findFacetNameProperty(this.props.filterMap, "All") ? this.setAllCategory(categoriesWithData) : categoriesWithData; // execute the search after the category tabs has been saved in the component's state
-
-                this.setState({
-                  categoryTabs: categoriesWithAllData,
-                  initialRender: false
-                }, function () {
-                  return _this3.executeSearch(query, rows);
-                });
-                _context3.next = 13;
-                break;
-
-              case 12:
-                // execute the search because the category tabs have already been saved in the component's state
                 this.executeSearch(query, rows);
 
-              case 13:
+              case 4:
               case "end":
                 return _context3.stop();
             }
@@ -5399,7 +5472,8 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
         subFacetFiltersProps: this.subFacetFiltersProps(),
         subFacetFiltersEvents: this.subFacetFiltersEvents(),
         filterTagsProps: this.filterTagsProps(),
-        filterTagsEvents: this.filterTagsEvents()
+        filterTagsEvents: this.filterTagsEvents(),
+        clearSessionStore: this.props.search.clearSessionStore
       });
     }
   }]);
@@ -5409,10 +5483,10 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
 
 /* harmony default export */ var search_container = (Object(withRouter["a" /* default */])(search_container_SearchContainer));
 // EXTERNAL MODULE: ./node_modules/react-router-dom/es/BrowserRouter.js
-var BrowserRouter = __webpack_require__(502);
+var BrowserRouter = __webpack_require__(496);
 
 // EXTERNAL MODULE: ./node_modules/react-router-dom/es/Route.js
-var Route = __webpack_require__(503);
+var Route = __webpack_require__(497);
 
 // CONCATENATED MODULE: ./src/search/ErrorBoundary.js
 
@@ -5500,7 +5574,7 @@ var ErrorBoundary_ErrorBoundary = /*#__PURE__*/function (_React$Component) {
 
 
 var search_SearchApp = function SearchApp(props) {
-  var isoCode = Object(userFunctions["s" /* isEprocurementUser */])() && Object(userFunctions["n" /* getIsoCode */])() || props.isocode;
+  var isoCode = Object(userFunctions["u" /* isEprocurementUser */])() && Object(userFunctions["o" /* getIsoCode */])() || props.isocode;
   var search = new services["a" /* SearchService */](isoCode, props.searchServicePath, services["b" /* parameterDefaults */].page, props.searchDefaults.rows, services["b" /* parameterDefaults */].sort, undefined, function () {});
   return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement(BrowserRouter["a" /* default */], null, react_default.a.createElement(Route["a" /* default */], {
     path: "",
@@ -5522,7 +5596,7 @@ var search_SearchApp = function SearchApp(props) {
 
 /* harmony default export */ var src_search = (search_SearchApp);
 // EXTERNAL MODULE: ./src/stores/sessionStore.js
-var stores_sessionStore = __webpack_require__(15);
+var stores_sessionStore = __webpack_require__(14);
 
 // CONCATENATED MODULE: ./src/search/components/tagcloud.js
 
@@ -5581,7 +5655,7 @@ var tagcloud_TagCloud = /*#__PURE__*/function (_Component) {
 
 /* harmony default export */ var tagcloud = (tagcloud_TagCloud);
 // EXTERNAL MODULE: ./node_modules/hammerjs/hammer.js
-var hammer = __webpack_require__(128);
+var hammer = __webpack_require__(126);
 var hammer_default = /*#__PURE__*/__webpack_require__.n(hammer);
 
 // CONCATENATED MODULE: ./src/image-carousel/image-viewer.js
@@ -6724,11 +6798,11 @@ LinkButton.defaultProps = {
 };
 /* harmony default export */ var link_button_LinkButton = (LinkButton);
 // EXTERNAL MODULE: ./node_modules/react-html-parser/lib/index.js
-var react_html_parser_lib = __webpack_require__(98);
+var react_html_parser_lib = __webpack_require__(97);
 var react_html_parser_lib_default = /*#__PURE__*/__webpack_require__.n(react_html_parser_lib);
 
 // EXTERNAL MODULE: ./src/legal-link-modal/styles/index.scss
-var legal_link_modal_styles = __webpack_require__(143);
+var legal_link_modal_styles = __webpack_require__(144);
 
 // CONCATENATED MODULE: ./src/legal-link-modal/LegalLinkModal.js
 
@@ -6836,7 +6910,7 @@ LegalLinkModal.defaultProps = {
 };
 /* harmony default export */ var legal_link_modal_LegalLinkModal = (LegalLinkModal);
 // EXTERNAL MODULE: ./src/scripts/DigitalData.js
-var DigitalData = __webpack_require__(21);
+var DigitalData = __webpack_require__(22);
 
 // CONCATENATED MODULE: ./src/sku-details/index.js
 
@@ -6918,14 +6992,14 @@ var sku_details_SkuDetails = /*#__PURE__*/function (_React$Component) {
         } else {
           // Add Error Object to State
           _this.setState({
-            errorPriceType: [constants["a" /* BAD_REQUEST_CODE */], constants["e" /* SERVER_ERROR_CODE */]].includes(Object(eCommerceFunctions["c" /* getHttpStatusFromErrors */])(response.errors, response.status)) ? Object(userFunctions["s" /* isEprocurementUser */])() ? constants["f" /* UNAVAILABLE_PRICE_WITH_ADD_TO_CART */] : constants["c" /* LIST_PRICE_WITH_ADD_TO_CART */] : constants["d" /* NO_PRICE_NO_ADD_TO_CART */],
+            errorPriceType: [constants["a" /* BAD_REQUEST_CODE */], constants["g" /* SERVER_ERROR_CODE */]].includes(Object(eCommerceFunctions["c" /* getHttpStatusFromErrors */])(response.errors, response.status)) ? Object(userFunctions["u" /* isEprocurementUser */])() ? constants["i" /* UNAVAILABLE_PRICE_WITH_ADD_TO_CART */] : constants["e" /* LIST_PRICE_WITH_ADD_TO_CART */] : constants["f" /* NO_PRICE_NO_ADD_TO_CART */],
             loading: false
           });
         }
       })["catch"](function () {
         // Add Error Object to State
         _this.setState({
-          errorPriceType: constants["d" /* NO_PRICE_NO_ADD_TO_CART */],
+          errorPriceType: constants["f" /* NO_PRICE_NO_ADD_TO_CART */],
           loading: false
         });
       });
@@ -6992,9 +7066,9 @@ var sku_details_SkuDetails = /*#__PURE__*/function (_React$Component) {
           skuInfo = _this$state.skuInfo,
           errorPriceType = _this$state.errorPriceType,
           isStickyAvailable = _this$state.isStickyAvailable;
-      var isHiddenListPrice = errorPriceType === constants["d" /* NO_PRICE_NO_ADD_TO_CART */] && isStickyAvailable && Object(userFunctions["s" /* isEprocurementUser */])() ? true : false;
+      var isHiddenListPrice = errorPriceType === constants["f" /* NO_PRICE_NO_ADD_TO_CART */] && isStickyAvailable && Object(userFunctions["u" /* isEprocurementUser */])() ? true : false;
 
-      if (errorPriceType === constants["f" /* UNAVAILABLE_PRICE_WITH_ADD_TO_CART */] && !isStickyAvailable) {
+      if (errorPriceType === constants["i" /* UNAVAILABLE_PRICE_WITH_ADD_TO_CART */] && !isStickyAvailable) {
         return react_default.a.createElement(unavailablePrice, {
           label: skuInfo.custPriceLabel,
           icon: skuInfo.lowStockIcon,
@@ -7056,7 +7130,7 @@ var sku_details_SkuDetails = /*#__PURE__*/function (_React$Component) {
         isErrorModal = Object.keys(errorObjCart).length !== 0;
       }
 
-      var isHiddenAddToCart = errorPriceType === constants["d" /* NO_PRICE_NO_ADD_TO_CART */] && isStickyAvailable ? true : false;
+      var isHiddenAddToCart = errorPriceType === constants["f" /* NO_PRICE_NO_ADD_TO_CART */] && isStickyAvailable ? true : false;
       return react_default.a.createElement("div", {
         className: "cmp-sku-details__buyinfo",
         "data-locator": "sku-details-buyinfo"
@@ -7185,7 +7259,7 @@ var sku_details_SkuDetails = /*#__PURE__*/function (_React$Component) {
       discontinued: _this.props.discontinued == "true",
       signInUrl: _this.props.baseSignInUrl,
       errorInfo: _this.props.config.errorInfo,
-      isEProcurementUserRestricted: !Object(userFunctions["s" /* isEprocurementUser */])() && Object(userFunctions["t" /* isEprocurementUserRole */])(),
+      isEProcurementUserRestricted: !Object(userFunctions["u" /* isEprocurementUser */])() && Object(userFunctions["v" /* isEprocurementUserRole */])(),
       isStickyAvailable: false
     };
     _this.toggleModal = _this.toggleModal.bind(Object(assertThisInitialized["a" /* default */])(Object(assertThisInitialized["a" /* default */])(_this)));
@@ -7260,7 +7334,7 @@ var sku_details_SkuDetails = /*#__PURE__*/function (_React$Component) {
         return this.renderCountryRestricted();
       } else if (this.state.discontinued) {
         return this.renderDiscontinued();
-      } else if (this.state.errorPriceType === constants["d" /* NO_PRICE_NO_ADD_TO_CART */] && !this.state.isStickyAvailable) {
+      } else if (this.state.errorPriceType === constants["f" /* NO_PRICE_NO_ADD_TO_CART */] && !this.state.isStickyAvailable) {
         return this.renderSkuPriceErrorMsg();
       } else {
         return this.renderActiveSku();
@@ -7283,17 +7357,17 @@ sku_details_SkuDetails.defaultProps = {
 };
 /* harmony default export */ var src_sku_details = (sku_details_SkuDetails);
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty.js
-var defineProperty = __webpack_require__(37);
+var defineProperty = __webpack_require__(38);
 
 // EXTERNAL MODULE: ./node_modules/react-hook-form/dist/react-hook-form.ie11.js
-var react_hook_form_ie11 = __webpack_require__(129);
+var react_hook_form_ie11 = __webpack_require__(127);
 var react_hook_form_ie11_default = /*#__PURE__*/__webpack_require__.n(react_hook_form_ie11);
 
 // EXTERNAL MODULE: ./src/forms/fields/utils/stateWatcher.js + 1 modules
-var stateWatcher = __webpack_require__(35);
+var stateWatcher = __webpack_require__(36);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectDestructuringEmpty.js
-var objectDestructuringEmpty = __webpack_require__(34);
+var objectDestructuringEmpty = __webpack_require__(35);
 
 // CONCATENATED MODULE: ./src/forms/fields/components/field-validation-display.js
 
@@ -7501,7 +7575,7 @@ var displaymessage_DisplayMessage = function DisplayMessage(_ref) {
 
 /* harmony default export */ var displaymessage = (react_default.a.memo(displaymessage_DisplayMessage));
 // EXTERNAL MODULE: ./src/forms/fields/patterns/index.js + 1 modules
-var patterns = __webpack_require__(42);
+var patterns = __webpack_require__(43);
 
 // CONCATENATED MODULE: ./src/forms/fields/components/requirements.js
 
@@ -7594,10 +7668,10 @@ var requirements_Requirements = function Requirements(_ref, ref) {
 
 /* harmony default export */ var components_requirements = (Object(react["forwardRef"])(requirements_Requirements));
 // EXTERNAL MODULE: ./src/forms/fields/utils/validations.js
-var validations = __webpack_require__(66);
+var validations = __webpack_require__(64);
 
 // EXTERNAL MODULE: ./src/utils/labelFunctions.js
-var labelFunctions = __webpack_require__(43);
+var labelFunctions = __webpack_require__(44);
 
 // CONCATENATED MODULE: ./src/forms/fields/input.js
 
@@ -8154,7 +8228,7 @@ var checkboxOrRadio_CheckboxOrRadio = function CheckboxOrRadio(_ref) {
 
 /* harmony default export */ var checkboxOrRadio = (react_default.a.memo(checkboxOrRadio_CheckboxOrRadio));
 // EXTERNAL MODULE: ./src/styles/variables.scss
-var variables = __webpack_require__(26);
+var variables = __webpack_require__(27);
 var variables_default = /*#__PURE__*/__webpack_require__.n(variables);
 
 // CONCATENATED MODULE: ./src/forms/fields/styles/dropdown.scss.js
@@ -8410,7 +8484,7 @@ var hr_Hr = function Hr(_ref) {
 
 /* harmony default export */ var hr = (react_default.a.memo(hr_Hr));
 // EXTERNAL MODULE: ./node_modules/react-google-recaptcha/lib/esm/index.js + 3 modules
-var esm = __webpack_require__(134);
+var esm = __webpack_require__(133);
 
 // CONCATENATED MODULE: ./src/forms/fields/captcha.js
 
@@ -8580,7 +8654,7 @@ var label_Label = function Label(_ref) {
 
 /* harmony default export */ var fields_label = (react_default.a.memo(label_Label));
 // EXTERNAL MODULE: ./src/forms/fields/utils/fileAttachment.js
-var fileAttachment = __webpack_require__(60);
+var fileAttachment = __webpack_require__(59);
 
 // CONCATENATED MODULE: ./src/forms/fields/components/file-error-notification/index.js
 
@@ -9011,7 +9085,7 @@ var fields_Field = function Field(_ref) {
 
 /* harmony default export */ var forms_fields = (react_default.a.memo(fields_Field));
 // EXTERNAL MODULE: ./src/my-account/services/SoldToDetailsLazy.js + 1 modules
-var SoldToDetailsLazy = __webpack_require__(62);
+var SoldToDetailsLazy = __webpack_require__(47);
 
 // CONCATENATED MODULE: ./src/forms/form.js
 
@@ -9271,7 +9345,7 @@ var form_Form = function Form(_ref) {
           tempOption.label = item.name;
           tempAddress = Object(userFunctions["d" /* getAddressesByType */])(item, "soldToInfo")[0];
           delete tempAddress.name;
-          tempOption.address = Object(userFunctions["l" /* getFullCompanyAddress */])(tempAddress, false);
+          tempOption.address = Object(userFunctions["m" /* getFullCompanyAddress */])(tempAddress, false);
           return tempOption;
         });
         config.options = tempArray;
@@ -9367,6 +9441,7 @@ var form_Form = function Form(_ref) {
         setError: submitErrorHandler,
         redirect: config.redirectUrl,
         passwordUpdateUrl: config.passwordUpdateUrl,
+        soldToDetailsUrl: config.soldToDetailsUrl,
         callback: callback,
         updateFailedAttempts: updateFailedAttempts,
         setProfileData: setProfileData,
@@ -9408,11 +9483,11 @@ var form_ErrorBoundaryForm = function ErrorBoundaryForm(props) {
 var useFormApi = FormApi;
 var useFieldApi = FieldApi;
 // EXTERNAL MODULE: ./src/scripts/scrollTo.js
-var scrollTo = __webpack_require__(41);
+var scrollTo = __webpack_require__(42);
 var scrollTo_default = /*#__PURE__*/__webpack_require__.n(scrollTo);
 
 // EXTERNAL MODULE: ./src/my-account/services/UserDetails.js
-var UserDetails = __webpack_require__(51);
+var UserDetails = __webpack_require__(50);
 
 // CONCATENATED MODULE: ./src/forms/services/submit.js
 
@@ -9429,54 +9504,16 @@ var UserDetails = __webpack_require__(51);
 
 
 
-var postData = /*#__PURE__*/function () {
-  var _ref = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee(url, data) {
-    var response;
-    return regenerator_default.a.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            _context.next = 2;
-            return fetch(url, {
-              method: 'POST',
-              credentials: 'include',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify(data)
-            });
-
-          case 2:
-            response = _context.sent;
-            _context.next = 5;
-            return response;
-
-          case 5:
-            return _context.abrupt("return", _context.sent);
-
-          case 6:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  }));
-
-  return function postData(_x, _x2) {
-    return _ref.apply(this, arguments);
-  };
-}();
-
-function registrationSubmit(_x3) {
+function registrationSubmit(_x) {
   return _registrationSubmit.apply(this, arguments);
 }
 
 function _registrationSubmit() {
-  _registrationSubmit = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee2(data) {
+  _registrationSubmit = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee(data) {
     var isCaptcha, localeLanguage, localeCountry, response, responseBody, userDetails, store;
-    return regenerator_default.a.wrap(function _callee2$(_context2) {
+    return regenerator_default.a.wrap(function _callee$(_context) {
       while (1) {
-        switch (_context2.prev = _context2.next) {
+        switch (_context.prev = _context.next) {
           case 0:
             delete data.confirmPassword;
             isCaptcha = data.hasOwnProperty('captcha');
@@ -9497,34 +9534,34 @@ function _registrationSubmit() {
             data.country = data.country.toUpperCase();
             data.localeCountry = localeCountry;
             data.localeLanguage = localeLanguage;
-            _context2.next = 11;
-            return postData(this.url, data);
+            _context.next = 11;
+            return Object(serviceFunctions["b" /* postData */])(this.url, data);
 
           case 11:
-            response = _context2.sent;
-            _context2.next = 14;
+            response = _context.sent;
+            _context.next = 14;
             return response.json();
 
           case 14:
-            responseBody = _context2.sent;
+            responseBody = _context.sent;
             // remove all previous server error notifications
             this.setError();
 
             if (!(response.status === 200)) {
-              _context2.next = 26;
+              _context.next = 26;
               break;
             }
 
             if (!this.callback) {
-              _context2.next = 22;
+              _context.next = 22;
               break;
             }
 
-            _context2.next = 20;
+            _context.next = 20;
             return Object(UserDetails["a" /* default */])(this.callback);
 
           case 20:
-            userDetails = _context2.sent;
+            userDetails = _context.sent;
 
             if (!userDetails.failed) {
               store = new stores_sessionStore["a" /* default */]();
@@ -9539,7 +9576,7 @@ function _registrationSubmit() {
               window.location.replace(this.redirect);
             }
 
-            _context2.next = 29;
+            _context.next = 29;
             break;
 
           case 26:
@@ -9549,36 +9586,36 @@ function _registrationSubmit() {
 
           case 29:
           case "end":
-            return _context2.stop();
+            return _context.stop();
         }
       }
-    }, _callee2, this);
+    }, _callee, this);
   }));
   return _registrationSubmit.apply(this, arguments);
 }
 
-function checkEmailResetPasswordSubmit(_x4) {
+function checkEmailResetPasswordSubmit(_x2) {
   return _checkEmailResetPasswordSubmit.apply(this, arguments);
 }
 
 function _checkEmailResetPasswordSubmit() {
-  _checkEmailResetPasswordSubmit = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee3(data) {
+  _checkEmailResetPasswordSubmit = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee2(data) {
     var response, responseBody;
-    return regenerator_default.a.wrap(function _callee3$(_context3) {
+    return regenerator_default.a.wrap(function _callee2$(_context2) {
       while (1) {
-        switch (_context3.prev = _context3.next) {
+        switch (_context2.prev = _context2.next) {
           case 0:
             this.url = "".concat(this.url.replace('{email}', data.email), "&isEproc=true");
-            _context3.next = 3;
-            return postData(this.url, data);
+            _context2.next = 3;
+            return Object(serviceFunctions["b" /* postData */])(this.url, data);
 
           case 3:
-            response = _context3.sent;
-            _context3.next = 6;
+            response = _context2.sent;
+            _context2.next = 6;
             return response.json();
 
           case 6:
-            responseBody = _context3.sent;
+            responseBody = _context2.sent;
             // remove all previous server error notifications
             this.setError();
 
@@ -9596,24 +9633,24 @@ function _checkEmailResetPasswordSubmit() {
 
           case 9:
           case "end":
-            return _context3.stop();
+            return _context2.stop();
         }
       }
-    }, _callee3, this);
+    }, _callee2, this);
   }));
   return _checkEmailResetPasswordSubmit.apply(this, arguments);
 }
 
-function troubleSigningInSubmit(_x5) {
+function troubleSigningInSubmit(_x3) {
   return _troubleSigningInSubmit.apply(this, arguments);
 }
 
 function _troubleSigningInSubmit() {
-  _troubleSigningInSubmit = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee4(data) {
+  _troubleSigningInSubmit = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee3(data) {
     var isCaptcha, response, responseBody;
-    return regenerator_default.a.wrap(function _callee4$(_context4) {
+    return regenerator_default.a.wrap(function _callee3$(_context3) {
       while (1) {
-        switch (_context4.prev = _context4.next) {
+        switch (_context3.prev = _context3.next) {
           case 0:
             isCaptcha = data.hasOwnProperty('captcha');
 
@@ -9623,16 +9660,16 @@ function _troubleSigningInSubmit() {
             }
 
             this.url = this.url.replace('{email}', data.email);
-            _context4.next = 5;
-            return postData(this.url, data);
+            _context3.next = 5;
+            return Object(serviceFunctions["b" /* postData */])(this.url, data);
 
           case 5:
-            response = _context4.sent;
-            _context4.next = 8;
+            response = _context3.sent;
+            _context3.next = 8;
             return response.json();
 
           case 8:
-            responseBody = _context4.sent;
+            responseBody = _context3.sent;
             // remove all previous server error notifications
             this.setError();
 
@@ -9650,25 +9687,25 @@ function _troubleSigningInSubmit() {
 
           case 11:
           case "end":
-            return _context4.stop();
+            return _context3.stop();
         }
       }
-    }, _callee4, this);
+    }, _callee3, this);
   }));
   return _troubleSigningInSubmit.apply(this, arguments);
 }
 
-function resetPasswordSubmit(_x6) {
+function resetPasswordSubmit(_x4) {
   return _resetPasswordSubmit.apply(this, arguments);
 }
 
 function _resetPasswordSubmit() {
-  _resetPasswordSubmit = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee5(data) {
+  _resetPasswordSubmit = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee4(data) {
     var store, resetToken, queryString, newPassword, body, response, responseBody, userDetails, _store2, needToChooseAccount, switchAccountUrl, _store, signInRedirectStore;
 
-    return regenerator_default.a.wrap(function _callee5$(_context5) {
+    return regenerator_default.a.wrap(function _callee4$(_context4) {
       while (1) {
-        switch (_context5.prev = _context5.next) {
+        switch (_context4.prev = _context4.next) {
           case 0:
             store = new stores_sessionStore["a" /* default */]();
             resetToken = store.getLegacyToken();
@@ -9684,39 +9721,39 @@ function _resetPasswordSubmit() {
               resetToken: resetToken,
               newPassword: newPassword
             };
-            _context5.next = 8;
-            return postData(this.url, body);
+            _context4.next = 8;
+            return Object(serviceFunctions["b" /* postData */])(this.url, body);
 
           case 8:
-            response = _context5.sent;
-            _context5.next = 11;
+            response = _context4.sent;
+            _context4.next = 11;
             return response.json();
 
           case 11:
-            responseBody = _context5.sent;
+            responseBody = _context4.sent;
             // remove all previous server error notifications
             this.setError();
 
             if (!(response.status === 200)) {
-              _context5.next = 39;
+              _context4.next = 39;
               break;
             }
 
             this.setFormAnalytics('submit'); // Use Call back to added userDetails to Session State
 
             if (!this.callback) {
-              _context5.next = 31;
+              _context4.next = 31;
               break;
             }
 
-            _context5.next = 18;
+            _context4.next = 18;
             return Object(UserDetails["a" /* default */])(this.callback);
 
           case 18:
-            userDetails = _context5.sent;
+            userDetails = _context4.sent;
 
             if (userDetails.failed) {
-              _context5.next = 31;
+              _context4.next = 31;
               break;
             }
 
@@ -9727,23 +9764,23 @@ function _resetPasswordSubmit() {
             needToChooseAccount = checkRedirectToChooseAccount(userDetails.soldToAccounts);
 
             if (!needToChooseAccount) {
-              _context5.next = 30;
+              _context4.next = 30;
               break;
             }
 
             if (!(userDetails.soldToAccounts.length === 1)) {
-              _context5.next = 27;
+              _context4.next = 27;
               break;
             }
 
             submitAccount(userDetails.soldToAccounts[0].soldTo, this.urlChooseAccount);
-            return _context5.abrupt("return");
+            return _context4.abrupt("return");
 
           case 27:
             // Choose Account URL
             switchAccountUrl = Object(redirectFunctions["a" /* getNamedHeaderLink */])("data-switch-account-url");
             window.location.replace(switchAccountUrl);
-            return _context5.abrupt("return");
+            return _context4.abrupt("return");
 
           case 30:
             _store2.removeSoldToDetails();
@@ -9755,15 +9792,15 @@ function _resetPasswordSubmit() {
             _store.removeSignInRedirect();
 
             if (!(signInRedirectStore || this.redirect)) {
-              _context5.next = 37;
+              _context4.next = 37;
               break;
             }
 
             window.location.replace(signInRedirectStore ? signInRedirectStore : this.redirect);
-            return _context5.abrupt("return");
+            return _context4.abrupt("return");
 
           case 37:
-            _context5.next = 40;
+            _context4.next = 40;
             break;
 
           case 39:
@@ -9777,44 +9814,44 @@ function _resetPasswordSubmit() {
 
           case 40:
           case "end":
-            return _context5.stop();
+            return _context4.stop();
         }
       }
-    }, _callee5, this);
+    }, _callee4, this);
   }));
   return _resetPasswordSubmit.apply(this, arguments);
 }
 
-function changePasswordSubmit(_x7) {
+function changePasswordSubmit(_x5) {
   return _changePasswordSubmit.apply(this, arguments);
 }
 
 function _changePasswordSubmit() {
-  _changePasswordSubmit = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee6(data) {
+  _changePasswordSubmit = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee5(data) {
     var queryString, email, response, responseBody;
-    return regenerator_default.a.wrap(function _callee6$(_context6) {
+    return regenerator_default.a.wrap(function _callee5$(_context5) {
       while (1) {
-        switch (_context6.prev = _context6.next) {
+        switch (_context5.prev = _context5.next) {
           case 0:
             delete data.confirmNewPassword;
             queryString = Object(query_string["parse"])(window.location.search);
             email = queryString.email;
             data.email = email;
-            _context6.next = 6;
-            return postData(this.url, data);
+            _context5.next = 6;
+            return Object(serviceFunctions["b" /* postData */])(this.url, data);
 
           case 6:
-            response = _context6.sent;
-            _context6.next = 9;
+            response = _context5.sent;
+            _context5.next = 9;
             return response.json();
 
           case 9:
-            responseBody = _context6.sent;
+            responseBody = _context5.sent;
             // remove all previous server error notifications
             this.setError();
 
             if (!(response.status === 200)) {
-              _context6.next = 24;
+              _context5.next = 24;
               break;
             }
 
@@ -9824,21 +9861,21 @@ function _changePasswordSubmit() {
             document.getElementsByName("confirmNewPassword")[0].value = "";
 
             if (!(this.callback && typeof this.callback === 'function')) {
-              _context6.next = 22;
+              _context5.next = 22;
               break;
             }
 
-            _context6.t0 = this;
-            _context6.next = 20;
+            _context5.t0 = this;
+            _context5.next = 20;
             return responseBody;
 
           case 20:
-            _context6.t1 = _context6.sent;
+            _context5.t1 = _context5.sent;
 
-            _context6.t0.callback.call(_context6.t0, _context6.t1);
+            _context5.t0.callback.call(_context5.t0, _context5.t1);
 
           case 22:
-            _context6.next = 25;
+            _context5.next = 25;
             break;
 
           case 24:
@@ -9852,35 +9889,37 @@ function _changePasswordSubmit() {
 
           case 25:
           case "end":
-            return _context6.stop();
+            return _context5.stop();
         }
       }
-    }, _callee6, this);
+    }, _callee5, this);
   }));
   return _changePasswordSubmit.apply(this, arguments);
 }
 
-function personalSubmit(_x8) {
+function personalSubmit(_x6) {
   return _personalSubmit.apply(this, arguments);
 } //Note: this method uses the USER Details API, not the SoldToDetailsAPI
 
 function _personalSubmit() {
-  _personalSubmit = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee7(data) {
-    var response, responseBody, store, soldToDetails, mergedResponse, model;
-    return regenerator_default.a.wrap(function _callee7$(_context7) {
+  _personalSubmit = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee6(data) {
+    var _this = this;
+
+    var response, responseBody, store, model;
+    return regenerator_default.a.wrap(function _callee6$(_context6) {
       while (1) {
-        switch (_context7.prev = _context7.next) {
+        switch (_context6.prev = _context6.next) {
           case 0:
-            _context7.next = 2;
-            return postData(this.url, data);
+            _context6.next = 2;
+            return Object(serviceFunctions["b" /* postData */])(this.url, data);
 
           case 2:
-            response = _context7.sent;
-            _context7.next = 5;
+            response = _context6.sent;
+            _context6.next = 5;
             return response.json();
 
           case 5:
-            responseBody = _context7.sent;
+            responseBody = _context6.sent;
             // remove all previous server error notifications
             this.setError();
 
@@ -9888,9 +9927,15 @@ function _personalSubmit() {
               store = new stores_sessionStore["a" /* default */]();
               store.setUserDetails(responseBody);
               store.setPersonalDetailsUpdated();
-              soldToDetails = store.getSoldToDetails();
-              mergedResponse = Object(userFunctions["u" /* matchAddresses */])(responseBody, soldToDetails);
-              this.setProfileData(mergedResponse);
+
+              if (responseBody && responseBody.userId && responseBody.salesOrg) {
+                Object(SoldToDetailsLazy["a" /* default */])(this.soldToDetailsUrl, responseBody.userId, responseBody.salesOrg).then(function (soldToDetails) {
+                  var mergeAPIs = Object(userFunctions["w" /* matchAddresses */])(responseBody, soldToDetails);
+
+                  _this.setProfileData(mergeAPIs);
+                });
+              }
+
               model = {
                 "communications": data.communications
               };
@@ -9906,10 +9951,10 @@ function _personalSubmit() {
 
           case 8:
           case "end":
-            return _context7.stop();
+            return _context6.stop();
         }
       }
-    }, _callee7, this);
+    }, _callee6, this);
   }));
   return _personalSubmit.apply(this, arguments);
 }
@@ -9930,17 +9975,17 @@ var checkRedirectToChooseAccount = function checkRedirectToChooseAccount(soldToA
   return false;
 };
 
-function signInSubmit(_x9) {
+function signInSubmit(_x7) {
   return _signInSubmit.apply(this, arguments);
 }
 
 function _signInSubmit() {
-  _signInSubmit = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee8(data) {
+  _signInSubmit = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee7(data) {
     var isCaptcha, response, responseBody, store, userDetails, _store3, needToChooseAccount, switchAccountUrl, signInRedirectStore, _store4, _signInRedirectStore;
 
-    return regenerator_default.a.wrap(function _callee8$(_context8) {
+    return regenerator_default.a.wrap(function _callee7$(_context7) {
       while (1) {
-        switch (_context8.prev = _context8.next) {
+        switch (_context7.prev = _context7.next) {
           case 0:
             isCaptcha = data.hasOwnProperty('captcha');
 
@@ -9949,50 +9994,50 @@ function _signInSubmit() {
               delete data.captcha;
             }
 
-            _context8.next = 4;
-            return postData(this.url, data);
+            _context7.next = 4;
+            return Object(serviceFunctions["b" /* postData */])(this.url, data);
 
           case 4:
-            response = _context8.sent;
-            _context8.next = 7;
+            response = _context7.sent;
+            _context7.next = 7;
             return response.json();
 
           case 7:
-            responseBody = _context8.sent;
+            responseBody = _context7.sent;
             // remove all previous server error notifications
             this.setError();
 
             if (!(response.status === 200)) {
-              _context8.next = 49;
+              _context7.next = 49;
               break;
             }
 
             this.setFormAnalytics('submit');
 
             if (!(responseBody.migrated === "N")) {
-              _context8.next = 16;
+              _context7.next = 16;
               break;
             }
 
             store = new stores_sessionStore["a" /* default */]();
             store.setLegacyToken(responseBody.resetToken);
             window.location.replace(this.passwordUpdateUrl);
-            return _context8.abrupt("return");
+            return _context7.abrupt("return");
 
           case 16:
             if (!this.callback) {
-              _context8.next = 40;
+              _context7.next = 40;
               break;
             }
 
-            _context8.next = 19;
+            _context7.next = 19;
             return Object(UserDetails["a" /* default */])(this.callback);
 
           case 19:
-            userDetails = _context8.sent;
+            userDetails = _context7.sent;
 
             if (userDetails.failed) {
-              _context8.next = 38;
+              _context7.next = 38;
               break;
             }
 
@@ -10003,23 +10048,23 @@ function _signInSubmit() {
             needToChooseAccount = checkRedirectToChooseAccount(userDetails.soldToAccounts);
 
             if (!needToChooseAccount) {
-              _context8.next = 31;
+              _context7.next = 31;
               break;
             }
 
             if (!(userDetails.soldToAccounts.length === 1)) {
-              _context8.next = 28;
+              _context7.next = 28;
               break;
             }
 
             submitAccount(userDetails.soldToAccounts[0].soldTo, this.urlChooseAccount);
-            return _context8.abrupt("return");
+            return _context7.abrupt("return");
 
           case 28:
             // Choose Account URL
             switchAccountUrl = Object(redirectFunctions["a" /* getNamedHeaderLink */])("data-switch-account-url");
             window.location.replace(switchAccountUrl);
-            return _context8.abrupt("return");
+            return _context7.abrupt("return");
 
           case 31:
             _store3.removeSoldToDetails();
@@ -10030,15 +10075,15 @@ function _signInSubmit() {
             _store3.removeSignInRedirect();
 
             if (!(signInRedirectStore || this.redirect)) {
-              _context8.next = 38;
+              _context7.next = 38;
               break;
             }
 
             window.location.replace(signInRedirectStore ? signInRedirectStore : this.redirect);
-            return _context8.abrupt("return");
+            return _context7.abrupt("return");
 
           case 38:
-            _context8.next = 47;
+            _context7.next = 47;
             break;
 
           case 40:
@@ -10049,15 +10094,15 @@ function _signInSubmit() {
             _store4.removeSignInRedirect();
 
             if (!(_signInRedirectStore || this.redirect)) {
-              _context8.next = 47;
+              _context7.next = 47;
               break;
             }
 
             window.location.replace(_signInRedirectStore ? _signInRedirectStore : this.redirect);
-            return _context8.abrupt("return");
+            return _context7.abrupt("return");
 
           case 47:
-            _context8.next = 53;
+            _context7.next = 53;
             break;
 
           case 49:
@@ -10068,10 +10113,10 @@ function _signInSubmit() {
 
           case 53:
           case "end":
-            return _context8.stop();
+            return _context7.stop();
         }
       }
-    }, _callee8, this);
+    }, _callee7, this);
   }));
   return _signInSubmit.apply(this, arguments);
 }
@@ -10104,17 +10149,17 @@ var submit_setNewSoldTo = function setNewSoldTo(newSoldto) {
   store.setPersonalDetailsUpdated();
 };
 
-function chooseAccountSubmit(_x10) {
+function chooseAccountSubmit(_x8) {
   return _chooseAccountSubmit.apply(this, arguments);
 }
 
 function _chooseAccountSubmit() {
-  _chooseAccountSubmit = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee9(data) {
+  _chooseAccountSubmit = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee8(data) {
     var selectedAccount, _i, _Object$keys, key, response, responseBody, queryString, store, signInRedirectStore, homePageUrl;
 
-    return regenerator_default.a.wrap(function _callee9$(_context9) {
+    return regenerator_default.a.wrap(function _callee8$(_context8) {
       while (1) {
-        switch (_context9.prev = _context9.next) {
+        switch (_context8.prev = _context8.next) {
           case 0:
             // Determine the selected Account
             selectedAccount = "";
@@ -10128,21 +10173,21 @@ function _chooseAccountSubmit() {
             }
 
             submit_setNewSoldTo(selectedAccount);
-            _context9.next = 5;
-            return postData(this.url + "/" + selectedAccount, "");
+            _context8.next = 5;
+            return Object(serviceFunctions["b" /* postData */])(this.url + "/" + selectedAccount, "");
 
           case 5:
-            response = _context9.sent;
-            _context9.next = 8;
+            response = _context8.sent;
+            _context8.next = 8;
             return response.json();
 
           case 8:
-            responseBody = _context9.sent;
+            responseBody = _context8.sent;
             // remove all previous server error notifications
             this.setError();
 
             if (!(response.status === 200)) {
-              _context9.next = 26;
+              _context8.next = 26;
               break;
             }
 
@@ -10150,12 +10195,12 @@ function _chooseAccountSubmit() {
             queryString = location.search;
 
             if (!(queryString === "?fromMenu=true")) {
-              _context9.next = 15;
+              _context8.next = 15;
               break;
             }
 
             window.location.replace(document.referrer);
-            return _context9.abrupt("return");
+            return _context8.abrupt("return");
 
           case 15:
             // If User had previously been directed to Sign in - Return to Original page
@@ -10164,18 +10209,18 @@ function _chooseAccountSubmit() {
             store.removeSignInRedirect();
 
             if (!signInRedirectStore) {
-              _context9.next = 21;
+              _context8.next = 21;
               break;
             }
 
             window.location.replace(signInRedirectStore.replace(/"/g, ""));
-            return _context9.abrupt("return");
+            return _context8.abrupt("return");
 
           case 21:
             // If user has accessed directly from Sign in Page - Return to Home page
             homePageUrl = Object(redirectFunctions["a" /* getNamedHeaderLink */])("data-homepage-url");
             window.location.replace(homePageUrl);
-            return _context9.abrupt("return");
+            return _context8.abrupt("return");
 
           case 26:
             if (response.status === 401) {
@@ -10187,33 +10232,33 @@ function _chooseAccountSubmit() {
 
           case 27:
           case "end":
-            return _context9.stop();
+            return _context8.stop();
         }
       }
-    }, _callee9, this);
+    }, _callee8, this);
   }));
   return _chooseAccountSubmit.apply(this, arguments);
 }
 
-function submitAccount(_x11, _x12) {
+function submitAccount(_x9, _x10) {
   return _submitAccount.apply(this, arguments);
 }
 
 function _submitAccount() {
-  _submitAccount = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee10(selectedAccount, urlChooseAccount) {
+  _submitAccount = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee9(selectedAccount, urlChooseAccount) {
     var response, queryString, store, signInRedirectStore, homePageUrl;
-    return regenerator_default.a.wrap(function _callee10$(_context10) {
+    return regenerator_default.a.wrap(function _callee9$(_context9) {
       while (1) {
-        switch (_context10.prev = _context10.next) {
+        switch (_context9.prev = _context9.next) {
           case 0:
-            _context10.next = 2;
-            return postData(urlChooseAccount + "/" + selectedAccount, "");
+            _context9.next = 2;
+            return Object(serviceFunctions["b" /* postData */])(urlChooseAccount + "/" + selectedAccount, "");
 
           case 2:
-            response = _context10.sent;
+            response = _context9.sent;
 
             if (!(response.status === 200)) {
-              _context10.next = 19;
+              _context9.next = 19;
               break;
             }
 
@@ -10221,12 +10266,12 @@ function _submitAccount() {
             queryString = location.search;
 
             if (!(queryString === "?fromMenu=true")) {
-              _context10.next = 8;
+              _context9.next = 8;
               break;
             }
 
             window.location.replace(document.referrer);
-            return _context10.abrupt("return");
+            return _context9.abrupt("return");
 
           case 8:
             // If User had previously been directed to Sign in - Return to Original page
@@ -10235,45 +10280,45 @@ function _submitAccount() {
             store.removeSignInRedirect();
 
             if (!signInRedirectStore) {
-              _context10.next = 14;
+              _context9.next = 14;
               break;
             }
 
             window.location.replace(signInRedirectStore.replace(/"/g, ""));
-            return _context10.abrupt("return");
+            return _context9.abrupt("return");
 
           case 14:
             // If user has accessed directly from Sign in Page - Return to Home page
             homePageUrl = Object(redirectFunctions["a" /* getNamedHeaderLink */])("data-homepage-url");
             window.location.replace(homePageUrl);
-            return _context10.abrupt("return");
+            return _context9.abrupt("return");
 
           case 19:
             Object(redirectFunctions["d" /* signInRedirect */])();
 
           case 20:
           case "end":
-            return _context10.stop();
+            return _context9.stop();
         }
       }
-    }, _callee10);
+    }, _callee9);
   }));
   return _submitAccount.apply(this, arguments);
 }
 
-function contactSupportSubmit(_x13) {
+function contactSupportSubmit(_x11) {
   return _contactSupportSubmit.apply(this, arguments);
 }
 
 function _contactSupportSubmit() {
-  _contactSupportSubmit = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee11(data) {
+  _contactSupportSubmit = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee10(data) {
     var _objectSpread2, isCaptcha, attachmentFieldName, _yield$convertFileInt, fileName, base64Value, encodeValue, formData, response, responseBody;
 
-    return regenerator_default.a.wrap(function _callee11$(_context11) {
+    return regenerator_default.a.wrap(function _callee10$(_context10) {
       while (1) {
-        switch (_context11.prev = _context11.next) {
+        switch (_context10.prev = _context10.next) {
           case 0:
-            _context11.prev = 0;
+            _context10.prev = 0;
             window.dispatchEvent(new CustomEvent("showLoaderEproc", {
               detail: {
                 showLoader: true
@@ -10287,25 +10332,25 @@ function _contactSupportSubmit() {
             }
 
             attachmentFieldName = Object(fileAttachment["b" /* getAttachmentFieldName */])(data);
-            _context11.next = 7;
+            _context10.next = 7;
             return Object(fileAttachment["a" /* convertFileIntoBase64 */])(data[attachmentFieldName]);
 
           case 7:
-            _yield$convertFileInt = _context11.sent;
+            _yield$convertFileInt = _context10.sent;
             fileName = _yield$convertFileInt.fileName;
             base64Value = _yield$convertFileInt.base64Value;
             encodeValue = base64Value.replace(/^[^,]*,/, '');
             formData = Object(objectSpread["a" /* default */])({}, data, (_objectSpread2 = {}, Object(defineProperty["a" /* default */])(_objectSpread2, attachmentFieldName, encodeValue), Object(defineProperty["a" /* default */])(_objectSpread2, "hasAttachment", encodeValue ? 'Y' : 'N'), Object(defineProperty["a" /* default */])(_objectSpread2, "fileName", fileName), _objectSpread2));
-            _context11.next = 14;
-            return postData(this.url, formData);
+            _context10.next = 14;
+            return Object(serviceFunctions["b" /* postData */])(this.url, formData);
 
           case 14:
-            response = _context11.sent;
-            _context11.next = 17;
+            response = _context10.sent;
+            _context10.next = 17;
             return response.json();
 
           case 17:
-            responseBody = _context11.sent;
+            responseBody = _context10.sent;
             // remove all previous server error notifications
             this.setError();
 
@@ -10326,13 +10371,13 @@ function _contactSupportSubmit() {
                 showLoader: false
               }
             }));
-            _context11.next = 27;
+            _context10.next = 27;
             break;
 
           case 23:
-            _context11.prev = 23;
-            _context11.t0 = _context11["catch"](0);
-            console.error(_context11.t0);
+            _context10.prev = 23;
+            _context10.t0 = _context10["catch"](0);
+            console.error(_context10.t0);
             window.dispatchEvent(new CustomEvent("showLoaderEproc", {
               detail: {
                 showLoader: false
@@ -10341,15 +10386,15 @@ function _contactSupportSubmit() {
 
           case 27:
           case "end":
-            return _context11.stop();
+            return _context10.stop();
         }
       }
-    }, _callee11, this, [[0, 23]]);
+    }, _callee10, this, [[0, 23]]);
   }));
   return _contactSupportSubmit.apply(this, arguments);
 }
 // EXTERNAL MODULE: ./node_modules/@brightcove/react-player-loader/dist/brightcove-react-player-loader.es.js
-var brightcove_react_player_loader_es = __webpack_require__(130);
+var brightcove_react_player_loader_es = __webpack_require__(128);
 
 // CONCATENATED MODULE: ./src/video/video-modal-body.js
 
@@ -10403,7 +10448,7 @@ var video_modal_body_VideoModalBody = /*#__PURE__*/function (_React$Component) {
 
 /* harmony default export */ var video_modal_body = (video_modal_body_VideoModalBody);
 // EXTERNAL MODULE: ./node_modules/react-lines-ellipsis/lib/responsiveHOC.js
-var responsiveHOC = __webpack_require__(131);
+var responsiveHOC = __webpack_require__(129);
 var responsiveHOC_default = /*#__PURE__*/__webpack_require__.n(responsiveHOC);
 
 // CONCATENATED MODULE: ./src/video/video-description.js
@@ -10552,7 +10597,7 @@ var video_VideoContainer = /*#__PURE__*/function (_React$Component) {
 
 
 
-var _Promise = typeof Promise === 'undefined' ? __webpack_require__(89).Promise : Promise;
+var _Promise = typeof Promise === 'undefined' ? __webpack_require__(87).Promise : Promise;
 
 
 
@@ -10677,10 +10722,10 @@ var chat_Chat = /*#__PURE__*/function (_React$Component) {
 
 /* harmony default export */ var chat = (chat_Chat);
 // EXTERNAL MODULE: ./src/detail-tiles/utils/generateTiles.js
-var generateTiles = __webpack_require__(85);
+var generateTiles = __webpack_require__(84);
 
 // EXTERNAL MODULE: ./src/my-account/services/UserDetailsLazy.js
-var UserDetailsLazy = __webpack_require__(70);
+var UserDetailsLazy = __webpack_require__(69);
 
 // CONCATENATED MODULE: ./src/detail-tiles/hooks/useProfile.js
 
@@ -10712,7 +10757,7 @@ var UserDetailsLazy = __webpack_require__(70);
       if (userDetails && userDetails.userId && userDetails.salesOrg) {
         if (type !== 'password') {
           Object(SoldToDetailsLazy["a" /* default */])(soldToDetailsUrl, userDetails.userId, userDetails.salesOrg).then(function (soldToDetails) {
-            var mergeAPIs = Object(userFunctions["u" /* matchAddresses */])(userDetails, soldToDetails);
+            var mergeAPIs = Object(userFunctions["w" /* matchAddresses */])(userDetails, soldToDetails);
             setData(mergeAPIs);
           });
         } else {
@@ -10932,7 +10977,7 @@ var detail_tiles_DetailTiles = function DetailTiles(_ref) {
   var processFormData = function processFormData() {
     form.fields = form.fields.map(function (field) {
       // Check if disableForEprocUser flag is true and userRole is eproc
-      if (field.disableForEprocUser && Object(userFunctions["t" /* isEprocurementUserRole */])()) {
+      if (field.disableForEprocUser && Object(userFunctions["v" /* isEprocurementUserRole */])()) {
         field.disabled = true;
       }
 
@@ -11159,10 +11204,10 @@ var wechat_WeChat = /*#__PURE__*/function (_React$Component) {
 /* harmony default export */ var wechat = (wechat_WeChat);
 
 // EXTERNAL MODULE: ./node_modules/react-router-dom/es/HashRouter.js
-var HashRouter = __webpack_require__(505);
+var HashRouter = __webpack_require__(499);
 
 // EXTERNAL MODULE: ./node_modules/react-router-dom/es/Switch.js + 1 modules
-var Switch = __webpack_require__(507);
+var Switch = __webpack_require__(500);
 
 // CONCATENATED MODULE: ./src/my-account/routes.js
 /* harmony default export */ var routes = ({
@@ -11202,10 +11247,10 @@ var Switch = __webpack_require__(507);
   }
 });
 // EXTERNAL MODULE: ./node_modules/react-router-dom/es/Link.js
-var es_Link = __webpack_require__(504);
+var es_Link = __webpack_require__(498);
 
 // EXTERNAL MODULE: ./src/typography/title.js
-var typography_title = __webpack_require__(86);
+var typography_title = __webpack_require__(85);
 
 // CONCATENATED MODULE: ./src/my-account/components/breadcrumb.js
 
@@ -11360,7 +11405,7 @@ var aside_Tile = function Tile(_ref) {
   var tile = _ref.tile,
       pathname = _ref.pathname;
 
-  if (tile.requiresEcommerce === "true" && Object(eCommerceFunctions["e" /* isCartHidden */])() || tile.isHiddenForEprocUser === "true" && Object(userFunctions["t" /* isEprocurementUserRole */])()) {
+  if (tile.requiresEcommerce === "true" && Object(eCommerceFunctions["e" /* isCartHidden */])() || tile.isHiddenForEprocUser === "true" && Object(userFunctions["v" /* isEprocurementUserRole */])()) {
     return react_default.a.createElement(react_default.a.Fragment, null);
   }
 
@@ -11511,7 +11556,7 @@ var link_tile_LinkTile = function LinkTile(_ref) {
 var myaccount_Tile = function Tile(_ref) {
   var tile = _ref.tile;
 
-  if (tile.requiresEcommerce === "true" && Object(eCommerceFunctions["e" /* isCartHidden */])() || tile.isHiddenForEprocUser === "true" && Object(userFunctions["t" /* isEprocurementUserRole */])()) {
+  if (tile.requiresEcommerce === "true" && Object(eCommerceFunctions["e" /* isCartHidden */])() || tile.isHiddenForEprocUser === "true" && Object(userFunctions["v" /* isEprocurementUserRole */])()) {
     return react_default.a.createElement(react_default.a.Fragment, null);
   }
 
@@ -11726,7 +11771,7 @@ var history_services_HistoryService = /*#__PURE__*/function () {
       options.purchaseOrderNumber = poNumber;
       options.fromDate = fromDate;
       options.maxRecs = "";
-      return Object(serviceFunctions["b" /* postDataRedirect */])(url, options, setError);
+      return Object(serviceFunctions["c" /* postDataRedirect */])(url, options, setError);
     }
   }]);
 
@@ -11741,6 +11786,7 @@ var history_services_HistoryService = /*#__PURE__*/function () {
 
 
 //for Order History and Order Details Shipments
+
 
 
 
@@ -11792,46 +11838,46 @@ var delivery_status_DeliveryStatus = /*#__PURE__*/function (_Component) {
       var deliveryStatusClass = '';
 
       switch (status) {
-        case "Pending":
+        case constants["c" /* DELIVERY_STATUS */].PENDING:
           deliveryStatus = labels.pendingLabel;
           icon = icons.pendingIcon;
           break;
 
-        case "Quote Replaced":
+        case constants["c" /* DELIVERY_STATUS */].QUOTE_REPLACED:
           deliveryStatus = labels.quoteReplacedLabel;
           icon = icons.replacedIcon;
           break;
 
-        case "Rejected":
+        case constants["c" /* DELIVERY_STATUS */].REJECTED:
           deliveryStatus = labels.rejectedLabel;
           icon = icons.rejectedIcon;
           iconClassName = "rejected-icon";
           break;
 
-        case "Expired":
+        case constants["c" /* DELIVERY_STATUS */].EXPIRED:
           deliveryStatus = labels.expiredLabel;
           icon = icons.expiredIcon;
           iconClassName = "delivery-icon-disabled";
           deliveryStatusClass = "disabled";
           break;
 
-        case "Order Placed":
+        case constants["c" /* DELIVERY_STATUS */].ORDER_PLACED:
           deliveryStatus = labels.orderPlacedLabel;
           icon = icons.orderPlacedIcon;
           iconClassName = "delivery-icon-complete";
           break;
 
-        case "Open":
+        case constants["c" /* DELIVERY_STATUS */].OPEN:
           deliveryStatus = labels.openLabel;
           icon = icons.openIcon;
           break;
 
-        case "Partial":
+        case constants["c" /* DELIVERY_STATUS */].PARTIAL:
           deliveryStatus = labels.partialLabel;
           icon = icons.partialIcon;
           break;
 
-        case "Complete":
+        case constants["c" /* DELIVERY_STATUS */].COMPLETE:
           if (shipped.shippedDate && shipped.shippedDate !== "") {
             deliveryStatus = labels.completeShippedLabel + " " + shipped.shippedDate;
           } else {
@@ -11903,10 +11949,10 @@ delivery_status_DeliveryStatus.defaultProps = {
 };
 /* harmony default export */ var delivery_status = (delivery_status_DeliveryStatus);
 // EXTERNAL MODULE: ./src/utils/date-formatter/index.js
-var date_formatter = __webpack_require__(48);
+var date_formatter = __webpack_require__(65);
 
 // EXTERNAL MODULE: ./src/utils/get-locale/index.js
-var get_locale = __webpack_require__(49);
+var get_locale = __webpack_require__(66);
 
 // CONCATENATED MODULE: ./src/history/components/order-list-item.js
 
@@ -12085,7 +12131,7 @@ var filter_dropdown_FilterDropdown = function FilterDropdown(props) {
 
 /* harmony default export */ var filter_dropdown = (filter_dropdown_FilterDropdown);
 // EXTERNAL MODULE: ./src/scripts/fade-x.js
-var fade_x = __webpack_require__(74);
+var fade_x = __webpack_require__(73);
 
 // CONCATENATED MODULE: ./src/navigation/tabs/index.js
 
@@ -12620,38 +12666,37 @@ var getOrderDetails = /*#__PURE__*/function () {
   };
 }();
 var getQuoteDetails = /*#__PURE__*/function () {
-  var _ref3 = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee3(endpoint, id, setError) {
-    var url, response, responseBody;
+  var _ref3 = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee3(endpoint, setError) {
+    var response, responseBody;
     return regenerator_default.a.wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
-            url = endpoint + "/" + id;
-            _context3.next = 3;
-            return details_services_getData(url);
+            _context3.next = 2;
+            return details_services_getData(endpoint);
 
-          case 3:
+          case 2:
             response = _context3.sent;
-            _context3.next = 6;
+            _context3.next = 5;
             return response.json();
 
-          case 6:
+          case 5:
             responseBody = _context3.sent;
 
             if (!(response.status === 200)) {
-              _context3.next = 11;
+              _context3.next = 10;
               break;
             }
 
             return _context3.abrupt("return", responseBody);
 
-          case 11:
+          case 10:
             setError({
               status: response.status,
               code: responseBody.code
             });
 
-          case 12:
+          case 11:
           case "end":
             return _context3.stop();
         }
@@ -12659,7 +12704,7 @@ var getQuoteDetails = /*#__PURE__*/function () {
     }, _callee3);
   }));
 
-  return function getQuoteDetails(_x5, _x6, _x7) {
+  return function getQuoteDetails(_x5, _x6) {
     return _ref3.apply(this, arguments);
   };
 }();
@@ -12671,7 +12716,7 @@ var details_services_buildSearchURL = function buildSearchURL(endpoint, lineItem
   });
   rows = skus.length;
   keywords = skus.join(' ');
-  return url = "".concat(endpoint, "/category_facet$shop:Shop?keyword=").concat(keywords, "&rows=").concat(rows, "&isocode=").concat(isocode, "&multiselect=true&page=1&sort=most-relevant").concat(Object(userFunctions["e" /* getCategoryReferenceType */])());
+  return url = "".concat(endpoint, "/category_facet$shop:Shop?keyword=").concat(keywords, "&rows=").concat(rows, "&isocode=").concat(isocode, "&multiselect=true&page=1&sort=most-relevant").concat(Object(userFunctions["f" /* getCategoryReferenceType */])());
 };
 
 var getItemDetails = /*#__PURE__*/function () {
@@ -12714,7 +12759,7 @@ var getItemDetails = /*#__PURE__*/function () {
     }, _callee4);
   }));
 
-  return function getItemDetails(_x8, _x9, _x10, _x11) {
+  return function getItemDetails(_x7, _x8, _x9, _x10) {
     return _ref4.apply(this, arguments);
   };
 }();
@@ -12819,6 +12864,8 @@ details_list_item_DetailsListItem.defaultProps = {
 
 
 
+
+
 var shipment_Shipment = /*#__PURE__*/function (_Component) {
   Object(inherits["a" /* default */])(Shipment, _Component);
 
@@ -12830,11 +12877,11 @@ var shipment_Shipment = /*#__PURE__*/function (_Component) {
     _this = Object(possibleConstructorReturn["a" /* default */])(this, Object(getPrototypeOf["a" /* default */])(Shipment).call(this, props));
 
     _this.ifShipped = function () {
-      var deliveryStatus = "Open";
+      var deliveryStatus = constants["c" /* DELIVERY_STATUS */].OPEN;
       var shippedDate = _this.props.data[0].shippedDate;
 
       if (shippedDate !== "" && shippedDate !== "0000-00-00") {
-        deliveryStatus = "Complete";
+        deliveryStatus = constants["c" /* DELIVERY_STATUS */].COMPLETE;
       }
 
       return deliveryStatus;
@@ -12882,6 +12929,37 @@ var shipment_Shipment = /*#__PURE__*/function (_Component) {
       return false;
     };
 
+    _this.getDetailsItemData = function () {
+      var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      var _this$props$isQuoteDe = _this.props.isQuoteDetails,
+          isQuoteDetails = _this$props$isQuoteDe === void 0 ? false : _this$props$isQuoteDe;
+      var item = data;
+
+      if (isQuoteDetails && data) {
+        var _data$product = data.product,
+            product = _data$product === void 0 ? {} : _data$product,
+            _data$basePrice = data.basePrice,
+            basePrice = _data$basePrice === void 0 ? {} : _data$basePrice,
+            quantity = data.quantity;
+        var code = product.code,
+            name = product.name,
+            sKUPageUrl = product.sKUPageUrl,
+            imageUrl = product.imageUrl;
+        var formattedValue = basePrice.formattedValue;
+        item = {
+          materialNumber: code,
+          title: name,
+          materialDecription: name,
+          url: sKUPageUrl,
+          thumbnail: imageUrl,
+          unitPrice: formattedValue,
+          orderedQuantity: quantity
+        };
+      }
+
+      return item;
+    };
+
     _this.userLocale = get_locale["a" /* default */].getLocale();
     _this.skuConfig = JSON.parse(document.getElementById('commerce-configs-json').innerHTML);
     return _this;
@@ -12897,19 +12975,32 @@ var shipment_Shipment = /*#__PURE__*/function (_Component) {
           totalShipments = _this$props.totalShipments,
           shipment = _this$props.shipment,
           icons = _this$props.icons,
-          data = _this$props.data,
-          totalItemsOrdered = _this$props.totalItemsOrdered;
+          totalItems = _this$props.totalItems,
+          totalItemsOrdered = _this$props.totalItemsOrdered,
+          resultsText = _this$props.resultsText,
+          noResultsFoundTitle = _this$props.noResultsFoundTitle,
+          _this$props$isQuoteDe2 = _this$props.isQuoteDetails,
+          isQuoteDetails = _this$props$isQuoteDe2 === void 0 ? false : _this$props$isQuoteDe2;
       return react_default.a.createElement("div", {
         className: "order-shipment"
-      }, react_default.a.createElement("div", {
+      }, isQuoteDetails && react_default.a.createElement("div", {
+        className: "showing-item-counter",
+        "data-locator": "quote-showing-item-count-header"
+      }, react_default.a.createElement(count_header, {
+        rows: totalItems,
+        count: totalItems,
+        current: 1,
+        resultsText: resultsText,
+        noResultsText: noResultsFoundTitle
+      })), react_default.a.createElement("div", {
         className: "order-shipment-header"
       }, react_default.a.createElement("div", {
         className: "order-shipment-header__left"
-      }, totalShipments > 1 && react_default.a.createElement("div", {
+      }, totalShipments > 1 && !isQuoteDetails && react_default.a.createElement("div", {
         className: "order-shipment-header__shipment-count"
       }, shipment.shipmentText + " " + shipmentNumber), react_default.a.createElement("div", {
         className: "order-shipment-header__item-count"
-      }, this.renderItemCount(totalItemsOrdered, shipment))), react_default.a.createElement("div", {
+      }, this.renderItemCount(totalItemsOrdered, shipment))), !isQuoteDetails && react_default.a.createElement("div", {
         className: "order-shipment-header__right"
       }, react_default.a.createElement(delivery_status, {
         status: this.ifShipped(),
@@ -12917,11 +13008,12 @@ var shipment_Shipment = /*#__PURE__*/function (_Component) {
         icons: icons,
         shipped: this.orderShipped()
       }))), react_default.a.createElement("div", {
-        className: ""
+        className: "details-item-tiles-section",
+        "data-locator": "details-item-section"
       }, this.props.data.map(function (record, index) {
         return react_default.a.createElement(details_list_item, {
           key: index,
-          relatedSku: record,
+          relatedSku: _this2.getDetailsItemData(record),
           skuConfig: _this2.skuConfig
         });
       })));
@@ -12936,14 +13028,15 @@ shipment_Shipment.defaultProps = {
   shipment: {},
   icons: {},
   shipmentNumber: 1,
-  totalShipments: 1
+  totalShipments: 1,
+  isQuoteDetails: false
 };
 /* harmony default export */ var components_shipment = (shipment_Shipment);
 // EXTERNAL MODULE: ./src/utils/get-isocode/index.js
-var get_isocode = __webpack_require__(87);
+var get_isocode = __webpack_require__(130);
 
 // EXTERNAL MODULE: ./src/utils/group-by/index.js
-var group_by = __webpack_require__(68);
+var group_by = __webpack_require__(101);
 
 // CONCATENATED MODULE: ./src/details/order-details/index.js
 
@@ -13129,7 +13222,7 @@ var order_details_OrderDetails = /*#__PURE__*/function (_Component) {
 
         if (account) {
           var includeCountryName = true;
-          var addressArray = Object(userFunctions["p" /* getOrderDetailsAddress */])(account, includeCountryName);
+          var addressArray = Object(userFunctions["q" /* getOrderDetailsAddress */])(account, includeCountryName);
           return react_default.a.createElement(react_default.a.Fragment, null, addressArray.map(function (addressLine) {
             return react_default.a.createElement("div", {
               className: "".concat(_this.rootStyle, "-address1"),
@@ -13345,7 +13438,7 @@ var order_details_OrderDetails = /*#__PURE__*/function (_Component) {
                   if (data && data.account && data.account.length) {
                     // Add Country Names to data
                     data.account.map(function (account) {
-                      var countryName = Object(userFunctions["g" /* getCountryName */])(account.country, _this2.config);
+                      var countryName = Object(userFunctions["h" /* getCountryName */])(account.country, _this2.config);
                       account.countryName = countryName;
                       account.state = account.region;
                     });
@@ -13453,6 +13546,7 @@ var order_details_ErrorBoundaryOrderDetails = function ErrorBoundaryOrderDetails
 
 
 
+
 var quote_list_item_QuoteListItem = /*#__PURE__*/function (_Component) {
   Object(inherits["a" /* default */])(QuoteListItem, _Component);
 
@@ -13484,16 +13578,20 @@ var quote_list_item_QuoteListItem = /*#__PURE__*/function (_Component) {
           expires = _this$props.expires,
           shipment = _this$props.shipment,
           icons = _this$props.icons,
-          orderNumberText = _this$props.orderNumberText;
+          orderNumberText = _this$props.orderNumberText,
+          isShowQuoteAgainButton = _this$props.isShowQuoteAgainButton,
+          newQuote = _this$props.newQuote;
       var quoteId = data.quoteId,
           orderNumber = data.orderNumber,
           quoteCreationDate = data.quoteCreationDate,
           quoteExpirationDate = data.quoteExpirationDate,
           totalPriceFormatted = data.totalPriceFormatted,
-          quoteStatus = data.quoteStatus;
-      var showExpireDate = !!(quoteStatus === 'Pending' || quoteStatus === 'Quote Replaced' || quoteStatus === 'Rejected' || quoteStatus === 'Open');
-      var showOrderNumber = !!(quoteStatus === 'Order Placed');
-      var showQuoteAgainBtn = !!(quoteStatus === 'Expired');
+          quoteStatus = data.quoteStatus,
+          replacedQuoteNumber = data.replacedQuoteNumber;
+      var showExpireDate = !!(quoteStatus === constants["c" /* DELIVERY_STATUS */].PENDING || quoteStatus === constants["c" /* DELIVERY_STATUS */].REJECTED || quoteStatus === constants["c" /* DELIVERY_STATUS */].OPEN);
+      var showOrderNumber = !!(quoteStatus === constants["c" /* DELIVERY_STATUS */].ORDER_PLACED);
+      var showQuoteAgainBtn = !!(quoteStatus === constants["c" /* DELIVERY_STATUS */].EXPIRED);
+      var showQuoteReplacedNumber = !!(quoteStatus === constants["c" /* DELIVERY_STATUS */].QUOTE_REPLACED);
       return react_default.a.createElement("div", {
         className: "cmp-order-list__container"
       }, react_default.a.createElement("div", {
@@ -13517,7 +13615,10 @@ var quote_list_item_QuoteListItem = /*#__PURE__*/function (_Component) {
       }, "".concat(expires, " ").concat(quoteExpirationDate)), showOrderNumber && orderNumber && react_default.a.createElement("div", {
         className: "cmp-order-list__order-number-text",
         "data-locator": "quote-order-number"
-      }, "".concat(orderNumberText, " ").concat(orderNumber)))), react_default.a.createElement("div", {
+      }, "".concat(orderNumberText, " ").concat(orderNumber)), showQuoteReplacedNumber && replacedQuoteNumber && react_default.a.createElement("div", {
+        className: "cmp-order-list__order-number-text",
+        "data-locator": "quote-order-number"
+      }, "".concat(newQuote, " ").concat(replacedQuoteNumber)))), react_default.a.createElement("div", {
         className: "cmp-order-list__right",
         "data-locator": "order-list-right"
       }, react_default.a.createElement("hr", {
@@ -13529,7 +13630,7 @@ var quote_list_item_QuoteListItem = /*#__PURE__*/function (_Component) {
       })), totalPriceFormatted && react_default.a.createElement("div", {
         className: "cmp-order-list__total cmp-order-list__left",
         "data-locator": "order-list-total"
-      }, totalPriceFormatted), showQuoteAgainBtn && react_default.a.createElement("div", {
+      }, totalPriceFormatted), showQuoteAgainBtn && isShowQuoteAgainButton && react_default.a.createElement("div", {
         className: "cmp-order-list__right quote-again-section",
         "data-locator": "quote-history-quote-again"
       }, this.renderQuoteAgainButton()));
@@ -13616,8 +13717,7 @@ var quote_history_QuoteHistory = /*#__PURE__*/function (_Component) {
         listCount: totalNumberOfResults,
         currentPage: currentPage,
         noResults: false,
-        loading: false,
-        isQuoteData: true
+        loading: false
       });
     };
 
@@ -13626,8 +13726,8 @@ var quote_history_QuoteHistory = /*#__PURE__*/function (_Component) {
       var _this$state = _this.state,
           currentPage = _this$state.currentPage,
           pageSize = _this$state.pageSize;
-      var userId = Object(userFunctions["r" /* getUserId */])();
-      var soldToId = Object(userFunctions["q" /* getSoldToId */])() || Object(userFunctions["i" /* getDummySoldToId */])();
+      var userId = Object(userFunctions["t" /* getUserId */])();
+      var soldToId = Object(userFunctions["r" /* getSoldToId */])() || Object(userFunctions["j" /* getDummySoldToId */])();
       var queryParam = "userId=".concat(userId, "&soldToId=").concat(soldToId, "&currentPage=").concat(currentPage, "&pageSize=").concat(pageSize, "&fields=FULL");
 
       if (activeTabFilter && activeTabFilter !== "ALL") {
@@ -13687,15 +13787,11 @@ var quote_history_QuoteHistory = /*#__PURE__*/function (_Component) {
     _this.renderTabs = function () {
       var _ref3 = _this.props.configs || {},
           _ref3$tabs = _ref3.tabs,
-          tabs = _ref3$tabs === void 0 ? [] : _ref3$tabs,
-          _ref3$blankItemTabs = _ref3.blankItemTabs,
-          blankItemTabs = _ref3$blankItemTabs === void 0 ? [] : _ref3$blankItemTabs;
+          tabs = _ref3$tabs === void 0 ? [] : _ref3$tabs;
 
-      var isQuoteData = _this.state.isQuoteData;
-      var currentTabs = _this.state.noResults && !isQuoteData ? blankItemTabs : tabs;
       return react_default.a.createElement(navigation_tabs, {
         className: "cmp-search__categories-tabs",
-        items: currentTabs,
+        items: tabs,
         activeIndex: _this.state.activeIndex,
         onClick: function onClick(e) {
           return _this.handleCategorySelected(e);
@@ -13769,8 +13865,7 @@ var quote_history_QuoteHistory = /*#__PURE__*/function (_Component) {
       error: false,
       initialPageLoad: true,
       currentPage: 0,
-      pageSize: 10,
-      isQuoteData: false
+      pageSize: 10
     };
     _this.page = {
       name: "Quote History",
@@ -13917,14 +14012,13 @@ var quote_history_QuoteHistory = /*#__PURE__*/function (_Component) {
           listCount = _this$state4.listCount,
           listItems = _this$state4.listItems,
           noResults = _this$state4.noResults,
-          loading = _this$state4.loading,
-          isQuoteData = _this$state4.isQuoteData;
+          loading = _this$state4.loading;
       return react_default.a.createElement(react_default.a.Fragment, null, loading ? react_default.a.createElement(spinner["a" /* default */], {
         loading: loading
       }) : null, !loading && react_default.a.createElement(react_default.a.Fragment, null, this.renderTabs(), react_default.a.createElement("div", {
         className: "cmp-order-list__header clearfix",
         "data-locator": "order-list-header-clearfix"
-      }, isQuoteData && this.renderDropDowns(), this.renderCountHeader()), noResults && this.renderNoResults(), listCount > 0 && listItems.map(function (item, index) {
+      }, this.renderDropDowns(), this.renderCountHeader()), noResults && this.renderNoResults(), listCount > 0 && listItems.map(function (item, index) {
         return react_default.a.createElement(quote_list_item, {
           data: item,
           numberText: _this5.props.configs.numberText,
@@ -13935,7 +14029,9 @@ var quote_history_QuoteHistory = /*#__PURE__*/function (_Component) {
           orderNumberText: _this5.props.configs.orderNumberText,
           icons: _this5.props.configs.icons,
           quoteAgainTitle: _this5.props.configs.quoteAgainTitle,
-          index: index
+          index: index,
+          isShowQuoteAgainButton: _this5.props.configs.isShowQuoteAgainButton,
+          newQuote: _this5.props.configs.newQuote
         });
       }), listCount > 0 && this.renderPagination()));
     }
@@ -13946,11 +14042,6 @@ var quote_history_QuoteHistory = /*#__PURE__*/function (_Component) {
 
 /* harmony default export */ var quote_history = (quote_history_QuoteHistory);
 // CONCATENATED MODULE: ./src/details/quote-details/index.js
-
-
-
-
-
 
 
 
@@ -14036,223 +14127,275 @@ var quote_details_QuoteDetails = /*#__PURE__*/function (_Component) {
       }
     };
 
-    _this.getShipmentList = function (airbills, quoteDetails) {
-      var shipments = [];
-
-      for (var i = 0; i < Object.keys(airbills).length; i++) {
-        var values = Object.values(airbills)[i];
-        shipments.push(react_default.a.createElement(components_shipment, {
-          data: values,
-          shipment: _this.props.config.shipment,
-          icons: _this.props.config.icons,
-          shipmentNumber: i + 1,
-          totalShipments: Object.keys(airbills).length,
-          addToCartReorder: _this.addToCartReorder,
-          totalItemsOrdered: quoteDetails.totalItemsOrdered
-        }));
-      }
-
-      return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("hr", {
-        className: "order-shipment-list__hr"
-      }), Object.keys(airbills).length > 0 && shipments);
-    };
-
-    _this.addReorderAnalytics = function (response) {
-      var localStore = new stores_localStore["a" /* default */]();
-      var cartId = loginStatus["a" /* default */].state() ? localStore.getCartId() : localStore.getGUID();
-      var cartModifications = response.cartModifications;
-      var items = {};
-
-      if (cartModifications) {
-        items = cartModifications.map(function (item) {
-          return {
-            "sku": item.entry.product.code,
-            "qty": item.quantityAdded
-          };
-        });
-      }
-
-      var reOrderModel = {
-        detail: {
-          cartId: cartId,
-          "addContext": analytics["a" /* analyticTypes */]["reOrder"].context,
-          items: items
-        }
-      };
-      analytics["b" /* default */].setAnalytics(analytics["a" /* analyticTypes */]["reOrder"].name, reOrderModel);
-    };
-
-    _this.addToCartReorder = function (e) {
-      e.preventDefault();
+    _this.getQuoteDetailsData = function () {
       var _this$state = _this.state,
-          isCommerceApiMigrated = _this$state.isCommerceApiMigrated,
-          addToCartUrl = _this$state.addToCartUrl,
-          reorderData = _this$state.reorderData;
-      addToCart(isCommerceApiMigrated, addToCartUrl, reorderData, null, _this.setError).then(function (response) {
-        // Redirect if at least one item was successfully added to the cart
-        if (response && response.cartModifications && response.cartModifications.length) {
-          _this.addReorderAnalytics(response);
+          detailsUrl = _this$state.detailsUrl,
+          quoteId = _this$state.quoteId;
+      var url = Object(userFunctions["s" /* getUrlPath */])(detailsUrl, quoteId);
+      getQuoteDetails(url, _this.setError).then(function (data) {
+        var quotes = data && data.quotes || undefined;
+        var totalItemsCount = 0;
 
-          window.location.href = _this.state.viewCartUrl;
-        } else {
-          _this.toggleModal();
-
-          response && response.errors && _this.setState({
-            errorCartErrors: response.errors
-          });
-
-          _this.setError(response);
+        if (quotes) {
+          totalItemsCount = quotes.totalItems || 0;
 
           _this.setState({
-            errorServiceError: false
+            isLoading: false,
+            quoteDetails: quotes,
+            totalItemsCount: totalItemsCount,
+            errorOrderNotFound: false
+          });
+        } else {
+          _this.setState({
+            errorOrderNotFound: true,
+            isLoading: false,
+            totalItemsCount: totalItemsCount
           });
         }
-      })["catch"](function (err) {
-        _this.toggleModal();
-
-        _this.setState({
-          errorServiceError: false
-        });
       });
     };
 
     _this.config = document.getElementById('json-config--cmp-detail-tiles--personal') ? JSON.parse(document.getElementById('json-config--cmp-detail-tiles--personal').innerHTML) : '';
 
-    _this.renderAddress = function (addressType) {
-      var quoteDetails = _this.state.quoteDetails;
+    _this.renderAddress = function () {
+      var address = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
-      if (quoteDetails.account) {
-        var account = quoteDetails.account.filter(function (item) {
-          return item.partnerType === addressType;
-        })[0];
-
-        if (account) {
-          var includeCountryName = true;
-          var addressArray = Object(userFunctions["p" /* getOrderDetailsAddress */])(account, includeCountryName);
-          return react_default.a.createElement(react_default.a.Fragment, null, addressArray.map(function (addressLine) {
-            return react_default.a.createElement("div", {
-              className: "".concat(_this.rootStyle, "-address1"),
-              "data-locator": "order-details-address"
-            }, addressLine);
-          }));
-        }
+      if (address) {
+        var addressArray = Object(userFunctions["m" /* getFullCompanyAddress */])(address, false);
+        return react_default.a.createElement(react_default.a.Fragment, null, addressArray.map(function (addressLine) {
+          return react_default.a.createElement("div", {
+            className: "".concat(_this.rootStyle, "-address1"),
+            "data-locator": "order-details-address"
+          }, addressLine);
+        }));
       }
-
-      return null;
     };
 
     _this.renderItemCount = function () {
-      var quoteDetails = _this.state.quoteDetails;
+      var totalItemsCount = _this.state.totalItemsCount;
       var label = "";
 
-      if (quoteDetails && quoteDetails.totalItemsOrdered) {
-        if (parseInt(quoteDetails.totalItemsOrdered) > 1) {
+      if (totalItemsCount > 0) {
+        if (totalItemsCount > 1) {
           label = _this.props.config.items;
-        } else if (parseInt(quoteDetails.totalItemsOrdered) === 1) {
+        } else if (totalItemsCount === 1) {
           label = _this.props.config.item;
         }
 
-        var itemCountLabel = " (" + quoteDetails.totalItemsOrdered + " " + label + ")";
+        var itemCountLabel = " (" + totalItemsCount + " " + label + ")";
         return itemCountLabel;
       } else {
         return label;
       }
     };
 
-    _this.renderReorderButton = function () {
-      return react_default.a.createElement("a", {
+    _this.placeOrderForQuote = function (e, quoteId) {
+      e.preventDefault();
+
+      if (quoteId) {
+        new stores_sessionStore["a" /* default */]().setQuoteId(quoteId);
+        var checkoutUrl = Object(userFunctions["e" /* getCartCheckoutUrl */])(constants["h" /* STORE */], constants["b" /* CHECKOUT */]);
+        window.location.href = checkoutUrl;
+      }
+    };
+
+    _this.renderReorderButton = function (className) {
+      var quoteDetails = _this.state.quoteDetails;
+      var quoteStatus = quoteDetails.quoteStatus,
+          quoteId = quoteDetails.quoteId;
+      return quoteStatus === constants["c" /* DELIVERY_STATUS */].OPEN && react_default.a.createElement("div", {
+        className: className,
+        "data-locator": "quote-details-reorder"
+      }, react_default.a.createElement("a", {
+        className: "cmp-button",
+        href: "#",
+        onClick: function onClick(e) {
+          return _this.placeOrderForQuote(e, quoteId);
+        }
+      }, _this.props.config.reorderTitle));
+    };
+
+    _this.renderQuoteAgainButton = function (className) {
+      var quoteDetails = _this.state.quoteDetails;
+      var quoteStatus = quoteDetails.quoteStatus;
+      return quoteStatus === constants["c" /* DELIVERY_STATUS */].EXPIRED && react_default.a.createElement("div", {
+        className: className,
+        "data-locator": "quote-details-quote-again-cta"
+      }, react_default.a.createElement("a", {
         className: "cmp-button",
         href: "/#"
-      }, _this.props.config.reorderTitle);
+      }, _this.props.config.quoteAgainTitle));
+    };
+
+    _this.getValue = function (data, attribute) {
+      var defaultValue = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : undefined;
+      var value = defaultValue;
+
+      if (data) {
+        value = data[attribute];
+      }
+
+      return value;
+    };
+
+    _this.getNewQuoteItem = function (quoteStatus, replacedQuoteNumber) {
+      if (quoteStatus === constants["c" /* DELIVERY_STATUS */].QUOTE_REPLACED) {
+        _this.setState({
+          quoteId: replacedQuoteNumber
+        }, function () {
+          _this.getQuoteDetailsData();
+        });
+      }
     };
 
     _this.renderDetailsSection = function () {
-      var _this$state2 = _this.state,
-          quoteDetails = _this$state2.quoteDetails,
-          userLocale = _this$state2.userLocale;
+      var quoteDetails = _this.state.quoteDetails;
       var config = _this.props.config;
+      var created = config.created,
+          expires = config.expires,
+          shipTo = config.shipTo,
+          billTo = config.billTo,
+          savings = config.savings,
+          shipping = config.shipping,
+          tax = config.tax,
+          totalLabel = config.totalLabel,
+          shipment = config.shipment,
+          icons = config.icons,
+          isShowQuoteAgainButton = config.isShowQuoteAgainButton;
+      var quoteId = quoteDetails.quoteId,
+          quoteCreationDate = quoteDetails.quoteCreationDate,
+          quoteExpirationDate = quoteDetails.quoteExpirationDate,
+          subTotal = quoteDetails.subTotal,
+          totalShippingAndHandling = quoteDetails.totalShippingAndHandling,
+          totalDiscounts = quoteDetails.totalDiscounts,
+          totalTax = quoteDetails.totalTax,
+          totalPriceWithTax = quoteDetails.totalPriceWithTax,
+          shipToInfo = quoteDetails.shipToInfo,
+          billToInfo = quoteDetails.billToInfo,
+          quoteStatus = quoteDetails.quoteStatus,
+          orderNumber = quoteDetails.orderNumber,
+          replacedQuoteNumber = quoteDetails.replacedQuoteNumber;
       var notZeroDiscountFlag = parseFloat(quoteDetails.orderDiscountValue) !== 0 ? true : false;
+
+      var subTotalValue = _this.getValue(subTotal, 'formattedValue');
+
+      var ShippingAndHandlingValue = _this.getValue(totalShippingAndHandling, 'formattedValue');
+
+      var totalDiscountsValue = _this.getValue(totalDiscounts, 'formattedValue');
+
+      var totalTaxValue = _this.getValue(totalTax, 'formattedValue');
+
+      var totalPriceValue = _this.getValue(totalPriceWithTax, 'formattedValue');
+
+      var showExpireDate = !!(quoteStatus === constants["c" /* DELIVERY_STATUS */].PENDING || quoteStatus === constants["c" /* DELIVERY_STATUS */].REJECTED || quoteStatus === constants["c" /* DELIVERY_STATUS */].OPEN);
+      var showNewDetailsLinkSection = quoteStatus === constants["c" /* DELIVERY_STATUS */].QUOTE_REPLACED || quoteStatus === constants["c" /* DELIVERY_STATUS */].ORDER_PLACED;
+      var newItemUrl = quoteStatus === constants["c" /* DELIVERY_STATUS */].ORDER_PLACED ? "#orderdetails?id=".concat(orderNumber) : "#quotedetails?id=".concat(replacedQuoteNumber);
       return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__container")
       }, react_default.a.createElement("h2", {
         className: "".concat(_this.rootStyle, "__title"),
         "data-locator": "product-title"
-      }, config.quoteDetails), react_default.a.createElement("div", {
+      }, config.detailsTitle), showNewDetailsLinkSection && react_default.a.createElement("div", {
+        className: "".concat(_this.rootStyle, "__new-details-link-text")
+      }, react_default.a.createElement("div", {
+        className: "new-details-link-section"
+      }, react_default.a.createElement("a", {
+        href: newItemUrl,
+        onClick: function onClick() {
+          return _this.getNewQuoteItem(quoteStatus, replacedQuoteNumber);
+        }
+      }, react_default.a.createElement("div", {
+        className: "new-details-icon"
+      }, react_default.a.createElement(react_svg["a" /* default */], {
+        src: config.icons.newQuoteOrderIcon
+      })), quoteStatus === constants["c" /* DELIVERY_STATUS */].QUOTE_REPLACED && react_default.a.createElement("div", {
+        className: "new-details-text",
+        "data-locator": "delivery-text"
+      }, "".concat(config.newQuote).concat(replacedQuoteNumber)), quoteStatus === constants["c" /* DELIVERY_STATUS */].ORDER_PLACED && react_default.a.createElement("div", {
+        className: "new-details-text",
+        "data-locator": "delivery-text"
+      }, "".concat(config.orderNumberText).concat(orderNumber)))), quoteStatus && quoteStatus === constants["c" /* DELIVERY_STATUS */].ORDER_PLACED && react_default.a.createElement("div", {
+        className: "new-details-status-icon"
+      }, react_default.a.createElement(delivery_status, {
+        status: quoteStatus,
+        labels: shipment,
+        icons: icons
+      }), " ")), react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__order-info")
       }, react_default.a.createElement("h3", {
         className: "".concat(_this.rootStyle, "__order-number"),
         "data-locator": "product-number"
-      }, config.numberLabel + ": " + quoteDetails.orderNumber), react_default.a.createElement("div", {
+      }, config.numberLabel + ": " + quoteId)), react_default.a.createElement("div", {
+        className: "".concat(_this.rootStyle, "__order-summary")
+      }, quoteStatus && quoteStatus !== constants["c" /* DELIVERY_STATUS */].ORDER_PLACED && react_default.a.createElement(delivery_status, {
+        status: quoteStatus,
+        labels: shipment,
+        icons: icons
+      })), react_default.a.createElement("div", {
+        className: "".concat(_this.rootStyle, "__order-info")
+      }, quoteCreationDate && react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__order-date"),
         "data-locator": "order-date"
-      }, date_formatter["a" /* default */].dateFormatter(quoteDetails.date, userLocale)), react_default.a.createElement("div", {
+      }, "".concat(created, " ").concat(quoteCreationDate)), showExpireDate && quoteExpirationDate && react_default.a.createElement("div", {
+        className: "".concat(_this.rootStyle, "__order-date"),
+        "data-locator": "order-date"
+      }, "".concat(expires, " ").concat(quoteExpirationDate)), react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__address-container")
-      }, react_default.a.createElement("div", {
+      }, shipToInfo && react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__ship-to"),
         "data-locator": "ship-to"
-      }, react_default.a.createElement("h4", null, config.shipTo), _this.renderAddress("shipping")), react_default.a.createElement("div", {
+      }, react_default.a.createElement("h4", null, shipTo), _this.renderAddress(shipToInfo)), billToInfo && react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__bill-to"),
         "data-locator": "bill-to"
-      }, react_default.a.createElement("h4", null, config.billTo), _this.renderAddress("billing"))), react_default.a.createElement("div", {
-        className: "".concat(_this.rootStyle, "__payment-container")
-      }, react_default.a.createElement("div", {
-        className: "".concat(_this.rootStyle, "__payment-method"),
-        "data-locator": "payment-method"
-      }, react_default.a.createElement("h4", null, config.paymentMethod), quoteDetails.ccNum && react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement(react_svg["a" /* default */], {
-        src: config.paymentType.creditCard.icon
-      }), react_default.a.createElement("div", {
-        className: "text"
-      }, config.paymentType.creditCard.label)), !quoteDetails.ccNum && quoteDetails.purchaseOrderNumber && react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement(react_svg["a" /* default */], {
-        src: config.paymentType.purchaseOrder.icon
-      }), react_default.a.createElement("div", {
-        className: "text"
-      }, config.paymentType.purchaseOrder.label, ": ", quoteDetails.purchaseOrderNumber))))), react_default.a.createElement("div", {
+      }, react_default.a.createElement("h4", null, billTo), _this.renderAddress(billToInfo)))), react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__order-summary"),
-        "data-locator": "order-summary"
+        "data-locator": "order-summary-cart-details"
       }, react_default.a.createElement("h4", null, config.summaryTitle), react_default.a.createElement("div", {
-        className: "".concat(_this.rootStyle, "__order-subtotal")
+        className: "".concat(_this.rootStyle, "__order-subtotal"),
+        "data-locator": "order-summary-line-sub-total"
       }, react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__order-subtotal_left"),
-        "data-locator": "order-subtotal-left"
+        "data-locator": "order-summary-label-sub-total"
       }, config.subTotal, " ", _this.renderItemCount()), react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__order-subtotal_right"),
-        "data-locator": "order-subtotal-right"
-      }, quoteDetails.itemsSubTotal)), notZeroDiscountFlag && react_default.a.createElement("div", {
-        className: "".concat(_this.rootStyle, "__order-savings")
+        "data-locator": "order-summary-price-sub-total"
+      }, subTotalValue)), notZeroDiscountFlag && react_default.a.createElement("div", {
+        className: "".concat(_this.rootStyle, "__order-savings"),
+        "data-locator": "order-summary-line-total-discount"
       }, react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__order-savings_left"),
-        "data-locator": "order-savings-left"
-      }, config.savings), react_default.a.createElement("div", {
+        "data-locator": "order-summary-label-total-discount"
+      }, savings), react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__order-savings_right"),
-        "data-locator": "order-savings-right"
-      }, config.minusSign, quoteDetails.orderDiscount)), react_default.a.createElement("div", {
-        className: "".concat(_this.rootStyle, "__order-shipping")
+        "data-locator": "order-summary-price-total-discount"
+      }, config.minusSign, totalDiscountsValue)), react_default.a.createElement("div", {
+        className: "".concat(_this.rootStyle, "__order-shipping"),
+        "data-locator": "order-summary-line-total-shipping-handling"
       }, react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__order-shipping_left"),
-        "data-locator": "order-shipping-left"
-      }, config.shipping), react_default.a.createElement("div", {
+        "data-locator": "order-summary-label-total-shipping-handling"
+      }, shipping), react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__order-shipping_right"),
-        "data-locator": "order-shipping-right"
-      }, quoteDetails.shippingAmount)), react_default.a.createElement("div", {
-        className: "".concat(_this.rootStyle, "__order-tax")
+        "data-locator": "order-summary-price-total-shipping-handling"
+      }, ShippingAndHandlingValue)), react_default.a.createElement("div", {
+        className: "".concat(_this.rootStyle, "__order-tax"),
+        "data-locator": "order-summary-line-estimated-tax"
       }, react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__order-tax_left"),
-        "data-locator": "order-tax-left"
-      }, config.tax), react_default.a.createElement("div", {
+        "data-locator": "order-summary-label-estimated-tax"
+      }, tax), react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__order-tax_right"),
-        "data-locator": "order-tax-right"
-      }, quoteDetails.taxAmount)), react_default.a.createElement("div", {
-        className: "".concat(_this.rootStyle, "__order-total")
+        "data-locator": "order-summary-price-estimated-tax"
+      }, totalTaxValue)), react_default.a.createElement("div", {
+        className: "".concat(_this.rootStyle, "__order-total"),
+        "data-locator": "order-summary-line-total-price"
       }, react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__order-total_left"),
-        "data-locator": "order-total-left"
-      }, config.totalLabel), react_default.a.createElement("div", {
+        "data-locator": "order-summary-label-total-price"
+      }, totalLabel), react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__order-total_right"),
-        "data-locator": "order-total-right"
-      }, react_default.a.createElement("h1", null, quoteDetails.orderTotal))), _this.state.isCommerceApiMigrated && react_default.a.createElement("div", {
-        className: "".concat(_this.rootStyle, "__reorder"),
-        "data-locator": "order-details-reorder"
-      }, _this.renderReorderButton()))));
+        "data-locator": "order-summary-price-total-price"
+      }, react_default.a.createElement("h1", null, totalPriceValue))), _this.renderReorderButton("".concat(_this.rootStyle, "__reorder")), isShowQuoteAgainButton && _this.renderQuoteAgainButton("".concat(_this.rootStyle, "__reorder")))));
     };
 
     _this.renderNotFoundError = function () {
@@ -14263,38 +14406,45 @@ var quote_details_QuoteDetails = /*#__PURE__*/function (_Component) {
     };
 
     _this.renderOrderShipmentList = function () {
-      var _this$state3 = _this.state,
-          airbills = _this$state3.airbills,
-          quoteDetails = _this$state3.quoteDetails;
-      return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("div", {
-        className: "cmp-order-details__order-shipment-list",
-        "data-locator": "order-shipment-list"
-      }, Object.keys(airbills).length > 0 && _this.getShipmentList(airbills, quoteDetails)), _this.state.isCommerceApiMigrated && react_default.a.createElement("div", {
-        className: "order-shipment__reorder",
-        "data-locator": "order-shipment-reorder"
-      }, _this.renderReorderButton()));
+      var _this$state2 = _this.state,
+          quoteDetails = _this$state2.quoteDetails,
+          totalItemsCount = _this$state2.totalItemsCount;
+      var _quoteDetails$entries = quoteDetails.entries,
+          entries = _quoteDetails$entries === void 0 ? [] : _quoteDetails$entries;
+      var isShowQuoteAgainButton = _this.props.config.isShowQuoteAgainButton;
+
+      if (entries && entries.length > 0) {
+        return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("div", {
+          className: "cmp-order-details__order-shipment-list",
+          "data-locator": "order-shipment-list"
+        }, react_default.a.createElement("hr", {
+          className: "order-shipment-list__hr"
+        }), react_default.a.createElement(components_shipment, {
+          data: entries,
+          shipment: _this.props.config.shipment,
+          icons: _this.props.config.icons,
+          resultsText: _this.props.config.resultsText,
+          noResultsFoundTitle: _this.props.noResultsFoundTitle,
+          totalItemsOrdered: totalItemsCount,
+          totalItems: entries.length,
+          isQuoteDetails: true
+        })), _this.renderReorderButton("order-shipment__reorder"), isShowQuoteAgainButton && _this.renderQuoteAgainButton("order-shipment__reorder"));
+      } else {
+        return null;
+      }
     };
 
     _this.state = {
       quoteId: _this.getUrlParameter("id"),
-      userLocale: get_locale["a" /* default */].getLocale(),
-      userIsocode: get_isocode["a" /* default */].getIsocode(),
       detailsUrl: props.config.fetchDetailsEndPoint,
       itemsUrl: props.config.fetchItemsEndPoint,
-      reorderUrl: props.config.fetchReorderUrlEndPoint,
       quoteDetails: {},
-      reorderData: [],
-      airbills: {},
-      skusSoldCount: 0,
       errorServiceError: false,
       errorOrderNotFound: false,
       isLoading: true,
       modalShown: false,
       modalConfig: props.config.modalInfo,
-      isCommerceApiMigrated: false,
-      addToCartUrl: '',
-      viewCartUrl: '',
-      errorCartErrors: []
+      totalItemsCount: 0
     };
     return _this;
   }
@@ -14303,89 +14453,13 @@ var quote_details_QuoteDetails = /*#__PURE__*/function (_Component) {
     key: "componentDidMount",
     value: function () {
       var _componentDidMount = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee() {
-        var _this2 = this;
-
-        var commerceConfig, buttons, updatedModalConfig, _this$state4, detailsUrl, itemsUrl, quoteId, userIsocode;
-
         return regenerator_default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                commerceConfig = JSON.parse(document.getElementById('commerce-configs-json').innerHTML);
+                this.getQuoteDetailsData();
 
-                if (commerceConfig) {
-                  this.setState({
-                    isCommerceApiMigrated: JSON.parse(commerceConfig.isCommerceApiMigrated.toLowerCase()),
-                    addToCartUrl: commerceConfig.addToCartUrl,
-                    viewCartUrl: commerceConfig.viewCartUrl
-                  });
-
-                  if (commerceConfig.isCommerceApiMigrated.toLowerCase() === 'true') {
-                    // Update modal config button with a callback and new cart url
-                    buttons = Object(toConsumableArray["a" /* default */])(this.state.modalConfig.buttons);
-                    buttons[0] = Object(objectSpread["a" /* default */])({}, buttons[0], {
-                      action: commerceConfig.viewCartUrl,
-                      callback: this.addToCartReorder
-                    });
-                    updatedModalConfig = Object(objectSpread["a" /* default */])({}, this.state.modalConfig, {
-                      buttons: buttons
-                    });
-                    this.setState({
-                      modalConfig: updatedModalConfig
-                    });
-                  }
-                }
-
-                _this$state4 = this.state, detailsUrl = _this$state4.detailsUrl, itemsUrl = _this$state4.itemsUrl, quoteId = _this$state4.quoteId, userIsocode = _this$state4.userIsocode;
-                getQuoteDetails(detailsUrl, quoteId, this.setError).then(function (data) {
-                  if (data && data.account && data.account.length) {
-                    // Add Country Names to data
-                    data.account.map(function (account) {
-                      var countryName = Object(userFunctions["g" /* getCountryName */])(account.country, _this2.config);
-                      account.countryName = countryName;
-                      account.state = account.region;
-                    });
-
-                    _this2.setState({
-                      isLoading: false,
-                      quoteDetails: data
-                    });
-
-                    var reorderData = data.lineItems.map(function (item) {
-                      return {
-                        code: item.materialNumber,
-                        quantity: item.orderedQuantity
-                      };
-                    });
-
-                    _this2.setState({
-                      reorderData: Object(toConsumableArray["a" /* default */])(reorderData)
-                    });
-
-                    getItemDetails(itemsUrl, data.lineItems, _this2.setError, userIsocode).then(function (itemData) {
-                      if (itemData && itemData.documents && itemData.documents.length) {
-                        var mergedAPIs = matchLineItems(data, itemData.documents);
-
-                        _this2.setState({
-                          airbills: group_by["a" /* default */].groupBy(mergedAPIs.lineItems, 'airbill')
-                        });
-                      } else {
-                        _this2.setState({
-                          airbills: group_by["a" /* default */].groupBy(data.lineItems, 'airbill')
-                        });
-                      }
-
-                      _this2.setAnalytics('load');
-                    });
-                  } else {
-                    _this2.setState({
-                      errorOrderNotFound: true,
-                      isLoading: false
-                    });
-                  }
-                });
-
-              case 4:
+              case 1:
               case "end":
                 return _context.stop();
             }
@@ -14400,6 +14474,22 @@ var quote_details_QuoteDetails = /*#__PURE__*/function (_Component) {
       return componentDidMount;
     }()
   }, {
+    key: "componentWillReceiveProps",
+    value: function componentWillReceiveProps() {
+      var _this2 = this;
+
+      var quoteId = this.state.quoteId;
+      var urlQuoteId = this.getUrlParameter("id");
+
+      if (quoteId !== urlQuoteId) {
+        this.setState({
+          quoteId: urlQuoteId
+        }, function () {
+          _this2.getQuoteDetailsData();
+        });
+      }
+    }
+  }, {
     key: "componentWillUnmount",
     value: function componentWillUnmount() {
       this.props.resetErrorBoundaryToFalse();
@@ -14408,10 +14498,10 @@ var quote_details_QuoteDetails = /*#__PURE__*/function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this$state5 = this.state,
-          isLoading = _this$state5.isLoading,
-          errorOrderNotFound = _this$state5.errorOrderNotFound,
-          errorServiceError = _this$state5.errorServiceError;
+      var _this$state3 = this.state,
+          isLoading = _this$state3.isLoading,
+          errorOrderNotFound = _this$state3.errorOrderNotFound,
+          errorServiceError = _this$state3.errorServiceError;
       return react_default.a.createElement(react_default.a.Fragment, null, isLoading && react_default.a.createElement(spinner["a" /* default */], {
         loading: isLoading
       }), !isLoading && errorOrderNotFound && this.renderNotFoundError(), !errorOrderNotFound && !errorServiceError && !isLoading && this.renderDetailsSection(), !errorOrderNotFound && !errorServiceError && !isLoading && this.renderOrderShipmentList(), react_default.a.createElement(modal["b" /* default */], {
@@ -14786,14 +14876,14 @@ if (tagCloudContainers) {
   for (var src_i = 0; src_i < tagCloudContainers.length; src_i++) {
     var src_json = JSON.parse(tagCloudContainers[src_i].getAttribute('data-json'));
 
-    var _data = getAuthoredDataForTagCloud(header, tagCloudContainers[src_i]);
+    var _data2 = getAuthoredDataForTagCloud(header, tagCloudContainers[src_i]);
 
     react_dom_default.a.render(react_default.a.createElement(tagcloud, {
-      tagCloudTitle: _data.tagTitle,
-      searchPath: _data.searchPath,
+      tagCloudTitle: _data2.tagTitle,
+      searchPath: _data2.searchPath,
       keywords: src_json,
-      category: _data.category,
-      contentType: _data.contentType
+      category: _data2.category,
+      contentType: _data2.contentType
     }), tagCloudContainers[src_i]);
   }
 }
@@ -15071,17 +15161,17 @@ if (changePasswordContainer) {
 var chatContainer = document.querySelector('.cmp-chat');
 
 if (chatContainer) {
-  var _data2 = getAuthoredDataForChat(chatContainer);
+  var _data3 = getAuthoredDataForChat(chatContainer);
 
   react_dom_default.a.render(react_default.a.createElement(chat, {
-    url: _data2.url,
-    statusApi: _data2.statusApi,
+    url: _data3.url,
+    statusApi: _data3.statusApi,
     countryCode: skuDetailsConfig.countryCode,
-    icon: _data2.icon,
-    availableText: _data2.availableText,
-    unavailableText: _data2.unavailableText,
-    text: _data2.text,
-    buttonText: _data2.buttonText,
+    icon: _data3.icon,
+    availableText: _data3.availableText,
+    unavailableText: _data3.unavailableText,
+    text: _data3.text,
+    buttonText: _data3.buttonText,
     offlineIcon: skuDetailsConfig.skuInfo.outOfStockIcon,
     onlineIcon: skuDetailsConfig.skuInfo.inStockIcon
   }), chatContainer);
@@ -15218,10 +15308,10 @@ if (contactusContainer) {
   }), contactusContainer);
 }
 // EXTERNAL MODULE: ./node_modules/css-vars-ponyfill/dist/css-vars-ponyfill.esm.js
-var css_vars_ponyfill_esm = __webpack_require__(132);
+var css_vars_ponyfill_esm = __webpack_require__(131);
 
 // EXTERNAL MODULE: ./src/scripts/inlineSVG.js + 1 modules
-var inlineSVG = __webpack_require__(58);
+var inlineSVG = __webpack_require__(57);
 
 // CONCATENATED MODULE: ./src/entry.js
 
@@ -15277,14 +15367,14 @@ window.addEventListener('resize', addEllipses);
 
 /***/ }),
 
-/***/ 191:
+/***/ 190:
 /***/ (function(module, exports) {
 
 /* (ignored) */
 
 /***/ }),
 
-/***/ 20:
+/***/ 21:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -15292,14 +15382,14 @@ window.addEventListener('resize', addEllipses);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return parameterValues; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return parameterDefaults; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return searchMapper; });
-/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
-/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
-/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4);
-/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(5);
-/* harmony import */ var whatwg_fetch__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(38);
-/* harmony import */ var _stores_sessionStore__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(15);
-/* harmony import */ var _utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(10);
+/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
+/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
+/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4);
+/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(5);
+/* harmony import */ var whatwg_fetch__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(39);
+/* harmony import */ var _stores_sessionStore__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(14);
+/* harmony import */ var _utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(7);
 
 
 
@@ -15308,7 +15398,7 @@ window.addEventListener('resize', addEllipses);
 
 
 
-var queryString = __webpack_require__(30);
+var queryString = __webpack_require__(29);
 
 var parameterValues = {
   undefined: 'undefined',
@@ -15343,7 +15433,7 @@ var SearchService = /*#__PURE__*/function () {
     var multiselect = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : true;
     var throwError = arguments.length > 6 ? arguments[6] : undefined;
 
-    Object(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(this, SearchService);
+    Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(this, SearchService);
 
     this.getCategories = function (_ref) {
       var _ref$keyword = _ref.keyword,
@@ -15390,7 +15480,7 @@ var SearchService = /*#__PURE__*/function () {
         sort: sort
       });
 
-      var searchString = "".concat(_this.path, "/category_facet$").concat(category.toLowerCase(), ":").concat(encodeURIComponent(encodeURIComponent(category)), "?").concat(paramString).concat(Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* getCategoryReferenceType */ "e"])());
+      var searchString = "".concat(_this.path, "/category_facet$").concat(category.toLowerCase(), ":").concat(encodeURIComponent(encodeURIComponent(category)), "?").concat(paramString).concat(Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* getCategoryReferenceType */ "f"])());
 
       if (category === "All") {
         searchString = "".concat(_this.path, "?").concat(paramString);
@@ -15426,7 +15516,7 @@ var SearchService = /*#__PURE__*/function () {
         sort: sort
       });
 
-      var searchString = "".concat(_this.path, "/category_facet$").concat(category.toLowerCase(), ":").concat(encodeURIComponent(encodeURIComponent(category)), "&contenttype_facet$").concat(contentTypeKey, ":").concat(encodeURIComponent(encodeURIComponent(contentTypeValue)), "?").concat(paramString).concat(Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* getCategoryReferenceType */ "e"])());
+      var searchString = "".concat(_this.path, "/category_facet$").concat(category.toLowerCase(), ":").concat(encodeURIComponent(encodeURIComponent(category)), "&contenttype_facet$").concat(contentTypeKey, ":").concat(encodeURIComponent(encodeURIComponent(contentTypeValue)), "?").concat(paramString).concat(Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* getCategoryReferenceType */ "f"])());
       return window.fetch(searchString).then(function (response) {
         if (response.ok) {
           return response.json();
@@ -15459,7 +15549,7 @@ var SearchService = /*#__PURE__*/function () {
 
       var facetString = _this.getQueryFacetString(facets);
 
-      var searchString = "".concat(_this.path, "/category_facet$").concat(category.toLowerCase(), ":").concat(encodeURIComponent(encodeURIComponent(category)), "&contenttype_facet$").concat(contentTypeName.replace('_facet', ''), ":").concat(encodeURIComponent(encodeURIComponent(contentTypeValue))).concat(facetString, "?").concat(paramString).concat(Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* getCategoryReferenceType */ "e"])());
+      var searchString = "".concat(_this.path, "/category_facet$").concat(category.toLowerCase(), ":").concat(encodeURIComponent(encodeURIComponent(category)), "&contenttype_facet$").concat(contentTypeName.replace('_facet', ''), ":").concat(encodeURIComponent(encodeURIComponent(contentTypeValue))).concat(facetString, "?").concat(paramString).concat(Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* getCategoryReferenceType */ "f"])());
       return window.fetch(searchString).then(function (response) {
         if (response.ok) {
           return response.json();
@@ -15472,13 +15562,13 @@ var SearchService = /*#__PURE__*/function () {
     };
 
     this.getSuggestedKeywords = /*#__PURE__*/function () {
-      var _ref5 = Object(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(rows, term) {
+      var _ref5 = Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(rows, term) {
         var searchString, callService, response;
-        return C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        return C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                searchString = "".concat(_this.path, "/v1/autocomplete?term=").concat(term, "&rows=").concat(rows, "&isocode=").concat(_this.options.isocode).concat(Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* getCategoryReferenceType */ "e"])());
+                searchString = "".concat(_this.path, "/v1/autocomplete?term=").concat(term, "&rows=").concat(rows, "&isocode=").concat(_this.options.isocode).concat(Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* getCategoryReferenceType */ "f"])());
                 callService = window.fetch(searchString).then(function (response) {
                   if (response.ok) {
                     return response.json();
@@ -15630,7 +15720,7 @@ var SearchService = /*#__PURE__*/function () {
     this.sessionStore = new _stores_sessionStore__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"]();
   }
 
-  Object(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(SearchService, [{
+  Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(SearchService, [{
     key: "getParamsFromString",
     value: function getParamsFromString() {
       var str = window.location.search;
@@ -15810,7 +15900,7 @@ var searchMapper = {
 
 /***/ }),
 
-/***/ 26:
+/***/ 27:
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
@@ -15818,35 +15908,16 @@ module.exports = {"colorBorderDark":"#9ca7b0","colorGray50":"#4f5b64","colorBack
 
 /***/ }),
 
-/***/ 28:
+/***/ 34:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BAD_REQUEST_CODE; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return SERVER_ERROR_CODE; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return UNAVAILABLE_PRICE_WITH_ADD_TO_CART; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return LIST_PRICE_WITH_ADD_TO_CART; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return NO_PRICE_NO_ADD_TO_CART; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return FILENAME_REGX; });
-var BAD_REQUEST_CODE = 400;
-var SERVER_ERROR_CODE = 500;
-var UNAVAILABLE_PRICE_WITH_ADD_TO_CART = 'unavailable_price_with_add-to-cart';
-var LIST_PRICE_WITH_ADD_TO_CART = 'list_price_with_add-to-cart';
-var NO_PRICE_NO_ADD_TO_CART = 'no_price_no_add-to-cart';
-var FILENAME_REGX = /\*|\/|\?|\!|\<|\>|\"|\||\\|\:/gm;
-
-/***/ }),
-
-/***/ 33:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(12);
-/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6);
+/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(12);
+/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(0);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _scripts_ErrorMessages__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(67);
-/* harmony import */ var _utils_modal__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(18);
+/* harmony import */ var _utils_modal__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(19);
 /* harmony import */ var _utils_eCommerceFunctions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(11);
 
 
@@ -15869,8 +15940,8 @@ var keys = {
 var AddToCartModalBody = function AddToCartModalBody(props) {
   var errorObjCart = props.errorObjCart;
 
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])(Object(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({}, props.config)),
-      _useState2 = Object(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(_useState, 1),
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])(Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({}, props.config)),
+      _useState2 = Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(_useState, 1),
       state = _useState2[0];
 
   var _useContext = Object(react__WEBPACK_IMPORTED_MODULE_2__["useContext"])(_utils_modal__WEBPACK_IMPORTED_MODULE_4__[/* useModalApi */ "d"]),
@@ -15972,28 +16043,28 @@ AddToCartModalBody.whyDidYouRender = true;
 
 /***/ }),
 
-/***/ 402:
+/***/ 396:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _styles_print_page_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(403);
+/* harmony import */ var _styles_print_page_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(397);
 /* harmony import */ var _styles_print_page_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_styles_print_page_scss__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _entry__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(159);
+/* harmony import */ var _entry__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(160);
 // Print Breaking CSS File
 
 
 
 /***/ }),
 
-/***/ 403:
+/***/ 397:
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
 
 /***/ }),
 
-/***/ 42:
+/***/ 43:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -16008,13 +16079,13 @@ var classCallCheck = __webpack_require__(4);
 var createClass = __webpack_require__(5);
 
 // EXTERNAL MODULE: ./node_modules/whatwg-fetch/fetch.js
-var fetch = __webpack_require__(38);
+var fetch = __webpack_require__(39);
 
 // CONCATENATED MODULE: ./src/forms/services/EmailService.js
 
 
 
-var _Promise = typeof Promise === 'undefined' ? __webpack_require__(89).Promise : Promise;
+var _Promise = typeof Promise === 'undefined' ? __webpack_require__(87).Promise : Promise;
 
 
 
@@ -16069,7 +16140,7 @@ var EmailService_EmailService = /*#__PURE__*/function () {
 
 /* harmony default export */ var services_EmailService = (EmailService_EmailService);
 // EXTERNAL MODULE: ./src/forms/fields/utils/fileAttachment.js
-var fileAttachment = __webpack_require__(60);
+var fileAttachment = __webpack_require__(59);
 
 // CONCATENATED MODULE: ./src/forms/fields/patterns/index.js
 
@@ -16348,119 +16419,7 @@ var functions = {
 
 /***/ }),
 
-/***/ 51:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
-/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
-/* harmony import */ var whatwg_fetch__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(38);
-/* harmony import */ var _utils_redirectFunctions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(24);
-
-
-
-
-
-var getData = /*#__PURE__*/function () {
-  var _ref = Object(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(url) {
-    var response;
-    return C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            _context.next = 2;
-            return fetch(url, {
-              method: 'GET',
-              credentials: 'include',
-              headers: {
-                'Content-Type': 'application/json'
-              }
-            });
-
-          case 2:
-            response = _context.sent;
-            _context.next = 5;
-            return response;
-
-          case 5:
-            return _context.abrupt("return", _context.sent);
-
-          case 6:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  }));
-
-  return function getData(_x) {
-    return _ref.apply(this, arguments);
-  };
-}();
-
-var UserDetails = /*#__PURE__*/function () {
-  var _ref2 = Object(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-    var url,
-        _response,
-        _args2 = arguments;
-
-    return C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
-      while (1) {
-        switch (_context2.prev = _context2.next) {
-          case 0:
-            url = _args2.length > 0 && _args2[0] !== undefined ? _args2[0] : "https://stgservices.waters.com/api/waters/user/v1/details";
-            _context2.prev = 1;
-            _context2.next = 4;
-            return getData(url);
-
-          case 4:
-            _response = _context2.sent;
-
-            if (!(_response.status === 200)) {
-              _context2.next = 9;
-              break;
-            }
-
-            return _context2.abrupt("return", _response.json());
-
-          case 9:
-            if (_response.status === 401 && window.location.href.indexOf('my-account.html') !== -1) {
-              Object(_utils_redirectFunctions__WEBPACK_IMPORTED_MODULE_3__[/* signInRedirect */ "d"])();
-            }
-
-          case 10:
-            return _context2.abrupt("return", {
-              failed: true,
-              error: _response.status
-            });
-
-          case 13:
-            _context2.prev = 13;
-            _context2.t0 = _context2["catch"](1);
-            return _context2.abrupt("return", {
-              failed: true,
-              error: response.status
-            });
-
-          case 16:
-          case "end":
-            return _context2.stop();
-        }
-      }
-    }, _callee2, null, [[1, 13]]);
-  }));
-
-  return function UserDetails() {
-    return _ref2.apply(this, arguments);
-  };
-}();
-
-/* harmony default export */ __webpack_exports__["a"] = (UserDetails);
-
-/***/ }),
-
-/***/ 62:
+/***/ 47:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -16473,13 +16432,13 @@ var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
 var asyncToGenerator = __webpack_require__(13);
 
 // EXTERNAL MODULE: ./src/scripts/loginStatus.js
-var loginStatus = __webpack_require__(16);
+var loginStatus = __webpack_require__(17);
 
 // EXTERNAL MODULE: ./src/stores/sessionStore.js
-var stores_sessionStore = __webpack_require__(15);
+var stores_sessionStore = __webpack_require__(14);
 
 // EXTERNAL MODULE: ./node_modules/whatwg-fetch/fetch.js
-var whatwg_fetch_fetch = __webpack_require__(38);
+var whatwg_fetch_fetch = __webpack_require__(39);
 
 // CONCATENATED MODULE: ./src/my-account/services/SoldToDetails.js
 
@@ -16585,7 +16544,7 @@ var SoldToDetails = /*#__PURE__*/function () {
 
 /* harmony default export */ var services_SoldToDetails = (SoldToDetails);
 // EXTERNAL MODULE: ./src/scripts/domElements.js
-var domElements = __webpack_require__(25);
+var domElements = __webpack_require__(26);
 
 // EXTERNAL MODULE: ./src/utils/eCommerceFunctions.js
 var eCommerceFunctions = __webpack_require__(11);
@@ -16695,30 +16654,142 @@ var eCommerceFunctions = __webpack_require__(11);
 
 /***/ }),
 
-/***/ 70:
+/***/ 50:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
-/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
-/* harmony import */ var _scripts_loginStatus__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(16);
-/* harmony import */ var _stores_sessionStore__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(15);
-/* harmony import */ var _services_UserDetails__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(51);
+/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
+/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
+/* harmony import */ var whatwg_fetch__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(39);
+/* harmony import */ var _utils_redirectFunctions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(25);
+
+
+
+
+
+var getData = /*#__PURE__*/function () {
+  var _ref = Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(url) {
+    var response;
+    return C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.next = 2;
+            return fetch(url, {
+              method: 'GET',
+              credentials: 'include',
+              headers: {
+                'Content-Type': 'application/json'
+              }
+            });
+
+          case 2:
+            response = _context.sent;
+            _context.next = 5;
+            return response;
+
+          case 5:
+            return _context.abrupt("return", _context.sent);
+
+          case 6:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function getData(_x) {
+    return _ref.apply(this, arguments);
+  };
+}();
+
+var UserDetails = /*#__PURE__*/function () {
+  var _ref2 = Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+    var url,
+        _response,
+        _args2 = arguments;
+
+    return C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            url = _args2.length > 0 && _args2[0] !== undefined ? _args2[0] : "https://stgservices.waters.com/api/waters/user/v1/details";
+            _context2.prev = 1;
+            _context2.next = 4;
+            return getData(url);
+
+          case 4:
+            _response = _context2.sent;
+
+            if (!(_response.status === 200)) {
+              _context2.next = 9;
+              break;
+            }
+
+            return _context2.abrupt("return", _response.json());
+
+          case 9:
+            if (_response.status === 401 && window.location.href.indexOf('my-account.html') !== -1) {
+              Object(_utils_redirectFunctions__WEBPACK_IMPORTED_MODULE_3__[/* signInRedirect */ "d"])();
+            }
+
+          case 10:
+            return _context2.abrupt("return", {
+              failed: true,
+              error: _response.status
+            });
+
+          case 13:
+            _context2.prev = 13;
+            _context2.t0 = _context2["catch"](1);
+            return _context2.abrupt("return", {
+              failed: true,
+              error: response.status
+            });
+
+          case 16:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2, null, [[1, 13]]);
+  }));
+
+  return function UserDetails() {
+    return _ref2.apply(this, arguments);
+  };
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (UserDetails);
+
+/***/ }),
+
+/***/ 69:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
+/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
+/* harmony import */ var _scripts_loginStatus__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(17);
+/* harmony import */ var _stores_sessionStore__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(14);
+/* harmony import */ var _services_UserDetails__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(50);
 
 
 
 
 
 /* harmony default export */ __webpack_exports__["a"] = (/*#__PURE__*/(function () {
-  var _ref = Object(C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(userDetailsUrl, checkSessionStore) {
+  var _ref = Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(userDetailsUrl, checkSessionStore) {
     var sessionStore,
         service,
         navBarControls,
         userDetails,
         response,
         _args = arguments;
-    return C_Users_ussdul_Projects_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+    return C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
