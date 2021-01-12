@@ -201,9 +201,12 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
             addDate(document, page);
             //for eprocSpecific changes
             document.setField("eprocUrl", updateUrlForEprocBasedOnLocaleConfig(excludedLocales, page.getHref().replace(page.getParent(4).getPath(),WatersConstants.ORDER_ROOT_PATH)));
-            String[] eprocValues = new String [] {sku.getCode(),page.getTitle(TitleType.PAGE_TITLE).or(page.getTitle())};
+            String[] eprocSuggestValues = new String [] {sku.getCode(),page.getTitle(TitleType.PAGE_TITLE).or(page.getTitle())};
+            document.setField("autosuggest_skucontext",eprocSuggestValues );
 
-            document.setField("autosuggest_skucontext",eprocValues );
+            String[] eprocSpellcheckValues = new String [] {sku.getCode(),page.getTitle(TitleType.PAGE_TITLE).or(page.getTitle()),page.getDescription()};
+
+            document.setField("spellcheck_skucontext",eprocSpellcheckValues );
         }
     }
 
