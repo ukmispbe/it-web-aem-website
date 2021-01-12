@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import ReactSVG from 'react-svg';
+import { parse, stringify } from 'query-string';
 import { elementLocator } from "../../utils/eCommerceFunctions.js";
-import { getNamedHeaderLink } from '../../utils/redirectFunctions';
 
 const CategoryList = ({items, text, activeIndex, onClick, clearSessionStore}) => {
     const categoryRef = React.useRef();
@@ -63,9 +63,11 @@ const Category = ({index, name, count, isActive, onClick, backImage, isHidden, h
 
 const processClick = (index, onClick, backImage, clearSessionStore) => {
     if (backImage) {
-        clearSessionStore();
-        const searchUrl = getNamedHeaderLink("data-search-path");
-        window.location.href = searchUrl;
+        clearSessionStore();   
+        const parameters = parse(window.location.search);
+        parameters.category = "All";
+        parameters.page = "1";
+        window.location.href = `${window.location.pathname}?${stringify(parameters)}`;
     }
     else {
         onClick(index);

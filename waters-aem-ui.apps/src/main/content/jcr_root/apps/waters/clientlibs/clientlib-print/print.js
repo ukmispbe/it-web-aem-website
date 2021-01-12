@@ -655,7 +655,7 @@ var inherits = __webpack_require__(10);
 var services = __webpack_require__(21);
 
 // EXTERNAL MODULE: ./node_modules/query-string/index.js
-var query_string = __webpack_require__(30);
+var query_string = __webpack_require__(29);
 
 // EXTERNAL MODULE: ./node_modules/react-router-dom/es/withRouter.js + 1 modules
 var withRouter = __webpack_require__(501);
@@ -2246,7 +2246,7 @@ var stores_localStore = __webpack_require__(53);
 var loginStatus = __webpack_require__(17);
 
 // EXTERNAL MODULE: ./src/utils/serviceFunctions.js
-var serviceFunctions = __webpack_require__(29);
+var serviceFunctions = __webpack_require__(30);
 
 // EXTERNAL MODULE: ./src/utils/userFunctions.js
 var userFunctions = __webpack_require__(7);
@@ -3466,9 +3466,6 @@ var results_Results = function Results(_ref2) {
 };
 
 /* harmony default export */ var components_results = (results_Results);
-// EXTERNAL MODULE: ./src/utils/redirectFunctions.js
-var redirectFunctions = __webpack_require__(25);
-
 // CONCATENATED MODULE: ./src/navigation/category-list/index.js
 
 
@@ -3573,8 +3570,10 @@ var category_list_Category = function Category(_ref2) {
 var category_list_processClick = function processClick(index, onClick, backImage, clearSessionStore) {
   if (backImage) {
     clearSessionStore();
-    var searchUrl = Object(redirectFunctions["a" /* getNamedHeaderLink */])("data-search-path");
-    window.location.href = searchUrl;
+    var parameters = Object(query_string["parse"])(window.location.search);
+    parameters.category = "All";
+    parameters.page = "1";
+    window.location.href = "".concat(window.location.pathname, "?").concat(Object(query_string["stringify"])(parameters));
   } else {
     onClick(index);
   }
@@ -3962,6 +3961,9 @@ search_component_helpers_ResultsBody.defaultProps = {
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray.js + 3 modules
 var slicedToArray = __webpack_require__(6);
+
+// EXTERNAL MODULE: ./src/utils/redirectFunctions.js
+var redirectFunctions = __webpack_require__(25);
 
 // EXTERNAL MODULE: ./node_modules/react-ellipsis-text/index.js
 var react_ellipsis_text = __webpack_require__(100);
@@ -15391,7 +15393,7 @@ window.addEventListener('resize', addEllipses);
 
 
 
-var queryString = __webpack_require__(30);
+var queryString = __webpack_require__(29);
 
 var parameterValues = {
   undefined: 'undefined',
