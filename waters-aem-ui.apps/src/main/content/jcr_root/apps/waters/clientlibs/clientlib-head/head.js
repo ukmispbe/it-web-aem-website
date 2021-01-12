@@ -170,13 +170,13 @@ __webpack_require__.d(__webpack_exports__, "d", function() { return /* binding *
 __webpack_require__.d(__webpack_exports__, "h", function() { return /* binding */ shopAllCartContext; });
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray.js + 3 modules
-var slicedToArray = __webpack_require__(7);
+var slicedToArray = __webpack_require__(6);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js
 var classCallCheck = __webpack_require__(4);
 
 // EXTERNAL MODULE: ./src/scripts/inlineSVG.js + 1 modules
-var inlineSVG = __webpack_require__(56);
+var inlineSVG = __webpack_require__(57);
 
 // EXTERNAL MODULE: ./src/scripts/DigitalData.js
 var DigitalData = __webpack_require__(22);
@@ -185,7 +185,7 @@ var DigitalData = __webpack_require__(22);
 var sessionStore = __webpack_require__(14);
 
 // EXTERNAL MODULE: ./src/stores/cookieStore.js
-var cookieStore = __webpack_require__(49);
+var cookieStore = __webpack_require__(51);
 
 // CONCATENATED MODULE: ./src/analytics/eventTypes.js
 var eventTypes = {

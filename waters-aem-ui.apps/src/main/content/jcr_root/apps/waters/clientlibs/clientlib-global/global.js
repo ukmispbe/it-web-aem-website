@@ -185,13 +185,13 @@ __webpack_require__.d(__webpack_exports__, "d", function() { return /* binding *
 __webpack_require__.d(__webpack_exports__, "h", function() { return /* binding */ shopAllCartContext; });
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray.js + 3 modules
-var slicedToArray = __webpack_require__(7);
+var slicedToArray = __webpack_require__(6);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js
 var classCallCheck = __webpack_require__(4);
 
 // EXTERNAL MODULE: ./src/scripts/inlineSVG.js + 1 modules
-var inlineSVG = __webpack_require__(56);
+var inlineSVG = __webpack_require__(57);
 
 // EXTERNAL MODULE: ./src/scripts/DigitalData.js
 var DigitalData = __webpack_require__(22);
@@ -200,7 +200,7 @@ var DigitalData = __webpack_require__(22);
 var sessionStore = __webpack_require__(14);
 
 // EXTERNAL MODULE: ./src/stores/cookieStore.js
-var cookieStore = __webpack_require__(49);
+var cookieStore = __webpack_require__(51);
 
 // CONCATENATED MODULE: ./src/analytics/eventTypes.js
 var eventTypes = {
@@ -572,9 +572,9 @@ var _analytics$analyticTy = Object(slicedToArray["a" /* default */])(analytics.a
 /* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
 /* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4);
 /* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(5);
-/* harmony import */ var whatwg_fetch__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(38);
+/* harmony import */ var whatwg_fetch__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(39);
 /* harmony import */ var _stores_sessionStore__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(14);
-/* harmony import */ var _utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(6);
+/* harmony import */ var _utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(7);
 
 
 
@@ -583,7 +583,7 @@ var _analytics$analyticTy = Object(slicedToArray["a" /* default */])(analytics.a
 
 
 
-var queryString = __webpack_require__(29);
+var queryString = __webpack_require__(30);
 
 var parameterValues = {
   undefined: 'undefined',
@@ -665,7 +665,7 @@ var SearchService = /*#__PURE__*/function () {
         sort: sort
       });
 
-      var searchString = "".concat(_this.path, "/category_facet$").concat(category.toLowerCase(), ":").concat(encodeURIComponent(encodeURIComponent(category)), "?").concat(paramString).concat(Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* getCategoryReferenceType */ "e"])());
+      var searchString = "".concat(_this.path, "/category_facet$").concat(category.toLowerCase(), ":").concat(encodeURIComponent(encodeURIComponent(category)), "?").concat(paramString).concat(Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* getCategoryReferenceType */ "f"])());
 
       if (category === "All") {
         searchString = "".concat(_this.path, "?").concat(paramString);
@@ -701,7 +701,7 @@ var SearchService = /*#__PURE__*/function () {
         sort: sort
       });
 
-      var searchString = "".concat(_this.path, "/category_facet$").concat(category.toLowerCase(), ":").concat(encodeURIComponent(encodeURIComponent(category)), "&contenttype_facet$").concat(contentTypeKey, ":").concat(encodeURIComponent(encodeURIComponent(contentTypeValue)), "?").concat(paramString).concat(Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* getCategoryReferenceType */ "e"])());
+      var searchString = "".concat(_this.path, "/category_facet$").concat(category.toLowerCase(), ":").concat(encodeURIComponent(encodeURIComponent(category)), "&contenttype_facet$").concat(contentTypeKey, ":").concat(encodeURIComponent(encodeURIComponent(contentTypeValue)), "?").concat(paramString).concat(Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* getCategoryReferenceType */ "f"])());
       return window.fetch(searchString).then(function (response) {
         if (response.ok) {
           return response.json();
@@ -734,7 +734,7 @@ var SearchService = /*#__PURE__*/function () {
 
       var facetString = _this.getQueryFacetString(facets);
 
-      var searchString = "".concat(_this.path, "/category_facet$").concat(category.toLowerCase(), ":").concat(encodeURIComponent(encodeURIComponent(category)), "&contenttype_facet$").concat(contentTypeName.replace('_facet', ''), ":").concat(encodeURIComponent(encodeURIComponent(contentTypeValue))).concat(facetString, "?").concat(paramString).concat(Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* getCategoryReferenceType */ "e"])());
+      var searchString = "".concat(_this.path, "/category_facet$").concat(category.toLowerCase(), ":").concat(encodeURIComponent(encodeURIComponent(category)), "&contenttype_facet$").concat(contentTypeName.replace('_facet', ''), ":").concat(encodeURIComponent(encodeURIComponent(contentTypeValue))).concat(facetString, "?").concat(paramString).concat(Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* getCategoryReferenceType */ "f"])());
       return window.fetch(searchString).then(function (response) {
         if (response.ok) {
           return response.json();
@@ -753,7 +753,7 @@ var SearchService = /*#__PURE__*/function () {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                searchString = "".concat(_this.path, "/v1/autocomplete?term=").concat(term, "&rows=").concat(rows, "&isocode=").concat(_this.options.isocode).concat(Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* getCategoryReferenceType */ "e"])());
+                searchString = "".concat(_this.path, "/v1/autocomplete?term=").concat(term, "&rows=").concat(rows, "&isocode=").concat(_this.options.isocode).concat(Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* getCategoryReferenceType */ "f"])());
                 callService = window.fetch(searchString).then(function (response) {
                   if (response.ok) {
                     return response.json();
@@ -1306,12 +1306,12 @@ var systemWideNotification_SystemWideNotification = function SystemWideNotificat
 
 /***/ }),
 
-/***/ 33:
+/***/ 34:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(12);
-/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(7);
+/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(0);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _scripts_ErrorMessages__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(67);
@@ -1441,24 +1441,36 @@ AddToCartModalBody.whyDidYouRender = true;
 
 /***/ }),
 
-/***/ 48:
+/***/ 47:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
-/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
-/* harmony import */ var whatwg_fetch__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(38);
-/* harmony import */ var _utils_redirectFunctions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(25);
 
+// EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/regenerator/index.js
+var regenerator = __webpack_require__(2);
+var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
+
+// EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
+var asyncToGenerator = __webpack_require__(13);
+
+// EXTERNAL MODULE: ./src/scripts/loginStatus.js
+var loginStatus = __webpack_require__(17);
+
+// EXTERNAL MODULE: ./src/stores/sessionStore.js
+var stores_sessionStore = __webpack_require__(14);
+
+// EXTERNAL MODULE: ./node_modules/whatwg-fetch/fetch.js
+var whatwg_fetch_fetch = __webpack_require__(39);
+
+// CONCATENATED MODULE: ./src/my-account/services/SoldToDetails.js
 
 
 
 
 var getData = /*#__PURE__*/function () {
-  var _ref = Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(url) {
+  var _ref = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee(url) {
     var response;
-    return C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+    return regenerator_default.a.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
@@ -1492,64 +1504,175 @@ var getData = /*#__PURE__*/function () {
   };
 }();
 
-var UserDetails = /*#__PURE__*/function () {
-  var _ref2 = Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-    var url,
-        _response,
-        _args2 = arguments;
+var SoldToDetails = /*#__PURE__*/function () {
+  var _ref2 = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee2(url) {
+    var _response, json, returnArray;
 
-    return C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+    return regenerator_default.a.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            url = _args2.length > 0 && _args2[0] !== undefined ? _args2[0] : "https://stgservices.waters.com/api/waters/user/v1/details";
-            _context2.prev = 1;
-            _context2.next = 4;
+            _context2.prev = 0;
+            _context2.next = 3;
             return getData(url);
 
-          case 4:
+          case 3:
             _response = _context2.sent;
+            _context2.next = 6;
+            return _response.json();
+
+          case 6:
+            json = _context2.sent;
 
             if (!(_response.status === 200)) {
-              _context2.next = 9;
+              _context2.next = 12;
               break;
             }
 
-            return _context2.abrupt("return", _response.json());
+            returnArray = Array.isArray(json.customers) ? json.customers : [];
+            return _context2.abrupt("return", returnArray);
 
-          case 9:
+          case 12:
             if (_response.status === 401 && window.location.href.indexOf('my-account.html') !== -1) {
-              Object(_utils_redirectFunctions__WEBPACK_IMPORTED_MODULE_3__[/* signInRedirect */ "d"])();
+              signInRedirect();
             }
 
-          case 10:
+          case 13:
             return _context2.abrupt("return", {
               failed: true,
               error: _response.status
             });
 
-          case 13:
-            _context2.prev = 13;
-            _context2.t0 = _context2["catch"](1);
+          case 16:
+            _context2.prev = 16;
+            _context2.t0 = _context2["catch"](0);
             return _context2.abrupt("return", {
               failed: true,
               error: response.status
             });
 
-          case 16:
+          case 19:
           case "end":
             return _context2.stop();
         }
       }
-    }, _callee2, null, [[1, 13]]);
+    }, _callee2, null, [[0, 16]]);
   }));
 
-  return function UserDetails() {
+  return function SoldToDetails(_x2) {
     return _ref2.apply(this, arguments);
   };
 }();
 
-/* harmony default export */ __webpack_exports__["a"] = (UserDetails);
+/* harmony default export */ var services_SoldToDetails = (SoldToDetails);
+// EXTERNAL MODULE: ./src/scripts/domElements.js
+var domElements = __webpack_require__(26);
+
+// EXTERNAL MODULE: ./src/utils/eCommerceFunctions.js
+var eCommerceFunctions = __webpack_require__(11);
+
+// CONCATENATED MODULE: ./src/my-account/services/SoldToDetailsLazy.js
+
+
+
+
+
+
+
+/* harmony default export */ var SoldToDetailsLazy = __webpack_exports__["a"] = (/*#__PURE__*/(function () {
+  var _ref = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee(soldToDetailsUrl, userId, salesOrg) {
+    var sessionStore,
+        service,
+        currentPage,
+        soldToUrl,
+        soldToDetails,
+        hasDefaultSoldTo,
+        response,
+        hideCartClass,
+        headerNavigation_cartLI,
+        _args = arguments;
+    return regenerator_default.a.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            sessionStore = _args.length > 3 && _args[3] !== undefined ? _args[3] : new stores_sessionStore["a" /* default */]();
+            service = _args.length > 4 && _args[4] !== undefined ? _args[4] : services_SoldToDetails;
+            currentPage = window.location.href;
+            soldToUrl = "".concat(soldToDetailsUrl, "/").concat(userId, "?salesOrg=").concat(salesOrg);
+
+            if (!((!loginStatus["a" /* default */].state() || currentPage.indexOf("sign-in") !== -1 || currentPage.indexOf("create-account") !== -1 || currentPage.indexOf("trouble-signing-in") !== -1 || currentPage.indexOf("update-password") !== -1 || currentPage.indexOf("reset-password") !== -1) && currentPage.indexOf('choose-account') !== -1)) {
+              _context.next = 6;
+              break;
+            }
+
+            return _context.abrupt("return", []);
+
+          case 6:
+            soldToDetails = sessionStore.getSoldToDetails(); //START Patches for EComm
+
+            if (!(soldToDetails && soldToDetails.length !== 0)) {
+              _context.next = 12;
+              break;
+            }
+
+            hasDefaultSoldTo = false;
+            soldToDetails.map(function (soldTo) {
+              if ((soldTo.soldToFlag && soldTo.soldToFlag === 1 || soldTo.default_soldTo && soldTo.default_soldTo === 1) && soldTo.soldToInfo && soldTo.soldToInfo.length !== 0 && soldTo.billToInfo && soldTo.shipToInfo) {
+                hasDefaultSoldTo = true;
+                soldTo.soldToFlag = 1;
+                soldTo.default_soldTo = 1;
+              }
+            });
+
+            if (!hasDefaultSoldTo) {
+              _context.next = 12;
+              break;
+            }
+
+            return _context.abrupt("return", soldToDetails);
+
+          case 12:
+            _context.next = 14;
+            return service(soldToUrl);
+
+          case 14:
+            response = _context.sent;
+
+            if (response.failed) {
+              _context.next = 21;
+              break;
+            }
+
+            sessionStore.setSoldToDetails(response); // Show or Hide Cart Icon dependent upon eCommerce Status
+
+            hideCartClass = "top-bar__nav__cart--hide";
+            headerNavigation_cartLI = document.querySelector(".top-bar__nav__cart");
+
+            if (headerNavigation_cartLI) {
+              if (Object(eCommerceFunctions["e" /* isCartHidden */])()) {
+                domElements["a" /* default */].addClass(headerNavigation_cartLI, hideCartClass);
+              } else {
+                domElements["a" /* default */].removeClass(headerNavigation_cartLI, hideCartClass);
+              }
+            }
+
+            return _context.abrupt("return", response);
+
+          case 21:
+            return _context.abrupt("return", []);
+
+          case 22:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function (_x, _x2, _x3) {
+    return _ref.apply(this, arguments);
+  };
+})());
 
 /***/ }),
 
@@ -1569,7 +1692,7 @@ module.exports = {"colorBorderDark":"#9ca7b0","colorGray50":"#4f5b64","colorBack
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./src/scripts/stickyService.js
-var stickyService = __webpack_require__(47);
+var stickyService = __webpack_require__(49);
 
 // EXTERNAL MODULE: ./src/scripts/backtotop.js
 var backtotop = __webpack_require__(399);
@@ -1722,7 +1845,7 @@ var domElements = __webpack_require__(26);
 var react_svg = __webpack_require__(3);
 
 // EXTERNAL MODULE: ./node_modules/whatwg-fetch/fetch.js
-var whatwg_fetch_fetch = __webpack_require__(38);
+var whatwg_fetch_fetch = __webpack_require__(39);
 
 // EXTERNAL MODULE: ./src/stores/sessionStore.js
 var stores_sessionStore = __webpack_require__(14);
@@ -1803,7 +1926,7 @@ function _signOutRequest() {
   return _signOutRequest.apply(this, arguments);
 }
 // EXTERNAL MODULE: ./src/scripts/checkOutStatus.js
-var checkOutStatus = __webpack_require__(46);
+var checkOutStatus = __webpack_require__(48);
 
 // EXTERNAL MODULE: ./src/analytics/index.js + 1 modules
 var analytics = __webpack_require__(16);
@@ -1854,7 +1977,7 @@ var funcs = {
   renderSwitchAccountLink: my_account_user_details_renderSwitchAccountLink
 };
 // EXTERNAL MODULE: ./src/scripts/ecommerce.js
-var ecommerce = __webpack_require__(30);
+var ecommerce = __webpack_require__(31);
 
 // CONCATENATED MODULE: ./src/my-account-dropdown/my-account-item-list.js
 
@@ -1911,7 +2034,7 @@ var my_account_item_list_MyAccountItemList = function MyAccountItemList(props) {
 /* harmony default export */ var my_account_item_list = (my_account_item_list_MyAccountItemList);
 
 // EXTERNAL MODULE: ./src/utils/userFunctions.js
-var userFunctions = __webpack_require__(6);
+var userFunctions = __webpack_require__(7);
 
 // CONCATENATED MODULE: ./src/my-account-dropdown/my-account-container.js
 
@@ -1958,7 +2081,7 @@ var my_account_container_MyAccountContainer = function MyAccountContainer(props)
 
   var filterItemList = function filterItemList(list) {
     return list.filter(function (item) {
-      return !(item.isHiddenForEprocUser === "true" && Object(userFunctions["t" /* isEprocurementUserRole */])());
+      return !(item.isHiddenForEprocUser === "true" && Object(userFunctions["v" /* isEprocurementUserRole */])());
     });
   };
 
@@ -2018,10 +2141,10 @@ var loginStatus = __webpack_require__(17);
 var UserDetailsLazy = __webpack_require__(69);
 
 // EXTERNAL MODULE: ./src/my-account/services/SoldToDetailsLazy.js + 1 modules
-var SoldToDetailsLazy = __webpack_require__(60);
+var SoldToDetailsLazy = __webpack_require__(47);
 
 // EXTERNAL MODULE: ./src/stores/localStore.js
-var localStore = __webpack_require__(52);
+var localStore = __webpack_require__(53);
 
 // CONCATENATED MODULE: ./src/my-account/services/PunchoutLogin.js
 
@@ -2161,7 +2284,7 @@ var remove_query_string = __webpack_require__(162);
 var buildUrl = __webpack_require__(238);
 
 // EXTERNAL MODULE: ./src/sku-details/views/addToCartModal.js
-var addToCartModal = __webpack_require__(33);
+var addToCartModal = __webpack_require__(34);
 
 // EXTERNAL MODULE: ./src/eproc-setup-failure/styles/index.scss
 var styles = __webpack_require__(481);
@@ -2862,7 +2985,7 @@ var my_account_dropdown_MyAccountDropDown = /*#__PURE__*/function (_React$Compon
 
                 window.addEventListener('resize', this.updateViewport, true);
 
-                if (!Object(userFunctions["s" /* isEprocurementUser */])()) {
+                if (!Object(userFunctions["u" /* isEprocurementUser */])()) {
                   _context5.next = 13;
                   break;
                 }
@@ -3035,8 +3158,8 @@ var searchbar_SearchBar = /*#__PURE__*/function (_Component) {
         'aria-label': _this.props.labels.autoSuggest
       };
 
-      if (Object(userFunctions["s" /* isEprocurementUser */])() && !_this.eprocIsoCode) {
-        _this.eprocIsoCode = Object(userFunctions["n" /* getIsoCode */])();
+      if (Object(userFunctions["u" /* isEprocurementUser */])() && !_this.eprocIsoCode) {
+        _this.eprocIsoCode = Object(userFunctions["o" /* getIsoCode */])();
         _this.search = _this.updateSearchService(_this.eprocIsoCode);
       }
 
@@ -3352,7 +3475,7 @@ var searchbar_SearchBar = /*#__PURE__*/function (_Component) {
     _this.inputElement = null;
     _this.eprocIsoCode = '';
     _this.searchBarRef = react_default.a.createRef();
-    _this.search = _this.updateSearchService(Object(userFunctions["s" /* isEprocurementUser */])() ? Object(userFunctions["n" /* getIsoCode */])() : _this.props.isocode);
+    _this.search = _this.updateSearchService(Object(userFunctions["u" /* isEprocurementUser */])() ? Object(userFunctions["o" /* getIsoCode */])() : _this.props.isocode);
 
     var searchValue = _this.search.getUrlParameter('keyword', window.location.search.substring(1));
 
@@ -3696,36 +3819,24 @@ if (headerMobileSearchContainer && headerSearchBarContainer && globalEntry_heade
 
 /***/ }),
 
-/***/ 60:
+/***/ 50:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
+/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
+/* harmony import */ var whatwg_fetch__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(39);
+/* harmony import */ var _utils_redirectFunctions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(25);
 
-// EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/regenerator/index.js
-var regenerator = __webpack_require__(2);
-var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
-
-// EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
-var asyncToGenerator = __webpack_require__(13);
-
-// EXTERNAL MODULE: ./src/scripts/loginStatus.js
-var loginStatus = __webpack_require__(17);
-
-// EXTERNAL MODULE: ./src/stores/sessionStore.js
-var stores_sessionStore = __webpack_require__(14);
-
-// EXTERNAL MODULE: ./node_modules/whatwg-fetch/fetch.js
-var whatwg_fetch_fetch = __webpack_require__(38);
-
-// CONCATENATED MODULE: ./src/my-account/services/SoldToDetails.js
 
 
 
 
 var getData = /*#__PURE__*/function () {
-  var _ref = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee(url) {
+  var _ref = Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(url) {
     var response;
-    return regenerator_default.a.wrap(function _callee$(_context) {
+    return C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
@@ -3759,175 +3870,64 @@ var getData = /*#__PURE__*/function () {
   };
 }();
 
-var SoldToDetails = /*#__PURE__*/function () {
-  var _ref2 = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee2(url) {
-    var _response, json, returnArray;
+var UserDetails = /*#__PURE__*/function () {
+  var _ref2 = Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+    var url,
+        _response,
+        _args2 = arguments;
 
-    return regenerator_default.a.wrap(function _callee2$(_context2) {
+    return C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            _context2.prev = 0;
-            _context2.next = 3;
+            url = _args2.length > 0 && _args2[0] !== undefined ? _args2[0] : "https://stgservices.waters.com/api/waters/user/v1/details";
+            _context2.prev = 1;
+            _context2.next = 4;
             return getData(url);
 
-          case 3:
+          case 4:
             _response = _context2.sent;
-            _context2.next = 6;
-            return _response.json();
-
-          case 6:
-            json = _context2.sent;
 
             if (!(_response.status === 200)) {
-              _context2.next = 12;
+              _context2.next = 9;
               break;
             }
 
-            returnArray = Array.isArray(json.customers) ? json.customers : [];
-            return _context2.abrupt("return", returnArray);
+            return _context2.abrupt("return", _response.json());
 
-          case 12:
+          case 9:
             if (_response.status === 401 && window.location.href.indexOf('my-account.html') !== -1) {
-              signInRedirect();
+              Object(_utils_redirectFunctions__WEBPACK_IMPORTED_MODULE_3__[/* signInRedirect */ "d"])();
             }
 
-          case 13:
+          case 10:
             return _context2.abrupt("return", {
               failed: true,
               error: _response.status
             });
 
-          case 16:
-            _context2.prev = 16;
-            _context2.t0 = _context2["catch"](0);
+          case 13:
+            _context2.prev = 13;
+            _context2.t0 = _context2["catch"](1);
             return _context2.abrupt("return", {
               failed: true,
               error: response.status
             });
 
-          case 19:
+          case 16:
           case "end":
             return _context2.stop();
         }
       }
-    }, _callee2, null, [[0, 16]]);
+    }, _callee2, null, [[1, 13]]);
   }));
 
-  return function SoldToDetails(_x2) {
+  return function UserDetails() {
     return _ref2.apply(this, arguments);
   };
 }();
 
-/* harmony default export */ var services_SoldToDetails = (SoldToDetails);
-// EXTERNAL MODULE: ./src/scripts/domElements.js
-var domElements = __webpack_require__(26);
-
-// EXTERNAL MODULE: ./src/utils/eCommerceFunctions.js
-var eCommerceFunctions = __webpack_require__(11);
-
-// CONCATENATED MODULE: ./src/my-account/services/SoldToDetailsLazy.js
-
-
-
-
-
-
-
-/* harmony default export */ var SoldToDetailsLazy = __webpack_exports__["a"] = (/*#__PURE__*/(function () {
-  var _ref = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee(soldToDetailsUrl, userId, salesOrg) {
-    var sessionStore,
-        service,
-        currentPage,
-        soldToUrl,
-        soldToDetails,
-        hasDefaultSoldTo,
-        response,
-        hideCartClass,
-        headerNavigation_cartLI,
-        _args = arguments;
-    return regenerator_default.a.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            sessionStore = _args.length > 3 && _args[3] !== undefined ? _args[3] : new stores_sessionStore["a" /* default */]();
-            service = _args.length > 4 && _args[4] !== undefined ? _args[4] : services_SoldToDetails;
-            currentPage = window.location.href;
-            soldToUrl = "".concat(soldToDetailsUrl, "/").concat(userId, "?salesOrg=").concat(salesOrg);
-
-            if (!((!loginStatus["a" /* default */].state() || currentPage.indexOf("sign-in") !== -1 || currentPage.indexOf("create-account") !== -1 || currentPage.indexOf("trouble-signing-in") !== -1 || currentPage.indexOf("update-password") !== -1 || currentPage.indexOf("reset-password") !== -1) && currentPage.indexOf('choose-account') !== -1)) {
-              _context.next = 6;
-              break;
-            }
-
-            return _context.abrupt("return", []);
-
-          case 6:
-            soldToDetails = sessionStore.getSoldToDetails(); //START Patches for EComm
-
-            if (!(soldToDetails && soldToDetails.length !== 0)) {
-              _context.next = 12;
-              break;
-            }
-
-            hasDefaultSoldTo = false;
-            soldToDetails.map(function (soldTo) {
-              if ((soldTo.soldToFlag && soldTo.soldToFlag === 1 || soldTo.default_soldTo && soldTo.default_soldTo === 1) && soldTo.soldToInfo && soldTo.soldToInfo.length !== 0 && soldTo.billToInfo && soldTo.shipToInfo) {
-                hasDefaultSoldTo = true;
-                soldTo.soldToFlag = 1;
-                soldTo.default_soldTo = 1;
-              }
-            });
-
-            if (!hasDefaultSoldTo) {
-              _context.next = 12;
-              break;
-            }
-
-            return _context.abrupt("return", soldToDetails);
-
-          case 12:
-            _context.next = 14;
-            return service(soldToUrl);
-
-          case 14:
-            response = _context.sent;
-
-            if (response.failed) {
-              _context.next = 21;
-              break;
-            }
-
-            sessionStore.setSoldToDetails(response); // Show or Hide Cart Icon dependent upon eCommerce Status
-
-            hideCartClass = "top-bar__nav__cart--hide";
-            headerNavigation_cartLI = document.querySelector(".top-bar__nav__cart");
-
-            if (headerNavigation_cartLI) {
-              if (Object(eCommerceFunctions["e" /* isCartHidden */])()) {
-                domElements["a" /* default */].addClass(headerNavigation_cartLI, hideCartClass);
-              } else {
-                domElements["a" /* default */].removeClass(headerNavigation_cartLI, hideCartClass);
-              }
-            }
-
-            return _context.abrupt("return", response);
-
-          case 21:
-            return _context.abrupt("return", []);
-
-          case 22:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  }));
-
-  return function (_x, _x2, _x3) {
-    return _ref.apply(this, arguments);
-  };
-})());
+/* harmony default export */ __webpack_exports__["a"] = (UserDetails);
 
 /***/ }),
 
@@ -3940,7 +3940,7 @@ var eCommerceFunctions = __webpack_require__(11);
 /* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
 /* harmony import */ var _scripts_loginStatus__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(17);
 /* harmony import */ var _stores_sessionStore__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(14);
-/* harmony import */ var _services_UserDetails__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(48);
+/* harmony import */ var _services_UserDetails__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(50);
 
 
 

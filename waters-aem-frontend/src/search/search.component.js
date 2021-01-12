@@ -13,15 +13,9 @@ const SearchComponent = props => {
         const facet = props.filterMap.find(item => item.categoryFacetValue === "All");
         if (facet === undefined) {
             // Remove the All Category in props.categoryProps.categories if it exists
-            if (props.categoryProps.categories[0].name === "All") {
+            if (props.categoryProps.categories.length !== 0 && props.categoryProps.categories[0].name === "All") {
                 props.categoryProps.categories.splice(0, 1);  
             }
-            // if (props.category === "All") {
-            //     // Determine the property with the highest count and set as default 
-            //     const maximumCount = Math.max(...Array.from(props.categoryProps.categories, item  => item.count));
-            //     const maxCategory = props.categoryProps.categories.find(item => item.count === maximumCount);
-            //     props.category = maxCategory.name;
-            // }
         }
     }
 
@@ -36,7 +30,7 @@ const SearchComponent = props => {
             <SearchBreadcrumb 
                 text={props.text}
                 searchParams={props.searchParams}
-                 clearSessionStore={props.clearSessionStore}/>
+                clearSessionStore={props.clearSessionStore}/>
             <div>
                 <div className="overlay" />
                 <Aside 
@@ -47,6 +41,7 @@ const SearchComponent = props => {
                     items={props.categoryProps.categories}
                     activeIndex={props.categoryProps.activeIndex}
                     categoryClick={props.categoryEvents.onCategoryTabClick}
+                    clearSessionStore={props.clearSessionStore}
                     >
 
                     {props.category !== "All" && <Menu 
