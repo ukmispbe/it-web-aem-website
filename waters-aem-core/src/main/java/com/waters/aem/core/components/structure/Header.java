@@ -29,6 +29,7 @@ import com.waters.aem.core.services.commerce.WatersCommerceService;
 import com.waters.aem.core.services.launch.AdobeLaunchService;
 import com.waters.aem.core.services.solr.SolrSearchService;
 import com.waters.aem.core.utils.LinkUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
@@ -87,7 +88,6 @@ public final class Header extends AbstractComponent implements ComponentExporter
 
     @Inject
     private PageManagerDecorator pageManager;
-    
 
     @DialogField(fieldLabel = "Header Logo",
         fieldDescription = "select header logo",
@@ -195,6 +195,23 @@ public final class Header extends AbstractComponent implements ComponentExporter
     @PathField(rootPath = WatersConstants.ROOT_PATH)
     @LinkInject(inherit = true)
     private Link ordersLink;
+
+    @DialogField(fieldLabel = "Quotes Link",
+            fieldDescription = "Select or Enter the Quotes Link",
+            tab = 2,
+            ranking = 8
+    )
+    @PathField(rootPath = WatersConstants.ROOT_PATH)
+    @LinkInject(inherit = true)
+    private Link quotesLink;
+
+    public String getQuotesLink() {
+        return getShowQuoteHistory() ? quotesLink.getHref().replace(WatersConstants.ROOT_PATH,"/nextgen") : StringUtils.EMPTY;
+    }
+
+    public Boolean getShowQuoteHistory() {
+        return currentPage.getInherited("showQuoteHistory", Boolean.FALSE);
+    }
 
     @Nonnull
     @Override

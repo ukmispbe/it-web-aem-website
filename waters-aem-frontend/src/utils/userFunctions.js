@@ -385,3 +385,17 @@ export const matchAddresses = (userDetailsAPIDetails, soldToAPIDetails) => {
 export const getCategoryReferenceType = () => {
     return isEprocurementUser() ? `&reference=sku` : '';
 }
+
+export const getCartCheckoutUrl = (initial, page) => {
+    const countryCode = getCountryCode();
+    const language = getLanguage();
+    return `${window.location.origin}/${initial}/${countryCode}/${language}/${page}`;
+}
+
+export const getUrlPath = (url, id) => {
+    const  userId = getUserId();
+    const soldToId = getSoldToId() || getDummySoldToId();
+    const countryCode = getCountryCode();
+    const language = getLanguage();
+    return `${url}/${id}?soldToId=${soldToId}&userId=${userId}&countryCode=${countryCode}&language=${language}&fields=FULL`;
+}

@@ -125,6 +125,18 @@ public class Commerce {
     @Inject
     private Boolean explicitAllowPO;
 
+    @DialogField(fieldDescription = "Show Quote History Link.",
+            value = "true",
+            ranking = 13)
+    @CheckBox(title = "showQuoteHistory",
+            text = "Show Quote History Link?")
+    @Inject
+    private Boolean showQuoteHistory;
+
+    public Boolean getShowQuoteHistory() {
+        return showQuoteHistory;
+    }
+
     public String getAddToCartUrl() {
         return addToCartUrl;
     }
