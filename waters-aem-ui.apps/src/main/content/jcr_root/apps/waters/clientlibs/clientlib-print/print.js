@@ -4367,7 +4367,8 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
         collapseAllFilters: false,
         activeFilterIndex: -1,
         count: 0,
-        allResultsText: _this.props.searchText.allResultsText
+        allResultsText: _this.props.searchText.allResultsText,
+        allResultsTextMobile: _this.props.searchText.allResultsTextMobile
       };
     };
 
@@ -4713,6 +4714,7 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
 
       var allCategory = {
         "translation": _this.state.allResultsText,
+        "mobileTranslation": _this.state.allResultsTextMobile,
         "name": "All",
         "count": total
       };
@@ -5284,7 +5286,7 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
       return {
         showContentTypeMenu: _this.isCategoryOnlySelected(_this.state.category, _this.state.contentType),
         showFacetMenu: !_this.isCategoryOnlySelected(_this.state.category, _this.state.contentType),
-        heading: _this.props.searchText.resultTypeText,
+        heading: _this.props.searchText.resultType,
         backLinkText: _this.props.searchText.anyResultTypeText
       };
     };

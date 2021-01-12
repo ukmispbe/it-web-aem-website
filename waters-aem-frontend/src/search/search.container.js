@@ -149,7 +149,8 @@ class SearchContainer extends Component {
             collapseAllFilters: false,
             activeFilterIndex: -1,
             count: 0,
-            allResultsText: this.props.searchText.allResultsText
+            allResultsText: this.props.searchText.allResultsText,
+            allResultsTextMobile: this.props.searchText.allResultsTextMobile
         };
     }
 
@@ -477,8 +478,9 @@ class SearchContainer extends Component {
         for (let i = 0; i < categoriesWithData.length; i++) {
             total = total + categoriesWithData[i].count;
         }
-        const allCategory = { 
+        const allCategory = {
             "translation": this.state.allResultsText,
+            "mobileTranslation": this.state.allResultsTextMobile,
             "name": "All",
             "count": total
         };
@@ -1096,7 +1098,7 @@ class SearchContainer extends Component {
         return {
             showContentTypeMenu: this.isCategoryOnlySelected(this.state.category, this.state.contentType),
             showFacetMenu: !this.isCategoryOnlySelected(this.state.category, this.state.contentType),
-            heading: this.props.searchText.resultTypeText,
+            heading: this.props.searchText.resultType,
             backLinkText: this.props.searchText.anyResultTypeText
         };
     }
