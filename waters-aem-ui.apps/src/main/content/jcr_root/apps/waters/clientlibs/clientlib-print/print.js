@@ -3570,7 +3570,10 @@ var category_list_Category = function Category(_ref2) {
 var category_list_processClick = function processClick(index, onClick, backImage, clearSessionStore) {
   if (backImage) {
     clearSessionStore();
-    var parameters = Object(query_string["parse"])(window.location.search);
+    var parameters = Object(query_string["parse"])(window.location.search); // Remove content type and any selected facets. Set Category = "All" and reset the page
+
+    delete parameters.facet;
+    delete parameters.content_type;
     parameters.category = "All";
     parameters.page = "1";
     window.location.href = "".concat(window.location.pathname, "?").concat(Object(query_string["stringify"])(parameters));

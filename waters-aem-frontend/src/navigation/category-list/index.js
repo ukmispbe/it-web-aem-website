@@ -65,6 +65,9 @@ const processClick = (index, onClick, backImage, clearSessionStore) => {
     if (backImage) {
         clearSessionStore();   
         const parameters = parse(window.location.search);
+        // Remove content type and any selected facets. Set Category = "All" and reset the page
+        delete parameters.facet;
+        delete parameters.content_type;
         parameters.category = "All";
         parameters.page = "1";
         window.location.href = `${window.location.pathname}?${stringify(parameters)}`;
