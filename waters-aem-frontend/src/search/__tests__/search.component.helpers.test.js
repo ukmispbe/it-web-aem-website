@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import renderer from 'react-test-renderer';
 import props from '../__mocks__/en_US/';
 import { defaultProps } from '../search.component.props';
-import { FilterTagList, Aside, Menu, SkuResults, ResultsContent, Pagination, ResultsBody } from '../search.component.helpers';
+import { FilterTagList, Aside, Menu, SearchResults, ResultsContent, Pagination, ResultsBody } from '../search.component.helpers';
 import data from '../services/__mocks__/data';
 import { parameterDefaults } from '../services/index';
 
@@ -276,9 +276,9 @@ describe("Feature: ResultsContent Component", () => {
         });
 
         describe("When displaying the library results", () => {
-            it("Then it should display the Results component", () => {
+            it("Then it should display the SearchResults component", () => {
                 const wrapper = shallow(<ResultsContent {...propsMockLibraryResults} />);
-                const result = wrapper.find("Results");
+                const result = wrapper.find("SearchResults");
 
                 expect(result.exists()).toEqual(true);
             });
@@ -289,7 +289,7 @@ describe("Feature: ResultsContent Component", () => {
         describe("When sku item is clicked", () => {
             it("Then it should call the item click handler property", () => {
                 const wrapper = shallow(<ResultsContent {...propsMockSkuResults} />);
-                const result = wrapper.find("SkuResults");
+                const result = wrapper.find("SearchResults");
 
                 result.simulate("itemClick");
 
@@ -300,7 +300,7 @@ describe("Feature: ResultsContent Component", () => {
         describe("When library item is clicked", () => {
             it("Then it should call the item click handler property", () => {
                 const wrapper = shallow(<ResultsContent {...propsMockLibraryResults} />);
-                const result = wrapper.find("Results");
+                const result = wrapper.find("SearchResults");
 
                 result.simulate("itemClick");
 
@@ -310,7 +310,7 @@ describe("Feature: ResultsContent Component", () => {
     });
 });
 
-describe("Feature: SkuResults Component", () => {
+describe("Feature: SearchResults Component", () => {
     const propsMockNullItems = {
         items: {},
         skuConfig: props.skuConfig,
@@ -331,7 +331,7 @@ describe("Feature: SkuResults Component", () => {
     describe("Scenario: Rendering", () => {
         describe("When the results is not an array", () => {
             it("Then it should match snapshot", () => {
-                const json = renderer.create(<SkuResults {...propsMockNullItems} />);
+                const json = renderer.create(<SearchResults {...propsMockNullItems} />);
 
                 expect(json).toMatchSnapshot();
             });
@@ -339,7 +339,7 @@ describe("Feature: SkuResults Component", () => {
 
         describe("When there are no resuilts", () => {
             it("Then it should match snapshot", () => {
-                const json = renderer.create(<SkuResults {...propsMockNoItems} />);
+                const json = renderer.create(<SearchResults {...propsMockNoItems} />);
 
                 expect(json).toMatchSnapshot();
             });
@@ -347,7 +347,7 @@ describe("Feature: SkuResults Component", () => {
 
         describe("Where there are results", () => {
             it("Then it should match snapshot", () => {
-                const json = renderer.create(<SkuResults {...propsMockWithItems} />);
+                const json = renderer.create(<SearchResults {...propsMockWithItems} />);
 
                 expect(json).toMatchSnapshot();
             });
@@ -357,7 +357,7 @@ describe("Feature: SkuResults Component", () => {
     describe("Scenario: User Interaction", () => {
         describe("When item is clicked", () => {
             it("Then it should call the click handler property", () => {
-                const wrapper = shallow(<SkuResults {...propsMockWithItems} />);
+                const wrapper = shallow(<SearchResults {...propsMockWithItems} />);
                 const results = wrapper.find("SkuList");
 
                 results.simulate("itemClick");
