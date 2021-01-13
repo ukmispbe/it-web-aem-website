@@ -190,7 +190,8 @@ class QuoteDetails extends Component {
         const { config } = this.props;
         const {created, expires, shipTo, billTo,savings,shipping, tax, totalLabel,shipment,icons, isShowQuoteAgainButton} = config;
         const {quoteId,quoteCreationDate,quoteExpirationDate, subTotal,totalShippingAndHandling,totalDiscounts,totalTax,totalPriceWithTax, shipToInfo, billToInfo,quoteStatus, orderNumber, replacedQuoteNumber} =  quoteDetails;
-        const notZeroDiscountFlag = parseFloat(quoteDetails.orderDiscountValue) !== 0 ? true : false;
+        const isTotalDiscount = this.getValue(totalDiscounts,'value', '0');
+        const notZeroDiscountFlag = parseFloat(isTotalDiscount) !== 0 ? true : false;
         const subTotalValue = this.getValue(subTotal,'formattedValue');
         const ShippingAndHandlingValue = this.getValue(totalShippingAndHandling,'formattedValue');
         const totalDiscountsValue = this.getValue(totalDiscounts,'formattedValue');
