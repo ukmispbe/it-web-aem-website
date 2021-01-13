@@ -107,15 +107,15 @@ describe('Feature: ResultsCount React Component', () => {
                 props.query = 'milk';
                 props.spell_related_suggestions = ['... it does a body good!'];
                 
-                const spyOnHanlder = spyOn(props, 'onRelatedSuggestionClick');
+                const spyOnHandler = spyOn(props, 'onRelatedSuggestionClick');
 
                 const wrapper = shallow(<ResultsCount {...props} />);
 
-                wrapper.find('.cmp-search__related-suggestions .item').simulate('click');
+                wrapper.find('.cmp-search__related-suggestions a.item').simulate('click');
 
-                expect(spyOnHanlder).toHaveBeenCalled();
+                expect(spyOnHandler).toHaveBeenCalled();
 
-                spyOnHanlder.mockRestore();
+                spyOnHandler.mockRestore();
             });
         });
     });

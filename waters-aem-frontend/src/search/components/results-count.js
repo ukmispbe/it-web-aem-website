@@ -9,6 +9,7 @@ function ResultsCount(props) {
 
     const getRelatedSuggestionsTags = words => words.map(word =>  {
         return <a href="javascript:void(0);"
+                key={word}
                 aria-label={word}
                 className="item" onClick={e => props.onRelatedSuggestionClick(word)}>
                 <ReactSVG src={props.text.searchIcon} />
