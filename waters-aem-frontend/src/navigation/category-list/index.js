@@ -1,10 +1,10 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import ReactSVG from 'react-svg';
+import { parse, stringify } from 'query-string';
 import { elementLocator } from "../../utils/eCommerceFunctions.js";
 
-
-const CategoryList = ({items, text, activeIndex, onClick}) => {
+const CategoryList = ({items, text, activeIndex, onClick, clearSessionStore}) => {
     const categoryRef = React.useRef();
     let hasAllCategory = items.some( item => item.name === 'All' );
     return (
@@ -30,7 +30,7 @@ const CategoryList = ({items, text, activeIndex, onClick}) => {
                             isHidden = false;
                         }
 
-                        return <Category key={`Category-${index}`} name={item.translation} count={item.count} index={index} isActive={index === activeIndex} onClick={onClick} backImage={backImage} isHidden={isHidden} hideCount={hideCount} />
+                        return <Category key={`Category-${index}`} name={item.translation} count={item.count} index={index} isActive={index === activeIndex} onClick={onClick} backImage={backImage} isHidden={isHidden} hideCount={hideCount} clearSessionStore={clearSessionStore} />
                     }
                 )}
             </div>
@@ -54,13 +54,28 @@ const determineIfHidden = (items, index, activeIndex) => {
     }
 }
 
-const Category = ({index, name, count, isActive, onClick, backImage, isHidden, hideCount}) => 
-    <div className={`cmp-category-item${isActive ? " active" : ""} ${isHidden ? " hidden" : ""}`} onClick={() => onClick(index)}>
+const Category = ({index, name, count, isActive, onClick, backImage, isHidden, hideCount, clearSessionStore}) => 
+    <div className={`cmp-category-item${isActive ? " active" : ""} ${isHidden ? " hidden" : ""} ${backImage ? " backLink" : ""}`} onClick={() => processClick(index, onClick, backImage, clearSessionStore)}>
         {backImage}
         <span className="cmp-category-label" data-locator={elementLocator(name)}>{name}</span>
         <span className={`cmp-category-count ${hideCount ? " hidden" : ""}`} data-locator={elementLocator(count)}> ({count})</span>
     </div>;
 
+const processClick = (index, onClick, backImage, clearSessionStore) => {
+    if (backImage) {
+        clearSessionStore();   
+        const parameters = parse(window.location.search);
+        // Remove content type and any selected facets. Set Category = "All" and reset the page
+        delete parameters.facet;
+        delete parameters.content_type;
+        parameters.category = "All";
+        parameters.page = "1";
+        window.location.href = `${window.location.pathname}?${stringify(parameters)}`;
+    }
+    else {
+        onClick(index);
+    }  
+} 
 
 Category.propTypes = {
     name: PropTypes.string.isRequired,

@@ -33,7 +33,13 @@ function ResultsCount(props) {
     if (Array.isArray(props.categoryOptions) && props.categoryOptions.length){
         const options = getOptions(props.categoryOptions);
         categoryLabel = props.categoryValue === 0 || props.categoryValue === -1 ? "All" : options[props.categoryValue].label;
-        actualCount = props.count > options[props.categoryValue].count ? options[props.categoryValue].count : props.count;
+        // If All is not authored then sum the categories
+        if (props.categoryValue !== -1) {
+            actualCount = props.count > options[props.categoryValue].count ? options[props.categoryValue].count : props.count;
+        }
+        else {
+            actualCount = options.reduce((acc, curr) => acc + curr.count, 0)
+        }
     }
 
     const renderResultsText = (resultsText) => resultsText.replace(/[{]count[}]/, "<span class='count'>" + actualCount.toLocaleString(undefined, {maximumFractionDigits:0}) + "</span>");
