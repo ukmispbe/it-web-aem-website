@@ -384,7 +384,10 @@ if (registrationFormContainer) {
         config: configCheckEmailForm,
     }
 
-	const isTwoStepRegistrationForm = configCheckEmailForm.isTwoStepRegistrationForm;
+    const isTwoStepRegistrationForm = configCheckEmailForm.isTwoStepRegistrationForm;
+
+    // Set Country list url
+    configRegistrationForm.countryListUrl = headerRef.dataset.countryListUrl ? headerRef.dataset.countryListUrl : '';
 
     ReactDOM.render(
         // replace isocode with a value supplied by AEM
