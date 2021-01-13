@@ -19,7 +19,7 @@ import Spinner from "../utils/spinner";
 import { elementLocator } from '../utils/eCommerceFunctions';
 import { getAddressesByType, getFullCompanyAddress } from '../utils/userFunctions';
 import SoldToDetailsLazy from '../my-account/services/SoldToDetailsLazy';
-import countryList from './services/countryList';
+import countryList from './services/country-list';
 
 const FormApi = createContext(null);
 FormApi.displayName = 'FormApi';
