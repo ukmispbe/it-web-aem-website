@@ -204,7 +204,7 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
             String[] eprocSuggestValues = new String [] {sku.getCode(),page.getTitle(TitleType.PAGE_TITLE).or(page.getTitle())};
             document.setField("autosuggest_skucontext",eprocSuggestValues );
 
-            String[] eprocSpellcheckValues = new String [] {sku.getCode(),page.getTitle(TitleType.PAGE_TITLE).or(page.getTitle()),page.getDescription()};
+            String[] eprocSpellcheckValues = new String [] {page.getTitle(TitleType.PAGE_TITLE).or(page.getTitle()),page.getDescription()};
 
             document.setField("spellcheck_skucontext",eprocSpellcheckValues );
         }
