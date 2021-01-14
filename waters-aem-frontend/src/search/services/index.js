@@ -291,7 +291,7 @@ class SearchService {
     createQueryObject(params) {
         const obj = {};
 
-        obj['keyword'] = params.keyword;
+        obj['keyword'] = params.keyword ? params.keyword.replace("%","") : params.keyword;     
         obj['page'] = params.page || parameterDefaults.page;
         obj['facets'] = {};
         obj['sort'] = params.sort;
