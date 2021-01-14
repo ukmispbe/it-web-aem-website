@@ -5,7 +5,6 @@ import { debounce } from 'throttle-debounce';
 import { SearchService } from '../services/index';
 import OverLay from './overlay';
 import PropTypes from 'prop-types';
-import './../../styles/index.scss';
 import screenSizes from "../../scripts/screenSizes";
 import { isEprocurementUser, getIsoCode } from '../../utils/userFunctions';
 
