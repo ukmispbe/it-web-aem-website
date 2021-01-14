@@ -1,4 +1,186 @@
 .cmp-container {
     margin: $space-l -30% $space-xl;
     padding: 0 30%;
+
+    @include mobile {
+        margin-top: 0;
+    }
+
+    @include tablet {
+        margin-top: 0;
+    }
+    
+    @include large-desktop {
+        margin: $space-l -50% $space-xl;
+        padding: 0 50%;  
+    }
+
+    @include extra-large-desktop {
+        margin: $space-l -80% $space-xl;
+        padding: 0 80%; 
+    } 
+}
+
+.cmp-container__wrapper {
+    padding: $space-xl 0 $space-xl 0;
+    margin: 0 -14px;
+
+    @include mobile {
+        margin: 0 0 0 -4px;
+        padding: $space-l 0 $space-s 0;
+    }
+
+    @include tablet {
+        margin: 0 0 0 -12px;
+    }
+}
+
+// Style System
+
+.cmp-container--accent .cmp-container {
+    background: $color-teal-50;
+
+    .cmp-container__background-overlay {
+        background-color: $color-teal-50;
+    }
+}
+
+.cmp-container--blue .cmp-container {
+    background: $color-blue-50;
+
+    .cmp-container__background-overlay {
+        background-color: $color-blue-50;
+    }
+}
+
+.cmp-container--dark .cmp-container {
+    background: $color-background-dark;
+
+    .cmp-container__background-overlay {
+        background-color: $color-background-dark;
+    }
+}
+
+.cmp-container--light .cmp-container {
+    background: $color-background-light;
+
+    .cmp-container__background-overlay {
+        background-color: $color-background-light;
+    }
+}
+
+// Position - Header
+.cmp-container--header .cmp-container {
+    margin-top: -$space-l;
+
+    @include mobile {
+         margin-top: 0;
+    }
+}
+
+// Left
+.cmp-container--left .cmp-container {
+    padding-right: 80%;
+
+    @include tablet {
+        padding-right: 50%;
+        padding-left: 31%;
+    }
+
+    @include mobile {
+        margin-top: 0;
+        padding-right: 30%;
+        overflow-x: hidden;
+    }
+
+    @include large-desktop {
+        padding-right: 100%;
+    }
+
+    @include extra-large-desktop {
+        padding-right: 130%;
+    }
+
+    .cmp-container__wrapper {
+        padding: $space-xl 0 ($space-xl + $space-xxs 0);
+        margin: 0 $space-xl;
+
+        .cmp-title__text div {
+            text-align: left;
+        }
+
+        @include mobile {
+            margin: 0;
+            padding: $space-l 0;
+        }
+    }
+
+    .cmp-container__background-overlay {
+        width: 31%;
+        left: auto;
+
+        @include tablet {
+            width: 50%;
+            left: 19%
+        }
+
+        @include mobile {
+            width: 100%;
+            left: 12%;
+            height: 100%;
+            top: 0;
+        }
+
+        @include large-desktop {
+            width: 25%;
+        }
+
+        @include extra-large-desktop {
+            width: 19%;
+        }
+    }
+}
+
+// Overlay - Opacity
+.cmp-container--0 .cmp-container {
+    .cmp-container__background-overlay {
+       opacity: .0;
+   }
+}
+
+.cmp-container--30 .cmp-container {
+     .cmp-container__background-overlay {
+        opacity: .3;
+    }
+}
+
+.cmp-container--50 .cmp-container {
+    .cmp-container__background-overlay {
+        opacity: .5;
+    }
+}
+
+.cmp-container--70 .cmp-container {
+    .cmp-container__background-overlay {
+        opacity: .7;
+    }
+}
+
+.cmp-container--90 .cmp-container {
+    .cmp-container__background-overlay {
+        opacity: .9;
+    }
+}
+
+//Spacing - Padding
+.cmp-container--largePadding .cmp-container {
+    .cmp-container__wrapper {
+        padding: $space-xxl 0;
+    }
+}
+
+.cmp-container--smallPadding .cmp-container {
+    .cmp-container__wrapper {
+        padding: $space-l 0;
+    }
 }
