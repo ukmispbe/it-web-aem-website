@@ -59,4 +59,7 @@ public @interface WatersAccountServiceConfiguration {
 
     @AttributeDefinition(name = "Quote History API Url", description = "Url for Quote History API")
     String quoteHistoryUrl() default "https://api-sbox.waters.com/dev-waters-quote-exp-api-v1/api/quote";
+    
+    @AttributeDefinition(name = "Country List API Url", description = "Url for Country List API")
+    String countryListUrl() default "https://api-sbox.waters.com/dev-waters-country-exp-api-v1/api/countries";
 }

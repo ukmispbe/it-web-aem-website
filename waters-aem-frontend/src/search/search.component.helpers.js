@@ -20,7 +20,6 @@ import {
     KeywordTag,
 } from './components/filter-tags';
 import SkuList from '../sku-list';
-import Results from './components/results';
 import { propTypes, defaultProps } from './search.component.props';
 import { isEprocurementUser } from '../utils/userFunctions';
 import CategoryList from '../navigation/category-list';
@@ -90,7 +89,6 @@ FilterTagList.defaultProps = {
     filterTagsEvents: defaultProps.filterTagsEvents
 }
 
-
 const Aside = ({
     text,
     asideProps,
@@ -101,7 +99,6 @@ const Aside = ({
     categoryClick,
     clearSessionStore
 }) => {
-
     return (
         <div className="container__left cmp-search__sort-filter" data-locator="left-container-filter">
             {!isEprocurementUser() && <CategoryList items={items}
@@ -130,7 +127,6 @@ const Aside = ({
                         text={text} />
                         {children}
                 </div>
-
         </div>
     );
 }
@@ -146,7 +142,6 @@ Aside.defaultProps = {
     asideProps: defaultProps.asideProps,
     asideEvents: defaultProps.asideEvents
 }
-
 
 const Menu = ({
     text,
@@ -232,50 +227,52 @@ Menu.defaultProps = {
     filterTagsEvents: defaultProps.filterTagsEvents
 }
 
-
-const SkuResults = ({
+const SearchResults = ({
     items,
     skuConfig,
     onItemClick
 }) => {
     const isEprocUser = isEprocurementUser();
-    const skuData = Array.isArray(items)
+    const searchData = Array.isArray(items)
         ? items.map(item => {
-            return {
-                code: item.skucode,
-                category_facet: item.category_facet,
-                contenttype_facet: item.contenttype_facet,
-                skuPageHref: isEprocUser ? item.eprocUrl : item.url,
-                formattedPrice: item.displayprice,
-                primaryImageAlt: item.title,
-                primaryImageThumbnail: item.thumbnail,
-                discontinued: item.status !== 'Active', // covers DiscontinueNoReplacement, DiscontinueWithReplacement, ObsoleteNoReplacement, and ObsoleteWithReplacement
-                replacementskuurl: item.replacementskuurl,
-                replacementskucode: item.replacementskucode,
-                title: item.title,
-            };
+            if (item.skucode) {
+                return {
+                    code: item.skucode,
+                    category_facet: item.category_facet,
+                    contenttype_facet: item.contenttype_facet,
+                    skuPageHref: isEprocUser ? item.eprocUrl : item.url,
+                    formattedPrice: item.displayprice,
+                    primaryImageAlt: item.title,
+                    primaryImageThumbnail: item.thumbnail,
+                    discontinued: item.status !== 'Active', // covers DiscontinueNoReplacement, DiscontinueWithReplacement, ObsoleteNoReplacement, and ObsoleteWithReplacement
+                    replacementskuurl: item.replacementskuurl,
+                    replacementskucode: item.replacementskucode,
+                    title: item.title,
+                }
+            } else {
+                return item;
+            }
         }): [];
 
     return (
         <SkuList
             skuConfig={skuConfig}
-            data={skuData}
+            data={searchData}
             onItemClick={onItemClick} />
     );
 }
 
-SkuResults.propTypes = {
+SearchResults.propTypes = {
     skuConfig: propTypes.skuConfig,
     items: PropTypes.any,
     onItemClick: PropTypes.func.isRequired
 };
 
-SkuResults.defaultProps = {
+SearchResults.defaultProps = {
     skuConfig: defaultProps.skuConfig,
     items: [],
     onItemClick: () => {}
 };
-
 
 const ResultsContent = ({
     text, 
@@ -286,19 +283,10 @@ const ResultsContent = ({
 }) => {
     const items = resultsProps.items[searchParams.page];
 
-    if (resultsProps.isSkuList) {
-        return (
-            <SkuResults
-                items={items}
-                skuConfig={skuConfig}
-                onItemClick={resultsEvents.onResultsItemClick} />
-        );
-    }
-
     return (
-        <Results
-            results={items}
-            nextIcon={text.nextIcon}
+        <SearchResults
+            items={items}
+            skuConfig={skuConfig}
             onItemClick={resultsEvents.onResultsItemClick} />
     );
 }
@@ -467,5 +455,4 @@ ResultsBody.defaultProps = {
     resultsEvents: defaultProps.resultsEvents
 }
 
-
-export { FilterTagList, Aside, Menu, SkuResults, ResultsContent, Pagination, ResultsBody }
+export { FilterTagList, Aside, Menu, SearchResults, ResultsContent, Pagination, ResultsBody }

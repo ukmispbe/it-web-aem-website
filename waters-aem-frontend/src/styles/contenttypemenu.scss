@@ -39,3 +39,24 @@
         }
     }
 }
+
+.content-type-menu-container__body {
+    .inactive {
+        &:hover,
+        &:focus {
+            border: none;
+            cursor: default;   
+            a {
+                color: $color-disabled; 
+                text-decoration: none;
+            }
+        }
+        a {
+            color: $color-disabled;
+            cursor: default;   
+            &:after {
+                color: $color-disabled;
+            }
+        }
+    }
+}

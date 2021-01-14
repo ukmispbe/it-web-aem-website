@@ -9,14 +9,14 @@ import AddToCartBody from '../../sku-details/views/addToCartModal';
 import Analytics, { analyticTypes } from '../../analytics';
 import { DELIVERY_STATUS, STORE, CHECKOUT } from '../../constants';
 import DeliveryStatus from '../../common/delivery-status';
-import { getFullCompanyAddress, getCartCheckoutUrl, getUrlPath } from '../../utils/userFunctions';
+import { getFullCompanyAddress, getCartCheckoutUrl, getUrlPath, getUrlParameter } from '../../utils/userFunctions';
 import SessionStore from '../../stores/sessionStore';
 
 class QuoteDetails extends Component {
     constructor({setErrorBoundaryToTrue, resetErrorBoundaryToFalse, removeNotifications, ...props}) {
         super({setErrorBoundaryToTrue, resetErrorBoundaryToFalse, removeNotifications, ...props});
         this.state = {
-            quoteId: this.getUrlParameter("id"),
+            quoteId: getUrlParameter("id"),
             detailsUrl: props.config.fetchDetailsEndPoint,
             itemsUrl: props.config.fetchItemsEndPoint,
             quoteDetails: {},
@@ -40,13 +40,6 @@ class QuoteDetails extends Component {
 
     toggleModal = () => {
         this.setState({ modalShown: !this.state.modalShown });
-    };
-
-    getUrlParameter = (name) => {
-        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-        const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-        const results = regex.exec(window.location.hash);
-        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
     };
 
     setError = (response) => {
@@ -88,13 +81,18 @@ class QuoteDetails extends Component {
         this.getQuoteDetailsData();
     }
 
-    componentWillReceiveProps(){
-        const {quoteId} = this.state;
-        const urlQuoteId = this.getUrlParameter("id");
+    static getDerivedStateFromProps(nextProps, prevState){
+        const {quoteId} = prevState;
+        const urlQuoteId = getUrlParameter("id");
         if(quoteId !== urlQuoteId){
-            this.setState({quoteId:urlQuoteId},()=>{
-                this.getQuoteDetailsData();
-            })
+          return {quoteId:urlQuoteId}
+        }
+    }
+
+    componentDidUpdate(prevProps, prevState){
+        const {quoteId} = prevState;
+        if(quoteId !== this.state.quoteId){
+            this.getQuoteDetailsData();
         }
     }
 
@@ -176,21 +174,14 @@ class QuoteDetails extends Component {
         }
        return value
     }
-
-    getNewQuoteItem = (quoteStatus,replacedQuoteNumber) => {
-      if(quoteStatus === DELIVERY_STATUS.QUOTE_REPLACED){
-           this.setState({quoteId:replacedQuoteNumber},()=>{
-            this.getQuoteDetailsData();
-           });
-      }
-    }
     
     renderDetailsSection = () => {
         const { quoteDetails } = this.state;
         const { config } = this.props;
         const {created, expires, shipTo, billTo,savings,shipping, tax, totalLabel,shipment,icons, isShowQuoteAgainButton} = config;
         const {quoteId,quoteCreationDate,quoteExpirationDate, subTotal,totalShippingAndHandling,totalDiscounts,totalTax,totalPriceWithTax, shipToInfo, billToInfo,quoteStatus, orderNumber, replacedQuoteNumber} =  quoteDetails;
-        const notZeroDiscountFlag = parseFloat(quoteDetails.orderDiscountValue) !== 0 ? true : false;
+        const isTotalDiscount = this.getValue(totalDiscounts,'value', '0');
+        const notZeroDiscountFlag = parseFloat(isTotalDiscount) !== 0 ? true : false;
         const subTotalValue = this.getValue(subTotal,'formattedValue');
         const ShippingAndHandlingValue = this.getValue(totalShippingAndHandling,'formattedValue');
         const totalDiscountsValue = this.getValue(totalDiscounts,'formattedValue');
@@ -206,7 +197,7 @@ class QuoteDetails extends Component {
                 </h2>
                 {showNewDetailsLinkSection && (<div className={`${this.rootStyle}__new-details-link-text`}>
                     <div className="new-details-link-section">
-                    <a href={newItemUrl} onClick={() => this.getNewQuoteItem(quoteStatus ,replacedQuoteNumber)}>
+                    <a href={newItemUrl}>
                         <div className="new-details-icon">
                             <ReactSVG src={config.icons.newQuoteOrderIcon} />
                         </div>

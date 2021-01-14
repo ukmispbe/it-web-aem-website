@@ -19,6 +19,7 @@ import Spinner from "../utils/spinner";
 import { elementLocator } from '../utils/eCommerceFunctions';
 import { getAddressesByType, getFullCompanyAddress } from '../utils/userFunctions';
 import SoldToDetailsLazy from '../my-account/services/SoldToDetailsLazy';
+import countryList from './services/country-list';
 
 const FormApi = createContext(null);
 FormApi.displayName = 'FormApi';
@@ -95,6 +96,7 @@ const Form = ({
     const [countrySaved, setCountrySaved] = useState();
     const regionalConfig = config.regionalConfig;
     const [displayForm, setDisplayForm] = useState(false);
+    const [_, reloadCountryList] = useState();
     const [isInEditMode, setIsInEditMode] = useState(document.getElementById("header").hasAttribute("data-is-edit-mode"));
     const [isAlreadyRegistered, setIsAlreadyRegistered] = useState(false);
 
@@ -191,19 +193,26 @@ const Form = ({
     useEffect(() => {
         // Configure Registration Form on "Loading"
         if (config.formName === "registration" ) {
-            const countryRegion = DigitalData.page.country.toLowerCase();
-            // Get Regional config 
-            const countryOptionsConfig = regionalConfig;
-            // Hide all country configurable fields
-            const allCountryOptions = countryOptionsConfig.filter(p => p.country === "all")
-            if (allCountryOptions.length === 1) {
-                allCountryOptions[0].fields.map(fieldName => deactivateField(fieldName));
-            }
-            // Display Specific fields for the current country
-            const selectedCountryOptions = countryOptionsConfig.filter(p => p.country === countryRegion)
-            if (selectedCountryOptions.length === 1) {
-                selectedCountryOptions[0].fields.map(fieldName => activateField(fieldName));
-            }
+            countryList(config.countryListUrl).then(({ response }) => {
+                const countryRegion = DigitalData.page.country.toLowerCase();
+                // Get Regional config 
+                const countryOptionsConfig = regionalConfig;
+                // Hide all country configurable fields
+                const allCountryOptions = countryOptionsConfig.filter(p => p.country === "all")
+                if (allCountryOptions.length === 1) {
+                    allCountryOptions[0].fields.map(fieldName => deactivateField(fieldName));
+                }
+                // Display Specific fields for the current country
+                const selectedCountryOptions = countryOptionsConfig.filter(p => p.country === countryRegion)
+                if (selectedCountryOptions.length === 1) {
+                    selectedCountryOptions[0].fields.map(fieldName => activateField(fieldName));
+                }
+                const countryIdx = config.fields.findIndex(x => x.name.toLowerCase() === 'country');
+                if (countryIdx !== -1) {
+                    config.fields[countryIdx].options = response;
+                    reloadCountryList(config);
+                }
+            });
         }
     }, [config.formName]);
 
