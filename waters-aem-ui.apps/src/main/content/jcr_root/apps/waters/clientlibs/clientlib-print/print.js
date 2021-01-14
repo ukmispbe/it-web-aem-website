@@ -621,7 +621,7 @@ var react_dom = __webpack_require__(24);
 var react_dom_default = /*#__PURE__*/__webpack_require__.n(react_dom);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectSpread.js
-var objectSpread = __webpack_require__(12);
+var objectSpread = __webpack_require__(13);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 3 modules
 var toConsumableArray = __webpack_require__(32);
@@ -631,7 +631,7 @@ var regenerator = __webpack_require__(2);
 var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
-var asyncToGenerator = __webpack_require__(13);
+var asyncToGenerator = __webpack_require__(12);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/typeof.js
 var esm_typeof = __webpack_require__(37);
@@ -941,9 +941,11 @@ var content_type_menu_ContentTypeMenu = function ContentTypeMenu(props) {
     return props.items.map(function (item) {
       return react_default.a.createElement("div", {
         key: item.facetName,
-        className: "content-type-menu-container__item",
+        className: "content-type-menu-container__item ".concat(item.count === 0 ? "inactive" : ""),
         onClick: function onClick() {
-          return props.onClick(item);
+          if (item.count !== 0) {
+            props.onClick(item);
+          }
         }
       }, react_default.a.createElement("div", null, react_default.a.createElement("a", {
         href: "#",
@@ -1838,6 +1840,7 @@ function ResultsCount(props) {
     return words.map(function (word) {
       return react_default.a.createElement("a", {
         href: "javascript:void(0);",
+        key: word,
         "aria-label": word,
         className: "item",
         onClick: function onClick(e) {
@@ -2852,7 +2855,7 @@ var stickyService = __webpack_require__(49);
 // EXTERNAL MODULE: ./src/constants/index.js
 var constants = __webpack_require__(15);
 
-// CONCATENATED MODULE: ./src/sku-list/views/listItem.js
+// CONCATENATED MODULE: ./src/sku-list/views/sku-item.js
 
 
 
@@ -2880,15 +2883,15 @@ var constants = __webpack_require__(15);
 
 
 
-var listItem_ListItem = /*#__PURE__*/function (_React$Component) {
-  Object(inherits["a" /* default */])(ListItem, _React$Component);
+var sku_item_SkuItem = /*#__PURE__*/function (_React$Component) {
+  Object(inherits["a" /* default */])(SkuItem, _React$Component);
 
-  function ListItem(props) {
+  function SkuItem(props) {
     var _this;
 
-    Object(classCallCheck["a" /* default */])(this, ListItem);
+    Object(classCallCheck["a" /* default */])(this, SkuItem);
 
-    _this = Object(possibleConstructorReturn["a" /* default */])(this, Object(getPrototypeOf["a" /* default */])(ListItem).call(this, props));
+    _this = Object(possibleConstructorReturn["a" /* default */])(this, Object(getPrototypeOf["a" /* default */])(SkuItem).call(this, props));
 
     _this.getCustPricing = function (pricingUrl, skuNumber, userInfo, propListPrice) {
       getPricing(pricingUrl, skuNumber, userInfo.dynamicSoldTo, userInfo.salesOrg).then(function (response) {
@@ -3228,7 +3231,7 @@ var listItem_ListItem = /*#__PURE__*/function (_React$Component) {
     return _this;
   }
 
-  Object(createClass["a" /* default */])(ListItem, [{
+  Object(createClass["a" /* default */])(SkuItem, [{
     key: "componentDidMount",
     value: function componentDidMount() {
       var _this$state4 = this.state,
@@ -3273,7 +3276,7 @@ var listItem_ListItem = /*#__PURE__*/function (_React$Component) {
       }
 
       var imageAltLabel = relatedSku.primaryImageAlt ? relatedSku.primaryImageAlt : relatedSku.title;
-      return react_default.a.createElement("div", {
+      return react_default.a.createElement("li", null, react_default.a.createElement("div", {
         className: 'cmp-sku-list__container ' + disabledClass
       }, react_default.a.createElement("div", {
         className: "cmp-sku-list__right"
@@ -3293,14 +3296,14 @@ var listItem_ListItem = /*#__PURE__*/function (_React$Component) {
       }, react_default.a.createElement("div", {
         className: "cmp-sku-details__title",
         "data-locator": "product-title"
-      }, relatedSku.title)), buyInfo, breadcrumbs));
+      }, relatedSku.title)), buyInfo, breadcrumbs)));
     }
   }]);
 
-  return ListItem;
+  return SkuItem;
 }(react_default.a.Component);
 
-listItem_ListItem.defaultProps = {
+sku_item_SkuItem.defaultProps = {
   key: '',
   relatedSku: {},
   skuConfig: {},
@@ -3309,9 +3312,59 @@ listItem_ListItem.defaultProps = {
   userInfo: {},
   isEProcurementUserRestricted: false
 };
-/* harmony default export */ var listItem = (listItem_ListItem);
+/* harmony default export */ var sku_item = (sku_item_SkuItem);
+// EXTERNAL MODULE: ./node_modules/react-lines-ellipsis/lib/index.js
+var lib = __webpack_require__(83);
+var lib_default = /*#__PURE__*/__webpack_require__.n(lib);
+
+// CONCATENATED MODULE: ./src/sku-list/views/lit-item.js
+
+
+
+
+var lit_item_LitItem = function LitItem(_ref) {
+  var result = _ref.result,
+      nextIcon = _ref.nextIcon,
+      key = _ref.key,
+      onItemClick = _ref.onItemClick;
+  var thumbnail = react_default.a.createElement("div", {
+    className: "cmp-search__results-thumbnail"
+  }, react_default.a.createElement("img", {
+    src: result.thumbnail,
+    alt: result.title
+  }));
+  return react_default.a.createElement("li", {
+    className: "cmp-search__results-item",
+    key: result.literaturecode
+  }, result.thumbnail && thumbnail, react_default.a.createElement("div", {
+    className: "cmp-search__results-body ".concat(result.thumbnail ? 'cmp-search__results-body--image' : '')
+  }, react_default.a.createElement("a", {
+    href: result.url,
+    onClick: onItemClick,
+    className: "cmp-search__results-item-link"
+  }, react_default.a.createElement("span", {
+    className: "cmp-search__results-item-title"
+  }, result.title)), result.description && react_default.a.createElement("div", {
+    className: "cmp-search__results-item-description"
+  }, react_default.a.createElement("div", {
+    className: "cmp-search__results-item-description-text"
+  }, react_default.a.createElement(lib_default.a, {
+    text: result.description,
+    maxLine: "3",
+    ellipsis: "\u2026",
+    trimRight: true,
+    basedOn: "words",
+    clamped: "true"
+  }))), react_default.a.createElement("div", {
+    className: "cmp-search__results-item-breadcrumb"
+  }, react_default.a.createElement("div", null, result.category_facet), react_default.a.createElement(react_svg["a" /* default */], {
+    src: nextIcon
+  }), react_default.a.createElement("div", null, result.contenttype_facet))));
+};
+
+/* harmony default export */ var lit_item = (lit_item_LitItem);
 // EXTERNAL MODULE: ./src/scripts/signIn.js
-var scripts_signIn = __webpack_require__(82);
+var scripts_signIn = __webpack_require__(84);
 
 // CONCATENATED MODULE: ./src/sku-list/index.js
 
@@ -3320,6 +3373,7 @@ var scripts_signIn = __webpack_require__(82);
 
 
 // entry point for SKU. Move this up to global entry point if we want babel to polyfill everything we need at build time
+
 
 
 
@@ -3364,6 +3418,31 @@ var sku_list_SkuList = /*#__PURE__*/function (_React$Component) {
       }
     }
   }, {
+    key: "renderResultByType",
+    value: function renderResultByType(record, index) {
+      var nextIcon = this.props.skuConfig.skuInfo.nextIcon;
+      var onItemClick = this.props.onItemClick;
+
+      if (record.code) {
+        return react_default.a.createElement(sku_item, {
+          key: index,
+          relatedSku: record,
+          skuConfig: this.props.skuConfig,
+          baseSignInUrl: this.props.baseSignInUrl,
+          onItemClick: this.props.onItemClick,
+          userInfo: this.state.userInfo,
+          isEProcurementUserRestricted: this.state.isEProcurementUserRestricted
+        });
+      } else {
+        return react_default.a.createElement(lit_item, {
+          result: record,
+          nextIcon: nextIcon,
+          key: index,
+          onItemClick: onItemClick
+        });
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this2 = this;
@@ -3372,17 +3451,13 @@ var sku_list_SkuList = /*#__PURE__*/function (_React$Component) {
       return react_default.a.createElement(react_default.a.Fragment, null, this.props.data.length > 0 && //only return template if data exists
       react_default.a.createElement(react_default.a.Fragment, null, this.props.title && react_default.a.createElement("div", {
         className: "cmp-sku-list__title"
-      }, this.props.title), signIn, this.props.data.map(function (record, index) {
-        return react_default.a.createElement(listItem, {
-          key: index,
-          relatedSku: record,
-          skuConfig: _this2.props.skuConfig,
-          baseSignInUrl: _this2.props.baseSignInUrl,
-          onItemClick: _this2.props.onItemClick,
-          userInfo: _this2.state.userInfo,
-          isEProcurementUserRestricted: _this2.state.isEProcurementUserRestricted
-        });
-      })));
+      }, this.props.title), signIn, react_default.a.createElement("div", {
+        className: "cmp-search__results-container"
+      }, react_default.a.createElement("ul", {
+        className: "cmp-search__results"
+      }, this.props.data.map(function (record, index) {
+        return _this2.renderResultByType(record, index);
+      })))));
     }
   }]);
 
@@ -3395,77 +3470,6 @@ sku_list_SkuList.defaultProps = {
   title: ''
 };
 /* harmony default export */ var sku_list = (sku_list_SkuList);
-// EXTERNAL MODULE: ./node_modules/react-lines-ellipsis/lib/index.js
-var lib = __webpack_require__(83);
-var lib_default = /*#__PURE__*/__webpack_require__.n(lib);
-
-// CONCATENATED MODULE: ./src/search/components/results.js
-
-
-
-
-var results_Result = function Result(_ref) {
-  var result = _ref.result,
-      locale = _ref.locale,
-      nextIcon = _ref.nextIcon,
-      onItemClick = _ref.onItemClick;
-  var thumbnail = react_default.a.createElement("div", {
-    className: "cmp-search__results-thumbnail"
-  }, react_default.a.createElement("img", {
-    src: result.thumbnail,
-    alt: result.title
-  }));
-  return react_default.a.createElement("li", {
-    className: "cmp-search__results-item",
-    key: result.literaturecode
-  }, result.thumbnail && thumbnail, react_default.a.createElement("div", {
-    className: "cmp-search__results-body ".concat(result.thumbnail ? 'cmp-search__results-body--image' : '')
-  }, react_default.a.createElement("a", {
-    href: result.url,
-    onClick: onItemClick,
-    className: "cmp-search__results-item-link"
-  }, react_default.a.createElement("span", {
-    className: "cmp-search__results-item-title"
-  }, result.title)), react_default.a.createElement("div", {
-    className: "cmp-search__results-item-description"
-  }, react_default.a.createElement("div", {
-    className: "cmp-search__results-item-description-text"
-  }, react_default.a.createElement(lib_default.a, {
-    text: result.description,
-    maxLine: "3",
-    ellipsis: "\u2026",
-    trimRight: true,
-    basedOn: "words",
-    clamped: "true"
-  }))), react_default.a.createElement("div", {
-    className: "cmp-search__results-item-breadcrumb"
-  }, react_default.a.createElement("div", null, result.category_facet), react_default.a.createElement(react_svg["a" /* default */], {
-    src: nextIcon
-  }), react_default.a.createElement("div", null, result.contenttype_facet))));
-};
-
-var results_Results = function Results(_ref2) {
-  var results = _ref2.results,
-      locale = _ref2.locale,
-      nextIcon = _ref2.nextIcon,
-      onItemClick = _ref2.onItemClick;
-  var mappedResults = Array.isArray(results) ? results.map(function (result, i) {
-    return react_default.a.createElement(results_Result, {
-      result: result,
-      locale: locale,
-      nextIcon: nextIcon,
-      key: i,
-      onItemClick: onItemClick
-    });
-  }) : [];
-  return react_default.a.createElement("div", {
-    className: "cmp-search__results-container"
-  }, react_default.a.createElement("ul", {
-    className: "cmp-search__results"
-  }, mappedResults));
-};
-
-/* harmony default export */ var components_results = (results_Results);
 // CONCATENATED MODULE: ./src/navigation/category-list/index.js
 
 
@@ -3598,7 +3602,6 @@ category_list_CategoryList.defaultProps = {
 };
 /* harmony default export */ var category_list = (category_list_CategoryList);
 // CONCATENATED MODULE: ./src/search/search.component.helpers.js
-
 
 
 
@@ -3777,35 +3780,39 @@ search_component_helpers_Menu.defaultProps = {
   filterTagsEvents: defaultProps.filterTagsEvents
 };
 
-var search_component_helpers_SkuResults = function SkuResults(_ref4) {
+var search_component_helpers_SearchResults = function SearchResults(_ref4) {
   var items = _ref4.items,
       skuConfig = _ref4.skuConfig,
       onItemClick = _ref4.onItemClick;
   var isEprocUser = Object(userFunctions["u" /* isEprocurementUser */])();
-  var skuData = Array.isArray(items) ? items.map(function (item) {
-    return {
-      code: item.skucode,
-      category_facet: item.category_facet,
-      contenttype_facet: item.contenttype_facet,
-      skuPageHref: isEprocUser ? item.eprocUrl : item.url,
-      formattedPrice: item.displayprice,
-      primaryImageAlt: item.title,
-      primaryImageThumbnail: item.thumbnail,
-      discontinued: item.status !== 'Active',
-      // covers DiscontinueNoReplacement, DiscontinueWithReplacement, ObsoleteNoReplacement, and ObsoleteWithReplacement
-      replacementskuurl: item.replacementskuurl,
-      replacementskucode: item.replacementskucode,
-      title: item.title
-    };
+  var searchData = Array.isArray(items) ? items.map(function (item) {
+    if (item.skucode) {
+      return {
+        code: item.skucode,
+        category_facet: item.category_facet,
+        contenttype_facet: item.contenttype_facet,
+        skuPageHref: isEprocUser ? item.eprocUrl : item.url,
+        formattedPrice: item.displayprice,
+        primaryImageAlt: item.title,
+        primaryImageThumbnail: item.thumbnail,
+        discontinued: item.status !== 'Active',
+        // covers DiscontinueNoReplacement, DiscontinueWithReplacement, ObsoleteNoReplacement, and ObsoleteWithReplacement
+        replacementskuurl: item.replacementskuurl,
+        replacementskucode: item.replacementskucode,
+        title: item.title
+      };
+    } else {
+      return item;
+    }
   }) : [];
   return react_default.a.createElement(sku_list, {
     skuConfig: skuConfig,
-    data: skuData,
+    data: searchData,
     onItemClick: onItemClick
   });
 };
 
-search_component_helpers_SkuResults.defaultProps = {
+search_component_helpers_SearchResults.defaultProps = {
   skuConfig: defaultProps.skuConfig,
   items: [],
   onItemClick: function onItemClick() {}
@@ -3818,18 +3825,9 @@ var search_component_helpers_ResultsContent = function ResultsContent(_ref5) {
       resultsProps = _ref5.resultsProps,
       resultsEvents = _ref5.resultsEvents;
   var items = resultsProps.items[searchParams.page];
-
-  if (resultsProps.isSkuList) {
-    return react_default.a.createElement(search_component_helpers_SkuResults, {
-      items: items,
-      skuConfig: skuConfig,
-      onItemClick: resultsEvents.onResultsItemClick
-    });
-  }
-
-  return react_default.a.createElement(components_results, {
-    results: items,
-    nextIcon: text.nextIcon,
+  return react_default.a.createElement(search_component_helpers_SearchResults, {
+    items: items,
+    skuConfig: skuConfig,
     onItemClick: resultsEvents.onResultsItemClick
   });
 };
@@ -9087,7 +9085,120 @@ var fields_Field = function Field(_ref) {
 // EXTERNAL MODULE: ./src/my-account/services/SoldToDetailsLazy.js + 1 modules
 var SoldToDetailsLazy = __webpack_require__(47);
 
+// CONCATENATED MODULE: ./src/forms/services/country-list.js
+
+
+
+var _Promise = typeof Promise === 'undefined' ? __webpack_require__(76).Promise : Promise;
+
+var country_list_getData = /*#__PURE__*/function () {
+  var _ref = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee(url) {
+    var response;
+    return regenerator_default.a.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.next = 2;
+            return fetch(url, {
+              method: 'GET',
+              headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+              }
+            });
+
+          case 2:
+            response = _context.sent;
+            _context.next = 5;
+            return response;
+
+          case 5:
+            return _context.abrupt("return", _context.sent);
+
+          case 6:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function getData(_x) {
+    return _ref.apply(this, arguments);
+  };
+}();
+
+function countryList(url) {
+  return new _Promise( /*#__PURE__*/function () {
+    var _ref2 = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee2(resolve) {
+      var response, responseBody, countries;
+      return regenerator_default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.prev = 0;
+              _context2.next = 3;
+              return country_list_getData(url);
+
+            case 3:
+              response = _context2.sent;
+              _context2.next = 6;
+              return response.json();
+
+            case 6:
+              responseBody = _context2.sent;
+
+              if (!(response.status === 200)) {
+                _context2.next = 10;
+                break;
+              }
+
+              countries = responseBody.map(function (x) {
+                return {
+                  countryCode: x.code.toLowerCase(),
+                  displayName: x.name
+                };
+              }).sort(function (a, b) {
+                if (a.displayName > b.displayName) {
+                  return 1;
+                } else if (b.displayName > a.displayName) {
+                  return -1;
+                } else {
+                  return 0;
+                }
+              });
+              return _context2.abrupt("return", resolve({
+                response: countries
+              }));
+
+            case 10:
+              return _context2.abrupt("return", resolve({
+                response: []
+              }));
+
+            case 13:
+              _context2.prev = 13;
+              _context2.t0 = _context2["catch"](0);
+              console.error(_context2.t0);
+              return _context2.abrupt("return", resolve({
+                response: []
+              }));
+
+            case 17:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, null, [[0, 13]]);
+    }));
+
+    return function (_x2) {
+      return _ref2.apply(this, arguments);
+    };
+  }());
+}
 // CONCATENATED MODULE: ./src/forms/form.js
+
 
 
 
@@ -9191,15 +9302,20 @@ var form_Form = function Form(_ref) {
       displayForm = _useState8[0],
       setDisplayForm = _useState8[1];
 
-  var _useState9 = Object(react["useState"])(document.getElementById("header").hasAttribute("data-is-edit-mode")),
+  var _useState9 = Object(react["useState"])(),
       _useState10 = Object(slicedToArray["a" /* default */])(_useState9, 2),
-      isInEditMode = _useState10[0],
-      setIsInEditMode = _useState10[1];
+      _ = _useState10[0],
+      reloadCountryList = _useState10[1];
 
-  var _useState11 = Object(react["useState"])(false),
+  var _useState11 = Object(react["useState"])(document.getElementById("header").hasAttribute("data-is-edit-mode")),
       _useState12 = Object(slicedToArray["a" /* default */])(_useState11, 2),
-      isAlreadyRegistered = _useState12[0],
-      setIsAlreadyRegistered = _useState12[1];
+      isInEditMode = _useState12[0],
+      setIsInEditMode = _useState12[1];
+
+  var _useState13 = Object(react["useState"])(false),
+      _useState14 = Object(slicedToArray["a" /* default */])(_useState13, 2),
+      isAlreadyRegistered = _useState14[0],
+      setIsAlreadyRegistered = _useState14[1];
 
   var captchaField = config.fields.filter(function (field) {
     return field.type === 'captcha';
@@ -9294,37 +9410,49 @@ var form_Form = function Form(_ref) {
   Object(react["useEffect"])(function () {
     // Configure Registration Form on "Loading"
     if (config.formName === "registration") {
-      var countryRegion = DigitalData["a" /* default */].page.country.toLowerCase(); // Get Regional config 
+      countryList(config.countryListUrl).then(function (_ref2) {
+        var response = _ref2.response;
+        var countryRegion = DigitalData["a" /* default */].page.country.toLowerCase(); // Get Regional config 
 
-      var countryOptionsConfig = regionalConfig; // Hide all country configurable fields
+        var countryOptionsConfig = regionalConfig; // Hide all country configurable fields
 
-      var allCountryOptions = countryOptionsConfig.filter(function (p) {
-        return p.country === "all";
-      });
-
-      if (allCountryOptions.length === 1) {
-        allCountryOptions[0].fields.map(function (fieldName) {
-          return deactivateField(fieldName);
+        var allCountryOptions = countryOptionsConfig.filter(function (p) {
+          return p.country === "all";
         });
-      } // Display Specific fields for the current country
+
+        if (allCountryOptions.length === 1) {
+          allCountryOptions[0].fields.map(function (fieldName) {
+            return deactivateField(fieldName);
+          });
+        } // Display Specific fields for the current country
 
 
-      var selectedCountryOptions = countryOptionsConfig.filter(function (p) {
-        return p.country === countryRegion;
-      });
-
-      if (selectedCountryOptions.length === 1) {
-        selectedCountryOptions[0].fields.map(function (fieldName) {
-          return activateField(fieldName);
+        var selectedCountryOptions = countryOptionsConfig.filter(function (p) {
+          return p.country === countryRegion;
         });
-      }
+
+        if (selectedCountryOptions.length === 1) {
+          selectedCountryOptions[0].fields.map(function (fieldName) {
+            return activateField(fieldName);
+          });
+        }
+
+        var countryIdx = config.fields.findIndex(function (x) {
+          return x.name.toLowerCase() === 'country';
+        });
+
+        if (countryIdx !== -1) {
+          config.fields[countryIdx].options = response;
+          reloadCountryList(config);
+        }
+      });
     }
   }, [config.formName]);
 
-  var _useState13 = Object(react["useState"])(),
-      _useState14 = Object(slicedToArray["a" /* default */])(_useState13, 2),
-      newConfig = _useState14[0],
-      setNewConfig = _useState14[1];
+  var _useState15 = Object(react["useState"])(),
+      _useState16 = Object(slicedToArray["a" /* default */])(_useState15, 2),
+      newConfig = _useState16[0],
+      setNewConfig = _useState16[1];
 
   Object(react["useEffect"])(function () {
     if (!config.getRadioOptions) {
@@ -10597,7 +10725,7 @@ var video_VideoContainer = /*#__PURE__*/function (_React$Component) {
 
 
 
-var _Promise = typeof Promise === 'undefined' ? __webpack_require__(87).Promise : Promise;
+var services_Promise = typeof Promise === 'undefined' ? __webpack_require__(76).Promise : Promise;
 
 
 
@@ -10632,7 +10760,7 @@ var services_ChatService = /*#__PURE__*/function () {
     value: function getData(url) {
       var _this = this;
 
-      return new _Promise(function (resolve, reject) {
+      return new services_Promise(function (resolve, reject) {
         window.fetch(url).then(_this.checkFetch).then(function (response) {
           resolve(response.json());
         })["catch"](function (err) {
@@ -10722,7 +10850,7 @@ var chat_Chat = /*#__PURE__*/function (_React$Component) {
 
 /* harmony default export */ var chat = (chat_Chat);
 // EXTERNAL MODULE: ./src/detail-tiles/utils/generateTiles.js
-var generateTiles = __webpack_require__(84);
+var generateTiles = __webpack_require__(85);
 
 // EXTERNAL MODULE: ./src/my-account/services/UserDetailsLazy.js
 var UserDetailsLazy = __webpack_require__(69);
@@ -11250,7 +11378,7 @@ var Switch = __webpack_require__(500);
 var es_Link = __webpack_require__(498);
 
 // EXTERNAL MODULE: ./src/typography/title.js
-var typography_title = __webpack_require__(85);
+var typography_title = __webpack_require__(86);
 
 // CONCATENATED MODULE: ./src/my-account/components/breadcrumb.js
 
@@ -14275,7 +14403,10 @@ var quote_details_QuoteDetails = /*#__PURE__*/function (_Component) {
           quoteStatus = quoteDetails.quoteStatus,
           orderNumber = quoteDetails.orderNumber,
           replacedQuoteNumber = quoteDetails.replacedQuoteNumber;
-      var notZeroDiscountFlag = parseFloat(quoteDetails.orderDiscountValue) !== 0 ? true : false;
+
+      var isTotalDiscount = _this.getValue(totalDiscounts, 'value', '0');
+
+      var notZeroDiscountFlag = parseFloat(isTotalDiscount) !== 0 ? true : false;
 
       var subTotalValue = _this.getValue(subTotal, 'formattedValue');
 
@@ -14906,14 +15037,14 @@ if (imageGalleryContainers) {
 
 var src_skuDetailsContainer = document.querySelector('.cmp-sku-details__ecom');
 var skuDetailsConfig = JSON.parse(document.getElementById('commerce-configs-json').innerHTML);
-var src_skuData, skuDetailsListPrice;
+var skuData, skuDetailsListPrice;
 
 if (document.querySelector('.cmp-sku-details__ecom')) {
   // If a product is discontinued, the ecom class never gets added,
   // but not having a price is a valid option for some products
   // This check allows us to pass in a price of undefined without breaking the frontend
-  src_skuData = document.querySelector('.cmp-sku-details__ecom');
-  skuDetailsListPrice = src_skuData.dataset.price;
+  skuData = document.querySelector('.cmp-sku-details__ecom');
+  skuDetailsListPrice = skuData.dataset.price;
 }
 
 if (src_skuDetailsContainer) {
@@ -14930,12 +15061,12 @@ if (src_skuDetailsContainer) {
     }), skuDetailsContainer);
   };
 
-  var src_skuNumber = src_skuData.dataset.skuCode;
-  var skuTitle = src_skuData.dataset.skuTitle;
-  var skuDiscontinued = src_skuData.dataset.discontinued;
-  var skuCountryRestricted = src_skuData.dataset.countryRestricted;
-  var replacementSkuCode = src_skuData.dataset.replacementSkuCode;
-  var replacementSkuHref = src_skuData.dataset.replacementSkuHref;
+  var src_skuNumber = skuData.dataset.skuCode;
+  var skuTitle = skuData.dataset.skuTitle;
+  var skuDiscontinued = skuData.dataset.discontinued;
+  var skuCountryRestricted = skuData.dataset.countryRestricted;
+  var replacementSkuCode = skuData.dataset.replacementSkuCode;
+  var replacementSkuHref = skuData.dataset.replacementSkuHref;
 
   if (skuDetailsConfig) {
     var _accountModalConfig = {};
@@ -15080,7 +15211,9 @@ if (registrationFormContainer) {
   var checkEmailForm = {
     config: configCheckEmailForm
   };
-  var src_isTwoStepRegistrationForm = configCheckEmailForm.isTwoStepRegistrationForm;
+  var src_isTwoStepRegistrationForm = configCheckEmailForm.isTwoStepRegistrationForm; // Set Country list url
+
+  configRegistrationForm.countryListUrl = headerRef.dataset.countryListUrl ? headerRef.dataset.countryListUrl : '';
   react_dom_default.a.render( // replace isocode with a value supplied by AEM
   react_default.a.createElement(create_account_form, {
     registrationFormConfig: registrationForm,
@@ -15217,11 +15350,11 @@ var countryModalRoot = document.getElementById('country-selector-root');
 
 if (countryModalRoot) {
   var scriptElement = document.getElementById('country-list-json');
-  var countries = scriptElement && scriptElement.innerHTML.trim() ? JSON.parse(scriptElement.innerHTML) : [];
+  var src_countries = scriptElement && scriptElement.innerHTML.trim() ? JSON.parse(scriptElement.innerHTML) : [];
 
-  if (Array.isArray(countries) && countries.length !== 0) {
+  if (Array.isArray(src_countries) && src_countries.length !== 0) {
     react_dom_default.a.render(react_default.a.createElement(country_selector, {
-      countries: countries,
+      countries: src_countries,
       translations: globalTranslations
     }), countryModalRoot);
   }
@@ -15384,7 +15517,7 @@ window.addEventListener('resize', addEllipses);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return searchMapper; });
 /* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
 /* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
+/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
 /* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4);
 /* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(5);
 /* harmony import */ var whatwg_fetch__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(39);
@@ -15912,7 +16045,7 @@ module.exports = {"colorBorderDark":"#9ca7b0","colorGray50":"#4f5b64","colorBack
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(12);
+/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(13);
 /* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(0);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
@@ -16085,7 +16218,7 @@ var fetch = __webpack_require__(39);
 
 
 
-var _Promise = typeof Promise === 'undefined' ? __webpack_require__(87).Promise : Promise;
+var _Promise = typeof Promise === 'undefined' ? __webpack_require__(76).Promise : Promise;
 
 
 
@@ -16429,7 +16562,7 @@ var regenerator = __webpack_require__(2);
 var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
-var asyncToGenerator = __webpack_require__(13);
+var asyncToGenerator = __webpack_require__(12);
 
 // EXTERNAL MODULE: ./src/scripts/loginStatus.js
 var loginStatus = __webpack_require__(17);
@@ -16660,7 +16793,7 @@ var eCommerceFunctions = __webpack_require__(11);
 "use strict";
 /* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
 /* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
+/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
 /* harmony import */ var whatwg_fetch__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(39);
 /* harmony import */ var _utils_redirectFunctions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(25);
 
@@ -16772,7 +16905,7 @@ var UserDetails = /*#__PURE__*/function () {
 "use strict";
 /* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
 /* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
+/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
 /* harmony import */ var _scripts_loginStatus__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(17);
 /* harmony import */ var _stores_sessionStore__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(14);
 /* harmony import */ var _services_UserDetails__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(50);

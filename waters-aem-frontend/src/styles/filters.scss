@@ -158,6 +158,15 @@
             }
         }
         .inactive {
+            &:hover,
+            &:focus {
+                border: none;
+            } 
+            .checkbox {
+                &:hover {
+                    border: $border-disabled;
+                }               
+            }
             color: $color-disabled;
         }
         &__search {
