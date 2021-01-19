@@ -4,6 +4,7 @@ def data = []
 
 sites.each { site ->
     def nodePath = "/content/waters/" + site + "/cart-checkout/jcr:content/root/labels/labelList"
+    def pagePath = "/content/waters/" + site + "/cart-checkout"
     if (getResource(nodePath) != null) {
         labels.keySet().each { labelKey ->
             def count = 0
@@ -13,8 +14,6 @@ sites.each { site ->
                 if (nextNode.hasProperty("labelKey") && nextNode.getProperty("labelKey").getString().equals(labelKey)) {
                     nextNode.setProperty("labelValue", labels.get(labelKey))
                     save()
-                    if (!nodePath.contains("language-masters"))
-                        activate(nextNode.getPath())
                     count++
                     data.add([nodePath, nextNode.getPath()])
                 }
@@ -25,9 +24,11 @@ sites.each { site ->
                 item.setProperty("labelKey", labelKey)
                 item.setProperty("labelValue", labels.get(labelKey))
                 save()
-                if (!nodePath.contains("language-masters"))
-                    activate(item.getPath())
                 data.add([labelKey, item.getPath()])
+            }
+            if (count >= 0){
+                if (!nodePath.contains("language-masters"))
+                    activate(pagePath)
             }
         }
     }
