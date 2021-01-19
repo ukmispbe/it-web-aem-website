@@ -116,6 +116,8 @@ function QuickOrder(props) {
             } else {
                 skuErrorMgs(true, childRef.current.state.skuNumber);
             }
+        } else {
+            skuErrorMgs(true, childRef.current.state.skuNumber);
         }
     }, [skuErrorMgs, setErrorObjCart, setModalConfig, setModalShown]);
 

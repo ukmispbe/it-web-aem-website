@@ -604,15 +604,11 @@ function waitUntilUserExists(store, container, callback) {
 // Quick Order Component
 const quickOrderContainer = document.getElementById("quick-order");
 if (quickOrderContainer) {
-    const store = new SessionStore();
-    waitUntilUserExists(store, quickOrderContainer, quickOrder);
-}
-function quickOrder(container) {
     const props = JSON.parse(document.getElementById("cmp-quick-order").innerHTML);
     const skuConfig = JSON.parse(document.getElementById('commerce-configs-json').innerHTML);
     ReactDOM.render(
         <QuickOrder {...props} skuConfig={skuConfig} />,
-        container
+        quickOrderContainer
     );
 }
 // End Quick Order Component
