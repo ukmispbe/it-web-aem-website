@@ -45,7 +45,7 @@ const Aside = props => {
             <div className="cmp-my-account__aside-content" data-locator="my-account-aside-content">
                 {props.children}
             </div>
-            {breadcrumbList && (<Breadcrumb path={props.location.pathname} config={props.breadcrumbs} />)}
+            {breadcrumbList && (<Breadcrumb path={props.location.pathname} showBackToMyAccount={props.showBackToMyAccount} showDefaultBreadcrumb={props.showDefaultBreadcrumb} config={props.breadcrumbs} />)}
         </div>
     );
         }

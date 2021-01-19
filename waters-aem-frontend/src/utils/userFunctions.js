@@ -386,6 +386,7 @@ export const getCategoryReferenceType = () => {
     return isEprocurementUser() ? `&reference=sku` : '';
 }
 
+
 export const getCartCheckoutUrl = (initial, page) => {
     const countryCode = getCountryCode();
     const language = getLanguage();
@@ -406,3 +407,5 @@ export const getUrlParameter = (name = '') => {
         const results = regex.exec(window.location.hash);
         return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
 };
+
+export const setDisplayProperty = (elem, val)=> elem.style.display = val;

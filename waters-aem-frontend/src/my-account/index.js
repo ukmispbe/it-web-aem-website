@@ -28,22 +28,22 @@ const MyAccountRouter = (props) => {
                     </Aside>
                 </Route>
                 <Route exact path={routes.orderHistory.path}>
-                    <Aside tiles={props.tiles} breadcrumbs={props.breadcrumbs}>
+                    <Aside tiles={props.tiles} showBackToMyAccount breadcrumbs={props.breadcrumbs}>
                         <OrderHistory configs={props.orderHistory} />
                     </Aside>
                 </Route>
                 <Route exact path={routes.orderDetails.path}>
-                    <Aside tiles={props.tiles} breadcrumbs={props.breadcrumbs}>
+                    <Aside tiles={props.tiles} showDefaultBreadcrumb breadcrumbs={props.breadcrumbs}>
                         <OrderDetails config={props.orderDetails} />
                     </Aside>
                 </Route>
                 <Route exact path={routes.quoteHistory.path}>
-                    <Aside tiles={props.tiles} breadcrumbs={props.breadcrumbs}>
+                    <Aside tiles={props.tiles} showBackToMyAccount breadcrumbs={props.breadcrumbs}>
                         <QuoteHistory configs={props.quoteHistory} />
                     </Aside>
                 </Route>
                 <Route exact path={routes.quoteDetails.path}>
-                    <Aside tiles={props.tiles} breadcrumbs={props.breadcrumbs}>
+                    <Aside tiles={props.tiles} showDefaultBreadcrumb breadcrumbs={props.breadcrumbs}>
                         <QuoteDetails config={props.quoteDetails} />
                     </Aside>
                 </Route>
