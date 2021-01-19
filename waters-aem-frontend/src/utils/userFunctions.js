@@ -386,4 +386,26 @@ export const getCategoryReferenceType = () => {
     return isEprocurementUser() ? `&reference=sku` : '';
 }
 
+
+export const getCartCheckoutUrl = (initial, page) => {
+    const countryCode = getCountryCode();
+    const language = getLanguage();
+    return `${window.location.origin}/${initial}/${countryCode}/${language}/${page}`;
+}
+
+export const getUrlPath = (url, id) => {
+    const  userId = getUserId();
+    const soldToId = getSoldToId() || getDummySoldToId();
+    const countryCode = getCountryCode();
+    const language = getLanguage();
+    return `${url}/${id}?soldToId=${soldToId}&userId=${userId}&countryCode=${countryCode}&language=${language}&fields=FULL`;
+}
+
+export const getUrlParameter = (name = '') => {
+        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+        const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+        const results = regex.exec(window.location.hash);
+        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+};
+
 export const setDisplayProperty = (elem, val)=> elem.style.display = val;

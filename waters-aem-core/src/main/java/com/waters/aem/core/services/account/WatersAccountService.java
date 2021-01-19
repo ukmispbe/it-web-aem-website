@@ -126,5 +126,12 @@ public interface WatersAccountService {
       *
       * @return quoteHistoryUrl API URL
       */
-      String getQuoteHistoryUrl();  
+      String getQuoteHistoryUrl(); 
+      
+      /**
+      * Get the configured endpoint for countryList API.
+      *
+      * @return countryListUrl API URL
+      */
+      String getCountryListUrl();
 }

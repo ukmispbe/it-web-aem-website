@@ -26,7 +26,7 @@ import {
     NO_PRICE_NO_ADD_TO_CART,
 } from '../../constants';
 
-class ListItem extends React.Component {
+class SkuItem extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -412,41 +412,42 @@ class ListItem extends React.Component {
         }
         const imageAltLabel = relatedSku.primaryImageAlt ? relatedSku.primaryImageAlt : relatedSku.title;
         return (
-            <div className={'cmp-sku-list__container ' + disabledClass}>
-                <div className="cmp-sku-list__right">
-                    <img
-                        src={relatedSku.primaryImageThumbnail}
-                        alt={relatedSku.title}
-                        data-locator="product-image"
-                    />
-                </div>
-                <div className="cmp-sku-details__left">
-                    <div className="cmp-sku-list__code" data-locator="product-number" aria-label={skuConfig.skuInfo.partNumberLabel + " " + relatedSku.code}>
-                        {skuConfig.skuInfo.partNumberLabel + " " + relatedSku.code}
+            <li>
+                <div className={'cmp-sku-list__container ' + disabledClass}>
+                    <div className="cmp-sku-list__right">
+                        <img
+                            src={relatedSku.primaryImageThumbnail}
+                            alt={relatedSku.title}
+                            data-locator="product-image"
+                        />
                     </div>
-                    <a
-                        onClick={this.handleItemClick}
-                        href={
-                            relatedSku.skuPageHref
-                                ? relatedSku.skuPageHref
-                                : null
-                        }
-                    >
-                        <div className="cmp-sku-details__title" data-locator="product-title">
-                            {relatedSku.title}
+                    <div className="cmp-sku-details__left">
+                        <div className="cmp-sku-list__code" data-locator="product-number" aria-label={skuConfig.skuInfo.partNumberLabel + " " + relatedSku.code}>
+                            {skuConfig.skuInfo.partNumberLabel + " " + relatedSku.code}
                         </div>
-                    </a>
+                        <a
+                            onClick={this.handleItemClick}
+                            href={
+                                relatedSku.skuPageHref
+                                    ? relatedSku.skuPageHref
+                                    : null
+                            }
+                        >
+                            <div className="cmp-sku-details__title" data-locator="product-title">
+                                {relatedSku.title}
+                            </div>
+                        </a>
 
-                    {buyInfo}
-                    {breadcrumbs}
+                        {buyInfo}
+                        {breadcrumbs}
+                    </div>
                 </div>
-            </div>
+            </li>
         );
     }
 }
 
-
-ListItem.propTypes = {
+SkuItem.propTypes = {
     key: PropTypes.string.isRequired,
     relatedSku: PropTypes.object.isRequired,
     skuConfig: PropTypes.object.isRequired,
@@ -456,7 +457,7 @@ ListItem.propTypes = {
     isEProcurementUserRestricted: PropTypes.bool.isRequired
 };
 
-ListItem.defaultProps = {
+SkuItem.defaultProps = {
     key: '',
     relatedSku: {},
     skuConfig: {},
@@ -466,4 +467,4 @@ ListItem.defaultProps = {
     isEProcurementUserRestricted: false
 };
 
-export default ListItem;
+export default SkuItem;

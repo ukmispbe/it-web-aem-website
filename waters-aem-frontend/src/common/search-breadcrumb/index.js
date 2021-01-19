@@ -19,14 +19,34 @@ const SearchBreadcrumb = (props) => {
             title = props.text.allCategoriesText;
         }
 
-        return (
-            <li className="cmp-breadcrumb__item" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
-                <a href={linkInfo.path} className='cmp-breadcrumb__item-link'>
-                    <span itemprop="name"><EllipsisText text={title} length={"20"} /></span>
-                </a>
-            </li>
-        )
+        // Call the clearSession Function if it's a Search link or a Keyword Link. (Have to  take into account a spelling suggestion)
+        if (title === "Search" || 
+            (props.searchParams.keyword !== "" && title === props.searchParams.keyword) ||
+            (props.searchParams.spell_suggestion !== "" && title === props.searchParams.spell_suggestion)) {
+            return (
+                <li className="cmp-breadcrumb__item" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+                    <a onClick={(e) => clearSession(e, linkInfo.path)} className='cmp-breadcrumb__item-link'>
+                        <span itemprop="name"><EllipsisText text={title} length={"20"} /></span>
+                    </a>
+                </li>
+            )
+        }
+        else {
+            return (
+                <li className="cmp-breadcrumb__item" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+                    <a href={linkInfo.path} className='cmp-breadcrumb__item-link'>
+                        <span itemprop="name"><EllipsisText text={title} length={"20"} /></span>
+                    </a>
+                </li>
+            )
+        }
     });
+
+    const clearSession = (e, path) => {
+        e.preventDefault();
+        props.clearSessionStore();
+        window.location.href = path;
+    }
 
     const renderBreadcrumb = (links) => {
         const parentLinks = links.map(link => renderBreadcrumbLink(link));

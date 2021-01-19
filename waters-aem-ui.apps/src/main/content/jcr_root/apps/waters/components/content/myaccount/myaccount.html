@@ -42,8 +42,8 @@
                             "isHidden": "true"
                         },
                         {
-                            "text": "${'Quote History' @ i18n, context='unsafe'}",
-                            "url": "${'#quotehistory' @ context='unsafe'}",
+                            "text": "${myaccount.showQuoteHistory ? 'Quote History' : '' @ i18n, context='unsafe'}",
+                            "url": "${myaccount.showQuoteHistory ? '#quotehistory' : '' @ context='unsafe'}",
                             "linkName": "Quote History"
                         },
                         {
@@ -155,7 +155,9 @@
                 "created": "${'Created:' @ i18n, context='unsafe'}",
                 "expires": "${'Expires:' @ i18n, context='unsafe'}",
                 "orderNumberText": "${'Order Number: ' @ i18n, context='unsafe'}",
+				"newQuote": "${'New Quote: ' @ i18n, context='unsafe'}",
                 "isShowQuoteAgainButton": false,
+				
                 "shipment": {
                     "shipmentText": "${'Shipment' @ i18n, context='unsafe'}",
                     "trackShipmentText": "${'Track Shipment' @ i18n, context='unsafe'}",
@@ -379,6 +381,7 @@
             "form": {
                 "formName": "personaldetails",
                 "submitEndpoint": "${myaccount.myAccountUpdateUrl @ context='unsafe'}",
+                "soldToDetailsUrl": "${myaccount.soldToDetailsUrl @ context='unsafe'}",
                 "buttonText": "${'Save Changes' @ i18n, context='unsafe'}",
 				"buttonLocator": "save-changes",
                 "cancelText": "${'Cancel' @ i18n, context='unsafe'}",

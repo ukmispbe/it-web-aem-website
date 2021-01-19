@@ -13,7 +13,7 @@ exports[`Feature: CategoryList Component Scenario: Rendering CategoryList When c
     className="cmp-category-items"
   >
     <div
-      className="cmp-category-item active "
+      className="cmp-category-item active  "
       onClick={[Function]}
     >
       <span
@@ -32,7 +32,7 @@ exports[`Feature: CategoryList Component Scenario: Rendering CategoryList When c
       </span>
     </div>
     <div
-      className="cmp-category-item "
+      className="cmp-category-item  "
       onClick={[Function]}
     >
       <span

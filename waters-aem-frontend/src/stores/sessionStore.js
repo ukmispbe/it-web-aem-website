@@ -14,7 +14,8 @@ const keys = {
     legacyToken: 'waters.legacyToken',
     signInRedirect: 'waters.signInRedirect',
     punchoutSetupDetails: 'waters.punchoutSetupDetails',
-    userType: 'waters.userType'
+    userType: 'waters.userType',
+	quoteId: "waters.quoteId"
 }
 
 
@@ -70,6 +71,7 @@ const SessionStore = function () {
     this.setUserType = value => window.sessionStorage.setItem(keys.userType, value);
     this.getUserType = () => window.sessionStorage.getItem(keys.userType);
     this.removeUserType = () => window.sessionStorage.removeItem(keys.userType);
+	this.setQuoteId = (value) => window.sessionStorage.setItem(keys.quoteId, value);
 }
 
 export default SessionStore;

@@ -10,6 +10,7 @@
     data-signin-url="${!header.eprocurement ? header.signInLink.href : ''}"
     data-register-url="${!header.eprocurement ? header.createAccountLink.href : ''}"
     data-switch-account-url="${!header.eprocurement ? header.switchAccountLink.href : ''}"
+    data-country-list-url="${header.countryListUrl}"
 >
     <div class="cmp-header__overlay overlay"></div>
     <div class="cmp-header__top-bar">
@@ -125,6 +126,14 @@
                                         "target": "_self",
                                         "class": "dropdown__item-list__my-orders",
                                         "linkName": "Order History",
+                                        "isHiddenForEprocUser": "true"
+                                    },
+                                    {
+                                        "text": "${header.showQuoteHistory ? 'Quote History' : '' @ i18n, context='unsafe'}",
+                                        "url": "${!header.eprocurement && header.showQuoteHistory ? header.quotesLink : '' @ context='unsafe'}",
+                                        "target": "_self",
+                                        "class": "dropdown__item-list__my-quotes",
+                                        "linkName": "Quote History",
                                         "isHiddenForEprocUser": "true"
                                     }
                                 ]

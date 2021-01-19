@@ -35,6 +35,12 @@
                 }
             }
         }
+
+        .cmp-breadcrumb__item-link {
+            &:hover {
+                cursor: pointer;
+            }
+        }
     }
 
     &__item {

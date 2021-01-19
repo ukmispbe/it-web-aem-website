@@ -63,7 +63,7 @@ describe("Feature: CategoryList Component", () => {
             it("Then it should call the click handler property", () => {
                 const wrapper = shallow(<CategoryList {...propsWithItems} />);
 
-                wrapper.find("Radio").first().simulate("click");
+                wrapper.find("Category").first().simulate("click");
 
                 expect(propsWithItems.onClick).toHaveBeenCalled();
             });
