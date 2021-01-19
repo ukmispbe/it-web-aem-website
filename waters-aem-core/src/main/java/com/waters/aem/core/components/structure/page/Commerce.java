@@ -109,13 +109,14 @@ public class Commerce {
     @Inject
     private Boolean checkoutDisabled;
 
-    @DialogField(fieldDescription = "Enable this to make Quote  Disable",
+    @DialogField(fieldDescription = "Enable this to make Quote Disable",
             value = "true",
             ranking = 11)
     @CheckBox(title = "quoteDisabled",
             text = "Disable Quote")
     @Inject
     private Boolean quoteDisabled;
+    public Boolean getQuoteDisabled() { return quoteDisabled; }
 
     @DialogField(fieldDescription = "Enable this to always allow PO payment.",
             value = "true",
@@ -124,18 +125,6 @@ public class Commerce {
             text = "Always allow PO payment")
     @Inject
     private Boolean explicitAllowPO;
-
-    @DialogField(fieldDescription = "Show Quote History Link.",
-            value = "true",
-            ranking = 13)
-    @CheckBox(title = "showQuoteHistory",
-            text = "Show Quote History Link?")
-    @Inject
-    private Boolean showQuoteHistory;
-
-    public Boolean getShowQuoteHistory() {
-        return showQuoteHistory;
-    }
 
     public String getAddToCartUrl() {
         return addToCartUrl;
