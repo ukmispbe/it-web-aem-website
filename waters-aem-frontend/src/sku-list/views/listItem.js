@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactSVG from 'react-svg';
 import PropTypes from 'prop-types';
-import Stock from '../../sku-details/views/stock';
-import Price from '../../sku-details/views/price';
-import UnavailablePrice from '../../sku-details/views/unavailablePrice';
+const Stock = React.lazy(() => import(/* webpackChunkName: "skudetails" */'../../sku-details/views/stock'));
+const Price = React.lazy(() => import(/* webpackChunkName: "skudetails" */'../../sku-details/views/price'));
+const UnavailablePrice = React.lazy(() => import(/* webpackChunkName: "skudetails" */'../../sku-details/views/unavailablePrice'));
 import { getAvailability, getPricing, matchListItems } from '../../sku-details/services';
-import AddToCart from '../../sku-details/views/addToCart';
-import AddToCartBody from '../../sku-details/views/addToCartModal';
+const AddToCart = React.lazy(() => import(/* webpackChunkName: "skudetails" */'../../sku-details/views/addToCart'));
+const AddToCartBody = React.lazy(() => import(/* webpackChunkName: "skudetails" */'../../sku-details/views/addToCartModal'));
 import Modal, { Header, keys } from '../../utils/modal';
 import Spinner from '../../utils/spinner';
 import LoginStatus from '../../scripts/loginStatus';

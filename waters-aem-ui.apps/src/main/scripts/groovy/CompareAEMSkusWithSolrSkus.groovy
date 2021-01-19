@@ -71,11 +71,11 @@ def compareData(aem, solr, pageName) {
 }
         
 def getAemData(contentTypeParam) {
-   return "http://test-author.waters.com:4503/bin/querybuilder.json?p.hits=selective&p.properties=hybris%3acode%20jcr%3atitle&path=/content/waters/us/en/shop/${contentTypeParam}&1_property=cq:template&1_property.value=/conf/waters/settings/wcm/templates/sku-page&p.limit=-1&1_property.operation=like&orderby=path".toURL().text
+   return "http://10.201.1.224:4503/bin/querybuilder.json?p.hits=selective&p.properties=hybris%3acode%20jcr%3atitle&path=/content/waters/us/en/shop/${contentTypeParam}&1_property=cq:template&1_property.value=/conf/waters/settings/wcm/templates/sku-page&p.limit=-1&1_property.operation=like&orderby=path".toURL().text
 }        
 
 def getSolrData(contentTypeParam) {
-    return "http://solrtestslave:8983/solr/waters/select?fl=skucode&fq={!tag%3Dcategory_facet}category_facet:(%22Shop%22)&fq={!tag%3Dcontenttype_facet}contenttype_facet:(${contentTypeParam})&fq=isocode:en_US&rows=10000&q=*:*&timeAllowed=1000".toURL().text
+    return "http://10.201.8.122:8983/solr/waters/select?fl=skucode&fq={!tag%3Dcategory_facet}category_facet:(%22Shop%22)&fq={!tag%3Dcontenttype_facet}contenttype_facet:(${contentTypeParam})&fq=isocode:en_US&rows=10000&q=*:*&timeAllowed=1000".toURL().text
 } 
 
 
