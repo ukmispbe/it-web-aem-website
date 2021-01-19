@@ -5,13 +5,14 @@ const throwError = (error) => {
     throw new Error(error);
 }
 
-export async function fetchData (url, options) {
+export async function fetchData (url, options, customError = () => {}) {
     return new Promise((resolve, reject) => {
             fetch(url, {...options})
             .then(response => {
                 resolve(response);
             })
             .catch(err => {
+                customError(err);
                 throwError(err);
                 reject(err);
             });
