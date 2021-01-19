@@ -88,7 +88,7 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 				if((boolean) props.get("enableBatchIndexing")) {
 
 					try {
-						success = addToIndex(page, includeDescendants,forkJoinPool, (int)props.get("documentsCount"));
+                        success = addToIndex(page, includeDescendants,forkJoinPool, ((Number)props.get("documentsCount")).intValue());
 					} catch (InterruptedException | ExecutionException e) {
 						LOG.error("Indexing failed due to {}",e.getMessage());
 					}
@@ -108,7 +108,7 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 				// page still exists, delete path from index and include descendants if selected
 				if((boolean) props.get("enableBatchIndexing")) {
 					try {
-						success = deleteFromIndex(page, includeDescendants,forkJoinPool, (int)props.get("documentsCount"));
+						success = deleteFromIndex(page, includeDescendants,forkJoinPool, ((Number)props.get("documentsCount")).intValue());
 					} catch (InterruptedException | ExecutionException e) {
 						LOG.error("Deletion of Indexes failed due to {}",e.getMessage());
 					}
