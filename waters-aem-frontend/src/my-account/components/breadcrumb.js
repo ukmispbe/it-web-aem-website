@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import ReactSVG from 'react-svg';
 import routes from "../routes";
 import ScreenSizes from '../../scripts/screenSizes';
+import { setDisplayProperty } from "../../utils/userFunctions"
 
 const Breadcrumb = (props) => {
 
@@ -21,12 +22,23 @@ const Breadcrumb = (props) => {
             breadcrumb.classList.remove('show');
         };
     }, []);
+	
+	// To control the visibility for waters link
+	const toggleHomeLinkDisplay = () => {
+		const homeLink = document.querySelectorAll('.cmp-breadcrumb__item')[0];
+		if(homeLink && props.showBackToMyAccount && isMobile){
+		   setDisplayProperty(homeLink, 'none');
+		   return;
+		}
+		setDisplayProperty(homeLink, '');
+	}
 
     const renderBackToLink = () => {
         const parentRoutePath = currentPath.parentTrail[currentPath.parentTrail.length-1];
         const parentRouteName = Object.values(routes).filter(route=>route.path===parentRoutePath)[0].name;
-        const parentConfig = props.config.routes[parentRouteName];
-
+        const parentConfig = props.config.routes[parentRouteName];		
+		toggleHomeLinkDisplay();
+		
         return (
             <li className="cmp-breadcrumb-back">
                 <Link class="cmp-breadcrumb-back__link cmp-button--secondary cmp-button--no-border cmp-button--with-icon"
@@ -43,7 +55,8 @@ const Breadcrumb = (props) => {
         const linkRoute = Object.values(routes).filter(route=>route.path===linkPath)[0];
         const linkRouteName = linkRoute.name;
         const linkConfig = props.config.routes[linkRouteName];
-
+		toggleHomeLinkDisplay();
+		
         return (
             <li className="cmp-breadcrumb__item" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
                 <Link to={linkRoute.path} className='cmp-breadcrumb__item-link' itemprop="item">
@@ -53,13 +66,17 @@ const Breadcrumb = (props) => {
         )
     }
 
-    const renderBreadcrumb = () => {
+    const renderBreadcrumb = () => {		
         const parentLinks = currentPath.parentTrail.map(renderBreadcrumbLink);
         return parentLinks;
     }
 
+    const checkForRenderType = () => {
+        return props.showDefaultBreadcrumb ? renderBreadcrumb() : renderBackToLink();
+    }
+
     return ReactDOM.createPortal(
-        isMobile ? renderBackToLink() : renderBreadcrumb(),
+        isMobile ? checkForRenderType() : renderBreadcrumb(),
         breadcrumbList
     )
 }

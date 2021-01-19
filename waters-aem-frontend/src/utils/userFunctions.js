@@ -385,3 +385,5 @@ export const matchAddresses = (userDetailsAPIDetails, soldToAPIDetails) => {
 export const getCategoryReferenceType = () => {
     return isEprocurementUser() ? `&reference=sku` : '';
 }
+
+export const setDisplayProperty = (elem, val)=> elem.style.display = val;
