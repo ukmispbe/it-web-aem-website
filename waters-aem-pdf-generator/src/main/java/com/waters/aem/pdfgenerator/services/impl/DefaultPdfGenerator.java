@@ -1,16 +1,20 @@
 package com.waters.aem.pdfgenerator.services.impl;
 
-import static com.google.common.base.Preconditions.checkState;
-
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.net.URLConnection;
-
+import com.day.cq.commons.Externalizer;
+import com.day.cq.dam.api.Asset;
+import com.day.cq.dam.api.AssetManager;
+import com.day.cq.wcm.api.WCMMode;
+import com.icfolson.aem.library.api.link.builders.LinkBuilder;
+import com.icfolson.aem.library.api.page.PageDecorator;
+import com.itextpdf.html2pdf.ConverterProperties;
+import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.licensekey.LicenseKey;
+import com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription;
+import com.itextpdf.styledxmlparser.css.media.MediaType;
+import com.waters.aem.core.components.structure.page.ApplicationNotes;
+import com.waters.aem.pdfgenerator.services.PdfGenerator;
+import com.waters.aem.pdfgenerator.services.PdfGeneratorConfiguration;
 import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.io.IOUtils;
 import org.apache.sling.api.resource.PersistenceException;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
@@ -22,31 +26,26 @@ import org.osgi.service.metatype.annotations.Designate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.day.cq.commons.Externalizer;
-import com.day.cq.dam.api.Asset;
-import com.day.cq.dam.api.AssetManager;
-import com.day.cq.wcm.api.WCMMode;
-import com.icfolson.aem.library.api.link.builders.LinkBuilder;
-import com.icfolson.aem.library.api.page.PageDecorator;
-import com.itextpdf.html2pdf.ConverterProperties;
-import com.itextpdf.html2pdf.HtmlConverter;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
+
+import static com.google.common.base.Preconditions.checkState;
+
 import com.itextpdf.html2pdf.resolver.font.DefaultFontProvider;
 import com.itextpdf.io.font.FontProgram;
 import com.itextpdf.io.font.FontProgramFactory;
 import com.itextpdf.layout.font.FontProvider;
-import com.itextpdf.licensekey.LicenseKey;
-import com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription;
-import com.itextpdf.styledxmlparser.css.media.MediaType;
-import com.waters.aem.core.components.structure.page.ApplicationNotes;
-import com.waters.aem.pdfgenerator.services.PdfGenerator;
-import com.waters.aem.pdfgenerator.services.PdfGeneratorConfiguration;
+import org.apache.commons.io.IOUtils;
 
 @Component(service = PdfGenerator.class)
 @Designate(ocd = PdfGeneratorConfiguration.class)
 public final class DefaultPdfGenerator implements PdfGenerator {
 
     private static final Logger LOG = LoggerFactory.getLogger(DefaultPdfGenerator.class);
-    public static final String FONT = "/NotoSansCJKsc-Regular.ttf";
 
     @Reference
     private Externalizer externalizer;
