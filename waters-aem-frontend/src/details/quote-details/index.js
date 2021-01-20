@@ -143,12 +143,12 @@ class QuoteDetails extends Component {
        }
     }
 
-    renderReorderButton = className => {
+    renderPlaceOrderButton = (className,elementLocator) => {
         const {quoteDetails} = this.state;
         const {quoteStatus, quoteId} = quoteDetails
         return quoteStatus === DELIVERY_STATUS.OPEN && (
-            <div className={className} data-locator="quote-details-reorder">
-                <a className="cmp-button" href="#" onClick={(e) => this.placeOrderForQuote(e,quoteId)} >
+            <div className={className} data-locator={elementLocator}>
+                <a className="cmp-button" href="#" onClick={(e) => this.placeOrderForQuote(e,quoteId)} data-locator={`${elementLocator}-button`} >
                     {this.props.config.reorderTitle}
                 </a>
             </div>
@@ -228,10 +228,10 @@ class QuoteDetails extends Component {
                     />)} 
                 </div>
                 <div className={`${this.rootStyle}__order-info`}>
-                    {quoteCreationDate && (<div className={`${this.rootStyle}__order-date`} data-locator="order-date">
+                    {quoteCreationDate && (<div className={`${this.rootStyle}__order-date`} data-locator="quote-details-created-date">
                         {`${created} ${quoteCreationDate}`}
                     </div>)}
-                    {showExpireDate && quoteExpirationDate && (<div className={`${this.rootStyle}__order-date`} data-locator="order-date">
+                    {showExpireDate && quoteExpirationDate && (<div className={`${this.rootStyle}__order-date`} data-locator="quote-details-expire-date">
                     {`${expires} ${quoteExpirationDate}`}
                     </div>)}
                     <div className={`${this.rootStyle}__address-container`}>
@@ -269,7 +269,7 @@ class QuoteDetails extends Component {
                         <div className={`${this.rootStyle}__order-total_left`} data-locator="order-summary-label-total-price">{totalLabel}</div>
                         <div className={`${this.rootStyle}__order-total_right`} data-locator="order-summary-price-total-price"><h1>{totalPriceValue}</h1></div>
                     </div>
-                    {this.renderReorderButton(`${this.rootStyle}__reorder`)}
+                    {this.renderPlaceOrderButton(`${this.rootStyle}__reorder`,"quote-details-summary-order-place")}
                     {isShowQuoteAgainButton && this.renderQuoteAgainButton(`${this.rootStyle}__reorder`)}
                 </div>
             </div>
@@ -307,7 +307,7 @@ class QuoteDetails extends Component {
                             isQuoteDetails={true}
                         />
                     </div>
-                    {this.renderReorderButton("order-shipment__reorder")}
+                    {this.renderPlaceOrderButton("order-shipment__reorder","quote-details-shipment-order-place")}
                     {isShowQuoteAgainButton && this.renderQuoteAgainButton("order-shipment__reorder")}
                 </>
             )
