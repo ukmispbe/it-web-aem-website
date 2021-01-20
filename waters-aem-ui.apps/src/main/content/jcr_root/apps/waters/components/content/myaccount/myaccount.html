@@ -42,8 +42,8 @@
                             "isHidden": "true"
                         },
                         {
-                            "text": "${myaccount.showQuoteHistory ? 'Quote History' : '' @ i18n, context='unsafe'}",
-                            "url": "${myaccount.showQuoteHistory ? '#quotehistory' : '' @ context='unsafe'}",
+                            "text": "${myaccount.disableQuoteHistory ? '' : 'Quote History' @ i18n, context='unsafe'}",
+                            "url": "${myaccount.disableQuoteHistory ? '' : '#quotehistory' @ context='unsafe'}",
                             "linkName": "Quote History"
                         },
                         {

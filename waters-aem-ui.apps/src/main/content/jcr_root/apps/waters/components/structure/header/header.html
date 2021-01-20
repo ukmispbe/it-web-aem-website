@@ -129,8 +129,8 @@
                                         "isHiddenForEprocUser": "true"
                                     },
                                     {
-                                        "text": "${header.showQuoteHistory ? 'Quote History' : '' @ i18n, context='unsafe'}",
-                                        "url": "${!header.eprocurement && header.showQuoteHistory ? header.quotesLink : '' @ context='unsafe'}",
+                                        "text": "${header.disableQuoteHistory ?  '' : 'Quote History' @ i18n, context='unsafe'}",
+                                        "url": "${!header.eprocurement && header.disableQuoteHistory ? '' : header.quotesLink  @ context='unsafe'}",
                                         "target": "_self",
                                         "class": "dropdown__item-list__my-quotes",
                                         "linkName": "Quote History",
