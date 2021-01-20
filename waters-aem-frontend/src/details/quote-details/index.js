@@ -106,7 +106,7 @@ class QuoteDetails extends Component {
 
     renderAddress = (address = {}) => {
         if(address){
-            const addressArray = getFullCompanyAddress(address, false);
+            const addressArray = getFullCompanyAddress(address, true);
             return (
                 <>
                     {addressArray.map((addressLine) => <div className={`${this.rootStyle}-address1`} data-locator="order-details-address">{addressLine}</div>)}
