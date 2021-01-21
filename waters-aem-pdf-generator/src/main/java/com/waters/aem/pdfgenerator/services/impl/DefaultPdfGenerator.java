@@ -140,11 +140,19 @@ public final class DefaultPdfGenerator implements PdfGenerator {
         throws IOException {
         final InputStream stream = getPageInputStream(page, publish);
         ConverterProperties properties = new ConverterProperties();
-        if(page.getPath().contains("/cn/zh")) {
+        String[] fonts = {
+        	    "/NotoSansCJKsc-Regular.otf",
+        	    "/NotoSansCJKjp-Regular.otf",
+        	    "/NotoSansCJKkr-Regular.otf"
+        	};
+        String pagePath = page.getPath(); 
+        if(pagePath.contains("/cn/zh") || pagePath.contains("/kr/ko") || pagePath.contains("/jp/ja")) {
         FontProvider fontProvider = new DefaultFontProvider(false, false, false);
-        byte[] fontContents = IOUtils.toByteArray(getClass().getResourceAsStream("/NotoSansCJKsc-Regular.otf"));
+        for (String font : fonts) {
+        byte[] fontContents = IOUtils.toByteArray(getClass().getResourceAsStream(font));
         FontProgram fontProgram = FontProgramFactory.createFont(fontContents);
         fontProvider.addFont(fontProgram);
+        }
         properties.setFontProvider(fontProvider);
         }
         HtmlConverter.convertToPdf(stream, pdfOutputStream, properties
