@@ -256,21 +256,24 @@ public final class Footer extends AbstractComponent implements ComponentExporter
             String countryPagesJson = getCountryPagesJson();
             ResourceResolver resourceResolver = resourceResolverService.getResourceResolver("watersService");
             Resource footerResource = resourceResolver.getResource(resource.getPath());
-            ModifiableValueMap modifiableValueMap = footerResource.adaptTo(ModifiableValueMap.class);
-            modifiableValueMap.put(PROPERTY_COUNTRY_NAME, getCountryName());
-            String countryPagesJsonVal = StringUtils.isNotBlank(countryPagesJson) ? countryPagesJson : "";
-            modifiableValueMap.put(PROPERTY_COUNTRY_LIST_JSON, isEprocurement() ? "" : countryPagesJsonVal);
-            List<CountryLanguageSelectorItem> languagePageList = getLanguagePages();
-            if (!languagePageList.isEmpty()) {
-                Map jsonMap = new LinkedHashMap();
-                Iterator<CountryLanguageSelectorItem> languageSelectorItemIterator = languagePageList.iterator();
-                while (languageSelectorItemIterator.hasNext()) {
-                    CountryLanguageSelectorItem countryLanguageSelectorItem = languageSelectorItemIterator.next();
-                    jsonMap.put(countryLanguageSelectorItem.getLanguageTitle(), countryLanguageSelectorItem.getPage().getHref());
+            if(footerResource != null){
+                ModifiableValueMap modifiableValueMap = footerResource.adaptTo(ModifiableValueMap.class);
+                modifiableValueMap.put(PROPERTY_COUNTRY_NAME, getCountryName());
+                String countryPagesJsonVal = StringUtils.isNotBlank(countryPagesJson) ? countryPagesJson : "";
+                modifiableValueMap.put(PROPERTY_COUNTRY_LIST_JSON, isEprocurement() ? "" : countryPagesJsonVal);
+                List<CountryLanguageSelectorItem> languagePageList = getLanguagePages();
+                if (!languagePageList.isEmpty()) {
+                    Map jsonMap = new LinkedHashMap();
+                    Iterator<CountryLanguageSelectorItem> languageSelectorItemIterator = languagePageList.iterator();
+                    while (languageSelectorItemIterator.hasNext()) {
+                        CountryLanguageSelectorItem countryLanguageSelectorItem = languageSelectorItemIterator.next();
+                        jsonMap.put(countryLanguageSelectorItem.getLanguageTitle(), countryLanguageSelectorItem.getPage().getHref());
+                    }
+                    modifiableValueMap.put(PROPERTY_LANGUAGE_LIST_JSON, jsonMap.size() > 0 ? MAPPER.writeValueAsString(jsonMap) : "");
                 }
-                modifiableValueMap.put(PROPERTY_LANGUAGE_LIST_JSON, jsonMap.size() > 0 ? MAPPER.writeValueAsString(jsonMap) : "");
+                resourceResolver.commit();
             }
-            resourceResolver.commit();
+
         } catch (Exception e) {
             LOG.error("Exception occurred while setting custom jcr properties: {}", e);
         }
