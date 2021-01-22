@@ -61,65 +61,6 @@ exports[`Feature: Aside Component Scenario: Rendering When children are provided
     className="cmp-search__sort-filter__container"
   >
     <div
-      className="cmp-search-sortby"
-      data-locator="sortby-label"
-    >
-      <h3>
-        Sort By
-      </h3>
-      <div
-        aria-describedby="cmp-custom-dropdown__single-value"
-        tabindex="0"
-      >
-        <div
-          className="css-1pcexqc-container"
-          onKeyDown={[Function]}
-        >
-          <div
-            className="css-28883k-control cmp-custom-dropdown__control"
-            onMouseDown={[Function]}
-            onTouchEnd={[Function]}
-          >
-            <div
-              className="css-1hwfws3 cmp-custom-dropdown__value-container"
-            >
-              <div
-                className="css-151xaom-placeholder cmp-custom-dropdown__placeholder"
-              >
-                
-              </div>
-              <input
-                className="css-gj7qu5-dummyInput"
-                disabled={false}
-                id="react-select-3-input"
-                onBlur={[Function]}
-                onChange={[Function]}
-                onFocus={[Function]}
-                readOnly={true}
-                tabIndex="-1"
-                value=""
-              />
-            </div>
-            <div
-              className="css-1wy0on6 cmp-custom-dropdown__indicators"
-            >
-              <span
-                className="css-1hyfx7x cmp-custom-dropdown__indicator-separator"
-              />
-              <div
-                aria-hidden="true"
-                className="css-16pqwjk-indicatorContainer cmp-custom-dropdown__indicator cmp-custom-dropdown__dropdown-indicator"
-                onMouseDown={[Function]}
-                onTouchEnd={[Function]}
-              >
-                <div />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
       className="child"
     />
   </div>
@@ -185,67 +126,7 @@ exports[`Feature: Aside Component Scenario: Rendering When no children are provi
   </div>
   <div
     className="cmp-search__sort-filter__container"
-  >
-    <div
-      className="cmp-search-sortby"
-      data-locator="sortby-label"
-    >
-      <h3>
-        Sort By
-      </h3>
-      <div
-        aria-describedby="cmp-custom-dropdown__single-value"
-        tabindex="0"
-      >
-        <div
-          className="css-1pcexqc-container"
-          onKeyDown={[Function]}
-        >
-          <div
-            className="css-28883k-control cmp-custom-dropdown__control"
-            onMouseDown={[Function]}
-            onTouchEnd={[Function]}
-          >
-            <div
-              className="css-1hwfws3 cmp-custom-dropdown__value-container"
-            >
-              <div
-                className="css-151xaom-placeholder cmp-custom-dropdown__placeholder"
-              >
-                
-              </div>
-              <input
-                className="css-gj7qu5-dummyInput"
-                disabled={false}
-                id="react-select-2-input"
-                onBlur={[Function]}
-                onChange={[Function]}
-                onFocus={[Function]}
-                readOnly={true}
-                tabIndex="-1"
-                value=""
-              />
-            </div>
-            <div
-              className="css-1wy0on6 cmp-custom-dropdown__indicators"
-            >
-              <span
-                className="css-1hyfx7x cmp-custom-dropdown__indicator-separator"
-              />
-              <div
-                aria-hidden="true"
-                className="css-16pqwjk-indicatorContainer cmp-custom-dropdown__indicator cmp-custom-dropdown__dropdown-indicator"
-                onMouseDown={[Function]}
-                onTouchEnd={[Function]}
-              >
-                <div />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  />
 </div>
 `;
 
@@ -446,6 +327,26 @@ exports[`Feature: ResultsBody Component Scenario: Rendering When sorting by best
     className="cmp-search__container__header clearfix"
   >
     <div
+      className="cmp-search__resultsCount"
+      data-locator="results-count"
+    >
+      <div
+        class="query-box"
+      >
+        <span
+          class="results"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "Showing <span class='count'>0</span> results",
+            }
+          }
+        />
+      </div>
+      <hr
+        className="small-accent-rule"
+      />
+    </div>
+    <div
       className="cmp-search-show-btn"
     >
       <a
@@ -475,6 +376,20 @@ exports[`Feature: ResultsBody Component Scenario: Rendering When sorting by best
     className="cmp-search__sorted-container"
   >
     <div
+      className="cmp-search-filters__emptytags"
+    />
+  </div>
+</div>
+`;
+
+exports[`Feature: ResultsBody Component Scenario: Rendering When sorting by most recent Then it should match snapshot 1`] = `
+<div
+  className="cmp-search__container"
+>
+  <div
+    className="cmp-search__container__header clearfix"
+  >
+    <div
       className="cmp-search__resultsCount"
       data-locator="results-count"
     >
@@ -494,20 +409,6 @@ exports[`Feature: ResultsBody Component Scenario: Rendering When sorting by best
         className="small-accent-rule"
       />
     </div>
-    <div
-      className="cmp-search-filters__emptytags"
-    />
-  </div>
-</div>
-`;
-
-exports[`Feature: ResultsBody Component Scenario: Rendering When sorting by most recent Then it should match snapshot 1`] = `
-<div
-  className="cmp-search__container"
->
-  <div
-    className="cmp-search__container__header clearfix"
-  >
     <div
       className="cmp-search-show-btn"
     >
@@ -537,26 +438,6 @@ exports[`Feature: ResultsBody Component Scenario: Rendering When sorting by most
   <div
     className="cmp-search__sorted-container"
   >
-    <div
-      className="cmp-search__resultsCount"
-      data-locator="results-count"
-    >
-      <div
-        class="query-box"
-      >
-        <span
-          class="results"
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "Showing <span class='count'>0</span> results",
-            }
-          }
-        />
-      </div>
-      <hr
-        className="small-accent-rule"
-      />
-    </div>
     <div
       className="cmp-search-filters__emptytags"
     />

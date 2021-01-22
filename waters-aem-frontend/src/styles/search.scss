@@ -525,6 +525,18 @@ div.cmp-search__no-results {
 .cmp-search__sorted-container {
     color: $color-font-medium;
 
+    .cmp-search__resultsCount {
+        float: left;
+        width: 50%;
+    }
+
+    .cmp-search-sortby {
+        float: right;
+        width: 270px;
+        text-align: left;
+    }
+
+
     @include mobile {
         display: flex;
         flex-wrap: wrap;
@@ -551,7 +563,8 @@ div.cmp-search__no-results {
     width: 100%;
     @include mobile {
         display: block;
-        padding: $space-m 0;
+        padding-bottom: $space-xs;
+        padding-top: 0;
         float: none;
         width: 100%;
     }
@@ -564,9 +577,6 @@ div.cmp-search__no-results {
     }
 }
 
-div.cmp-search__sorted-by {
-    padding: $space-s 0;
-}
 .cmp-search-overlay {
     position: fixed;
     top: 0;

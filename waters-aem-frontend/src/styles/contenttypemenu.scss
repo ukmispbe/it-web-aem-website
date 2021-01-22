@@ -1,7 +1,5 @@
 .content-type-menu-container {
-    margin-top: $space-l;
-
-    @include tablet-and-under {
+    @include mobile {
         margin-top: $space-l;
     }
 }

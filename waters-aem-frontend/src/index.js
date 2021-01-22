@@ -623,7 +623,7 @@ if (quickOrderContainer) {
     const skuConfig = JSON.parse(document.getElementById('commerce-configs-json').innerHTML);
     ReactDOM.render(
         <Suspense fallback={<div>Loading...</div>}><QuickOrder {...props} skuConfig={skuConfig} /></Suspense>,
-        container
+        quickOrderContainer
     );
 }
 // End Quick Order Component
