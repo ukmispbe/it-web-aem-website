@@ -81,7 +81,6 @@ const CreateAccountForm = ({
     registrationData.data.userAddress = addressDetails;
     registrationData.data.captcha  = data.shippingCaptcha;
     setRegistrationData(registrationData);
-    console.log("Data to Submit: ", registrationData.data);
     registrationSubmit.call(this, registrationData.data);
     return;
   }

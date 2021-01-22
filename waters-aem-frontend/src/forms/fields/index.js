@@ -5,18 +5,18 @@ import { useFieldApi } from '../form';
 
 import Input from './input';
 import TextArea from './textarea';
-import CheckboxOrRadio from './checkboxOrRadio';
+import CheckboxOrRadio from './checkbox-radio';
 import Dropdown from './dropdown';
 import Hr from './hr';
 import Captcha from './captcha';
 import Body from './body';
 import Link from './link';
-import TextWithLinks from './textWithLinks';
+import TextWithLinks from './text-with-links';
 import Label from './label';
 import File from './file';
-import AddLineButton from './addLineButton';
-import NavigateLink  from './navigateLink';
-import FormNotification from './formNotification';
+import AddLineButton from './add-line-button';
+import NavigateLink  from './navigate-link';
+import FormNotification from './form-notification';
 
 const formType = {
     text: Input,
