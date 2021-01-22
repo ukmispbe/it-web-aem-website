@@ -9,7 +9,7 @@ import AddToCartBody from '../../sku-details/views/addToCartModal';
 import Analytics, { analyticTypes } from '../../analytics';
 import { DELIVERY_STATUS, STORE, CHECKOUT } from '../../constants';
 import DeliveryStatus from '../../common/delivery-status';
-import { getFullCompanyAddress, getCartCheckoutUrl, getUrlPath, getUrlParameter } from '../../utils/userFunctions';
+import { getFullCompanyAddress, getCartCheckoutUrl, getUrlPath, getUrlParameter, convertToBoolean, getApprovalStatus } from '../../utils/userFunctions';
 import SessionStore from '../../stores/sessionStore';
 
 class QuoteDetails extends Component {
@@ -146,7 +146,14 @@ class QuoteDetails extends Component {
     renderPlaceOrderButton = (className,elementLocator) => {
         const {quoteDetails} = this.state;
         const {quoteStatus, quoteId} = quoteDetails
-        return quoteStatus === DELIVERY_STATUS.OPEN && (
+        let commerceConfigs = document.getElementById('commerce-configs-json');
+        if(commerceConfigs){
+            commerceConfigs = JSON.parse(commerceConfigs.innerHTML);
+        }
+        const {isQuoteDisabled,isCheckoutDisabled} = commerceConfigs;
+        const approvalStatus = getApprovalStatus()
+        const isDisabled = convertToBoolean(isQuoteDisabled) || convertToBoolean(isCheckoutDisabled) || approvalStatus === 'R';
+        return quoteStatus === DELIVERY_STATUS.OPEN && !isDisabled && (
             <div className={className} data-locator={elementLocator}>
                 <a className="cmp-button" href="#" onClick={(e) => this.placeOrderForQuote(e,quoteId)} data-locator={`${elementLocator}-button`} >
                     {this.props.config.reorderTitle}
