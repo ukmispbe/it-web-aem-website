@@ -9,9 +9,23 @@ class QuoteListItem extends Component {
         super(props);
     }
 
+    quoteAgain = (e) => {
+        e.preventDefault();
+        const {setAnalytics,data} = this.props;   
+         const {quoteId} = data;
+        if(quoteId){
+         const quoteAgainModel ={
+             detail:{
+                 quoteId,
+             }
+         }
+         setAnalytics('quoteAgainClick', quoteAgainModel)       
+        }
+    }
+
     renderQuoteAgainButton = () => {
         return (
-            <a className="cmp-button" href="/#" >
+            <a className="cmp-button" href="/#" onClick={(e) => this.quoteAgain(e)} >
                 {this.props.quoteAgainTitle}
             </a>
         )

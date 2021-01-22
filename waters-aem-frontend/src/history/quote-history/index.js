@@ -161,7 +161,7 @@ class QuoteHistory extends Component {
       const {currentPage, pageSize} = this.state;
       const  userId = getUserId();
       const soldToId = getSoldToId() || getDummySoldToId();
-      let queryParam = `userId=${userId}&soldToId=${soldToId}&currentPage=${currentPage}&pageSize=${pageSize}&fields=FULL`;
+      let queryParam = `userId=${userId}&soldToId=${soldToId}&currentPage=${currentPage}&pageSize=${pageSize}&fields=DEFAULT`;
       if(activeTabFilter && activeTabFilter !== "ALL"){
         queryParam = `${queryParam}&state=${activeTabFilter}`;
       }
@@ -305,7 +305,8 @@ class QuoteHistory extends Component {
                                 quoteAgainTitle={this.props.configs.quoteAgainTitle}
                                 index={index}
                                 isShowQuoteAgainButton={this.props.configs.isShowQuoteAgainButton}
-								newQuote={this.props.configs.newQuote}
+                                newQuote={this.props.configs.newQuote}
+                                setAnalytics={this.setAnalytics}
                             />
                         ))}
                         {listCount > 0 && this.renderPagination()}           
