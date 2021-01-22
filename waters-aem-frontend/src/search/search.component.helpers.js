@@ -394,6 +394,8 @@ const ResultsBody = ({
                 <ResultsCount
                     {...resultsProps}
                     text={text}
+                    categoryOptions={categoryProps.categories}
+                    categoryValue={categoryProps.activeIndex}
                     onRelatedSuggestionClick={resultsEvents.onRelatedSuggestionClick} />
 
                 <FilterTagList
