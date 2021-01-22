@@ -77,7 +77,7 @@
     }
 
     .sectioncontainer {
-        page-break-before: always;
+        page-break-before: avoid;
     }
 
     h4, p, li {
@@ -127,12 +127,13 @@
 
     .cmp-section-container .cmp-text {
         p, li {
-            width: 120%;
+            width: 100%;
         }
     }
 
     .cmp-image__title {
         font-size: $font-size-text-pcs;
+        font-weight: 300;
     }
 
     .cmp-accent-rule hr {
@@ -162,11 +163,71 @@
         font-size: $font-size-text-pcs;
     }
 
-    .cmp-title {
-        width: 500px;
+    @page { 
+        margin: 2cm 
     }
 
-    .cmp-tag-list {
-        width: 500px;
+    .optanon-alert-box-wrapper, #surveyContent {
+        display: none !important;
+    }
+    
+    .aem-Grid.aem-Grid--default--12 > .aem-GridColumn.aem-GridColumn--default--9{
+        width: 100%;
+    }
+
+    .aem-Grid.aem-Grid--default--12 > .aem-GridColumn.aem-GridColumn--default--5{
+        width: 100%;
+    }
+
+    .aem-Grid.aem-Grid--default--12 > .aem-GridColumn.aem-GridColumn--default--7 {
+        width: 100%;
+    }
+
+    .aem-Grid.aem-Grid--default--9 > .aem-GridColumn.aem-GridColumn--default--7 {
+        width: 100%;
+    }
+
+    .aem-Grid.aem-Grid--default--9 > .aem-GridColumn.aem-GridColumn--default--5 {
+        width: 100%;
+    }
+
+    .aem-GridColumn {
+        padding-right: 0;
+    }
+
+    .cmp-tag-list, .cmp-title {
+        width: 100%;
+    }
+
+    .cmp-title {
+        padding-right: 2cm;
+    }
+
+    img {
+        max-width: 100%;
+     }
+
+    table, th, td {
+        border-collapse: collapse;
+        width:  100%;
+        text-align: right;
+    }
+
+    table {
+        width: 100%;
+        table-layout: fixed;
+        overflow-wrap: break-word;
+    }
+
+    p a[href^=http]:after, li a[href^=http]:after {
+        content:" <" attr(href) "> ";
+    }
+
+    p a[href^="#"]:after, li a[href^="#"]:after {
+        content: "";
+    }
+
+    a:after > img {
+         content: "";
     }
 }
