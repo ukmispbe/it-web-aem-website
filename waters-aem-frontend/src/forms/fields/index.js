@@ -14,6 +14,9 @@ import Link from './link';
 import TextWithLinks from './textWithLinks';
 import Label from './label';
 import File from './file';
+import AddLineButton from './addLineButton';
+import NavigateLink  from './navigateLink';
+import FormNotification from './formNotification';
 
 const formType = {
     text: Input,
@@ -31,7 +34,10 @@ const formType = {
     link: Link,
     textwithlinks: TextWithLinks,
     label: Label,
-    file: File
+    file: File,
+    addLineButton: AddLineButton,
+    navigateLink: NavigateLink,
+    formNotification: FormNotification
 };
 
 const Field = ({}) => {

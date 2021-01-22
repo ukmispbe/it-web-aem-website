@@ -179,7 +179,7 @@ export const getFullCompanyAddress = (address, includeCountryName) => {
 
 export const getCountryName = (countryCode, config) => {
     if (!countryCode || countryCode.trim() === '') return '';
-    const fields = config.form.fields;
+    const fields = config.form ? config.form.fields : config.fields;
 
     const countryField = fields.filter(field => {
         return field.name === 'country';

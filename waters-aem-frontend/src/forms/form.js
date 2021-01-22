@@ -20,6 +20,7 @@ import { elementLocator } from '../utils/eCommerceFunctions';
 import { getAddressesByType, getFullCompanyAddress } from '../utils/userFunctions';
 import SoldToDetailsLazy from '../my-account/services/SoldToDetailsLazy';
 import countryList from './services/country-list';
+import { retrieveData } from './services/retrieve';
 
 const FormApi = createContext(null);
 FormApi.displayName = 'FormApi';
@@ -36,7 +37,11 @@ const Form = ({
     removeNotifications,
     defaultValues,
     callback,
-    setProfileData
+    setProfileData,
+    addFieldFn,
+    toggleAddressFn,
+    navigateBackFn,
+    addAddressesFn
 }) => {
     if (defaultValues) {
         defaultValues.communications =
@@ -139,6 +144,51 @@ const Form = ({
         });
         config.fields = [...fields];
     };
+
+    // Scroll to Top of form when a Form with a different name loads
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [config.formName])
+
+    useEffect(() => {
+        if (config.formName === "registrationAddress") {
+            // Call API & Update Config
+            retrieveData(config.statesUrl.replace("{Country}", defaultValues.country))
+            .then((results) => {
+                if (results[0]) {
+                    const showStates = results[0].showStates;
+                    if (showStates) {
+                        // Enable shippingState & billingState and create options
+                        let options = [];
+                        const countryStates = results[0].states;
+
+                        countryStates.map((state) => {
+                            const option = { "stateCode": state.code, "displayName": state.name };
+                            options.push(option)
+                        });
+                        config.fields.map(field => {
+                            if (field.name === "shippingState" || field.name === "billingState") {
+                                field.options = options;
+                                if (field.name === "shippingState") {
+                                    field.active = true;
+                                }
+                            }
+                        });
+                    }
+                    else {
+                        // Disable shippingState & billingState fields
+                        config.fields.map(field => {
+                            if (field.name === "shippingState" || field.name === "billingState") {
+                                field.active = false;
+                            }
+                        });
+                    }
+                }
+                triggerValidation(["sameAddress"]);
+            });
+        }
+
+    }, [config]);
 
     // Hook to check the user's Authentication Status and redirect if needed
     useEffect(() => {
@@ -297,6 +347,10 @@ const Form = ({
             deactivateField,
             setCountrySaved,
             regionalConfig,
+            addFieldFn,
+            toggleAddressFn,
+            navigateBackFn,
+            addAddressesFn,
             setErrorBoundaryToTrue,
             resetErrorBoundaryToFalse,
             removeNotifications,
@@ -334,7 +388,7 @@ const Form = ({
     });
 
     const renderForm = () => {
-            return (<form
+            return (<form autocomplete="off"
                 className={`cmp-form cmp-form--registration ${config.customFormClass || ''}`}
                 data-locator={`${config.elementLocator || 'form-component'}`}
                 onSubmit={handleSubmit(
