@@ -35,6 +35,12 @@ import java.net.URLConnection;
 
 import static com.google.common.base.Preconditions.checkState;
 
+import com.itextpdf.html2pdf.resolver.font.DefaultFontProvider;
+import com.itextpdf.io.font.FontProgram;
+import com.itextpdf.io.font.FontProgramFactory;
+import com.itextpdf.layout.font.FontProvider;
+import org.apache.commons.io.IOUtils;
+
 @Component(service = PdfGenerator.class)
 @Designate(ocd = PdfGeneratorConfiguration.class)
 public final class DefaultPdfGenerator implements PdfGenerator {
@@ -133,8 +139,23 @@ public final class DefaultPdfGenerator implements PdfGenerator {
         final ByteArrayOutputStream pdfOutputStream)
         throws IOException {
         final InputStream stream = getPageInputStream(page, publish);
-
-        HtmlConverter.convertToPdf(stream, pdfOutputStream, new ConverterProperties()
+        ConverterProperties properties = new ConverterProperties();
+        String[] fonts = {
+        	    "/NotoSansCJKsc-Regular.otf",
+        	    "/NotoSansCJKjp-Regular.otf",
+        	    "/NotoSansCJKkr-Regular.otf"
+        	};
+        String pagePath = page.getPath(); 
+        if(pagePath.contains("/cn/zh") || pagePath.contains("/kr/ko") || pagePath.contains("/jp/ja")) {
+        FontProvider fontProvider = new DefaultFontProvider(false, false, false);
+        for (String font : fonts) {
+        byte[] fontContents = IOUtils.toByteArray(getClass().getResourceAsStream(font));
+        FontProgram fontProgram = FontProgramFactory.createFont(fontContents);
+        fontProvider.addFont(fontProgram);
+        }
+        properties.setFontProvider(fontProvider);
+        }
+        HtmlConverter.convertToPdf(stream, pdfOutputStream, properties
             .setBaseUri(baseUri)
             .setMediaDeviceDescription(new MediaDeviceDescription(MediaType.PRINT)));
     }
