@@ -1,14 +1,14 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[4],{
 
-/***/ 30:
+/***/ 32:
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
-module.exports = {"colorBorderDark":"#9ca7b0","colorGray50":"#4f5b64","colorBackgroundLight":"#f4f6f7","colorWhite":"#fff","colorBlue50":"#07b","borderRadius":"4px","spaceXXXS":".25em","spaceXXS":".5em","spaceXS":".75em","spaceS":"1em"};
+module.exports = {"colorBorderDark":"#9ca7b0","colorGray50":"#4f5b64","colorBackgroundLight":"#f6f8f9","colorWhite":"#fff","colorBlue50":"#07b","borderRadius":"4px","spaceXXXS":".25em","spaceXXS":".5em","spaceXS":".75em","spaceS":"1em"};
 
 /***/ }),
 
-/***/ 36:
+/***/ 39:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -23,22 +23,22 @@ __webpack_require__.d(__webpack_exports__, "d", function() { return /* binding *
 __webpack_require__.d(__webpack_exports__, "h", function() { return /* binding */ shopAllCartContext; });
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray.js + 3 modules
-var slicedToArray = __webpack_require__(8);
+var slicedToArray = __webpack_require__(7);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js
-var classCallCheck = __webpack_require__(13);
+var classCallCheck = __webpack_require__(11);
 
-// EXTERNAL MODULE: ./src/scripts/inlineSVG.js
-var inlineSVG = __webpack_require__(41);
+// EXTERNAL MODULE: ./src/scripts/inlineSVG.js + 1 modules
+var inlineSVG = __webpack_require__(44);
 
 // EXTERNAL MODULE: ./src/scripts/DigitalData.js
-var DigitalData = __webpack_require__(7);
+var DigitalData = __webpack_require__(8);
 
 // EXTERNAL MODULE: ./src/stores/sessionStore.js
 var sessionStore = __webpack_require__(2);
 
 // EXTERNAL MODULE: ./src/stores/cookieStore.js
-var cookieStore = __webpack_require__(42);
+var cookieStore = __webpack_require__(45);
 
 // CONCATENATED MODULE: ./src/analytics/eventTypes.js
 var eventTypes = {
@@ -397,7 +397,168 @@ var _analytics$analyticTy = Object(slicedToArray["a" /* default */])(analytics.a
 
 /***/ }),
 
-/***/ 520:
+/***/ 521:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(11);
+/* harmony import */ var C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(16);
+/* harmony import */ var C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(18);
+/* harmony import */ var C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(19);
+/* harmony import */ var C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(20);
+/* harmony import */ var C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(41);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(0);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_6__);
+
+
+
+
+
+
+
+
+var Input = /*#__PURE__*/function (_PureComponent) {
+  Object(C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])(Input, _PureComponent);
+
+  function Input(props) {
+    var _this;
+
+    Object(C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(this, Input);
+
+    _this = Object(C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(this, Object(C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(Input).call(this, props));
+    _this.state = {
+      value: '',
+      isApplyDisabled: false
+    };
+    _this.onChange = _this.onChange.bind(Object(C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])(Object(C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])(_this)));
+    _this.onBlur = _this.onBlur.bind(Object(C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])(Object(C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])(_this)));
+    _this.onKeyPress = _this.onKeyPress.bind(Object(C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])(Object(C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])(_this)));
+    _this.onKeyUp = _this.onKeyUp.bind(Object(C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])(Object(C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])(_this)));
+    _this.onFocus = _this.onFocus.bind(Object(C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])(Object(C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])(_this)));
+    return _this;
+  }
+
+  Object(C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(Input, [{
+    key: "onChange",
+    value: function onChange(e) {
+      var _this$props = this.props,
+          onChange = _this$props.onChange,
+          type = _this$props.type;
+      this.setState({
+        value: e.target.value
+      });
+      var value = e.target.value;
+      this.setState({
+        isApplyDisabled: value ? false : true
+      });
+      var currentValue = type === 'file' ? e.target.files : e.target.value;
+      onChange(currentValue);
+    }
+  }, {
+    key: "onBlur",
+    value: function onBlur(e) {
+      var onBlur = this.props.onBlur;
+      onBlur(e);
+    }
+  }, {
+    key: "onKeyPress",
+    value: function onKeyPress(e) {
+      var onKeyPress = this.props.onKeyPress;
+      onKeyPress(e);
+    }
+  }, {
+    key: "onKeyUp",
+    value: function onKeyUp(e) {
+      var onKeyUp = this.props.onKeyUp;
+      onKeyUp(e);
+    }
+  }, {
+    key: "onFocus",
+    value: function onFocus(e) {
+      var onFocus = this.props.onFocus;
+      onFocus(e);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this$props2 = this.props,
+          id = _this$props2.id,
+          type = _this$props2.type,
+          showLabel = _this$props2.showLabel,
+          name = _this$props2.name,
+          className = _this$props2.className,
+          placeholder = _this$props2.placeholder,
+          value = _this$props2.value,
+          minLength = _this$props2.minLength,
+          maxLength = _this$props2.maxLength,
+          readOnly = _this$props2.readOnly,
+          disabled = _this$props2.disabled,
+          ariaLabel = _this$props2.ariaLabel,
+          elementLocator = _this$props2.elementLocator,
+          accept = _this$props2.accept,
+          maxInputLength = _this$props2.maxInputLength,
+          setRef = _this$props2.setRef;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_6___default.a.Fragment, null, showLabel && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("label", {
+        htmlFor: id,
+        className: "visually-hidden"
+      }, name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("input", {
+        id: id,
+        type: type,
+        name: name,
+        className: className,
+        placeholder: placeholder,
+        value: type !== 'file' ? value : undefined,
+        readOnly: readOnly,
+        disabled: disabled,
+        "aria-label": ariaLabel,
+        "data-locator": elementLocator || "input-".concat(type, "-").concat(name),
+        min: minLength,
+        max: maxLength,
+        maxLength: maxInputLength,
+        onChange: this.onChange,
+        onBlur: this.onBlur,
+        onKeyPress: this.onKeyPress,
+        onKeyUp: this.onKeyUp,
+        onFocus: this.onFocus,
+        accept: accept,
+        autoComplete: "off",
+        ref: function ref(_ref) {
+          return setRef(_ref);
+        }
+      }));
+    }
+  }]);
+
+  return Input;
+}(react__WEBPACK_IMPORTED_MODULE_6__["PureComponent"]);
+
+Input.defaultProps = {
+  id: '',
+  name: '',
+  type: 'text',
+  showLabel: true,
+  className: '',
+  placeholder: '',
+  value: '',
+  minLength: 0,
+  maxLength: 999,
+  ariaLabel: '',
+  readOnly: false,
+  disabled: false,
+  elementLocator: '',
+  onChange: function onChange() {},
+  onBlur: function onBlur() {},
+  onKeyPress: function onKeyPress() {},
+  onKeyUp: function onKeyUp() {},
+  onFocus: function onFocus() {},
+  accept: '',
+  setRef: function setRef() {}
+};
+/* harmony default export */ __webpack_exports__["a"] = (Input);
+
+/***/ }),
+
+/***/ 529:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -409,39 +570,39 @@ __webpack_require__.d(__webpack_exports__, "useFormApi", function() { return /* 
 __webpack_require__.d(__webpack_exports__, "useFieldApi", function() { return /* binding */ useFieldApi; });
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty.js
-var defineProperty = __webpack_require__(69);
+var defineProperty = __webpack_require__(36);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 3 modules
-var toConsumableArray = __webpack_require__(138);
+var toConsumableArray = __webpack_require__(145);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray.js + 3 modules
-var slicedToArray = __webpack_require__(8);
+var slicedToArray = __webpack_require__(7);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectSpread.js
-var objectSpread = __webpack_require__(16);
+var objectSpread = __webpack_require__(15);
 
 // EXTERNAL MODULE: ./node_modules/react/index.js
 var react = __webpack_require__(0);
 var react_default = /*#__PURE__*/__webpack_require__.n(react);
 
 // EXTERNAL MODULE: ./node_modules/react-hook-form/dist/react-hook-form.ie11.js
-var react_hook_form_ie11 = __webpack_require__(499);
+var react_hook_form_ie11 = __webpack_require__(509);
 var react_hook_form_ie11_default = /*#__PURE__*/__webpack_require__.n(react_hook_form_ie11);
 
 // EXTERNAL MODULE: ./src/forms/fields/utils/stateWatcher.js + 1 modules
-var stateWatcher = __webpack_require__(480);
+var stateWatcher = __webpack_require__(490);
 
 // EXTERNAL MODULE: ./src/scripts/DigitalData.js
-var DigitalData = __webpack_require__(7);
+var DigitalData = __webpack_require__(8);
 
 // EXTERNAL MODULE: ./src/search/ErrorBoundary.js
-var ErrorBoundary = __webpack_require__(49);
+var ErrorBoundary = __webpack_require__(52);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectDestructuringEmpty.js
-var objectDestructuringEmpty = __webpack_require__(479);
+var objectDestructuringEmpty = __webpack_require__(489);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/typeof.js
-var esm_typeof = __webpack_require__(34);
+var esm_typeof = __webpack_require__(33);
 
 // CONCATENATED MODULE: ./src/forms/fields/components/field-validation-display.js
 
@@ -477,19 +638,19 @@ var field_validation_display_FieldValidationDisplay = function FieldValidationDi
   };
 
   var renderClean = function renderClean() {
-    return react_default.a.createElement("div", {
+    return /*#__PURE__*/react_default.a.createElement("div", {
       className: "cmp-form-field cmp-form-field-".concat(type)
     }, children);
   };
 
   var renderValid = function renderValid() {
-    return react_default.a.createElement("div", {
+    return /*#__PURE__*/react_default.a.createElement("div", {
       className: "cmp-form-field cmp-form-field-".concat(type, " cmp-form-field--valid")
     }, children);
   };
 
   var renderInvalid = function renderInvalid() {
-    return react_default.a.createElement("div", {
+    return /*#__PURE__*/react_default.a.createElement("div", {
       className: "cmp-form-field cmp-form-field-".concat(type, " cmp-form-field--invalid")
     }, children);
   };
@@ -527,7 +688,7 @@ var field_validation_display_FieldValidationDisplay = function FieldValidationDi
 
 /* harmony default export */ var field_validation_display = (react_default.a.memo(field_validation_display_FieldValidationDisplay));
 // EXTERNAL MODULE: ./node_modules/react-svg/es/react-svg.js
-var react_svg = __webpack_require__(10);
+var react_svg = __webpack_require__(9);
 
 // CONCATENATED MODULE: ./src/forms/fields/components/icons.js
 
@@ -560,24 +721,24 @@ var icons_Icons = function Icons(_ref) {
     }
   };
 
-  var eyeIcons = type === 'password' ? react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement(react_svg["a" /* default */], {
+  var eyeIcons = type === 'password' ? /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
     src: icons.eyeIcon,
     className: "showHide-icon toggled",
     onMouseDown: toggleEye
-  }), react_default.a.createElement(react_svg["a" /* default */], {
+  }), /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
     src: icons.eyeOffIcon,
     className: "showHideOff-icon",
     onMouseDown: toggleEye
-  })) : react_default.a.createElement(react_default.a.Fragment, null);
-  return react_default.a.createElement("div", {
+  })) : /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null);
+  return /*#__PURE__*/react_default.a.createElement("div", {
     className: "cmp-form-field--icons"
-  }, eyeIcons, !disabled && react_default.a.createElement(react_svg["a" /* default */], {
+  }, eyeIcons, !disabled && /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
     src: icons.validIcon,
     className: "valid-icon"
-  }), !disabled && react_default.a.createElement(react_svg["a" /* default */], {
+  }), !disabled && /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
     src: icons.invalidIcon,
     className: "invalid-icon"
-  }), disabled && react_default.a.createElement(react_svg["a" /* default */], {
+  }), disabled && /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
     src: icons.lockIcon,
     className: "lock-icon"
   }));
@@ -590,6 +751,7 @@ var icons_Icons = function Icons(_ref) {
 
 
 
+
 var displaymessage_DisplayMessage = function DisplayMessage(_ref) {
   var name = _ref.name,
       validation = _ref.validation;
@@ -597,12 +759,15 @@ var displaymessage_DisplayMessage = function DisplayMessage(_ref) {
   var _useContext = Object(react["useContext"])(useFieldApi),
       icons = _useContext.icons;
 
+  var _useContext2 = Object(react["useContext"])(useFormApi),
+      isAlreadyRegistered = _useContext2.isAlreadyRegistered;
+
   var errors = Object(stateWatcher["c" /* useErrorsContext */])();
 
   var getInfo = function getInfo() {
     var fieldErr = errors[name];
     var message = '';
-    var link = react_default.a.createElement(react_default.a.Fragment, null);
+    var link = /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null);
 
     if (validation && fieldErr) {
       switch (fieldErr.type) {
@@ -615,6 +780,7 @@ var displaymessage_DisplayMessage = function DisplayMessage(_ref) {
           if (validation.validateFnName === 'email') {
             if (errors.invalidEmail) message = errors.invalidEmail.message;
             if (errors.alreadyRegistered) return showSignIn();
+            if (isAlreadyRegistered) return showSignIn();
             break;
           }
 
@@ -627,27 +793,27 @@ var displaymessage_DisplayMessage = function DisplayMessage(_ref) {
       }
     }
 
-    return react_default.a.createElement(react_default.a.Fragment, null, message, link);
+    return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, message, link);
   };
 
   var showSignIn = function showSignIn() {
-    return react_default.a.createElement(react_default.a.Fragment, null, validation.alreadyRegisteredMsg, react_default.a.createElement("a", {
+    return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, validation.alreadyRegisteredMsg, /*#__PURE__*/react_default.a.createElement("a", {
       href: validation.signInURL,
       className: "cmp-sign-in-link"
-    }, react_default.a.createElement(react_svg["a" /* default */], {
+    }, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
       src: icons.signInIcon,
       className: "email-signin"
     }), validation.signInMsg));
   };
 
-  return react_default.a.createElement("span", {
+  return /*#__PURE__*/react_default.a.createElement("span", {
     className: "cmp-form-field--errorText"
   }, getInfo());
 };
 
 /* harmony default export */ var displaymessage = (react_default.a.memo(displaymessage_DisplayMessage));
 // EXTERNAL MODULE: ./src/forms/fields/patterns/index.js + 1 modules
-var patterns = __webpack_require__(74);
+var patterns = __webpack_require__(66);
 
 // CONCATENATED MODULE: ./src/forms/fields/components/requirements.js
 
@@ -719,34 +885,34 @@ var requirements_Requirements = function Requirements(_ref, ref) {
     return requirements.map(function (_ref3, key) {
       var name = _ref3.name,
           msg = _ref3.msg;
-      return react_default.a.createElement("div", {
+      return /*#__PURE__*/react_default.a.createElement("div", {
         key: "requirements-info-".concat(key)
-      }, react_default.a.createElement(react_svg["a" /* default */], {
+      }, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
         id: name,
         src: icons.checkmarkIcon,
         className: validFields[key] ? "valid requirements-info-svg" : "requirements-info-svg"
-      }), react_default.a.createElement("div", {
+      }), /*#__PURE__*/react_default.a.createElement("div", {
         className: "requirements-info"
       }, msg));
     });
   };
 
-  return react_default.a.createElement("div", {
+  return /*#__PURE__*/react_default.a.createElement("div", {
     className: "cmp-form-field--input-requirements" + (toggled ? " toggled" : "")
-  }, react_default.a.createElement("div", {
+  }, /*#__PURE__*/react_default.a.createElement("div", {
     className: "requirements-title"
   }, header), renderRequirementFields());
 };
 
 /* harmony default export */ var components_requirements = (Object(react["forwardRef"])(requirements_Requirements));
 // EXTERNAL MODULE: ./src/forms/fields/utils/validations.js
-var validations = __webpack_require__(493);
+var validations = __webpack_require__(497);
 
 // EXTERNAL MODULE: ./src/utils/eCommerceFunctions.js
 var eCommerceFunctions = __webpack_require__(23);
 
 // EXTERNAL MODULE: ./src/utils/labelFunctions.js
-var labelFunctions = __webpack_require__(484);
+var labelFunctions = __webpack_require__(491);
 
 // CONCATENATED MODULE: ./src/forms/fields/input.js
 
@@ -782,13 +948,16 @@ var input_Input = function Input(_ref) {
       setError = _useContext2.setError,
       setValue = _useContext2.setValue,
       clearError = _useContext2.clearError,
-      formName = _useContext2.formName;
+      setErrorBoundaryToTrue = _useContext2.setErrorBoundaryToTrue,
+      resetErrorBoundaryToFalse = _useContext2.resetErrorBoundaryToFalse,
+      removeNotifications = _useContext2.removeNotifications,
+      isAlreadyRegistered = _useContext2.isAlreadyRegistered;
 
   var errors = Object(stateWatcher["c" /* useErrorsContext */])();
 
   var getRegisterAttributes = function getRegisterAttributes(ref) {
     inputRef.current = ref;
-    return Object(validations["a" /* getAttributes */])(ref, validation, matchRef, emailValidationEndpoint, setError, clearError);
+    return Object(validations["a" /* getAttributes */])(ref, validation, matchRef, emailValidationEndpoint, setError, clearError, setErrorBoundaryToTrue, resetErrorBoundaryToFalse, removeNotifications, setValue, name);
   };
 
   var getMatchName = function getMatchName() {
@@ -812,7 +981,7 @@ var input_Input = function Input(_ref) {
 
       case "email":
         {
-          if (patterns["a" /* functions */][validation.validateFnName](inputRef.current.value, inputRef.current, validation.requiredMsg, setError, clearError) === false) {
+          if (patterns["a" /* functions */][validation.validateFnName](inputRef.current.value, inputRef.current, validation.requiredMsg, setError, clearError, setErrorBoundaryToTrue, removeNotifications, setValue, name) === false) {
             // Hide the Tick Icon as not a valid email and don't validate using react-hook-form mechanism
             hideShowValidIcon(name, true);
             clearError(name);
@@ -909,15 +1078,15 @@ var input_Input = function Input(_ref) {
   }, [name, validation]);
 
   var renderInput = function renderInput() {
-    return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("label", {
+    return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement("label", {
       htmlFor: name,
       className: validation.validateFnName === 'matching' ? 'cmp-form-field--label-matching' : '',
       "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])(label) || 'form-field--label'
-    }, Object(labelFunctions["a" /* renderFormattedLabel */])(label, validation.required, optionalLabel)), description && react_default.a.createElement("div", {
+    }, Object(labelFunctions["a" /* renderFormattedLabel */])(label, validation.required, optionalLabel)), description && /*#__PURE__*/react_default.a.createElement("div", {
       className: "cmp-form_description"
-    }, description), react_default.a.createElement("div", {
+    }, description), /*#__PURE__*/react_default.a.createElement("div", {
       className: "cmp-form-field--input"
-    }, react_default.a.createElement("input", {
+    }, /*#__PURE__*/react_default.a.createElement("input", {
       type: type,
       name: name,
       id: name,
@@ -934,18 +1103,19 @@ var input_Input = function Input(_ref) {
       "aria-required": validation.required,
       className: !!errors[name] ? 'error' : !!inputRef.current ? !!inputRef.current.value ? 'valid' : '' : '',
       "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])(name) || 'form-field-input'
-    }), react_default.a.createElement(components_icons, null)), react_default.a.createElement(displaymessage, {
+    }), /*#__PURE__*/react_default.a.createElement(components_icons, null)), /*#__PURE__*/react_default.a.createElement(displaymessage, {
       name: name,
-      validation: validation
-    }), validation.validateFnName === 'password' && validation.requirements && react_default.a.createElement(components_requirements, {
+      validation: validation,
+      isAlreadyRegistered: isAlreadyRegistered
+    }), validation.validateFnName === 'password' && validation.requirements && /*#__PURE__*/react_default.a.createElement(components_requirements, {
       header: validation.requirementsLabel,
       requirements: validation.requirements,
       ref: reqRef
     }));
   };
 
-  return react_default.a.createElement(react_default.a.Fragment, null, renderInput(), hasMatch && Object(react["useMemo"])(function () {
-    return react_default.a.createElement(Input, {
+  return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, renderInput(), hasMatch && Object(react["useMemo"])(function () {
+    return /*#__PURE__*/react_default.a.createElement(Input, {
       name: getMatchName(),
       label: matchLabel,
       hasMatch: false,
@@ -1061,15 +1231,15 @@ var textarea_TextArea = function TextArea(_ref) {
   };
 
   var renderTextArea = function renderTextArea() {
-    return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("label", {
+    return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement("label", {
       htmlFor: name,
       className: validation.validateFnName === 'matching' ? 'cmp-form-field--label-matching' : '',
       "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])(label) || 'form-field--label'
-    }, Object(labelFunctions["a" /* renderFormattedLabel */])(label, validation.required, optionalLabel)), description && react_default.a.createElement("div", {
+    }, Object(labelFunctions["a" /* renderFormattedLabel */])(label, validation.required, optionalLabel)), description && /*#__PURE__*/react_default.a.createElement("div", {
       className: "cmp-form_description"
-    }, description), react_default.a.createElement("div", {
+    }, description), /*#__PURE__*/react_default.a.createElement("div", {
       className: "cmp-form-field--textarea"
-    }, react_default.a.createElement("textarea", {
+    }, /*#__PURE__*/react_default.a.createElement("textarea", {
       name: name,
       id: name,
       ref: function ref(_ref2) {
@@ -1087,19 +1257,19 @@ var textarea_TextArea = function TextArea(_ref) {
       rows: rows,
       className: !!errors[name] ? "error ".concat(resize ? '' : 'disable-resize') : !!inputRef.current ? !!inputRef.current.value ? "valid ".concat(resize ? '' : 'disable-resize') : "".concat(resize ? '' : 'disable-resize') : "".concat(resize ? '' : 'disable-resize'),
       "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])(name) || 'form-field-textarea'
-    })), react_default.a.createElement("div", {
+    })), /*#__PURE__*/react_default.a.createElement("div", {
       className: "textarea-info"
-    }, react_default.a.createElement(displaymessage, {
+    }, /*#__PURE__*/react_default.a.createElement(displaymessage, {
       name: name,
       validation: validation
-    }), showTextInfo && react_default.a.createElement("div", {
+    }), showTextInfo && /*#__PURE__*/react_default.a.createElement("div", {
       "data-locator": "text-info",
       className: "text-info ".concat(textInfo.isCharOver ? 'errorText' : '')
     }, "".concat(textInfo.remainingChar, " ").concat(textInfo.text))));
   };
 
-  return react_default.a.createElement(react_default.a.Fragment, null, renderTextArea(), hasMatch && Object(react["useMemo"])(function () {
-    return react_default.a.createElement(TextArea, {
+  return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, renderTextArea(), hasMatch && Object(react["useMemo"])(function () {
+    return /*#__PURE__*/react_default.a.createElement(TextArea, {
       name: getMatchName(),
       label: matchLabel,
       hasMatch: false,
@@ -1217,14 +1387,14 @@ var checkboxOrRadio_CheckboxOrRadio = function CheckboxOrRadio(_ref) {
       formattedLabel = Object(labelFunctions["b" /* renderFormattedLabelText */])(label, true);
     }
 
-    return react_default.a.createElement(react_default.a.Fragment, null, formattedLabel + ' ', renderAddOnLink(thisName), !state[thisName].required && type !== 'radio' && optionalLabel && react_default.a.createElement("span", {
+    return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, formattedLabel + ' ', renderAddOnLink(thisName), !state[thisName].required && type !== 'radio' && optionalLabel && /*#__PURE__*/react_default.a.createElement("span", {
       className: "cmp-form-field--optional"
     }, optionalLabel));
   };
 
   var renderAddOnLink = function renderAddOnLink(thisName) {
     var thisState = state[thisName];
-    return thisState.text && thisState.link && thisState.blank && react_default.a.createElement("a", {
+    return thisState.text && thisState.link && thisState.blank && /*#__PURE__*/react_default.a.createElement("a", {
       href: thisState.link,
       target: thisState ? '_blank' : '',
       rel: "noopener noreferrer",
@@ -1234,7 +1404,7 @@ var checkboxOrRadio_CheckboxOrRadio = function CheckboxOrRadio(_ref) {
 
   var renderType = function renderType(thisName, label) {
     var thisState = state[thisName];
-    return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("input", {
+    return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement("input", {
       type: type,
       role: type,
       name: thisName,
@@ -1251,40 +1421,40 @@ var checkboxOrRadio_CheckboxOrRadio = function CheckboxOrRadio(_ref) {
       } : {}),
       readOnly: true,
       "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])(thisName || 'input-type')
-    }), react_default.a.createElement("a", {
+    }), /*#__PURE__*/react_default.a.createElement("a", {
       className: "".concat(type, " ") + (disabled ? ' disabled' : '') + (hasError(thisName) ? ' error' : ' valid'),
       onClick: function onClick(e) {
         return checkHandler(e, thisName);
       },
       id: thisName + '_link'
-    }, type == 'checkbox' ? react_default.a.createElement(react_svg["a" /* default */], {
+    }, type == 'checkbox' ? /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
       src: icons.checkmarkIcon
-    }) : react_default.a.createElement("div", {
+    }) : /*#__PURE__*/react_default.a.createElement("div", {
       className: "selector"
-    })), react_default.a.createElement("div", {
+    })), /*#__PURE__*/react_default.a.createElement("div", {
       className: "cmp-form-field-".concat(type, "--wrapper") + (disabled ? ' disabled' : '')
-    }, react_default.a.createElement("label", {
+    }, /*#__PURE__*/react_default.a.createElement("label", {
       htmlFor: thisName,
       onClick: function onClick(e) {
         return checkHandler(e, thisName);
       }
-    }, renderLabel(thisName, label)), thisState.description && react_default.a.createElement("span", {
+    }, renderLabel(thisName, label)), thisState.description && /*#__PURE__*/react_default.a.createElement("span", {
       "class": "cmp-form_description"
     }, thisState.description)));
   };
 
   try {
-    return !options ? renderType(name, label) : react_default.a.createElement("div", {
+    return !options ? renderType(name, label) : /*#__PURE__*/react_default.a.createElement("div", {
       id: name,
       className: "cmp-form-field-".concat(type, "--grouping")
     }, options.map(function (option, i) {
       var address = [];
       option.address.map(function (addressPiece) {
-        address.push(react_default.a.createElement("div", {
+        address.push( /*#__PURE__*/react_default.a.createElement("div", {
           className: "cmp-form-field-".concat(type, "--address1")
         }, addressPiece));
       });
-      return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("div", {
+      return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement("div", {
         style: {
           paddingTop: "10px"
         },
@@ -1299,10 +1469,10 @@ var checkboxOrRadio_CheckboxOrRadio = function CheckboxOrRadio(_ref) {
 
 /* harmony default export */ var checkboxOrRadio = (react_default.a.memo(checkboxOrRadio_CheckboxOrRadio));
 // EXTERNAL MODULE: ./node_modules/react-select/dist/react-select.esm.js + 1 modules
-var react_select_esm = __webpack_require__(110);
+var react_select_esm = __webpack_require__(140);
 
 // EXTERNAL MODULE: ./src/styles/variables.scss
-var variables = __webpack_require__(30);
+var variables = __webpack_require__(32);
 var variables_default = /*#__PURE__*/__webpack_require__.n(variables);
 
 // CONCATENATED MODULE: ./src/forms/fields/styles/dropdown.scss.js
@@ -1372,7 +1542,7 @@ var variables_default = /*#__PURE__*/__webpack_require__.n(variables);
 
 
 var select_DropdownIndicator = function DropdownIndicator(props) {
-  return react_default.a.createElement(react_select_esm["a" /* components */].DropdownIndicator, props, react_default.a.createElement(react_svg["a" /* default */], {
+  return /*#__PURE__*/react_default.a.createElement(react_select_esm["a" /* components */].DropdownIndicator, props, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
     src: props.theme.dropdownIndicator
   }));
 };
@@ -1465,7 +1635,7 @@ var select_Select = function Select(props) {
     }
   };
 
-  return react_default.a.createElement(react_select_esm["c" /* default */], Object.assign({}, props, {
+  return /*#__PURE__*/react_default.a.createElement(react_select_esm["c" /* default */], Object.assign({}, props, {
     options: getOptions(),
     isDisabled: disabled,
     isSearchable: true,
@@ -1520,17 +1690,17 @@ var dropdown_Dropdown = function Dropdown(_ref) {
       register = _useContext2.register;
 
   var newLabel = Object(labelFunctions["b" /* renderFormattedLabelText */])(label, validation.required, optionalLabel);
-  return react_default.a.createElement("div", {
+  return /*#__PURE__*/react_default.a.createElement("div", {
     className: "cmp-form-field-dropdown--wrapper"
-  }, react_default.a.createElement("label", {
+  }, /*#__PURE__*/react_default.a.createElement("label", {
     htmlFor: name,
     "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])("".concat(name, " label"))
-  }, newLabel), react_default.a.createElement("div", {
+  }, newLabel), /*#__PURE__*/react_default.a.createElement("div", {
     className: "cmp-form-field-dropdown--wrapper",
     "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])(name) || 'form-field-dropdown',
     "aria-describedby": "cmp-custom-dropdown__single-value",
     tabindex: "0"
-  }, react_default.a.createElement(components_select, {
+  }, /*#__PURE__*/react_default.a.createElement(components_select, {
     name: name,
     defaultValue: defaultValue,
     ref: register({
@@ -1539,7 +1709,7 @@ var dropdown_Dropdown = function Dropdown(_ref) {
     id: name,
     tabIndex: "-1",
     "aria-label": name
-  }), react_default.a.createElement(components_icons, null)), react_default.a.createElement(displaymessage, {
+  }), /*#__PURE__*/react_default.a.createElement(components_icons, null)), /*#__PURE__*/react_default.a.createElement(displaymessage, {
     name: name,
     validation: validation
   }));
@@ -1551,14 +1721,14 @@ var dropdown_Dropdown = function Dropdown(_ref) {
 
 var hr_Hr = function Hr(_ref) {
   var addClass = _ref.addClass;
-  return react_default.a.createElement("hr", {
+  return /*#__PURE__*/react_default.a.createElement("hr", {
     className: addClass
   });
 };
 
 /* harmony default export */ var hr = (react_default.a.memo(hr_Hr));
 // EXTERNAL MODULE: ./node_modules/react-google-recaptcha/lib/esm/index.js + 3 modules
-var esm = __webpack_require__(500);
+var esm = __webpack_require__(510);
 
 // CONCATENATED MODULE: ./src/forms/fields/captcha.js
 
@@ -1584,7 +1754,7 @@ var captcha_Captcha = function Captcha(_ref) {
     setValue(name, value, true);
   };
 
-  return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement(esm["a" /* default */], {
+  return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement(esm["a" /* default */], {
     sitekey: siteKey,
     onChange: onChange,
     ref: register({
@@ -1594,7 +1764,7 @@ var captcha_Captcha = function Captcha(_ref) {
     }),
     hl: isocode,
     "data-locator": "captcha"
-  }), react_default.a.createElement(displaymessage, {
+  }), /*#__PURE__*/react_default.a.createElement(displaymessage, {
     name: name,
     validation: validation
   }));
@@ -1602,7 +1772,7 @@ var captcha_Captcha = function Captcha(_ref) {
 
 /* harmony default export */ var captcha = (react_default.a.memo(captcha_Captcha));
 // EXTERNAL MODULE: ./node_modules/query-string/index.js
-var query_string = __webpack_require__(60);
+var query_string = __webpack_require__(59);
 
 // CONCATENATED MODULE: ./src/forms/fields/body.js
 
@@ -1621,7 +1791,7 @@ var body_Body = function Body(_ref) {
     }
   }
 
-  return react_default.a.createElement("div", null, text, displayAdditionalText && react_default.a.createElement("span", {
+  return /*#__PURE__*/react_default.a.createElement("div", null, text, displayAdditionalText && /*#__PURE__*/react_default.a.createElement("span", {
     className: "cmp-form__additionalText"
   }, displayAdditionalText));
 };
@@ -1644,9 +1814,9 @@ var link_Link = function Link(_ref) {
       blank = _useContext.blank,
       addClass = _useContext.addClass;
 
-  return react_default.a.createElement(react_default.a.Fragment, null, text && link && react_default.a.createElement("div", {
+  return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, text && link && /*#__PURE__*/react_default.a.createElement("div", {
     className: "cmp-form-field-".concat(type, "--").concat(name, " ") + (addClass ? addClass : '')
-  }, react_default.a.createElement("a", {
+  }, /*#__PURE__*/react_default.a.createElement("a", {
     href: link,
     target: blank ? "_blank" : "",
     rel: "noopener noreferrer",
@@ -1678,7 +1848,7 @@ var textWithLinks_TextWithLinks = function TextWithLinks(_ref) {
         className = _ref2.className,
         title = _ref2.title,
         id = _ref2.id;
-    return react_default.a.createElement("a", {
+    return /*#__PURE__*/react_default.a.createElement("a", {
       href: url,
       target: blank ? "_blank" : "",
       rel: "noopener noreferrer",
@@ -1694,7 +1864,7 @@ var textWithLinks_TextWithLinks = function TextWithLinks(_ref) {
     return text;
   };
 
-  return react_default.a.createElement(react_default.a.Fragment, null, config.length > 0 && react_default.a.createElement("div", {
+  return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, config.length > 0 && /*#__PURE__*/react_default.a.createElement("div", {
     className: "cmp-form-field-".concat(type, "--").concat(name, " ") + (addClass ? addClass : '')
   }, config.map(function (block, index) {
     var itemToRender = block.type === "link" ? renderLink(Object(objectSpread["a" /* default */])({}, block, {
@@ -1708,7 +1878,7 @@ var textWithLinks_TextWithLinks = function TextWithLinks(_ref) {
       space = " ";
     }
 
-    return react_default.a.createElement(react_default.a.Fragment, {
+    return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, {
       key: index
     }, itemToRender, space);
   })));
@@ -1723,14 +1893,392 @@ var label_Label = function Label(_ref) {
       label = _ref.label,
       _ref$htmlFor = _ref.htmlFor,
       htmlFor = _ref$htmlFor === void 0 ? "" : _ref$htmlFor;
-  return react_default.a.createElement("label", {
+  return /*#__PURE__*/react_default.a.createElement("label", {
     className: addClass,
     htmlFor: htmlFor
   }, label);
 };
 
 /* harmony default export */ var fields_label = (react_default.a.memo(label_Label));
+// EXTERNAL MODULE: ./src/forms/fields/utils/fileAttachment.js
+var fileAttachment = __webpack_require__(74);
+
+// EXTERNAL MODULE: ./src/components/Input/Input.js
+var Input_Input = __webpack_require__(521);
+
+// CONCATENATED MODULE: ./src/forms/fields/components/file-error-notification/index.js
+
+
+
+var file_error_notification_Notification = function Notification(_ref) {
+  var className = _ref.className,
+      variation = _ref.variation,
+      type = _ref.type,
+      title = _ref.title,
+      description = _ref.description,
+      link = _ref.link,
+      linkText = _ref.linkText,
+      icon = _ref.icon,
+      elementLocator = _ref.elementLocator;
+  return /*#__PURE__*/react_default.a.createElement("div", {
+    className: "file-error-notification ".concat(variation, " ").concat(type, " ").concat(className),
+    "data-locator": elementLocator
+  }, icon && /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+    className: "icon",
+    src: icon,
+    "data-locator": "".concat(elementLocator, "-icon"),
+    "aria-hidden": true
+  }), /*#__PURE__*/react_default.a.createElement("div", null, title && /*#__PURE__*/react_default.a.createElement("span", {
+    className: "title",
+    "data-locator": elementLocator && "".concat(elementLocator, "-title"),
+    "aria-label": title
+  }, title), description && /*#__PURE__*/react_default.a.createElement("span", {
+    className: "description",
+    "data-locator": elementLocator && "".concat(elementLocator, "-description"),
+    "aria-label": description
+  }, description), linkText && /*#__PURE__*/react_default.a.createElement("a", Object.assign({}, link, {
+    elementLocator: elementLocator && "".concat(elementLocator, "-link-text"),
+    "aria-label": linkText
+  }), linkText)));
+};
+
+file_error_notification_Notification.defaultProps = {
+  className: '',
+  variation: '',
+  type: '',
+  title: '',
+  description: '',
+  icon: '',
+  linkText: '',
+  link: {},
+  elementLocator: ''
+};
+/* harmony default export */ var file_error_notification = (file_error_notification_Notification);
+// CONCATENATED MODULE: ./src/forms/fields/components/divider/index.js
+
+
+function Divider(props) {
+  var type = props.type,
+      className = props.className,
+      elementLocator = props.elementLocator;
+  return /*#__PURE__*/react_default.a.createElement("div", {
+    className: "".concat(type, " ").concat(className),
+    "data-locator": elementLocator || "divider-".concat(type)
+  });
+}
+
+Divider.defaultProps = {
+  className: '',
+  type: 'v-large',
+  elementLocator: ''
+};
+/* harmony default export */ var divider = (Divider);
+// CONCATENATED MODULE: ./src/forms/fields/components/file-upload/index.js
+
+
+
+
+
+
+
+
+function FileUpload(props) {
+  var name = props.name,
+      setRef = props.setRef,
+      clearError = props.clearError,
+      className = props.className,
+      icons = props.icons,
+      chooseAFileToUpload = props.chooseAFileToUpload,
+      removeTextLabel = props.removeTextLabel,
+      attachmentFileValidMsg = props.attachmentFileValidMsg,
+      attachmentFileInvalidValidMsg = props.attachmentFileInvalidValidMsg,
+      accept = props.accept,
+      fileTypePattern = props.fileTypePattern,
+      attachmentFileSize = props.attachmentFileSize,
+      attachmentFileSizeErrorMsg = props.attachmentFileSizeErrorMsg,
+      maxAttachmentFileNameSizeWithExt = props.maxAttachmentFileNameSizeWithExt,
+      attachmentFileNameLengthErrorMsg = props.attachmentFileNameLengthErrorMsg,
+      attachmentFileNameErrorMsg = props.attachmentFileNameErrorMsg;
+  var upload = icons.upload,
+      preview = icons.preview,
+      valid = icons.valid,
+      invalid = icons.invalid;
+
+  var _useState = Object(react["useState"])(''),
+      _useState2 = Object(slicedToArray["a" /* default */])(_useState, 2),
+      file = _useState2[0],
+      setFile = _useState2[1];
+
+  var _useState3 = Object(react["useState"])(false),
+      _useState4 = Object(slicedToArray["a" /* default */])(_useState3, 2),
+      hasError = _useState4[0],
+      setHasError = _useState4[1];
+
+  var _useState5 = Object(react["useState"])(''),
+      _useState6 = Object(slicedToArray["a" /* default */])(_useState5, 2),
+      errorMsg = _useState6[0],
+      setErrorMsg = _useState6[1];
+
+  function pickedHandler(files) {
+    var pickedFile = {};
+    var fileValidation = {};
+    var fileType = new RegExp(fileTypePattern, 'i');
+    var labels = {
+      attachmentFileSizeErrorMsg: attachmentFileSizeErrorMsg,
+      attachmentFileNameLengthErrorMsg: attachmentFileNameLengthErrorMsg,
+      attachmentFileNameErrorMsg: attachmentFileNameErrorMsg
+    };
+    var config = {
+      maxAttachmentFileNameSizeWithExt: maxAttachmentFileNameSizeWithExt,
+      attachmentFileSize: attachmentFileSize
+    };
+
+    if (files && files.length === 1) {
+      var fileObj = files[0];
+      fileValidation = Object(fileAttachment["c" /* validateUploadFile */])(fileObj, labels, config);
+
+      if (!fileType.test(fileObj.name)) {
+        setHasError(true);
+        setErrorMsg(attachmentFileInvalidValidMsg);
+      } else if (fileValidation.status) {
+        setHasError(true);
+        setErrorMsg(fileValidation.error);
+      } else {
+        setHasError(false);
+        clearError(name);
+        setErrorMsg('');
+      }
+
+      pickedFile = fileObj;
+      setFile(pickedFile);
+    }
+
+    if (fileType.test(pickedFile.name) && !fileValidation.status) {
+      clearError(name);
+      setHasError(false);
+    }
+  }
+
+  function handleLinkClick(e) {
+    e.preventDefault();
+    var fileInput = document.getElementById(name);
+
+    if (fileInput && document.createEvent) {
+      fileInput.click();
+    }
+  }
+
+  function resetFile(e) {
+    e.preventDefault();
+    var fileInput = document.getElementById(name);
+    setFile();
+
+    if (fileInput) {
+      fileInput.value = '';
+    }
+
+    clearError(name);
+  }
+
+  return /*#__PURE__*/react_default.a.createElement("div", {
+    className: "file-empty file-upload-input ".concat(className, " ").concat(file ? 'has-file' : '')
+  }, /*#__PURE__*/react_default.a.createElement(Input_Input["a" /* default */], {
+    showLabel: false,
+    id: name,
+    name: name,
+    className: "file-input",
+    type: "file",
+    accept: accept,
+    onChange: pickedHandler,
+    setRef: setRef
+  }), /*#__PURE__*/react_default.a.createElement("div", {
+    className: "select-file",
+    style: file ? {
+      display: 'none'
+    } : null
+  }, /*#__PURE__*/react_default.a.createElement("a", {
+    className: "file-upload-link",
+    onClick: handleLinkClick,
+    "data-locator": "upload-link-".concat(name),
+    "aria-label": chooseAFileToUpload,
+    role: "button",
+    href: ""
+  }, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+    src: upload,
+    wrapper: "span",
+    "data-locator": "icon-".concat(name),
+    "aria-hidden": true
+  }), "".concat(chooseAFileToUpload, " (").concat(accept, ")"))), file && /*#__PURE__*/react_default.a.createElement("div", {
+    className: "file-upload__preview"
+  }, /*#__PURE__*/react_default.a.createElement("div", {
+    className: "file-info-sec"
+  }, /*#__PURE__*/react_default.a.createElement("div", {
+    className: "file-view"
+  }, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+    className: "file-svg",
+    src: preview,
+    "data-locator": "file-svg",
+    "aria-hidden": true
+  }), /*#__PURE__*/react_default.a.createElement("span", {
+    "data-locator": "file-name-added",
+    "aria-label": file.name
+  }, file.name), /*#__PURE__*/react_default.a.createElement(divider, {
+    type: "v-small"
+  }), /*#__PURE__*/react_default.a.createElement("a", {
+    className: "file-remove-link",
+    onClick: resetFile,
+    elementLocator: "file-remove-link",
+    "aria-label": removeTextLabel,
+    role: "button",
+    href: ""
+  }, removeTextLabel)), /*#__PURE__*/react_default.a.createElement("div", {
+    className: "file-notify-sec"
+  }, /*#__PURE__*/react_default.a.createElement("div", {
+    className: "notify-container"
+  }, !hasError && /*#__PURE__*/react_default.a.createElement(file_error_notification, {
+    variation: "inline",
+    className: "file-notify",
+    type: "success",
+    description: attachmentFileValidMsg,
+    icon: valid,
+    elementLocator: "file-format-verified"
+  }), hasError && /*#__PURE__*/react_default.a.createElement(file_error_notification, {
+    variation: "inline",
+    className: "file-notify",
+    type: "error",
+    description: errorMsg,
+    icon: invalid
+  }))))));
+}
+
+;
+FileUpload.defaultProps = {
+  className: '',
+  name: 'fileUploadInput',
+  setRef: function setRef() {},
+  clearError: function clearError() {},
+  icons: {
+    upload: '',
+    preview: '',
+    valid: '',
+    invalid: ''
+  },
+  chooseAFileToUpload: '',
+  removeTextLabel: '',
+  attachmentFileValidMsg: '',
+  attachmentFileInvalidValidMsg: '',
+  attachmentFileSize: '5MB',
+  attachmentFileSizeErrorMsg: '',
+  maxAttachmentFileNameSizeWithExt: 32,
+  attachmentFileNameLengthErrorMsg: '',
+  attachmentFileNameErrorMsg: '',
+  accept: '.pdf, .jpg, .png',
+  fileTypePattern: '(\\.pdf|\.jpg|\.png)$'
+};
+/* harmony default export */ var file_upload = (FileUpload);
+// CONCATENATED MODULE: ./src/forms/fields/file.js
+
+
+
+
+
+
+
+function File(props) {
+  var name = props.name,
+      label = props.label,
+      optionalLabel = props.optionalLabel,
+      chooseAFileToUpload = props.chooseAFileToUpload,
+      removeTextLabel = props.removeTextLabel,
+      accept = props.accept,
+      attachmentFileValidMsg = props.attachmentFileValidMsg,
+      attachmentFileInvalidValidMsg = props.attachmentFileInvalidValidMsg,
+      attachmentFileSize = props.attachmentFileSize,
+      attachmentFileSizeErrorMsg = props.attachmentFileSizeErrorMsg,
+      maxAttachmentFileNameSizeWithExt = props.maxAttachmentFileNameSizeWithExt,
+      attachmentFileNameLengthErrorMsg = props.attachmentFileNameLengthErrorMsg,
+      attachmentFileNameErrorMsg = props.attachmentFileNameErrorMsg,
+      validation = props.validation,
+      icons = props.icons,
+      description = props.description,
+      matchRef = props.matchRef;
+  var inputRef = Object(react["useRef"])(null);
+
+  var _useContext = Object(react["useContext"])(useFieldApi),
+      emailValidationEndpoint = _useContext.emailValidationEndpoint;
+
+  var _useContext2 = Object(react["useContext"])(useFormApi),
+      register = _useContext2.register,
+      setError = _useContext2.setError,
+      clearError = _useContext2.clearError; // e.g. (\.pdf|\.jpg|\.png)$
+
+
+  var fileTypePattern = "(\\".concat(accept.replace(/[,]/g, '|\\').replace(/\s+/g, ''), ")$");
+  validation.fileTypePattern = fileTypePattern;
+  validation.attachmentFileSize = attachmentFileSize;
+  validation.maxAttachmentFileNameSizeWithExt = maxAttachmentFileNameSizeWithExt;
+  validation.attachmentFileInvalidValidMsg = attachmentFileInvalidValidMsg;
+  validation.attachmentFileSizeErrorMsg = attachmentFileSizeErrorMsg;
+  validation.attachmentFileNameLengthErrorMsg = attachmentFileNameLengthErrorMsg;
+  validation.attachmentFileNameErrorMsg = attachmentFileNameErrorMsg;
+
+  var getRegisterAttributes = function getRegisterAttributes(ref) {
+    inputRef.current = ref;
+    return Object(validations["a" /* getAttributes */])(ref, validation, matchRef, emailValidationEndpoint, setError, clearError);
+  };
+
+  function setRef(ref) {
+    register(ref, getRegisterAttributes(ref));
+  }
+
+  return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement("label", {
+    htmlFor: name,
+    "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])(label) || 'form-field--label'
+  }, Object(labelFunctions["a" /* renderFormattedLabel */])(label, validation.required, optionalLabel)), description && /*#__PURE__*/react_default.a.createElement("div", {
+    className: "cmp-form_description"
+  }, description), /*#__PURE__*/react_default.a.createElement("div", {
+    className: "cmp-form-field file-upload-container"
+  }, /*#__PURE__*/react_default.a.createElement(file_upload, {
+    name: name,
+    setRef: setRef,
+    setError: setError,
+    clearError: clearError,
+    icons: icons,
+    chooseAFileToUpload: chooseAFileToUpload,
+    removeTextLabel: removeTextLabel,
+    attachmentFileValidMsg: attachmentFileValidMsg,
+    attachmentFileInvalidValidMsg: attachmentFileInvalidValidMsg,
+    attachmentFileSize: attachmentFileSize,
+    attachmentFileSizeErrorMsg: attachmentFileSizeErrorMsg,
+    maxAttachmentFileNameSizeWithExt: maxAttachmentFileNameSizeWithExt,
+    attachmentFileNameLengthErrorMsg: attachmentFileNameLengthErrorMsg,
+    attachmentFileNameErrorMsg: attachmentFileNameErrorMsg,
+    accept: accept,
+    fileTypePattern: fileTypePattern
+  })));
+}
+
+File.defaultProps = {
+  name: '',
+  icons: {},
+  chooseAFileToUpload: '',
+  removeTextLabel: '',
+  attachmentFileValidMsg: '',
+  attachmentFileInvalidValidMsg: '',
+  attachmentFileSize: '5MB',
+  attachmentFileSizeErrorMsg: '',
+  maxAttachmentFileNameSizeWithExt: 32,
+  attachmentFileNameLengthErrorMsg: '',
+  attachmentFileNameErrorMsg: '',
+  accept: '',
+  validation: {},
+  label: '',
+  optionalLabel: '',
+  description: ''
+};
+/* harmony default export */ var fields_file = (File);
 // CONCATENATED MODULE: ./src/forms/fields/index.js
+
 
 
 
@@ -1760,7 +2308,8 @@ var formType = {
   body: body,
   link: fields_link,
   textwithlinks: textWithLinks,
-  label: fields_label
+  label: fields_label,
+  file: fields_file
 };
 
 var fields_Field = function Field(_ref) {
@@ -1778,35 +2327,155 @@ var fields_Field = function Field(_ref) {
     return name ? 'confirm'.concat(name.charAt(0).toUpperCase() + name.slice(1)) : '';
   };
 
-  return Component && field.active !== false && react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement(field_validation_display, {
+  return Component && field.active !== false && /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement(field_validation_display, {
     name: name,
     matchName: hasMatch ? getMatchName() : ''
-  }, react_default.a.createElement(Component, field)));
+  }, /*#__PURE__*/react_default.a.createElement(Component, field)));
 };
 
 /* harmony default export */ var forms_fields = (react_default.a.memo(fields_Field));
 // EXTERNAL MODULE: ./src/analytics/index.js + 1 modules
-var analytics = __webpack_require__(36);
+var analytics = __webpack_require__(39);
 
 // EXTERNAL MODULE: ./src/stores/sessionStore.js
 var sessionStore = __webpack_require__(2);
 
 // EXTERNAL MODULE: ./src/scripts/loginStatus.js
-var loginStatus = __webpack_require__(9);
+var loginStatus = __webpack_require__(12);
 
 // EXTERNAL MODULE: ./src/utils/redirectFunctions.js
-var redirectFunctions = __webpack_require__(14);
+var redirectFunctions = __webpack_require__(17);
 
 // EXTERNAL MODULE: ./src/utils/spinner/index.js
 var spinner = __webpack_require__(90);
 
 // EXTERNAL MODULE: ./src/utils/userFunctions.js
-var userFunctions = __webpack_require__(15);
+var userFunctions = __webpack_require__(13);
 
 // EXTERNAL MODULE: ./src/my-account/services/SoldToDetailsLazy.js + 1 modules
-var SoldToDetailsLazy = __webpack_require__(50);
+var SoldToDetailsLazy = __webpack_require__(38);
 
+// EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/regenerator/index.js
+var regenerator = __webpack_require__(1);
+var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
+
+// EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
+var asyncToGenerator = __webpack_require__(4);
+
+// CONCATENATED MODULE: ./src/forms/services/country-list.js
+
+
+
+var _Promise = typeof Promise === 'undefined' ? __webpack_require__(112).Promise : Promise;
+
+var getData = /*#__PURE__*/function () {
+  var _ref = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee(url) {
+    var response;
+    return regenerator_default.a.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.next = 2;
+            return fetch(url, {
+              method: 'GET',
+              headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+              }
+            });
+
+          case 2:
+            response = _context.sent;
+            _context.next = 5;
+            return response;
+
+          case 5:
+            return _context.abrupt("return", _context.sent);
+
+          case 6:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function getData(_x) {
+    return _ref.apply(this, arguments);
+  };
+}();
+
+function countryList(url) {
+  return new _Promise( /*#__PURE__*/function () {
+    var _ref2 = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee2(resolve) {
+      var response, responseBody, countries;
+      return regenerator_default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.prev = 0;
+              _context2.next = 3;
+              return getData(url);
+
+            case 3:
+              response = _context2.sent;
+              _context2.next = 6;
+              return response.json();
+
+            case 6:
+              responseBody = _context2.sent;
+
+              if (!(response.status === 200)) {
+                _context2.next = 10;
+                break;
+              }
+
+              countries = responseBody.map(function (x) {
+                return {
+                  countryCode: x.code.toLowerCase(),
+                  displayName: x.name
+                };
+              }).sort(function (a, b) {
+                if (a.displayName > b.displayName) {
+                  return 1;
+                } else if (b.displayName > a.displayName) {
+                  return -1;
+                } else {
+                  return 0;
+                }
+              });
+              return _context2.abrupt("return", resolve({
+                response: countries
+              }));
+
+            case 10:
+              return _context2.abrupt("return", resolve({
+                response: []
+              }));
+
+            case 13:
+              _context2.prev = 13;
+              _context2.t0 = _context2["catch"](0);
+              console.error(_context2.t0);
+              return _context2.abrupt("return", resolve({
+                response: []
+              }));
+
+            case 17:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, null, [[0, 13]]);
+    }));
+
+    return function (_x2) {
+      return _ref2.apply(this, arguments);
+    };
+  }());
+}
 // CONCATENATED MODULE: ./src/forms/form.js
+
 
 
 
@@ -1910,10 +2579,20 @@ var form_Form = function Form(_ref) {
       displayForm = _useState8[0],
       setDisplayForm = _useState8[1];
 
-  var _useState9 = Object(react["useState"])(document.getElementById("header").hasAttribute("data-is-edit-mode")),
+  var _useState9 = Object(react["useState"])(),
       _useState10 = Object(slicedToArray["a" /* default */])(_useState9, 2),
-      isInEditMode = _useState10[0],
-      setIsInEditMode = _useState10[1];
+      _ = _useState10[0],
+      reloadCountryList = _useState10[1];
+
+  var _useState11 = Object(react["useState"])(document.getElementById("header").hasAttribute("data-is-edit-mode")),
+      _useState12 = Object(slicedToArray["a" /* default */])(_useState11, 2),
+      isInEditMode = _useState12[0],
+      setIsInEditMode = _useState12[1];
+
+  var _useState13 = Object(react["useState"])(false),
+      _useState14 = Object(slicedToArray["a" /* default */])(_useState13, 2),
+      isAlreadyRegistered = _useState14[0],
+      setIsAlreadyRegistered = _useState14[1];
 
   var captchaField = config.fields.filter(function (field) {
     return field.type === 'captcha';
@@ -1975,13 +2654,20 @@ var form_Form = function Form(_ref) {
       for (var name in errors) {
         if (errors.hasOwnProperty(name)) {
           if (name !== "captcha") {
-            var control = document.getElementById(name);
+            if (name === "alreadyRegistered") {
+              setIsAlreadyRegistered(true);
+            } // If alreadyRegistered error is already set no need to change
 
-            if (control) {
-              var mainControlDiv = control.parentElement.parentElement;
 
-              if (mainControlDiv) {
-                mainControlDiv.classList.add("cmp-form-field--invalid");
+            if (name !== "email" || !isAlreadyRegistered) {
+              var control = document.getElementById(name);
+
+              if (control) {
+                var mainControlDiv = control.parentElement.parentElement;
+
+                if (mainControlDiv) {
+                  mainControlDiv.classList.add("cmp-form-field--invalid");
+                }
               }
             }
           } else {
@@ -2001,37 +2687,49 @@ var form_Form = function Form(_ref) {
   Object(react["useEffect"])(function () {
     // Configure Registration Form on "Loading"
     if (config.formName === "registration") {
-      var countryRegion = DigitalData["a" /* default */].page.country.toLowerCase(); // Get Regional config 
+      countryList(config.countryListUrl).then(function (_ref2) {
+        var response = _ref2.response;
+        var countryRegion = DigitalData["a" /* default */].page.country.toLowerCase(); // Get Regional config 
 
-      var countryOptionsConfig = regionalConfig; // Hide all country configurable fields
+        var countryOptionsConfig = regionalConfig; // Hide all country configurable fields
 
-      var allCountryOptions = countryOptionsConfig.filter(function (p) {
-        return p.country === "all";
-      });
-
-      if (allCountryOptions.length === 1) {
-        allCountryOptions[0].fields.map(function (fieldName) {
-          return deactivateField(fieldName);
+        var allCountryOptions = countryOptionsConfig.filter(function (p) {
+          return p.country === "all";
         });
-      } // Display Specific fields for the current country
+
+        if (allCountryOptions.length === 1) {
+          allCountryOptions[0].fields.map(function (fieldName) {
+            return deactivateField(fieldName);
+          });
+        } // Display Specific fields for the current country
 
 
-      var selectedCountryOptions = countryOptionsConfig.filter(function (p) {
-        return p.country === countryRegion;
-      });
-
-      if (selectedCountryOptions.length === 1) {
-        selectedCountryOptions[0].fields.map(function (fieldName) {
-          return activateField(fieldName);
+        var selectedCountryOptions = countryOptionsConfig.filter(function (p) {
+          return p.country === countryRegion;
         });
-      }
+
+        if (selectedCountryOptions.length === 1) {
+          selectedCountryOptions[0].fields.map(function (fieldName) {
+            return activateField(fieldName);
+          });
+        }
+
+        var countryIdx = config.fields.findIndex(function (x) {
+          return x.name.toLowerCase() === 'country';
+        });
+
+        if (countryIdx !== -1) {
+          config.fields[countryIdx].options = response;
+          reloadCountryList(config);
+        }
+      });
     }
   }, [config.formName]);
 
-  var _useState11 = Object(react["useState"])(),
-      _useState12 = Object(slicedToArray["a" /* default */])(_useState11, 2),
-      newConfig = _useState12[0],
-      setNewConfig = _useState12[1];
+  var _useState15 = Object(react["useState"])(),
+      _useState16 = Object(slicedToArray["a" /* default */])(_useState15, 2),
+      newConfig = _useState16[0],
+      setNewConfig = _useState16[1];
 
   Object(react["useEffect"])(function () {
     if (!config.getRadioOptions) {
@@ -2052,7 +2750,7 @@ var form_Form = function Form(_ref) {
           tempOption.label = item.name;
           tempAddress = Object(userFunctions["d" /* getAddressesByType */])(item, "soldToInfo")[0];
           delete tempAddress.name;
-          tempOption.address = Object(userFunctions["j" /* getFullCompanyAddress */])(tempAddress, false);
+          tempOption.address = Object(userFunctions["m" /* getFullCompanyAddress */])(tempAddress, false);
           return tempOption;
         });
         config.options = tempArray;
@@ -2107,9 +2805,13 @@ var form_Form = function Form(_ref) {
       activateField: activateField,
       deactivateField: deactivateField,
       setCountrySaved: setCountrySaved,
-      regionalConfig: regionalConfig
+      regionalConfig: regionalConfig,
+      setErrorBoundaryToTrue: setErrorBoundaryToTrue,
+      resetErrorBoundaryToFalse: resetErrorBoundaryToFalse,
+      removeNotifications: removeNotifications,
+      isAlreadyRegistered: isAlreadyRegistered
     };
-  }, [register]);
+  }, [register, isAlreadyRegistered]);
 
   var submitErrorHandler = function submitErrorHandler(res) {
     if (res) {
@@ -2129,14 +2831,14 @@ var form_Form = function Form(_ref) {
       initialState: defaultValues ? defaultValues[field.name] : undefined
     });
 
-    return react_default.a.createElement(FieldApi.Provider, {
+    return /*#__PURE__*/react_default.a.createElement(FieldApi.Provider, {
       value: getFieldApi,
       key: "field-".concat(i)
-    }, react_default.a.createElement(forms_fields, null));
+    }, /*#__PURE__*/react_default.a.createElement(forms_fields, null));
   });
 
   var renderForm = function renderForm() {
-    return react_default.a.createElement("form", {
+    return /*#__PURE__*/react_default.a.createElement("form", {
       className: "cmp-form cmp-form--registration ".concat(config.customFormClass || ''),
       "data-locator": "".concat(config.elementLocator || 'form-component'),
       onSubmit: handleSubmit(submitFn.bind({
@@ -2144,23 +2846,24 @@ var form_Form = function Form(_ref) {
         setError: submitErrorHandler,
         redirect: config.redirectUrl,
         passwordUpdateUrl: config.passwordUpdateUrl,
+        soldToDetailsUrl: config.soldToDetailsUrl,
         callback: callback,
         updateFailedAttempts: updateFailedAttempts,
         setProfileData: setProfileData,
         setFormAnalytics: setFormAnalytics,
         urlChooseAccount: config.chooseAccountEndPoint
       }))
-    }, react_default.a.createElement(FormApi.Provider, {
+    }, /*#__PURE__*/react_default.a.createElement(FormApi.Provider, {
       value: getApi
-    }, react_default.a.createElement(stateWatcher["b" /* FormStateProvider */], {
+    }, /*#__PURE__*/react_default.a.createElement(stateWatcher["b" /* FormStateProvider */], {
       watch: formState
-    }, react_default.a.createElement(stateWatcher["a" /* ErrorsProvider */], {
+    }, /*#__PURE__*/react_default.a.createElement(stateWatcher["a" /* ErrorsProvider */], {
       watch: errors
-    }, fields))), react_default.a.createElement("button", {
+    }, fields))), /*#__PURE__*/react_default.a.createElement("button", {
       type: "submit",
       className: "cmp-button cmp-button--no-border cmp-form--submit",
       "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])(config.buttonLocator || 'form-submit')
-    }, config.buttonText), config.cancelText && !!cancelHandler && react_default.a.createElement("a", {
+    }, config.buttonText), config.cancelText && !!cancelHandler && /*#__PURE__*/react_default.a.createElement("a", {
       className: "cmp-button cmp-button--cancel",
       onClick: cancelHandler,
       "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])(config.cancelText || 'form-cancel')
@@ -2168,16 +2871,16 @@ var form_Form = function Form(_ref) {
   };
 
   if (isInEditMode || config.getRadioOptions && config.options || displayForm && !config.getRadioOptions) {
-    return react_default.a.createElement(react_default.a.Fragment, null, renderForm());
+    return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, renderForm());
   } else {
-    return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement(spinner["a" /* default */], {
+    return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement(spinner["a" /* default */], {
       loading: !displayForm
     }), renderForm());
   }
 };
 
 var form_ErrorBoundaryForm = function ErrorBoundaryForm(props) {
-  return react_default.a.createElement(ErrorBoundary["a" /* default */], null, react_default.a.createElement(form_Form, props));
+  return /*#__PURE__*/react_default.a.createElement(ErrorBoundary["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(form_Form, props));
 };
 
 /* harmony default export */ var forms_form = __webpack_exports__["default"] = (form_ErrorBoundaryForm); // Context Variables
@@ -2187,7 +2890,7 @@ var useFieldApi = FieldApi;
 
 /***/ }),
 
-/***/ 74:
+/***/ 66:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2196,19 +2899,19 @@ var useFieldApi = FieldApi;
 __webpack_require__.d(__webpack_exports__, "a", function() { return /* binding */ functions; });
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js
-var classCallCheck = __webpack_require__(13);
+var classCallCheck = __webpack_require__(11);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass.js
-var createClass = __webpack_require__(17);
+var createClass = __webpack_require__(16);
 
 // EXTERNAL MODULE: ./node_modules/whatwg-fetch/fetch.js
-var fetch = __webpack_require__(37);
+var fetch = __webpack_require__(40);
 
 // CONCATENATED MODULE: ./src/forms/services/EmailService.js
 
 
 
-var _Promise = typeof Promise === 'undefined' ? __webpack_require__(139).Promise : Promise;
+var _Promise = typeof Promise === 'undefined' ? __webpack_require__(112).Promise : Promise;
 
 
 
@@ -2262,7 +2965,11 @@ var EmailService_EmailService = /*#__PURE__*/function () {
 }();
 
 /* harmony default export */ var services_EmailService = (EmailService_EmailService);
+// EXTERNAL MODULE: ./src/forms/fields/utils/fileAttachment.js
+var fileAttachment = __webpack_require__(74);
+
 // CONCATENATED MODULE: ./src/forms/fields/patterns/index.js
+
 
 
 var test = function test(value, regex) {
@@ -2281,6 +2988,45 @@ var removeError = function removeError() {
     }
   });
   return true;
+};
+
+var patterns_getFileValidation = function getFileValidation(fileObj, validation) {
+  var status = false;
+  var errorMsg = '';
+  var fileTypePattern = validation.fileTypePattern,
+      attachmentFileSize = validation.attachmentFileSize,
+      maxAttachmentFileNameSizeWithExt = validation.maxAttachmentFileNameSizeWithExt,
+      attachmentFileInvalidValidMsg = validation.attachmentFileInvalidValidMsg,
+      attachmentFileSizeErrorMsg = validation.attachmentFileSizeErrorMsg,
+      attachmentFileNameLengthErrorMsg = validation.attachmentFileNameLengthErrorMsg,
+      attachmentFileNameErrorMsg = validation.attachmentFileNameErrorMsg;
+  var labels = {
+    attachmentFileSizeErrorMsg: attachmentFileSizeErrorMsg,
+    attachmentFileNameLengthErrorMsg: attachmentFileNameLengthErrorMsg,
+    attachmentFileNameErrorMsg: attachmentFileNameErrorMsg
+  };
+  var config = {
+    maxAttachmentFileNameSizeWithExt: maxAttachmentFileNameSizeWithExt,
+    attachmentFileSize: attachmentFileSize
+  };
+
+  if (fileObj) {
+    var fileValidation = Object(fileAttachment["c" /* validateUploadFile */])(fileObj, labels, config);
+    var fileType = new RegExp(fileTypePattern, 'i');
+
+    if (!fileType.test(fileObj.name)) {
+      status = true;
+      errorMsg = attachmentFileInvalidValidMsg;
+    } else if (fileValidation.status) {
+      status = true;
+      errorMsg = fileValidation.error;
+    }
+  }
+
+  return {
+    status: status,
+    errorMsg: errorMsg
+  };
 };
 
 var functions = {
@@ -2420,7 +3166,10 @@ var functions = {
       return false;
     }
   },
-  email: function email(value, ref, invalidMsg, setError, clearError) {
+  email: function email(value, ref, invalidMsg, setError, clearError, setErrorBoundaryToTrue, removeNotifications) {
+    // Clear Notifications because Notification Error could be set
+    removeNotifications();
+
     if (test(value, /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
       clearError("invalidEmail");
       return true;
@@ -2429,7 +3178,7 @@ var functions = {
       return false;
     }
   },
-  newEmail: function newEmail(value, emailValidationEndpoint, ref, invalidMsg, setError, clearError) {
+  newEmail: function newEmail(value, emailValidationEndpoint, ref, invalidMsg, setError, clearError, setErrorBoundaryToTrue, removeNotifications, setValue, name) {
     // Only Run if invalidMsg is supplied
     if (invalidMsg) {
       if (test(value, /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
@@ -2446,21 +3195,51 @@ var functions = {
           if (isRegisteredUser) {
             // Display Sign In span
             setError("alreadyRegistered", "alreadyRegistered", invalidMsg, ref);
+            removeNotifications();
             return false;
           }
 
+          removeNotifications();
           clearError("alreadyRegistered");
           return removeError(ref);
         })["catch"](function (err) {
-          setError("alreadyRegistered", "alreadyRegistered", err, ref);
-          return false;
+          // Clear the Input Error, Clear the Text and invoke the Notification
+          setValue(name, "", true);
+          removeError(ref);
+          setErrorBoundaryToTrue({
+            code: 500
+          });
+          return true;
         });
         return newEmail;
       } else {
+        removeNotifications();
         clearError("alreadyRegistered");
         return true;
       }
     }
+  },
+  fileValidation: function fileValidation(value, ref, validation, setError, clearError) {
+    if (ref) {
+      if (value && value.length === 1) {
+        var _getFileValidation = patterns_getFileValidation(value[0], validation),
+            status = _getFileValidation.status,
+            errorMsg = _getFileValidation.errorMsg;
+
+        if (status) {
+          setError(ref.name, ref.name, errorMsg, ref);
+          return false;
+        }
+
+        clearError(ref.name);
+        return true;
+      } else {
+        clearError(ref.name);
+        return true;
+      }
+    }
+
+    return true;
   }
 };
 

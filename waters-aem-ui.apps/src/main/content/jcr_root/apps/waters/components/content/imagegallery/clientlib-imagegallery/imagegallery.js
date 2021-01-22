@@ -1,6 +1,6 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[7],{
 
-/***/ 521:
+/***/ 532:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8,29 +8,29 @@
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js
-var classCallCheck = __webpack_require__(13);
+var classCallCheck = __webpack_require__(11);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass.js
-var createClass = __webpack_require__(17);
+var createClass = __webpack_require__(16);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js
-var possibleConstructorReturn = __webpack_require__(20);
+var possibleConstructorReturn = __webpack_require__(18);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js
-var getPrototypeOf = __webpack_require__(21);
+var getPrototypeOf = __webpack_require__(19);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits.js + 1 modules
-var inherits = __webpack_require__(22);
+var inherits = __webpack_require__(20);
 
 // EXTERNAL MODULE: ./node_modules/react/index.js
 var react = __webpack_require__(0);
 var react_default = /*#__PURE__*/__webpack_require__.n(react);
 
 // EXTERNAL MODULE: ./node_modules/react-svg/es/react-svg.js
-var react_svg = __webpack_require__(10);
+var react_svg = __webpack_require__(9);
 
 // EXTERNAL MODULE: ./node_modules/hammerjs/hammer.js
-var hammer = __webpack_require__(495);
+var hammer = __webpack_require__(503);
 var hammer_default = /*#__PURE__*/__webpack_require__.n(hammer);
 
 // CONCATENATED MODULE: ./src/image-carousel/image-viewer.js
@@ -154,7 +154,7 @@ var image_viewer_ImageViewer = /*#__PURE__*/function (_React$Component) {
     };
 
     _this.renderImageDisplay = function () {
-      return react_default.a.createElement("figure", {
+      return /*#__PURE__*/react_default.a.createElement("figure", {
         ref: _this.figureRef,
         className: "image-viewer-container__image-figure image-viewer-container__image-figure--".concat(_this.state.magnified, " image-viewer-container__image-figure--zoomin-").concat(_this.state.magnified),
         style: {
@@ -163,7 +163,7 @@ var image_viewer_ImageViewer = /*#__PURE__*/function (_React$Component) {
         onDragStart: _this.handleOnDragStart,
         onMouseMove: _this.handleFigureMouseMove,
         onTouchMove: _this.handleFigureTouchMove
-      }, react_default.a.createElement("img", {
+      }, /*#__PURE__*/react_default.a.createElement("img", {
         className: "image-viewer-container__image-element",
         src: _this.state.imageSrc,
         alt: _this.props.alt,
@@ -172,13 +172,13 @@ var image_viewer_ImageViewer = /*#__PURE__*/function (_React$Component) {
     };
 
     _this.renderZoomIcon = function () {
-      return _this.state.magnified ? react_default.a.createElement("div", {
+      return _this.state.magnified ? /*#__PURE__*/react_default.a.createElement("div", {
         onClick: _this.handleMagnifyClick
-      }, react_default.a.createElement(react_svg["a" /* default */], {
+      }, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
         src: _this.props.zoomOutIcon
-      })) : react_default.a.createElement("div", {
+      })) : /*#__PURE__*/react_default.a.createElement("div", {
         onClick: _this.handleMagnifyClick
-      }, react_default.a.createElement(react_svg["a" /* default */], {
+      }, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
         src: _this.props.zoomInIcon
       }));
     };
@@ -235,14 +235,14 @@ var image_viewer_ImageViewer = /*#__PURE__*/function (_React$Component) {
   Object(createClass["a" /* default */])(ImageViewer, [{
     key: "render",
     value: function render() {
-      return react_default.a.createElement("div", {
+      return /*#__PURE__*/react_default.a.createElement("div", {
         ref: this.containerRef,
         className: "image-viewer-container"
-      }, react_default.a.createElement("div", {
+      }, /*#__PURE__*/react_default.a.createElement("div", {
         className: "image-viewer-container__image-display"
-      }, this.renderImageDisplay(), react_default.a.createElement("div", {
+      }, this.renderImageDisplay(), /*#__PURE__*/react_default.a.createElement("div", {
         className: "image-viewer-container__image-zoom"
-      }, react_default.a.createElement("div", null, this.renderZoomIcon()))));
+      }, /*#__PURE__*/react_default.a.createElement("div", null, this.renderZoomIcon()))));
     }
   }, {
     key: "componentDidUpdate",
@@ -292,7 +292,7 @@ var image_viewer_ImageViewer = /*#__PURE__*/function (_React$Component) {
 
 /* harmony default export */ var image_viewer = (image_viewer_ImageViewer);
 // EXTERNAL MODULE: ./src/scripts/screenSizes.js
-var screenSizes = __webpack_require__(12);
+var screenSizes = __webpack_require__(10);
 
 // CONCATENATED MODULE: ./src/image-carousel/image-thumbnails.js
 
@@ -429,7 +429,7 @@ var image_thumbnails_ImageThumbnails = /*#__PURE__*/function (_React$Component) 
       }
 
       return _this.props.items.map(function (item, index) {
-        return react_default.a.createElement("div", {
+        return /*#__PURE__*/react_default.a.createElement("div", {
           ref: _this.refs[index],
           key: index,
           className: "image-thumbnails-container__item ".concat(_this.getItemClassName(index)),
@@ -551,33 +551,33 @@ var image_thumbnails_ImageThumbnails = /*#__PURE__*/function (_React$Component) 
     value: function render() {
       var _this2 = this;
 
-      return react_default.a.createElement("div", {
+      return /*#__PURE__*/react_default.a.createElement("div", {
         className: "image-thumbnails-wrapper ".concat(this.getImageThumbnailsWrapperClassName()),
         style: this.getImageThumbnailsWrapperStyle()
-      }, react_default.a.createElement("div", {
+      }, /*#__PURE__*/react_default.a.createElement("div", {
         className: "image-thumbnails-button ".concat(this.getPrevButtonClassName()),
         onClick: function onClick(e) {
           return _this2.handleSlide(PREV);
         }
-      }, react_default.a.createElement(react_svg["a" /* default */], {
+      }, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
         src: "/content/dam/waters/en/brand-assets/icons/left.svg"
-      })), react_default.a.createElement("div", {
+      })), /*#__PURE__*/react_default.a.createElement("div", {
         className: "image-thumbnails-container",
         onTouchStart: this.handleTouchStart,
         onTouchMove: this.handleTouchMove,
         onTouchEnd: this.handleTouchEnd
-      }, react_default.a.createElement("div", {
+      }, /*#__PURE__*/react_default.a.createElement("div", {
         ref: this.gradientLeftRef,
         "class": "image-thumbnails-wrapper__gradient-left"
-      }), this.renderItems(), react_default.a.createElement("div", {
+      }), this.renderItems(), /*#__PURE__*/react_default.a.createElement("div", {
         ref: this.gradientRightRef,
         "class": "image-thumbnails-wrapper__gradient-right"
-      })), react_default.a.createElement("div", {
+      })), /*#__PURE__*/react_default.a.createElement("div", {
         className: "image-thumbnails-button ".concat(this.getNextButtonClassName()),
         onClick: function onClick(e) {
           return _this2.handleSlide(NEXT);
         }
-      }, react_default.a.createElement(react_svg["a" /* default */], {
+      }, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
         src: "/content/dam/waters/en/brand-assets/icons/right.svg"
       })));
     }
@@ -646,11 +646,11 @@ var image_carousel_ImageCarousel = /*#__PURE__*/function (_React$Component) {
     };
 
     _this.mapTemplateToImageViewer = function (template, index) {
-      return react_default.a.createElement("div", {
+      return /*#__PURE__*/react_default.a.createElement("div", {
         style: {
           display: _this.state.activeIndex === index ? 'block' : 'none'
         }
-      }, react_default.a.createElement(image_viewer, {
+      }, /*#__PURE__*/react_default.a.createElement(image_viewer, {
         key: template,
         template: template,
         widths: _this.props.widths,
@@ -665,11 +665,11 @@ var image_carousel_ImageCarousel = /*#__PURE__*/function (_React$Component) {
     };
 
     _this.getThumbnails = function () {
-      return _this.props.templates.length > 1 ? react_default.a.createElement(image_thumbnails, {
+      return _this.props.templates.length > 1 ? /*#__PURE__*/react_default.a.createElement(image_thumbnails, {
         items: _this.getThumbnailImages(),
         onItemClick: _this.handleThumbnailClick,
         width: _this.state.figureWidth
-      }) : react_default.a.createElement(react_default.a.Fragment, null);
+      }) : /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null);
     };
 
     _this.getThumbnailImages = function () {
@@ -679,7 +679,7 @@ var image_carousel_ImageCarousel = /*#__PURE__*/function (_React$Component) {
     };
 
     _this.mapTemplateToElement = function (template) {
-      return react_default.a.createElement("div", {
+      return /*#__PURE__*/react_default.a.createElement("div", {
         className: "image-thumbnails-container__image",
         style: {
           backgroundImage: "url(".concat(template.replace(/{{width}}/gi, _this.props.widths[0]), ")")
@@ -698,11 +698,11 @@ var image_carousel_ImageCarousel = /*#__PURE__*/function (_React$Component) {
   Object(createClass["a" /* default */])(ImageCarousel, [{
     key: "render",
     value: function render() {
-      return react_default.a.createElement("div", {
+      return /*#__PURE__*/react_default.a.createElement("div", {
         className: "image-carousel"
-      }, react_default.a.createElement("div", {
+      }, /*#__PURE__*/react_default.a.createElement("div", {
         className: "image-viewer-placeholder"
-      }, this.getImageViewerComponents()), react_default.a.createElement("div", {
+      }, this.getImageViewerComponents()), /*#__PURE__*/react_default.a.createElement("div", {
         className: "image-thumbnails-placeholder"
       }, this.getThumbnails()));
     }

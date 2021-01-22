@@ -1,6 +1,6 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[12],{
 
-/***/ 137:
+/***/ 144:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8,13 +8,14 @@
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return parameterValues; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return parameterDefaults; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return searchMapper; });
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(13);
-/* harmony import */ var C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(17);
-/* harmony import */ var whatwg_fetch__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(37);
+/* harmony import */ var C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+/* harmony import */ var C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
+/* harmony import */ var C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(11);
+/* harmony import */ var C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(16);
+/* harmony import */ var whatwg_fetch__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(40);
 /* harmony import */ var _stores_sessionStore__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(2);
+/* harmony import */ var _utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(13);
 
 
 
@@ -22,7 +23,8 @@
 
 
 
-var queryString = __webpack_require__(60);
+
+var queryString = __webpack_require__(59);
 
 var parameterValues = {
   undefined: 'undefined',
@@ -57,7 +59,7 @@ var SearchService = /*#__PURE__*/function () {
     var multiselect = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : true;
     var throwError = arguments.length > 6 ? arguments[6] : undefined;
 
-    Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(this, SearchService);
+    Object(C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(this, SearchService);
 
     this.getCategories = function (_ref) {
       var _ref$keyword = _ref.keyword,
@@ -104,7 +106,12 @@ var SearchService = /*#__PURE__*/function () {
         sort: sort
       });
 
-      var searchString = "".concat(_this.path, "/category_facet$").concat(category.toLowerCase(), ":").concat(encodeURIComponent(encodeURIComponent(category)), "?").concat(paramString);
+      var searchString = "".concat(_this.path, "/category_facet$").concat(category.toLowerCase(), ":").concat(encodeURIComponent(encodeURIComponent(category)), "?").concat(paramString).concat(Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* getCategoryReferenceType */ "f"])());
+
+      if (category === "All") {
+        searchString = "".concat(_this.path, "?").concat(paramString);
+      }
+
       return window.fetch(searchString).then(function (response) {
         if (response.ok) {
           return response.json();
@@ -135,7 +142,7 @@ var SearchService = /*#__PURE__*/function () {
         sort: sort
       });
 
-      var searchString = "".concat(_this.path, "/category_facet$").concat(category.toLowerCase(), ":").concat(encodeURIComponent(encodeURIComponent(category)), "&contenttype_facet$").concat(contentTypeKey, ":").concat(encodeURIComponent(encodeURIComponent(contentTypeValue)), "?").concat(paramString);
+      var searchString = "".concat(_this.path, "/category_facet$").concat(category.toLowerCase(), ":").concat(encodeURIComponent(encodeURIComponent(category)), "&contenttype_facet$").concat(contentTypeKey, ":").concat(encodeURIComponent(encodeURIComponent(contentTypeValue)), "?").concat(paramString).concat(Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* getCategoryReferenceType */ "f"])());
       return window.fetch(searchString).then(function (response) {
         if (response.ok) {
           return response.json();
@@ -168,7 +175,7 @@ var SearchService = /*#__PURE__*/function () {
 
       var facetString = _this.getQueryFacetString(facets);
 
-      var searchString = "".concat(_this.path, "/category_facet$").concat(category.toLowerCase(), ":").concat(encodeURIComponent(encodeURIComponent(category)), "&contenttype_facet$").concat(contentTypeName.replace('_facet', ''), ":").concat(encodeURIComponent(encodeURIComponent(contentTypeValue))).concat(facetString, "?").concat(paramString);
+      var searchString = "".concat(_this.path, "/category_facet$").concat(category.toLowerCase(), ":").concat(encodeURIComponent(encodeURIComponent(category)), "&contenttype_facet$").concat(contentTypeName.replace('_facet', ''), ":").concat(encodeURIComponent(encodeURIComponent(contentTypeValue))).concat(facetString, "?").concat(paramString).concat(Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* getCategoryReferenceType */ "f"])());
       return window.fetch(searchString).then(function (response) {
         if (response.ok) {
           return response.json();
@@ -181,13 +188,13 @@ var SearchService = /*#__PURE__*/function () {
     };
 
     this.getSuggestedKeywords = /*#__PURE__*/function () {
-      var _ref5 = Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(rows, term) {
+      var _ref5 = Object(C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(rows, term) {
         var searchString, callService, response;
-        return C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        return C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                searchString = "".concat(_this.path, "/v1/autocomplete?term=").concat(term, "&rows=").concat(rows, "&isocode=").concat(_this.options.isocode);
+                searchString = "".concat(_this.path, "/v1/autocomplete?term=").concat(term, "&rows=").concat(rows, "&isocode=").concat(_this.options.isocode).concat(Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* getCategoryReferenceType */ "f"])());
                 callService = window.fetch(searchString).then(function (response) {
                   if (response.ok) {
                     return response.json();
@@ -257,8 +264,8 @@ var SearchService = /*#__PURE__*/function () {
 
     this.stringifyParameters = function (parameters) {
       return Object.keys(parameters).length !== 0 ? Object.keys(parameters).reduce(function (accumulator, currentValue) {
-        return "".concat(accumulator, "=").concat(parameters[accumulator], "&").concat(currentValue, "=").concat(parameters[currentValue]);
-      }) : '';
+        return "".concat(accumulator ? accumulator + '&' : accumulator).concat(currentValue, "=").concat(encodeURIComponent(parameters[currentValue]));
+      }, '') : '';
     };
 
     this.setUrlParameter = function (searchTerm, searchPath) {
@@ -339,7 +346,7 @@ var SearchService = /*#__PURE__*/function () {
     this.sessionStore = new _stores_sessionStore__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"]();
   }
 
-  Object(C_MySpace_waters_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(SearchService, [{
+  Object(C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(SearchService, [{
     key: "getParamsFromString",
     value: function getParamsFromString() {
       var str = window.location.search;
@@ -451,7 +458,7 @@ var SearchService = /*#__PURE__*/function () {
     key: "createQueryObject",
     value: function createQueryObject(params) {
       var obj = {};
-      obj['keyword'] = params.keyword;
+      obj['keyword'] = params.keyword ? params.keyword.replace("%", "") : params.keyword;
       obj['page'] = params.page || parameterDefaults.page;
       obj['facets'] = {};
       obj['sort'] = params.sort;
@@ -519,15 +526,15 @@ var searchMapper = {
 
 /***/ }),
 
-/***/ 30:
+/***/ 32:
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
-module.exports = {"colorBorderDark":"#9ca7b0","colorGray50":"#4f5b64","colorBackgroundLight":"#f4f6f7","colorWhite":"#fff","colorBlue50":"#07b","borderRadius":"4px","spaceXXXS":".25em","spaceXXS":".5em","spaceXS":".75em","spaceS":"1em"};
+module.exports = {"colorBorderDark":"#9ca7b0","colorGray50":"#4f5b64","colorBackgroundLight":"#f6f8f9","colorWhite":"#fff","colorBlue50":"#07b","borderRadius":"4px","spaceXXXS":".25em","spaceXXS":".5em","spaceXS":".75em","spaceS":"1em"};
 
 /***/ }),
 
-/***/ 36:
+/***/ 39:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -542,22 +549,22 @@ __webpack_require__.d(__webpack_exports__, "d", function() { return /* binding *
 __webpack_require__.d(__webpack_exports__, "h", function() { return /* binding */ shopAllCartContext; });
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray.js + 3 modules
-var slicedToArray = __webpack_require__(8);
+var slicedToArray = __webpack_require__(7);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js
-var classCallCheck = __webpack_require__(13);
+var classCallCheck = __webpack_require__(11);
 
-// EXTERNAL MODULE: ./src/scripts/inlineSVG.js
-var inlineSVG = __webpack_require__(41);
+// EXTERNAL MODULE: ./src/scripts/inlineSVG.js + 1 modules
+var inlineSVG = __webpack_require__(44);
 
 // EXTERNAL MODULE: ./src/scripts/DigitalData.js
-var DigitalData = __webpack_require__(7);
+var DigitalData = __webpack_require__(8);
 
 // EXTERNAL MODULE: ./src/stores/sessionStore.js
 var sessionStore = __webpack_require__(2);
 
 // EXTERNAL MODULE: ./src/stores/cookieStore.js
-var cookieStore = __webpack_require__(42);
+var cookieStore = __webpack_require__(45);
 
 // CONCATENATED MODULE: ./src/analytics/eventTypes.js
 var eventTypes = {
@@ -916,88 +923,7 @@ var _analytics$analyticTy = Object(slicedToArray["a" /* default */])(analytics.a
 
 /***/ }),
 
-/***/ 510:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _scripts_fade_x_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(70);
-/* harmony import */ var _utils_eCommerceFunctions_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(23);
-
-
-
-
-var Tabs = function Tabs(_ref) {
-  var className = _ref.className,
-      items = _ref.items,
-      activeIndex = _ref.activeIndex,
-      onClick = _ref.onClick,
-      enableFading = _ref.enableFading;
-  var tabsRef = react__WEBPACK_IMPORTED_MODULE_0___default.a.useRef();
-  react__WEBPACK_IMPORTED_MODULE_0___default.a.useEffect(function () {
-    var tabFader;
-
-    if (enableFading && items.length !== 0) {
-      tabFader = Object(_scripts_fade_x_js__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])('cmp-tabs', 0, 100);
-      tabsRef.current.addEventListener('scroll', tabFader);
-    }
-
-    return function () {
-      tabsRef.current.removeEventListener('scroll', tabFader);
-    };
-  }, []);
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "cmp-tabs-wrapper"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    ref: tabsRef,
-    className: "cmp-tabs ".concat(className)
-  }, items.map(function (item, index) {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Tab, {
-      key: "CategoryTab-".concat(index),
-      name: item.name,
-      index: index,
-      isActive: index === activeIndex,
-      onClick: onClick
-    });
-  })));
-};
-
-Tabs.defaultProps = {
-  className: "",
-  items: [],
-  activeIndex: -1,
-  onClick: function onClick() {},
-  enableFading: false
-};
-
-var Tab = function Tab(_ref2) {
-  var index = _ref2.index,
-      name = _ref2.name,
-      isActive = _ref2.isActive,
-      _onClick = _ref2.onClick;
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "cmp-tabs__tab".concat(isActive ? " active" : ""),
-    onClick: function onClick() {
-      return _onClick(index);
-    }
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-    className: "cmp-tabs__tab-label",
-    "data-locator": Object(_utils_eCommerceFunctions_js__WEBPACK_IMPORTED_MODULE_2__[/* elementLocator */ "a"])(name)
-  }, name));
-};
-
-Tab.defaultProps = {
-  name: "",
-  index: -1,
-  isActive: false,
-  onClick: function onClick() {}
-};
-/* harmony default export */ __webpack_exports__["a"] = (Tabs);
-
-/***/ }),
-
-/***/ 519:
+/***/ 530:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1009,47 +935,47 @@ var react = __webpack_require__(0);
 var react_default = /*#__PURE__*/__webpack_require__.n(react);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectSpread.js
-var objectSpread = __webpack_require__(16);
+var objectSpread = __webpack_require__(15);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 3 modules
-var toConsumableArray = __webpack_require__(138);
+var toConsumableArray = __webpack_require__(145);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/regenerator/index.js
 var regenerator = __webpack_require__(1);
 var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
-var asyncToGenerator = __webpack_require__(3);
+var asyncToGenerator = __webpack_require__(4);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/typeof.js
-var esm_typeof = __webpack_require__(34);
+var esm_typeof = __webpack_require__(33);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js
-var classCallCheck = __webpack_require__(13);
+var classCallCheck = __webpack_require__(11);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass.js
-var createClass = __webpack_require__(17);
+var createClass = __webpack_require__(16);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js
-var possibleConstructorReturn = __webpack_require__(20);
+var possibleConstructorReturn = __webpack_require__(18);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js
-var getPrototypeOf = __webpack_require__(21);
+var getPrototypeOf = __webpack_require__(19);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits.js + 1 modules
-var inherits = __webpack_require__(22);
+var inherits = __webpack_require__(20);
 
 // EXTERNAL MODULE: ./src/search/services/index.js
-var services = __webpack_require__(137);
+var services = __webpack_require__(144);
 
 // EXTERNAL MODULE: ./node_modules/query-string/index.js
-var query_string = __webpack_require__(60);
+var query_string = __webpack_require__(59);
 
 // EXTERNAL MODULE: ./node_modules/react-router-dom/es/withRouter.js + 1 modules
-var withRouter = __webpack_require__(506);
+var withRouter = __webpack_require__(517);
 
 // EXTERNAL MODULE: ./node_modules/react-svg/es/react-svg.js
-var react_svg = __webpack_require__(10);
+var react_svg = __webpack_require__(9);
 
 // CONCATENATED MODULE: ./src/search/components/no-results.js
 
@@ -1058,83 +984,36 @@ var react_svg = __webpack_require__(10);
 var no_results_NoResults = function NoResults(_ref) {
   var searchText = _ref.searchText,
       query = _ref.query;
-  var forQuery = react_default.a.createElement("span", null, "for \"", react_default.a.createElement("strong", null, query), "\"");
-  return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("h2", {
+  var forQuery = /*#__PURE__*/react_default.a.createElement("span", null, "for \"", /*#__PURE__*/react_default.a.createElement("strong", null, query), "\"");
+  return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement("h2", {
     className: "cmp-search__resultsCount noresults"
-  }, "Showing 0 results", ' ', " ", forQuery), react_default.a.createElement("div", {
+  }, searchText.noResultsText, " ", ' ', " ", forQuery), /*#__PURE__*/react_default.a.createElement("div", {
     className: "cmp-search__no-results"
-  }, react_default.a.createElement(react_svg["a" /* default */], {
+  }, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
     className: "icon",
     src: searchText.noResultsIcon
-  }), react_default.a.createElement("h2", null, searchText.noResultsTitle), react_default.a.createElement("p", null, searchText.noResultsDescription, react_default.a.createElement("a", {
+  }), /*#__PURE__*/react_default.a.createElement("h2", null, searchText.noResultsTitle), /*#__PURE__*/react_default.a.createElement("p", null, searchText.noResultsDescription, /*#__PURE__*/react_default.a.createElement("a", {
     href: window.location.href.split('?')[0]
   }, searchText.noResultsSearchLinkText))));
 };
 
 /* harmony default export */ var no_results = (no_results_NoResults);
 // EXTERNAL MODULE: ./node_modules/validator/index.js
-var validator = __webpack_require__(485);
+var validator = __webpack_require__(492);
 var validator_default = /*#__PURE__*/__webpack_require__.n(validator);
 
 // EXTERNAL MODULE: ./src/scripts/domElements.js
-var domElements = __webpack_require__(19);
+var domElements = __webpack_require__(21);
 
 // EXTERNAL MODULE: ./src/scripts/screenSizes.js
-var screenSizes = __webpack_require__(12);
+var screenSizes = __webpack_require__(10);
 
 // EXTERNAL MODULE: ./src/analytics/index.js + 1 modules
-var analytics = __webpack_require__(36);
+var analytics = __webpack_require__(39);
 
-// EXTERNAL MODULE: ./node_modules/react-spinners/index.js
-var react_spinners = __webpack_require__(154);
+// EXTERNAL MODULE: ./src/utils/spinner/index.js
+var spinner = __webpack_require__(90);
 
-// CONCATENATED MODULE: ./src/search/components/spinner.js
-
-
-
-
-
-
-
-
-var spinner_LoadingSpinner = /*#__PURE__*/function (_Component) {
-  Object(inherits["a" /* default */])(LoadingSpinner, _Component);
-
-  function LoadingSpinner() {
-    Object(classCallCheck["a" /* default */])(this, LoadingSpinner);
-
-    return Object(possibleConstructorReturn["a" /* default */])(this, Object(getPrototypeOf["a" /* default */])(LoadingSpinner).call(this));
-  }
-
-  Object(createClass["a" /* default */])(LoadingSpinner, [{
-    key: "componentWillMount",
-    value: function componentWillMount() {
-      window.scrollTo(0, 0);
-      window.document.documentElement.classList.add('showing-spinner');
-    }
-  }, {
-    key: "componentWillUnmount",
-    value: function componentWillUnmount() {
-      window.document.documentElement.classList.remove('showing-spinner');
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      return react_default.a.createElement("div", {
-        className: "cmp-search-overlay"
-      }, react_default.a.createElement(react_spinners["ClipLoader"], {
-        sizeUnit: 'px',
-        size: 64,
-        color: '#ffffff',
-        loading: this.props.loading
-      }));
-    }
-  }]);
-
-  return LoadingSpinner;
-}(react["Component"]);
-
-/* harmony default export */ var spinner = (spinner_LoadingSpinner);
 // CONCATENATED MODULE: ./src/search/components/loading.js
 
 
@@ -1143,12 +1022,12 @@ var loading_Loading = function Loading(_ref) {
   var visible = _ref.visible;
 
   if (!visible) {
-    return react_default.a.createElement(react_default.a.Fragment, null);
+    return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null);
   }
 
-  return react_default.a.createElement("div", null, react_default.a.createElement("div", {
+  return /*#__PURE__*/react_default.a.createElement("div", null, /*#__PURE__*/react_default.a.createElement("div", {
     className: "overlay"
-  }), react_default.a.createElement(spinner, {
+  }), /*#__PURE__*/react_default.a.createElement(spinner["a" /* default */], {
     loading: true
   }));
 };
@@ -1158,7 +1037,7 @@ loading_Loading.defaultProps = {
 };
 /* harmony default export */ var loading = (loading_Loading);
 // EXTERNAL MODULE: ./node_modules/prop-types/index.js
-var prop_types = __webpack_require__(4);
+var prop_types = __webpack_require__(3);
 var prop_types_default = /*#__PURE__*/__webpack_require__.n(prop_types);
 
 // CONCATENATED MODULE: ./src/search/search.component.props.js
@@ -1311,7 +1190,9 @@ var defaultProps = {
     spell_suggestion: '',
     items: [],
     isSkuList: false,
-    pagination: {}
+    pagination: {},
+    categoryOptions: [],
+    categoryValue: 0
   },
   resultsEvents: {
     onRelatedSuggestionClick: function onRelatedSuggestionClick() {},
@@ -1363,7 +1244,7 @@ var defaultProps = {
 };
 
 // EXTERNAL MODULE: ./node_modules/react-paginate/dist/react-paginate.js
-var react_paginate = __webpack_require__(486);
+var react_paginate = __webpack_require__(493);
 var react_paginate_default = /*#__PURE__*/__webpack_require__.n(react_paginate);
 
 // CONCATENATED MODULE: ./src/search/components/content-type-menu.js
@@ -1372,13 +1253,15 @@ var react_paginate_default = /*#__PURE__*/__webpack_require__.n(react_paginate);
 var content_type_menu_ContentTypeMenu = function ContentTypeMenu(props) {
   var Items = function Items() {
     return props.items.map(function (item) {
-      return react_default.a.createElement("div", {
+      return /*#__PURE__*/react_default.a.createElement("div", {
         key: item.facetName,
-        className: "content-type-menu-container__item",
+        className: "content-type-menu-container__item ".concat(item.count === 0 ? "inactive" : ""),
         onClick: function onClick() {
-          return props.onClick(item);
+          if (item.count !== 0) {
+            props.onClick(item);
+          }
         }
-      }, react_default.a.createElement("div", null, react_default.a.createElement("a", {
+      }, /*#__PURE__*/react_default.a.createElement("div", null, /*#__PURE__*/react_default.a.createElement("a", {
         href: "#",
         onClick: function onClick(e) {
           e.preventDefault();
@@ -1389,11 +1272,11 @@ var content_type_menu_ContentTypeMenu = function ContentTypeMenu(props) {
     });
   };
 
-  return react_default.a.createElement("div", {
+  return /*#__PURE__*/react_default.a.createElement("div", {
     className: "content-type-menu-container"
-  }, react_default.a.createElement("div", {
+  }, /*#__PURE__*/react_default.a.createElement("div", {
     className: "content-type-menu-container__heading"
-  }, props.heading), react_default.a.createElement("div", {
+  }, props.heading), /*#__PURE__*/react_default.a.createElement("div", {
     className: "content-type-menu-container__body"
   }, Items()));
 };
@@ -1409,24 +1292,24 @@ content_type_menu_ContentTypeMenu.defaultProps = {
 
 
 var facet_menu_FacetMenu = function FacetMenu(props) {
-  return react_default.a.createElement("div", {
+  return /*#__PURE__*/react_default.a.createElement("div", {
     className: "facet-menu-container",
     "data-locator": "facet-menu-container"
-  }, react_default.a.createElement("div", {
+  }, /*#__PURE__*/react_default.a.createElement("div", {
     className: "facet-menu-container__heading",
     "data-locator": "facet-menu-container-heading"
-  }, props.filterTags, react_default.a.createElement("div", {
+  }, props.filterTags, /*#__PURE__*/react_default.a.createElement("div", {
     className: "heading--with-selected-value",
     "data-locator": "heading-with-selected-value"
-  }, react_default.a.createElement("div", {
+  }, /*#__PURE__*/react_default.a.createElement("div", {
     className: "back-btn"
-  }, react_default.a.createElement("a", {
+  }, /*#__PURE__*/react_default.a.createElement("a", {
     href: "javascript:void(0)",
     onClick: props.onClear,
     "data-locator": "link-back-button"
-  }, react_default.a.createElement(react_svg["a" /* default */], {
+  }, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
     src: props.previousIcon
-  }), " ", props.heading)), react_default.a.createElement("h3", null, props.selectedValue))), react_default.a.createElement("div", {
+  }), " ", props.heading)), /*#__PURE__*/react_default.a.createElement("h3", null, props.selectedValue))), /*#__PURE__*/react_default.a.createElement("div", {
     className: "facet-menu-container__body",
     "data-locator": "facet-menu-container-body"
   }, props.children));
@@ -1436,11 +1319,12 @@ facet_menu_FacetMenu.defaultProps = {
   heading: '',
   selectedValue: '',
   previousIcon: '',
-  filterTags: react_default.a.createElement(react_default.a.Fragment, null),
+  filterTags: /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null),
   onClear: function onClear() {}
 };
 /* harmony default export */ var facet_menu = (facet_menu_FacetMenu);
 // CONCATENATED MODULE: ./src/search/components/filter-section.js
+
 
 
 
@@ -1504,20 +1388,41 @@ var filter_section_FilterSection = /*#__PURE__*/function (_Component) {
       _this.setStateForItems(_this.filterList('', minCharSearch, items));
     };
 
+    _this.filterAndSort = function (options) {
+      var zeroOptions = options.filter(function (item) {
+        if (item.count === 0) {
+          return item;
+        }
+      });
+      var nonZeroOptions = options.filter(function (item) {
+        if (item.count !== 0) {
+          return item;
+        }
+      });
+      var sortedZeroOptions = zeroOptions.sort(function (a, b) {
+        return a.value > b.value ? 1 : -1;
+      });
+      var sortedNonZeroOptions = nonZeroOptions.sort(function (a, b) {
+        return a.value > b.value ? 1 : -1;
+      });
+      var mergedOptions = [].concat(Object(toConsumableArray["a" /* default */])(sortedNonZeroOptions), Object(toConsumableArray["a" /* default */])(sortedZeroOptions));
+      return mergedOptions;
+    };
+
     _this.getFacetSearch = function (items, minItemSearch) {
       if (items.length >= minItemSearch) {
-        return react_default.a.createElement("div", {
+        return /*#__PURE__*/react_default.a.createElement("div", {
           className: "cmp-search-filters__filter__search"
-        }, !_this.state.searchValue.length ? react_default.a.createElement(react_svg["a" /* default */], {
+        }, !_this.state.searchValue.length ? /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
           src: _this.props.text.searchIcon,
           className: "searchIcon"
-        }) : react_default.a.createElement(react_svg["a" /* default */], {
+        }) : /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
           src: _this.props.text.closeIcon,
           className: "closeIcon",
           onClick: function onClick() {
             return _this.handleClearClick(_this.props.minCharSearch, _this.props.facet.facets);
           }
-        }), react_default.a.createElement("input", {
+        }), /*#__PURE__*/react_default.a.createElement("input", {
           type: "input",
           placeholder: "Search",
           onChange: function onChange(e) {
@@ -1563,16 +1468,18 @@ var filter_section_FilterSection = /*#__PURE__*/function (_Component) {
     }
   }, {
     key: "checkHandler",
-    value: function checkHandler(event) {
-      event.currentTarget.nextElementSibling.click();
+    value: function checkHandler(itemCount, event) {
+      if (itemCount !== 0) {
+        event.currentTarget.nextElementSibling.click();
+      }
     }
   }, {
     key: "getFacetOptions",
     value: function getFacetOptions() {
       var _this2 = this;
 
-      var options = this.state.items;
-      var option = options.map(function (item, index) {
+      var sortedOptions = this.filterAndSort(this.state.items);
+      var option = sortedOptions.map(function (item, index) {
         var checked = false;
 
         if (_this2.props.selectedFacets[_this2.props.facet.name]) {
@@ -1582,27 +1489,27 @@ var filter_section_FilterSection = /*#__PURE__*/function (_Component) {
           }
         }
 
-        return react_default.a.createElement("li", {
-          className: "cmp-search-filters__filter__item",
+        return /*#__PURE__*/react_default.a.createElement("li", {
+          className: "cmp-search-filters__filter__item ".concat(item.count === 0 ? "inactive" : ""),
           key: "".concat(item.value, "#_").concat(index)
-        }, react_default.a.createElement("a", {
+        }, /*#__PURE__*/react_default.a.createElement("a", {
           href: "javascript:void(0)",
-          className: 'checkbox ' + (checked ? 'checked' : ''),
-          onClick: _this2.checkHandler.bind(_this2),
+          className: "checkbox ".concat(item.count === 0 ? "inactive" : "") + (checked ? 'checked' : ''),
+          onClick: _this2.checkHandler.bind(_this2, item.count),
           "data-locator": "search-filters-filter-item"
-        }, react_default.a.createElement(react_svg["a" /* default */], {
+        }, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
           src: _this2.props.text.checkmarkIcon
-        })), react_default.a.createElement("input", {
+        })), /*#__PURE__*/react_default.a.createElement("input", {
           type: "checkbox",
           name: "".concat(_this2.props.name, ":").concat(item.value),
           onChange: function onChange(e) {
             return _this2.props.selectHandler(item.value, _this2.props.facet.name, e);
           },
           checked: checked
-        }), react_default.a.createElement("label", {
+        }), /*#__PURE__*/react_default.a.createElement("label", {
           htmlFor: "".concat(_this2.props.name, ":").concat(item.value)
-        }, item.value, ' ', react_default.a.createElement("span", {
-          className: "cmp-search-filters__filter__item__count"
+        }, item.value, ' ', /*#__PURE__*/react_default.a.createElement("span", {
+          className: "cmp-search-filters__filter__item__count ".concat(item.count === 0 ? "inactive" : "")
         }, "(", item.count, ")")));
       });
       return option;
@@ -1612,10 +1519,10 @@ var filter_section_FilterSection = /*#__PURE__*/function (_Component) {
     value: function render() {
       var props = this.props;
       var className = "cmp-search-filters__filter ".concat(props.isExpanded ? 'expanded' : '');
-      return react_default.a.createElement("li", {
+      return /*#__PURE__*/react_default.a.createElement("li", {
         className: className,
         "data-locator": "search-filters-filter"
-      }, react_default.a.createElement("a", {
+      }, /*#__PURE__*/react_default.a.createElement("a", {
         href: "javascript:void(0);",
         className: "filter-toggle",
         item: props.item,
@@ -1623,18 +1530,18 @@ var filter_section_FilterSection = /*#__PURE__*/function (_Component) {
           return props.handleInput(e, props.item);
         },
         "data-locator": "link-search-filter"
-      }, react_default.a.createElement(react_svg["a" /* default */], {
+      }, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
         src: props.text.expandIcon,
         className: "expandIcon"
-      }), react_default.a.createElement(react_svg["a" /* default */], {
+      }), /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
         src: props.text.collapseIcon,
         className: "collapseIcon"
-      }), react_default.a.createElement(react_svg["a" /* default */], {
+      }), /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
         src: props.text.nextIcon,
         className: "mobileIcon"
-      }), props.facet.translation), react_default.a.createElement("div", {
+      }), props.facet.translation), /*#__PURE__*/react_default.a.createElement("div", {
         className: "facet-container"
-      }, this.getFacetSearch(this.props.facet.facets, this.props.minItemSearch), react_default.a.createElement("ul", null, this.getFacetOptions())));
+      }, this.getFacetSearch(this.props.facet.facets, this.props.minItemSearch), /*#__PURE__*/react_default.a.createElement("ul", null, this.getFacetOptions())));
     }
   }]);
 
@@ -1805,11 +1712,11 @@ var filter_Filter = /*#__PURE__*/function (_Component) {
     value: function getFilters() {
       var _this2 = this;
 
-      if (this.props.showTagsOnly) return react_default.a.createElement(react_default.a.Fragment, null);
+      if (this.props.showTagsOnly) return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null);
       var props = this.props;
       var mappings = this.state.facetGroups;
       var filters = Array.isArray(mappings) ? mappings.map(function (item, index) {
-        return react_default.a.createElement(filter_section, {
+        return /*#__PURE__*/react_default.a.createElement(filter_section, {
           key: "".concat(item.category, "#_").concat(index),
           last: _this2.state.lastIndex,
           selected: _this2.props.activeIndex,
@@ -1827,12 +1734,12 @@ var filter_Filter = /*#__PURE__*/function (_Component) {
           isExpanded: item.isExpanded
         });
       }) : [];
-      return react_default.a.createElement("ul", null, filters);
+      return /*#__PURE__*/react_default.a.createElement("ul", null, filters);
     }
   }, {
     key: "render",
     value: function render() {
-      return react_default.a.createElement("div", {
+      return /*#__PURE__*/react_default.a.createElement("div", {
         id: "js-search-filters",
         className: "cmp-search-filters"
       }, this.props.facets && this.getFilters());
@@ -1853,12 +1760,14 @@ filter_Filter.defaultProps = {
   onGroupClick: function onGroupClick() {}
 };
 /* harmony default export */ var filter = (filter_Filter);
-// EXTERNAL MODULE: ./node_modules/react-select/dist/react-select.esm.js + 1 modules
-var react_select_esm = __webpack_require__(110);
+// EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js + 1 modules
+var objectWithoutProperties = __webpack_require__(498);
 
-// EXTERNAL MODULE: ./src/styles/variables.scss
-var variables = __webpack_require__(30);
-var variables_default = /*#__PURE__*/__webpack_require__.n(variables);
+// EXTERNAL MODULE: ./node_modules/react-select/dist/react-select.esm.js + 1 modules
+var react_select_esm = __webpack_require__(140);
+
+// EXTERNAL MODULE: ./src/utils/dropdown/custom-styles.js
+var custom_styles = __webpack_require__(200);
 
 // CONCATENATED MODULE: ./src/search/components/category-dropdown.js
 
@@ -1867,112 +1776,69 @@ var variables_default = /*#__PURE__*/__webpack_require__.n(variables);
 
 
 
-/* istanbul ignore next */
 
-var customStyles = {
-  indicatorSeparator: function indicatorSeparator() {
-    return {
-      display: 'none'
-    };
-  },
-  option: function option(provided, state) {
-    return Object(objectSpread["a" /* default */])({}, provided, {
-      color: variables_default.a.colorGray50,
-      padding: '0.75em 1em',
-      backgroundColor: state.isSelected ? variables_default.a.colorBackgroundLight : variables_default.a.colorWhite,
-      cursor: !state.isSelected ? 'pointer' : 'default',
-      '&:hover': {
-        color: !state.isSelected ? variables_default.a.colorBlue50 : variables_default.a.colorGray50,
-        backgroundColor: !state.isSelected ? variables_default.a.colorWhite : variables_default.a.colorBackgroundLight
-      },
-      margin: 0
-    });
-  },
-  control: function control(provided, state) {
-    return Object(objectSpread["a" /* default */])({}, provided, {
-      'border-radius': variables_default.a.borderRadius,
-      padding: '0.3em 0.5em',
-      color: variables_default.a.colorGray50,
-      'border-color': state.isFocused ? variables_default.a.colorBorderDark : variables_default.a.colorBorderDark,
-      outline: 'none',
-      cursor: 'pointer',
-      'box-shadow': 'none',
-      '&:hover': {
-        outline: 'none',
-        color: variables_default.a.colorBlue50,
-        borderColor: variables_default.a.colorBlue50
-      }
-    });
-  },
-  singleValue: function singleValue(provided, state) {
-    return {};
-  },
-  menu: function menu(provided) {
-    return Object(objectSpread["a" /* default */])({}, provided, {
-      marginTop: 0,
-      borderRadius: 0,
-      width: 'calc(100% - 2px)',
-      marginLeft: '1px',
-      marginBottom: 0,
-      padding: 0
-    });
-  },
-  menuList: function menuList(provided) {
-    return Object(objectSpread["a" /* default */])({}, provided, {
-      paddingBottom: 0,
-      paddingTop: 0
-    });
-  }
-};
-
-var category_dropdown_DropdownIndicator = function DropdownIndicator(props) {
-  return react_default.a.createElement(react_select_esm["a" /* components */].DropdownIndicator, props, react_default.a.createElement(react_svg["a" /* default */], {
-    src: props.theme.dropdownIndicator,
-    className: "dropDownIcon"
-  }));
-};
-
-var getOptions = function getOptions(options) {
+var category_dropdown_getOptions = function getOptions(options) {
   var newList = options.filter(function (item) {
     return item.count !== 0;
   }).map(function (a, index) {
+    var mobileLabel = a.hasOwnProperty('mobileTranslation') && a.mobileTranslation ? a.mobileTranslation : a.translation;
     return {
       value: index,
-      label: a.translation
+      label: "".concat(mobileLabel, " (").concat(a.count, ")")
     };
   });
   return newList;
 };
 
+var category_dropdown_dropdownComponents = function dropdownComponents(label) {
+  var prefix = label != '' ? label + ' ' : '';
+  return {
+    SingleValue: function SingleValue(_ref) {
+      var children = _ref.children,
+          props = Object(objectWithoutProperties["a" /* default */])(_ref, ["children"]);
+
+      return /*#__PURE__*/react_default.a.createElement(react_select_esm["a" /* components */].SingleValue, props, prefix + children);
+    },
+    DropdownIndicator: function DropdownIndicator(_ref2) {
+      var children = _ref2.children,
+          props = Object(objectWithoutProperties["a" /* default */])(_ref2, ["children"]);
+
+      return /*#__PURE__*/react_default.a.createElement(react_select_esm["a" /* components */].DropdownIndicator, props, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+        src: props.theme.dropdownIndicator,
+        className: "dropDownIcon"
+      }));
+    }
+  };
+};
+
 var category_dropdown_CategoryDropdown = function CategoryDropdown(props) {
-  var options = getOptions(props.categoryOptions);
+  var options = category_dropdown_getOptions(props.categoryOptions);
 
   var mobileView = function mobileView() {
-    return react_default.a.createElement("div", {
+    return /*#__PURE__*/react_default.a.createElement("div", {
       className: "cmp-search-category-dropdown"
-    }, react_default.a.createElement(react_select_esm["c" /* default */], {
+    }, /*#__PURE__*/react_default.a.createElement(react_select_esm["c" /* default */], {
       options: options,
       value: options[props.categoryValue],
       onChange: props.categoryOnChange,
       isSearchable: props.categoryIsSearchable,
-      styles: customStyles,
+      styles: custom_styles["a" /* default */],
       placeholder: props.categoryPlaceholder,
       classNamePrefix: 'cmp-custom-dropdown',
-      components: {
-        DropdownIndicator: category_dropdown_DropdownIndicator
-      },
+      components: category_dropdown_dropdownComponents(props.categoryLabelPrefix),
       theme: {
         dropdownIndicator: props.categoryDownIcon
       }
     }));
   };
 
-  return react_default.a.createElement(react_default.a.Fragment, null, screenSizes["a" /* default */].isTabletAndUnder() ? mobileView() : null);
+  return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, screenSizes["a" /* default */].isTabletAndUnder() ? mobileView() : null);
 };
 
 category_dropdown_CategoryDropdown.defaultProps = {
   categoryOptions: [],
   categoryOnChange: function categoryOnChange() {},
+  categoryLabelPrefix: '',
   categoryIsSearchable: false,
   categoryPlaceholder: '',
   categoryDownIcon: '',
@@ -2007,14 +1873,14 @@ var btn_hide_sort_filter_HideSortFilter = /*#__PURE__*/function (_Component) {
     key: "render",
     value: function render() {
       var props = this.props;
-      return react_default.a.createElement("div", {
+      return /*#__PURE__*/react_default.a.createElement("div", {
         className: "cmp-search-hide-btn clearfix"
-      }, react_default.a.createElement("a", {
+      }, /*#__PURE__*/react_default.a.createElement("a", {
         href: "javascript:void(0);",
         onClick: props.onClick,
         className: "btn-hide-sort-filter",
         "data-locator": "link-hide-search-button"
-      }, react_default.a.createElement(react_svg["a" /* default */], {
+      }, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
         src: props.text.closeIcon
       }), props.text.sortAndFilterButton));
     }
@@ -2025,7 +1891,7 @@ var btn_hide_sort_filter_HideSortFilter = /*#__PURE__*/function (_Component) {
 
 /* harmony default export */ var btn_hide_sort_filter = (btn_hide_sort_filter_HideSortFilter);
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js
-var assertThisInitialized = __webpack_require__(38);
+var assertThisInitialized = __webpack_require__(41);
 
 // CONCATENATED MODULE: ./src/search/components/btn-apply-sort-filter.js
 
@@ -2079,9 +1945,9 @@ var btn_apply_sort_filter_ApplySortFilter = /*#__PURE__*/function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      return react_default.a.createElement("div", {
+      return /*#__PURE__*/react_default.a.createElement("div", {
         className: "cmp-search-apply-btn"
-      }, react_default.a.createElement("a", {
+      }, /*#__PURE__*/react_default.a.createElement("a", {
         href: "javascript:void(0);",
         onClick: this.handleClick,
         className: "btn-apply-sort-filter",
@@ -2128,9 +1994,9 @@ var btn_done_sort_filter_DoneSortFilter = /*#__PURE__*/function (_Component) {
     key: "render",
     value: function render() {
       var props = this.props;
-      return react_default.a.createElement("div", {
+      return /*#__PURE__*/react_default.a.createElement("div", {
         className: "cmp-search-done-btn"
-      }, react_default.a.createElement("a", {
+      }, /*#__PURE__*/react_default.a.createElement("a", {
         href: "javascript:void(0);",
         onClick: this.handleInput,
         className: "btn-done-sort-filter",
@@ -2143,104 +2009,10 @@ var btn_done_sort_filter_DoneSortFilter = /*#__PURE__*/function (_Component) {
 }(react["Component"]);
 
 /* harmony default export */ var btn_done_sort_filter = (btn_done_sort_filter_DoneSortFilter);
-// CONCATENATED MODULE: ./src/search/components/dropdown.js
+// EXTERNAL MODULE: ./src/utils/dropdown/index.js
+var dropdown = __webpack_require__(494);
 
-
-
-
-
-var dropdown_customStyles = {
-  indicatorSeparator: function indicatorSeparator() {
-    return {
-      display: 'none'
-    };
-  },
-  option: function option(provided, state) {
-    return Object(objectSpread["a" /* default */])({}, provided, {
-      color: variables_default.a.colorGray50,
-      padding: '0.75em 1em',
-      backgroundColor: state.isSelected ? variables_default.a.colorBackgroundLight : variables_default.a.colorWhite,
-      cursor: !state.isSelected ? 'pointer' : 'default',
-      '&:hover': {
-        color: !state.isSelected ? variables_default.a.colorBlue50 : variables_default.a.colorGray50,
-        backgroundColor: !state.isSelected ? variables_default.a.colorWhite : variables_default.a.colorBackgroundLight
-      },
-      margin: 0
-    });
-  },
-  control: function control(provided, state) {
-    return Object(objectSpread["a" /* default */])({}, provided, {
-      'border-radius': variables_default.a.borderRadius,
-      padding: '0.3em 0.5em',
-      color: variables_default.a.colorGray50,
-      'border-color': state.isFocused ? variables_default.a.colorBorderDark : variables_default.a.colorBorderDark,
-      outline: 'none',
-      cursor: 'pointer',
-      'box-shadow': 'none',
-      '&:hover': {
-        outline: 'none',
-        color: variables_default.a.colorBlue50,
-        borderColor: variables_default.a.colorBlue50
-      }
-    });
-  },
-  singleValue: function singleValue(provided, state) {
-    return {};
-  },
-  menu: function menu(provided) {
-    return Object(objectSpread["a" /* default */])({}, provided, {
-      marginTop: 0,
-      borderRadius: 0,
-      width: 'calc(100% - 2px)',
-      marginLeft: '1px',
-      marginBottom: 0,
-      padding: 0
-    });
-  },
-  menuList: function menuList(provided) {
-    return Object(objectSpread["a" /* default */])({}, provided, {
-      paddingBottom: 0,
-      paddingTop: 0
-    });
-  }
-};
-
-var dropdown_DropdownIndicator = function DropdownIndicator(props) {
-  return react_default.a.createElement(react_select_esm["a" /* components */].DropdownIndicator, props, react_default.a.createElement(react_svg["a" /* default */], {
-    src: props.theme.dropdownIndicator
-  }));
-};
-
-var dropdown_Dropdown = function Dropdown(props) {
-  return react_default.a.createElement("div", {
-    "aria-describedby": "cmp-custom-dropdown__single-value",
-    tabindex: "0"
-  }, react_default.a.createElement(react_select_esm["c" /* default */], {
-    defaultValue: props.getOptions(props.text)[1],
-    options: props.getOptions(props.text),
-    value: props.sortValue && props.sortValue.value ? props.sortValue.value : props.getOptions(props.text)[props.sortValue - 1],
-    onChange: props.onChange,
-    isSearchable: props.isSearchable,
-    styles: dropdown_customStyles,
-    placeholder: props.placeholder,
-    classNamePrefix: 'cmp-custom-dropdown',
-    components: {
-      DropdownIndicator: dropdown_DropdownIndicator
-    },
-    theme: {
-      dropdownIndicator: props.text.downIcon
-    },
-    tabIndex: "-1"
-  }));
-};
-
-dropdown_Dropdown.defaultProps = {
-  isSearchable: false,
-  placeholder: ''
-};
-/* harmony default export */ var dropdown = (dropdown_Dropdown);
 // CONCATENATED MODULE: ./src/search/components/sort.js
-
 
 
 
@@ -2255,10 +2027,10 @@ var sort_getOptions = function getOptions(text) {
 };
 
 var sort_Sort = function Sort(props) {
-  return react_default.a.createElement("div", {
+  return /*#__PURE__*/react_default.a.createElement("div", {
     className: "cmp-search-sortby",
     "data-locator": "sortby-label"
-  }, react_default.a.createElement("h3", null, props.text.sortByHeading), react_default.a.createElement(dropdown, {
+  }, /*#__PURE__*/react_default.a.createElement("h3", null, props.text.sortByHeading), /*#__PURE__*/react_default.a.createElement(dropdown["a" /* default */], {
     getOptions: sort_getOptions,
     sortValue: props.sortValue,
     onChange: function onChange(e) {
@@ -2337,17 +2109,17 @@ var btn_show_sort_filter_ShowSortFilter = /*#__PURE__*/function (_Component) {
     key: "render",
     value: function render() {
       var props = this.props;
-      return react_default.a.createElement("div", {
+      return /*#__PURE__*/react_default.a.createElement("div", {
         className: "cmp-search-show-btn"
-      }, react_default.a.createElement("a", {
+      }, /*#__PURE__*/react_default.a.createElement("a", {
         ref: this.sortFilterBtnRef,
         href: "javascript:void(0);",
         onClick: this.handleInput,
         className: "btn-show-sort-filter"
-      }, react_default.a.createElement(react_svg["a" /* default */], {
+      }, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
         src: props.text.filterIcon,
         className: "filterIcon"
-      }), react_default.a.createElement(react_svg["a" /* default */], {
+      }), /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
         src: props.text.closeIcon,
         className: "closeIcon"
       }), props.text.sortAndFilterButton));
@@ -2361,79 +2133,137 @@ var btn_show_sort_filter_ShowSortFilter = /*#__PURE__*/function (_Component) {
 // CONCATENATED MODULE: ./src/search/components/results-count.js
 
 
-var results_count_ResultsCount = function ResultsCount(props) {
-  var endResults = props.count > props.current * props.rows ? props.current * props.rows : props.count;
-  var startResults = props.current * props.rows - props.rows + 1;
+
+function ResultsCount(props) {
   var maxLength = 120;
   var searchQuery = props.query && props.query.toString().length > maxLength ? props.query.substring(0, maxLength) + '...' : props.query;
 
-  var renderSearchTerm = function renderSearchTerm() {
-    return props.spell_suggestion ? getSuggestedQueryInfo() : getSearchQuery();
+  var getSearchQuery = function getSearchQuery(query) {
+    return /*#__PURE__*/react_default.a.createElement("h1", {
+      className: "query"
+    }, query);
   };
 
-  var getSuggestedQueryInfo = function getSuggestedQueryInfo() {
-    return react_default.a.createElement("span", null, "for\xA0", react_default.a.createElement("span", {
+  var getSuggestedQuery = function getSuggestedQuery() {
+    return /*#__PURE__*/react_default.a.createElement("span", {
       className: "text-strike"
-    }, searchQuery), "\xA0", react_default.a.createElement("strong", null, react_default.a.createElement("q", {
-      className: "query"
-    }, props.spell_suggestion), "."));
+    }, searchQuery);
   };
 
-  var getSearchQuery = function getSearchQuery() {
-    return react_default.a.createElement("span", null, "for\xA0", react_default.a.createElement("strong", null, react_default.a.createElement("q", {
-      className: "query"
-    }, searchQuery), "."));
+  var getRelatedSuggestionsTags = function getRelatedSuggestionsTags(words) {
+    return words.map(function (word) {
+      return /*#__PURE__*/react_default.a.createElement("a", {
+        href: "javascript:void(0);",
+        key: word,
+        "aria-label": word,
+        className: "item",
+        onClick: function onClick(e) {
+          return props.onRelatedSuggestionClick(word);
+        }
+      }, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+        src: props.text.searchIcon
+      }), /*#__PURE__*/react_default.a.createElement("span", null, word));
+    });
+  };
+
+  var getOptions = function getOptions(options) {
+    var categoryOptionsList = options.map(function (a, index) {
+      return {
+        value: index,
+        label: a.translation,
+        count: a.count
+      };
+    });
+    return categoryOptionsList;
+  };
+
+  var categoryLabel = '';
+  var actualCount = props.count;
+
+  if (Array.isArray(props.categoryOptions) && props.categoryOptions.length) {
+    var options = getOptions(props.categoryOptions);
+    categoryLabel = props.categoryValue === 0 || props.categoryValue === -1 ? "All" : options[props.categoryValue].label; // If All is not authored then sum the categories
+
+    if (props.categoryValue !== -1) {
+      actualCount = props.count > options[props.categoryValue].count ? options[props.categoryValue].count : props.count;
+    } else {
+      actualCount = options.reduce(function (acc, curr) {
+        return acc + curr.count;
+      }, 0);
+    }
+  }
+
+  var renderResultsText = function renderResultsText(resultsText) {
+    return resultsText.replace(/[{]count[}]/, "<span class='count'>" + actualCount.toLocaleString(undefined, {
+      maximumFractionDigits: 0
+    }) + "</span>");
+  };
+
+  var renderSearchQuery = function renderSearchQuery() {
+    return props.spell_suggestion ? getSearchQuery(props.spell_suggestion) : getSearchQuery(searchQuery);
+  };
+
+  var renderSuggestedSearchQuery = function renderSuggestedSearchQuery() {
+    return props.spell_suggestion ? getSuggestedQuery() : '';
+  };
+
+  var renderCategoryText = function renderCategoryText(selectedCategory) {
+    return selectedCategory !== "" ? /*#__PURE__*/react_default.a.createElement("span", {
+      "class": "category"
+    }, props.text.inCategoryText + selectedCategory) : '';
   };
 
   var renderRelatedSuggestions = function renderRelatedSuggestions() {
-    return props.spell_related_suggestions.length !== 0 ? react_default.a.createElement("div", {
-      className: "cmp-search__related-suggestions"
-    }, "Related Searches ", getRelatedSuggestions()) : react_default.a.createElement(react_default.a.Fragment, null);
+    if (props.spell_related_suggestions.length !== 0) {
+      return /*#__PURE__*/react_default.a.createElement("div", {
+        className: "cmp-search__related-suggestions"
+      }, /*#__PURE__*/react_default.a.createElement("span", {
+        "class": "related-searches-text"
+      }, props.text.relatedSearchesText), getRelatedSuggestionsTags(props.spell_related_suggestions));
+    } else {
+      return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null);
+    }
+
+    ;
   };
 
-  var getRelatedSuggestions = function getRelatedSuggestions() {
-    return props.spell_related_suggestions.length === 1 ? getRelatedSuggestionLink(props.spell_related_suggestions[0]) : getRelatedSuggestionLinks(props.spell_related_suggestions).reduce(function (prev, curr) {
-      return react_default.a.createElement(react_default.a.Fragment, null, prev, react_default.a.createElement("span", {
-        className: "vertical-bar"
-      }, "|"), curr);
-    });
-  };
-
-  var getRelatedSuggestionLink = function getRelatedSuggestionLink(word) {
-    return react_default.a.createElement("a", {
-      className: "item",
-      onClick: function onClick(e) {
-        return props.onRelatedSuggestionClick(word);
-      }
-    }, word);
-  };
-
-  var getRelatedSuggestionLinks = function getRelatedSuggestionLinks(words) {
-    return words.map(function (word) {
-      return getRelatedSuggestionLink(word);
-    });
-  };
-
-  var getResultsText = function getResultsText() {
-    return props.text.resultsText.replace(/[{]startResults[}]/, startResults.toLocaleString(undefined, {
-      maximumFractionDigits: 0
-    })).replace(/[{]endResults[}]/, endResults.toLocaleString(undefined, {
-      maximumFractionDigits: 0
-    })).replace(/[{]count[}]/, props.count.toLocaleString(undefined, {
-      maximumFractionDigits: 0
-    }));
-  };
-
-  return react_default.a.createElement("div", {
-    className: "cmp-search__resultsCount-container",
-    "data-locator": "results-count-container"
-  }, react_default.a.createElement("h2", {
+  return /*#__PURE__*/react_default.a.createElement("div", {
     className: "cmp-search__resultsCount",
     "data-locator": "results-count"
-  }, getResultsText(), props.noQuery || props.query === '*:*' ? null : renderSearchTerm()), renderRelatedSuggestions());
-};
+  }, (props.noQuery || props.query === '*:*' || props.query === '') && /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement("div", {
+    "class": "query-box"
+  }, /*#__PURE__*/react_default.a.createElement("span", {
+    "class": "results",
+    dangerouslySetInnerHTML: {
+      __html: renderResultsText(props.text.resultsText)
+    }
+  })), /*#__PURE__*/react_default.a.createElement("hr", {
+    className: "small-accent-rule"
+  })), !props.noQuery && props.query !== '*:*' && props.query !== '' && /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement("span", {
+    "class": "results",
+    dangerouslySetInnerHTML: {
+      __html: renderResultsText(props.text.resultsForText)
+    }
+  }), renderSuggestedSearchQuery(), /*#__PURE__*/react_default.a.createElement("div", {
+    "class": "query-box"
+  }, renderSearchQuery(), " ", " ", " ", renderCategoryText(categoryLabel)), /*#__PURE__*/react_default.a.createElement("hr", {
+    className: "small-accent-rule"
+  }), renderRelatedSuggestions()));
+}
 
-/* harmony default export */ var results_count = (results_count_ResultsCount);
+;
+ResultsCount.defaultProps = {
+  count: 0,
+  query: '',
+  noQuery: false,
+  spell_related_suggestions: [],
+  spell_suggestion: '',
+  onRelatedSuggestionClick: function onRelatedSuggestionClick() {},
+  text: {},
+  categoryOptions: [],
+  categoryValue: 0
+};
+/* harmony default export */ var results_count = (ResultsCount);
 // CONCATENATED MODULE: ./src/search/components/filter-tags.js
 
 
@@ -2475,7 +2305,7 @@ var filter_tags_SubFacetTags = function SubFacetTags(props) {
         var cat = mapping[n];
 
         if (cat.name === facet) {
-          category.push(react_default.a.createElement("a", {
+          category.push( /*#__PURE__*/react_default.a.createElement("a", {
             key: "facetTag-".concat(_i),
             href: "javascript:void(0);",
             onClick: function onClick() {
@@ -2484,9 +2314,9 @@ var filter_tags_SubFacetTags = function SubFacetTags(props) {
                 facet: selected
               });
             }
-          }, react_default.a.createElement(react_svg["a" /* default */], {
+          }, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
             src: props.text.closeIcon
-          }), react_default.a.createElement("span", null, cat.translation, ": ", selected)));
+          }), /*#__PURE__*/react_default.a.createElement("span", null, cat.translation, ": ", selected)));
         }
       };
 
@@ -2495,47 +2325,47 @@ var filter_tags_SubFacetTags = function SubFacetTags(props) {
       }
     };
 
-    for (var _i2 = 0; _i2 < f.length; _i2++) {
-      _loop(_i2);
+    for (var _i = 0; _i < f.length; _i++) {
+      _loop(_i);
     }
 
     return category;
   }) : null;
-  return react_default.a.createElement(react_default.a.Fragment, null, props.selectedFacets && tags);
+  return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, props.selectedFacets && tags);
 };
 
 var filter_tags_ContentTypeTag = function ContentTypeTag(props) {
   var showTags = Object.entries(props.selected).length !== 0 ? true : false;
-  if (!showTags) return react_default.a.createElement(react_default.a.Fragment, null);
-  return react_default.a.createElement("a", {
+  if (!showTags) return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null);
+  return /*#__PURE__*/react_default.a.createElement("a", {
     href: "javascript:void(0);",
     onClick: props.onRemove,
     "data-locator": "content-type-tag-hide"
-  }, react_default.a.createElement(react_svg["a" /* default */], {
+  }, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
     src: props.text.closeIcon
-  }), react_default.a.createElement("span", null, "".concat(props.text['contentType'], ": ").concat(props.selected.facetTranslation)));
+  }), /*#__PURE__*/react_default.a.createElement("span", null, "".concat(props.text['resultType'], ": ").concat(props.selected.facetTranslation)));
 };
 
 var filter_tags_ClearAllTag = function ClearAllTag(props) {
-  return react_default.a.createElement("a", {
+  return /*#__PURE__*/react_default.a.createElement("a", {
     href: "javascript:void(0);",
     className: "cmp-search-filters__tags__clear",
     "data-locator": "link-search-filters-tag-clear",
     "aria-label": props.text.clearAllFilters,
     onClick: props.onRemove
-  }, react_default.a.createElement(react_svg["a" /* default */], {
+  }, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
     src: props.text.closeIcon
-  }), react_default.a.createElement("span", null, props.text.clearAllFilters));
+  }), /*#__PURE__*/react_default.a.createElement("span", null, props.text.clearAllFilters));
 };
 
 var filter_tags_KeywordTag = function KeywordTag(props) {
-  return react_default.a.createElement("a", {
+  return /*#__PURE__*/react_default.a.createElement("a", {
     href: "javascript:void(0);",
     "aria-label": "".concat(props.text.keyWordLabel, ": ").concat(props.keyword),
     onClick: props.onRemove
-  }, react_default.a.createElement(react_svg["a" /* default */], {
+  }, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
     src: props.text.closeIcon
-  }), react_default.a.createElement("span", null, "".concat(props.text.keyWordLabel, ": ").concat(props.keyword)));
+  }), /*#__PURE__*/react_default.a.createElement("span", null, "".concat(props.text.keyWordLabel, ": ").concat(props.keyword)));
 };
 
 filter_tags_SubFacetTags.defaultProps = {
@@ -2571,80 +2401,143 @@ filter_tags_KeywordTag.defaultProps = {
   onRemove: function onRemove() {}
 };
 
-// EXTERNAL MODULE: ./node_modules/react-lines-ellipsis/lib/index.js
-var lib = __webpack_require__(487);
-var lib_default = /*#__PURE__*/__webpack_require__.n(lib);
-
-// CONCATENATED MODULE: ./src/search/components/results.js
-
-
-
-
-var results_Result = function Result(_ref) {
-  var result = _ref.result,
-      locale = _ref.locale,
-      nextIcon = _ref.nextIcon,
-      onItemClick = _ref.onItemClick;
-  var thumbnail = react_default.a.createElement("div", {
-    className: "cmp-search__results-thumbnail"
-  }, react_default.a.createElement("img", {
-    src: result.thumbnail,
-    alt: result.title
-  }));
-  return react_default.a.createElement("li", {
-    className: "cmp-search__results-item",
-    key: result.literaturecode
-  }, result.thumbnail && thumbnail, react_default.a.createElement("div", {
-    className: "cmp-search__results-body ".concat(result.thumbnail ? 'cmp-search__results-body--image' : '')
-  }, react_default.a.createElement("a", {
-    href: result.url,
-    onClick: onItemClick,
-    className: "cmp-search__results-item-link"
-  }, react_default.a.createElement("span", {
-    className: "cmp-search__results-item-title"
-  }, result.title)), react_default.a.createElement("div", {
-    className: "cmp-search__results-item-description"
-  }, react_default.a.createElement("div", {
-    className: "cmp-search__results-item-description-text"
-  }, react_default.a.createElement(lib_default.a, {
-    text: result.description,
-    maxLine: "3",
-    ellipsis: "\u2026",
-    trimRight: true,
-    basedOn: "words",
-    clamped: "true"
-  }))), react_default.a.createElement("div", {
-    className: "cmp-search__results-item-breadcrumb"
-  }, react_default.a.createElement("div", null, result.category_facet), react_default.a.createElement(react_svg["a" /* default */], {
-    src: nextIcon
-  }), react_default.a.createElement("div", null, result.contenttype_facet))));
-};
-
-var results_Results = function Results(_ref2) {
-  var results = _ref2.results,
-      locale = _ref2.locale,
-      nextIcon = _ref2.nextIcon,
-      onItemClick = _ref2.onItemClick;
-  var mappedResults = Array.isArray(results) ? results.map(function (result, i) {
-    return react_default.a.createElement(results_Result, {
-      result: result,
-      locale: locale,
-      nextIcon: nextIcon,
-      key: i,
-      onItemClick: onItemClick
-    });
-  }) : [];
-  return react_default.a.createElement("div", {
-    className: "cmp-search__results-container"
-  }, react_default.a.createElement("ul", {
-    className: "cmp-search__results"
-  }, mappedResults));
-};
-
-/* harmony default export */ var components_results = (results_Results);
 // EXTERNAL MODULE: ./src/utils/userFunctions.js
-var userFunctions = __webpack_require__(15);
+var userFunctions = __webpack_require__(13);
 
+// EXTERNAL MODULE: ./src/utils/eCommerceFunctions.js
+var eCommerceFunctions = __webpack_require__(23);
+
+// CONCATENATED MODULE: ./src/navigation/category-list/index.js
+
+
+
+
+
+var category_list_CategoryList = function CategoryList(_ref) {
+  var items = _ref.items,
+      text = _ref.text,
+      activeIndex = _ref.activeIndex,
+      onClick = _ref.onClick,
+      clearSessionStore = _ref.clearSessionStore;
+  var categoryRef = react_default.a.useRef();
+  var hasAllCategory = items.some(function (item) {
+    return item.name === 'All';
+  });
+  return /*#__PURE__*/react_default.a.createElement("div", {
+    className: "cmp-category-wrapper"
+  }, /*#__PURE__*/react_default.a.createElement("div", null, /*#__PURE__*/react_default.a.createElement("h3", null, text.categoryText)), /*#__PURE__*/react_default.a.createElement("div", {
+    ref: categoryRef,
+    className: "cmp-category-items"
+  }, items.map(function (item, index) {
+    var backImage;
+    var isHidden;
+    var hideCount = false;
+
+    if (hasAllCategory) {
+      if (index === 0 && item.name == "All") {
+        backImage = /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+          className: "cmp-categories-back",
+          src: "/content/dam/waters/en/brand-assets/icons/multiple.svg"
+        });
+        hideCount = true;
+      }
+
+      if (activeIndex === index && item.name == "All") {
+        isHidden = true;
+      } else {
+        isHidden = determineIfHidden(items, index, activeIndex);
+      }
+    } else {
+      isHidden = false;
+    }
+
+    return /*#__PURE__*/react_default.a.createElement(category_list_Category, {
+      key: "Category-".concat(index),
+      name: item.translation,
+      count: item.count,
+      index: index,
+      isActive: index === activeIndex,
+      onClick: onClick,
+      backImage: backImage,
+      isHidden: isHidden,
+      hideCount: hideCount,
+      clearSessionStore: clearSessionStore
+    });
+  })), (!hasAllCategory || hasAllCategory && activeIndex !== 0) && /*#__PURE__*/react_default.a.createElement("hr", {
+    className: "cmp-category-separator h-large"
+  }));
+};
+
+var determineIfHidden = function determineIfHidden(items, index, activeIndex) {
+  if (activeIndex === 0) {
+    if (index === 0) {
+      return true;
+    }
+
+    return false;
+  } else {
+    if (activeIndex === index || index === 0) {
+      return false;
+    }
+
+    return true;
+  }
+};
+
+var category_list_Category = function Category(_ref2) {
+  var index = _ref2.index,
+      name = _ref2.name,
+      count = _ref2.count,
+      isActive = _ref2.isActive,
+      _onClick = _ref2.onClick,
+      backImage = _ref2.backImage,
+      isHidden = _ref2.isHidden,
+      hideCount = _ref2.hideCount,
+      clearSessionStore = _ref2.clearSessionStore;
+  return /*#__PURE__*/react_default.a.createElement("div", {
+    className: "cmp-category-item".concat(isActive ? " active" : "", " ").concat(isHidden ? " hidden" : "", " ").concat(backImage ? " backLink" : ""),
+    onClick: function onClick() {
+      return category_list_processClick(index, _onClick, backImage, clearSessionStore);
+    }
+  }, backImage, /*#__PURE__*/react_default.a.createElement("span", {
+    className: "cmp-category-label",
+    "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])(name)
+  }, name), /*#__PURE__*/react_default.a.createElement("span", {
+    className: "cmp-category-count ".concat(hideCount ? " hidden" : ""),
+    "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])(count)
+  }, " (", count, ")"));
+};
+
+var category_list_processClick = function processClick(index, onClick, backImage, clearSessionStore) {
+  if (backImage) {
+    clearSessionStore();
+    var parameters = Object(query_string["parse"])(window.location.search); // Remove content type and any selected facets. Set Category = "All" and reset the page
+
+    delete parameters.facet;
+    delete parameters.content_type;
+    parameters.category = "All";
+    parameters.page = "1";
+    window.location.href = "".concat(window.location.pathname, "?").concat(Object(query_string["stringify"])(parameters));
+  } else {
+    onClick(index);
+  }
+};
+
+category_list_Category.defaultProps = {
+  name: "",
+  index: -1,
+  isActive: false,
+  onClick: function onClick() {},
+  isHidden: false,
+  hideCount: false
+};
+category_list_CategoryList.defaultProps = {
+  items: [],
+  text: {},
+  activeIndex: -1,
+  onClick: function onClick() {}
+};
+/* harmony default export */ var category_list = (category_list_CategoryList);
 // CONCATENATED MODULE: ./src/search/search.component.helpers.js
 
 
@@ -2661,12 +2554,12 @@ var userFunctions = __webpack_require__(15);
 
 
 
+
+
+
 var SkuList = react_default.a.lazy(function () {
-  return Promise.all(/* import() | skulist */[__webpack_require__.e(1), __webpack_require__.e(2), __webpack_require__.e(0), __webpack_require__.e(14)]).then(__webpack_require__.bind(null, 525));
+  return Promise.all(/* import() | skulist */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(14)]).then(__webpack_require__.bind(null, 531));
 });
-
-
-
 
 var search_component_helpers_FilterTagList = function FilterTagList(_ref) {
   var text = _ref.text,
@@ -2677,34 +2570,34 @@ var search_component_helpers_FilterTagList = function FilterTagList(_ref) {
   var isContentTypeSelected = Object.entries(filterTagsProps.contentTypeSelected).length !== 0 && filterTagsProps.contentTypeSelected.facetTranslation;
 
   if (!isKeywordSpecified && !isContentTypeSelected) {
-    return react_default.a.createElement("div", {
+    return /*#__PURE__*/react_default.a.createElement("div", {
       className: "cmp-search-filters__emptytags"
     });
   }
 
   var keyword = filterTagsProps.spell_suggestion ? filterTagsProps.spell_suggestion : filterTagsProps.keyword;
-  var keyWordTag = isKeywordSpecified ? react_default.a.createElement(filter_tags_KeywordTag, {
+  var keyWordTag = isKeywordSpecified ? /*#__PURE__*/react_default.a.createElement(filter_tags_KeywordTag, {
     keyword: keyword,
     text: text,
     onRemove: filterTagsEvents.onKeywordRemove
-  }) : react_default.a.createElement(react_default.a.Fragment, null);
-  var contentTypeTag = isContentTypeSelected ? react_default.a.createElement(filter_tags_ContentTypeTag, {
+  }) : /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null);
+  var contentTypeTag = isContentTypeSelected ? /*#__PURE__*/react_default.a.createElement(filter_tags_ContentTypeTag, {
     text: text,
     selected: filterTagsProps.contentTypeSelected,
     onRemove: filterTagsEvents.onContentTypeRemove
-  }) : react_default.a.createElement(react_default.a.Fragment, null);
-  var subFacetTags = Object.entries(filterTagsProps.selectedFacets).length !== 0 ? react_default.a.createElement(filter_tags_SubFacetTags, {
+  }) : /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null);
+  var subFacetTags = Object.entries(filterTagsProps.selectedFacets).length !== 0 ? /*#__PURE__*/react_default.a.createElement(filter_tags_SubFacetTags, {
     text: text,
     selectedFacets: filterTagsProps.selectedFacets,
     facets: filterTagsProps.facets,
     removeTag: filterTagsEvents.onSubFacetRemove,
     filterMap: filterMap,
     defaultFacet: filterTagsProps.contentType
-  }) : react_default.a.createElement(react_default.a.Fragment, null);
-  return react_default.a.createElement("div", {
+  }) : /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null);
+  return /*#__PURE__*/react_default.a.createElement("div", {
     className: "cmp-search-filters__tags clearfix",
     "data-locator": "search-filters-tags"
-  }, react_default.a.createElement(filter_tags_ClearAllTag, {
+  }, /*#__PURE__*/react_default.a.createElement(filter_tags_ClearAllTag, {
     text: text,
     onRemove: filterTagsEvents.onClearAll
   }), keyWordTag, contentTypeTag, subFacetTags);
@@ -2721,24 +2614,34 @@ var search_component_helpers_Aside = function Aside(_ref2) {
   var text = _ref2.text,
       asideProps = _ref2.asideProps,
       asideEvents = _ref2.asideEvents,
-      children = _ref2.children;
-  return react_default.a.createElement("div", {
+      children = _ref2.children,
+      items = _ref2.items,
+      activeIndex = _ref2.activeIndex,
+      categoryClick = _ref2.categoryClick,
+      clearSessionStore = _ref2.clearSessionStore;
+  return /*#__PURE__*/react_default.a.createElement("div", {
     className: "container__left cmp-search__sort-filter",
     "data-locator": "left-container-filter"
-  }, react_default.a.createElement(btn_hide_sort_filter, {
+  }, !Object(userFunctions["v" /* isEprocurementUser */])() && /*#__PURE__*/react_default.a.createElement(category_list, {
+    items: items,
+    text: text,
+    activeIndex: activeIndex,
+    onClick: categoryClick,
+    clearSessionStore: clearSessionStore
+  }), /*#__PURE__*/react_default.a.createElement(btn_hide_sort_filter, {
     text: text,
     onClick: asideEvents.onHideSortFilterClick
-  }), react_default.a.createElement(btn_apply_sort_filter, {
+  }), /*#__PURE__*/react_default.a.createElement(btn_apply_sort_filter, {
     text: text,
     applyFilters: asideEvents.onApplySortFilter,
     isPristine: asideProps.sortFilterIsPristine,
     count: asideProps.count
-  }), react_default.a.createElement(btn_done_sort_filter, {
+  }), /*#__PURE__*/react_default.a.createElement(btn_done_sort_filter, {
     text: text,
     collapseFilters: asideEvents.onCollapseFilters
-  }), react_default.a.createElement("div", {
+  }), /*#__PURE__*/react_default.a.createElement("div", {
     className: "cmp-search__sort-filter__container"
-  }, react_default.a.createElement(sort, {
+  }, /*#__PURE__*/react_default.a.createElement(sort, {
     sortValue: asideProps.sortByValue,
     sortHandler: asideEvents.onSort,
     text: text
@@ -2765,7 +2668,7 @@ var search_component_helpers_Menu = function Menu(_ref3) {
       filterTagsEvents = _ref3.filterTagsEvents;
 
   if (menuProps.showContentTypeMenu) {
-    return react_default.a.createElement(content_type_menu, {
+    return /*#__PURE__*/react_default.a.createElement(content_type_menu, {
       heading: menuProps.heading,
       items: contentTypeMenuProps.items,
       onClick: contentTypeMenuEvents.onContentTypeItemClick
@@ -2780,13 +2683,13 @@ var search_component_helpers_Menu = function Menu(_ref3) {
   });
 
   if (menuProps.showFacetMenu) {
-    return react_default.a.createElement(facet_menu, {
-      heading: menuProps.heading,
+    return /*#__PURE__*/react_default.a.createElement(facet_menu, {
+      heading: menuProps.backLinkText,
       selectedValue: facetMenuProps.selectedValue,
       previousIcon: facetMenuProps.previousIcon,
       filterTags: filterTags,
       onClear: facetMenuEvents.onContentTypeRemoval
-    }, react_default.a.createElement(filter, {
+    }, /*#__PURE__*/react_default.a.createElement(filter, {
       facets: subFacetFiltersProps.items,
       text: text,
       filterMap: subFacetFiltersProps.filterMap,
@@ -2816,12 +2719,12 @@ search_component_helpers_Menu.defaultProps = {
   filterTagsEvents: defaultProps.filterTagsEvents
 };
 
-var search_component_helpers_SkuResults = function SkuResults(_ref4) {
+var search_component_helpers_SearchResults = function SearchResults(_ref4) {
   var items = _ref4.items,
       skuConfig = _ref4.skuConfig,
       onItemClick = _ref4.onItemClick;
-  var isEprocUser = Object(userFunctions["p" /* isEprocurementUser */])();
-  var skuData = Array.isArray(items) ? items.map(function (item) {
+  var isEprocUser = Object(userFunctions["v" /* isEprocurementUser */])();
+  var searchData = Array.isArray(items) ? items.map(function (item) {
     return {
       code: item.skucode,
       category_facet: item.category_facet,
@@ -2837,16 +2740,16 @@ var search_component_helpers_SkuResults = function SkuResults(_ref4) {
       title: item.title
     };
   }) : [];
-  return react_default.a.createElement(react["Suspense"], {
-    fallback: react_default.a.createElement("div", null, "Loading...")
-  }, react_default.a.createElement(SkuList, {
+  return /*#__PURE__*/react_default.a.createElement(react["Suspense"], {
+    fallback: /*#__PURE__*/react_default.a.createElement("div", null, "Loading...")
+  }, /*#__PURE__*/react_default.a.createElement(SkuList, {
     skuConfig: skuConfig,
     data: skuData,
     onItemClick: onItemClick
   }));
 };
 
-search_component_helpers_SkuResults.defaultProps = {
+search_component_helpers_SearchResults.defaultProps = {
   skuConfig: defaultProps.skuConfig,
   items: [],
   onItemClick: function onItemClick() {}
@@ -2859,18 +2762,9 @@ var search_component_helpers_ResultsContent = function ResultsContent(_ref5) {
       resultsProps = _ref5.resultsProps,
       resultsEvents = _ref5.resultsEvents;
   var items = resultsProps.items[searchParams.page];
-
-  if (resultsProps.isSkuList) {
-    return react_default.a.createElement(search_component_helpers_SkuResults, {
-      items: items,
-      skuConfig: skuConfig,
-      onItemClick: resultsEvents.onResultsItemClick
-    });
-  }
-
-  return react_default.a.createElement(components_results, {
-    results: items,
-    nextIcon: text.nextIcon,
+  return /*#__PURE__*/react_default.a.createElement(search_component_helpers_SearchResults, {
+    items: items,
+    skuConfig: skuConfig,
     onItemClick: resultsEvents.onResultsItemClick
   });
 };
@@ -2890,14 +2784,14 @@ var search_component_helpers_Pagination = function Pagination(_ref6) {
       previousIcon = _ref6.previousIcon;
 
   if (resultsProps.count <= services["b" /* parameterDefaults */].rows) {
-    return react_default.a.createElement(react_default.a.Fragment, null);
+    return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null);
   }
 
   var buildHref = function buildHref(href) {
     return "".concat(window.location.href, "/page/").concat(href);
   };
 
-  return react_default.a.createElement(react_paginate_default.a, {
+  return /*#__PURE__*/react_default.a.createElement(react_paginate_default.a, {
     pageCount: resultsProps.pagination.amount,
     forcePage: resultsProps.pagination.current ? resultsProps.pagination.current - 1 : 0,
     pageRangeDisplayed: 8,
@@ -2908,10 +2802,10 @@ var search_component_helpers_Pagination = function Pagination(_ref6) {
     },
     breakLabel: '…',
     hrefBuilder: buildHref,
-    previousLabel: react_default.a.createElement(react_svg["a" /* default */], {
+    previousLabel: /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
       src: previousIcon
     }),
-    nextLabel: react_default.a.createElement(react_svg["a" /* default */], {
+    nextLabel: /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
       src: nextIcon
     }),
     initialPage: resultsProps.pagination.current ? resultsProps.pagination.current - 1 : 0,
@@ -2941,42 +2835,43 @@ var search_component_helpers_ResultsBody = function ResultsBody(_ref7) {
       resultsProps = _ref7.resultsProps,
       resultsEvents = _ref7.resultsEvents,
       isEprocurementUser = _ref7.isEprocurementUser;
-  return react_default.a.createElement("div", {
+  return /*#__PURE__*/react_default.a.createElement("div", {
     className: "cmp-search__container"
-  }, react_default.a.createElement("div", {
+  }, /*#__PURE__*/react_default.a.createElement("div", {
     className: "cmp-search__container__header clearfix"
-  }, !isEprocurementUser && react_default.a.createElement(category_dropdown, {
+  }, !isEprocurementUser && /*#__PURE__*/react_default.a.createElement(category_dropdown, {
     categoryDownIcon: text.downIcon,
+    categoryLabelPrefix: text.categoryLabel,
     categoryIsSearchable: false,
     categoryOnChange: categoryEvents.onCategoryDropdownChange,
     categoryOptions: categoryProps.categories,
     categoryValue: categoryProps.activeIndex
-  }), react_default.a.createElement(btn_show_sort_filter, {
+  }), /*#__PURE__*/react_default.a.createElement(btn_show_sort_filter, {
     text: text,
     setupFilters: showSortFilterEvents.onSetupFilters,
     resetToSavedState: showSortFilterEvents.onResetToSavedState,
     collapseFilters: showSortFilterProps.collapseFilters,
     onClose: showSortFilterEvents.onClose
-  }), react_default.a.createElement("div", {
+  }), /*#__PURE__*/react_default.a.createElement("div", {
     className: "cmp-search__sorted-by"
-  }, text.sortedBy, ":", ' ', asideProps.sortByText === 'most-relevant' ? text.sortByBestMatch : text.sortByMostRecent)), react_default.a.createElement("div", {
+  }, text.sortedBy, ":", ' ', asideProps.sortByText === 'most-relevant' ? text.sortByBestMatch : text.sortByMostRecent)), /*#__PURE__*/react_default.a.createElement("div", {
     className: "cmp-search__sorted-container"
-  }, react_default.a.createElement(results_count, Object.assign({}, resultsProps, {
+  }, /*#__PURE__*/react_default.a.createElement(results_count, Object.assign({}, resultsProps, {
     text: text,
     onRelatedSuggestionClick: resultsEvents.onRelatedSuggestionClick
-  })), react_default.a.createElement(search_component_helpers_FilterTagList, {
+  })), /*#__PURE__*/react_default.a.createElement(search_component_helpers_FilterTagList, {
     text: text,
     filterMap: filterMap,
     filterTagsProps: filterTagsProps,
     filterTagsEvents: filterTagsEvents
-  }), react_default.a.createElement(search_component_helpers_ResultsContent, {
+  }), /*#__PURE__*/react_default.a.createElement(search_component_helpers_ResultsContent, {
     text: text,
     filterMap: filterMap,
     skuConfig: skuConfig,
     searchParams: searchParams,
     resultsProps: resultsProps,
     resultsEvents: resultsEvents
-  })), react_default.a.createElement(search_component_helpers_Pagination, {
+  })), /*#__PURE__*/react_default.a.createElement(search_component_helpers_Pagination, {
     resultsProps: resultsProps,
     resultsEvents: resultsEvents,
     nextIcon: text.nextIcon,
@@ -3000,30 +2895,253 @@ search_component_helpers_ResultsBody.defaultProps = {
   resultsEvents: defaultProps.resultsEvents
 };
 
-// EXTERNAL MODULE: ./src/navigation/tabs/index.js
-var tabs = __webpack_require__(510);
+// EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray.js + 3 modules
+var slicedToArray = __webpack_require__(7);
 
+// EXTERNAL MODULE: ./src/utils/redirectFunctions.js
+var redirectFunctions = __webpack_require__(17);
+
+// EXTERNAL MODULE: ./node_modules/react-ellipsis-text/index.js
+var react_ellipsis_text = __webpack_require__(502);
+var react_ellipsis_text_default = /*#__PURE__*/__webpack_require__.n(react_ellipsis_text);
+
+// CONCATENATED MODULE: ./src/common/search-breadcrumb/index.js
+
+
+
+
+
+
+var search_breadcrumb_SearchBreadcrumb = function SearchBreadcrumb(props) {
+  var _useState = Object(react["useState"])(screenSizes["a" /* default */].isMobile()),
+      _useState2 = Object(slicedToArray["a" /* default */])(_useState, 2),
+      isMobile = _useState2[0],
+      setIsMobile = _useState2[1];
+
+  Object(react["useEffect"])(function () {
+    var breadcrumb = document.querySelector('#searchBreadcrumb');
+    isMobile && breadcrumb && breadcrumb.classList.add('fader-fade--right');
+    !isMobile && breadcrumb && breadcrumb.classList.remove('fader-fade--right');
+  }, [props.searchParams]);
+
+  var renderBreadcrumbLink = function renderBreadcrumbLink(linkInfo) {
+    var title = linkInfo.title;
+
+    if (title === "All") {
+      title = props.text.allCategoriesText;
+    } // Call the clearSession Function if it's a Search link or a Keyword Link. (Have to  take into account a spelling suggestion)
+
+
+    if (title === "Search" || props.searchParams.keyword !== "" && title === props.searchParams.keyword || props.searchParams.spell_suggestion !== "" && title === props.searchParams.spell_suggestion) {
+      return /*#__PURE__*/react_default.a.createElement("li", {
+        className: "cmp-breadcrumb__item",
+        itemprop: "itemListElement",
+        itemscope: "",
+        itemtype: "http://schema.org/ListItem"
+      }, /*#__PURE__*/react_default.a.createElement("a", {
+        onClick: function onClick(e) {
+          return clearSession(e, linkInfo.path);
+        },
+        className: "cmp-breadcrumb__item-link"
+      }, /*#__PURE__*/react_default.a.createElement("span", {
+        itemprop: "name"
+      }, /*#__PURE__*/react_default.a.createElement(react_ellipsis_text_default.a, {
+        text: title,
+        length: "20"
+      }))));
+    } else {
+      return /*#__PURE__*/react_default.a.createElement("li", {
+        className: "cmp-breadcrumb__item",
+        itemprop: "itemListElement",
+        itemscope: "",
+        itemtype: "http://schema.org/ListItem"
+      }, /*#__PURE__*/react_default.a.createElement("a", {
+        href: linkInfo.path,
+        className: "cmp-breadcrumb__item-link"
+      }, /*#__PURE__*/react_default.a.createElement("span", {
+        itemprop: "name"
+      }, /*#__PURE__*/react_default.a.createElement(react_ellipsis_text_default.a, {
+        text: title,
+        length: "20"
+      }))));
+    }
+  };
+
+  var clearSession = function clearSession(e, path) {
+    e.preventDefault();
+    props.clearSessionStore();
+    window.location.href = path;
+  };
+
+  var renderBreadcrumb = function renderBreadcrumb(links) {
+    var parentLinks = links.map(function (link) {
+      return renderBreadcrumbLink(link);
+    });
+    return parentLinks;
+  };
+
+  var buildQueryString = function buildQueryString(baseUrl, options) {
+    var queryString = baseUrl + "?";
+
+    if (options.keywordParam && options.keywordParam !== "*:*") {
+      queryString += "keyword=".concat(options.keywordParam, "&");
+    }
+
+    if (options.categoryParam) {
+      queryString += "category=".concat(options.categoryParam, "&");
+    }
+
+    if (options.contentTypeParam) {
+      queryString += "content_type=".concat(options.contentTypeParam, "&");
+    }
+
+    if (queryString.indexOf("&") !== -1) {
+      queryString = queryString.substr(0, queryString.length - 1);
+    }
+
+    return queryString;
+  };
+
+  var createLinkData = function createLinkData() {
+    var links = [];
+    var homeUrl = Object(redirectFunctions["a" /* getNamedHeaderLink */])("data-homepage-url");
+    var baseSearchUrl = Object(redirectFunctions["a" /* getNamedHeaderLink */])("data-search-path");
+    var correctKeyword = props.searchParams.keyword;
+
+    if (props.searchParams.spell_suggestion) {
+      correctKeyword = props.searchParams.spell_suggestion;
+    }
+
+    var homeLink = {
+      "title": props.text.homeLinkText,
+      "path": homeUrl
+    };
+    links.push(homeLink);
+    var searchLink = {
+      "title": props.text.searchLinkText,
+      "path": baseSearchUrl
+    };
+    links.push(searchLink);
+
+    if (correctKeyword && correctKeyword !== "*:*") {
+      var urlOptions = {
+        keywordParam: props.searchParams.keyword,
+        categoryParam: "",
+        contentTypeParam: ""
+      };
+      var queryString = buildQueryString(baseSearchUrl, urlOptions);
+      var queryLink = {
+        "title": correctKeyword,
+        "path": queryString
+      };
+      links.push(queryLink);
+    }
+
+    if (props.searchParams.category) {
+      var _urlOptions = {
+        keywordParam: correctKeyword,
+        categoryParam: props.searchParams.category,
+        contentTypeParam: ""
+      };
+
+      var _queryString = buildQueryString(baseSearchUrl, _urlOptions);
+
+      var categoryLink = {
+        "title": props.searchParams.category,
+        "path": _queryString
+      };
+      links.push(categoryLink);
+    }
+
+    if (props.searchParams.contentTypeSelected.facetTranslation) {
+      var _urlOptions2 = {
+        keywordParam: correctKeyword,
+        categoryParam: props.searchParams.category,
+        contentTypeParam: props.searchParams.content_type
+      };
+
+      var _queryString2 = buildQueryString(baseSearchUrl, _urlOptions2);
+
+      var _categoryLink = {
+        "title": props.searchParams.contentTypeSelected.facetTranslation,
+        "path": _queryString2
+      };
+      links.push(_categoryLink);
+    }
+
+    return links;
+  };
+
+  var linkData = createLinkData();
+  return /*#__PURE__*/react_default.a.createElement("nav", {
+    "class": "cmp-breadcrumb"
+  }, /*#__PURE__*/react_default.a.createElement("ol", {
+    id: "searchBreadcrumb",
+    "class": "cmp-breadcrumb__list fader-fade",
+    itemscope: "",
+    itemtype: "http://schema.org/BreadcrumbList"
+  }, /*#__PURE__*/react_default.a.createElement("div", {
+    "class": "fader-container fader-container--left",
+    style: {
+      width: 0 + "px"
+    }
+  }), renderBreadcrumb(linkData), /*#__PURE__*/react_default.a.createElement("div", {
+    "class": "fader-container fader-container--right",
+    style: {
+      width: 65 + "px"
+    }
+  })));
+};
+
+/* harmony default export */ var search_breadcrumb = (search_breadcrumb_SearchBreadcrumb);
 // CONCATENATED MODULE: ./src/search/search.component.js
 
 
 
 
 
-
 var search_component_SearchComponent = function SearchComponent(props) {
-  return react_default.a.createElement(react_default.a.Fragment, null, !props.isEprocurementUser && react_default.a.createElement(tabs["a" /* default */], {
-    className: "cmp-search__categories-tabs",
-    items: props.categoryProps.categories,
-    activeIndex: props.categoryProps.activeIndex,
-    onClick: props.categoryEvents.onCategoryTabClick
-  }), react_default.a.createElement("div", null, react_default.a.createElement("div", {
+  // Append Facet Description & spelling of keyword
+  props.searchParams.contentTypeSelected = props.filterTagsProps.contentTypeSelected;
+  props.searchParams.spell_suggestion = props.filterTagsProps.spell_suggestion; // Check if the All Category isn't authored 
+
+  if (props.filterMap) {
+    var facet = props.filterMap.find(function (item) {
+      return item.categoryFacetValue === "All";
+    });
+
+    if (facet === undefined) {
+      // Remove the All Category in props.categoryProps.categories if it exists
+      if (props.categoryProps.categories.length !== 0 && props.categoryProps.categories[0].name === "All") {
+        props.categoryProps.categories.splice(0, 1);
+      }
+    }
+  } // Determine the ActiveIndex from the Category
+
+
+  if (props.categoryProps.categories) {
+    var activeIndex = props.categoryProps.categories.findIndex(function (item) {
+      return item.name === props.category;
+    });
+    props.categoryProps.activeIndex = activeIndex;
+  }
+
+  return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement(search_breadcrumb, {
+    text: props.text,
+    searchParams: props.searchParams,
+    clearSessionStore: props.clearSessionStore
+  }), /*#__PURE__*/react_default.a.createElement("div", null, /*#__PURE__*/react_default.a.createElement("div", {
     className: "overlay"
-  }), react_default.a.createElement(search_component_helpers_Aside, {
+  }), /*#__PURE__*/react_default.a.createElement(search_component_helpers_Aside, {
     sortFilterIsPristine: props.asideProps.sortFilterIsPristine,
     text: props.text,
     asideProps: props.asideProps,
-    asideEvents: props.asideEvents
-  }, react_default.a.createElement(search_component_helpers_Menu, {
+    asideEvents: props.asideEvents,
+    items: props.categoryProps.categories,
+    activeIndex: props.categoryProps.activeIndex,
+    categoryClick: props.categoryEvents.onCategoryTabClick,
+    clearSessionStore: props.clearSessionStore
+  }, props.category !== "All" && /*#__PURE__*/react_default.a.createElement(search_component_helpers_Menu, {
     text: props.text,
     filterMap: props.filterMap,
     menuProps: props.menuProps,
@@ -3035,7 +3153,7 @@ var search_component_SearchComponent = function SearchComponent(props) {
     subFacetFiltersEvents: props.subFacetFiltersEvents,
     filterTagsProps: props.filterTagsProps,
     filterTagsEvents: props.filterTagsEvents
-  })), react_default.a.createElement(search_component_helpers_ResultsBody, {
+  })), /*#__PURE__*/react_default.a.createElement(search_component_helpers_ResultsBody, {
     text: props.text,
     filterMap: props.filterMap,
     skuConfig: props.skuConfig,
@@ -3079,7 +3197,6 @@ search_component_SearchComponent.defaultProps = defaultProps;
 
 
 var SEARCH_TYPES = {
-  INITIAL: 'initial',
   CATEGORY_ONLY: 'category only',
   CONTENT_TYPE: 'content type',
   SUB_FACETS: 'sub facets'
@@ -3164,7 +3281,6 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
         unappliedFilters: {},
         isDesktop: false,
         isSkuList: false,
-        initialRender: true,
         performedSearches: 0,
         category: category,
         contentType: contentType,
@@ -3178,12 +3294,14 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
         spell_suggestion: '',
         erroredOut: false,
         categoryTabs: [],
-        activeTabIndex: -1,
+        activeTabIndex: 0,
         tabHistory: {},
         facetGroupsSelectedOrder: [],
         collapseAllFilters: false,
         activeFilterIndex: -1,
-        count: 0
+        count: 0,
+        allResultsText: _this.props.searchText.allResultsText,
+        allResultsTextMobile: _this.props.searchText.allResultsTextMobile
       };
     };
 
@@ -3258,6 +3376,10 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
       }
     };
 
+    _this.createStrippedFacetName = function (facetName) {
+      return facetName.replace(/[\W_]+/g, "").toLowerCase();
+    };
+
     _this.findFacetNameProperty = function (filterMap, searchValue) {
       if (!filterMap || !Array.isArray(filterMap)) {
         return "";
@@ -3321,7 +3443,11 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
     };
 
     _this.buildSearchParams = function (q) {
-      var query = q && Object.entries(q).length !== 0 ? Object(objectSpread["a" /* default */])({}, q) : _this.getQueryObject();
+      var query = q && Object.entries(q).length !== 0 ? Object(objectSpread["a" /* default */])({}, q) : _this.getQueryObject(); // Default to "Shop" for Eproc; "All" if no category sent.
+
+      if (!query.category) {
+        query.category = _this.state.isEprocurementUser ? "Shop" : "All";
+      }
 
       if (!query.sort && _this.state) {
         query = Object.assign({}, query, {
@@ -3337,19 +3463,16 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
     };
 
     _this.persistTabHistory = function (query) {
-      var tabHistory = _this.createTabHistoryEntryForCurrentTab(query);
+      // If category is undefined don't save to Tab History this occurs when no category is specified
+      if (query.category) {
+        var tabHistory = _this.createTabHistoryEntryForCurrentTab(query);
 
-      _this.search.setStorageForTabHistory(tabHistory);
+        _this.search.setStorageForTabHistory(tabHistory);
+      }
     };
 
     _this.executeSearch = function (query, rows) {
       var searchType = _this.getSearchType(query);
-
-      if (searchType === SEARCH_TYPES.INITIAL) {
-        _this.executeInitialSearch(query);
-
-        return;
-      }
 
       _this.setStateForActiveCategory(query);
 
@@ -3374,10 +3497,6 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
     };
 
     _this.getSearchType = function (query) {
-      if (!query.category) {
-        return SEARCH_TYPES.INITIAL;
-      }
-
       if (_this.isCategoryOnlySelected(query.category, query.content_type)) {
         return SEARCH_TYPES.CATEGORY_ONLY;
       }
@@ -3391,28 +3510,7 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
       } // return a default value for defensive programming
 
 
-      return SEARCH_TYPES.INITIAL;
-    };
-
-    _this.executeInitialSearch = function (query) {
-      var maxCategory = _this.findMaxCategory(_this.state.categoryTabs);
-
-      if (maxCategory === -1) {
-        _this.setEmptyResults();
-
-        return;
-      }
-
-      var categoryName = _this.state.categoryTabs[maxCategory].name;
-
-      _this.setState({
-        activeTabIndex: maxCategory,
-        category: categoryName
-      });
-
-      query.category = categoryName;
-
-      _this.pushToHistory(query, _this.state.selectedFacets);
+      return SEARCH_TYPES.CATEGORY_ONLY;
     };
 
     _this.setStateForActiveCategory = function (query) {
@@ -3499,43 +3597,80 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
     };
 
     _this.getFilterMap = function (authoredTags, backendFacets) {
-      var categoryFacetName = "".concat(_this.state.category.toLowerCase(), "_facet");
+      var strippedCategoryFacetName = _this.createStrippedFacetName(_this.state.category);
+
+      var categoryFacetName = "".concat(strippedCategoryFacetName, "_facet");
       var category = authoredTags.find(function (authoredItem) {
         return authoredItem.categoryFacetName === categoryFacetName;
       });
+      var orderedFacetsMap = [];
 
       if (!category) {
         return;
       }
 
-      var orderedFacets = category.orderedFacets.filter(function (facet) {
-        return backendFacets.find(function (beFacet) {
-          return beFacet.value === facet.facetValue;
+      if (Array.isArray(category.orderedFacets) && category.orderedFacets.length > 0) {
+        var orderedFacets = category.orderedFacets.filter(function (facet) {
+          return backendFacets.find(function (beFacet) {
+            return beFacet.value === facet.facetValue;
+          });
         });
-      });
-      var orderedFacetsWithCount = orderedFacets.map(function (facet) {
-        var authTag = authoredTags.find(function (authoredItem) {
-          return facet.facetValue === authoredItem.categoryFacetValue;
+        var orderedFacetsWithCount = orderedFacets.map(function (facet) {
+          var authTag = authoredTags.find(function (authoredItem) {
+            return facet.facetValue === authoredItem.categoryFacetValue;
+          });
+          var beFacet = backendFacets.find(function (beFacet) {
+            return beFacet.value === facet.facetValue;
+          });
+          return Object(objectSpread["a" /* default */])({}, facet, {
+            orderedFacets: authTag ? authTag.orderedFacets : [],
+            count: beFacet ? beFacet.count : 0
+          });
         });
-        var beFacet = backendFacets.find(function (beFacet) {
-          return beFacet.value === facet.facetValue;
-        });
-        return Object(objectSpread["a" /* default */])({}, facet, {
-          orderedFacets: authTag ? authTag.orderedFacets : [],
-          count: beFacet ? beFacet.count : 0
-        });
-      });
+        orderedFacetsMap = orderedFacetsWithCount;
+      }
+
       return {
         categoryFacetName: category.categoryFacetName,
         categoryFacetValue: category.categoryFacetValue,
-        orderedFacets: orderedFacetsWithCount
+        orderedFacets: orderedFacetsMap
       };
+    };
+
+    _this.setAllCategory = function (categoriesWithData) {
+      //Add All Category to categories using Count of Authored Categories
+      var total = 0;
+
+      for (var i = 0; i < categoriesWithData.length; i++) {
+        total = total + categoriesWithData[i].count;
+      }
+
+      var allCategory = {
+        "translation": _this.state.allResultsText,
+        "mobileTranslation": _this.state.allResultsTextMobile,
+        "name": "All",
+        "count": total
+      };
+
+      _this.setState({
+        count: total
+      });
+
+      categoriesWithData = [allCategory].concat(Object(toConsumableArray["a" /* default */])(categoriesWithData));
+      return categoriesWithData;
     };
 
     _this.searchOnSuccess = function (query, rows, res) {
       var initCategories = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+      // get the categoy Assigned to state
+      _this.state.category = _this.state.category ? _this.state.category : query.category;
       var newState = Object.assign({}, _this.state);
-      newState.filterMap = res.num_found !== 0 ? Object.assign({}, _this.getFilterMap(_this.props.filterMap, res.facets[_this.parentCategory])) : [];
+      newState.filterMap = res.num_found !== 0 ? Object.assign({}, _this.getFilterMap(_this.props.filterMap, res.facets[_this.parentCategory])) : []; // Add the All Category to the categories retrieved from the API call iff the All category has been authored
+
+      var categoriesWithData = _this.mapCategories(res);
+
+      var categoriesWithAllData = _this.findFacetNameProperty(_this.props.filterMap, "All") ? _this.setAllCategory(categoriesWithData) : categoriesWithData;
+      newState.categoryTabs = categoriesWithAllData;
       newState.loading = false;
       newState.rows = rows;
       newState.count = parseInt(res.num_found);
@@ -3545,7 +3680,6 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
       newState.noQuery = query.keyword ? false : true;
       newState.sort = _this.state.sort;
       newState.performedSearches = _this.state.performedSearches + 1;
-      newState.initialRender = false;
       newState.erroredOut = false;
       newState.pagination = {
         current: query.page,
@@ -3558,7 +3692,9 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
         newState.facets['activeIndex'] = _this.state.activeIndex;
         newState.activeFilterIndex = _this.getActiveFilterIndex(_this.state.contentType, newState.filterMap, newState.facets, _this.state.activeIndex);
       } else {
-        newState.facets['activeIndex'] = "";
+        if (newState.facets in _this.state) {
+          newState.facets['activeIndex'] = "";
+        }
       }
 
       newState.spell_check = res.hasOwnProperty('spell_check') ? res.spell_check : false;
@@ -4083,7 +4219,8 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
       return {
         showContentTypeMenu: _this.isCategoryOnlySelected(_this.state.category, _this.state.contentType),
         showFacetMenu: !_this.isCategoryOnlySelected(_this.state.category, _this.state.contentType),
-        heading: _this.props.searchText.filterBy
+        heading: _this.props.searchText.resultType,
+        backLinkText: _this.props.searchText.anyResultTypeText
       };
     };
 
@@ -4176,16 +4313,14 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
         _this2.performSearch();
       });
       this.setState({
-        isEprocurementUser: Object(userFunctions["p" /* isEprocurementUser */])()
+        isEprocurementUser: Object(userFunctions["v" /* isEprocurementUser */])()
       });
     }
   }, {
     key: "performSearch",
     value: function () {
       var _performSearch = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee3(q) {
-        var _this3 = this;
-
-        var query, rows, categories, categoriesWithData;
+        var query, rows;
         return regenerator_default.a.wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
@@ -4199,38 +4334,11 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
                   loading: true,
                   results: {},
                   filterMap: {}
-                }); // fetch categories only once on the initial rendering
-                // store category tabs in the component's state
+                }); // Execute the Search
 
-                if (!this.state.initialRender) {
-                  _context3.next = 11;
-                  break;
-                }
-
-                _context3.next = 6;
-                return this.search.getCategories({
-                  keyword: query.keyword
-                });
-
-              case 6:
-                categories = _context3.sent;
-                // find the categories that have results
-                categoriesWithData = this.mapCategories(categories); // execute the search after the category tabs has been saved in the component's state
-
-                this.setState({
-                  categoryTabs: categoriesWithData,
-                  initialRender: false
-                }, function () {
-                  return _this3.executeSearch(query, rows);
-                });
-                _context3.next = 12;
-                break;
-
-              case 11:
-                // execute the search because the category tabs have already been saved in the component's state
                 this.executeSearch(query, rows);
 
-              case 12:
+              case 4:
               case "end":
                 return _context3.stop();
             }
@@ -4260,7 +4368,7 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
     key: "render",
     value: function render() {
       if (this.state.loading && !screenSizes["a" /* default */].isTabletAndUnder()) {
-        return react_default.a.createElement(loading, {
+        return /*#__PURE__*/react_default.a.createElement(loading, {
           visible: true
         });
       }
@@ -4268,13 +4376,13 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
       ;
 
       if (this.state.noResults) {
-        return react_default.a.createElement(no_results, {
+        return /*#__PURE__*/react_default.a.createElement(no_results, {
           searchText: this.props.searchText,
           query: this.state.keyword
         });
       }
 
-      return react_default.a.createElement(search_component, {
+      return /*#__PURE__*/react_default.a.createElement(search_component, {
         isEprocurementUser: this.state.isEprocurementUser,
         text: this.props.searchText,
         filterMap: this.props.filterMap,
@@ -4297,7 +4405,8 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
         subFacetFiltersProps: this.subFacetFiltersProps(),
         subFacetFiltersEvents: this.subFacetFiltersEvents(),
         filterTagsProps: this.filterTagsProps(),
-        filterTagsEvents: this.filterTagsEvents()
+        filterTagsEvents: this.filterTagsEvents(),
+        clearSessionStore: this.props.search.clearSessionStore
       });
     }
   }]);
@@ -4307,13 +4416,13 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
 
 /* harmony default export */ var search_container = (Object(withRouter["a" /* default */])(search_container_SearchContainer));
 // EXTERNAL MODULE: ./node_modules/react-router-dom/es/BrowserRouter.js
-var BrowserRouter = __webpack_require__(502);
+var BrowserRouter = __webpack_require__(512);
 
 // EXTERNAL MODULE: ./node_modules/react-router-dom/es/Route.js
-var Route = __webpack_require__(503);
+var Route = __webpack_require__(513);
 
 // EXTERNAL MODULE: ./src/search/ErrorBoundary.js
-var ErrorBoundary = __webpack_require__(49);
+var ErrorBoundary = __webpack_require__(52);
 
 // CONCATENATED MODULE: ./src/search/index.js
 
@@ -4324,12 +4433,12 @@ var ErrorBoundary = __webpack_require__(49);
 
 
 var search_SearchApp = function SearchApp(props) {
-  var isoCode = Object(userFunctions["p" /* isEprocurementUser */])() && Object(userFunctions["l" /* getIsoCode */])() || props.isocode;
+  var isoCode = Object(userFunctions["v" /* isEprocurementUser */])() && Object(userFunctions["o" /* getIsoCode */])() || props.isocode;
   var search = new services["a" /* SearchService */](isoCode, props.searchServicePath, services["b" /* parameterDefaults */].page, props.searchDefaults.rows, services["b" /* parameterDefaults */].sort, undefined, function () {});
-  return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement(BrowserRouter["a" /* default */], null, react_default.a.createElement(Route["a" /* default */], {
+  return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement(BrowserRouter["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(Route["a" /* default */], {
     path: "",
     render: function render() {
-      return react_default.a.createElement(ErrorBoundary["a" /* default */], null, react_default.a.createElement(search_container, {
+      return /*#__PURE__*/react_default.a.createElement(ErrorBoundary["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(search_container, {
         defaultFacet: props.defaultFacet,
         searchDefaults: props.searchDefaults,
         searchServicePath: props.searchServicePath,
