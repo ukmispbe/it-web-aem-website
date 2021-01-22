@@ -1,3 +1,6 @@
+const componentPathConfig = require('./componentPathConfig.js');
+const componentConfig = componentPathConfig.componentPathConfig;
+
 const jsConfig = [
   {
     aemPath: 'waters-aem-ui.apps/src/main/content/jcr_root/apps/waters/clientlibs/clientlib-site',
@@ -45,5 +48,5 @@ const cssConfig = [
 ]
 
 module.exports = {
-  pathConfig: [...jsConfig, ...cssConfig]
+  pathConfig: [...jsConfig, ...cssConfig, ...componentConfig]
 }

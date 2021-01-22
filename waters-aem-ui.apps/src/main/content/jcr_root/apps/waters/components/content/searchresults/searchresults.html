@@ -58,4 +58,8 @@
 </script>
 
 <sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
-    data-sly-call="${patterns.placeholder @ show=true, text=component.title}"/>
+     data-sly-call="${patterns.placeholder @ show=true, text=component.title}"/>
+
+     <sly data-sly-use.clientlib="/libs/granite/sightly/templates/clientlib.html" data-sly-call="${clientlib.js @ categories='waters.searchresults'}"/>
+     <sly data-sly-use.clientlib="/libs/granite/sightly/templates/clientlib.html" data-sly-call="${clientlib.all @ categories='waters.skulist'}"/>
+     <sly data-sly-use.clientlib="/libs/granite/sightly/templates/clientlib.html" data-sly-call="${clientlib.all @ categories='waters.skudetails'}"/>

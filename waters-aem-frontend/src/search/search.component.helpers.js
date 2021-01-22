@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import ReactPaginate from 'react-paginate';
 import ReactSVG from 'react-svg';
 import PropTypes from 'prop-types';
@@ -19,7 +19,8 @@ import {
     ClearAllTag,
     KeywordTag,
 } from './components/filter-tags';
-import SkuList from '../sku-list';
+const SkuList = React.lazy(() => import(/* webpackChunkName: "skulist" */'../sku-list'));
+import Results from './components/results';
 import { propTypes, defaultProps } from './search.component.props';
 import { isEprocurementUser } from '../utils/userFunctions';
 import CategoryList from '../navigation/category-list';
@@ -39,28 +40,28 @@ const FilterTagList = ({
 
     const keyword = filterTagsProps.spell_suggestion ? filterTagsProps.spell_suggestion : filterTagsProps.keyword;
 
-    const keyWordTag = isKeywordSpecified 
+    const keyWordTag = isKeywordSpecified
         ? <KeywordTag
-                keyword={keyword}
-                text={text}
-                onRemove={filterTagsEvents.onKeywordRemove} /> 
+            keyword={keyword}
+            text={text}
+            onRemove={filterTagsEvents.onKeywordRemove} />
         : <></>;
 
     const contentTypeTag = isContentTypeSelected
         ? <ContentTypeTag
-                text={text}
-                selected={filterTagsProps.contentTypeSelected}
-                onRemove={filterTagsEvents.onContentTypeRemove} />
+            text={text}
+            selected={filterTagsProps.contentTypeSelected}
+            onRemove={filterTagsEvents.onContentTypeRemove} />
         : <></>;
 
-    const subFacetTags = Object.entries(filterTagsProps.selectedFacets).length !== 0 
+    const subFacetTags = Object.entries(filterTagsProps.selectedFacets).length !== 0
         ? <SubFacetTags
-                text={text}
-                selectedFacets={filterTagsProps.selectedFacets}
-                facets={filterTagsProps.facets}
-                removeTag={filterTagsEvents.onSubFacetRemove}
-                filterMap={filterMap}
-                defaultFacet={filterTagsProps.contentType}  />
+            text={text}
+            selectedFacets={filterTagsProps.selectedFacets}
+            facets={filterTagsProps.facets}
+            removeTag={filterTagsEvents.onSubFacetRemove}
+            filterMap={filterMap}
+            defaultFacet={filterTagsProps.contentType} />
         : <></>;
 
     return (
@@ -120,13 +121,14 @@ const Aside = ({
                 text={text}
                 collapseFilters={asideEvents.onCollapseFilters} />
 
-                <div className="cmp-search__sort-filter__container">
-                    <Sort
-                        sortValue={asideProps.sortByValue}
-                        sortHandler={asideEvents.onSort}
-                        text={text} />
-                        {children}
-                </div>
+            <div className="cmp-search__sort-filter__container">
+                <Sort
+                    sortValue={asideProps.sortByValue}
+                    sortHandler={asideEvents.onSort}
+                    text={text} />
+                {children}
+            </div>
+
         </div>
     );
 }
@@ -180,7 +182,7 @@ const Menu = ({
                 previousIcon={facetMenuProps.previousIcon}
                 filterTags={filterTags}
                 onClear={facetMenuEvents.onContentTypeRemoval}>
-                    
+
                 <Filter
                     facets={subFacetFiltersProps.items}
                     text={text}
@@ -202,9 +204,9 @@ const Menu = ({
 Menu.propTypes = {
     text: propTypes.text,
     filterMap: propTypes.filterMap,
-    menuProps: propTypes.menuProps, 
+    menuProps: propTypes.menuProps,
     contentTypeMenuProps: propTypes.contentTypeMenuProps,
-    contentTypeMenuEvents: propTypes.contentTypeMenuEvents, 
+    contentTypeMenuEvents: propTypes.contentTypeMenuEvents,
     facetMenuProps: propTypes.facetMenuProps,
     facetMenuEvents: propTypes.facetMenuEvents,
     subFacetFiltersProps: propTypes.subFacetFiltersProps,
@@ -216,9 +218,9 @@ Menu.propTypes = {
 Menu.defaultProps = {
     text: defaultProps.text,
     filterMap: defaultProps.filterMap,
-    menuProps: defaultProps.menuProps, 
+    menuProps: defaultProps.menuProps,
     contentTypeMenuProps: defaultProps.contentTypeMenuProps,
-    contentTypeMenuEvents: defaultProps.contentTypeMenuEvents, 
+    contentTypeMenuEvents: defaultProps.contentTypeMenuEvents,
     facetMenuProps: defaultProps.facetMenuProps,
     facetMenuEvents: defaultProps.facetMenuEvents,
     subFacetFiltersProps: defaultProps.subFacetFiltersProps,
@@ -235,30 +237,28 @@ const SearchResults = ({
     const isEprocUser = isEprocurementUser();
     const searchData = Array.isArray(items)
         ? items.map(item => {
-            if (item.skucode) {
-                return {
-                    code: item.skucode,
-                    category_facet: item.category_facet,
-                    contenttype_facet: item.contenttype_facet,
-                    skuPageHref: isEprocUser ? item.eprocUrl : item.url,
-                    formattedPrice: item.displayprice,
-                    primaryImageAlt: item.title,
-                    primaryImageThumbnail: item.thumbnail,
-                    discontinued: item.status !== 'Active', // covers DiscontinueNoReplacement, DiscontinueWithReplacement, ObsoleteNoReplacement, and ObsoleteWithReplacement
-                    replacementskuurl: item.replacementskuurl,
-                    replacementskucode: item.replacementskucode,
-                    title: item.title,
-                }
-            } else {
-                return item;
-            }
-        }): [];
+            return {
+                code: item.skucode,
+                category_facet: item.category_facet,
+                contenttype_facet: item.contenttype_facet,
+                skuPageHref: isEprocUser ? item.eprocUrl : item.url,
+                formattedPrice: item.displayprice,
+                primaryImageAlt: item.title,
+                primaryImageThumbnail: item.thumbnail,
+                discontinued: item.status !== 'Active', // covers DiscontinueNoReplacement, DiscontinueWithReplacement, ObsoleteNoReplacement, and ObsoleteWithReplacement
+                replacementskuurl: item.replacementskuurl,
+                replacementskucode: item.replacementskucode,
+                title: item.title,
+            };
+        }) : [];
 
     return (
-        <SkuList
-            skuConfig={skuConfig}
-            data={searchData}
-            onItemClick={onItemClick} />
+        <Suspense fallback={<div>Loading...</div>}>
+            <SkuList
+                skuConfig={skuConfig}
+                data={skuData}
+                onItemClick={onItemClick} />
+        </Suspense>
     );
 }
 
@@ -271,11 +271,11 @@ SearchResults.propTypes = {
 SearchResults.defaultProps = {
     skuConfig: defaultProps.skuConfig,
     items: [],
-    onItemClick: () => {}
+    onItemClick: () => { }
 };
 
 const ResultsContent = ({
-    text, 
+    text,
     skuConfig,
     searchParams,
     resultsProps,
@@ -319,7 +319,7 @@ const Pagination = ({
     }
 
     let buildHref = href => `${window.location.href}/page/${href}`
-    
+
     return (
         <ReactPaginate
             pageCount={resultsProps.pagination.amount}
@@ -327,7 +327,7 @@ const Pagination = ({
             pageRangeDisplayed={8}
             marginPagesDisplayed={1}
             containerClassName="paginate__container"
-            onPageChange={num => resultsEvents.onPageChange(num, 'clicked' )}
+            onPageChange={num => resultsEvents.onPageChange(num, 'clicked')}
             breakLabel={'…'}
             hrefBuilder={buildHref}
             previousLabel={<ReactSVG src={previousIcon} />}
@@ -352,11 +352,11 @@ Pagination.defaultProps = {
 };
 
 const ResultsBody = ({
-    text, 
+    text,
     filterMap,
     skuConfig,
     searchParams,
-    categoryProps, 
+    categoryProps,
     categoryEvents,
     showSortFilterProps,
     showSortFilterEvents,
@@ -383,11 +383,11 @@ const ResultsBody = ({
                     setupFilters={showSortFilterEvents.onSetupFilters}
                     resetToSavedState={showSortFilterEvents.onResetToSavedState}
                     collapseFilters={showSortFilterProps.collapseFilters}
-                    onClose={showSortFilterEvents.onClose} />  
+                    onClose={showSortFilterEvents.onClose} />
                 <div className="cmp-search__sorted-by">
                     {text.sortedBy}:{' '}
                     {asideProps.sortByText === 'most-relevant'
-                        ? text.sortByBestMatch 
+                        ? text.sortByBestMatch
                         : text.sortByMostRecent}
                 </div>
             </div>
@@ -395,11 +395,9 @@ const ResultsBody = ({
                 <ResultsCount
                     {...resultsProps}
                     text={text}
-                    categoryOptions={categoryProps.categories}
-                    categoryValue={categoryProps.activeIndex}
-                    onRelatedSuggestionClick={resultsEvents.onRelatedSuggestionClick}  />
+                    onRelatedSuggestionClick={resultsEvents.onRelatedSuggestionClick} />
 
-                <FilterTagList 
+                <FilterTagList
                     text={text}
                     filterMap={filterMap}
                     filterTagsProps={filterTagsProps}
@@ -424,11 +422,11 @@ const ResultsBody = ({
 }
 
 ResultsBody.propTypes = {
-    text: propTypes.text, 
+    text: propTypes.text,
     filterMap: propTypes.filterMap,
     skuConfig: propTypes.skuConfig,
     searchParams: propTypes.searchParams,
-    categoryProps: propTypes.categoryProps, 
+    categoryProps: propTypes.categoryProps,
     categoryEvents: propTypes.categoryEvents,
     showSortFilterProps: propTypes.showSortFilterProps,
     showSortFilterEvents: propTypes.showSortFilterEvents,
@@ -440,11 +438,11 @@ ResultsBody.propTypes = {
 }
 
 ResultsBody.defaultProps = {
-    text: defaultProps.text, 
+    text: defaultProps.text,
     filterMap: defaultProps.filterMap,
     skuConfig: defaultProps.skuConfig,
     searchParams: defaultProps.searchParams,
-    categoryProps: defaultProps.categoryProps, 
+    categoryProps: defaultProps.categoryProps,
     categoryEvents: defaultProps.categoryEvents,
     showSortFilterProps: defaultProps.showSortFilterProps,
     showSortFilterEvents: defaultProps.showSortFilterEvents,

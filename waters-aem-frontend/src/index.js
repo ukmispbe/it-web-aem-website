@@ -1,17 +1,17 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
-import Search from './search/index';
+const Search = React.lazy(() => import(/* webpackChunkName: "searchresults" */'./search/index'));
 import TagCloud from './search/components/tagcloud';
-import ImageCarousel from './image-carousel';
-import UserGreeting from './user-greetings/UserGreeting';
-import QuickOrder from './quick-order/QuickOrder';
+const ImageCarousel = React.lazy(() => import(/* webpackChunkName: "imagegallery" */'./image-carousel'));
+const UserGreeting = React.lazy(() => import(/* webpackChunkName: "usergreetings" */'./user-greetings/UserGreeting'));
+const QuickOrder = React.lazy(() => import(/* webpackChunkName: "quickorder" */'./quick-order/QuickOrder'));
 import LinkButton from './link-button/LinkButton';
 import LegalLinkModal from './legal-link-modal/LegalLinkModal';
 
-import SkuDetails from './sku-details';
-import SkuList from './sku-list';
+const SkuDetails = React.lazy(() => import(/* webpackChunkName: "skudetails" */ './sku-details'));
+const SkuList = React.lazy(() => import(/* webpackChunkName: "skulist" */ './sku-list'));
 import SkuMessage from './sku-message';
-import Form from './forms/form';
+
 import {
     registrationSubmit,
     resetPasswordSubmit,
@@ -21,12 +21,12 @@ import {
     contactSupportSubmit
 
 } from './forms/services/submit';
-import Video from './video/index';
-import Chat from './chat';
+const Video = React.lazy(() => import(/* webpackChunkName: "video" */'./video/index'));
+const Chat = React.lazy(() => import(/* webpackChunkName: "chat" */'./chat'));
 import DetailTiles from './detail-tiles';
 import DigitalData from './scripts/DigitalData';
 import WeChat from './wechat';
-import MyAccountRouter from './my-account';
+const MyAccountRouter = React.lazy(() => import(/* webpackChunkName: "myaccount" */'./my-account'));
 import CountrySelector from './country-selector';
 import SessionStore from './stores/sessionStore';
 import LoginStatus from "./scripts/loginStatus";
@@ -99,7 +99,7 @@ if (spinnerContainer) {
             bindLoaderToDom(spinnerContainer, data.showLoader);
         },
         false
-    ); 
+    );
 }
 // End Bind Loader component on Demand
 
@@ -124,16 +124,18 @@ if (searchAppContainer) {
 
     const data = getAuthoredDataForSearchApp(searchAppContainer);
     ReactDOM.render(
-        <Search
-            defaultFacet="category_facet:waters%253Acategory%252Fapplicationslibrary"
-            searchDefaults={{ rows: 25 }}
-            searchServicePath={data.searchPath}
-            searchLocale={data.locale}
-            searchText={text}
-            filterMap={filterMap}
-            isocode={data.isocode}
-            baseSignInUrl={baseSignInUrlString}
-        />,
+        <Suspense fallback={<div>Loading...</div>}>
+            <Search
+                defaultFacet="category_facet:waters%253Acategory%252Fapplicationslibrary"
+                searchDefaults={{ rows: 25 }}
+                searchServicePath={data.searchPath}
+                searchLocale={data.locale}
+                searchText={text}
+                filterMap={filterMap}
+                isocode={data.isocode}
+                baseSignInUrl={baseSignInUrlString}
+            />
+        </Suspense>,
         searchAppContainer
     );
 }
@@ -168,13 +170,14 @@ if (imageGalleryContainers) {
         const json = JSON.parse(container.getAttribute('data-json'));
 
         ReactDOM.render(
-            <ImageCarousel
-                templates={json.templates}
-                widths={json.widths}
-                alt={json.alt}
-                zoomInIcon="/content/dam/waters/en/brand-assets/icons/zoom-in.svg"
-                zoomOutIcon="/content/dam/waters/en/brand-assets/icons/zoom-out.svg"
-            />,
+            <Suspense fallback={<div>Loading...</div>}>
+                <ImageCarousel
+                    templates={json.templates}
+                    widths={json.widths}
+                    alt={json.alt}
+                    zoomInIcon="/content/dam/waters/en/brand-assets/icons/zoom-in.svg"
+                    zoomOutIcon="/content/dam/waters/en/brand-assets/icons/zoom-out.svg"
+                /></Suspense>,
             container
         );
     });
@@ -220,16 +223,18 @@ if (skuDetailsContainer) {
 
     function skuDetailsRender(skuDetailsContainer) {
         ReactDOM.render(
-            <SkuDetails
-                config={skuDetailsConfig}
-                price={skuDetailsListPrice}
-                countryRestricted={skuCountryRestricted}
-                skuNumber={skuNumber}
-                titleText={skuTitle}
-                discontinued={skuDiscontinued}
-                replacementSkuCode={replacementSkuCode}
-                replacementSkuHref={replacementSkuHref}
-            />,
+            <Suspense fallback={<div>Loading...</div>}>
+                <SkuDetails
+                    config={skuDetailsConfig}
+                    price={skuDetailsListPrice}
+                    countryRestricted={skuCountryRestricted}
+                    skuNumber={skuNumber}
+                    titleText={skuTitle}
+                    discontinued={skuDiscontinued}
+                    replacementSkuCode={replacementSkuCode}
+                    replacementSkuHref={replacementSkuHref}
+                />
+            </Suspense>,
             skuDetailsContainer
         );
     }
@@ -247,11 +252,13 @@ if (skuListContainer) {
         : '';
 
     ReactDOM.render(
-        <SkuList
-            skuConfig={skuDetailsConfig}
-            data={skuListData}
-            title={skuListTitle}
-        />,
+        <Suspense fallback={<div>Loading...</div>}>
+            <SkuList
+                skuConfig={skuDetailsConfig}
+                data={skuListData}
+                title={skuListTitle}
+            />
+        </Suspense>,
         skuListContainer
     );
 }
@@ -309,16 +316,17 @@ if (videoContainers) {
             const json = JSON.parse(videoConfig.innerHTML);
 
             ReactDOM.render(
-                <Video
-                    videoConfig={json.videoConfig}
-                    ref={ourComponent => {
-                        if (window.cmpVideos) {
-                            window.cmpVideos.push(ourComponent);
-                        } else {
-                            window.cmpVideos = [ourComponent];
-                        }
-                    }}
-                />,
+                <Suspense fallback={<div>Loading...</div>}>
+                    <Video
+                        videoConfig={json.videoConfig}
+                        ref={ourComponent => {
+                            if (window.cmpVideos) {
+                                window.cmpVideos.push(ourComponent);
+                            } else {
+                                window.cmpVideos = [ourComponent];
+                            }
+                        }}
+                    /></Suspense>,
                 videoContainer
             );
         }
@@ -391,11 +399,11 @@ if (registrationFormContainer) {
 
     ReactDOM.render(
         // replace isocode with a value supplied by AEM
-        <CreateAccountForm 
+        <CreateAccountForm
             registrationFormConfig={registrationForm}
             checkEmailFormConfig={checkEmailForm}
             isocode={DigitalData.language}
-			isTwoStepRegistrationForm={isTwoStepRegistrationForm}
+            isTwoStepRegistrationForm={isTwoStepRegistrationForm}
         />,
         registrationFormContainer
     );
@@ -407,16 +415,18 @@ const contactSupportFormContainer = document.getElementById('js-contact-support-
 if (contactSupportFormContainer) {
     const config = JSON.parse(document.getElementById('cmp-contact-support-form').innerHTML);
     const objData = config.fields.find(x => (x.type === 'dropdown' && x.name === 'formCategoryType' && Object.keys(x).includes('defaultValue')));
-
+    const Form = React.lazy(() => import(/* webpackChunkName: "forms" */ './forms/form'));
     ReactDOM.render(
         <>
-            <Form
-                config={config}
-                submitFn={contactSupportSubmit}
-                callback={headerData.userDetailsUrl}
-                isocode={DigitalData.language}
-                defaultValues={{ formCategoryType: objData.defaultValue || '' }}
-            />
+            <Suspense fallback={<div>Loading...</div>}>
+                <Form
+                    config={config}
+                    submitFn={contactSupportSubmit}
+                    callback={headerData.userDetailsUrl}
+                    isocode={DigitalData.language}
+                    defaultValues={{ formCategoryType: objData.defaultValue || '' }}
+                />
+            </Suspense>
             <LegalLinkModal docIcon={config.icons.docIcon || ''} />
         </>,
         contactSupportFormContainer
@@ -431,14 +441,15 @@ if (troubleSigningInFormContainer) {
     const config = JSON.parse(
         document.getElementById('js-trouble-signing-in-form').innerHTML
     );
-
+    const Form = React.lazy(() => import(/* webpackChunkName: "forms" */ './forms/form'));
     ReactDOM.render(
         // replace isocode with a value supplied by AEM
-        <Form
-            config={config}
-            submitFn={troubleSigningInSubmit}
-            isocode={DigitalData.language}
-        />,
+        <Suspense fallback={<div>Loading...</div>}>
+            <Form
+                config={config}
+                submitFn={troubleSigningInSubmit}
+                isocode={DigitalData.language}
+            /></Suspense>,
         troubleSigningInFormContainer
     );
 }
@@ -451,14 +462,15 @@ if (chooseAccountFormContainer) {
     let config = JSON.parse(
         document.getElementById('js-choose-account-form').innerHTML
     );
-
+    const Form = React.lazy(() => import(/* webpackChunkName: "forms" */ './forms/form'));
     ReactDOM.render(
         // replace isocode with a value supplied by AEM
-        <Form
-            config={config}
-            submitFn={chooseAccountSubmit}
-            isocode={DigitalData.language}
-        />,
+        <Suspense fallback={<div>Loading...</div>}>
+            <Form
+                config={config}
+                submitFn={chooseAccountSubmit}
+                isocode={DigitalData.language}
+            /></Suspense>,
         chooseAccountFormContainer
     );
 }
@@ -473,9 +485,10 @@ if (resetPasswordContainer) {
     );
 
     config.submitEndpoint = `${config.submitEndpoint}${config.isEproc === "true" ? '?isEproc=true' : ''}`;
-
+    const Form = React.lazy(() => import(/* webpackChunkName: "forms" */ './forms/form'));
     ReactDOM.render(
-        <Form config={config} submitFn={resetPasswordSubmit} callback={headerData.userDetailsUrl} />,
+        <Suspense fallback={<div>Loading...</div>}>
+            <Form config={config} submitFn={resetPasswordSubmit} callback={headerData.userDetailsUrl} /></Suspense>,
         resetPasswordContainer
     );
 }
@@ -497,18 +510,19 @@ const chatContainer = document.querySelector('.cmp-chat');
 if (chatContainer) {
     const data = getAuthoredDataForChat(chatContainer);
     ReactDOM.render(
-        <Chat
-            url={data.url}
-            statusApi={data.statusApi}
-            countryCode={skuDetailsConfig.countryCode}
-            icon={data.icon}
-            availableText={data.availableText}
-            unavailableText={data.unavailableText}
-            text={data.text}
-            buttonText={data.buttonText}
-            offlineIcon={skuDetailsConfig.skuInfo.outOfStockIcon}
-            onlineIcon={skuDetailsConfig.skuInfo.inStockIcon}
-        />,
+        <Suspense fallback={<div>Loading...</div>}>
+            <Chat
+                url={data.url}
+                statusApi={data.statusApi}
+                countryCode={skuDetailsConfig.countryCode}
+                icon={data.icon}
+                availableText={data.availableText}
+                unavailableText={data.unavailableText}
+                text={data.text}
+                buttonText={data.buttonText}
+                offlineIcon={skuDetailsConfig.skuInfo.outOfStockIcon}
+                onlineIcon={skuDetailsConfig.skuInfo.inStockIcon}
+            /></Suspense>,
         chatContainer
     );
 }
@@ -551,7 +565,7 @@ if (myAccountPage) {
         document.getElementById('cmp-my-account').innerHTML
     );
 
-    ReactDOM.render(<MyAccountRouter {...config} />, myAccountPage);
+    ReactDOM.render(<Suspense fallback={<div>Loading...</div>}><MyAccountRouter {...config} /></Suspense>, myAccountPage);
 }
 
 const countryModalRoot = document.getElementById('country-selector-root');
@@ -569,10 +583,11 @@ const signInFormContainer = document.getElementById("js-signin-form");
 
 if (signInFormContainer) {
     const config = JSON.parse(document.getElementById("cmp-signin-form").innerHTML);
-
+    const Form = React.lazy(() => import(/* webpackChunkName: "forms" */ './forms/form'));
     ReactDOM.render(
         // replace isocode with a value supplied by AEM
-        <Form config={config} submitFn={signInSubmit} isocode={DigitalData.language} callback={headerData.userDetailsUrl} />,
+        <Suspense fallback={<div>Loading...</div>}>
+            <Form config={config} submitFn={signInSubmit} isocode={DigitalData.language} callback={headerData.userDetailsUrl} /></Suspense>,
         signInFormContainer
     );
 }
@@ -587,7 +602,7 @@ if (userGreetingContainer) {
 function userGreeting(userGreetingContainer) {
     const props = JSON.parse(document.getElementById("cmp-user-greetings").innerHTML);
     ReactDOM.render(
-        <UserGreeting {...props} />,
+        <Suspense fallback={<div>Loading...</div>}><UserGreeting {...props} /></Suspense>,
         userGreetingContainer
     );
 }
@@ -607,8 +622,8 @@ if (quickOrderContainer) {
     const props = JSON.parse(document.getElementById("cmp-quick-order").innerHTML);
     const skuConfig = JSON.parse(document.getElementById('commerce-configs-json').innerHTML);
     ReactDOM.render(
-        <QuickOrder {...props} skuConfig={skuConfig} />,
-        quickOrderContainer
+        <Suspense fallback={<div>Loading...</div>}><QuickOrder {...props} skuConfig={skuConfig} /></Suspense>,
+        container
     );
 }
 // End Quick Order Component

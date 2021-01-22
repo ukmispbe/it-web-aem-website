@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import Form from "../forms/form";
+import React, { Suspense, useState, useEffect } from "react";
+const Form = React.lazy(() => import(/* webpackChunkName: "forms" */'../forms/form'));
 import { checkEmailResetPasswordSubmit } from "../forms/services/submit";
 
 const CreateAccountForm = ({
@@ -27,14 +27,18 @@ const CreateAccountForm = ({
   }
 
   return showRegistrationForm ? (
-    <Form {...registrationFormConfig} isocode={isocode} />
+    <Suspense fallback={<div>Loading...</div>}>
+      <Form {...registrationFormConfig} isocode={isocode} />
+    </Suspense>
   ) : (
-    <Form
-      {...checkEmailFormConfig}
-      submitFn={checkEmailSubmit}
-      isocode={isocode}
-    />
-  );
+      <Suspense fallback={<div>Loading...</div>}>
+        <Form
+          {...checkEmailFormConfig}
+          submitFn={checkEmailSubmit}
+          isocode={isocode}
+        />
+      </Suspense>
+    );
 };
 
 export default CreateAccountForm;
