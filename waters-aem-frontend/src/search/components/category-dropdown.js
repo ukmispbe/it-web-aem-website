@@ -65,7 +65,7 @@ const CategoryDropdown = props => {
 
     return (
         <>
-            { ScreenSizes.isTabletAndUnder() ? mobileView() : null }
+            { ScreenSizes.isMobile() ? mobileView() : null }
         </>
     );
 };
