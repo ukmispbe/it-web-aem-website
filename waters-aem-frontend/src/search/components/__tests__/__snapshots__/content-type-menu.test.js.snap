@@ -13,7 +13,7 @@ exports[`Feature: ContentTypeMenu Component Scenario: Rendering When content typ
     className="content-type-menu-container__body"
   >
     <div
-      className="content-type-menu-container__item"
+      className="content-type-menu-container__item "
       onClick={[Function]}
     >
       <div>

@@ -2,10 +2,14 @@ const searchResultsTranslationsJSON = {
     "sortAndFilterButton": "Sort and Filter",
     "applyButton": "Apply",
     "doneButton": "Done",
-    "sortByHeading": "Sort By",
     "sortedBy": "Sorted by",
-    "sortByBestMatch": "Best Match",
-    "sortByMostRecent": "Most Recent",
+    "sort": {
+        "prefix": "Sort by: ",
+        "options": {
+            "bestMatch": "Best Match",
+            "mostRecent": "Most Recent"
+        }
+    },
     "filterByHeading": "Filter by",
     "clearAllFilters": "Clear All",
     "filterSearchPlaceholder": "Search",
