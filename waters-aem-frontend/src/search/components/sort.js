@@ -1,15 +1,15 @@
 import React from 'react';
-import Dropdown from '../../utils/dropdown';
+import PrefixDropdown from '../../utils/dropdown/prefix-dropdown';
 
 const getOptions = text => {
     return [
         {
             value: 1,
-            label: text.sortByBestMatch,
+            label: text.options.bestMatch
         },
         {
             value: 2,
-            label: text.sortByMostRecent,
+            label: text.options.mostRecent
         },
     ];
 };
@@ -17,13 +17,15 @@ const getOptions = text => {
 const Sort = props => {
     return (
         <div className="cmp-search-sortby" data-locator="sortby-label">
-            <h3>{props.text.sortByHeading}</h3>
-            <Dropdown
+            <PrefixDropdown
                 getOptions={getOptions}
-                sortValue={props.sortValue}
                 onChange={e => props.sortHandler(e)}
+                text={props.text.sort}
+                dropdownValue={props.sortValue}
+                prefix={props.text.sort.prefix}
                 isSearchable={false}
-                text={props.text}
+                defaultValue={1}
+                downIcon={props.text.downIcon}
             />
         </div>
     );
