@@ -47,6 +47,24 @@
     </div>
 
     <div class="form-row">
+        <label acs-coral-heading>
+            Full Index
+        </label>
+        <span>
+			<div class="coral-Selector">
+				<label class="coral-Selector-option">
+					<input ng-model="form.fullIndex" type="radio" class="coral-Selector-input" name="fullIndex" value="true"/>
+					<span class="coral-Selector-description">Yes</span>
+				</label>
+				<label class="coral-Selector-option">
+					<input ng-model="form.fullIndex" type="radio" class="coral-Selector-input" name="fullIndex" value="false"/>
+					<span class="coral-Selector-description">No</span>
+				</label>
+			</div>
+		</span>
+    </div>
+
+    <div class="form-row">
         <div class="form-left-cell">&nbsp;</div>
         <button class="coral-Button coral-Button--primary">Submit</button>
     </div>
