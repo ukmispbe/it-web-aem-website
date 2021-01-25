@@ -254,13 +254,12 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 					}
 				}
 			}
-
+		}
 			if (!success) {
 				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			}
 			long endTime = System.currentTimeMillis();
 			LOG.info("Total time taken to index {} : {} ms", pagePath, endTime - startTime);
-		}
 	}
 
 	private CloseableHttpClient getHttpClient(String url, Boolean enableAuthentication) throws URISyntaxException {
