@@ -153,7 +153,7 @@ const Form = ({
     useEffect(() => {
         if (config.formName === "registrationAddress") {
             // Call API & Update Config
-            retrieveData(config.statesUrl.replace("{Country}", defaultValues.country))
+            retrieveData(config.statesUrl.replace("{country}", defaultValues.country))
             .then((results) => {
                 if (results[0]) {
                     const showStates = results[0].showStates;
