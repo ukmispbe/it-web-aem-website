@@ -16,6 +16,7 @@ import org.apache.http.client.methods.RequestBuilder;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.*;
 import com.google.common.collect.Lists;
+import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.json.JSONObject;
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -81,8 +82,8 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 		Configuration configuration = configAdmin.getConfiguration(DEFAULT_SOLR_INDEX_PID);
 		Dictionary<String, Object> props = configuration.getProperties();
 		long startTime = System.currentTimeMillis();
-		final String pagePath = request.getParameter("pagePath");
-		final String action = request.getParameter("action");
+		final String pagePath = (request.getParameter("pagePath") != null ? request.getParameter("pagePath") : "");
+		final String action = (request.getParameter("action") != null ? request.getParameter("action") : "");
 		final boolean fullIndex = Boolean.parseBoolean(request.getParameter("fullIndex"));
 		final String[] indexPaths = solrFullIndexConfigurationImpl.getPaths();
 		URIBuilder builder;
@@ -95,6 +96,7 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 		final SimpleDateFormat formatter = new SimpleDateFormat("ddMMMHHmmss");
 		final String collection = WATERS + "-" + formatter.format(date);
 		collectionName = collection;
+		final boolean enableAuthentication = (boolean) props.get("enableAuthentication");
 
 		ForkJoinPool forkJoinPool;
 
@@ -126,7 +128,7 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 				try {
 					URI uri = builder.build();
 					HttpUriRequest httpUriRequest = RequestBuilder.post(uri).build();
-					CloseableHttpClient httpclient = getHttpClient(zookeeperUrl[0]);
+					CloseableHttpClient httpclient = getHttpClient(zookeeperUrl[0], enableAuthentication);
 					LOG.info("The Solr Full Index create collection request: {}, ", httpUriRequest);
 
 					httpResponse = httpclient.execute(httpUriRequest);
@@ -155,7 +157,7 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 								builder = getUriBuilder(zookeeperUrl[0], parameters);
 								URI uri = builder.build();
 								HttpUriRequest httpUriRequest = RequestBuilder.post(uri).build();
-								CloseableHttpClient httpclient = getHttpClient(zookeeperUrl[0]);
+								CloseableHttpClient httpclient = getHttpClient(zookeeperUrl[0], enableAuthentication);
 
 								LOG.info("The Solr Full Index list alias request: {}, ", httpUriRequest);
 								httpResponse = httpclient.execute(httpUriRequest);
@@ -176,7 +178,7 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 									builder = getUriBuilder(zookeeperUrl[0], parameters);
 									URI uriForAlias = builder.build();
 									HttpUriRequest httpUriRequestForAlias = RequestBuilder.post(uriForAlias).build();
-									CloseableHttpClient httpclientForAlias = getHttpClient(zookeeperUrl[0]);
+									CloseableHttpClient httpclientForAlias = getHttpClient(zookeeperUrl[0], enableAuthentication);
 
 									LOG.info("The Solr Full Index create alias request: {}, ", httpUriRequestForAlias);
 									httpResponse = httpclientForAlias.execute(httpUriRequestForAlias);
@@ -190,7 +192,7 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 										builder = getUriBuilder(zookeeperUrl[0], parameters);
 										URI uriForDelete = builder.build();
 										HttpUriRequest httpUriRequestForDelete = RequestBuilder.post(uriForDelete).build();
-										CloseableHttpClient httpclientForDelete = getHttpClient(zookeeperUrl[0]);
+										CloseableHttpClient httpclientForDelete = getHttpClient(zookeeperUrl[0], enableAuthentication);
 
 										LOG.info("The Solr Full Index delete collection request: {}, ", httpUriRequestForDelete);
 										httpResponse = httpclientForDelete.execute(httpUriRequestForDelete);
@@ -261,22 +263,22 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 		}
 	}
 
-	private CloseableHttpClient getHttpClient(String url) throws URISyntaxException {
-		HttpClientBuilder clientBuilder = HttpClients.custom();
-		CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
-		Credentials credentials = new UsernamePasswordCredentials("solradmin", "Jm2vY25H8O5b");
-		//URI uri = new URI(url); To do
-		URI uri = new URI("http://localhost:8983");
-		AuthScope scope = new AuthScope(uri.getHost(),uri.getPort());
-		credentialsProvider.setCredentials(scope,credentials);
-		clientBuilder.setDefaultCredentialsProvider(credentialsProvider);
-		return clientBuilder.build();
+	private CloseableHttpClient getHttpClient(String url, Boolean enableAuthentication) throws URISyntaxException {
+		if (enableAuthentication) {
+			HttpClientBuilder clientBuilder = HttpClients.custom();
+			CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
+			Credentials credentials = new UsernamePasswordCredentials("solradmin", "Jm2vY25H8O5b");
+			URI uri = new URI("http://" + url);
+			AuthScope scope = new AuthScope(uri.getHost(), uri.getPort());
+			credentialsProvider.setCredentials(scope, credentials);
+			clientBuilder.setDefaultCredentialsProvider(credentialsProvider);
+			return clientBuilder.build();
+		}
+		else return HttpClientBuilder.create().setConnectionManager(new PoolingHttpClientConnectionManager()).build();
 	}
 
-
 	private URIBuilder getUriBuilder(String url, Map<String, String> parameters) throws MalformedURLException {
-		//URL solrUrl = new URL(url); To do
-		URL solrUrl = new URL("http://localhost:8983");
+		URL solrUrl = new URL("http://" + url);
 		URIBuilder builder = new URIBuilder()
 				.setScheme(solrUrl.getProtocol())
 				.setHost(solrUrl.getHost() + ":" + solrUrl.getPort())
