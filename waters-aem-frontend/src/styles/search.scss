@@ -81,13 +81,6 @@
         width: 60%;
         margin-left: -15%;
 
-        // @include tablet {
-        //     width: 100%;
-        //     float: none;
-        //     padding-left: 0;
-        //     margin-left: 0;
-        // }
-
         @include mobile {
             width: 100%;
             float: none;
@@ -96,12 +89,7 @@
             margin-top: $space-s * -1;
         }
     }
-    // @include tablet {
-    //     width: 100%;
-    //     float: none;
-    //     padding-left: 0;
-    //     margin-top: 0;
-    // }
+
     @include mobile {
         width: 100%;
         float: none;
@@ -418,10 +406,7 @@ div.cmp-search__no-results {
         @include mobile {
             display: block;
         }
-        // @include tablet {
-        //     float: right;
-        //     margin-bottom: 0;
-        // }
+
         @include mobile {
             margin-bottom: $space-s;
             svg {
@@ -465,14 +450,6 @@ div.cmp-search__no-results {
         }
     }
 
-    // @include tablet {
-    //     margin-right: $space-xxs;
-
-    //     .css-1l0huv0-control.cmp-custom-dropdown__control{
-    //         max-height: 51px;
-    //     }
-    // }
-
     @include mobile {
         svg {
             margin: 0 2% 0 0;
@@ -482,12 +459,7 @@ div.cmp-search__no-results {
 
 .cmp-search-show-btn,
 .cmp-search-category-dropdown {
-    // @include tablet {
-    //     float: left;
-    //     margin-bottom: 0;
-    //     padding-bottom: $space-l;
-    //     min-width: 130px;
-    // }
+
     @include mobile {
         padding-bottom: 0;
     }
@@ -568,13 +540,7 @@ div.cmp-search__no-results {
         float: none;
         width: 100%;
     }
-    // @include tablet {
-    //     display: block;
-    //     padding-top: $space-s;
 
-    //     float: right;
-    //     width: auto;
-    // }
 }
 
 .cmp-search-overlay {
@@ -640,22 +606,6 @@ html.showing-spinner {
         }
     }
 
-    // @include tablet {
-    //     height: 100vh;
-
-    //     .cmp-search__resultsCount-container {
-    //         z-index: -1;
-    //     }
-
-    //     .cmp-search__results-container {
-    //         position: relative;
-    //         z-index: -1;
-    //     }
-
-    //     .cmp-search-bar {
-    //         z-index: -1;
-    //     }
-    // }
 }
 
 @include mobile {

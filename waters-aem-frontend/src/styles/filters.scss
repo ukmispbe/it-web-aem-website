@@ -271,16 +271,6 @@
         margin-top: $space-xs;
         margin-bottom: $space-l;
 
-        // @include tablet {
-        //     width: 100%;
-        //     padding: 0;
-        //     margin-bottom: $space-m;
-
-        //     a {
-        //         margin: 0 $space-xxs $space-xxs 0;
-        //     }
-        // }
-
         @include mobile {
             margin-top: 0;
             margin-bottom: $space-s;
@@ -434,14 +424,6 @@ $header-height: 74px;
         height: 0;
         padding: 0 20px;
     }
-
-    // @include tablet {
-    //     display: none;
-    //     width: 40%;
-    //     height: 100%;
-    //     padding: $header-height 20px 20px 20px;
-    //     z-index: ($navigation-z-index + 1);
-    // }
 }
 
 .show-sort-filters {
@@ -482,10 +464,6 @@ $header-height: 74px;
                                 max-height: 49vh;
                                 padding-bottom: 55px;
                             }
-                            // @include tablet {
-                            //     max-height: 53vh;
-                            //     padding-bottom: 60px;
-                            // }
                         }
                     }
                 }
@@ -527,12 +505,6 @@ $header-height: 74px;
             @include mobile {
                 margin-top: -30px;
             }
-
-            // @include tablet {
-            //     position: relative;
-            //     z-index: -1;
-            //     margin-top: -20px;
-            // }
         }
     }
 }
