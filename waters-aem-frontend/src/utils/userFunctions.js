@@ -77,6 +77,13 @@ export const getSoldToIdSource = (soldToId, dummySoldto) => {
     return soldTo;
 }
 
+export const getApprovalStatus = () => {
+    const store = new SessionStore();
+    const userDetails = store.getUserDetails();
+    const approvalStatus = userDetails && userDetails.approvalStatus || '';
+    return approvalStatus;
+}
+
 //Note: Returning all possible soldTo values for debugging and in case of future needs
 export const callCustomerPriceApi = (custPriceApiDisabled) => {
     let salesOrg = getSalesOrg();
@@ -406,3 +413,13 @@ export const getUrlParameter = (name = '') => {
         const results = regex.exec(window.location.hash);
         return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
 };
+
+export const convertToBoolean = (value = '') => {
+    let status = false;
+    if(typeof value === "string"){
+        if(value.toLowerCase() === 'true'){
+            status = true;
+        }
+    }
+    return status
+}

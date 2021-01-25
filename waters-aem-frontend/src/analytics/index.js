@@ -18,7 +18,7 @@ class Analytics {
             if(model.formName !== 'chooseAccount') {
                 thisAnalyticEvent = this.analyticTypes[eventType][model.formName][model.event];
             }
-        } else if (eventType === 'orderHistory' || eventType === 'orderDetails') {
+        } else if (eventType === 'orderHistory' || eventType === 'orderDetails' || eventType === 'quoteHistory' || eventType === 'quoteDetails') {
             thisAnalyticEvent = this.analyticTypes[eventType][model.event];
         } else {
             thisAnalyticEvent = this.analyticTypes[eventType];

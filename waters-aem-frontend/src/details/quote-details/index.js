@@ -9,7 +9,7 @@ import AddToCartBody from '../../sku-details/views/addToCartModal';
 import Analytics, { analyticTypes } from '../../analytics';
 import { DELIVERY_STATUS, STORE, CHECKOUT } from '../../constants';
 import DeliveryStatus from '../../common/delivery-status';
-import { getFullCompanyAddress, getCartCheckoutUrl, getUrlPath, getUrlParameter } from '../../utils/userFunctions';
+import { getFullCompanyAddress, getCartCheckoutUrl, getUrlPath, getUrlParameter, convertToBoolean, getApprovalStatus } from '../../utils/userFunctions';
 import SessionStore from '../../stores/sessionStore';
 
 class QuoteDetails extends Component {
@@ -27,6 +27,13 @@ class QuoteDetails extends Component {
             modalConfig: props.config.modalInfo,
             totalItemsCount:0
         }
+        this.page = {
+            name: "Quote Details",
+            type: "Quotes",
+            analytics: {
+                reference: "quoteDetails",
+            }
+        }
     }
 
     rootStyle = "cmp-order-details";
@@ -35,7 +42,7 @@ class QuoteDetails extends Component {
             detail,
             event
         };
-        Analytics.setAnalytics(analyticTypes['quoteDetails'].name, model);
+        Analytics.setAnalytics(analyticTypes[this.page.analytics.reference].name, model);
     }
 
     toggleModal = () => {
@@ -137,7 +144,22 @@ class QuoteDetails extends Component {
     placeOrderForQuote = (e, quoteId) => {
 	   e.preventDefault();
        if(quoteId){		
-        (new SessionStore()).setQuoteId(quoteId);        
+        (new SessionStore()).setQuoteId(quoteId);   
+        const {quoteDetails} = this.state;
+        const {totalItems, entries, subTotal, totalShippingAndHandling, totalDiscounts, totalTax, totalPriceWithTax = {}} = quoteDetails
+        const placeOrderModel ={
+            detail:{
+                quoteId,
+                subTotal,
+                totalTax,
+                totalDiscounts,
+                totalShippingAndHandling,
+                totalPriceWithTax,
+                totalItems,
+                entries,
+            }
+        }
+        this.setAnalytics('quotePlaceOrder', placeOrderModel)       
 		const checkoutUrl =  getCartCheckoutUrl(STORE,CHECKOUT);
         window.location.href = checkoutUrl;
        }
@@ -146,7 +168,14 @@ class QuoteDetails extends Component {
     renderPlaceOrderButton = (className,elementLocator) => {
         const {quoteDetails} = this.state;
         const {quoteStatus, quoteId} = quoteDetails
-        return quoteStatus === DELIVERY_STATUS.OPEN && (
+        let commerceConfigs = document.getElementById('commerce-configs-json');
+        if(commerceConfigs){
+            commerceConfigs = JSON.parse(commerceConfigs.innerHTML);
+        }
+        const {isQuoteDisabled,isCheckoutDisabled} = commerceConfigs;
+        const approvalStatus = getApprovalStatus()
+        const isDisabled = convertToBoolean(isQuoteDisabled) || convertToBoolean(isCheckoutDisabled) || approvalStatus === 'R';
+        return quoteStatus === DELIVERY_STATUS.OPEN && !isDisabled && (
             <div className={className} data-locator={elementLocator}>
                 <a className="cmp-button" href="#" onClick={(e) => this.placeOrderForQuote(e,quoteId)} data-locator={`${elementLocator}-button`} >
                     {this.props.config.reorderTitle}
@@ -155,12 +184,24 @@ class QuoteDetails extends Component {
         )
     }
 
+    quoteAgain = (e, quoteId) => {
+        e.preventDefault();
+        if(quoteId){
+         const quoteAgainModel ={
+             detail:{
+                 quoteId,
+             }
+         }
+         this.setAnalytics('quoteAgainClick', quoteAgainModel)       
+        }
+    }
+
     renderQuoteAgainButton = className => {
         const {quoteDetails} = this.state;
-        const {quoteStatus} = quoteDetails;
+        const {quoteStatus,quoteId} = quoteDetails;
         return quoteStatus === DELIVERY_STATUS.EXPIRED && (
             <div className={className} data-locator="quote-details-quote-again-cta">
-                <a className="cmp-button" href="/#" >
+                <a className="cmp-button" href="/#" onClick={(e) => this.quoteAgain(e,quoteId)} >
                     {this.props.config.quoteAgainTitle}
                 </a>
             </div>
