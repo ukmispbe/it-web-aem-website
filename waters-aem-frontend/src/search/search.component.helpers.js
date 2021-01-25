@@ -238,21 +238,24 @@ const SearchResults = ({
     const isEprocUser = isEprocurementUser();
     const searchData = Array.isArray(items)
         ? items.map(item => {
-            return {
-                code: item.skucode,
-                category_facet: item.category_facet,
-                contenttype_facet: item.contenttype_facet,
-                skuPageHref: isEprocUser ? item.eprocUrl : item.url,
-                formattedPrice: item.displayprice,
-                primaryImageAlt: item.title,
-                primaryImageThumbnail: item.thumbnail,
-                discontinued: item.status !== 'Active', // covers DiscontinueNoReplacement, DiscontinueWithReplacement, ObsoleteNoReplacement, and ObsoleteWithReplacement
-                replacementskuurl: item.replacementskuurl,
-                replacementskucode: item.replacementskucode,
-                title: item.title,
-            };
-        }) : [];
-
+            if (item.skucode) {
+                return {
+                    code: item.skucode,
+                    category_facet: item.category_facet,
+                    contenttype_facet: item.contenttype_facet,
+                    skuPageHref: isEprocUser ? item.eprocUrl : item.url,
+                    formattedPrice: item.displayprice,
+                    primaryImageAlt: item.title,
+                    primaryImageThumbnail: item.thumbnail,
+                    discontinued: item.status !== 'Active', // covers DiscontinueNoReplacement, DiscontinueWithReplacement, ObsoleteNoReplacement, and ObsoleteWithReplacement
+                    replacementskuurl: item.replacementskuurl,
+                    replacementskucode: item.replacementskucode,
+                    title: item.title,
+                }
+            } else {
+                return item;
+            }
+        }): [];
     return (
         <Suspense fallback={<div>Loading...</div>}>
             <SkuList
