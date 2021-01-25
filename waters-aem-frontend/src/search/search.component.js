@@ -69,6 +69,7 @@ const SearchComponent = props => {
                     showSortFilterProps={props.showSortFilterProps}
                     showSortFilterEvents={props.showSortFilterEvents}
                     asideProps={props.asideProps}
+                    asideEvents={props.asideEvents}
                     filterTagsProps={props.filterTagsProps}
                     filterTagsEvents={props.filterTagsEvents}
                     resultsProps={props.resultsProps}
