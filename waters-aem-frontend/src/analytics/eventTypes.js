@@ -161,6 +161,9 @@ const eventTypes = {
         },
         error: {
             event: 'quoteHistoryError'
+        },
+        quoteAgainClick:{
+            event:'quoteAgainClick'
         }
     },
     quoteDetails: {
@@ -170,6 +173,12 @@ const eventTypes = {
         },
         error: {
             event: 'quoteDetailsPageError'
+        },
+        quotePlaceOrder:{
+            event: 'quotePlaceOrder'
+        },
+        quoteAgainClick:{
+            event:'quoteAgainClick'
         }
     }
 }
