@@ -11,6 +11,7 @@ import BtnHideSortFilter from './components/btn-hide-sort-filter';
 import BtnApplySortFilter from './components/btn-apply-sort-filter';
 import BtnDoneSortFilter from './components/btn-done-sort-filter';
 import Sort from './components/sort';
+
 import BtnShowSortFilter from './components/btn-show-sort-filter';
 import ResultsCount from './components/results-count';
 import {
@@ -23,6 +24,7 @@ import SkuList from '../sku-list';
 import { propTypes, defaultProps } from './search.component.props';
 import { isEprocurementUser } from '../utils/userFunctions';
 import CategoryList from '../navigation/category-list';
+import screenSizes from '../scripts/screenSizes';
 
 const FilterTagList = ({
     text,
@@ -121,10 +123,11 @@ const Aside = ({
                 collapseFilters={asideEvents.onCollapseFilters} />
 
                 <div className="cmp-search__sort-filter__container">
-                    <Sort
+                    { screenSizes.isMobile() && <Sort
                         sortValue={asideProps.sortByValue}
                         sortHandler={asideEvents.onSort}
                         text={text} />
+                    }
                         {children}
                 </div>
         </div>
@@ -180,7 +183,7 @@ const Menu = ({
                 previousIcon={facetMenuProps.previousIcon}
                 filterTags={filterTags}
                 onClear={facetMenuEvents.onContentTypeRemoval}>
-                    
+
                 <Filter
                     facets={subFacetFiltersProps.items}
                     text={text}
@@ -307,7 +310,6 @@ ResultsContent.defaultProps = {
     resultsEvents: defaultProps.resultsEvents
 }
 
-
 const Pagination = ({
     resultsProps,
     resultsEvents,
@@ -361,65 +363,123 @@ const ResultsBody = ({
     showSortFilterProps,
     showSortFilterEvents,
     asideProps,
+    asideEvents,
     filterTagsProps,
     filterTagsEvents,
     resultsProps,
     resultsEvents,
     isEprocurementUser
 }) => {
-    return (
-        <div className="cmp-search__container">
-            <div className="cmp-search__container__header clearfix">
-                {!isEprocurementUser && <CategoryDropdown
-                    categoryDownIcon={text.downIcon}
-                    categoryLabelPrefix={text.categoryLabel}
-                    categoryIsSearchable={false}
-                    categoryOnChange={categoryEvents.onCategoryDropdownChange}
-                    categoryOptions={categoryProps.categories}
-                    categoryValue={categoryProps.activeIndex} />}
-
-                <BtnShowSortFilter
-                    text={text}
-                    setupFilters={showSortFilterEvents.onSetupFilters}
-                    resetToSavedState={showSortFilterEvents.onResetToSavedState}
-                    collapseFilters={showSortFilterProps.collapseFilters}
-                    onClose={showSortFilterEvents.onClose} />  
-                <div className="cmp-search__sorted-by">
-                    {text.sortedBy}:{' '}
-                    {asideProps.sortByText === 'most-relevant'
-                        ? text.sortByBestMatch 
-                        : text.sortByMostRecent}
+    const desktopView = () => {
+        return (
+            <div className="cmp-search__container">
+                <div className="cmp-search__container__header clearfix">
+                    {!isEprocurementUser && <CategoryDropdown
+                        categoryDownIcon={text.downIcon}
+                        categoryLabelPrefix={text.categoryLabel}
+                        categoryIsSearchable={false}
+                        categoryOnChange={categoryEvents.onCategoryDropdownChange}
+                        categoryOptions={categoryProps.categories}
+                        categoryValue={categoryProps.activeIndex} />}
                 </div>
-            </div>
-            <div className="cmp-search__sorted-container">
-                <ResultsCount
-                    {...resultsProps}
-                    text={text}
-                    categoryOptions={categoryProps.categories}
-                    categoryValue={categoryProps.activeIndex}
-                    onRelatedSuggestionClick={resultsEvents.onRelatedSuggestionClick}  />
+                <div className="cmp-search__sorted-container">
+                        <div className="cmp-search__sort-filter__container clearfix">
+                            <ResultsCount
+                                {...resultsProps}
+                                text={text}
+                                categoryOptions={categoryProps.categories}
+                                categoryValue={categoryProps.activeIndex}
+                                onRelatedSuggestionClick={resultsEvents.onRelatedSuggestionClick}  />
 
-                <FilterTagList 
-                    text={text}
-                    filterMap={filterMap}
-                    filterTagsProps={filterTagsProps}
-                    filterTagsEvents={filterTagsEvents} />
+                            <Sort
+                                sortValue={asideProps.sortByValue}
+                                sortHandler={asideEvents.onSort}
+                                text={text} />
+                        </div>
 
-                <ResultsContent
-                    text={text}
-                    filterMap={filterMap}
-                    skuConfig={skuConfig}
-                    searchParams={searchParams}
+                    <FilterTagList
+                        text={text}
+                        filterMap={filterMap}
+                        filterTagsProps={filterTagsProps}
+                        filterTagsEvents={filterTagsEvents} />
+
+                    <ResultsContent
+                        text={text}
+                        filterMap={filterMap}
+                        skuConfig={skuConfig}
+                        searchParams={searchParams}
+                        resultsProps={resultsProps}
+                        resultsEvents={resultsEvents} />
+                </div>
+
+                <Pagination
                     resultsProps={resultsProps}
-                    resultsEvents={resultsEvents} />
+                    resultsEvents={resultsEvents}
+                    nextIcon={text.nextIcon}
+                    previousIcon={text.previousIcon} />
             </div>
+        );
+    }
+    const mobileView = () => {
+        return (
+            <div className="cmp-search__container">
+                <div className="cmp-search__container__header clearfix">
+                    <ResultsCount
+                        {...resultsProps}
+                        text={text}
+                        categoryOptions={categoryProps.categories}
+                        categoryValue={categoryProps.activeIndex}
+                        onRelatedSuggestionClick={resultsEvents.onRelatedSuggestionClick}  />
+                    {!isEprocurementUser && <CategoryDropdown
+                        categoryDownIcon={text.downIcon}
+                        categoryLabelPrefix={text.categoryLabel}
+                        categoryIsSearchable={false}
+                        categoryOnChange={categoryEvents.onCategoryDropdownChange}
+                        categoryOptions={categoryProps.categories}
+                        categoryValue={categoryProps.activeIndex} />}
 
-            <Pagination
-                resultsProps={resultsProps}
-                resultsEvents={resultsEvents}
-                nextIcon={text.nextIcon}
-                previousIcon={text.previousIcon} />
-        </div>
+                    <BtnShowSortFilter
+                        text={text}
+                        setupFilters={showSortFilterEvents.onSetupFilters}
+                        resetToSavedState={showSortFilterEvents.onResetToSavedState}
+                        collapseFilters={showSortFilterProps.collapseFilters}
+                        onClose={showSortFilterEvents.onClose} />
+                    <div className="cmp-search__sorted-by">
+                        {text.sortedBy}:{' '}
+                        {asideProps.sortByText === 'most-relevant'
+                            ? text.sort.options.bestMatch
+                            : text.sort.options.mostRecent}
+                    </div>
+                </div>
+                <div className="cmp-search__sorted-container">
+                    <FilterTagList
+                        text={text}
+                        filterMap={filterMap}
+                        filterTagsProps={filterTagsProps}
+                        filterTagsEvents={filterTagsEvents} />
+
+                    <ResultsContent
+                        text={text}
+                        filterMap={filterMap}
+                        skuConfig={skuConfig}
+                        searchParams={searchParams}
+                        resultsProps={resultsProps}
+                        resultsEvents={resultsEvents} />
+                </div>
+
+                <Pagination
+                    resultsProps={resultsProps}
+                    resultsEvents={resultsEvents}
+                    nextIcon={text.nextIcon}
+                    previousIcon={text.previousIcon} />
+            </div>
+        );
+    }
+
+    return (
+        <>
+            { screenSizes.isTabletAndOver() ? desktopView() : mobileView() }
+        </>
     );
 }
 
