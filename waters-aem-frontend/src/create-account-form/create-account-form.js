@@ -1,3 +1,6 @@
+import React, { Suspense, useState, useEffect } from "react";
+const Form = React.lazy(() => import(/* webpackChunkName: "forms" */'../forms/form'));
+import { checkEmailResetPasswordSubmit } from "../forms/services/submit";
 import React, { useState, useEffect } from "react";
 import Form from "../forms/form";
 import { checkEmailResetPasswordSubmit, registrationSubmit } from "../forms/services/submit";
@@ -39,7 +42,7 @@ const CreateAccountForm = ({
       registrationSubmit.call(this, data);
       return;
     }
-    
+
     registrationData.data = data;
     const countryName = getCountryName(registrationData.data.country, regFormConfig.config);
     registrationData.data.countryName = countryName;
@@ -54,7 +57,7 @@ const CreateAccountForm = ({
     }
     setShowForm(2);
     // Hide all additional shippingOrganizationName & shippingStreetAddress
-    hideAdditionalShippingFields(); 
+    hideAdditionalShippingFields();
   }
 
   const handleNavigateBackFn = ()=>  {
@@ -64,7 +67,7 @@ const CreateAccountForm = ({
     setRegistrationData(registrationData);
     hideDisplayRegistrationControls(true);
     setShowForm(1);
- 
+
     if (addFormConfig.config.fields) {
       addFormConfig.config.fields.map(field => {
         // This prevents Caching of Surname
@@ -86,7 +89,7 @@ const CreateAccountForm = ({
   }
 
   const configureAddresses = (data) => {
-    
+
     let shippingAddress = {};
     let billingAddress = {};
     shippingAddress.addressType = "shippingAddress";
@@ -104,7 +107,7 @@ const CreateAccountForm = ({
     shippingAddress.countryCode = data.country.toUpperCase();
 
     if (data.sameAddress) {
-      // Copy Shipping Address to Billing Address    
+      // Copy Shipping Address to Billing Address
       billingAddress.company = shippingAddress.company;
       billingAddress.address1 = shippingAddress.address1;
       billingAddress.address2 = shippingAddress.address2;
@@ -243,12 +246,14 @@ const CreateAccountForm = ({
   switch (showForm) {
     case 0:
       return (
+      <Suspense fallback={<div>Loading...</div>}
         <Form
           {...emailFormConfig}
           addAddressesFn={handleAddAddressesFn}
           submitFn={checkEmailSubmit}
           isocode={isocode}
-        />) ;
+        />
+      </Suspense>) ;
     case 1:
       if (registrationData.data){
         formValues = {
@@ -260,13 +265,15 @@ const CreateAccountForm = ({
        }
       }
       return (
-        <Form
-          {...regFormConfig}
-          defaultValues={formValues}
-          addAddressesFn={handleAddAddressesFn}
-          submitFn={checkRegistrationSubmit}
-          isocode={isocode}
-        />);
+          <Suspense fallback={<div>Loading...</div>}>
+            <Form
+              {...regFormConfig}
+              defaultValues={formValues}
+              addAddressesFn={handleAddAddressesFn}
+              submitFn={checkRegistrationSubmit}
+              isocode={isocode}
+            />
+          </Suspense>);
       case 2:
         if (registrationData.data){
           formValues = {

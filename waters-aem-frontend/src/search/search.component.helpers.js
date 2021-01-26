@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import ReactPaginate from 'react-paginate';
 import ReactSVG from 'react-svg';
 import PropTypes from 'prop-types';
@@ -11,6 +11,7 @@ import BtnHideSortFilter from './components/btn-hide-sort-filter';
 import BtnApplySortFilter from './components/btn-apply-sort-filter';
 import BtnDoneSortFilter from './components/btn-done-sort-filter';
 import Sort from './components/sort';
+
 import BtnShowSortFilter from './components/btn-show-sort-filter';
 import ResultsCount from './components/results-count';
 import {
@@ -19,10 +20,11 @@ import {
     ClearAllTag,
     KeywordTag,
 } from './components/filter-tags';
-import SkuList from '../sku-list';
 import { propTypes, defaultProps } from './search.component.props';
 import { isEprocurementUser } from '../utils/userFunctions';
 import CategoryList from '../navigation/category-list';
+const SkuList = React.lazy(() => import(/* webpackChunkName: "skulist" */'../sku-list'));
+import screenSizes from '../scripts/screenSizes';
 
 const FilterTagList = ({
     text,
@@ -39,28 +41,28 @@ const FilterTagList = ({
 
     const keyword = filterTagsProps.spell_suggestion ? filterTagsProps.spell_suggestion : filterTagsProps.keyword;
 
-    const keyWordTag = isKeywordSpecified 
+    const keyWordTag = isKeywordSpecified
         ? <KeywordTag
-                keyword={keyword}
-                text={text}
-                onRemove={filterTagsEvents.onKeywordRemove} /> 
+            keyword={keyword}
+            text={text}
+            onRemove={filterTagsEvents.onKeywordRemove} />
         : <></>;
 
     const contentTypeTag = isContentTypeSelected
         ? <ContentTypeTag
-                text={text}
-                selected={filterTagsProps.contentTypeSelected}
-                onRemove={filterTagsEvents.onContentTypeRemove} />
+            text={text}
+            selected={filterTagsProps.contentTypeSelected}
+            onRemove={filterTagsEvents.onContentTypeRemove} />
         : <></>;
 
-    const subFacetTags = Object.entries(filterTagsProps.selectedFacets).length !== 0 
+    const subFacetTags = Object.entries(filterTagsProps.selectedFacets).length !== 0
         ? <SubFacetTags
-                text={text}
-                selectedFacets={filterTagsProps.selectedFacets}
-                facets={filterTagsProps.facets}
-                removeTag={filterTagsEvents.onSubFacetRemove}
-                filterMap={filterMap}
-                defaultFacet={filterTagsProps.contentType}  />
+            text={text}
+            selectedFacets={filterTagsProps.selectedFacets}
+            facets={filterTagsProps.facets}
+            removeTag={filterTagsEvents.onSubFacetRemove}
+            filterMap={filterMap}
+            defaultFacet={filterTagsProps.contentType} />
         : <></>;
 
     return (
@@ -121,10 +123,11 @@ const Aside = ({
                 collapseFilters={asideEvents.onCollapseFilters} />
 
                 <div className="cmp-search__sort-filter__container">
-                    <Sort
+                    { screenSizes.isMobile() && <Sort
                         sortValue={asideProps.sortByValue}
                         sortHandler={asideEvents.onSort}
                         text={text} />
+                    }
                         {children}
                 </div>
         </div>
@@ -180,7 +183,7 @@ const Menu = ({
                 previousIcon={facetMenuProps.previousIcon}
                 filterTags={filterTags}
                 onClear={facetMenuEvents.onContentTypeRemoval}>
-                    
+
                 <Filter
                     facets={subFacetFiltersProps.items}
                     text={text}
@@ -202,9 +205,9 @@ const Menu = ({
 Menu.propTypes = {
     text: propTypes.text,
     filterMap: propTypes.filterMap,
-    menuProps: propTypes.menuProps, 
+    menuProps: propTypes.menuProps,
     contentTypeMenuProps: propTypes.contentTypeMenuProps,
-    contentTypeMenuEvents: propTypes.contentTypeMenuEvents, 
+    contentTypeMenuEvents: propTypes.contentTypeMenuEvents,
     facetMenuProps: propTypes.facetMenuProps,
     facetMenuEvents: propTypes.facetMenuEvents,
     subFacetFiltersProps: propTypes.subFacetFiltersProps,
@@ -216,9 +219,9 @@ Menu.propTypes = {
 Menu.defaultProps = {
     text: defaultProps.text,
     filterMap: defaultProps.filterMap,
-    menuProps: defaultProps.menuProps, 
+    menuProps: defaultProps.menuProps,
     contentTypeMenuProps: defaultProps.contentTypeMenuProps,
-    contentTypeMenuEvents: defaultProps.contentTypeMenuEvents, 
+    contentTypeMenuEvents: defaultProps.contentTypeMenuEvents,
     facetMenuProps: defaultProps.facetMenuProps,
     facetMenuEvents: defaultProps.facetMenuEvents,
     subFacetFiltersProps: defaultProps.subFacetFiltersProps,
@@ -253,12 +256,13 @@ const SearchResults = ({
                 return item;
             }
         }): [];
-
     return (
-        <SkuList
-            skuConfig={skuConfig}
-            data={searchData}
-            onItemClick={onItemClick} />
+        <Suspense fallback={<div>Loading...</div>}>
+            <SkuList
+                skuConfig={skuConfig}
+                data={searchData}
+                onItemClick={onItemClick} />
+        </Suspense>
     );
 }
 
@@ -271,11 +275,11 @@ SearchResults.propTypes = {
 SearchResults.defaultProps = {
     skuConfig: defaultProps.skuConfig,
     items: [],
-    onItemClick: () => {}
+    onItemClick: () => { }
 };
 
 const ResultsContent = ({
-    text, 
+    text,
     skuConfig,
     searchParams,
     resultsProps,
@@ -307,7 +311,6 @@ ResultsContent.defaultProps = {
     resultsEvents: defaultProps.resultsEvents
 }
 
-
 const Pagination = ({
     resultsProps,
     resultsEvents,
@@ -319,7 +322,7 @@ const Pagination = ({
     }
 
     let buildHref = href => `${window.location.href}/page/${href}`
-    
+
     return (
         <ReactPaginate
             pageCount={resultsProps.pagination.amount}
@@ -327,7 +330,7 @@ const Pagination = ({
             pageRangeDisplayed={8}
             marginPagesDisplayed={1}
             containerClassName="paginate__container"
-            onPageChange={num => resultsEvents.onPageChange(num, 'clicked' )}
+            onPageChange={num => resultsEvents.onPageChange(num, 'clicked')}
             breakLabel={'…'}
             hrefBuilder={buildHref}
             previousLabel={<ReactSVG src={previousIcon} />}
@@ -352,83 +355,141 @@ Pagination.defaultProps = {
 };
 
 const ResultsBody = ({
-    text, 
+    text,
     filterMap,
     skuConfig,
     searchParams,
-    categoryProps, 
+    categoryProps,
     categoryEvents,
     showSortFilterProps,
     showSortFilterEvents,
     asideProps,
+    asideEvents,
     filterTagsProps,
     filterTagsEvents,
     resultsProps,
     resultsEvents,
     isEprocurementUser
 }) => {
-    return (
-        <div className="cmp-search__container">
-            <div className="cmp-search__container__header clearfix">
-                {!isEprocurementUser && <CategoryDropdown
-                    categoryDownIcon={text.downIcon}
-                    categoryLabelPrefix={text.categoryLabel}
-                    categoryIsSearchable={false}
-                    categoryOnChange={categoryEvents.onCategoryDropdownChange}
-                    categoryOptions={categoryProps.categories}
-                    categoryValue={categoryProps.activeIndex} />}
-
-                <BtnShowSortFilter
-                    text={text}
-                    setupFilters={showSortFilterEvents.onSetupFilters}
-                    resetToSavedState={showSortFilterEvents.onResetToSavedState}
-                    collapseFilters={showSortFilterProps.collapseFilters}
-                    onClose={showSortFilterEvents.onClose} />  
-                <div className="cmp-search__sorted-by">
-                    {text.sortedBy}:{' '}
-                    {asideProps.sortByText === 'most-relevant'
-                        ? text.sortByBestMatch 
-                        : text.sortByMostRecent}
+    const desktopView = () => {
+        return (
+            <div className="cmp-search__container">
+                <div className="cmp-search__container__header clearfix">
+                    {!isEprocurementUser && <CategoryDropdown
+                        categoryDownIcon={text.downIcon}
+                        categoryLabelPrefix={text.categoryLabel}
+                        categoryIsSearchable={false}
+                        categoryOnChange={categoryEvents.onCategoryDropdownChange}
+                        categoryOptions={categoryProps.categories}
+                        categoryValue={categoryProps.activeIndex} />}
                 </div>
-            </div>
-            <div className="cmp-search__sorted-container">
-                <ResultsCount
-                    {...resultsProps}
-                    text={text}
-                    categoryOptions={categoryProps.categories}
-                    categoryValue={categoryProps.activeIndex}
-                    onRelatedSuggestionClick={resultsEvents.onRelatedSuggestionClick}  />
+                <div className="cmp-search__sorted-container">
+                        <div className="cmp-search__sort-filter__container clearfix">
+                            <ResultsCount
+                                {...resultsProps}
+                                text={text}
+                                categoryOptions={categoryProps.categories}
+                                categoryValue={categoryProps.activeIndex}
+                                onRelatedSuggestionClick={resultsEvents.onRelatedSuggestionClick}  />
 
-                <FilterTagList 
-                    text={text}
-                    filterMap={filterMap}
-                    filterTagsProps={filterTagsProps}
-                    filterTagsEvents={filterTagsEvents} />
+                            <Sort
+                                sortValue={asideProps.sortByValue}
+                                sortHandler={asideEvents.onSort}
+                                text={text} />
+                        </div>
 
-                <ResultsContent
-                    text={text}
-                    filterMap={filterMap}
-                    skuConfig={skuConfig}
-                    searchParams={searchParams}
+                    <FilterTagList
+                        text={text}
+                        filterMap={filterMap}
+                        filterTagsProps={filterTagsProps}
+                        filterTagsEvents={filterTagsEvents} />
+
+                    <ResultsContent
+                        text={text}
+                        filterMap={filterMap}
+                        skuConfig={skuConfig}
+                        searchParams={searchParams}
+                        resultsProps={resultsProps}
+                        resultsEvents={resultsEvents} />
+                </div>
+
+                <Pagination
                     resultsProps={resultsProps}
-                    resultsEvents={resultsEvents} />
+                    resultsEvents={resultsEvents}
+                    nextIcon={text.nextIcon}
+                    previousIcon={text.previousIcon} />
             </div>
+        );
+    }
+    const mobileView = () => {
+        return (
+            <div className="cmp-search__container">
+                <div className="cmp-search__container__header clearfix">
+                    <ResultsCount
+                        {...resultsProps}
+                        text={text}
+                        categoryOptions={categoryProps.categories}
+                        categoryValue={categoryProps.activeIndex}
+                        onRelatedSuggestionClick={resultsEvents.onRelatedSuggestionClick}  />
+                    {!isEprocurementUser && <CategoryDropdown
+                        categoryDownIcon={text.downIcon}
+                        categoryLabelPrefix={text.categoryLabel}
+                        categoryIsSearchable={false}
+                        categoryOnChange={categoryEvents.onCategoryDropdownChange}
+                        categoryOptions={categoryProps.categories}
+                        categoryValue={categoryProps.activeIndex} />}
 
-            <Pagination
-                resultsProps={resultsProps}
-                resultsEvents={resultsEvents}
-                nextIcon={text.nextIcon}
-                previousIcon={text.previousIcon} />
-        </div>
+                    <BtnShowSortFilter
+                        text={text}
+                        setupFilters={showSortFilterEvents.onSetupFilters}
+                        resetToSavedState={showSortFilterEvents.onResetToSavedState}
+                        collapseFilters={showSortFilterProps.collapseFilters}
+                        onClose={showSortFilterEvents.onClose} />
+                    <div className="cmp-search__sorted-by">
+                        {text.sortedBy}:{' '}
+                        {asideProps.sortByText === 'most-relevant'
+                            ? text.sort.options.bestMatch
+                            : text.sort.options.mostRecent}
+                    </div>
+                </div>
+                <div className="cmp-search__sorted-container">
+                    <FilterTagList
+                        text={text}
+                        filterMap={filterMap}
+                        filterTagsProps={filterTagsProps}
+                        filterTagsEvents={filterTagsEvents} />
+
+                    <ResultsContent
+                        text={text}
+                        filterMap={filterMap}
+                        skuConfig={skuConfig}
+                        searchParams={searchParams}
+                        resultsProps={resultsProps}
+                        resultsEvents={resultsEvents} />
+                </div>
+
+                <Pagination
+                    resultsProps={resultsProps}
+                    resultsEvents={resultsEvents}
+                    nextIcon={text.nextIcon}
+                    previousIcon={text.previousIcon} />
+            </div>
+        );
+    }
+
+    return (
+        <>
+            { screenSizes.isTabletAndOver() ? desktopView() : mobileView() }
+        </>
     );
 }
 
 ResultsBody.propTypes = {
-    text: propTypes.text, 
+    text: propTypes.text,
     filterMap: propTypes.filterMap,
     skuConfig: propTypes.skuConfig,
     searchParams: propTypes.searchParams,
-    categoryProps: propTypes.categoryProps, 
+    categoryProps: propTypes.categoryProps,
     categoryEvents: propTypes.categoryEvents,
     showSortFilterProps: propTypes.showSortFilterProps,
     showSortFilterEvents: propTypes.showSortFilterEvents,
@@ -440,11 +501,11 @@ ResultsBody.propTypes = {
 }
 
 ResultsBody.defaultProps = {
-    text: defaultProps.text, 
+    text: defaultProps.text,
     filterMap: defaultProps.filterMap,
     skuConfig: defaultProps.skuConfig,
     searchParams: defaultProps.searchParams,
-    categoryProps: defaultProps.categoryProps, 
+    categoryProps: defaultProps.categoryProps,
     categoryEvents: defaultProps.categoryEvents,
     showSortFilterProps: defaultProps.showSortFilterProps,
     showSortFilterEvents: defaultProps.showSortFilterEvents,
