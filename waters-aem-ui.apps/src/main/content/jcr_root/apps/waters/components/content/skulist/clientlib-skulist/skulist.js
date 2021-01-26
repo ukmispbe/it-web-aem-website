@@ -442,10 +442,10 @@ function addToCart(_x, _x2, _x3, _x4, _x5) {
 }
 
 function _addToCart() {
-  _addToCart = Object(C_AEM_Code_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_AEM_Code_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(isCommerceApiMigrated, url, partNo, quantity, throwError) {
+  _addToCart = Object(C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(isCommerceApiMigrated, url, partNo, quantity, throwError) {
     var products, options, localStore, cartId, urlRequest, response, json, _json, _options, _urlRequest, _response, _json2;
 
-    return C_AEM_Code_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+    return C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
@@ -588,9 +588,9 @@ function getAvailability(_x6, _x7, _x8) {
 }
 
 function _getAvailability() {
-  _getAvailability = Object(C_AEM_Code_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_AEM_Code_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(url, countryCode, partNo) {
+  _getAvailability = Object(C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(url, countryCode, partNo) {
     var options, urlRequest, response, json;
-    return C_AEM_Code_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+    return C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
@@ -626,9 +626,9 @@ function getPricing(_x9, _x10, _x11, _x12) {
 }
 
 function _getPricing() {
-  _getPricing = Object(C_AEM_Code_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_AEM_Code_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(url, sku, soldToId, salesOrg) {
+  _getPricing = Object(C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(url, sku, soldToId, salesOrg) {
     var options, urlRequest, response, json;
-    return C_AEM_Code_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+    return C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
@@ -732,13 +732,13 @@ var services = __webpack_require__(518);
 var modal = __webpack_require__(14);
 
 // EXTERNAL MODULE: ./src/utils/spinner/index.js
-var spinner = __webpack_require__(91);
+var spinner = __webpack_require__(90);
 
 // EXTERNAL MODULE: ./src/scripts/loginStatus.js
 var loginStatus = __webpack_require__(12);
 
 // EXTERNAL MODULE: ./src/sku-message/index.js
-var sku_message = __webpack_require__(82);
+var sku_message = __webpack_require__(81);
 
 // EXTERNAL MODULE: ./src/scripts/checkOutStatus.js
 var checkOutStatus = __webpack_require__(63);
@@ -747,7 +747,7 @@ var checkOutStatus = __webpack_require__(63);
 var ecommerce = __webpack_require__(64);
 
 // EXTERNAL MODULE: ./src/scripts/sku-details.js
-var sku_details = __webpack_require__(66);
+var sku_details = __webpack_require__(65);
 
 // EXTERNAL MODULE: ./src/scripts/stickyService.js
 var stickyService = __webpack_require__(48);
@@ -762,7 +762,7 @@ var userFunctions = __webpack_require__(13);
 var eCommerceFunctions = __webpack_require__(23);
 
 // EXTERNAL MODULE: ./src/constants/index.js
-var constants = __webpack_require__(112);
+var constants = __webpack_require__(110);
 
 // CONCATENATED MODULE: ./src/sku-list/views/sku-item.js
 
@@ -1233,7 +1233,7 @@ sku_item_SkuItem.defaultProps = {
 };
 /* harmony default export */ var sku_item = (sku_item_SkuItem);
 // EXTERNAL MODULE: ./node_modules/react-lines-ellipsis/lib/index.js
-var lib = __webpack_require__(498);
+var lib = __webpack_require__(500);
 var lib_default = /*#__PURE__*/__webpack_require__.n(lib);
 
 // CONCATENATED MODULE: ./src/sku-list/views/lit-item.js
@@ -1283,7 +1283,7 @@ var lit_item_LitItem = function LitItem(_ref) {
 
 /* harmony default export */ var lit_item = (lit_item_LitItem);
 // EXTERNAL MODULE: ./src/scripts/signIn.js
-var scripts_signIn = __webpack_require__(497);
+var scripts_signIn = __webpack_require__(499);
 
 // CONCATENATED MODULE: ./src/sku-list/index.js
 

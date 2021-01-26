@@ -59,7 +59,7 @@ var SearchService = /*#__PURE__*/function () {
     var multiselect = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : true;
     var throwError = arguments.length > 6 ? arguments[6] : undefined;
 
-    Object(C_AEM_Code_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(this, SearchService);
+    Object(C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(this, SearchService);
 
     this.getCategories = function (_ref) {
       var _ref$keyword = _ref.keyword,
@@ -188,9 +188,9 @@ var SearchService = /*#__PURE__*/function () {
     };
 
     this.getSuggestedKeywords = /*#__PURE__*/function () {
-      var _ref5 = Object(C_AEM_Code_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_AEM_Code_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(rows, term) {
+      var _ref5 = Object(C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(rows, term) {
         var searchString, callService, response;
-        return C_AEM_Code_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        return C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
@@ -346,7 +346,7 @@ var SearchService = /*#__PURE__*/function () {
     this.sessionStore = new _stores_sessionStore__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"]();
   }
 
-  Object(C_AEM_Code_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(SearchService, [{
+  Object(C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(SearchService, [{
     key: "getParamsFromString",
     value: function getParamsFromString() {
       var str = window.location.search;
@@ -938,7 +938,7 @@ var react_default = /*#__PURE__*/__webpack_require__.n(react);
 var objectSpread = __webpack_require__(15);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 3 modules
-var toConsumableArray = __webpack_require__(146);
+var toConsumableArray = __webpack_require__(145);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/regenerator/index.js
 var regenerator = __webpack_require__(1);
@@ -966,7 +966,7 @@ var getPrototypeOf = __webpack_require__(19);
 var inherits = __webpack_require__(20);
 
 // EXTERNAL MODULE: ./src/search/services/index.js
-var services = __webpack_require__(145);
+var services = __webpack_require__(144);
 
 // EXTERNAL MODULE: ./node_modules/query-string/index.js
 var query_string = __webpack_require__(59);
@@ -1012,7 +1012,7 @@ var screenSizes = __webpack_require__(10);
 var analytics = __webpack_require__(39);
 
 // EXTERNAL MODULE: ./src/utils/spinner/index.js
-var spinner = __webpack_require__(91);
+var spinner = __webpack_require__(90);
 
 // CONCATENATED MODULE: ./src/search/components/loading.js
 
@@ -1761,13 +1761,13 @@ filter_Filter.defaultProps = {
 };
 /* harmony default export */ var filter = (filter_Filter);
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js + 1 modules
-var objectWithoutProperties = __webpack_require__(115);
+var objectWithoutProperties = __webpack_require__(498);
 
 // EXTERNAL MODULE: ./node_modules/react-select/dist/react-select.esm.js + 1 modules
-var react_select_esm = __webpack_require__(65);
+var react_select_esm = __webpack_require__(140);
 
 // EXTERNAL MODULE: ./src/utils/dropdown/custom-styles.js
-var custom_styles = __webpack_require__(105);
+var custom_styles = __webpack_require__(200);
 
 // CONCATENATED MODULE: ./src/search/components/category-dropdown.js
 
@@ -1832,7 +1832,7 @@ var category_dropdown_CategoryDropdown = function CategoryDropdown(props) {
     }));
   };
 
-  return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, screenSizes["a" /* default */].isMobile() ? mobileView() : null);
+  return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, screenSizes["a" /* default */].isTabletAndUnder() ? mobileView() : null);
 };
 
 category_dropdown_CategoryDropdown.defaultProps = {
@@ -2009,8 +2009,8 @@ var btn_done_sort_filter_DoneSortFilter = /*#__PURE__*/function (_Component) {
 }(react["Component"]);
 
 /* harmony default export */ var btn_done_sort_filter = (btn_done_sort_filter_DoneSortFilter);
-// EXTERNAL MODULE: ./src/utils/dropdown/prefix-dropdown.js
-var prefix_dropdown = __webpack_require__(501);
+// EXTERNAL MODULE: ./src/utils/dropdown/index.js
+var dropdown = __webpack_require__(494);
 
 // CONCATENATED MODULE: ./src/search/components/sort.js
 
@@ -2019,10 +2019,10 @@ var prefix_dropdown = __webpack_require__(501);
 var sort_getOptions = function getOptions(text) {
   return [{
     value: 1,
-    label: text.options.bestMatch
+    label: text.sortByBestMatch
   }, {
     value: 2,
-    label: text.options.mostRecent
+    label: text.sortByMostRecent
   }];
 };
 
@@ -2030,17 +2030,14 @@ var sort_Sort = function Sort(props) {
   return /*#__PURE__*/react_default.a.createElement("div", {
     className: "cmp-search-sortby",
     "data-locator": "sortby-label"
-  }, /*#__PURE__*/react_default.a.createElement(prefix_dropdown["a" /* default */], {
+  }, /*#__PURE__*/react_default.a.createElement("h3", null, props.text.sortByHeading), /*#__PURE__*/react_default.a.createElement(dropdown["a" /* default */], {
     getOptions: sort_getOptions,
+    sortValue: props.sortValue,
     onChange: function onChange(e) {
       return props.sortHandler(e);
     },
-    text: props.text.sort,
-    dropdownValue: props.sortValue,
-    prefix: props.text.sort.prefix,
     isSearchable: false,
-    defaultValue: 1,
-    downIcon: props.text.downIcon
+    text: props.text
   }));
 };
 
@@ -2564,7 +2561,6 @@ var SkuList = react_default.a.lazy(function () {
   return Promise.all(/* import() | skulist */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(14)]).then(__webpack_require__.bind(null, 531));
 });
 
-
 var search_component_helpers_FilterTagList = function FilterTagList(_ref) {
   var text = _ref.text,
       filterMap = _ref.filterMap,
@@ -2645,7 +2641,7 @@ var search_component_helpers_Aside = function Aside(_ref2) {
     collapseFilters: asideEvents.onCollapseFilters
   }), /*#__PURE__*/react_default.a.createElement("div", {
     className: "cmp-search__sort-filter__container"
-  }, screenSizes["a" /* default */].isMobile() && /*#__PURE__*/react_default.a.createElement(sort, {
+  }, /*#__PURE__*/react_default.a.createElement(sort, {
     sortValue: asideProps.sortByValue,
     sortHandler: asideEvents.onSort,
     text: text
@@ -2729,30 +2725,26 @@ var search_component_helpers_SearchResults = function SearchResults(_ref4) {
       onItemClick = _ref4.onItemClick;
   var isEprocUser = Object(userFunctions["v" /* isEprocurementUser */])();
   var searchData = Array.isArray(items) ? items.map(function (item) {
-    if (item.skucode) {
-      return {
-        code: item.skucode,
-        category_facet: item.category_facet,
-        contenttype_facet: item.contenttype_facet,
-        skuPageHref: isEprocUser ? item.eprocUrl : item.url,
-        formattedPrice: item.displayprice,
-        primaryImageAlt: item.title,
-        primaryImageThumbnail: item.thumbnail,
-        discontinued: item.status !== 'Active',
-        // covers DiscontinueNoReplacement, DiscontinueWithReplacement, ObsoleteNoReplacement, and ObsoleteWithReplacement
-        replacementskuurl: item.replacementskuurl,
-        replacementskucode: item.replacementskucode,
-        title: item.title
-      };
-    } else {
-      return item;
-    }
+    return {
+      code: item.skucode,
+      category_facet: item.category_facet,
+      contenttype_facet: item.contenttype_facet,
+      skuPageHref: isEprocUser ? item.eprocUrl : item.url,
+      formattedPrice: item.displayprice,
+      primaryImageAlt: item.title,
+      primaryImageThumbnail: item.thumbnail,
+      discontinued: item.status !== 'Active',
+      // covers DiscontinueNoReplacement, DiscontinueWithReplacement, ObsoleteNoReplacement, and ObsoleteWithReplacement
+      replacementskuurl: item.replacementskuurl,
+      replacementskucode: item.replacementskucode,
+      title: item.title
+    };
   }) : [];
   return /*#__PURE__*/react_default.a.createElement(react["Suspense"], {
     fallback: /*#__PURE__*/react_default.a.createElement("div", null, "Loading...")
   }, /*#__PURE__*/react_default.a.createElement(SkuList, {
     skuConfig: skuConfig,
-    data: searchData,
+    data: skuData,
     onItemClick: onItemClick
   }));
 };
@@ -2838,106 +2830,53 @@ var search_component_helpers_ResultsBody = function ResultsBody(_ref7) {
       showSortFilterProps = _ref7.showSortFilterProps,
       showSortFilterEvents = _ref7.showSortFilterEvents,
       asideProps = _ref7.asideProps,
-      asideEvents = _ref7.asideEvents,
       filterTagsProps = _ref7.filterTagsProps,
       filterTagsEvents = _ref7.filterTagsEvents,
       resultsProps = _ref7.resultsProps,
       resultsEvents = _ref7.resultsEvents,
       isEprocurementUser = _ref7.isEprocurementUser;
-
-  var desktopView = function desktopView() {
-    return /*#__PURE__*/react_default.a.createElement("div", {
-      className: "cmp-search__container"
-    }, /*#__PURE__*/react_default.a.createElement("div", {
-      className: "cmp-search__container__header clearfix"
-    }, !isEprocurementUser && /*#__PURE__*/react_default.a.createElement(category_dropdown, {
-      categoryDownIcon: text.downIcon,
-      categoryLabelPrefix: text.categoryLabel,
-      categoryIsSearchable: false,
-      categoryOnChange: categoryEvents.onCategoryDropdownChange,
-      categoryOptions: categoryProps.categories,
-      categoryValue: categoryProps.activeIndex
-    })), /*#__PURE__*/react_default.a.createElement("div", {
-      className: "cmp-search__sorted-container"
-    }, /*#__PURE__*/react_default.a.createElement("div", {
-      className: "cmp-search__sort-filter__container clearfix"
-    }, /*#__PURE__*/react_default.a.createElement(results_count, Object.assign({}, resultsProps, {
-      text: text,
-      categoryOptions: categoryProps.categories,
-      categoryValue: categoryProps.activeIndex,
-      onRelatedSuggestionClick: resultsEvents.onRelatedSuggestionClick
-    })), /*#__PURE__*/react_default.a.createElement(sort, {
-      sortValue: asideProps.sortByValue,
-      sortHandler: asideEvents.onSort,
-      text: text
-    })), /*#__PURE__*/react_default.a.createElement(search_component_helpers_FilterTagList, {
-      text: text,
-      filterMap: filterMap,
-      filterTagsProps: filterTagsProps,
-      filterTagsEvents: filterTagsEvents
-    }), /*#__PURE__*/react_default.a.createElement(search_component_helpers_ResultsContent, {
-      text: text,
-      filterMap: filterMap,
-      skuConfig: skuConfig,
-      searchParams: searchParams,
-      resultsProps: resultsProps,
-      resultsEvents: resultsEvents
-    })), /*#__PURE__*/react_default.a.createElement(search_component_helpers_Pagination, {
-      resultsProps: resultsProps,
-      resultsEvents: resultsEvents,
-      nextIcon: text.nextIcon,
-      previousIcon: text.previousIcon
-    }));
-  };
-
-  var mobileView = function mobileView() {
-    return /*#__PURE__*/react_default.a.createElement("div", {
-      className: "cmp-search__container"
-    }, /*#__PURE__*/react_default.a.createElement("div", {
-      className: "cmp-search__container__header clearfix"
-    }, /*#__PURE__*/react_default.a.createElement(results_count, Object.assign({}, resultsProps, {
-      text: text,
-      categoryOptions: categoryProps.categories,
-      categoryValue: categoryProps.activeIndex,
-      onRelatedSuggestionClick: resultsEvents.onRelatedSuggestionClick
-    })), !isEprocurementUser && /*#__PURE__*/react_default.a.createElement(category_dropdown, {
-      categoryDownIcon: text.downIcon,
-      categoryLabelPrefix: text.categoryLabel,
-      categoryIsSearchable: false,
-      categoryOnChange: categoryEvents.onCategoryDropdownChange,
-      categoryOptions: categoryProps.categories,
-      categoryValue: categoryProps.activeIndex
-    }), /*#__PURE__*/react_default.a.createElement(btn_show_sort_filter, {
-      text: text,
-      setupFilters: showSortFilterEvents.onSetupFilters,
-      resetToSavedState: showSortFilterEvents.onResetToSavedState,
-      collapseFilters: showSortFilterProps.collapseFilters,
-      onClose: showSortFilterEvents.onClose
-    }), /*#__PURE__*/react_default.a.createElement("div", {
-      className: "cmp-search__sorted-by"
-    }, text.sortedBy, ":", ' ', asideProps.sortByText === 'most-relevant' ? text.sort.options.bestMatch : text.sort.options.mostRecent)), /*#__PURE__*/react_default.a.createElement("div", {
-      className: "cmp-search__sorted-container"
-    }, /*#__PURE__*/react_default.a.createElement(search_component_helpers_FilterTagList, {
-      text: text,
-      filterMap: filterMap,
-      filterTagsProps: filterTagsProps,
-      filterTagsEvents: filterTagsEvents
-    }), /*#__PURE__*/react_default.a.createElement(search_component_helpers_ResultsContent, {
-      text: text,
-      filterMap: filterMap,
-      skuConfig: skuConfig,
-      searchParams: searchParams,
-      resultsProps: resultsProps,
-      resultsEvents: resultsEvents
-    })), /*#__PURE__*/react_default.a.createElement(search_component_helpers_Pagination, {
-      resultsProps: resultsProps,
-      resultsEvents: resultsEvents,
-      nextIcon: text.nextIcon,
-      previousIcon: text.previousIcon
-    }));
-  };
-
-  return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, screenSizes["a" /* default */].isTabletAndOver() ? desktopView() : mobileView());
+  return /*#__PURE__*/react_default.a.createElement("div", {
+    className: "cmp-search__container"
+  }, /*#__PURE__*/react_default.a.createElement("div", {
+    className: "cmp-search__container__header clearfix"
+  }, !isEprocurementUser && /*#__PURE__*/react_default.a.createElement(category_dropdown, {
+    categoryDownIcon: text.downIcon,
+    categoryLabelPrefix: text.categoryLabel,
+    categoryIsSearchable: false,
+    categoryOnChange: categoryEvents.onCategoryDropdownChange,
+    categoryOptions: categoryProps.categories,
+    categoryValue: categoryProps.activeIndex
+  }), /*#__PURE__*/react_default.a.createElement(btn_show_sort_filter, {
+    text: text,
+    setupFilters: showSortFilterEvents.onSetupFilters,
+    resetToSavedState: showSortFilterEvents.onResetToSavedState,
+    collapseFilters: showSortFilterProps.collapseFilters,
+    onClose: showSortFilterEvents.onClose
+  }), /*#__PURE__*/react_default.a.createElement("div", {
+    className: "cmp-search__sorted-by"
+  }, text.sortedBy, ":", ' ', asideProps.sortByText === 'most-relevant' ? text.sortByBestMatch : text.sortByMostRecent)), /*#__PURE__*/react_default.a.createElement("div", {
+    className: "cmp-search__sorted-container"
+  }, /*#__PURE__*/react_default.a.createElement(results_count, Object.assign({}, resultsProps, {
+    text: text,
+    onRelatedSuggestionClick: resultsEvents.onRelatedSuggestionClick
+  })), /*#__PURE__*/react_default.a.createElement(search_component_helpers_FilterTagList, {
+    text: text,
+    filterMap: filterMap,
+    filterTagsProps: filterTagsProps,
+    filterTagsEvents: filterTagsEvents
+  }), /*#__PURE__*/react_default.a.createElement(search_component_helpers_ResultsContent, {
+    text: text,
+    filterMap: filterMap,
+    skuConfig: skuConfig,
+    searchParams: searchParams,
+    resultsProps: resultsProps,
+    resultsEvents: resultsEvents
+  })), /*#__PURE__*/react_default.a.createElement(search_component_helpers_Pagination, {
+    resultsProps: resultsProps,
+    resultsEvents: resultsEvents,
+    nextIcon: text.nextIcon,
+    previousIcon: text.previousIcon
+  }));
 };
 
 search_component_helpers_ResultsBody.defaultProps = {
@@ -3224,7 +3163,6 @@ var search_component_SearchComponent = function SearchComponent(props) {
     showSortFilterProps: props.showSortFilterProps,
     showSortFilterEvents: props.showSortFilterEvents,
     asideProps: props.asideProps,
-    asideEvents: props.asideEvents,
     filterTagsProps: props.filterTagsProps,
     filterTagsEvents: props.filterTagsEvents,
     resultsProps: props.resultsProps,
@@ -4128,7 +4066,7 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
       if (Object.entries(tabHistoryEntrySelected.searchParams).length === 0) {
         query.category = category;
         query.page = services["b" /* parameterDefaults */].page;
-        query.sort = _this.state.sort || services["b" /* parameterDefaults */].sort;
+        query.sort = services["b" /* parameterDefaults */].sort;
         delete query.content_type;
         delete query.facets;
 
