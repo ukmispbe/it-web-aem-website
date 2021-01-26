@@ -1,5 +1,6 @@
 package com.waters.aem.solr.servlets;
 
+import com.day.cq.wcm.api.Page;
 import com.google.common.base.Predicates;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.api.page.PageManagerDecorator;
@@ -85,7 +86,6 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 		final String pagePath = (request.getParameter("pagePath") != null ? request.getParameter("pagePath") : "");
 		final String action = (request.getParameter("action") != null ? request.getParameter("action") : "");
 		final boolean fullIndex = Boolean.parseBoolean(request.getParameter("fullIndex"));
-		final String[] indexPaths = solrFullIndexConfigurationImpl.getPaths();
 		URIBuilder builder;
 		HttpResponse httpResponse;
 		StatusLine statusLine = null;
@@ -114,9 +114,18 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 		boolean success = false;
 
 		if (fullIndex) {
-			LOG.info("Adding paths to solr full index and count is : {}", indexPaths.length);
-			if (indexPaths.length == 0) {
-				LOG.error("No pages for Full indexing: {}", indexPaths.length);
+			final PageManagerDecorator pageManager = request.getResourceResolver().adaptTo(PageManagerDecorator.class);
+			final PageDecorator watersPage = pageManager.getPage("/content/waters");
+			List<String>indexPaths = new ArrayList();
+			for (final Iterator<Page> iterator = watersPage.listChildren(); iterator.hasNext(); )
+			{
+				Page childPage = iterator.next();
+				String path = childPage.getPath();
+				indexPaths.add(path);
+			}
+			LOG.info("Adding paths to solr full index and count is : {}", indexPaths.size());
+			if (indexPaths.size() == 0) {
+				LOG.error("No pages for Full indexing: {}", indexPaths.size());
 				success = false;
 			} else {
 				parameters.put("action", "CREATE");
