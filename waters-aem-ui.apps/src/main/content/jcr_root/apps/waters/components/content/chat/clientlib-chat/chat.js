@@ -1,6 +1,6 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[3],{
 
-/***/ 534:
+/***/ 523:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8,7 +8,7 @@
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js
-var classCallCheck = __webpack_require__(11);
+var classCallCheck = __webpack_require__(12);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass.js
 var createClass = __webpack_require__(16);
@@ -36,7 +36,7 @@ var fetch = __webpack_require__(40);
 
 
 
-var _Promise = typeof Promise === 'undefined' ? __webpack_require__(112).Promise : Promise;
+var _Promise = typeof Promise === 'undefined' ? __webpack_require__(114).Promise : Promise;
 
 
 
@@ -128,15 +128,15 @@ var chat_Chat = /*#__PURE__*/function (_React$Component) {
     key: "render",
     value: function render() {
       var isActive = this.state.isActive;
-      return /*#__PURE__*/react_default.a.createElement("div", {
+      return react_default.a.createElement("div", {
         className: "cmp-chat-content"
-      }, /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("div", {
         className: "cmp-chat__icon"
-      }, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+      }, react_default.a.createElement(react_svg["a" /* default */], {
         src: this.props.icon
-      })), /*#__PURE__*/react_default.a.createElement("div", {
+      })), react_default.a.createElement("div", {
         className: "cmp-chat__text"
-      }, this.props.text), /*#__PURE__*/react_default.a.createElement("a", {
+      }, this.props.text), react_default.a.createElement("a", {
         className: "cmp-button ".concat(!isActive ? "cmp-button--disabled" : ""),
         href: isActive ? this.props.url : "#",
         target: "_blank",
@@ -144,13 +144,13 @@ var chat_Chat = /*#__PURE__*/function (_React$Component) {
         disabled: !isActive,
         role: "button",
         "aria-disabled": !isActive
-      }, this.props.buttonText), /*#__PURE__*/react_default.a.createElement("div", {
+      }, this.props.buttonText), react_default.a.createElement("div", {
         className: "cmp-chat__status"
-      }, /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("div", {
         className: "cmp-chat__status-icon ".concat(isActive ? "online" : "offline")
-      }, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+      }, react_default.a.createElement(react_svg["a" /* default */], {
         src: isActive ? this.props.onlineIcon : this.props.offlineIcon
-      })), /*#__PURE__*/react_default.a.createElement("div", {
+      })), react_default.a.createElement("div", {
         className: "cmp-chat__status-text"
       }, isActive ? this.props.availableText : this.props.unavailableText)));
     }

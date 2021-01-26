@@ -1,8 +1,5 @@
 import React, { Suspense, useState, useEffect } from "react";
 const Form = React.lazy(() => import(/* webpackChunkName: "forms" */'../forms/form'));
-import { checkEmailResetPasswordSubmit } from "../forms/services/submit";
-import React, { useState, useEffect } from "react";
-import Form from "../forms/form";
 import { checkEmailResetPasswordSubmit, registrationSubmit } from "../forms/services/submit";
 import { getCountryName } from '../utils/userFunctions';
 
@@ -246,7 +243,7 @@ const CreateAccountForm = ({
   switch (showForm) {
     case 0:
       return (
-      <Suspense fallback={<div>Loading...</div>}
+      <Suspense fallback={<div>Loading...</div>}>
         <Form
           {...emailFormConfig}
           addAddressesFn={handleAddAddressesFn}
@@ -291,15 +288,17 @@ const CreateAccountForm = ({
         }
 
         return (
-          <Form
-            {...addFormConfig}
-            submitFn={checkAddressSubmit}
-            defaultValues={formValues}
-            addFieldFn={handleAddFieldFn}
-            toggleAddressFn={handleToggleAddressFn}
-            navigateBackFn={handleNavigateBackFn}
-            isocode={isocode}
-          />);
+          <Suspense fallback={<div>Loading...</div>}>
+            <Form
+              {...addFormConfig}
+              submitFn={checkAddressSubmit}
+              defaultValues={formValues}
+              addFieldFn={handleAddFieldFn}
+              toggleAddressFn={handleToggleAddressFn}
+              navigateBackFn={handleNavigateBackFn}
+              isocode={isocode}
+            />
+          </Suspense>);
     default:
       break;
   }

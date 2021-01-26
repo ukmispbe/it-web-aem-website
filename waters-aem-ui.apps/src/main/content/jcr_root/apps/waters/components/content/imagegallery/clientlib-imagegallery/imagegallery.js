@@ -1,6 +1,6 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[7],{
 
-/***/ 532:
+/***/ 522:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8,7 +8,7 @@
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js
-var classCallCheck = __webpack_require__(11);
+var classCallCheck = __webpack_require__(12);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass.js
 var createClass = __webpack_require__(16);
@@ -30,7 +30,7 @@ var react_default = /*#__PURE__*/__webpack_require__.n(react);
 var react_svg = __webpack_require__(9);
 
 // EXTERNAL MODULE: ./node_modules/hammerjs/hammer.js
-var hammer = __webpack_require__(503);
+var hammer = __webpack_require__(492);
 var hammer_default = /*#__PURE__*/__webpack_require__.n(hammer);
 
 // CONCATENATED MODULE: ./src/image-carousel/image-viewer.js
@@ -154,7 +154,7 @@ var image_viewer_ImageViewer = /*#__PURE__*/function (_React$Component) {
     };
 
     _this.renderImageDisplay = function () {
-      return /*#__PURE__*/react_default.a.createElement("figure", {
+      return react_default.a.createElement("figure", {
         ref: _this.figureRef,
         className: "image-viewer-container__image-figure image-viewer-container__image-figure--".concat(_this.state.magnified, " image-viewer-container__image-figure--zoomin-").concat(_this.state.magnified),
         style: {
@@ -163,7 +163,7 @@ var image_viewer_ImageViewer = /*#__PURE__*/function (_React$Component) {
         onDragStart: _this.handleOnDragStart,
         onMouseMove: _this.handleFigureMouseMove,
         onTouchMove: _this.handleFigureTouchMove
-      }, /*#__PURE__*/react_default.a.createElement("img", {
+      }, react_default.a.createElement("img", {
         className: "image-viewer-container__image-element",
         src: _this.state.imageSrc,
         alt: _this.props.alt,
@@ -172,13 +172,13 @@ var image_viewer_ImageViewer = /*#__PURE__*/function (_React$Component) {
     };
 
     _this.renderZoomIcon = function () {
-      return _this.state.magnified ? /*#__PURE__*/react_default.a.createElement("div", {
+      return _this.state.magnified ? react_default.a.createElement("div", {
         onClick: _this.handleMagnifyClick
-      }, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+      }, react_default.a.createElement(react_svg["a" /* default */], {
         src: _this.props.zoomOutIcon
-      })) : /*#__PURE__*/react_default.a.createElement("div", {
+      })) : react_default.a.createElement("div", {
         onClick: _this.handleMagnifyClick
-      }, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+      }, react_default.a.createElement(react_svg["a" /* default */], {
         src: _this.props.zoomInIcon
       }));
     };
@@ -235,14 +235,14 @@ var image_viewer_ImageViewer = /*#__PURE__*/function (_React$Component) {
   Object(createClass["a" /* default */])(ImageViewer, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react_default.a.createElement("div", {
+      return react_default.a.createElement("div", {
         ref: this.containerRef,
         className: "image-viewer-container"
-      }, /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("div", {
         className: "image-viewer-container__image-display"
-      }, this.renderImageDisplay(), /*#__PURE__*/react_default.a.createElement("div", {
+      }, this.renderImageDisplay(), react_default.a.createElement("div", {
         className: "image-viewer-container__image-zoom"
-      }, /*#__PURE__*/react_default.a.createElement("div", null, this.renderZoomIcon()))));
+      }, react_default.a.createElement("div", null, this.renderZoomIcon()))));
     }
   }, {
     key: "componentDidUpdate",
@@ -292,7 +292,7 @@ var image_viewer_ImageViewer = /*#__PURE__*/function (_React$Component) {
 
 /* harmony default export */ var image_viewer = (image_viewer_ImageViewer);
 // EXTERNAL MODULE: ./src/scripts/screenSizes.js
-var screenSizes = __webpack_require__(10);
+var screenSizes = __webpack_require__(11);
 
 // CONCATENATED MODULE: ./src/image-carousel/image-thumbnails.js
 
@@ -429,7 +429,7 @@ var image_thumbnails_ImageThumbnails = /*#__PURE__*/function (_React$Component) 
       }
 
       return _this.props.items.map(function (item, index) {
-        return /*#__PURE__*/react_default.a.createElement("div", {
+        return react_default.a.createElement("div", {
           ref: _this.refs[index],
           key: index,
           className: "image-thumbnails-container__item ".concat(_this.getItemClassName(index)),
@@ -551,33 +551,33 @@ var image_thumbnails_ImageThumbnails = /*#__PURE__*/function (_React$Component) 
     value: function render() {
       var _this2 = this;
 
-      return /*#__PURE__*/react_default.a.createElement("div", {
+      return react_default.a.createElement("div", {
         className: "image-thumbnails-wrapper ".concat(this.getImageThumbnailsWrapperClassName()),
         style: this.getImageThumbnailsWrapperStyle()
-      }, /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("div", {
         className: "image-thumbnails-button ".concat(this.getPrevButtonClassName()),
         onClick: function onClick(e) {
           return _this2.handleSlide(PREV);
         }
-      }, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+      }, react_default.a.createElement(react_svg["a" /* default */], {
         src: "/content/dam/waters/en/brand-assets/icons/left.svg"
-      })), /*#__PURE__*/react_default.a.createElement("div", {
+      })), react_default.a.createElement("div", {
         className: "image-thumbnails-container",
         onTouchStart: this.handleTouchStart,
         onTouchMove: this.handleTouchMove,
         onTouchEnd: this.handleTouchEnd
-      }, /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("div", {
         ref: this.gradientLeftRef,
         "class": "image-thumbnails-wrapper__gradient-left"
-      }), this.renderItems(), /*#__PURE__*/react_default.a.createElement("div", {
+      }), this.renderItems(), react_default.a.createElement("div", {
         ref: this.gradientRightRef,
         "class": "image-thumbnails-wrapper__gradient-right"
-      })), /*#__PURE__*/react_default.a.createElement("div", {
+      })), react_default.a.createElement("div", {
         className: "image-thumbnails-button ".concat(this.getNextButtonClassName()),
         onClick: function onClick(e) {
           return _this2.handleSlide(NEXT);
         }
-      }, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+      }, react_default.a.createElement(react_svg["a" /* default */], {
         src: "/content/dam/waters/en/brand-assets/icons/right.svg"
       })));
     }
@@ -646,11 +646,11 @@ var image_carousel_ImageCarousel = /*#__PURE__*/function (_React$Component) {
     };
 
     _this.mapTemplateToImageViewer = function (template, index) {
-      return /*#__PURE__*/react_default.a.createElement("div", {
+      return react_default.a.createElement("div", {
         style: {
           display: _this.state.activeIndex === index ? 'block' : 'none'
         }
-      }, /*#__PURE__*/react_default.a.createElement(image_viewer, {
+      }, react_default.a.createElement(image_viewer, {
         key: template,
         template: template,
         widths: _this.props.widths,
@@ -665,11 +665,11 @@ var image_carousel_ImageCarousel = /*#__PURE__*/function (_React$Component) {
     };
 
     _this.getThumbnails = function () {
-      return _this.props.templates.length > 1 ? /*#__PURE__*/react_default.a.createElement(image_thumbnails, {
+      return _this.props.templates.length > 1 ? react_default.a.createElement(image_thumbnails, {
         items: _this.getThumbnailImages(),
         onItemClick: _this.handleThumbnailClick,
         width: _this.state.figureWidth
-      }) : /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null);
+      }) : react_default.a.createElement(react_default.a.Fragment, null);
     };
 
     _this.getThumbnailImages = function () {
@@ -679,7 +679,7 @@ var image_carousel_ImageCarousel = /*#__PURE__*/function (_React$Component) {
     };
 
     _this.mapTemplateToElement = function (template) {
-      return /*#__PURE__*/react_default.a.createElement("div", {
+      return react_default.a.createElement("div", {
         className: "image-thumbnails-container__image",
         style: {
           backgroundImage: "url(".concat(template.replace(/{{width}}/gi, _this.props.widths[0]), ")")
@@ -698,11 +698,11 @@ var image_carousel_ImageCarousel = /*#__PURE__*/function (_React$Component) {
   Object(createClass["a" /* default */])(ImageCarousel, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react_default.a.createElement("div", {
+      return react_default.a.createElement("div", {
         className: "image-carousel"
-      }, /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("div", {
         className: "image-viewer-placeholder"
-      }, this.getImageViewerComponents()), /*#__PURE__*/react_default.a.createElement("div", {
+      }, this.getImageViewerComponents()), react_default.a.createElement("div", {
         className: "image-thumbnails-placeholder"
       }, this.getThumbnails()));
     }

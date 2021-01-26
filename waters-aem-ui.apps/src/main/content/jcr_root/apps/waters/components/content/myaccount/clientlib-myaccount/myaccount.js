@@ -1,6 +1,6 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[9],{
 
-/***/ 32:
+/***/ 31:
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
@@ -26,7 +26,7 @@ __webpack_require__.d(__webpack_exports__, "h", function() { return /* binding *
 var slicedToArray = __webpack_require__(7);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js
-var classCallCheck = __webpack_require__(11);
+var classCallCheck = __webpack_require__(12);
 
 // EXTERNAL MODULE: ./src/scripts/inlineSVG.js + 1 modules
 var inlineSVG = __webpack_require__(44);
@@ -168,6 +168,18 @@ var eventTypes = {
       },
       error: {
         event: 'contactSupportFormError'
+      }
+    },
+    registrationAddress: {
+      name: 'registrationAddressForm',
+      load: {
+        event: 'registrationAddressFormLoad'
+      },
+      submit: {
+        event: 'registrationAddressFormSubmit'
+      },
+      error: {
+        event: 'registrationAddressFormError'
       }
     }
   },
@@ -397,7 +409,7 @@ var _analytics$analyticTy = Object(slicedToArray["a" /* default */])(analytics.a
 
 /***/ }),
 
-/***/ 518:
+/***/ 507:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -405,14 +417,14 @@ var _analytics$analyticTy = Object(slicedToArray["a" /* default */])(analytics.a
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return getAvailability; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return getPricing; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return matchListItems; });
-/* harmony import */ var C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
-/* harmony import */ var C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
+/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
 /* harmony import */ var whatwg_fetch__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(40);
-/* harmony import */ var _stores_localStore__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(111);
-/* harmony import */ var _scripts_loginStatus__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(12);
+/* harmony import */ var _stores_localStore__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(113);
+/* harmony import */ var _scripts_loginStatus__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(13);
 /* harmony import */ var _utils_serviceFunctions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(28);
-/* harmony import */ var _utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(13);
+/* harmony import */ var _utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(10);
 
 
 
@@ -450,10 +462,10 @@ function addToCart(_x, _x2, _x3, _x4, _x5) {
 }
 
 function _addToCart() {
-  _addToCart = Object(C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(isCommerceApiMigrated, url, partNo, quantity, throwError) {
+  _addToCart = Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(isCommerceApiMigrated, url, partNo, quantity, throwError) {
     var products, options, localStore, cartId, urlRequest, response, json, _json, _options, _urlRequest, _response, _json2;
 
-    return C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+    return C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
@@ -596,9 +608,9 @@ function getAvailability(_x6, _x7, _x8) {
 }
 
 function _getAvailability() {
-  _getAvailability = Object(C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(url, countryCode, partNo) {
+  _getAvailability = Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(url, countryCode, partNo) {
     var options, urlRequest, response, json;
-    return C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+    return C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
@@ -634,9 +646,9 @@ function getPricing(_x9, _x10, _x11, _x12) {
 }
 
 function _getPricing() {
-  _getPricing = Object(C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(url, sku, soldToId, salesOrg) {
+  _getPricing = Object(C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(url, sku, soldToId, salesOrg) {
     var options, urlRequest, response, json;
-    return C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+    return C_AEMWorkspace_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
@@ -701,7 +713,7 @@ var matchListItems = function matchListItems(skuListData, pricesAPIResults) {
 
 /***/ }),
 
-/***/ 528:
+/***/ 518:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -713,13 +725,13 @@ var react = __webpack_require__(0);
 var react_default = /*#__PURE__*/__webpack_require__.n(react);
 
 // EXTERNAL MODULE: ./node_modules/react-router-dom/es/HashRouter.js
-var HashRouter = __webpack_require__(515);
+var HashRouter = __webpack_require__(504);
 
 // EXTERNAL MODULE: ./node_modules/react-router-dom/es/Switch.js + 1 modules
-var Switch = __webpack_require__(516);
+var Switch = __webpack_require__(505);
 
 // EXTERNAL MODULE: ./node_modules/react-router-dom/es/Route.js
-var Route = __webpack_require__(513);
+var Route = __webpack_require__(502);
 
 // CONCATENATED MODULE: ./src/my-account/routes.js
 /* harmony default export */ var routes = ({
@@ -762,13 +774,13 @@ var Route = __webpack_require__(513);
 var slicedToArray = __webpack_require__(7);
 
 // EXTERNAL MODULE: ./node_modules/react-router-dom/es/Link.js
-var es_Link = __webpack_require__(514);
+var es_Link = __webpack_require__(503);
 
 // EXTERNAL MODULE: ./node_modules/react-router-dom/es/withRouter.js + 1 modules
-var withRouter = __webpack_require__(517);
+var withRouter = __webpack_require__(506);
 
 // EXTERNAL MODULE: ./src/typography/title.js
-var typography_title = __webpack_require__(501);
+var typography_title = __webpack_require__(488);
 
 // EXTERNAL MODULE: ./node_modules/react-dom/index.js
 var react_dom = __webpack_require__(6);
@@ -778,7 +790,7 @@ var react_dom_default = /*#__PURE__*/__webpack_require__.n(react_dom);
 var react_svg = __webpack_require__(9);
 
 // EXTERNAL MODULE: ./src/scripts/screenSizes.js
-var screenSizes = __webpack_require__(10);
+var screenSizes = __webpack_require__(11);
 
 // CONCATENATED MODULE: ./src/my-account/components/breadcrumb.js
 
@@ -810,8 +822,10 @@ var breadcrumb_Breadcrumb = function Breadcrumb(props) {
 
     window.addEventListener('resize', handleResize);
     return function () {
-      window.removeEventListener('resize', handleResize);
-      breadcrumb.classList.remove('show');
+      if (breadcrumb && breadcrumb.classList) {
+        window.removeEventListener('resize', handleResize);
+        breadcrumb.classList.remove('show');
+      }
     };
   }, []);
 
@@ -821,15 +835,15 @@ var breadcrumb_Breadcrumb = function Breadcrumb(props) {
       return route.path === parentRoutePath;
     })[0].name;
     var parentConfig = props.config.routes[parentRouteName];
-    return /*#__PURE__*/react_default.a.createElement("li", {
+    return react_default.a.createElement("li", {
       className: "cmp-breadcrumb-back"
-    }, /*#__PURE__*/react_default.a.createElement(es_Link["a" /* default */], {
+    }, react_default.a.createElement(es_Link["a" /* default */], {
       "class": "cmp-breadcrumb-back__link cmp-button--secondary cmp-button--no-border cmp-button--with-icon",
       to: parentRoutePath,
       title: parentConfig.title
-    }, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+    }, react_default.a.createElement(react_svg["a" /* default */], {
       src: props.config.backIcon
-    }), /*#__PURE__*/react_default.a.createElement("span", null, parentConfig.backLinkTitle)));
+    }), react_default.a.createElement("span", null, parentConfig.backLinkTitle)));
   };
 
   var renderBreadcrumbLink = function renderBreadcrumbLink(linkPath) {
@@ -838,16 +852,16 @@ var breadcrumb_Breadcrumb = function Breadcrumb(props) {
     })[0];
     var linkRouteName = linkRoute.name;
     var linkConfig = props.config.routes[linkRouteName];
-    return /*#__PURE__*/react_default.a.createElement("li", {
+    return react_default.a.createElement("li", {
       className: "cmp-breadcrumb__item",
       itemprop: "itemListElement",
       itemscope: "",
       itemtype: "http://schema.org/ListItem"
-    }, /*#__PURE__*/react_default.a.createElement(es_Link["a" /* default */], {
+    }, react_default.a.createElement(es_Link["a" /* default */], {
       to: linkRoute.path,
       className: "cmp-breadcrumb__item-link",
       itemprop: "item"
-    }, /*#__PURE__*/react_default.a.createElement("span", {
+    }, react_default.a.createElement("span", {
       itemprop: "name"
     }, linkConfig.title)));
   };
@@ -865,19 +879,19 @@ var breadcrumb_Breadcrumb = function Breadcrumb(props) {
 var analytics = __webpack_require__(39);
 
 // EXTERNAL MODULE: ./src/scripts/loginStatus.js
-var loginStatus = __webpack_require__(12);
+var loginStatus = __webpack_require__(13);
 
 // EXTERNAL MODULE: ./src/utils/redirectFunctions.js
 var redirectFunctions = __webpack_require__(17);
 
 // EXTERNAL MODULE: ./src/utils/spinner/index.js
-var spinner = __webpack_require__(90);
+var spinner = __webpack_require__(93);
 
 // EXTERNAL MODULE: ./src/utils/eCommerceFunctions.js
-var eCommerceFunctions = __webpack_require__(23);
+var eCommerceFunctions = __webpack_require__(24);
 
 // EXTERNAL MODULE: ./src/utils/userFunctions.js
-var userFunctions = __webpack_require__(13);
+var userFunctions = __webpack_require__(10);
 
 // CONCATENATED MODULE: ./src/my-account/aside.js
 
@@ -917,31 +931,31 @@ var aside_Aside = function Aside(props) {
   }, []);
 
   if (isInEditMode || displayTile) {
-    return /*#__PURE__*/react_default.a.createElement("div", {
+    return react_default.a.createElement("div", {
       className: "cmp-my-account__aside-wrapper",
       "data-locator": "my-account-wrapper"
-    }, /*#__PURE__*/react_default.a.createElement(typography_title["a" /* default */], {
+    }, react_default.a.createElement(typography_title["a" /* default */], {
       text: getTitle(props.tiles, props.location.pathname)
-    }), /*#__PURE__*/react_default.a.createElement("div", {
+    }), react_default.a.createElement("div", {
       className: "cmp-my-account__aside-links",
       "data-locator": "my-account-links"
     }, props.tiles.map(function (tile) {
-      return /*#__PURE__*/react_default.a.createElement(aside_Tile, {
+      return react_default.a.createElement(aside_Tile, {
         key: tile.title,
         tile: tile,
         requiresEcommerce: tile.requiresEcommerce,
         isHiddenForEprocUser: tile.isHiddenForEprocUser,
         pathname: props.location.pathname
       });
-    })), /*#__PURE__*/react_default.a.createElement("div", {
+    })), react_default.a.createElement("div", {
       className: "cmp-my-account__aside-content",
       "data-locator": "my-account-aside-content"
-    }, props.children), breadcrumbList && /*#__PURE__*/react_default.a.createElement(components_breadcrumb, {
+    }, props.children), breadcrumbList && react_default.a.createElement(components_breadcrumb, {
       path: props.location.pathname,
       config: props.breadcrumbs
     }));
   } else {
-    return /*#__PURE__*/react_default.a.createElement(spinner["a" /* default */], {
+    return react_default.a.createElement(spinner["a" /* default */], {
       loading: !displayTile
     });
   }
@@ -952,27 +966,27 @@ var aside_Tile = function Tile(_ref) {
       pathname = _ref.pathname;
 
   if (tile.requiresEcommerce === "true" && Object(eCommerceFunctions["e" /* isCartHidden */])() || tile.isHiddenForEprocUser === "true" && Object(userFunctions["w" /* isEprocurementUserRole */])()) {
-    return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null);
+    return react_default.a.createElement(react_default.a.Fragment, null);
   }
 
-  return /*#__PURE__*/react_default.a.createElement("div", {
+  return react_default.a.createElement("div", {
     className: "tile",
     "data-locator": "my-account-tile"
-  }, /*#__PURE__*/react_default.a.createElement("div", {
+  }, react_default.a.createElement("div", {
     className: "tile__title",
     "data-locator": "my-account-title-tile"
-  }, tile.title), /*#__PURE__*/react_default.a.createElement("div", {
+  }, tile.title), react_default.a.createElement("div", {
     className: "tile__links",
     "data-locator": "my-account-tile-links"
   }, tile.links.map(function (link) {
     if (!link.isHidden) {
       if (linkIsActive(pathname, link.url)) {
-        return /*#__PURE__*/react_default.a.createElement(aside_ActiveLink, {
+        return react_default.a.createElement(aside_ActiveLink, {
           key: link.text,
           text: link.text
         });
       } else {
-        return /*#__PURE__*/react_default.a.createElement(aside_HyperLink, {
+        return react_default.a.createElement(aside_HyperLink, {
           key: link.text,
           link: link,
           linkName: link.linkName
@@ -1001,7 +1015,7 @@ var linkIsActive = function linkIsActive(pathname, url) {
 
 var aside_ActiveLink = function ActiveLink(_ref2) {
   var text = _ref2.text;
-  return /*#__PURE__*/react_default.a.createElement("span", {
+  return react_default.a.createElement("span", {
     className: "link--active",
     "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])(text)
   }, text);
@@ -1009,13 +1023,13 @@ var aside_ActiveLink = function ActiveLink(_ref2) {
 
 var aside_HyperLink = function HyperLink(_ref3) {
   var link = _ref3.link;
-  return link.url.startsWith("#") ? /*#__PURE__*/react_default.a.createElement(es_Link["a" /* default */], {
+  return link.url.startsWith("#") ? react_default.a.createElement(es_Link["a" /* default */], {
     to: "/".concat(link.url.substring(1, link.url.length)),
     onClick: function onClick() {
       return Object(analytics["f" /* setClickAnalytics */])("Side Navigation", link.linkName ? link.linkName : link.text, link.url);
     },
     "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])(link.text)
-  }, link.text) : /*#__PURE__*/react_default.a.createElement("a", {
+  }, link.text) : react_default.a.createElement("a", {
     href: link.url,
     onClick: function onClick() {
       return Object(analytics["f" /* setClickAnalytics */])("Side Navigation", link.linkName ? link.linkName : link.text, link.url);
@@ -1038,7 +1052,7 @@ var link_Link = function Link(_ref) {
       url = _ref.url,
       linkName = _ref.linkName,
       context = _ref.context;
-  return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, !!text && !!url && /*#__PURE__*/react_default.a.createElement("a", {
+  return react_default.a.createElement(react_default.a.Fragment, null, !!text && !!url && react_default.a.createElement("a", {
     className: "cmp-linktile--link",
     href: url,
     onClick: function onClick() {
@@ -1063,25 +1077,25 @@ var link_tile_LinkTile = function LinkTile(_ref) {
       links = _ref.links,
       tilesName = _ref.tilesName,
       datalocator = _ref.datalocator;
-  return /*#__PURE__*/react_default.a.createElement("div", {
+  return react_default.a.createElement("div", {
     className: "cmp-linktile",
     "data-locator": "".concat(Object(eCommerceFunctions["a" /* elementLocator */])(tilesName || 'my-account-tile'), "-linktile")
-  }, /*#__PURE__*/react_default.a.createElement("div", {
+  }, react_default.a.createElement("div", {
     className: "cmp-linktile-column"
-  }, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+  }, react_default.a.createElement(react_svg["a" /* default */], {
     src: icon,
     className: "cmp-linktile--icon",
     "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])("".concat(title, " icon"))
-  })), /*#__PURE__*/react_default.a.createElement("div", {
+  })), react_default.a.createElement("div", {
     className: "cmp-linktile-column"
-  }, /*#__PURE__*/react_default.a.createElement("div", {
+  }, react_default.a.createElement("div", {
     className: "cmp-linktile--title",
     "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])(title)
   }, title), links.map(function (link, key) {
-    return /*#__PURE__*/react_default.a.createElement("div", {
+    return react_default.a.createElement("div", {
       key: key,
       className: "cmp-linktile--links"
-    }, !link.isHidden && /*#__PURE__*/react_default.a.createElement(components_link, Object.assign({}, link, {
+    }, !link.isHidden && react_default.a.createElement(components_link, Object.assign({}, link, {
       context: datalocator
     })));
   })));
@@ -1103,10 +1117,10 @@ var myaccount_Tile = function Tile(_ref) {
   var tile = _ref.tile;
 
   if (tile.requiresEcommerce === "true" && Object(eCommerceFunctions["e" /* isCartHidden */])() || tile.isHiddenForEprocUser === "true" && Object(userFunctions["w" /* isEprocurementUserRole */])()) {
-    return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null);
+    return react_default.a.createElement(react_default.a.Fragment, null);
   }
 
-  return /*#__PURE__*/react_default.a.createElement(link_tile, Object.assign({}, tile, {
+  return react_default.a.createElement(link_tile, Object.assign({}, tile, {
     datalocator: "my-account"
   }));
 };
@@ -1138,25 +1152,25 @@ var myaccount_MyAccount = function MyAccount(_ref2) {
   }, []);
 
   if (isInEditMode || displayTile) {
-    return /*#__PURE__*/react_default.a.createElement("div", {
+    return react_default.a.createElement("div", {
       className: "cmp-my-account-wrapper"
-    }, /*#__PURE__*/react_default.a.createElement(typography_title["a" /* default */], {
+    }, react_default.a.createElement(typography_title["a" /* default */], {
       text: title
-    }), /*#__PURE__*/react_default.a.createElement("div", {
+    }), react_default.a.createElement("div", {
       className: "cmp-my-account__body"
-    }, body), /*#__PURE__*/react_default.a.createElement("div", {
+    }, body), react_default.a.createElement("div", {
       className: "cmp-my-account__tiles"
-    }, /*#__PURE__*/react_default.a.createElement("div", {
+    }, react_default.a.createElement("div", {
       className: "tile",
       "data-locator": "my-account-tiles"
     }, tiles.map(function (tile, key) {
-      return /*#__PURE__*/react_default.a.createElement(myaccount_Tile, {
+      return react_default.a.createElement(myaccount_Tile, {
         tile: tile,
         key: key
       });
     }))));
   } else {
-    return /*#__PURE__*/react_default.a.createElement(spinner["a" /* default */], {
+    return react_default.a.createElement(spinner["a" /* default */], {
       loading: !displayTile
     });
   }
@@ -1167,13 +1181,13 @@ var myaccount_MyAccount = function MyAccount(_ref2) {
 var objectSpread = __webpack_require__(15);
 
 // EXTERNAL MODULE: ./src/detail-tiles/hooks/useProfile.js
-var useProfile = __webpack_require__(88);
+var useProfile = __webpack_require__(91);
 
 // EXTERNAL MODULE: ./src/detail-tiles/index.js + 1 modules
 var detail_tiles = __webpack_require__(53);
 
 // EXTERNAL MODULE: ./src/detail-tiles/utils/generateTiles.js
-var generateTiles = __webpack_require__(103);
+var generateTiles = __webpack_require__(104);
 
 // CONCATENATED MODULE: ./src/my-profile/index.js
 
@@ -1233,14 +1247,14 @@ var my_profile_MyProfile = function MyProfile(_ref) {
         detailTiles.push(addressConfig);
       });
       return detailTiles.map(function (config, key) {
-        return /*#__PURE__*/react_default.a.createElement(detail_tiles["a" /* default */], Object.assign({}, config, {
+        return react_default.a.createElement(detail_tiles["a" /* default */], Object.assign({}, config, {
           key: key
         }));
       });
     }
   };
 
-  return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, renderDetailTiles());
+  return react_default.a.createElement(react_default.a.Fragment, null, renderDetailTiles());
 };
 
 /* harmony default export */ var my_profile = (my_profile_MyProfile);
@@ -1263,7 +1277,7 @@ var change_password_ChangePassword = function ChangePassword(_ref) {
   Object(react["useEffect"])(function () {
     setConfig(configContent);
   }, []);
-  return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, !!config && /*#__PURE__*/react_default.a.createElement(detail_tiles["a" /* default */], config));
+  return react_default.a.createElement(react_default.a.Fragment, null, !!config && react_default.a.createElement(detail_tiles["a" /* default */], config));
 };
 
 /* harmony default export */ var change_password = (change_password_ChangePassword);
@@ -1275,7 +1289,7 @@ var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
 var asyncToGenerator = __webpack_require__(4);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js
-var classCallCheck = __webpack_require__(11);
+var classCallCheck = __webpack_require__(12);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass.js
 var createClass = __webpack_require__(16);
@@ -1290,7 +1304,7 @@ var getPrototypeOf = __webpack_require__(19);
 var inherits = __webpack_require__(20);
 
 // EXTERNAL MODULE: ./node_modules/react-paginate/dist/react-paginate.js
-var react_paginate = __webpack_require__(493);
+var react_paginate = __webpack_require__(482);
 var react_paginate_default = /*#__PURE__*/__webpack_require__.n(react_paginate);
 
 // EXTERNAL MODULE: ./node_modules/whatwg-fetch/fetch.js
@@ -1370,7 +1384,7 @@ var history_services_HistoryService = /*#__PURE__*/function () {
 
 /* harmony default export */ var history_services = (history_services_HistoryService);
 // EXTERNAL MODULE: ./src/constants/index.js
-var constants = __webpack_require__(110);
+var constants = __webpack_require__(112);
 
 // CONCATENATED MODULE: ./src/common/delivery-status/index.js
 
@@ -1401,7 +1415,7 @@ var delivery_status_DeliveryStatus = /*#__PURE__*/function (_Component) {
           labels = _this$props.labels;
 
       if (Object.keys(shipped).length && shipped.carrierUrl !== "") {
-        return /*#__PURE__*/react_default.a.createElement("div", null, /*#__PURE__*/react_default.a.createElement("a", {
+        return react_default.a.createElement("div", null, react_default.a.createElement("a", {
           className: "tracking-link",
           href: shipped.carrierUrl,
           target: "_blank",
@@ -1410,7 +1424,7 @@ var delivery_status_DeliveryStatus = /*#__PURE__*/function (_Component) {
             return Object(analytics["f" /* setClickAnalytics */])("Order Details", "Track Shipment", shipped.carrierUrl);
           },
           "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])(labels.trackShipmentText)
-        }, labels.trackShipmentText, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+        }, labels.trackShipmentText, react_default.a.createElement(react_svg["a" /* default */], {
           src: "/content/dam/waters/en/brand-assets/icons/externallink.svg",
           className: "tracking-link__icon",
           "data-locator": "tracking-link-icon"
@@ -1517,14 +1531,14 @@ var delivery_status_DeliveryStatus = /*#__PURE__*/function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement("div", {
+      return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("div", {
         className: "delivery-status ".concat(this.state.deliveryStatusClass),
         "data-locator": "delivery-status"
-      }, /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("div", {
         className: this.state.iconClassName
-      }, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+      }, react_default.a.createElement(react_svg["a" /* default */], {
         src: this.state.icon
-      })), /*#__PURE__*/react_default.a.createElement("div", {
+      })), react_default.a.createElement("div", {
         className: "delivery-text",
         "data-locator": "delivery-text"
       }, this.state.deliveryStatus), this.renderTrackingLink()));
@@ -1542,10 +1556,10 @@ delivery_status_DeliveryStatus.defaultProps = {
 };
 /* harmony default export */ var delivery_status = (delivery_status_DeliveryStatus);
 // EXTERNAL MODULE: ./src/utils/date-formatter/index.js
-var date_formatter = __webpack_require__(495);
+var date_formatter = __webpack_require__(483);
 
 // EXTERNAL MODULE: ./src/utils/get-locale/index.js
-var get_locale = __webpack_require__(496);
+var get_locale = __webpack_require__(484);
 
 // CONCATENATED MODULE: ./src/history/components/order-list-item.js
 
@@ -1578,31 +1592,31 @@ var order_list_item_OrderListItem = /*#__PURE__*/function (_Component) {
     value: function render() {
       var _this2 = this;
 
-      return /*#__PURE__*/react_default.a.createElement("div", {
+      return react_default.a.createElement("div", {
         className: "cmp-order-list__container"
-      }, /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("div", {
         className: "cmp-order-list__left"
-      }, /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("div", {
         className: "cmp-order-list__order-number"
-      }, /*#__PURE__*/react_default.a.createElement("a", {
+      }, react_default.a.createElement("a", {
         href: '#orderdetails?id=' + this.props.data.orderNumber,
         onClick: function onClick() {
           return Object(analytics["f" /* setClickAnalytics */])("Order History", "Order Details, " + _this2.props.data.orderNumber, '#orderdetails?id=' + _this2.props.data.orderNumber);
         },
         "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])("".concat(this.props.numberText, " ").concat(this.props.data.orderNumber))
-      }, this.props.numberText + " " + this.props.data.orderNumber)), /*#__PURE__*/react_default.a.createElement("div", {
+      }, this.props.numberText + " " + this.props.data.orderNumber)), react_default.a.createElement("div", {
         className: "cmp-order-list__date",
         "data-locator": "order-list-date"
-      }, date_formatter["a" /* default */].dateFormatter(this.props.data.date, this.userLocale))), /*#__PURE__*/react_default.a.createElement("div", {
+      }, date_formatter["a" /* default */].dateFormatter(this.props.data.date, this.userLocale))), react_default.a.createElement("div", {
         className: "cmp-order-list__right",
         "data-locator": "order-list-right"
-      }, /*#__PURE__*/react_default.a.createElement("hr", {
+      }, react_default.a.createElement("hr", {
         className: "cmp-order-list_hr"
-      }), /*#__PURE__*/react_default.a.createElement(delivery_status, {
+      }), react_default.a.createElement(delivery_status, {
         status: this.props.data.deliveryStatus,
         labels: this.props.shipment,
         icons: this.props.icons
-      })), /*#__PURE__*/react_default.a.createElement("div", {
+      })), react_default.a.createElement("div", {
         className: "cmp-order-list__total",
         "data-locator": "order-list-total"
       }, this.props.data.orderTotal));
@@ -1640,9 +1654,9 @@ var count_header_CountHeader = function CountHeader(props) {
     };
   }
 
-  return /*#__PURE__*/react_default.a.createElement("div", {
+  return react_default.a.createElement("div", {
     className: "cmp-order-list__resultsCount-container"
-  }, /*#__PURE__*/react_default.a.createElement("h2", {
+  }, react_default.a.createElement("h2", {
     className: "cmp-order-list__resultsCount",
     "data-locator": "order-list-result-count"
   }, getResultsText()));
@@ -1650,7 +1664,7 @@ var count_header_CountHeader = function CountHeader(props) {
 
 /* harmony default export */ var count_header = (count_header_CountHeader);
 // EXTERNAL MODULE: ./src/utils/dropdown/index.js
-var dropdown = __webpack_require__(494);
+var dropdown = __webpack_require__(489);
 
 // CONCATENATED MODULE: ./src/history/components/time-period-dropdown.js
 
@@ -1673,10 +1687,10 @@ var getOptions = function getOptions(text) {
 };
 
 var time_period_dropdown_TimePeriod = function TimePeriod(props) {
-  return /*#__PURE__*/react_default.a.createElement("div", {
+  return react_default.a.createElement("div", {
     className: "cmp-order-list-timeperiod",
     "data-locator": "cmp-order-list-timeperiod"
-  }, /*#__PURE__*/react_default.a.createElement(dropdown["a" /* default */], {
+  }, react_default.a.createElement(dropdown["a" /* default */], {
     getOptions: getOptions,
     onChange: function onChange(e) {
       return props.onChange(e);
@@ -1712,9 +1726,9 @@ var filter_dropdown_getOptions = function getOptions(text) {
 };
 
 var filter_dropdown_FilterDropdown = function FilterDropdown(props) {
-  return /*#__PURE__*/react_default.a.createElement("div", {
+  return react_default.a.createElement("div", {
     className: "cmp-order-list-dropdownfilters"
-  }, /*#__PURE__*/react_default.a.createElement(dropdown["a" /* default */], {
+  }, react_default.a.createElement(dropdown["a" /* default */], {
     getOptions: filter_dropdown_getOptions,
     onChange: function onChange(e) {
       return props.onChange(e);
@@ -1727,7 +1741,7 @@ var filter_dropdown_FilterDropdown = function FilterDropdown(props) {
 
 /* harmony default export */ var filter_dropdown = (filter_dropdown_FilterDropdown);
 // EXTERNAL MODULE: ./src/scripts/fade-x.js
-var fade_x = __webpack_require__(75);
+var fade_x = __webpack_require__(76);
 
 // CONCATENATED MODULE: ./src/navigation/tabs/index.js
 
@@ -1753,13 +1767,13 @@ var tabs_Tabs = function Tabs(_ref) {
       tabsRef.current.removeEventListener('scroll', tabFader);
     };
   }, []);
-  return /*#__PURE__*/react_default.a.createElement("div", {
+  return react_default.a.createElement("div", {
     className: "cmp-tabs-wrapper"
-  }, /*#__PURE__*/react_default.a.createElement("div", {
+  }, react_default.a.createElement("div", {
     ref: tabsRef,
     className: "cmp-tabs ".concat(className)
   }, items.map(function (item, index) {
-    return /*#__PURE__*/react_default.a.createElement(tabs_Tab, {
+    return react_default.a.createElement(tabs_Tab, {
       key: "CategoryTab-".concat(index),
       name: item.name,
       index: index,
@@ -1782,12 +1796,12 @@ var tabs_Tab = function Tab(_ref2) {
       name = _ref2.name,
       isActive = _ref2.isActive,
       _onClick = _ref2.onClick;
-  return /*#__PURE__*/react_default.a.createElement("div", {
+  return react_default.a.createElement("div", {
     className: "cmp-tabs__tab".concat(isActive ? " active" : ""),
     onClick: function onClick() {
       return _onClick(index);
     }
-  }, /*#__PURE__*/react_default.a.createElement("span", {
+  }, react_default.a.createElement("span", {
     className: "cmp-tabs__tab-label",
     "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])(name)
   }, name));
@@ -1926,7 +1940,7 @@ var order_history_OrderHistory = /*#__PURE__*/function (_Component) {
     }();
 
     _this.renderTabs = function () {
-      return /*#__PURE__*/react_default.a.createElement(navigation_tabs, {
+      return react_default.a.createElement(navigation_tabs, {
         className: "cmp-search__categories-tabs",
         items: _this.props.configs.tabs,
         activeIndex: _this.state.activeIndex,
@@ -1938,14 +1952,14 @@ var order_history_OrderHistory = /*#__PURE__*/function (_Component) {
     };
 
     _this.renderDropDowns = function () {
-      return /*#__PURE__*/react_default.a.createElement("div", {
+      return react_default.a.createElement("div", {
         className: "cmp-order-list__dropdowns"
-      }, /*#__PURE__*/react_default.a.createElement(filter_dropdown, {
+      }, react_default.a.createElement(filter_dropdown, {
         onChange: function onChange(e) {
           return _this.handleCategorySelected(e);
         },
         dropdownfilters: _this.props.configs.dropdownfilters
-      }), /*#__PURE__*/react_default.a.createElement(time_period_dropdown, {
+      }), react_default.a.createElement(time_period_dropdown, {
         onChange: function onChange(e) {
           return _this.timePeriodHandler(e);
         },
@@ -1954,7 +1968,7 @@ var order_history_OrderHistory = /*#__PURE__*/function (_Component) {
     };
 
     _this.renderCountHeader = function () {
-      return /*#__PURE__*/react_default.a.createElement(count_header, {
+      return react_default.a.createElement(count_header, {
         rows: _this.paginationDefaults.visibleRows,
         count: _this.state.listCount,
         current: _this.state.currentPage,
@@ -1984,11 +1998,11 @@ var order_history_OrderHistory = /*#__PURE__*/function (_Component) {
     };
 
     _this.renderNoResults = function () {
-      return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement("div", {
+      return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("div", {
         className: "cmp-order-list__no-results"
-      }, /*#__PURE__*/react_default.a.createElement("p", {
+      }, react_default.a.createElement("p", {
         "data-locator": "no-results"
-      }, _this.props.configs.noResultsFoundText), /*#__PURE__*/react_default.a.createElement("p", null, /*#__PURE__*/react_default.a.createElement("a", {
+      }, _this.props.configs.noResultsFoundText), react_default.a.createElement("p", null, react_default.a.createElement("a", {
         href: _this.props.configs.shopAllHref,
         "data-locator": "shop-all"
       }, _this.props.configs.shopAllTitle))));
@@ -2122,13 +2136,13 @@ var order_history_OrderHistory = /*#__PURE__*/function (_Component) {
       var _this4 = this;
 
       if (this.state.listCount > this.paginationDefaults.visibleRows) {
-        var previousIcon = /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+        var previousIcon = react_default.a.createElement(react_svg["a" /* default */], {
           src: this.paginationDefaults.previousIcon
         });
-        var nextIcon = /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+        var nextIcon = react_default.a.createElement(react_svg["a" /* default */], {
           src: this.paginationDefaults.nextIcon
         });
-        return /*#__PURE__*/react_default.a.createElement(react_paginate_default.a, {
+        return react_default.a.createElement(react_paginate_default.a, {
           pageCount: this.state.pageCount,
           forcePage: this.state.currentPage - 1,
           pageRangeDisplayed: this.paginationDefaults.pageRangeDisplayed,
@@ -2145,7 +2159,7 @@ var order_history_OrderHistory = /*#__PURE__*/function (_Component) {
           hrefBuilder: this.buildHref
         });
       } else {
-        return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null);
+        return react_default.a.createElement(react_default.a.Fragment, null);
       }
     }
   }, {
@@ -2153,13 +2167,13 @@ var order_history_OrderHistory = /*#__PURE__*/function (_Component) {
     value: function render() {
       var _this5 = this;
 
-      return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, this.state.loading ? /*#__PURE__*/react_default.a.createElement(spinner["a" /* default */], {
+      return react_default.a.createElement(react_default.a.Fragment, null, this.state.loading ? react_default.a.createElement(spinner["a" /* default */], {
         loading: this.state.loading
-      }) : null, !this.state.loading && /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, this.renderTabs(), /*#__PURE__*/react_default.a.createElement("div", {
+      }) : null, !this.state.loading && react_default.a.createElement(react_default.a.Fragment, null, this.renderTabs(), react_default.a.createElement("div", {
         className: "cmp-order-list__header clearfix",
         "data-locator": "order-list-header-clearfix"
       }, this.renderDropDowns(), this.renderCountHeader()), this.state.noResults && this.renderNoResults(), this.state.listCount > 0 && this.renderPaginatedResults().map(function (item, index) {
-        return /*#__PURE__*/react_default.a.createElement(order_list_item, {
+        return react_default.a.createElement(order_list_item, {
           data: item,
           numberText: _this5.props.configs.numberText,
           itemsText: _this5.props.configs.itemsText,
@@ -2178,7 +2192,7 @@ var order_history_OrderHistory = /*#__PURE__*/function (_Component) {
 var toConsumableArray = __webpack_require__(145);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js + 1 modules
-var objectWithoutProperties = __webpack_require__(498);
+var objectWithoutProperties = __webpack_require__(115);
 
 // CONCATENATED MODULE: ./src/details/details.services.js
 
@@ -2410,35 +2424,35 @@ var details_list_item_DetailsListItem = /*#__PURE__*/function (_React$Component)
         relatedSku.thumbnail = skuConfig.skuInfo.noThumbnailImage;
       }
 
-      return /*#__PURE__*/react_default.a.createElement("div", {
+      return react_default.a.createElement("div", {
         className: "cmp-sku-list__container"
-      }, /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("div", {
         className: "cmp-sku-list__right"
-      }, /*#__PURE__*/react_default.a.createElement("img", {
+      }, react_default.a.createElement("img", {
         src: relatedSku.thumbnail,
         alt: relatedSku.title,
         "data-locator": "product-image"
-      })), /*#__PURE__*/react_default.a.createElement("div", {
+      })), react_default.a.createElement("div", {
         className: "cmp-sku-list__left"
-      }, /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("div", {
         className: "cmp-sku-list__code",
         "data-locator": "product-number"
-      }, skuConfig.skuInfo.partNumberLabel + " " + relatedSku.materialNumber), relatedSku.url && /*#__PURE__*/react_default.a.createElement("a", {
+      }, skuConfig.skuInfo.partNumberLabel + " " + relatedSku.materialNumber), relatedSku.url && react_default.a.createElement("a", {
         href: relatedSku.url
-      }, /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("div", {
         className: "cmp-sku-details__title",
         "data-locator": "product-title"
-      }, relatedSku.title)), !relatedSku.url && /*#__PURE__*/react_default.a.createElement("div", {
+      }, relatedSku.title)), !relatedSku.url && react_default.a.createElement("div", {
         className: "cmp-sku-details__title",
         "data-locator": "product-title"
-      }, relatedSku.title), /*#__PURE__*/react_default.a.createElement("div", {
+      }, relatedSku.title), react_default.a.createElement("div", {
         className: "cmp-sku-details__buyinfo"
-      }, /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("div", {
         className: "cmp-sku-list__priceinfo"
-      }, /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("div", {
         className: "cmp-sku__price",
         "data-locator": "sku-price"
-      }, relatedSku.unitPrice)), /*#__PURE__*/react_default.a.createElement("div", {
+      }, relatedSku.unitPrice)), react_default.a.createElement("div", {
         "class": "cmp-sku-details__quantitytext",
         "data-locator": "sku-qty"
       }, skuConfig.qtyLabel, ": ", relatedSku.orderedQuantity))));
@@ -2583,37 +2597,37 @@ var shipment_Shipment = /*#__PURE__*/function (_Component) {
           noResultsFoundTitle = _this$props.noResultsFoundTitle,
           _this$props$isQuoteDe2 = _this$props.isQuoteDetails,
           isQuoteDetails = _this$props$isQuoteDe2 === void 0 ? false : _this$props$isQuoteDe2;
-      return /*#__PURE__*/react_default.a.createElement("div", {
+      return react_default.a.createElement("div", {
         className: "order-shipment"
-      }, isQuoteDetails && /*#__PURE__*/react_default.a.createElement("div", {
+      }, isQuoteDetails && react_default.a.createElement("div", {
         className: "showing-item-counter",
         "data-locator": "quote-showing-item-count-header"
-      }, /*#__PURE__*/react_default.a.createElement(count_header, {
+      }, react_default.a.createElement(count_header, {
         rows: totalItems,
         count: totalItems,
         current: 1,
         resultsText: resultsText,
         noResultsText: noResultsFoundTitle
-      })), /*#__PURE__*/react_default.a.createElement("div", {
+      })), react_default.a.createElement("div", {
         className: "order-shipment-header"
-      }, /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("div", {
         className: "order-shipment-header__left"
-      }, totalShipments > 1 && !isQuoteDetails && /*#__PURE__*/react_default.a.createElement("div", {
+      }, totalShipments > 1 && !isQuoteDetails && react_default.a.createElement("div", {
         className: "order-shipment-header__shipment-count"
-      }, shipment.shipmentText + " " + shipmentNumber), /*#__PURE__*/react_default.a.createElement("div", {
+      }, shipment.shipmentText + " " + shipmentNumber), react_default.a.createElement("div", {
         className: "order-shipment-header__item-count"
-      }, this.renderItemCount(totalItemsOrdered, shipment))), !isQuoteDetails && /*#__PURE__*/react_default.a.createElement("div", {
+      }, this.renderItemCount(totalItemsOrdered, shipment))), !isQuoteDetails && react_default.a.createElement("div", {
         className: "order-shipment-header__right"
-      }, /*#__PURE__*/react_default.a.createElement(delivery_status, {
+      }, react_default.a.createElement(delivery_status, {
         status: this.ifShipped(),
         labels: shipment,
         icons: icons,
         shipped: this.orderShipped()
-      }))), /*#__PURE__*/react_default.a.createElement("div", {
+      }))), react_default.a.createElement("div", {
         className: "details-item-tiles-section",
         "data-locator": "details-item-section"
       }, this.props.data.map(function (record, index) {
-        return /*#__PURE__*/react_default.a.createElement(details_list_item, {
+        return react_default.a.createElement(details_list_item, {
           key: index,
           relatedSku: _this2.getDetailsItemData(record),
           skuConfig: _this2.skuConfig
@@ -2635,10 +2649,10 @@ shipment_Shipment.defaultProps = {
 };
 /* harmony default export */ var components_shipment = (shipment_Shipment);
 // EXTERNAL MODULE: ./src/utils/get-isocode/index.js
-var get_isocode = __webpack_require__(507);
+var get_isocode = __webpack_require__(496);
 
 // EXTERNAL MODULE: ./src/utils/group-by/index.js
-var group_by = __webpack_require__(508);
+var group_by = __webpack_require__(497);
 
 // EXTERNAL MODULE: ./src/search/ErrorBoundary.js
 var ErrorBoundary = __webpack_require__(52);
@@ -2650,10 +2664,10 @@ var modal = __webpack_require__(14);
 var addToCartModal = __webpack_require__(55);
 
 // EXTERNAL MODULE: ./src/sku-details/services/index.js
-var services = __webpack_require__(518);
+var services = __webpack_require__(507);
 
 // EXTERNAL MODULE: ./src/stores/localStore.js
-var stores_localStore = __webpack_require__(111);
+var stores_localStore = __webpack_require__(113);
 
 // CONCATENATED MODULE: ./src/details/order-details/index.js
 
@@ -2751,7 +2765,7 @@ var order_details_OrderDetails = /*#__PURE__*/function (_Component) {
 
       for (var i = 0; i < Object.keys(airbills).length; i++) {
         var values = Object.values(airbills)[i];
-        shipments.push( /*#__PURE__*/react_default.a.createElement(components_shipment, {
+        shipments.push(react_default.a.createElement(components_shipment, {
           data: values,
           shipment: _this.props.config.shipment,
           icons: _this.props.config.icons,
@@ -2762,7 +2776,7 @@ var order_details_OrderDetails = /*#__PURE__*/function (_Component) {
         }));
       }
 
-      return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement("hr", {
+      return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("hr", {
         className: "order-shipment-list__hr"
       }), Object.keys(airbills).length > 0 && shipments);
     };
@@ -2840,8 +2854,8 @@ var order_details_OrderDetails = /*#__PURE__*/function (_Component) {
         if (account) {
           var includeCountryName = true;
           var addressArray = Object(userFunctions["q" /* getOrderDetailsAddress */])(account, includeCountryName);
-          return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, addressArray.map(function (addressLine) {
-            return /*#__PURE__*/react_default.a.createElement("div", {
+          return react_default.a.createElement(react_default.a.Fragment, null, addressArray.map(function (addressLine) {
+            return react_default.a.createElement("div", {
               className: "".concat(_this.rootStyle, "-address1"),
               "data-locator": "order-details-address"
             }, addressLine);
@@ -2872,7 +2886,7 @@ var order_details_OrderDetails = /*#__PURE__*/function (_Component) {
     };
 
     _this.renderReorderButton = function () {
-      return /*#__PURE__*/react_default.a.createElement("a", {
+      return react_default.a.createElement("a", {
         className: "cmp-button",
         onClick: function onClick() {
           return _this.toggleModal();
@@ -2886,104 +2900,104 @@ var order_details_OrderDetails = /*#__PURE__*/function (_Component) {
           userLocale = _this$state2.userLocale;
       var config = _this.props.config;
       var notZeroDiscountFlag = parseFloat(orderDetails.orderDiscountValue) !== 0 ? true : false;
-      return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement("div", {
+      return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__container")
-      }, /*#__PURE__*/react_default.a.createElement("h2", {
+      }, react_default.a.createElement("h2", {
         className: "".concat(_this.rootStyle, "__title"),
         "data-locator": "product-title"
-      }, config.orderDetails), /*#__PURE__*/react_default.a.createElement("div", {
+      }, config.orderDetails), react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__order-info")
-      }, /*#__PURE__*/react_default.a.createElement("h3", {
+      }, react_default.a.createElement("h3", {
         className: "".concat(_this.rootStyle, "__order-number"),
         "data-locator": "product-number"
-      }, config.numberLabel + ": " + orderDetails.orderNumber), /*#__PURE__*/react_default.a.createElement("div", {
+      }, config.numberLabel + ": " + orderDetails.orderNumber), react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__order-date"),
         "data-locator": "order-date"
-      }, date_formatter["a" /* default */].dateFormatter(orderDetails.date, userLocale)), /*#__PURE__*/react_default.a.createElement("div", {
+      }, date_formatter["a" /* default */].dateFormatter(orderDetails.date, userLocale)), react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__address-container")
-      }, /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__ship-to"),
         "data-locator": "ship-to"
-      }, /*#__PURE__*/react_default.a.createElement("h4", null, config.shipTo), _this.renderAddress("shipping")), /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("h4", null, config.shipTo), _this.renderAddress("shipping")), react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__bill-to"),
         "data-locator": "bill-to"
-      }, /*#__PURE__*/react_default.a.createElement("h4", null, config.billTo), _this.renderAddress("billing"))), /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("h4", null, config.billTo), _this.renderAddress("billing"))), react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__payment-container")
-      }, /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__payment-method"),
         "data-locator": "payment-method"
-      }, /*#__PURE__*/react_default.a.createElement("h4", null, config.paymentMethod), orderDetails.ccNum && /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+      }, react_default.a.createElement("h4", null, config.paymentMethod), orderDetails.ccNum && react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement(react_svg["a" /* default */], {
         src: config.paymentType.creditCard.icon
-      }), /*#__PURE__*/react_default.a.createElement("div", {
+      }), react_default.a.createElement("div", {
         className: "text"
-      }, config.paymentType.creditCard.label)), !orderDetails.ccNum && orderDetails.purchaseOrderNumber && /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+      }, config.paymentType.creditCard.label)), !orderDetails.ccNum && orderDetails.purchaseOrderNumber && react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement(react_svg["a" /* default */], {
         src: config.paymentType.purchaseOrder.icon
-      }), /*#__PURE__*/react_default.a.createElement("div", {
+      }), react_default.a.createElement("div", {
         className: "text"
-      }, config.paymentType.purchaseOrder.label, ": ", orderDetails.purchaseOrderNumber))))), /*#__PURE__*/react_default.a.createElement("div", {
+      }, config.paymentType.purchaseOrder.label, ": ", orderDetails.purchaseOrderNumber))))), react_default.a.createElement("div", {
         className: "cmp-order-details__order-summary",
         "data-locator": "order-summary"
-      }, /*#__PURE__*/react_default.a.createElement("h4", null, config.summaryTitle), /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("h4", null, config.summaryTitle), react_default.a.createElement("div", {
         className: "cmp-order-details__order-subtotal"
-      }, /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("div", {
         className: "cmp-order-details__order-subtotal_left",
         "data-locator": "order-summary-label-sub-total"
-      }, config.subTotal, " ", _this.renderItemCount()), /*#__PURE__*/react_default.a.createElement("div", {
+      }, config.subTotal, " ", _this.renderItemCount()), react_default.a.createElement("div", {
         className: "cmp-order-details__order-subtotal_right",
         "data-locator": "order-summary-price-sub-total"
-      }, orderDetails.itemsSubTotal)), notZeroDiscountFlag && /*#__PURE__*/react_default.a.createElement("div", {
+      }, orderDetails.itemsSubTotal)), notZeroDiscountFlag && react_default.a.createElement("div", {
         className: "cmp-order-details__order-savings"
-      }, /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("div", {
         className: "cmp-order-details__order-savings_left",
         "data-locator": "order-summary-label-total-discount"
-      }, config.savings), /*#__PURE__*/react_default.a.createElement("div", {
+      }, config.savings), react_default.a.createElement("div", {
         className: "cmp-order-details__order-savings_right",
         "data-locator": "order-summary-price-total-discount"
-      }, _this.props.config.minusSign, orderDetails.orderDiscount)), /*#__PURE__*/react_default.a.createElement("div", {
+      }, _this.props.config.minusSign, orderDetails.orderDiscount)), react_default.a.createElement("div", {
         className: "cmp-order-details__order-shipping"
-      }, /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("div", {
         className: "cmp-order-details__order-shipping_left",
         "data-locator": "order-summary-label-total-shipping-handling"
-      }, config.shipping), /*#__PURE__*/react_default.a.createElement("div", {
+      }, config.shipping), react_default.a.createElement("div", {
         className: "cmp-order-details__order-shipping_right",
         "data-locator": "order-summary-price-total-shipping-handling"
-      }, orderDetails.shippingAmount)), /*#__PURE__*/react_default.a.createElement("div", {
+      }, orderDetails.shippingAmount)), react_default.a.createElement("div", {
         className: "cmp-order-details__order-tax"
-      }, /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("div", {
         className: "cmp-order-details__order-tax_left",
         "data-locator": "order-summary-label-estimated-tax"
-      }, config.tax), /*#__PURE__*/react_default.a.createElement("div", {
+      }, config.tax), react_default.a.createElement("div", {
         className: "cmp-order-details__order-tax_right",
         "data-locator": "order-summary-price-estimated-tax"
-      }, orderDetails.taxAmount)), /*#__PURE__*/react_default.a.createElement("div", {
+      }, orderDetails.taxAmount)), react_default.a.createElement("div", {
         className: "cmp-order-details__order-total"
-      }, /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("div", {
         className: "cmp-order-details__order-total_left",
         "data-locator": "order-summary-label-total-price"
-      }, config.totalLabel), /*#__PURE__*/react_default.a.createElement("div", {
+      }, config.totalLabel), react_default.a.createElement("div", {
         className: "cmp-order-details__order-total_right",
         "data-locator": "order-summary-price-total-price"
-      }, /*#__PURE__*/react_default.a.createElement("h1", null, orderDetails.orderTotal))), _this.state.isCommerceApiMigrated && /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("h1", null, orderDetails.orderTotal))), _this.state.isCommerceApiMigrated && react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__reorder"),
         "data-locator": "order-details-reorder"
       }, _this.renderReorderButton()))));
     };
 
     _this.renderNotFoundError = function () {
-      return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement("div", {
+      return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__no-results"),
         "data-locator": "order-details-no-results"
-      }, /*#__PURE__*/react_default.a.createElement("p", null, _this.props.config.resultNotFoundErrorTitle)));
+      }, react_default.a.createElement("p", null, _this.props.config.resultNotFoundErrorTitle)));
     };
 
     _this.renderOrderShipmentList = function () {
       var _this$state3 = _this.state,
           airbills = _this$state3.airbills,
           orderDetails = _this$state3.orderDetails;
-      return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement("div", {
+      return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__order-shipment-list"),
         "data-locator": "order-shipment-list"
-      }, Object.keys(airbills).length > 0 && _this.getShipmentList(airbills, orderDetails)), _this.state.isCommerceApiMigrated && /*#__PURE__*/react_default.a.createElement("div", {
+      }, Object.keys(airbills).length > 0 && _this.getShipmentList(airbills, orderDetails)), _this.state.isCommerceApiMigrated && react_default.a.createElement("div", {
         className: "order-shipment__reorder",
         "data-locator": "order-shipment-reorder"
       }, _this.renderReorderButton()));
@@ -3126,17 +3140,17 @@ var order_details_OrderDetails = /*#__PURE__*/function (_Component) {
           isLoading = _this$state5.isLoading,
           errorOrderNotFound = _this$state5.errorOrderNotFound,
           errorServiceError = _this$state5.errorServiceError;
-      return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, isLoading && /*#__PURE__*/react_default.a.createElement(spinner["a" /* default */], {
+      return react_default.a.createElement(react_default.a.Fragment, null, isLoading && react_default.a.createElement(spinner["a" /* default */], {
         loading: isLoading
-      }), !isLoading && errorOrderNotFound && this.renderNotFoundError(), !errorOrderNotFound && !errorServiceError && !isLoading && this.renderDetailsSection(), !errorOrderNotFound && !errorServiceError && !isLoading && this.renderOrderShipmentList(), /*#__PURE__*/react_default.a.createElement(modal["b" /* default */], {
+      }), !isLoading && errorOrderNotFound && this.renderNotFoundError(), !errorOrderNotFound && !errorServiceError && !isLoading && this.renderDetailsSection(), !errorOrderNotFound && !errorServiceError && !isLoading && this.renderOrderShipmentList(), react_default.a.createElement(modal["b" /* default */], {
         isOpen: this.state.modalShown,
         onClose: this.toggleModal,
         className: "cmp-add-to-cart-modal"
-      }, /*#__PURE__*/react_default.a.createElement(modal["a" /* Header */], {
+      }, react_default.a.createElement(modal["a" /* Header */], {
         title: this.state.modalConfig.title,
         icon: this.state.modalConfig.icon,
         className: modal["c" /* keys */].HeaderWithAddedMarginTop
-      }), /*#__PURE__*/react_default.a.createElement(addToCartModal["default"], {
+      }), react_default.a.createElement(addToCartModal["default"], {
         config: this.state.modalConfig,
         errorObjCart: this.state.errorObjCart
       })));
@@ -3147,7 +3161,7 @@ var order_details_OrderDetails = /*#__PURE__*/function (_Component) {
 }(react["Component"]);
 
 var order_details_ErrorBoundaryOrderDetails = function ErrorBoundaryOrderDetails(props) {
-  return /*#__PURE__*/react_default.a.createElement(ErrorBoundary["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(order_details_OrderDetails, props));
+  return react_default.a.createElement(ErrorBoundary["a" /* default */], null, react_default.a.createElement(order_details_OrderDetails, props));
 };
 
 
@@ -3175,7 +3189,7 @@ var quote_list_item_QuoteListItem = /*#__PURE__*/function (_Component) {
     _this = Object(possibleConstructorReturn["a" /* default */])(this, Object(getPrototypeOf["a" /* default */])(QuoteListItem).call(this, props));
 
     _this.renderQuoteAgainButton = function () {
-      return /*#__PURE__*/react_default.a.createElement("a", {
+      return react_default.a.createElement("a", {
         className: "cmp-button",
         href: "/#"
       }, _this.props.quoteAgainTitle);
@@ -3209,45 +3223,45 @@ var quote_list_item_QuoteListItem = /*#__PURE__*/function (_Component) {
       var showOrderNumber = !!(quoteStatus === constants["c" /* DELIVERY_STATUS */].ORDER_PLACED);
       var showQuoteAgainBtn = !!(quoteStatus === constants["c" /* DELIVERY_STATUS */].EXPIRED);
       var showQuoteReplacedNumber = !!(quoteStatus === constants["c" /* DELIVERY_STATUS */].QUOTE_REPLACED);
-      return /*#__PURE__*/react_default.a.createElement("div", {
+      return react_default.a.createElement("div", {
         className: "cmp-order-list__container"
-      }, /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("div", {
         className: "cmp-order-list__left"
-      }, /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("div", {
         className: "cmp-order-list__order-number"
-      }, /*#__PURE__*/react_default.a.createElement("a", {
+      }, react_default.a.createElement("a", {
         href: '#quotedetails?id=' + quoteId,
         onClick: function onClick() {
           return Object(analytics["f" /* setClickAnalytics */])("Quote History", "Quote Details, " + quoteId, '#quotedetails?id=' + quoteId);
         },
         "data-locator": Object(eCommerceFunctions["a" /* elementLocator */])("".concat(numberText, " ").concat(quoteId))
-      }, numberText + " " + quoteId)), /*#__PURE__*/react_default.a.createElement("div", {
+      }, numberText + " " + quoteId)), react_default.a.createElement("div", {
         className: "cmp-quote-data-section"
-      }, quoteCreationDate && /*#__PURE__*/react_default.a.createElement("div", {
+      }, quoteCreationDate && react_default.a.createElement("div", {
         className: "cmp-order-list__date",
         "data-locator": "order-list-created-date"
-      }, "".concat(created, " ").concat(quoteCreationDate)), showExpireDate && quoteExpirationDate && /*#__PURE__*/react_default.a.createElement("div", {
+      }, "".concat(created, " ").concat(quoteCreationDate)), showExpireDate && quoteExpirationDate && react_default.a.createElement("div", {
         className: "cmp-order-list__date",
         "data-locator": "order-list-expires-date"
-      }, "".concat(expires, " ").concat(quoteExpirationDate)), showOrderNumber && orderNumber && /*#__PURE__*/react_default.a.createElement("div", {
+      }, "".concat(expires, " ").concat(quoteExpirationDate)), showOrderNumber && orderNumber && react_default.a.createElement("div", {
         className: "cmp-order-list__order-number-text",
         "data-locator": "quote-order-number"
-      }, "".concat(orderNumberText, " ").concat(orderNumber)), showQuoteReplacedNumber && replacedQuoteNumber && /*#__PURE__*/react_default.a.createElement("div", {
+      }, "".concat(orderNumberText, " ").concat(orderNumber)), showQuoteReplacedNumber && replacedQuoteNumber && react_default.a.createElement("div", {
         className: "cmp-order-list__order-number-text",
         "data-locator": "quote-order-number"
-      }, "".concat(newQuote, " ").concat(replacedQuoteNumber)))), /*#__PURE__*/react_default.a.createElement("div", {
+      }, "".concat(newQuote, " ").concat(replacedQuoteNumber)))), react_default.a.createElement("div", {
         className: "cmp-order-list__right",
         "data-locator": "order-list-right"
-      }, /*#__PURE__*/react_default.a.createElement("hr", {
+      }, react_default.a.createElement("hr", {
         className: "cmp-order-list_hr"
-      }), quoteStatus && /*#__PURE__*/react_default.a.createElement(delivery_status, {
+      }), quoteStatus && react_default.a.createElement(delivery_status, {
         status: quoteStatus,
         labels: shipment,
         icons: icons
-      })), totalPriceFormatted && /*#__PURE__*/react_default.a.createElement("div", {
+      })), totalPriceFormatted && react_default.a.createElement("div", {
         className: "cmp-order-list__total cmp-order-list__left",
         "data-locator": "order-list-total"
-      }, totalPriceFormatted), showQuoteAgainBtn && isShowQuoteAgainButton && /*#__PURE__*/react_default.a.createElement("div", {
+      }, totalPriceFormatted), showQuoteAgainBtn && isShowQuoteAgainButton && react_default.a.createElement("div", {
         className: "cmp-order-list__right quote-again-section",
         "data-locator": "quote-history-quote-again"
       }, this.renderQuoteAgainButton()));
@@ -3406,7 +3420,7 @@ var quote_history_QuoteHistory = /*#__PURE__*/function (_Component) {
           _ref3$tabs = _ref3.tabs,
           tabs = _ref3$tabs === void 0 ? [] : _ref3$tabs;
 
-      return /*#__PURE__*/react_default.a.createElement(navigation_tabs, {
+      return react_default.a.createElement(navigation_tabs, {
         className: "cmp-search__categories-tabs",
         items: tabs,
         activeIndex: _this.state.activeIndex,
@@ -3418,14 +3432,14 @@ var quote_history_QuoteHistory = /*#__PURE__*/function (_Component) {
     };
 
     _this.renderDropDowns = function () {
-      return /*#__PURE__*/react_default.a.createElement("div", {
+      return react_default.a.createElement("div", {
         className: "cmp-order-list__dropdowns"
-      }, /*#__PURE__*/react_default.a.createElement(filter_dropdown, {
+      }, react_default.a.createElement(filter_dropdown, {
         onChange: function onChange(e) {
           return _this.handleCategorySelected(e);
         },
         dropdownfilters: _this.props.configs.dropdownfilters
-      }), /*#__PURE__*/react_default.a.createElement(time_period_dropdown, {
+      }), react_default.a.createElement(time_period_dropdown, {
         onChange: function onChange(e) {
           return _this.timePeriodHandler(e);
         },
@@ -3434,7 +3448,7 @@ var quote_history_QuoteHistory = /*#__PURE__*/function (_Component) {
     };
 
     _this.renderCountHeader = function () {
-      return /*#__PURE__*/react_default.a.createElement(count_header, {
+      return react_default.a.createElement(count_header, {
         rows: _this.state.pageSize,
         count: _this.state.listCount,
         current: _this.state.currentPage + 1,
@@ -3458,11 +3472,11 @@ var quote_history_QuoteHistory = /*#__PURE__*/function (_Component) {
     };
 
     _this.renderNoResults = function () {
-      return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement("div", {
+      return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("div", {
         className: "cmp-order-list__no-results"
-      }, /*#__PURE__*/react_default.a.createElement("p", {
+      }, react_default.a.createElement("p", {
         "data-locator": "no-results"
-      }, _this.props.configs.noResultsFoundText), /*#__PURE__*/react_default.a.createElement("p", null, /*#__PURE__*/react_default.a.createElement("a", {
+      }, _this.props.configs.noResultsFoundText), react_default.a.createElement("p", null, react_default.a.createElement("a", {
         href: _this.props.configs.shopAllHref,
         "data-locator": "shop-all"
       }, _this.props.configs.shopAllTitle))));
@@ -3594,13 +3608,13 @@ var quote_history_QuoteHistory = /*#__PURE__*/function (_Component) {
       var _this4 = this;
 
       if (this.state.listCount > this.state.pageSize) {
-        var previousIcon = /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+        var previousIcon = react_default.a.createElement(react_svg["a" /* default */], {
           src: this.paginationDefaults.previousIcon
         });
-        var nextIcon = /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+        var nextIcon = react_default.a.createElement(react_svg["a" /* default */], {
           src: this.paginationDefaults.nextIcon
         });
-        return /*#__PURE__*/react_default.a.createElement(react_paginate_default.a, {
+        return react_default.a.createElement(react_paginate_default.a, {
           pageCount: this.state.pageCount,
           forcePage: this.state.currentPage,
           pageRangeDisplayed: this.paginationDefaults.pageRangeDisplayed,
@@ -3617,7 +3631,7 @@ var quote_history_QuoteHistory = /*#__PURE__*/function (_Component) {
           hrefBuilder: this.buildHref
         });
       } else {
-        return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null);
+        return react_default.a.createElement(react_default.a.Fragment, null);
       }
     }
   }, {
@@ -3630,13 +3644,13 @@ var quote_history_QuoteHistory = /*#__PURE__*/function (_Component) {
           listItems = _this$state4.listItems,
           noResults = _this$state4.noResults,
           loading = _this$state4.loading;
-      return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, loading ? /*#__PURE__*/react_default.a.createElement(spinner["a" /* default */], {
+      return react_default.a.createElement(react_default.a.Fragment, null, loading ? react_default.a.createElement(spinner["a" /* default */], {
         loading: loading
-      }) : null, !loading && /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, this.renderTabs(), /*#__PURE__*/react_default.a.createElement("div", {
+      }) : null, !loading && react_default.a.createElement(react_default.a.Fragment, null, this.renderTabs(), react_default.a.createElement("div", {
         className: "cmp-order-list__header clearfix",
         "data-locator": "order-list-header-clearfix"
       }, this.renderDropDowns(), this.renderCountHeader()), noResults && this.renderNoResults(), listCount > 0 && listItems.map(function (item, index) {
-        return /*#__PURE__*/react_default.a.createElement(quote_list_item, {
+        return react_default.a.createElement(quote_list_item, {
           data: item,
           numberText: _this5.props.configs.numberText,
           itemsText: _this5.props.configs.itemsText,
@@ -3775,8 +3789,8 @@ var quote_details_QuoteDetails = /*#__PURE__*/function (_Component) {
 
       if (address) {
         var addressArray = Object(userFunctions["m" /* getFullCompanyAddress */])(address, false);
-        return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, addressArray.map(function (addressLine) {
-          return /*#__PURE__*/react_default.a.createElement("div", {
+        return react_default.a.createElement(react_default.a.Fragment, null, addressArray.map(function (addressLine) {
+          return react_default.a.createElement("div", {
             className: "".concat(_this.rootStyle, "-address1"),
             "data-locator": "order-details-address"
           }, addressLine);
@@ -3816,10 +3830,10 @@ var quote_details_QuoteDetails = /*#__PURE__*/function (_Component) {
       var quoteDetails = _this.state.quoteDetails;
       var quoteStatus = quoteDetails.quoteStatus,
           quoteId = quoteDetails.quoteId;
-      return quoteStatus === constants["c" /* DELIVERY_STATUS */].OPEN && /*#__PURE__*/react_default.a.createElement("div", {
+      return quoteStatus === constants["c" /* DELIVERY_STATUS */].OPEN && react_default.a.createElement("div", {
         className: className,
         "data-locator": "quote-details-reorder"
-      }, /*#__PURE__*/react_default.a.createElement("a", {
+      }, react_default.a.createElement("a", {
         className: "cmp-button",
         href: "#",
         onClick: function onClick(e) {
@@ -3831,10 +3845,10 @@ var quote_details_QuoteDetails = /*#__PURE__*/function (_Component) {
     _this.renderQuoteAgainButton = function (className) {
       var quoteDetails = _this.state.quoteDetails;
       var quoteStatus = quoteDetails.quoteStatus;
-      return quoteStatus === constants["c" /* DELIVERY_STATUS */].EXPIRED && /*#__PURE__*/react_default.a.createElement("div", {
+      return quoteStatus === constants["c" /* DELIVERY_STATUS */].EXPIRED && react_default.a.createElement("div", {
         className: className,
         "data-locator": "quote-details-quote-again-cta"
-      }, /*#__PURE__*/react_default.a.createElement("a", {
+      }, react_default.a.createElement("a", {
         className: "cmp-button",
         href: "/#"
       }, _this.props.config.quoteAgainTitle));
@@ -3896,116 +3910,116 @@ var quote_details_QuoteDetails = /*#__PURE__*/function (_Component) {
       var showExpireDate = !!(quoteStatus === constants["c" /* DELIVERY_STATUS */].PENDING || quoteStatus === constants["c" /* DELIVERY_STATUS */].REJECTED || quoteStatus === constants["c" /* DELIVERY_STATUS */].OPEN);
       var showNewDetailsLinkSection = quoteStatus === constants["c" /* DELIVERY_STATUS */].QUOTE_REPLACED || quoteStatus === constants["c" /* DELIVERY_STATUS */].ORDER_PLACED;
       var newItemUrl = quoteStatus === constants["c" /* DELIVERY_STATUS */].ORDER_PLACED ? "#orderdetails?id=".concat(orderNumber) : "#quotedetails?id=".concat(replacedQuoteNumber);
-      return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement("div", {
+      return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__container")
-      }, /*#__PURE__*/react_default.a.createElement("h2", {
+      }, react_default.a.createElement("h2", {
         className: "".concat(_this.rootStyle, "__title"),
         "data-locator": "product-title"
-      }, config.detailsTitle), showNewDetailsLinkSection && /*#__PURE__*/react_default.a.createElement("div", {
+      }, config.detailsTitle), showNewDetailsLinkSection && react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__new-details-link-text")
-      }, /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("div", {
         className: "new-details-link-section"
-      }, /*#__PURE__*/react_default.a.createElement("a", {
+      }, react_default.a.createElement("a", {
         href: newItemUrl
-      }, /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("div", {
         className: "new-details-icon"
-      }, /*#__PURE__*/react_default.a.createElement(react_svg["a" /* default */], {
+      }, react_default.a.createElement(react_svg["a" /* default */], {
         src: config.icons.newQuoteOrderIcon
-      })), quoteStatus === constants["c" /* DELIVERY_STATUS */].QUOTE_REPLACED && /*#__PURE__*/react_default.a.createElement("div", {
+      })), quoteStatus === constants["c" /* DELIVERY_STATUS */].QUOTE_REPLACED && react_default.a.createElement("div", {
         className: "new-details-text",
         "data-locator": "delivery-text"
-      }, "".concat(config.newQuote).concat(replacedQuoteNumber)), quoteStatus === constants["c" /* DELIVERY_STATUS */].ORDER_PLACED && /*#__PURE__*/react_default.a.createElement("div", {
+      }, "".concat(config.newQuote).concat(replacedQuoteNumber)), quoteStatus === constants["c" /* DELIVERY_STATUS */].ORDER_PLACED && react_default.a.createElement("div", {
         className: "new-details-text",
         "data-locator": "delivery-text"
-      }, "".concat(config.orderNumberText).concat(orderNumber)))), quoteStatus && quoteStatus === constants["c" /* DELIVERY_STATUS */].ORDER_PLACED && /*#__PURE__*/react_default.a.createElement("div", {
+      }, "".concat(config.orderNumberText).concat(orderNumber)))), quoteStatus && quoteStatus === constants["c" /* DELIVERY_STATUS */].ORDER_PLACED && react_default.a.createElement("div", {
         className: "new-details-status-icon"
-      }, /*#__PURE__*/react_default.a.createElement(delivery_status, {
+      }, react_default.a.createElement(delivery_status, {
         status: quoteStatus,
         labels: shipment,
         icons: icons
-      }), " ")), /*#__PURE__*/react_default.a.createElement("div", {
+      }), " ")), react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__order-info")
-      }, /*#__PURE__*/react_default.a.createElement("h3", {
+      }, react_default.a.createElement("h3", {
         className: "".concat(_this.rootStyle, "__order-number"),
         "data-locator": "product-number"
-      }, config.numberLabel + ": " + quoteId)), /*#__PURE__*/react_default.a.createElement("div", {
+      }, config.numberLabel + ": " + quoteId)), react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__order-summary")
-      }, quoteStatus && quoteStatus !== constants["c" /* DELIVERY_STATUS */].ORDER_PLACED && /*#__PURE__*/react_default.a.createElement(delivery_status, {
+      }, quoteStatus && quoteStatus !== constants["c" /* DELIVERY_STATUS */].ORDER_PLACED && react_default.a.createElement(delivery_status, {
         status: quoteStatus,
         labels: shipment,
         icons: icons
-      })), /*#__PURE__*/react_default.a.createElement("div", {
+      })), react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__order-info")
-      }, quoteCreationDate && /*#__PURE__*/react_default.a.createElement("div", {
+      }, quoteCreationDate && react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__order-date"),
         "data-locator": "order-date"
-      }, "".concat(created, " ").concat(quoteCreationDate)), showExpireDate && quoteExpirationDate && /*#__PURE__*/react_default.a.createElement("div", {
+      }, "".concat(created, " ").concat(quoteCreationDate)), showExpireDate && quoteExpirationDate && react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__order-date"),
         "data-locator": "order-date"
-      }, "".concat(expires, " ").concat(quoteExpirationDate)), /*#__PURE__*/react_default.a.createElement("div", {
+      }, "".concat(expires, " ").concat(quoteExpirationDate)), react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__address-container")
-      }, shipToInfo && /*#__PURE__*/react_default.a.createElement("div", {
+      }, shipToInfo && react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__ship-to"),
         "data-locator": "ship-to"
-      }, /*#__PURE__*/react_default.a.createElement("h4", null, shipTo), _this.renderAddress(shipToInfo)), billToInfo && /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("h4", null, shipTo), _this.renderAddress(shipToInfo)), billToInfo && react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__bill-to"),
         "data-locator": "bill-to"
-      }, /*#__PURE__*/react_default.a.createElement("h4", null, billTo), _this.renderAddress(billToInfo)))), /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("h4", null, billTo), _this.renderAddress(billToInfo)))), react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__order-summary"),
         "data-locator": "order-summary-cart-details"
-      }, /*#__PURE__*/react_default.a.createElement("h4", null, config.summaryTitle), /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("h4", null, config.summaryTitle), react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__order-subtotal"),
         "data-locator": "order-summary-line-sub-total"
-      }, /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__order-subtotal_left"),
         "data-locator": "order-summary-label-sub-total"
-      }, config.subTotal, " ", _this.renderItemCount()), /*#__PURE__*/react_default.a.createElement("div", {
+      }, config.subTotal, " ", _this.renderItemCount()), react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__order-subtotal_right"),
         "data-locator": "order-summary-price-sub-total"
-      }, subTotalValue)), notZeroDiscountFlag && /*#__PURE__*/react_default.a.createElement("div", {
+      }, subTotalValue)), notZeroDiscountFlag && react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__order-savings"),
         "data-locator": "order-summary-line-total-discount"
-      }, /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__order-savings_left"),
         "data-locator": "order-summary-label-total-discount"
-      }, savings), /*#__PURE__*/react_default.a.createElement("div", {
+      }, savings), react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__order-savings_right"),
         "data-locator": "order-summary-price-total-discount"
-      }, config.minusSign, totalDiscountsValue)), /*#__PURE__*/react_default.a.createElement("div", {
+      }, config.minusSign, totalDiscountsValue)), react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__order-shipping"),
         "data-locator": "order-summary-line-total-shipping-handling"
-      }, /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__order-shipping_left"),
         "data-locator": "order-summary-label-total-shipping-handling"
-      }, shipping), /*#__PURE__*/react_default.a.createElement("div", {
+      }, shipping), react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__order-shipping_right"),
         "data-locator": "order-summary-price-total-shipping-handling"
-      }, ShippingAndHandlingValue)), /*#__PURE__*/react_default.a.createElement("div", {
+      }, ShippingAndHandlingValue)), react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__order-tax"),
         "data-locator": "order-summary-line-estimated-tax"
-      }, /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__order-tax_left"),
         "data-locator": "order-summary-label-estimated-tax"
-      }, tax), /*#__PURE__*/react_default.a.createElement("div", {
+      }, tax), react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__order-tax_right"),
         "data-locator": "order-summary-price-estimated-tax"
-      }, totalTaxValue)), /*#__PURE__*/react_default.a.createElement("div", {
+      }, totalTaxValue)), react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__order-total"),
         "data-locator": "order-summary-line-total-price"
-      }, /*#__PURE__*/react_default.a.createElement("div", {
+      }, react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__order-total_left"),
         "data-locator": "order-summary-label-total-price"
-      }, totalLabel), /*#__PURE__*/react_default.a.createElement("div", {
+      }, totalLabel), react_default.a.createElement("div", {
         className: "".concat(_this.rootStyle, "__order-total_right"),
         "data-locator": "order-summary-price-total-price"
-      }, /*#__PURE__*/react_default.a.createElement("h1", null, totalPriceValue))), _this.renderReorderButton("".concat(_this.rootStyle, "__reorder")), isShowQuoteAgainButton && _this.renderQuoteAgainButton("".concat(_this.rootStyle, "__reorder")))));
+      }, react_default.a.createElement("h1", null, totalPriceValue))), _this.renderReorderButton("".concat(_this.rootStyle, "__reorder")), isShowQuoteAgainButton && _this.renderQuoteAgainButton("".concat(_this.rootStyle, "__reorder")))));
     };
 
     _this.renderNotFoundError = function () {
-      return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement("div", {
+      return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("div", {
         className: "cmp-order-details__no-results",
         "data-locator": "order-details-no-results"
-      }, /*#__PURE__*/react_default.a.createElement("p", null, _this.props.config.resultNotFoundErrorTitle)));
+      }, react_default.a.createElement("p", null, _this.props.config.resultNotFoundErrorTitle)));
     };
 
     _this.renderOrderShipmentList = function () {
@@ -4017,12 +4031,12 @@ var quote_details_QuoteDetails = /*#__PURE__*/function (_Component) {
       var isShowQuoteAgainButton = _this.props.config.isShowQuoteAgainButton;
 
       if (entries && entries.length > 0) {
-        return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement("div", {
+        return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("div", {
           className: "cmp-order-details__order-shipment-list",
           "data-locator": "order-shipment-list"
-        }, /*#__PURE__*/react_default.a.createElement("hr", {
+        }, react_default.a.createElement("hr", {
           className: "order-shipment-list__hr"
-        }), /*#__PURE__*/react_default.a.createElement(components_shipment, {
+        }), react_default.a.createElement(components_shipment, {
           data: entries,
           shipment: _this.props.config.shipment,
           icons: _this.props.config.icons,
@@ -4098,17 +4112,17 @@ var quote_details_QuoteDetails = /*#__PURE__*/function (_Component) {
           isLoading = _this$state3.isLoading,
           errorOrderNotFound = _this$state3.errorOrderNotFound,
           errorServiceError = _this$state3.errorServiceError;
-      return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, isLoading && /*#__PURE__*/react_default.a.createElement(spinner["a" /* default */], {
+      return react_default.a.createElement(react_default.a.Fragment, null, isLoading && react_default.a.createElement(spinner["a" /* default */], {
         loading: isLoading
-      }), !isLoading && errorOrderNotFound && this.renderNotFoundError(), !errorOrderNotFound && !errorServiceError && !isLoading && this.renderDetailsSection(), !errorOrderNotFound && !errorServiceError && !isLoading && this.renderOrderShipmentList(), /*#__PURE__*/react_default.a.createElement(modal["b" /* default */], {
+      }), !isLoading && errorOrderNotFound && this.renderNotFoundError(), !errorOrderNotFound && !errorServiceError && !isLoading && this.renderDetailsSection(), !errorOrderNotFound && !errorServiceError && !isLoading && this.renderOrderShipmentList(), react_default.a.createElement(modal["b" /* default */], {
         isOpen: this.state.modalShown,
         onClose: this.toggleModal,
         className: "cmp-add-to-cart-modal"
-      }, /*#__PURE__*/react_default.a.createElement(modal["a" /* Header */], {
+      }, react_default.a.createElement(modal["a" /* Header */], {
         title: this.state.modalConfig.title,
         icon: this.state.modalConfig.icon,
         className: modal["c" /* keys */].HeaderWithAddedMarginTop
-      }), /*#__PURE__*/react_default.a.createElement(addToCartModal["default"], {
+      }), react_default.a.createElement(addToCartModal["default"], {
         config: this.state.modalConfig,
         errorObjCart: this.state.errorObjCart
       })));
@@ -4131,7 +4145,7 @@ var quote_details_QuoteDetails = /*#__PURE__*/function (_Component) {
 }(react["Component"]);
 
 var quote_details_ErrorBoundaryQuoteDetails = function ErrorBoundaryQuoteDetails(props) {
-  return /*#__PURE__*/react_default.a.createElement(ErrorBoundary["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(quote_details_QuoteDetails, props));
+  return react_default.a.createElement(ErrorBoundary["a" /* default */], null, react_default.a.createElement(quote_details_QuoteDetails, props));
 };
 
 
@@ -4150,59 +4164,59 @@ var quote_details_ErrorBoundaryQuoteDetails = function ErrorBoundaryQuoteDetails
 
 
 var my_account_MyAccountRouter = function MyAccountRouter(props) {
-  return /*#__PURE__*/react_default.a.createElement(HashRouter["a" /* default */], {
+  return react_default.a.createElement(HashRouter["a" /* default */], {
     hashType: "noslash"
-  }, /*#__PURE__*/react_default.a.createElement(Switch["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(Route["a" /* default */], {
+  }, react_default.a.createElement(Switch["a" /* default */], null, react_default.a.createElement(Route["a" /* default */], {
     exact: true,
     path: routes.myAccount.path
-  }, /*#__PURE__*/react_default.a.createElement(myaccount, props)), /*#__PURE__*/react_default.a.createElement(Route["a" /* default */], {
+  }, react_default.a.createElement(myaccount, props)), react_default.a.createElement(Route["a" /* default */], {
     exact: true,
     path: routes.profile.path
-  }, /*#__PURE__*/react_default.a.createElement(aside, {
+  }, react_default.a.createElement(aside, {
     tiles: props.tiles,
     breadcrumbs: props.breadcrumbs
-  }, /*#__PURE__*/react_default.a.createElement(my_profile, {
+  }, react_default.a.createElement(my_profile, {
     configs: props.myProfile
-  }))), /*#__PURE__*/react_default.a.createElement(Route["a" /* default */], {
+  }))), react_default.a.createElement(Route["a" /* default */], {
     exact: true,
     path: routes.changePassword.path
-  }, /*#__PURE__*/react_default.a.createElement(aside, {
+  }, react_default.a.createElement(aside, {
     tiles: props.tiles,
     breadcrumbs: props.breadcrumbs
-  }, /*#__PURE__*/react_default.a.createElement(change_password, {
+  }, react_default.a.createElement(change_password, {
     configId: props.changePassword.config,
     configs: props.myProfile
-  }))), /*#__PURE__*/react_default.a.createElement(Route["a" /* default */], {
+  }))), react_default.a.createElement(Route["a" /* default */], {
     exact: true,
     path: routes.orderHistory.path
-  }, /*#__PURE__*/react_default.a.createElement(aside, {
+  }, react_default.a.createElement(aside, {
     tiles: props.tiles,
     breadcrumbs: props.breadcrumbs
-  }, /*#__PURE__*/react_default.a.createElement(order_history, {
+  }, react_default.a.createElement(order_history, {
     configs: props.orderHistory
-  }))), /*#__PURE__*/react_default.a.createElement(Route["a" /* default */], {
+  }))), react_default.a.createElement(Route["a" /* default */], {
     exact: true,
     path: routes.orderDetails.path
-  }, /*#__PURE__*/react_default.a.createElement(aside, {
+  }, react_default.a.createElement(aside, {
     tiles: props.tiles,
     breadcrumbs: props.breadcrumbs
-  }, /*#__PURE__*/react_default.a.createElement(order_details, {
+  }, react_default.a.createElement(order_details, {
     config: props.orderDetails
-  }))), /*#__PURE__*/react_default.a.createElement(Route["a" /* default */], {
+  }))), react_default.a.createElement(Route["a" /* default */], {
     exact: true,
     path: routes.quoteHistory.path
-  }, /*#__PURE__*/react_default.a.createElement(aside, {
+  }, react_default.a.createElement(aside, {
     tiles: props.tiles,
     breadcrumbs: props.breadcrumbs
-  }, /*#__PURE__*/react_default.a.createElement(quote_history, {
+  }, react_default.a.createElement(quote_history, {
     configs: props.quoteHistory
-  }))), /*#__PURE__*/react_default.a.createElement(Route["a" /* default */], {
+  }))), react_default.a.createElement(Route["a" /* default */], {
     exact: true,
     path: routes.quoteDetails.path
-  }, /*#__PURE__*/react_default.a.createElement(aside, {
+  }, react_default.a.createElement(aside, {
     tiles: props.tiles,
     breadcrumbs: props.breadcrumbs
-  }, /*#__PURE__*/react_default.a.createElement(quote_details, {
+  }, react_default.a.createElement(quote_details, {
     config: props.quoteDetails
   })))));
 };
