@@ -9,21 +9,13 @@ import org.osgi.service.metatype.annotations.Designate;
 @Designate(ocd = SolrFullIndexConfiguration.class)
 public class SolrFullIndexConfigurationImpl {
 	
-	private String[] paths;
 	private String numShards;
 	private String replicationFactor;
 	
 	@Activate @Modified
 	protected void activate(final SolrFullIndexConfiguration solrFullIndexConfiguration) {
-		paths = solrFullIndexConfiguration.getPaths();
 		numShards = solrFullIndexConfiguration.getNumShards();
 		replicationFactor = solrFullIndexConfiguration.getReplicationFactor();
-	}
-	/**
-	 * @return the paths to be indexed
-	 */
-	public String[] getPaths() {
-		return paths;
 	}
 
 	/**
