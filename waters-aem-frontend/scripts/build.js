@@ -26,8 +26,10 @@ compiler.run((err, stats) => {
     console.log('Compiler Finished, moving files to AEM');
 
     for (let fileConfig of pathConfig.pathConfig) {
+        const buildPath = fileConfig.filePath ? fileConfig.filePath : fileConfig.fileName;
+        
         fs.rename(
-            path.resolve(__dirname, '../', 'build', fileConfig.fileName),
+            path.resolve(__dirname, '../', 'build', buildPath),
             path.resolve(
                 __dirname,
                 '../../',
