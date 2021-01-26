@@ -36,7 +36,7 @@ var fetch = __webpack_require__(40);
 
 
 
-var _Promise = typeof Promise === 'undefined' ? __webpack_require__(114).Promise : Promise;
+var _Promise = typeof Promise === 'undefined' ? __webpack_require__(112).Promise : Promise;
 
 
 
