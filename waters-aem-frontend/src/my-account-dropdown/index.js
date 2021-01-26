@@ -198,7 +198,7 @@ class MyAccountDropDown extends React.Component {
                     headerOverlay.classList.add(activeOverlay);
                 } else {
                     domElements.noScroll(true);
-                    if (this.header) {
+                    if (this.header && header && header.classList) {
                         header.classList.add('is-fixed');
                     }
                 }
@@ -212,14 +212,14 @@ class MyAccountDropDown extends React.Component {
                             if (!caller.classList.contains('top-bar__nav__mobile')) {
                                 // change scrolling unless needed next (ie hamburger menu)
                                 domElements.noScroll(false);
-                                if (this.header) {
+                                if (this.header && header && header.classList) {
                                     header.classList.remove('is-fixed');
                                 }
                             }
                         }
                     } else {
                         domElements.noScroll(false);
-                        if (this.header) {
+                        if (this.header && header && header.classList) {
                             header.classList.remove('is-fixed');
                         }
                     }

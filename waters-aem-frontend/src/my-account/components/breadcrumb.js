@@ -17,8 +17,10 @@ const Breadcrumb = (props) => {
         const handleResize = () => setIsMobile(ScreenSizes.isMobile());
         window.addEventListener('resize', handleResize);
         return () => {
-            window.removeEventListener('resize', handleResize);
-            breadcrumb.classList.remove('show');
+            if(breadcrumb && breadcrumb.classList) {
+                window.removeEventListener('resize', handleResize);
+                breadcrumb.classList.remove('show');
+            }
         };
     }, []);
 	

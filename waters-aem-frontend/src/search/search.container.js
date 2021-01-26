@@ -941,7 +941,7 @@ class SearchContainer extends Component {
         if (Object.entries(tabHistoryEntrySelected.searchParams).length === 0) {
             query.category = category;
             query.page = parameterDefaults.page;
-            query.sort = parameterDefaults.sort;
+            query.sort = this.state.sort || parameterDefaults.sort;
 
             delete query.content_type;
             delete query.facets;
