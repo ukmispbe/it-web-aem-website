@@ -107,7 +107,7 @@ public class DefaultSolrIndexClient implements SolrIndexClient {
                 .withConnectionTimeout(configuration.connectionTimeout())
                 .withSocketTimeout(configuration.socketTimeout()) .build();
       
-        LOG.info("created solr client, commit within : {}ms, hard commit : {}, collection : {}", commitWithinMs,
+        LOG.debug("created solr client, commit within : {}ms, hard commit : {}, collection : {}", commitWithinMs,
             hardCommit, collection);
     }
 	

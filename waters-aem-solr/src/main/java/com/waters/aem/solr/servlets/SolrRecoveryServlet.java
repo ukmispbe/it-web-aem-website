@@ -73,7 +73,7 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 		else {
 			forkJoinPool = new ForkJoinPool(AVAILABLE_PROCESSOR);
 		}
-		LOG.info("Available Processors : {}", AVAILABLE_PROCESSOR);
+		LOG.debug("Available Processors : {}", AVAILABLE_PROCESSOR);
 
 		boolean success = false;
 
@@ -83,12 +83,11 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 
 				success = false;
 			} else {
-				LOG.info("adding path to solr index : {}, including descendants : {}", pagePath,
+				LOG.debug("adding path to solr index : {}, including descendants : {}", pagePath,
 						includeDescendants);
 				if((boolean) props.get("enableBatchIndexing")) {
-
 					try {
-						success = addToIndex(page, includeDescendants,forkJoinPool, (int)props.get("documentsCount"));
+						success = addToIndex(page, includeDescendants,forkJoinPool, ((Number)props.get("documentsCount")).intValue());
 					} catch (InterruptedException | ExecutionException e) {
 						LOG.error("Indexing failed due to {}",e.getMessage());
 					}
@@ -98,7 +97,7 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 				}
 			}
 		} else {
-			LOG.info("deleting path from solr index : {}", pagePath);
+			LOG.debug("deleting path from solr index : {}", pagePath);
 
 			if (page == null) {
 				// page no longer exists, delete path from index
@@ -123,7 +122,7 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
 		long endTime = System.currentTimeMillis();
-		LOG.info("Total time taken to index {} : {} ms",pagePath, endTime-startTime);
+		LOG.debug("Total time taken to index {} : {} ms",pagePath, endTime-startTime);
 	}
 
 	private boolean addToIndex(final PageDecorator page, final boolean includeDescendants) {
@@ -172,7 +171,7 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 
 	private boolean addPageToIndex(final List<String> paths) {
 		boolean success;
-		LOG.info("addPageToIndex method called having page count {} : " ,paths.size());
+		LOG.debug("addPageToIndex method called having page count {} : " ,paths.size());
 		try {
 			success = solrIndexService.addPageToIndex(paths);
 		} catch (IOException | SolrServerException e) {
@@ -186,7 +185,7 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 
 	private boolean deletePageFromIndex(final List<String> paths) {
 		boolean success;
-		LOG.info("deletePageFromIndex method called having page count {} : " ,paths.size());
+		LOG.debug("deletePageFromIndex method called having page count {} : " ,paths.size());
 		try {
 			success = solrIndexService.deletePageFromIndex(paths);
 		} catch (IOException | SolrServerException e) {
