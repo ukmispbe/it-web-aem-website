@@ -2,13 +2,19 @@ import 'whatwg-fetch';
 import LocalStore from '../../stores/localStore';
 import loginStatus from '../../scripts/loginStatus';
 import { fetchData } from '../../utils/serviceFunctions';
-import { getCountryCode, getLanguage, getUserId } from '../../utils/userFunctions';
-import { isEprocurementUser, getEprocUserCountryCode, getEprocUserLanguage } from '../../utils/userFunctions';
+import {
+    getCountryCode,
+    getLanguage,
+    getUserId,
+    isEprocurementUser,
+    getEprocUserCountryCode,
+    getEprocUserLanguage
+} from '../../utils/userFunctions';
 
 const availabilityUrlRequest = (url, countryCode, partNo) => {
     url = url
-            .replace('{partnumber}', partNo)
-            .replace('{countryCode}', isEprocurementUser() ? getEprocUserCountryCode().toUpperCase() : countryCode);
+        .replace('{partnumber}', partNo)
+        .replace('{countryCode}', isEprocurementUser() ? getEprocUserCountryCode().toUpperCase() : countryCode);
 
     return url;
 }
@@ -42,22 +48,20 @@ const addToCartUrlRequest = (url, partNo, quantity, cartId) => {
 }
 
 export async function addToCart(isCommerceApiMigrated, url, partNo, quantity, throwError) {
-    if(isCommerceApiMigrated === 'true' || isCommerceApiMigrated === true) {
+    if (isCommerceApiMigrated === 'true' || isCommerceApiMigrated === true) {
         // Check if partNo is a single product or an array of products
         let products = '';
         if (Array.isArray(partNo)) {
-			products = {
-				products: partNo,
-			};
-			} else {
-			products = {
-				products: [
-				{
-					code: partNo,
-					quantity: quantity,
-				},
-				],
-			};
+            products = {
+                products: partNo,
+            };
+        } else {
+            products = {
+                products: [{
+                    code: partNo,
+                    quantity: quantity,
+                }, ],
+            };
         }
         const options = {
             method: 'POST',
@@ -73,28 +77,33 @@ export async function addToCart(isCommerceApiMigrated, url, partNo, quantity, th
 
         const urlRequest = addToCartUrlRequest(url, partNo, quantity, cartId);
         const response = await fetchData(urlRequest, options, throwError);
-        if(response.status === 200) {
+        if (response.status === 200) {
             const json = await response.json();
-            if(!cartId && json) {
+            if (!cartId && json) {
                 loginStatus.state() && json.cart.code && localStore.setCartId(json.cart.code);
                 !loginStatus.state() && json.cart.guid && localStore.setGUID(json.cart.guid);
             }
             return json;
 
-        } else if(response.status === 400) {
+        } else if (response.status === 400) {
             const json = await response.json();
             // if cartId or guid is no longer valid
-            if(json && json.errors && json.errors.length && json.errors[0].type === 'CartError') {
+            if (json && json.errors && json.errors.length && json.errors[0].type === 'CartError') {
                 loginStatus.state() && cartId && localStore.removeCartId();
                 !loginStatus.state() && cartId && localStore.removeGUID();
                 addToCart(isCommerceApiMigrated, url, partNo, quantity, throwError);
-            }
-            else{
-                throwError({status: 500, ok: false});
+            } else {
+                throwError({
+                    status: 500,
+                    ok: false
+                });
                 return response.status;
             }
         } else {
-            throwError({status: 500, ok: false});
+            throwError({
+                status: 500,
+                ok: false
+            });
             return response.status;
         }
 
@@ -140,14 +149,14 @@ export async function getPricing(url, sku, soldToId, salesOrg) {
 
     const urlRequest = priceUrlRequest(url, sku, soldToId, salesOrg);
     const response = await fetchData(urlRequest, options);
-	const json = await response.json();
+    const json = await response.json();
 
-	if(response.status === 200) {
-        json.status = 200;	
-	} else {	
-		json.status = response.status;
-	}
-	return json;
+    if (response.status === 200) {
+        json.status = 200;
+    } else {
+        json.status = response.status;
+    }
+    return json;
 }
 
 export const matchListItems = (skuListData, pricesAPIResults) => {
@@ -155,15 +164,15 @@ export const matchListItems = (skuListData, pricesAPIResults) => {
         code: skuListData
     }
 
-	for (let i = 0; i < pricesAPIResults.length; i++) {
-		if(skuListItem.code === pricesAPIResults[i].productNumber) {
-			skuListItem.custPrice = pricesAPIResults[i].netPrice.formattedValue;
-			skuListItem.custValue = pricesAPIResults[i].netPrice.value;
-			skuListItem.listPrice = pricesAPIResults[i].basePrice.formattedValue;
-			skuListItem.listValue = pricesAPIResults[i].basePrice.value;
-			skuListItem.currencyCode = pricesAPIResults[i].netPrice.currencyCode;
-		} 
-	}
+    for (let i = 0; i < pricesAPIResults.length; i++) {
+        if (skuListItem.code === pricesAPIResults[i].productNumber) {
+            skuListItem.custPrice = pricesAPIResults[i].netPrice.formattedValue;
+            skuListItem.custValue = pricesAPIResults[i].netPrice.value;
+            skuListItem.listPrice = pricesAPIResults[i].basePrice.formattedValue;
+            skuListItem.listValue = pricesAPIResults[i].basePrice.value;
+            skuListItem.currencyCode = pricesAPIResults[i].netPrice.currencyCode;
+        }
+    }
 
     return skuListItem;
 }
