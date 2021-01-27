@@ -9,6 +9,7 @@ export const isCartHidden = () => {
     const headerNavigation_cartLI = document.querySelector('.top-bar__nav__cart');    
     if (headerNavigation_cartLI) {
         eCommStatus = headerNavigation_cartLI.attributes["data-ecommerce-state"].value.toUpperCase();
+        this.setViewCartURL();
     }
     if (eCommStatus === "DISABLED") {
         return true;
@@ -20,7 +21,7 @@ export const isCartHidden = () => {
         if (loginStatus.state()) { 
             const store = new SessionStore();
             const soldToDetails = store.getSoldToDetails();
-            if (!soldToDetails  || soldToDetails.length   === 0) {
+            if (!soldToDetails  || soldToDetails.length === 0) {
                 return true;
             }
         }
@@ -37,6 +38,7 @@ export const isSignInHidden = () => {
     const headerNavigation_cartLI = document.querySelector('.top-bar__nav__cart');    
     if (headerNavigation_cartLI) {
         eCommStatus = headerNavigation_cartLI.attributes["data-ecommerce-state"].value.toUpperCase();
+        this.setViewCartURL();
     }
     if (eCommStatus === "DISABLED" || eCommStatus === "PARTIAL_ENABLED") {
         return true;
@@ -84,3 +86,16 @@ export const getCompanyLogo = (dir, company) => {
 
     return `${logoDir}/${logo}.png`;
 };
+
+export const buildViewCartURL = (url) => {
+    url = url
+        .replace('{localeCountry}', isEprocurementUser() ? getEprocUserCountryCode().toLowerCase() : getCountryCode())
+        .replace('{localeLanguage}', isEprocurementUser() ? getEprocUserLanguage().toLowerCase() : getLanguage())
+    return url;
+}
+
+export const setViewCartURL = () => {
+    let url = document.querySelector(".cmp-header-links__link").getAttribute("href");
+    url = this.buildViewCartURL(url);
+    document.querySelector(".cmp-header-links__link").attr("href", url);
+}

@@ -14,7 +14,7 @@ import { addToCart } from '../../sku-details/services';
 import Analytics, { analyticTypes } from '../../analytics';
 import LocalStore from '../../stores/localStore';
 import loginStatus from '../../scripts/loginStatus';
-import { getOrderDetailsAddress, getCountryName } from '../../utils/userFunctions'
+import { getOrderDetailsAddress, getCountryName, buildViewCartURL } from '../../utils/userFunctions'
 
 class OrderDetails extends Component {
     constructor({setErrorBoundaryToTrue, resetErrorBoundaryToFalse, removeNotifications, ...props}) {
@@ -147,14 +147,14 @@ class OrderDetails extends Component {
             this.setState({
                 isCommerceApiMigrated: JSON.parse(commerceConfig.isCommerceApiMigrated.toLowerCase()),
                 addToCartUrl: commerceConfig.addToCartUrl,
-                viewCartUrl: commerceConfig.viewCartUrl
+                viewCartUrl: buildViewCartURL(commerceConfig.viewCartUrl)
             });
             if(commerceConfig.isCommerceApiMigrated.toLowerCase() === 'true') {
                 // Update modal config button with a callback and new cart url
                 const buttons = [...this.state.modalConfig.buttons];
                 buttons[0] = {
                     ...buttons[0],
-                    action: commerceConfig.viewCartUrl,
+                    action: buildViewCartURL(commerceConfig.viewCartUrl),
                     callback: this.addToCartReorder
                 }
                 const updatedModalConfig = {
