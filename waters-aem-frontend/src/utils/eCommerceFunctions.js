@@ -94,7 +94,7 @@ export const getCompanyLogo = (dir, company) => {
     return `${logoDir}/${logo}.png`;
 };
 
-export const buildViewCartURL = (url) => {
+const buildViewCartURL = (url) => {
     url = url
         .replace('{localeCountry}', isEprocurementUser() ? getEprocUserCountryCode().toLowerCase() : getCountryCode())
         .replace('{localeLanguage}', isEprocurementUser() ? getEprocUserLanguage().toLowerCase() : getLanguage())
@@ -102,7 +102,8 @@ export const buildViewCartURL = (url) => {
 }
 
 export const setViewCartURL = () => {
-    let url = document.querySelector(".cmp-header-links__link").getAttribute("href");
-    url = this.buildViewCartURL(url);
-    document.querySelector(".cmp-header-links__link").attr("href", url);
+    let cartClass = ".top-bar__nav__cart .cmp-header-links__link";
+    let url = document.querySelector(cartClass).getAttribute("href");
+    url = buildViewCartURL(url);
+    document.querySelector(cartClass).setAttribute("href", url);
 }
