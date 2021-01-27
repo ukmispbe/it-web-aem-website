@@ -5,6 +5,7 @@ import { act } from 'react-dom/test-utils';
 import Form from '../form';
 import { signInConfig } from '../__mocks__/en_US/mockData';
 import mockBodyHTML from '../../__mocks__/en_US/html/mock-body-html';
+import { mockDigitalDataJSON } from '../../__mocks__/en_US/html/mock-html-json';
 
 import { checkRenderInput, 
     checkRenderPassword, 
@@ -14,6 +15,10 @@ import { checkRenderInput,
 const mockSubmitFn = jest.fn();
 const isocode = 'en_us';
 let wrapper;
+
+beforeAll(() => {
+    window.digitalData = mockDigitalDataJSON.html;
+});
 
 beforeEach(async () => {
     await act(async () => {

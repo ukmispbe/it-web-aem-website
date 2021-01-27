@@ -179,7 +179,7 @@ export const getFullCompanyAddress = (address, includeCountryName) => {
 
 export const getCountryName = (countryCode, config) => {
     if (!countryCode || countryCode.trim() === '') return '';
-    const fields = config.form.fields;
+    const fields = config.form ? config.form.fields : config.fields;
 
     const countryField = fields.filter(field => {
         return field.name === 'country';
@@ -209,7 +209,7 @@ export const getFullName = data => {
     }
 };
 
-//soldToInfo billToInfo shipToInfo payerInfo carrierInfo
+//Type Options: soldToInfo billToInfo shipToInfo payerInfo carrierInfo
 export const getAddressesByType = (addresses, type) => {
     let addressTypeData = [];
     for (let key of Object.keys(addresses)) {
@@ -247,6 +247,65 @@ export const getDefaultSoldToAddresses = (soldToAccounts) => {
     }
 }
 
+export const userDetailsAddresses = (addresses, addressType) => {
+    let userAddress = [];
+
+    if (addresses.length){
+        for (let i = 0; i < addresses.length; i++) {
+            if(addresses[i].addressType === addressType) {
+                let address = {
+                    name: addresses[i].company || "",
+                    address1 : addresses[i].address1 || "",
+                    address2: addresses[i].address2 || "",
+                    address3: addresses[i].address3 || "",
+                    street: addresses[i].street || "",
+                    street2: addresses[i].street2 || "",
+                    city: addresses[i].city || "",
+                    state: addresses[i].stateRegion || "",
+                    postalCode: addresses[i].zip || "",
+                    country: addresses[i].countryCode || "",
+                    addressType: addressType,
+                }
+
+                userAddress.push(address);
+            }
+        }
+    }
+    return userAddress;
+};
+
+export const createUserAddresses = (userDetails) => {
+    console.log(userDetails);
+    let addresses = userDetails.userAddress;
+
+    userDetails.addresses = {
+        billToInfo: userDetailsAddresses(addresses, "billingAddress"),
+        shipToInfo: userDetailsAddresses(addresses, "shippingAddress")
+    }
+
+    return userDetails;
+}
+
+//Type Options: soldToInfo billToInfo shipToInfo payerInfo carrierInfo
+export const matchUserToSoldToAddresses = (userDetailsAPIDetails, soldToAPIDetails) => {
+    userDetailsAPIDetails.soldToAccounts.forEach(account => {
+        for (let i = 0; i < soldToAPIDetails.length; i++) {
+            if(account.soldTo === soldToAPIDetails[i].customerNumber) {
+                account.company = soldToAPIDetails[i].name;
+                account.addresses = {
+                    'soldToInfo': soldToAPIDetails[i].soldToInfo || [],
+                    'billToInfo': soldToAPIDetails[i].billToInfo || [],
+                    'shipToInfo': soldToAPIDetails[i].shipToInfo || [],
+                    'payerInfo': soldToAPIDetails[i].payerInfo || []
+                };
+                console.log("matchUserToSoldToAddresses", account.addresses);
+            }
+        }
+    });
+
+    return userDetailsAPIDetails;
+}
+
 // Save only the User Details allowed
 export const filterUserDetails = (inputUser) => {
     let filteredUser = {};
@@ -264,6 +323,7 @@ export const filterUserDetails = (inputUser) => {
         filteredUser.approvalStatus = inputUser.approvalStatus;
         filteredUser.userRole = inputUser.userRole;
         filteredUser.isoCode = inputUser.isoCode;
+        filteredUser.shipOrBillChangeFlag = inputUser.shipOrBillChangeFlag;
 
         if (inputUser.soldToAccounts && inputUser.soldToAccounts.length !== 0) {
             filteredUser.soldToAccounts = inputUser.soldToAccounts;
@@ -361,25 +421,6 @@ export const getEprocUserLanguage = () => {
     const store = new SessionStore();
     const userDetails = store.getUserDetails();
     return userDetails.localeLanguage || '';
-}
-
-//soldToInfo billToInfo shipToInfo payerInfo carrierInfo
-export const matchAddresses = (userDetailsAPIDetails, soldToAPIDetails) => {
-    userDetailsAPIDetails.soldToAccounts.forEach(account => {
-        for (let i = 0; i < soldToAPIDetails.length; i++) {
-            if(account.soldTo === soldToAPIDetails[i].customerNumber) {
-                account.company = soldToAPIDetails[i].name;
-                account.addresses = {
-                    'soldToInfo': soldToAPIDetails[i].soldToInfo || [],
-                    'billToInfo': soldToAPIDetails[i].billToInfo || [],
-                    'shipToInfo': soldToAPIDetails[i].shipToInfo || [],
-                    'payerInfo': soldToAPIDetails[i].payerInfo || []
-                };
-            } 
-        }
-    });
-
-    return userDetailsAPIDetails;
 }
 
 export const getCategoryReferenceType = () => {

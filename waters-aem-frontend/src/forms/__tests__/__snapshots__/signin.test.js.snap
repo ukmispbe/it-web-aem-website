@@ -2,7 +2,8 @@
 
 exports[`Feature: Sign In Form Scenario: Rendering When initial render Then the snapshot should match 1`] = `
 <form
-  className="cmp-form cmp-form--registration"
+  className="cmp-form cmp-form--registration "
+  data-locator="form-component"
   onSubmit={[Function]}
 >
   <div
@@ -10,15 +11,26 @@ exports[`Feature: Sign In Form Scenario: Rendering When initial render Then the 
   >
     <label
       className=""
+      data-locator="email-address"
       htmlFor="email"
     >
       Email Address
+      <span
+        className="cmp-form-field--required"
+      >
+        *
+      </span>
     </label>
     <div
       className="cmp-form-field--input"
     >
       <input
+        aria-label="email"
+        aria-labelledby="email"
+        aria-required={true}
         className=""
+        data-locator="email"
+        id="email"
         name="email"
         onBlur={[Function]}
         onChange={[Function]}
@@ -48,15 +60,26 @@ exports[`Feature: Sign In Form Scenario: Rendering When initial render Then the 
   >
     <label
       className=""
+      data-locator="password"
       htmlFor="password"
     >
       Password
+      <span
+        className="cmp-form-field--required"
+      >
+        *
+      </span>
     </label>
     <div
       className="cmp-form-field--input"
     >
       <input
+        aria-label="password"
+        aria-labelledby="password"
+        aria-required={true}
         className=""
+        data-locator="password"
+        id="password"
         name="password"
         onBlur={[Function]}
         onChange={[Function]}
@@ -96,8 +119,9 @@ exports[`Feature: Sign In Form Scenario: Rendering When initial render Then the 
       className="cmp-form-field-link--forgotPassword "
     >
       <a
+        data-locator="having-trouble-signing-in?"
         href="/nextgen/be.html"
-        rel="noopener"
+        rel="noopener noreferrer"
         target=""
       >
         Having trouble signing in?
@@ -105,8 +129,8 @@ exports[`Feature: Sign In Form Scenario: Rendering When initial render Then the 
     </div>
   </div>
   <button
-    className="cmp-button cmp-button--no-border cmp-form--submit cmp-button--disabled"
-    disabled={true}
+    className="cmp-button cmp-button--no-border cmp-form--submit"
+    data-locator="form-submit"
     type="submit"
   >
     SIGN IN

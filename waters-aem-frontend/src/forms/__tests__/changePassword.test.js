@@ -3,8 +3,9 @@ import renderer from 'react-test-renderer';
 import { mount } from 'enzyme';
 import { act } from 'react-dom/test-utils';
 import Form from '../form';
-import mockBodyHTML from '../../__mocks__/en_US/html/mock-body-html';
 
+import mockBodyHTML from '../../__mocks__/en_US/html/mock-body-html';
+import { mockDigitalDataJSON } from '../../__mocks__/en_US/html/mock-html-json';
 import { changePasswordConfig } from '../__mocks__/en_US/mockData';
 import { checkRenderInput,
         checkRenderPassword, 
@@ -16,6 +17,10 @@ const mockSubmitFn = jest.fn();
 const isocode = 'en_us';
 
 let wrapper;
+
+beforeAll(() => {
+    window.digitalData = mockDigitalDataJSON.html;
+});
 
 beforeEach(async () => {
     await act(async () => {

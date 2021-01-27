@@ -30,7 +30,7 @@ const config = document.getElementById(
 //soldToInfo billToInfo shipToInfo payerInfo carrierInfo
 export default (data, type, icon) => {
     if (!data) return [];
-
+    console.log("generate Tiles data", data)
     switch (type) {
         case 'personal':
             let mailingAddress = data.userAddress.filter(function(i) {
@@ -81,13 +81,13 @@ export default (data, type, icon) => {
                     defaultValues: data
                 }
             ];
-
         case 'shipToInfo':
         case 'billToInfo':
-            let defaultSoldToAddresses = getDefaultSoldToAddresses(data.soldToAccounts);
+            let defaultAddresses = data.soldToAccounts.length ? getDefaultSoldToAddresses(data.soldToAccounts) : data.addresses;
+            console.log("defaultAddress", defaultAddresses);
             return [
-                ...getAddressesByType(defaultSoldToAddresses, type).map(address => {
-                    let tile = {
+                ...getAddressesByType(defaultAddresses, type).map(address => {
+                let tile = {
                         name: type,
                         columns: [
                             {
@@ -112,7 +112,7 @@ export default (data, type, icon) => {
                         defaultValues: address
                     };
 
-                    if (address.pending) {
+                    if (address.shipOrBillChangeFlag) {
                         tile.notification = newNotification(
                             'Address Verification Pending',
                             'Orders may be delayed',

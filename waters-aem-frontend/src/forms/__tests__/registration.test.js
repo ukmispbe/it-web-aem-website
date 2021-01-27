@@ -19,11 +19,17 @@ import { checkRenderInput,
         checkEventsCheckbox } from '../__utils__/utils';
 import mockBodyHTML from '../../__mocks__/en_US/html/mock-body-html';
 
+import { mockDigitalDataJSON } from '../../__mocks__/en_US/html/mock-html-json';
+
 const mockSubmitFn = jest.fn();
 const isocode = 'en_us';
 const sitekey = "6Ld5WMIUAAAAACZQvEc7I75aEg5AC8YUUO0W7zRG";
 
 let wrapper;
+
+beforeAll(() => {
+    window.digitalData = mockDigitalDataJSON.html;
+});
 
 beforeEach(async () => {
     await act(async () => {
@@ -97,7 +103,7 @@ describe('Feature: Registration Form', () => {
             });
 
             it('Then it should render a privacy textwithlinks field', async () => {
-                checkRenderTextWithLinks(wrapper, "privacy", "By clicking the CREATE ACCOUNT button, you are agreeing to our  Terms of Use  and understand that the information you have provided on this website will be used and processed by Waters in accordance with the  Waters Privacy Notice.");
+                checkRenderTextWithLinks(wrapper, "privacy", "By clicking the CREATE ACCOUNT button, you are agreeing to our Terms of Use  and understand that the information you have provided on this website will be used and processed by Waters in accordance with the  Waters Privacy Notice.");
             });
 
             const isDisabledButton = true;

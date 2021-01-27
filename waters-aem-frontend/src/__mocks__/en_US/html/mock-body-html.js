@@ -8,7 +8,8 @@ import {
 	globalTranslationsJSON,
 	countryListJSON,
 	commerceConfigsJSON,
-	accountModalConfigsJSON,
+    accountModalConfigsJSON,
+    mockDigitalDataJSON,
 } from './mock-html-json';
 
 const mockBodyHTML = `
@@ -22,43 +23,47 @@ const mockBodyHTML = `
     data-switch-account-url="/nextgen/us/en/account/switch-account.html">
 
     <script id="${myAccountJSON.configId}">
-    ${JSON.stringify(myAccountJSON.html)}
+        ${JSON.stringify(myAccountJSON.html)}
     </script>
 
     <script id="${detailTilesPersonalJSON.configId}">
-    ${JSON.stringify(detailTilesPersonalJSON.html)}
+        ${JSON.stringify(detailTilesPersonalJSON.html)}
     </script>
 
     <script id="${detailTilesBillingJSON.configId}">
-    ${JSON.stringify(detailTilesBillingJSON.html)}
+        ${JSON.stringify(detailTilesBillingJSON.html)}
     </script>
 
     <script id="${detailTilesShippingJSON.configId}">
-    ${JSON.stringify(detailTilesShippingJSON.html)}
+        ${JSON.stringify(detailTilesShippingJSON.html)}
     </script>
 
     <script id="${detailTilesAddressJSON.configId}">
-    ${JSON.stringify(detailTilesAddressJSON.html)}
+        ${JSON.stringify(detailTilesAddressJSON.html)}
     </script>
 
     <script id="${detailTilesChangePasswordJSON.configId}">
-    ${JSON.stringify(detailTilesChangePasswordJSON.html)}
+        ${JSON.stringify(detailTilesChangePasswordJSON.html)}
     </script>
 
     <script id="${globalTranslationsJSON.configId}">
-    ${JSON.stringify(globalTranslationsJSON.html)}
+        ${JSON.stringify(globalTranslationsJSON.html)}
     </script>
 
     <script id="${countryListJSON.configId}">
-    ${JSON.stringify(countryListJSON.html)}
+        ${JSON.stringify(countryListJSON.html)}
     </script>
 
     <script id="${commerceConfigsJSON.configId}">
-    ${JSON.stringify(commerceConfigsJSON.html)}
+        ${JSON.stringify(commerceConfigsJSON.html)}
     </script>
 
     <script id="${accountModalConfigsJSON.configId}">
-    ${JSON.stringify(accountModalConfigsJSON.html)}
+        ${JSON.stringify(accountModalConfigsJSON.html)}
+    </script>
+
+    <script id="${mockDigitalDataJSON.configId}">
+        ${JSON.stringify(mockDigitalDataJSON.html)}
     </script>
 `;
 

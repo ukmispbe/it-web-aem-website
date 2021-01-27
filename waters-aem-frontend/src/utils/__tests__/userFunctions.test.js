@@ -3,7 +3,7 @@ import defaultData from '../__mocks__/en_US/index';
 import mockBodyHTML from '../../__mocks__/en_US/html/mock-body-html';
 import { soldToDetailsJSON } from '../../__mocks__/en_US/services/mock-services-json';
 
-describe('Scenario getDefaultSoldTo Function', () => {
+describe('Scenario userFunctions Methods', () => {
 document.body.innerHTML = mockBodyHTML;
 
     describe('Scenario trimAndCapitalize Function', () => {
@@ -94,51 +94,86 @@ document.body.innerHTML = mockBodyHTML;
         });
     });
 
-    describe('Scenario getFullName Function', () => {
-        describe('When Provided With First and Last Name', () => {
-            const data = {
+    describe('Scenario getFullName Function', () => {    
+        // if (userCountry === 'jp' || userCountry === 'cn' || userCountry === 'kr' || userCountry === 'tw') {
+        describe('When User is from US', () => {  
+            let tmpNameData, expectedName;
+            let data = {
+                userAddress: {
+                    countryCode: "US",
+                    addressType: "mailingAddress"
+                },
                 firstName: "John",
                 lastName: "Doe"
-            };
-            const expectedName = "John Doe";
+            };  
+            describe('When Provided With First and Last Name', () => {
+                tmpNameData = {
+                    ...data
+                };
+                expectedName = "John Doe";
 
-            it("Then it should return both names as entered", () => {
-                const fullName = userFunctions.getFullName(data);
-                expect(fullName).toMatch(expectedName);
+                it("Then it should return both names as entered", () => {
+                    const fullName = userFunctions.getFullName(tmpNameData);
+                    expect(fullName).toMatch(expectedName);
+                });
+            });
+
+            describe('When Provided With First Name Only', () => {
+                tmpNameData = {
+                    ...data
+                };
+                delete tmpNameData.lastName;
+                expectedName = "John";
+
+                it("Then it should return only first name as entered", () => {
+                    const fullName = userFunctions.getFullName(tmpNameData);
+                    expect(fullName).toMatch(expectedName);
+                });
+            });
+
+            describe('When Provided With Last Name Only', () => {
+                tmpNameData = {
+                    ...data
+                };
+                delete tmpNameData.firstName;
+                expectedName = "Doe";
+
+                it("Then it should return only last name as entered", () => {
+                    const fullName = userFunctions.getFullName(tmpNameData);
+                    expect(fullName).toMatch(expectedName);
+                });
+            });
+
+            describe('When Provided With Neither', () => {
+                tmpNameData = {};
+                expectedName = "";
+
+                it("Then it should return an empty string", () => {
+                    const fullName = userFunctions.getFullName(tmpNameData);
+                    expect(fullName).toMatch(expectedName);
+                });
             });
         });
-
-        describe('When Provided With First Name Only', () => {
-            const data = {
-                firstName: "John"
-            };
-            const expectedName = "John";
-
-            it("Then it should return only first name as entered", () => {
-                const fullName = userFunctions.getFullName(data);
-                expect(fullName).toMatch(expectedName);
-            });
-        });
-
-        describe('When Provided With Last Name Only', () => {
-            const data = {
+        describe('When User is from Japan (JP)', () => {  
+            let tmpNameData, expectedName;
+            let data = {
+                userAddress: [{
+                    countryCode: "JP",
+                    addressType: "mailingAddress"
+                }],
+                firstName: "John",
                 lastName: "Doe"
-            };
-            const expectedName = "Doe";
+            };  
+            describe('When Provided With First and Last Name', () => {
+                tmpNameData = {
+                    ...data
+                };
+                expectedName = "Doe John";
 
-            it("Then it should return only last name as entered", () => {
-                const fullName = userFunctions.getFullName(data);
-                expect(fullName).toMatch(expectedName);
-            });
-        });
-
-        describe('When Provided With Neither', () => {
-            const data = {};
-            const expectedName = "";
-
-            it("Then it should return an empty string", () => {
-                const fullName = userFunctions.getFullName(data);
-                expect(fullName).toMatch(expectedName);
+                it("Then it should return last name then first name", () => {
+                    const fullName = userFunctions.getFullName(tmpNameData);
+                    expect(fullName).toMatch(expectedName);
+                });
             });
         });
     });
@@ -316,60 +351,136 @@ document.body.innerHTML = mockBodyHTML;
     });
 
     describe('Scenario getAddressesByType Function', () => {
-        const addresses = [{
-                id: 0,
-                addressType: "shipping"
-            },
-            {
-                id: 1,
-                addressType: "shipping"
-            },
-            {
-                id: 5,
-                addressType: "billing"
-            },
-            {
-                id: 2,
-                addressType: "shipping"
-            },
-            {
-                id: 3,
-                addressType: "billing"
-            },
-            {
-                id: 4,
-                addressType: "mailing"
-            },
-        ];
+        const addresses = {
+            "soldToInfo": [{
+                "name": "Address1"
+            }],
+            "billToInfo": [{
+                "name": "Address2"
+            }, {
+                "name": "Address3"
+            }],
+            "shipToInfo": [{
+                "name": "Address4"
+            }, {
+                "name": "Address5"
+            }, {
+                "name": "Address6"
+            }],
+            "payerInfo": [{
+                "name": "Address7"
+            }]
+        };
 
-        describe('When Given Type Shipping', () => {
-            it('Then it should only return addresses with type shipping', () => {
-                const newAddresses = userFunctions.getAddressesByType(addresses, "shipping");
+        // let addresses = {
+        //     "soldToInfo": [
+        //       {
+        //         "partnerNumber": "W8IfyyXIEaCpaXS9ZlRiwQ==",
+        //         "isDefault": false,
+        //         "name": "ASTRAZENECA PHARMACEUTICALS LP",
+        //         "address1": "Master Name 2",
+        //         "address2": "Master Name 3",
+        //         "address3": "Master Name 5",
+        //         "street": "Master - Street 1 331 CLAY RD",
+        //         "street2": "Master - Street 4 Robinson envlave",
+        //         "city": "ROCHESTER",
+        //         "postBoxNumber": "989",
+        //         "district": "MONROE",
+        //         "state": "NY",
+        //         "stateName": "New York",
+        //         "postalCode": "14623-3226",
+        //         "country": "US",
+        //         "countryName": "USA"
+        //       }
+        //     ],
+        //     "billToInfo": [
+        //       {
+        //         "partnerNumber": "enQcKCKHfIXyqLfdlWsnMA==",
+        //         "isDefault": true,
+        //         "name": "ASTRAZENECA",
+        //         "address2": "ACCOUNTS PAYABLE",
+        //         "street": "PO BOX 15250",
+        //         "city": "WILMINGTON",
+        //         "postBoxNumber": "15250",
+        //         "district": "NEW CASTLE",
+        //         "state": "DE",
+        //         "stateName": "Delaware",
+        //         "postalCode": "19850-5250",
+        //         "country": "US",
+        //         "countryName": "USA"
+        //       }
+        //     ],
+        //     "shipToInfo": [
+        //       {
+        //         "partnerNumber": "W8IfyyXIEaCpaXS9ZlRiwQ==",
+        //         "isDefault": true,
+        //         "name": "ASTRAZENECA PHARMACEUTICALS LP",
+        //         "address1": "Master Name 2",
+        //         "address2": "Master Name 3",
+        //         "address3": "Master Name 5",
+        //         "street": "Master - Street 1 331 CLAY RD",
+        //         "street2": "Master - Street 4 Robinson envlave",
+        //         "city": "ROCHESTER",
+        //         "postBoxNumber": "989",
+        //         "district": "MONROE",
+        //         "state": "NY",
+        //         "stateName": "New York",
+        //         "postalCode": "14623-3226",
+        //         "country": "US",
+        //         "countryName": "USA"
+        //       }
+        //     ],
+        //     "payerInfo": [
+        //       {
+        //         "partnerNumber": "enQcKCKHfIXyqLfdlWsnMA==",
+        //         "isDefault": true,
+        //         "name": "ASTRAZENECA",
+        //         "address2": "ACCOUNTS PAYABLE",
+        //         "street": "PO BOX 15250",
+        //         "city": "WILMINGTON",
+        //         "postBoxNumber": "15250",
+        //         "district": "NEW CASTLE",
+        //         "state": "DE",
+        //         "stateName": "Delaware",
+        //         "postalCode": "19850-5250",
+        //         "country": "US",
+        //         "countryName": "USA"
+        //       }
+        //     ]
+        //   };
 
+        describe('When Given Type shipToInfo', () => {
+            it('Then it should only return addresses with type shipToInfo', () => {
+                const newAddresses = userFunctions.getAddressesByType(addresses, "shipToInfo");
                 expect(newAddresses).toHaveLength(3);
-
-                newAddresses.forEach(address => {
-                    expect(address.addressType).toMatch("shipping");
-                });
             });
         });
 
-        describe('When Given Type Billing', () => {
-            it('Then it should only return addresses with type billing', () => {
-                const newAddresses = userFunctions.getAddressesByType(addresses, "billing");
-
+        describe('When Given Type billToInfo', () => {
+            it('Then it should only return addresses with type billToInfo', () => {
+                const newAddresses = userFunctions.getAddressesByType(addresses, "billToInfo");
                 expect(newAddresses).toHaveLength(2);
+            });
+        });
 
-                newAddresses.forEach(address => {
-                    expect(address.addressType).toMatch("billing");
-                });
+        describe('When Given Type soldToInfo', () => {
+            it('Then it should only return addresses with type soldToInfo', () => {
+                const newAddresses = userFunctions.getAddressesByType(addresses, "soldToInfo");
+                expect(newAddresses).toHaveLength(1);
+            });
+        });
+        
+
+        describe('When Given Type payerInfo', () => {
+            it('Then it should only return addresses with type payerInfo', () => {
+                const newAddresses = userFunctions.getAddressesByType(addresses, "payerInfo");
+                expect(newAddresses).toHaveLength(1);
             });
         });
 
         describe('When Given Invalid Type', () => {
             it('Then it should only return an empty array', () => {
                 const newAddresses = userFunctions.getAddressesByType(addresses, "invalidType");
-
                 expect(newAddresses).toHaveLength(0);
             });
         });
@@ -377,10 +488,10 @@ document.body.innerHTML = mockBodyHTML;
         describe('When Given No Address', () => {
             let newAddresses;
             it('Then it should return an empty array', () => {
-                newAddresses = userFunctions.getAddressesByType([], "billing");
+                newAddresses = userFunctions.getAddressesByType([], "billToInfo");
                 expect(newAddresses).toHaveLength(0);
 
-                newAddresses = userFunctions.getAddressesByType([], "shipping");
+                newAddresses = userFunctions.getAddressesByType([], "shipToInfo");
                 expect(newAddresses).toHaveLength(0);
             });
         });

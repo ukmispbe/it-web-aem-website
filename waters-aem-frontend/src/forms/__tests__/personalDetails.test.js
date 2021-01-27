@@ -11,11 +11,17 @@ import { checkRenderInput,
         checkEventsInput, 
         checkEventsCheckbox } from '../__utils__/utils';
 import mockBodyHTML from '../../__mocks__/en_US/html/mock-body-html';
+import { mockDigitalDataJSON } from '../../__mocks__/en_US/html/mock-html-json';
 
 const mockSubmitFn = jest.fn();
 const isocode = 'en_us';
 
 let wrapper;
+
+beforeAll(() => {
+    window.digitalData = mockDigitalDataJSON.html;
+});
+
 beforeEach(async () => {
     await act(async () => {
         wrapper = mount(<Form config={personalConfig} submitFn={mockSubmitFn} isocode={isocode} />);
