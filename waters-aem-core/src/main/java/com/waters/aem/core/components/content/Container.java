@@ -1,10 +1,8 @@
 package com.waters.aem.core.components.content;
 
 import com.adobe.cq.export.json.ExporterConstants;
-import com.day.cq.dam.api.Asset;
-import com.adobe.granite.asset.api.AssetManager;
 import com.citytechinc.cq.component.annotations.Component;
-import com.day.cq.dam.api.Rendition;
+import com.day.cq.dam.api.Asset;
 import com.day.cq.dam.commons.util.PrefixRenditionPicker;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
@@ -15,10 +13,7 @@ import org.apache.sling.models.annotations.Via;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 import org.apache.sling.models.annotations.via.ResourceSuperType;
 
-import javax.annotation.Nonnull;
 import javax.inject.Inject;
-import java.util.Iterator;
-import java.util.List;
 
 @Component(value = "Container",
         description = "Container component, used to group other components and apply a common style or layout.",
