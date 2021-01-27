@@ -19,17 +19,14 @@ const buildAddress = address => {
     return addressArray.map((x, i) => <div key={i + 1}>{x}</div>);
 }
 
-const config = document.getElementById(
-    'json-config--cmp-detail-tiles--personal'
-)
-    ? JSON.parse(
-        document.getElementById('json-config--cmp-detail-tiles--personal')
-            .innerHTML
-    )
-    : '';
+
 //soldToInfo billToInfo shipToInfo payerInfo carrierInfo
 export default (data, type, icon) => {
     if (!data) return [];
+
+    const config = document.getElementById('json-config--cmp-detail-tiles--personal')
+    ? JSON.parse(document.getElementById('json-config--cmp-detail-tiles--personal').innerHTML)
+    : '';
     console.log("generate Tiles data", data)
     switch (type) {
         case 'personal':

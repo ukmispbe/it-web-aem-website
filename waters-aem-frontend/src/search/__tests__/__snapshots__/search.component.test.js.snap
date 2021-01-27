@@ -1,0 +1,450 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Feature: Search Component Scenario: Rendering When searching by Category only Then it should match snapshot 1`] = `
+Array [
+  <nav
+    class="cmp-breadcrumb"
+  >
+    <ol
+      class="cmp-breadcrumb__list fader-fade"
+      id="searchBreadcrumb"
+      itemscope=""
+      itemtype="http://schema.org/BreadcrumbList"
+    >
+      <div
+        class="fader-container fader-container--left"
+        style={
+          Object {
+            "width": "0px",
+          }
+        }
+      />
+      <li
+        className="cmp-breadcrumb__item"
+        itemprop="itemListElement"
+        itemscope=""
+        itemtype="http://schema.org/ListItem"
+      >
+        <a
+          className="cmp-breadcrumb__item-link"
+          href="/nextgen/us/en.html"
+        >
+          <span
+            itemprop="name"
+          >
+            <span>
+              Home
+            </span>
+          </span>
+        </a>
+      </li>
+      <li
+        className="cmp-breadcrumb__item"
+        itemprop="itemListElement"
+        itemscope=""
+        itemtype="http://schema.org/ListItem"
+      >
+        <a
+          className="cmp-breadcrumb__item-link"
+          onClick={[Function]}
+        >
+          <span
+            itemprop="name"
+          >
+            <span>
+              Search
+            </span>
+          </span>
+        </a>
+      </li>
+      <div
+        class="fader-container fader-container--right"
+        style={
+          Object {
+            "width": "65px",
+          }
+        }
+      />
+    </ol>
+  </nav>,
+  <div>
+    <div
+      className="overlay"
+    />
+    <div
+      className="container__left cmp-search__sort-filter"
+      data-locator="left-container-filter"
+    >
+      <div
+        className="cmp-category-wrapper"
+      >
+        <div>
+          <h3>
+            Category
+          </h3>
+        </div>
+        <div
+          className="cmp-category-items"
+        />
+        <hr
+          className="cmp-category-separator h-large"
+        />
+      </div>
+      <div
+        className="cmp-search-hide-btn clearfix"
+      >
+        <a
+          className="btn-hide-sort-filter"
+          data-locator="link-hide-search-button"
+          href="javascript:void(0);"
+          onClick={[MockFunction]}
+        >
+          <div />
+          Sort and Filter
+        </a>
+      </div>
+      <div
+        className="cmp-search-apply-btn"
+      >
+        <a
+          className="btn-apply-sort-filter"
+          data-locator="link-search-apply-button"
+          href="javascript:void(0);"
+          onClick={[Function]}
+        >
+          Show 0 Results
+        </a>
+      </div>
+      <div
+        className="cmp-search-done-btn"
+      >
+        <a
+          className="btn-done-sort-filter"
+          data-locator="link-done-sort-filter"
+          href="javascript:void(0);"
+          onClick={[Function]}
+        >
+          Done
+        </a>
+      </div>
+      <div
+        className="cmp-search__sort-filter__container"
+      >
+        <div
+          className="content-type-menu-container"
+        >
+          <div
+            className="content-type-menu-container__heading"
+          >
+            filter By
+          </div>
+          <div
+            className="content-type-menu-container__body"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="cmp-search__container"
+    >
+      <div
+        className="cmp-search__container__header clearfix"
+      >
+        <div
+          className="cmp-search__resultsCount"
+          data-locator="results-count"
+        >
+          <div
+            class="query-box"
+          >
+            <span
+              class="results"
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "Showing <span class='count'>0</span> results",
+                }
+              }
+            />
+          </div>
+          <hr
+            className="small-accent-rule"
+          />
+        </div>
+        <div
+          className="cmp-search-show-btn"
+        >
+          <a
+            className="btn-show-sort-filter"
+            href="javascript:void(0);"
+            onClick={[Function]}
+          >
+            <div
+              className="filterIcon"
+            />
+            <div
+              className="closeIcon"
+            />
+            Sort and Filter
+          </a>
+        </div>
+        <div
+          className="cmp-search__sorted-by"
+        >
+          Sorted by
+          :
+           
+          Most Recent
+        </div>
+      </div>
+      <div
+        className="cmp-search__sorted-container"
+      >
+        <div
+          className="cmp-search-filters__emptytags"
+        />
+      </div>
+    </div>
+  </div>,
+]
+`;
+
+exports[`Feature: Search Component Scenario: Rendering When searching by Content Type Then it should match snapshot 1`] = `
+Array [
+  <nav
+    class="cmp-breadcrumb"
+  >
+    <ol
+      class="cmp-breadcrumb__list fader-fade"
+      id="searchBreadcrumb"
+      itemscope=""
+      itemtype="http://schema.org/BreadcrumbList"
+    >
+      <div
+        class="fader-container fader-container--left"
+        style={
+          Object {
+            "width": "0px",
+          }
+        }
+      />
+      <li
+        className="cmp-breadcrumb__item"
+        itemprop="itemListElement"
+        itemscope=""
+        itemtype="http://schema.org/ListItem"
+      >
+        <a
+          className="cmp-breadcrumb__item-link"
+          href="/nextgen/us/en.html"
+        >
+          <span
+            itemprop="name"
+          >
+            <span>
+              Home
+            </span>
+          </span>
+        </a>
+      </li>
+      <li
+        className="cmp-breadcrumb__item"
+        itemprop="itemListElement"
+        itemscope=""
+        itemtype="http://schema.org/ListItem"
+      >
+        <a
+          className="cmp-breadcrumb__item-link"
+          onClick={[Function]}
+        >
+          <span
+            itemprop="name"
+          >
+            <span>
+              Search
+            </span>
+          </span>
+        </a>
+      </li>
+      <div
+        class="fader-container fader-container--right"
+        style={
+          Object {
+            "width": "65px",
+          }
+        }
+      />
+    </ol>
+  </nav>,
+  <div>
+    <div
+      className="overlay"
+    />
+    <div
+      className="container__left cmp-search__sort-filter"
+      data-locator="left-container-filter"
+    >
+      <div
+        className="cmp-category-wrapper"
+      >
+        <div>
+          <h3>
+            Category
+          </h3>
+        </div>
+        <div
+          className="cmp-category-items"
+        />
+        <hr
+          className="cmp-category-separator h-large"
+        />
+      </div>
+      <div
+        className="cmp-search-hide-btn clearfix"
+      >
+        <a
+          className="btn-hide-sort-filter"
+          data-locator="link-hide-search-button"
+          href="javascript:void(0);"
+          onClick={[MockFunction]}
+        >
+          <div />
+          Sort and Filter
+        </a>
+      </div>
+      <div
+        className="cmp-search-apply-btn"
+      >
+        <a
+          className="btn-apply-sort-filter"
+          data-locator="link-search-apply-button"
+          href="javascript:void(0);"
+          onClick={[Function]}
+        >
+          Show 0 Results
+        </a>
+      </div>
+      <div
+        className="cmp-search-done-btn"
+      >
+        <a
+          className="btn-done-sort-filter"
+          data-locator="link-done-sort-filter"
+          href="javascript:void(0);"
+          onClick={[Function]}
+        >
+          Done
+        </a>
+      </div>
+      <div
+        className="cmp-search__sort-filter__container"
+      >
+        <div
+          className="facet-menu-container"
+          data-locator="facet-menu-container"
+        >
+          <div
+            className="facet-menu-container__heading"
+            data-locator="facet-menu-container-heading"
+          >
+            <div
+              className="cmp-search-filters__emptytags"
+            />
+            <div
+              className="heading--with-selected-value"
+              data-locator="heading-with-selected-value"
+            >
+              <div
+                className="back-btn"
+              >
+                <a
+                  data-locator="link-back-button"
+                  href="javascript:void(0)"
+                  onClick={[MockFunction]}
+                >
+                  <div />
+                   
+                  
+                </a>
+              </div>
+              <h3>
+                
+              </h3>
+            </div>
+          </div>
+          <div
+            className="facet-menu-container__body"
+            data-locator="facet-menu-container-body"
+          >
+            <div
+              className="cmp-search-filters"
+              id="js-search-filters"
+            >
+              <ul />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="cmp-search__container"
+    >
+      <div
+        className="cmp-search__container__header clearfix"
+      >
+        <div
+          className="cmp-search__resultsCount"
+          data-locator="results-count"
+        >
+          <div
+            class="query-box"
+          >
+            <span
+              class="results"
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "Showing <span class='count'>0</span> results",
+                }
+              }
+            />
+          </div>
+          <hr
+            className="small-accent-rule"
+          />
+        </div>
+        <div
+          className="cmp-search-show-btn"
+        >
+          <a
+            className="btn-show-sort-filter"
+            href="javascript:void(0);"
+            onClick={[Function]}
+          >
+            <div
+              className="filterIcon"
+            />
+            <div
+              className="closeIcon"
+            />
+            Sort and Filter
+          </a>
+        </div>
+        <div
+          className="cmp-search__sorted-by"
+        >
+          Sorted by
+          :
+           
+          Most Recent
+        </div>
+      </div>
+      <div
+        className="cmp-search__sorted-container"
+      >
+        <div
+          className="cmp-search-filters__emptytags"
+        />
+      </div>
+    </div>
+  </div>,
+]
+`;

@@ -3,14 +3,15 @@ import generateTiles from '../generateTiles';
 import {
     mockProfileData,
 	defaultProps,
-	generateTilesJSON,
 	personalTileJSON,
 	shippingTileJSON,
     billingTileJSON,
     passwordTileJSON }
     from '../../__mocks__/en_US/index';
+    import mockBodyHTML from '../../../__mocks__/en_US/html/mock-body-html';
 
 describe('Scenario Generating Tile With Proper Information', () => {
+    document.body.innerHTML = mockBodyHTML;
 
     // Personal Tile
     describe('When Type is Personal', () => {
@@ -79,7 +80,7 @@ describe('Scenario Generating Tile With Proper Information', () => {
 describe('Scenario Generating Tile With Improper Information', () => {
     describe('When Type is Invalid', () => {
         it('Then is should return an empty array', () => {
-            const tiles = generateTiles(generateTilesJSON, "invalid", defaultProps.icon);
+            const tiles = generateTiles(mockProfileData, "invalid", defaultProps.icon);
 
             expect(tiles).toHaveLength(0);
         });

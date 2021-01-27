@@ -103,7 +103,7 @@ describe('Feature: Registration Form', () => {
             });
 
             it('Then it should render a privacy textwithlinks field', async () => {
-                checkRenderTextWithLinks(wrapper, "privacy", "By clicking the CREATE ACCOUNT button, you are agreeing to our Terms of Use  and understand that the information you have provided on this website will be used and processed by Waters in accordance with the  Waters Privacy Notice.");
+                checkRenderTextWithLinks(wrapper, "privacy", "By clicking the CREATE ACCOUNT button, you are agreeing to our Terms of Use and understand that the information you have provided on this website will be used and processed by Waters in accordance with the Waters Privacy Notice.");
             });
 
             const isDisabledButton = true;

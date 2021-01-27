@@ -197,7 +197,7 @@ export const getCountryName = (countryCode, config) => {
 };
 
 export const getFullName = data => {
-    const mailingAddress = data.userAddress.filter(address => address.addressType === 'mailingAddress');
+    const mailingAddress = data.userAddress ? data.userAddress.filter(address => address.addressType === 'mailingAddress') : [];
     const userCountry = mailingAddress.length ? mailingAddress[0].countryCode.toLowerCase() : '';
     const firstName = data.firstName ? data.firstName.trim() : '';
     const lastName = data.lastName ? data.lastName.trim() : '';

@@ -498,13 +498,13 @@ document.body.innerHTML = mockBodyHTML;
     });
 
     describe('Scenario getDefaultSoldTo Function', () => {
-        const soldToAccounts = soldToDetailsJSON.customers;
+        const soldToAccounts = defaultData.soldToAccounts;
 
         describe('When Provided With Sold To Account Data', () => {
             it('Then it should return only the Default Sold To Data', () => {
                 const defaultSoldTo = userFunctions.getDefaultSoldTo(soldToAccounts);
 
-                expect(defaultSoldTo).toStrictEqual(soldToAccounts.customers[0]);
+                expect(defaultSoldTo).toStrictEqual(soldToAccounts[0]);
             });
         });
 

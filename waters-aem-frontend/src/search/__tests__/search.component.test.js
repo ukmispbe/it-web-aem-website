@@ -4,8 +4,10 @@ import { shallow } from 'enzyme';
 import props from '../__mocks__/en_US';
 import { defaultProps } from '../search.component.props';
 import SearchComponent from '../search.component';
+import mockBodyHTML from '../../__mocks__/en_US/html/mock-body-html'
 
 describe("Feature: Search Component", () => {
+    document.body.innerHTML = mockBodyHTML;
     beforeAll(() => {
         window.matchMedia = jest.fn(() => {
             return {
@@ -21,6 +23,7 @@ describe("Feature: Search Component", () => {
     const propsMock = {
         ...defaultProps,
         text: props.searchText,
+        skuConfig: props.skuConfig,
         filterMap: props.filterMap,
         categoryEvents: {
             onCategoryTabClick: jest.fn(),

@@ -567,13 +567,13 @@ Array [
               >
                 <form>
                   <input
-                    aria-label=""
+                    aria-label="Quantity"
                     className="cmp-sku-details__quantity"
                     data-locator="input-sku-qty"
                     onChange={[Function]}
                     onKeyPress={[Function]}
                     placeholder="Qty"
-                    value={null}
+                    value={1}
                   />
                 </form>
                 <a
@@ -662,13 +662,13 @@ Array [
               >
                 <form>
                   <input
-                    aria-label=""
+                    aria-label="Quantity"
                     className="cmp-sku-details__quantity"
                     data-locator="input-sku-qty"
                     onChange={[Function]}
                     onKeyPress={[Function]}
                     placeholder="Qty"
-                    value={null}
+                    value={1}
                   />
                 </form>
                 <a
@@ -757,13 +757,13 @@ Array [
               >
                 <form>
                   <input
-                    aria-label=""
+                    aria-label="Quantity"
                     className="cmp-sku-details__quantity"
                     data-locator="input-sku-qty"
                     onChange={[Function]}
                     onKeyPress={[Function]}
                     placeholder="Qty"
-                    value={null}
+                    value={1}
                   />
                 </form>
                 <a
@@ -852,13 +852,13 @@ Array [
               >
                 <form>
                   <input
-                    aria-label=""
+                    aria-label="Quantity"
                     className="cmp-sku-details__quantity"
                     data-locator="input-sku-qty"
                     onChange={[Function]}
                     onKeyPress={[Function]}
                     placeholder="Qty"
-                    value={null}
+                    value={1}
                   />
                 </form>
                 <a
@@ -947,13 +947,13 @@ Array [
               >
                 <form>
                   <input
-                    aria-label=""
+                    aria-label="Quantity"
                     className="cmp-sku-details__quantity"
                     data-locator="input-sku-qty"
                     onChange={[Function]}
                     onKeyPress={[Function]}
                     placeholder="Qty"
-                    value={null}
+                    value={1}
                   />
                 </form>
                 <a
@@ -1042,13 +1042,13 @@ Array [
               >
                 <form>
                   <input
-                    aria-label=""
+                    aria-label="Quantity"
                     className="cmp-sku-details__quantity"
                     data-locator="input-sku-qty"
                     onChange={[Function]}
                     onKeyPress={[Function]}
                     placeholder="Qty"
-                    value={null}
+                    value={1}
                   />
                 </form>
                 <a
@@ -1137,13 +1137,13 @@ Array [
               >
                 <form>
                   <input
-                    aria-label=""
+                    aria-label="Quantity"
                     className="cmp-sku-details__quantity"
                     data-locator="input-sku-qty"
                     onChange={[Function]}
                     onKeyPress={[Function]}
                     placeholder="Qty"
-                    value={null}
+                    value={1}
                   />
                 </form>
                 <a
@@ -1232,13 +1232,13 @@ Array [
               >
                 <form>
                   <input
-                    aria-label=""
+                    aria-label="Quantity"
                     className="cmp-sku-details__quantity"
                     data-locator="input-sku-qty"
                     onChange={[Function]}
                     onKeyPress={[Function]}
                     placeholder="Qty"
-                    value={null}
+                    value={1}
                   />
                 </form>
                 <a
@@ -1327,13 +1327,13 @@ Array [
               >
                 <form>
                   <input
-                    aria-label=""
+                    aria-label="Quantity"
                     className="cmp-sku-details__quantity"
                     data-locator="input-sku-qty"
                     onChange={[Function]}
                     onKeyPress={[Function]}
                     placeholder="Qty"
-                    value={null}
+                    value={1}
                   />
                 </form>
                 <a
@@ -1422,13 +1422,13 @@ Array [
               >
                 <form>
                   <input
-                    aria-label=""
+                    aria-label="Quantity"
                     className="cmp-sku-details__quantity"
                     data-locator="input-sku-qty"
                     onChange={[Function]}
                     onKeyPress={[Function]}
                     placeholder="Qty"
-                    value={null}
+                    value={1}
                   />
                 </form>
                 <a
@@ -1517,13 +1517,13 @@ Array [
               >
                 <form>
                   <input
-                    aria-label=""
+                    aria-label="Quantity"
                     className="cmp-sku-details__quantity"
                     data-locator="input-sku-qty"
                     onChange={[Function]}
                     onKeyPress={[Function]}
                     placeholder="Qty"
-                    value={null}
+                    value={1}
                   />
                 </form>
                 <a
@@ -1612,13 +1612,13 @@ Array [
               >
                 <form>
                   <input
-                    aria-label=""
+                    aria-label="Quantity"
                     className="cmp-sku-details__quantity"
                     data-locator="input-sku-qty"
                     onChange={[Function]}
                     onKeyPress={[Function]}
                     placeholder="Qty"
-                    value={null}
+                    value={1}
                   />
                 </form>
                 <a
@@ -1707,13 +1707,13 @@ Array [
               >
                 <form>
                   <input
-                    aria-label=""
+                    aria-label="Quantity"
                     className="cmp-sku-details__quantity"
                     data-locator="input-sku-qty"
                     onChange={[Function]}
                     onKeyPress={[Function]}
                     placeholder="Qty"
-                    value={null}
+                    value={1}
                   />
                 </form>
                 <a
@@ -1802,13 +1802,13 @@ Array [
               >
                 <form>
                   <input
-                    aria-label=""
+                    aria-label="Quantity"
                     className="cmp-sku-details__quantity"
                     data-locator="input-sku-qty"
                     onChange={[Function]}
                     onKeyPress={[Function]}
                     placeholder="Qty"
-                    value={null}
+                    value={1}
                   />
                 </form>
                 <a
@@ -1954,13 +1954,13 @@ Array [
               >
                 <form>
                   <input
-                    aria-label=""
+                    aria-label="Quantity"
                     className="cmp-sku-details__quantity"
                     data-locator="input-sku-qty"
                     onChange={[Function]}
                     onKeyPress={[Function]}
                     placeholder="Qty"
-                    value={null}
+                    value={1}
                   />
                 </form>
                 <a
@@ -2049,13 +2049,13 @@ Array [
               >
                 <form>
                   <input
-                    aria-label=""
+                    aria-label="Quantity"
                     className="cmp-sku-details__quantity"
                     data-locator="input-sku-qty"
                     onChange={[Function]}
                     onKeyPress={[Function]}
                     placeholder="Qty"
-                    value={null}
+                    value={1}
                   />
                 </form>
                 <a
@@ -2144,13 +2144,13 @@ Array [
               >
                 <form>
                   <input
-                    aria-label=""
+                    aria-label="Quantity"
                     className="cmp-sku-details__quantity"
                     data-locator="input-sku-qty"
                     onChange={[Function]}
                     onKeyPress={[Function]}
                     placeholder="Qty"
-                    value={null}
+                    value={1}
                   />
                 </form>
                 <a
@@ -2239,13 +2239,13 @@ Array [
               >
                 <form>
                   <input
-                    aria-label=""
+                    aria-label="Quantity"
                     className="cmp-sku-details__quantity"
                     data-locator="input-sku-qty"
                     onChange={[Function]}
                     onKeyPress={[Function]}
                     placeholder="Qty"
-                    value={null}
+                    value={1}
                   />
                 </form>
                 <a
@@ -2334,13 +2334,13 @@ Array [
               >
                 <form>
                   <input
-                    aria-label=""
+                    aria-label="Quantity"
                     className="cmp-sku-details__quantity"
                     data-locator="input-sku-qty"
                     onChange={[Function]}
                     onKeyPress={[Function]}
                     placeholder="Qty"
-                    value={null}
+                    value={1}
                   />
                 </form>
                 <a
@@ -2429,13 +2429,13 @@ Array [
               >
                 <form>
                   <input
-                    aria-label=""
+                    aria-label="Quantity"
                     className="cmp-sku-details__quantity"
                     data-locator="input-sku-qty"
                     onChange={[Function]}
                     onKeyPress={[Function]}
                     placeholder="Qty"
-                    value={null}
+                    value={1}
                   />
                 </form>
                 <a
@@ -2524,13 +2524,13 @@ Array [
               >
                 <form>
                   <input
-                    aria-label=""
+                    aria-label="Quantity"
                     className="cmp-sku-details__quantity"
                     data-locator="input-sku-qty"
                     onChange={[Function]}
                     onKeyPress={[Function]}
                     placeholder="Qty"
-                    value={null}
+                    value={1}
                   />
                 </form>
                 <a
@@ -2619,13 +2619,13 @@ Array [
               >
                 <form>
                   <input
-                    aria-label=""
+                    aria-label="Quantity"
                     className="cmp-sku-details__quantity"
                     data-locator="input-sku-qty"
                     onChange={[Function]}
                     onKeyPress={[Function]}
                     placeholder="Qty"
-                    value={null}
+                    value={1}
                   />
                 </form>
                 <a
@@ -2714,13 +2714,13 @@ Array [
               >
                 <form>
                   <input
-                    aria-label=""
+                    aria-label="Quantity"
                     className="cmp-sku-details__quantity"
                     data-locator="input-sku-qty"
                     onChange={[Function]}
                     onKeyPress={[Function]}
                     placeholder="Qty"
-                    value={null}
+                    value={1}
                   />
                 </form>
                 <a
@@ -2809,13 +2809,13 @@ Array [
               >
                 <form>
                   <input
-                    aria-label=""
+                    aria-label="Quantity"
                     className="cmp-sku-details__quantity"
                     data-locator="input-sku-qty"
                     onChange={[Function]}
                     onKeyPress={[Function]}
                     placeholder="Qty"
-                    value={null}
+                    value={1}
                   />
                 </form>
                 <a
@@ -2904,13 +2904,13 @@ Array [
               >
                 <form>
                   <input
-                    aria-label=""
+                    aria-label="Quantity"
                     className="cmp-sku-details__quantity"
                     data-locator="input-sku-qty"
                     onChange={[Function]}
                     onKeyPress={[Function]}
                     placeholder="Qty"
-                    value={null}
+                    value={1}
                   />
                 </form>
                 <a
@@ -2999,13 +2999,13 @@ Array [
               >
                 <form>
                   <input
-                    aria-label=""
+                    aria-label="Quantity"
                     className="cmp-sku-details__quantity"
                     data-locator="input-sku-qty"
                     onChange={[Function]}
                     onKeyPress={[Function]}
                     placeholder="Qty"
-                    value={null}
+                    value={1}
                   />
                 </form>
                 <a
@@ -3094,13 +3094,13 @@ Array [
               >
                 <form>
                   <input
-                    aria-label=""
+                    aria-label="Quantity"
                     className="cmp-sku-details__quantity"
                     data-locator="input-sku-qty"
                     onChange={[Function]}
                     onKeyPress={[Function]}
                     placeholder="Qty"
-                    value={null}
+                    value={1}
                   />
                 </form>
                 <a
@@ -3189,13 +3189,13 @@ Array [
               >
                 <form>
                   <input
-                    aria-label=""
+                    aria-label="Quantity"
                     className="cmp-sku-details__quantity"
                     data-locator="input-sku-qty"
                     onChange={[Function]}
                     onKeyPress={[Function]}
                     placeholder="Qty"
-                    value={null}
+                    value={1}
                   />
                 </form>
                 <a
