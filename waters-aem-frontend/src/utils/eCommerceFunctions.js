@@ -2,6 +2,13 @@ import ReactHtmlParser from 'react-html-parser';
 
 import SessionStore from '../stores/sessionStore';
 import loginStatus from '../scripts/loginStatus';
+import {
+    getCountryCode,
+    getLanguage,
+    isEprocurementUser,
+    getEprocUserCountryCode,
+    getEprocUserLanguage
+} from '../utils/userFunctions';
 // This function determines the eCommerce Status of the User / Country combination
 // The eCommerce status is determined from the "data-ecommerce-state" which is returned in the header Navigation
 export const isCartHidden = () => {
@@ -9,7 +16,7 @@ export const isCartHidden = () => {
     const headerNavigation_cartLI = document.querySelector('.top-bar__nav__cart');    
     if (headerNavigation_cartLI) {
         eCommStatus = headerNavigation_cartLI.attributes["data-ecommerce-state"].value.toUpperCase();
-        this.setViewCartURL();
+        setViewCartURL();
     }
     if (eCommStatus === "DISABLED") {
         return true;
@@ -38,7 +45,7 @@ export const isSignInHidden = () => {
     const headerNavigation_cartLI = document.querySelector('.top-bar__nav__cart');    
     if (headerNavigation_cartLI) {
         eCommStatus = headerNavigation_cartLI.attributes["data-ecommerce-state"].value.toUpperCase();
-        this.setViewCartURL();
+        setViewCartURL();
     }
     if (eCommStatus === "DISABLED" || eCommStatus === "PARTIAL_ENABLED") {
         return true;
