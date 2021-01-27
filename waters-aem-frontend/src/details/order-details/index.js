@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import ReactSVG from 'react-svg';
-import { getOrderDetails, getItemDetails, matchLineItems } from '../details.services';
-import Shipment from '../components/shipment'
-import DateFormatter from '../../utils/date-formatter'
+import { getOrderDetails, getItemDetails, matchLineItems, buildViewCartURL } from '../details.services';
+import Shipment from '../components/shipment';
+import DateFormatter from '../../utils/date-formatter';
 import GetLocale from "../../utils/get-locale";
 import GetIsocode from "../../utils/get-isocode";
 import Spinner from "../../utils/spinner";
-import GroupBy from '../../utils/group-by'
+import GroupBy from '../../utils/group-by';
 import ErrorBoundary from '../../search/ErrorBoundary';
 import Modal, { Header, keys } from '../../utils/modal';
 import AddToCartBody from '../../sku-details/views/addToCartModal';
@@ -14,7 +14,7 @@ import { addToCart } from '../../sku-details/services';
 import Analytics, { analyticTypes } from '../../analytics';
 import LocalStore from '../../stores/localStore';
 import loginStatus from '../../scripts/loginStatus';
-import { getOrderDetailsAddress, getCountryName, buildViewCartURL } from '../../utils/userFunctions'
+import { getOrderDetailsAddress, getCountryName } from '../../utils/userFunctions';
 
 class OrderDetails extends Component {
     constructor({setErrorBoundaryToTrue, resetErrorBoundaryToFalse, removeNotifications, ...props}) {
