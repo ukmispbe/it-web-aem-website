@@ -21,4 +21,5 @@
           quoteHistoryUrl="https://internal-api-dev.waters.com/qa-waters-quote-exp-api-v1/api/quote"
           chooseAccountEndpoint="https://test2-www.waters.com:8443/api/waters/user/v1/switchaccount"
           contactSupportUrl="https://test2-www.waters.com:8443/api/waters/contact/v1/support"
-          countryListUrl="https://api-sbox.waters.com/qa-waters-country-exp-api-v1/api/countries"/>
+          countryListUrl="https://api-sbox.waters.com/qa-waters-country-exp-api-v1/api/countries"
+          countryStatesUrl="https://api-sbox.waters.com/qa-waters-country-exp-api-v1/api/countries/{country}?states=true" />

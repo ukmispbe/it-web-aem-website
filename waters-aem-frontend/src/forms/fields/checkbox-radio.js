@@ -21,7 +21,7 @@ const CheckboxOrRadio = ({}) => {
         optionalLabel
     } = useContext(useFieldApi);
 
-    const { register, setValue } = useContext(useFormApi);
+    const { register, setValue, toggleAddressFn, addAddressesFn, triggerValidation } = useContext(useFormApi);
 
     const errors = useErrorsContext();
 
@@ -60,6 +60,17 @@ const CheckboxOrRadio = ({}) => {
 
     const checkHandler = (event, thisName) => {
         if (!disabled) {
+             // Check if Same Address
+             if (thisName === "sameAddress") {
+                toggleAddressFn();
+                triggerValidation(["sameAddress"]);
+            }
+            // Check if Add Addresses
+            if (thisName === "addAddresses") {
+                addAddressesFn();
+                triggerValidation(["addAddresses"]);
+            }
+
             const thisState = state[thisName];
 
             if (config.getRadioOptions && options) {

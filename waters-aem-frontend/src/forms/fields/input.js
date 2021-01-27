@@ -1,4 +1,4 @@
-import React, { useRef, useContext, useMemo } from 'react';
+import React, { useRef, useContext, useMemo, useEffect } from 'react';
 
 import { useFormApi, useFieldApi } from '../form';
 import { useErrorsContext } from './utils/stateWatcher';
@@ -21,10 +21,23 @@ const Input = ({
     const reqRef = useRef(null);
     const inputRef = useRef(null);
 
-    const { type, disabled, matchLabel, emailValidationEndpoint, optionalLabel } = useContext(useFieldApi);
+    const { type, disabled, matchLabel, emailValidationEndpoint, optionalLabel, initialState  } = useContext(useFieldApi);
     const { register, setError, setValue, clearError, setErrorBoundaryToTrue, resetErrorBoundaryToFalse, removeNotifications, isAlreadyRegistered } = useContext(useFormApi);
 
     const errors = useErrorsContext();
+
+    useEffect(() => {
+        if (initialState) {
+            setValue(name, initialState, true);
+        }
+    }, [name]);
+
+    useEffect(() => {
+        // On Component UnMount
+        return () => {
+            register({ name }, { required: false });
+        }
+    }, []);
 
     const getRegisterAttributes = ref => {
         inputRef.current = ref;
@@ -174,6 +187,7 @@ const Input = ({
                         placeholder=" "
                         aria-label={name}
                         disabled={disabled}
+                        autocomplete="off"
                         aria-labelledby={name}
                         aria-required={validation.required}
                         className={
@@ -209,21 +223,16 @@ const Input = ({
             {renderInput()}
 
             {hasMatch &&
-                useMemo(
-                    () => (
-                        <Input
-                            name={getMatchName()}
-                            label={matchLabel}
-                            hasMatch={false}
-                            description={
-                                description ? 'Match for '.concat(name) : ''
-                            }
-                            validation={getMatchReq}
-                            matchRef={inputRef}
-                        />
-                    ),
-                    [matchLabel, description, inputRef]
-                )}
+                <Input
+                name={getMatchName()}
+                label={matchLabel}
+                hasMatch={false}
+                description={
+                    description ? 'Match for '.concat(name) : ''
+                }
+                validation={getMatchReq}
+                matchRef={inputRef}
+            />}
         </>
     );
 };

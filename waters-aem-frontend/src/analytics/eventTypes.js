@@ -126,7 +126,19 @@ const eventTypes = {
             error: {
                 event: 'contactSupportFormError'
             }
-        }
+        },
+        registrationAddress: {
+            name: 'registrationAddressForm',
+            load: {
+                event: 'registrationAddressFormLoad'
+            },
+            submit: {
+                event: 'registrationAddressFormSubmit'
+            },
+            error: {
+                event: 'registrationAddressFormError'
+            }
+        }       
     },
     linkClick: {
         name: 'linkClick',

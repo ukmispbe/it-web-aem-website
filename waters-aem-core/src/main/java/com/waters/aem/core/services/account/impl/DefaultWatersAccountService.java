@@ -49,6 +49,8 @@ public class DefaultWatersAccountService implements WatersAccountService {
 
     private volatile String countryListUrl;
 
+    private volatile String countryStatesUrl;
+
     @Override
     public String getSignOutUrl() {
         return signOutUrl;
@@ -144,6 +146,11 @@ public class DefaultWatersAccountService implements WatersAccountService {
          return countryListUrl;
      }
 
+     @Override
+     public String getCountryStatesUrl() {
+         return countryStatesUrl;
+     } 
+
     @Activate
     @Modified
     protected void activate(final WatersAccountServiceConfiguration configuration) {
@@ -166,5 +173,6 @@ public class DefaultWatersAccountService implements WatersAccountService {
         contactSupportUrl = configuration.contactSupportUrl();
         quoteHistoryUrl = configuration.quoteHistoryUrl();
         countryListUrl = configuration.countryListUrl();
+        countryStatesUrl = configuration.countryStatesUrl();
     }
 }

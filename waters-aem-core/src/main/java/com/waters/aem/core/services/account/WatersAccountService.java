@@ -134,4 +134,12 @@ public interface WatersAccountService {
       * @return countryListUrl API URL
       */
       String getCountryListUrl();
+            
+      /**
+      * Get the configured endpoint for contactSupportUrl API.
+      *
+      * @return contactSupport API URL
+      */
+      String getCountryStatesUrl();
+
 }

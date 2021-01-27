@@ -348,6 +348,10 @@ if (registrationFormContainer) {
 
     const country = DigitalData.page.country.toLowerCase();
 
+    const configRegistrationAddressForm = JSON.parse(
+        document.getElementById('cmp-registration-address-form').innerHTML
+    );
+
     const swapFirstAndLastNames = () => {
         const indexofFirstName = configRegistrationForm.fields.map(e => e.name).indexOf('firstName');
         const indexofLastName = configRegistrationForm.fields.map(e => e.name).indexOf('lastName');
@@ -396,12 +400,18 @@ if (registrationFormContainer) {
 
     // Set Country list url
     configRegistrationForm.countryListUrl = headerRef.dataset.countryListUrl ? headerRef.dataset.countryListUrl : '';
+    
+    const registrationAddressForm = {
+        config: configRegistrationAddressForm,
+        callback: headerData.userDetailsUrl,
+    }
 
     ReactDOM.render(
         // replace isocode with a value supplied by AEM
         <CreateAccountForm
             registrationFormConfig={registrationForm}
             checkEmailFormConfig={checkEmailForm}
+            addressFormConfig={registrationAddressForm}
             isocode={DigitalData.language}
             isTwoStepRegistrationForm={isTwoStepRegistrationForm}
         />,
