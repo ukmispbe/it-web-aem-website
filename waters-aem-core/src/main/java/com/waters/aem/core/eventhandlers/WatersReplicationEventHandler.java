@@ -39,7 +39,7 @@ import org.osgi.service.event.EventConstants;
 		EventConstants.EVENT_TOPIC + "=" + ReplicationAction.EVENT_TOPIC })
 public class WatersReplicationEventHandler implements EventHandler {
 
-	private Logger log = LoggerFactory.getLogger(this.getClass());
+	private Logger log = LoggerFactory.getLogger(WatersReplicationEventHandler.class);
 
 	private BundleContext bundleContext;
 
@@ -63,25 +63,23 @@ public class WatersReplicationEventHandler implements EventHandler {
 
 	public void handleEvent(Event event) {
 		if (runmodes.contains(AUTHOR_RUN_MODE) && resourceResolver != null) {
-			log.trace("Replication Event triggered on author");
+			log.trace("Replication Event triggered on author.");
 			final ReplicationAction action = ReplicationAction.fromEvent(event);
 			if (action != null) {
 				final String userId = action.getUserId();
 				log.debug("Replication action {} at path {} ", action.getType().getName(), action.getPath());
 				final Resource resource = resourceResolver.resolve(action.getPath());
-				if (resource != null) {
-					if (resource.getResourceType().equalsIgnoreCase(NameConstants.NT_PAGE)
-							&& (action.getPath().contains(WatersConstants.ROOT_PATH)
-									|| action.getPath().contains(WatersConstants.ORDER_ROOT_PATH))) {
-						if (ReplicationActionType.ACTIVATE == action.getType()) {
-							performWorkflow("/var/workflow/models/waters_publish_notification_workflow", userId,
-									action.getPath());
-							System.out.println("Activate Workflow Triggered");
-						} else if (ReplicationActionType.DEACTIVATE == action.getType()) {
-							performWorkflow("/var/workflow/models/waters_unpublish_notification_workflow", userId,
-									action.getPath());
-							System.out.println("Deactivate Workflow Triggered");
-						}
+				if (resource != null && resource.getResourceType().equalsIgnoreCase(NameConstants.NT_PAGE)
+						&& (action.getPath().contains(WatersConstants.ROOT_PATH)
+								|| action.getPath().contains(WatersConstants.ORDER_ROOT_PATH))) {
+					if (ReplicationActionType.ACTIVATE == action.getType()) {
+						performWorkflow("/var/workflow/models/waters-publish-notification-workflow", userId,
+								action.getPath());
+						log.trace("Waters Publish Notification Workflow triggered.");
+					} else if (ReplicationActionType.DEACTIVATE == action.getType()) {
+						performWorkflow("/var/workflow/models/waters-unpublish-notification-workflow", userId,
+								action.getPath());
+						log.trace("Waters Unpublish Notification Workflow triggered.");
 					}
 				}
 			}
