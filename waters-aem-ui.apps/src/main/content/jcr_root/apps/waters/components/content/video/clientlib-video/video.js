@@ -1,13 +1,13 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[16],{
 
-/***/ 500:
+/***/ 505:
 /***/ (function(module, exports) {
 
 /* (ignored) */
 
 /***/ }),
 
-/***/ 527:
+/***/ 533:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -37,7 +37,7 @@ var react = __webpack_require__(0);
 var react_default = /*#__PURE__*/__webpack_require__.n(react);
 
 // EXTERNAL MODULE: ./node_modules/@brightcove/react-player-loader/dist/brightcove-react-player-loader.es.js
-var brightcove_react_player_loader_es = __webpack_require__(499);
+var brightcove_react_player_loader_es = __webpack_require__(504);
 
 // EXTERNAL MODULE: ./src/scripts/screenSizes.js
 var screenSizes = __webpack_require__(10);
@@ -94,11 +94,11 @@ var video_modal_body_VideoModalBody = /*#__PURE__*/function (_React$Component) {
 
 /* harmony default export */ var video_modal_body = (video_modal_body_VideoModalBody);
 // EXTERNAL MODULE: ./node_modules/react-lines-ellipsis/lib/index.js
-var lib = __webpack_require__(493);
+var lib = __webpack_require__(500);
 var lib_default = /*#__PURE__*/__webpack_require__.n(lib);
 
 // EXTERNAL MODULE: ./node_modules/react-lines-ellipsis/lib/responsiveHOC.js
-var responsiveHOC = __webpack_require__(501);
+var responsiveHOC = __webpack_require__(506);
 var responsiveHOC_default = /*#__PURE__*/__webpack_require__.n(responsiveHOC);
 
 // CONCATENATED MODULE: ./src/video/video-description.js

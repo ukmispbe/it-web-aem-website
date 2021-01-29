@@ -1,6 +1,6 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[7],{
 
-/***/ 526:
+/***/ 532:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -30,7 +30,7 @@ var react_default = /*#__PURE__*/__webpack_require__.n(react);
 var react_svg = __webpack_require__(9);
 
 // EXTERNAL MODULE: ./node_modules/hammerjs/hammer.js
-var hammer = __webpack_require__(498);
+var hammer = __webpack_require__(503);
 var hammer_default = /*#__PURE__*/__webpack_require__.n(hammer);
 
 // CONCATENATED MODULE: ./src/image-carousel/image-viewer.js

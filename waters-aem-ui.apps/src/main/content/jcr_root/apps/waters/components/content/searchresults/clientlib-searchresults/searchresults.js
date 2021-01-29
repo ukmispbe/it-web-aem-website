@@ -1,6 +1,6 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[12],{
 
-/***/ 143:
+/***/ 144:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8,11 +8,11 @@
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return parameterValues; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return parameterDefaults; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return searchMapper; });
-/* harmony import */ var C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(11);
-/* harmony import */ var C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(16);
-/* harmony import */ var C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(1);
-/* harmony import */ var C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(3);
+/* harmony import */ var C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+/* harmony import */ var C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
+/* harmony import */ var C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(11);
+/* harmony import */ var C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(16);
 /* harmony import */ var whatwg_fetch__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(40);
 /* harmony import */ var _stores_sessionStore__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(2);
 /* harmony import */ var _utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(13);
@@ -24,7 +24,7 @@
 
 
 
-var queryString = __webpack_require__(60);
+var queryString = __webpack_require__(59);
 
 var parameterValues = {
   undefined: 'undefined',
@@ -44,43 +44,6 @@ var parameterDefaults = {
   contentTypeSelected: {}
 };
 
-var getSearchData = /*#__PURE__*/function () {
-  var _ref = Object(C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])( /*#__PURE__*/C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default.a.mark(function _callee(url) {
-    var response;
-    return C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default.a.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            _context.next = 2;
-            return fetch(url, {
-              method: 'GET',
-              credentials: 'include',
-              headers: {
-                'Content-Type': 'application/json'
-              }
-            });
-
-          case 2:
-            response = _context.sent;
-            _context.next = 5;
-            return response;
-
-          case 5:
-            return _context.abrupt("return", _context.sent);
-
-          case 6:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  }));
-
-  return function getSearchData(_x) {
-    return _ref.apply(this, arguments);
-  };
-}();
-
 var SearchService = /*#__PURE__*/function () {
   function SearchService(isocode) {
     var _this = this;
@@ -96,15 +59,15 @@ var SearchService = /*#__PURE__*/function () {
     var multiselect = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : true;
     var throwError = arguments.length > 6 ? arguments[6] : undefined;
 
-    Object(C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(this, SearchService);
+    Object(C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(this, SearchService);
 
-    this.getCategories = function (_ref2) {
-      var _ref2$keyword = _ref2.keyword,
-          keyword = _ref2$keyword === void 0 ? parameterDefaults.keyword : _ref2$keyword,
-          _ref2$page = _ref2.page,
-          page = _ref2$page === void 0 ? parameterDefaults.page : _ref2$page,
-          _ref2$sort = _ref2.sort,
-          sort = _ref2$sort === void 0 ? parameterDefaults.sort : _ref2$sort;
+    this.getCategories = function (_ref) {
+      var _ref$keyword = _ref.keyword,
+          keyword = _ref$keyword === void 0 ? parameterDefaults.keyword : _ref$keyword,
+          _ref$page = _ref.page,
+          page = _ref$page === void 0 ? parameterDefaults.page : _ref$page,
+          _ref$sort = _ref.sort,
+          sort = _ref$sort === void 0 ? parameterDefaults.sort : _ref$sort;
 
       var paramString = _this.getQueryParamString({
         keyword: keyword,
@@ -113,7 +76,7 @@ var SearchService = /*#__PURE__*/function () {
       });
 
       var searchString = "".concat(_this.path, "?").concat(paramString);
-      return getSearchData(searchString).then(function (response) {
+      return window.fetch(searchString).then(function (response) {
         if (response.ok) {
           return response.json();
         } else {
@@ -125,7 +88,43 @@ var SearchService = /*#__PURE__*/function () {
     };
 
     this.getResultsByCategory = function () {
-      var _ref3 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      var _ref2 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+          _ref2$keyword = _ref2.keyword,
+          keyword = _ref2$keyword === void 0 ? parameterDefaults.keyword : _ref2$keyword,
+          _ref2$facets = _ref2.facets,
+          facets = _ref2$facets === void 0 ? {} : _ref2$facets,
+          _ref2$page = _ref2.page,
+          page = _ref2$page === void 0 ? parameterDefaults.page : _ref2$page,
+          _ref2$sort = _ref2.sort,
+          sort = _ref2$sort === void 0 ? parameterDefaults.sort : _ref2$sort,
+          _ref2$category = _ref2.category,
+          category = _ref2$category === void 0 ? parameterDefaults.category : _ref2$category;
+
+      var paramString = _this.getQueryParamString({
+        keyword: keyword,
+        page: page,
+        sort: sort
+      });
+
+      var searchString = "".concat(_this.path, "/category_facet$").concat(category.toLowerCase(), ":").concat(encodeURIComponent(encodeURIComponent(category)), "?").concat(paramString).concat(Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* getCategoryReferenceType */ "f"])());
+
+      if (category === "All") {
+        searchString = "".concat(_this.path, "?").concat(paramString);
+      }
+
+      return window.fetch(searchString).then(function (response) {
+        if (response.ok) {
+          return response.json();
+        } else {
+          _this.throwError(response);
+        }
+      })["catch"](function (err) {
+        return console.log(err);
+      });
+    };
+
+    this.getContentType = function (contentTypeKey, contentTypeValue) {
+      var _ref3 = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {},
           _ref3$keyword = _ref3.keyword,
           keyword = _ref3$keyword === void 0 ? parameterDefaults.keyword : _ref3$keyword,
           _ref3$facets = _ref3.facets,
@@ -143,24 +142,19 @@ var SearchService = /*#__PURE__*/function () {
         sort: sort
       });
 
-      var searchString = "".concat(_this.path, "/category_facet$").concat(category.toLowerCase(), ":").concat(encodeURIComponent(encodeURIComponent(category)), "?").concat(paramString).concat(Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* getCategoryReferenceType */ "h"])());
-
-      if (category === "All") {
-        searchString = "".concat(_this.path, "?").concat(paramString);
-      }
-
-      return getSearchData(searchString).then(function (response) {
+      var searchString = "".concat(_this.path, "/category_facet$").concat(category.toLowerCase(), ":").concat(encodeURIComponent(encodeURIComponent(category)), "&contenttype_facet$").concat(contentTypeKey, ":").concat(encodeURIComponent(encodeURIComponent(contentTypeValue)), "?").concat(paramString).concat(Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* getCategoryReferenceType */ "f"])());
+      return window.fetch(searchString).then(function (response) {
         if (response.ok) {
           return response.json();
         } else {
           _this.throwError(response);
+
+          return response;
         }
-      })["catch"](function (err) {
-        return console.log(err);
       });
     };
 
-    this.getContentType = function (contentTypeKey, contentTypeValue) {
+    this.getSubFacet = function (contentTypeName, contentTypeValue) {
       var _ref4 = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {},
           _ref4$keyword = _ref4.keyword,
           keyword = _ref4$keyword === void 0 ? parameterDefaults.keyword : _ref4$keyword,
@@ -179,41 +173,10 @@ var SearchService = /*#__PURE__*/function () {
         sort: sort
       });
 
-      var searchString = "".concat(_this.path, "/category_facet$").concat(category.toLowerCase(), ":").concat(encodeURIComponent(encodeURIComponent(category)), "&contenttype_facet$").concat(contentTypeKey, ":").concat(encodeURIComponent(encodeURIComponent(contentTypeValue)), "?").concat(paramString).concat(Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* getCategoryReferenceType */ "h"])());
-      return getSearchData(searchString).then(function (response) {
-        if (response.ok) {
-          return response.json();
-        } else {
-          _this.throwError(response);
-
-          return response;
-        }
-      });
-    };
-
-    this.getSubFacet = function (contentTypeName, contentTypeValue) {
-      var _ref5 = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {},
-          _ref5$keyword = _ref5.keyword,
-          keyword = _ref5$keyword === void 0 ? parameterDefaults.keyword : _ref5$keyword,
-          _ref5$facets = _ref5.facets,
-          facets = _ref5$facets === void 0 ? {} : _ref5$facets,
-          _ref5$page = _ref5.page,
-          page = _ref5$page === void 0 ? parameterDefaults.page : _ref5$page,
-          _ref5$sort = _ref5.sort,
-          sort = _ref5$sort === void 0 ? parameterDefaults.sort : _ref5$sort,
-          _ref5$category = _ref5.category,
-          category = _ref5$category === void 0 ? parameterDefaults.category : _ref5$category;
-
-      var paramString = _this.getQueryParamString({
-        keyword: keyword,
-        page: page,
-        sort: sort
-      });
-
       var facetString = _this.getQueryFacetString(facets);
 
-      var searchString = "".concat(_this.path, "/category_facet$").concat(category.toLowerCase(), ":").concat(encodeURIComponent(encodeURIComponent(category)), "&contenttype_facet$").concat(contentTypeName.replace('_facet', ''), ":").concat(encodeURIComponent(encodeURIComponent(contentTypeValue))).concat(facetString, "?").concat(paramString).concat(Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* getCategoryReferenceType */ "h"])());
-      return getSearchData(searchString).then(function (response) {
+      var searchString = "".concat(_this.path, "/category_facet$").concat(category.toLowerCase(), ":").concat(encodeURIComponent(encodeURIComponent(category)), "&contenttype_facet$").concat(contentTypeName.replace('_facet', ''), ":").concat(encodeURIComponent(encodeURIComponent(contentTypeValue))).concat(facetString, "?").concat(paramString).concat(Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* getCategoryReferenceType */ "f"])());
+      return window.fetch(searchString).then(function (response) {
         if (response.ok) {
           return response.json();
         } else {
@@ -225,13 +188,13 @@ var SearchService = /*#__PURE__*/function () {
     };
 
     this.getSuggestedKeywords = /*#__PURE__*/function () {
-      var _ref6 = Object(C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])( /*#__PURE__*/C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default.a.mark(function _callee2(rows, term) {
+      var _ref5 = Object(C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(rows, term) {
         var searchString, callService, response;
-        return C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default.a.wrap(function _callee2$(_context2) {
+        return C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
-            switch (_context2.prev = _context2.next) {
+            switch (_context.prev = _context.next) {
               case 0:
-                searchString = "".concat(_this.path, "/v1/autocomplete?term=").concat(term, "&rows=").concat(rows, "&isocode=").concat(_this.options.isocode).concat(Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* getCategoryReferenceType */ "h"])());
+                searchString = "".concat(_this.path, "/v1/autocomplete?term=").concat(term, "&rows=").concat(rows, "&isocode=").concat(_this.options.isocode).concat(Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* getCategoryReferenceType */ "f"])());
                 callService = window.fetch(searchString).then(function (response) {
                   if (response.ok) {
                     return response.json();
@@ -241,23 +204,23 @@ var SearchService = /*#__PURE__*/function () {
                     return response.json();
                   }
                 });
-                _context2.next = 4;
+                _context.next = 4;
                 return callService;
 
               case 4:
-                response = _context2.sent;
-                return _context2.abrupt("return", response.suggestions);
+                response = _context.sent;
+                return _context.abrupt("return", response.suggestions);
 
               case 6:
               case "end":
-                return _context2.stop();
+                return _context.stop();
             }
           }
-        }, _callee2);
+        }, _callee);
       }));
 
-      return function (_x2, _x3) {
-        return _ref6.apply(this, arguments);
+      return function (_x, _x2) {
+        return _ref5.apply(this, arguments);
       };
     }();
 
@@ -383,7 +346,7 @@ var SearchService = /*#__PURE__*/function () {
     this.sessionStore = new _stores_sessionStore__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"]();
   }
 
-  Object(C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(SearchService, [{
+  Object(C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(SearchService, [{
     key: "getParamsFromString",
     value: function getParamsFromString() {
       var str = window.location.search;
@@ -420,17 +383,17 @@ var SearchService = /*#__PURE__*/function () {
   }, {
     key: "getQueryParamString",
     value: function getQueryParamString() {
-      var _ref7 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-          _ref7$keyword = _ref7.keyword,
-          keyword = _ref7$keyword === void 0 ? parameterDefaults.keyword : _ref7$keyword,
-          _ref7$page = _ref7.page,
-          page = _ref7$page === void 0 ? parameterDefaults.page : _ref7$page,
-          _ref7$sort = _ref7.sort,
-          sort = _ref7$sort === void 0 ? parameterDefaults.sort : _ref7$sort,
-          _ref7$category = _ref7.category,
-          category = _ref7$category === void 0 ? parameterDefaults.category : _ref7$category,
-          _ref7$content_type = _ref7.content_type,
-          content_type = _ref7$content_type === void 0 ? parameterDefaults.content_type : _ref7$content_type;
+      var _ref6 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+          _ref6$keyword = _ref6.keyword,
+          keyword = _ref6$keyword === void 0 ? parameterDefaults.keyword : _ref6$keyword,
+          _ref6$page = _ref6.page,
+          page = _ref6$page === void 0 ? parameterDefaults.page : _ref6$page,
+          _ref6$sort = _ref6.sort,
+          sort = _ref6$sort === void 0 ? parameterDefaults.sort : _ref6$sort,
+          _ref6$category = _ref6.category,
+          category = _ref6$category === void 0 ? parameterDefaults.category : _ref6$category,
+          _ref6$content_type = _ref6.content_type,
+          content_type = _ref6$content_type === void 0 ? parameterDefaults.content_type : _ref6$content_type;
 
       var facets = arguments.length > 1 ? arguments[1] : undefined;
       var fullParams = Object.assign({}, this.options, {
@@ -563,7 +526,7 @@ var searchMapper = {
 
 /***/ }),
 
-/***/ 31:
+/***/ 32:
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
@@ -767,9 +730,6 @@ var eventTypes = {
     },
     error: {
       event: 'quoteHistoryError'
-    },
-    quoteAgainClick: {
-      event: 'quoteAgainClick'
     }
   },
   quoteDetails: {
@@ -779,12 +739,6 @@ var eventTypes = {
     },
     error: {
       event: 'quoteDetailsPageError'
-    },
-    quotePlaceOrder: {
-      event: 'quotePlaceOrder'
-    },
-    quoteAgainClick: {
-      event: 'quoteAgainClick'
     }
   }
 };
@@ -814,7 +768,7 @@ var analytics_Analytics = function Analytics() {
       if (model.formName !== 'chooseAccount') {
         thisAnalyticEvent = _this.analyticTypes[eventType][model.formName][model.event];
       }
-    } else if (eventType === 'orderHistory' || eventType === 'orderDetails' || eventType === 'quoteHistory' || eventType === 'quoteDetails') {
+    } else if (eventType === 'orderHistory' || eventType === 'orderDetails') {
       thisAnalyticEvent = _this.analyticTypes[eventType][model.event];
     } else {
       thisAnalyticEvent = _this.analyticTypes[eventType];
@@ -969,7 +923,7 @@ var _analytics$analyticTy = Object(slicedToArray["a" /* default */])(analytics.a
 
 /***/ }),
 
-/***/ 525:
+/***/ 530:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -984,14 +938,14 @@ var react_default = /*#__PURE__*/__webpack_require__.n(react);
 var objectSpread = __webpack_require__(15);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 3 modules
-var toConsumableArray = __webpack_require__(144);
+var toConsumableArray = __webpack_require__(145);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/regenerator/index.js
 var regenerator = __webpack_require__(1);
 var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
-var asyncToGenerator = __webpack_require__(3);
+var asyncToGenerator = __webpack_require__(4);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/typeof.js
 var esm_typeof = __webpack_require__(33);
@@ -1012,13 +966,13 @@ var getPrototypeOf = __webpack_require__(19);
 var inherits = __webpack_require__(20);
 
 // EXTERNAL MODULE: ./src/search/services/index.js
-var services = __webpack_require__(143);
+var services = __webpack_require__(144);
 
 // EXTERNAL MODULE: ./node_modules/query-string/index.js
-var query_string = __webpack_require__(60);
+var query_string = __webpack_require__(59);
 
 // EXTERNAL MODULE: ./node_modules/react-router-dom/es/withRouter.js + 1 modules
-var withRouter = __webpack_require__(511);
+var withRouter = __webpack_require__(517);
 
 // EXTERNAL MODULE: ./node_modules/react-svg/es/react-svg.js
 var react_svg = __webpack_require__(9);
@@ -1045,7 +999,7 @@ var no_results_NoResults = function NoResults(_ref) {
 
 /* harmony default export */ var no_results = (no_results_NoResults);
 // EXTERNAL MODULE: ./node_modules/validator/index.js
-var validator = __webpack_require__(487);
+var validator = __webpack_require__(492);
 var validator_default = /*#__PURE__*/__webpack_require__.n(validator);
 
 // EXTERNAL MODULE: ./src/scripts/domElements.js
@@ -1058,7 +1012,7 @@ var screenSizes = __webpack_require__(10);
 var analytics = __webpack_require__(39);
 
 // EXTERNAL MODULE: ./src/utils/spinner/index.js
-var spinner = __webpack_require__(93);
+var spinner = __webpack_require__(90);
 
 // CONCATENATED MODULE: ./src/search/components/loading.js
 
@@ -1083,7 +1037,7 @@ loading_Loading.defaultProps = {
 };
 /* harmony default export */ var loading = (loading_Loading);
 // EXTERNAL MODULE: ./node_modules/prop-types/index.js
-var prop_types = __webpack_require__(4);
+var prop_types = __webpack_require__(3);
 var prop_types_default = /*#__PURE__*/__webpack_require__.n(prop_types);
 
 // CONCATENATED MODULE: ./src/search/search.component.props.js
@@ -1290,7 +1244,7 @@ var defaultProps = {
 };
 
 // EXTERNAL MODULE: ./node_modules/react-paginate/dist/react-paginate.js
-var react_paginate = __webpack_require__(488);
+var react_paginate = __webpack_require__(493);
 var react_paginate_default = /*#__PURE__*/__webpack_require__.n(react_paginate);
 
 // CONCATENATED MODULE: ./src/search/components/content-type-menu.js
@@ -1807,13 +1761,13 @@ filter_Filter.defaultProps = {
 };
 /* harmony default export */ var filter = (filter_Filter);
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js + 1 modules
-var objectWithoutProperties = __webpack_require__(116);
+var objectWithoutProperties = __webpack_require__(498);
 
 // EXTERNAL MODULE: ./node_modules/react-select/dist/react-select.esm.js + 1 modules
-var react_select_esm = __webpack_require__(65);
+var react_select_esm = __webpack_require__(140);
 
 // EXTERNAL MODULE: ./src/utils/dropdown/custom-styles.js
-var custom_styles = __webpack_require__(105);
+var custom_styles = __webpack_require__(200);
 
 // CONCATENATED MODULE: ./src/search/components/category-dropdown.js
 
@@ -2055,8 +2009,8 @@ var btn_done_sort_filter_DoneSortFilter = /*#__PURE__*/function (_Component) {
 }(react["Component"]);
 
 /* harmony default export */ var btn_done_sort_filter = (btn_done_sort_filter_DoneSortFilter);
-// EXTERNAL MODULE: ./src/utils/dropdown/prefix-dropdown.js
-var prefix_dropdown = __webpack_require__(496);
+// EXTERNAL MODULE: ./src/utils/dropdown/index.js
+var dropdown = __webpack_require__(494);
 
 // CONCATENATED MODULE: ./src/search/components/sort.js
 
@@ -2065,10 +2019,10 @@ var prefix_dropdown = __webpack_require__(496);
 var sort_getOptions = function getOptions(text) {
   return [{
     value: 1,
-    label: text.options.bestMatch
+    label: text.sortByBestMatch
   }, {
     value: 2,
-    label: text.options.mostRecent
+    label: text.sortByMostRecent
   }];
 };
 
@@ -2076,17 +2030,14 @@ var sort_Sort = function Sort(props) {
   return /*#__PURE__*/react_default.a.createElement("div", {
     className: "cmp-search-sortby",
     "data-locator": "sortby-label"
-  }, /*#__PURE__*/react_default.a.createElement(prefix_dropdown["a" /* default */], {
+  }, /*#__PURE__*/react_default.a.createElement("h3", null, props.text.sortByHeading), /*#__PURE__*/react_default.a.createElement(dropdown["a" /* default */], {
     getOptions: sort_getOptions,
+    sortValue: props.sortValue,
     onChange: function onChange(e) {
       return props.sortHandler(e);
     },
-    text: props.text.sort,
-    dropdownValue: props.sortValue,
-    prefix: props.text.sort.prefix,
     isSearchable: false,
-    defaultValue: 1,
-    downIcon: props.text.downIcon
+    text: props.text
   }));
 };
 
@@ -2374,8 +2325,8 @@ var filter_tags_SubFacetTags = function SubFacetTags(props) {
       }
     };
 
-    for (var _i2 = 0; _i2 < f.length; _i2++) {
-      _loop(_i2);
+    for (var _i = 0; _i < f.length; _i++) {
+      _loop(_i);
     }
 
     return category;
@@ -2607,9 +2558,8 @@ category_list_CategoryList.defaultProps = {
 
 
 var SkuList = react_default.a.lazy(function () {
-  return Promise.all(/* import() | skulist */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(14)]).then(__webpack_require__.bind(null, 528));
+  return Promise.all(/* import() | skulist */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(14)]).then(__webpack_require__.bind(null, 531));
 });
-
 
 var search_component_helpers_FilterTagList = function FilterTagList(_ref) {
   var text = _ref.text,
@@ -2672,7 +2622,7 @@ var search_component_helpers_Aside = function Aside(_ref2) {
   return /*#__PURE__*/react_default.a.createElement("div", {
     className: "container__left cmp-search__sort-filter",
     "data-locator": "left-container-filter"
-  }, !Object(userFunctions["x" /* isEprocurementUser */])() && /*#__PURE__*/react_default.a.createElement(category_list, {
+  }, !Object(userFunctions["v" /* isEprocurementUser */])() && /*#__PURE__*/react_default.a.createElement(category_list, {
     items: items,
     text: text,
     activeIndex: activeIndex,
@@ -2691,7 +2641,7 @@ var search_component_helpers_Aside = function Aside(_ref2) {
     collapseFilters: asideEvents.onCollapseFilters
   }), /*#__PURE__*/react_default.a.createElement("div", {
     className: "cmp-search__sort-filter__container"
-  }, screenSizes["a" /* default */].isMobile() && /*#__PURE__*/react_default.a.createElement(sort, {
+  }, /*#__PURE__*/react_default.a.createElement(sort, {
     sortValue: asideProps.sortByValue,
     sortHandler: asideEvents.onSort,
     text: text
@@ -2732,7 +2682,7 @@ var search_component_helpers_Menu = function Menu(_ref3) {
     filterTagsEvents: filterTagsEvents
   });
 
-  if (menuProps.showFacetMenu || true) {
+  if (menuProps.showFacetMenu) {
     return /*#__PURE__*/react_default.a.createElement(facet_menu, {
       heading: menuProps.backLinkText,
       selectedValue: facetMenuProps.selectedValue,
@@ -2773,7 +2723,7 @@ var search_component_helpers_SearchResults = function SearchResults(_ref4) {
   var items = _ref4.items,
       skuConfig = _ref4.skuConfig,
       onItemClick = _ref4.onItemClick;
-  var isEprocUser = Object(userFunctions["x" /* isEprocurementUser */])();
+  var isEprocUser = Object(userFunctions["v" /* isEprocurementUser */])();
   var searchData = Array.isArray(items) ? items.map(function (item) {
     if (item.skucode) {
       return {
@@ -2794,13 +2744,11 @@ var search_component_helpers_SearchResults = function SearchResults(_ref4) {
       return item;
     }
   }) : [];
-  return /*#__PURE__*/react_default.a.createElement(react["Suspense"], {
-    fallback: /*#__PURE__*/react_default.a.createElement("div", null, "Loading...")
-  }, /*#__PURE__*/react_default.a.createElement(SkuList, {
+  return /*#__PURE__*/react_default.a.createElement(SkuList, {
     skuConfig: skuConfig,
     data: searchData,
     onItemClick: onItemClick
-  }));
+  });
 };
 
 search_component_helpers_SearchResults.defaultProps = {
@@ -2884,106 +2832,53 @@ var search_component_helpers_ResultsBody = function ResultsBody(_ref7) {
       showSortFilterProps = _ref7.showSortFilterProps,
       showSortFilterEvents = _ref7.showSortFilterEvents,
       asideProps = _ref7.asideProps,
-      asideEvents = _ref7.asideEvents,
       filterTagsProps = _ref7.filterTagsProps,
       filterTagsEvents = _ref7.filterTagsEvents,
       resultsProps = _ref7.resultsProps,
       resultsEvents = _ref7.resultsEvents,
       isEprocurementUser = _ref7.isEprocurementUser;
-
-  var desktopView = function desktopView() {
-    return /*#__PURE__*/react_default.a.createElement("div", {
-      className: "cmp-search__container"
-    }, /*#__PURE__*/react_default.a.createElement("div", {
-      className: "cmp-search__container__header clearfix"
-    }, !isEprocurementUser && /*#__PURE__*/react_default.a.createElement(category_dropdown, {
-      categoryDownIcon: text.downIcon,
-      categoryLabelPrefix: text.categoryLabel,
-      categoryIsSearchable: false,
-      categoryOnChange: categoryEvents.onCategoryDropdownChange,
-      categoryOptions: categoryProps.categories,
-      categoryValue: categoryProps.activeIndex
-    })), /*#__PURE__*/react_default.a.createElement("div", {
-      className: "cmp-search__sorted-container"
-    }, /*#__PURE__*/react_default.a.createElement("div", {
-      className: "cmp-search__sort-filter__container clearfix"
-    }, /*#__PURE__*/react_default.a.createElement(results_count, Object.assign({}, resultsProps, {
-      text: text,
-      categoryOptions: categoryProps.categories,
-      categoryValue: categoryProps.activeIndex,
-      onRelatedSuggestionClick: resultsEvents.onRelatedSuggestionClick
-    })), /*#__PURE__*/react_default.a.createElement(sort, {
-      sortValue: asideProps.sortByValue,
-      sortHandler: asideEvents.onSort,
-      text: text
-    })), /*#__PURE__*/react_default.a.createElement(search_component_helpers_FilterTagList, {
-      text: text,
-      filterMap: filterMap,
-      filterTagsProps: filterTagsProps,
-      filterTagsEvents: filterTagsEvents
-    }), /*#__PURE__*/react_default.a.createElement(search_component_helpers_ResultsContent, {
-      text: text,
-      filterMap: filterMap,
-      skuConfig: skuConfig,
-      searchParams: searchParams,
-      resultsProps: resultsProps,
-      resultsEvents: resultsEvents
-    })), /*#__PURE__*/react_default.a.createElement(search_component_helpers_Pagination, {
-      resultsProps: resultsProps,
-      resultsEvents: resultsEvents,
-      nextIcon: text.nextIcon,
-      previousIcon: text.previousIcon
-    }));
-  };
-
-  var mobileView = function mobileView() {
-    return /*#__PURE__*/react_default.a.createElement("div", {
-      className: "cmp-search__container"
-    }, /*#__PURE__*/react_default.a.createElement("div", {
-      className: "cmp-search__container__header clearfix"
-    }, /*#__PURE__*/react_default.a.createElement(results_count, Object.assign({}, resultsProps, {
-      text: text,
-      categoryOptions: categoryProps.categories,
-      categoryValue: categoryProps.activeIndex,
-      onRelatedSuggestionClick: resultsEvents.onRelatedSuggestionClick
-    })), !isEprocurementUser && /*#__PURE__*/react_default.a.createElement(category_dropdown, {
-      categoryDownIcon: text.downIcon,
-      categoryLabelPrefix: text.categoryLabel,
-      categoryIsSearchable: false,
-      categoryOnChange: categoryEvents.onCategoryDropdownChange,
-      categoryOptions: categoryProps.categories,
-      categoryValue: categoryProps.activeIndex
-    }), /*#__PURE__*/react_default.a.createElement(btn_show_sort_filter, {
-      text: text,
-      setupFilters: showSortFilterEvents.onSetupFilters,
-      resetToSavedState: showSortFilterEvents.onResetToSavedState,
-      collapseFilters: showSortFilterProps.collapseFilters,
-      onClose: showSortFilterEvents.onClose
-    }), /*#__PURE__*/react_default.a.createElement("div", {
-      className: "cmp-search__sorted-by"
-    }, text.sortedBy, ":", ' ', asideProps.sortByText === 'most-relevant' ? text.sort.options.bestMatch : text.sort.options.mostRecent)), /*#__PURE__*/react_default.a.createElement("div", {
-      className: "cmp-search__sorted-container"
-    }, /*#__PURE__*/react_default.a.createElement(search_component_helpers_FilterTagList, {
-      text: text,
-      filterMap: filterMap,
-      filterTagsProps: filterTagsProps,
-      filterTagsEvents: filterTagsEvents
-    }), /*#__PURE__*/react_default.a.createElement(search_component_helpers_ResultsContent, {
-      text: text,
-      filterMap: filterMap,
-      skuConfig: skuConfig,
-      searchParams: searchParams,
-      resultsProps: resultsProps,
-      resultsEvents: resultsEvents
-    })), /*#__PURE__*/react_default.a.createElement(search_component_helpers_Pagination, {
-      resultsProps: resultsProps,
-      resultsEvents: resultsEvents,
-      nextIcon: text.nextIcon,
-      previousIcon: text.previousIcon
-    }));
-  };
-
-  return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, screenSizes["a" /* default */].isTabletAndOver() ? desktopView() : mobileView());
+  return /*#__PURE__*/react_default.a.createElement("div", {
+    className: "cmp-search__container"
+  }, /*#__PURE__*/react_default.a.createElement("div", {
+    className: "cmp-search__container__header clearfix"
+  }, !isEprocurementUser && /*#__PURE__*/react_default.a.createElement(category_dropdown, {
+    categoryDownIcon: text.downIcon,
+    categoryLabelPrefix: text.categoryLabel,
+    categoryIsSearchable: false,
+    categoryOnChange: categoryEvents.onCategoryDropdownChange,
+    categoryOptions: categoryProps.categories,
+    categoryValue: categoryProps.activeIndex
+  }), /*#__PURE__*/react_default.a.createElement(btn_show_sort_filter, {
+    text: text,
+    setupFilters: showSortFilterEvents.onSetupFilters,
+    resetToSavedState: showSortFilterEvents.onResetToSavedState,
+    collapseFilters: showSortFilterProps.collapseFilters,
+    onClose: showSortFilterEvents.onClose
+  }), /*#__PURE__*/react_default.a.createElement("div", {
+    className: "cmp-search__sorted-by"
+  }, text.sortedBy, ":", ' ', asideProps.sortByText === 'most-relevant' ? text.sortByBestMatch : text.sortByMostRecent)), /*#__PURE__*/react_default.a.createElement("div", {
+    className: "cmp-search__sorted-container"
+  }, /*#__PURE__*/react_default.a.createElement(results_count, Object.assign({}, resultsProps, {
+    text: text,
+    onRelatedSuggestionClick: resultsEvents.onRelatedSuggestionClick
+  })), /*#__PURE__*/react_default.a.createElement(search_component_helpers_FilterTagList, {
+    text: text,
+    filterMap: filterMap,
+    filterTagsProps: filterTagsProps,
+    filterTagsEvents: filterTagsEvents
+  }), /*#__PURE__*/react_default.a.createElement(search_component_helpers_ResultsContent, {
+    text: text,
+    filterMap: filterMap,
+    skuConfig: skuConfig,
+    searchParams: searchParams,
+    resultsProps: resultsProps,
+    resultsEvents: resultsEvents
+  })), /*#__PURE__*/react_default.a.createElement(search_component_helpers_Pagination, {
+    resultsProps: resultsProps,
+    resultsEvents: resultsEvents,
+    nextIcon: text.nextIcon,
+    previousIcon: text.previousIcon
+  }));
 };
 
 search_component_helpers_ResultsBody.defaultProps = {
@@ -3009,7 +2904,7 @@ var slicedToArray = __webpack_require__(7);
 var redirectFunctions = __webpack_require__(17);
 
 // EXTERNAL MODULE: ./node_modules/react-ellipsis-text/index.js
-var react_ellipsis_text = __webpack_require__(497);
+var react_ellipsis_text = __webpack_require__(502);
 var react_ellipsis_text_default = /*#__PURE__*/__webpack_require__.n(react_ellipsis_text);
 
 // CONCATENATED MODULE: ./src/common/search-breadcrumb/index.js
@@ -3223,12 +3118,8 @@ var search_component_SearchComponent = function SearchComponent(props) {
         props.categoryProps.categories.splice(0, 1);
       }
     }
-  }
+  } // Determine the ActiveIndex from the Category
 
-  Object(react["useEffect"])(function () {
-    console.log(props.subFacetFiltersProps);
-    console.log(props.filterMap);
-  }, [props.subFacetFiltersProps]); // Determine the ActiveIndex from the Category
 
   if (props.categoryProps.categories) {
     var activeIndex = props.categoryProps.categories.findIndex(function (item) {
@@ -3274,7 +3165,6 @@ var search_component_SearchComponent = function SearchComponent(props) {
     showSortFilterProps: props.showSortFilterProps,
     showSortFilterEvents: props.showSortFilterEvents,
     asideProps: props.asideProps,
-    asideEvents: props.asideEvents,
     filterTagsProps: props.filterTagsProps,
     filterTagsEvents: props.filterTagsEvents,
     resultsProps: props.resultsProps,
@@ -4178,7 +4068,7 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
       if (Object.entries(tabHistoryEntrySelected.searchParams).length === 0) {
         query.category = category;
         query.page = services["b" /* parameterDefaults */].page;
-        query.sort = _this.state.sort || services["b" /* parameterDefaults */].sort;
+        query.sort = services["b" /* parameterDefaults */].sort;
         delete query.content_type;
         delete query.facets;
 
@@ -4425,7 +4315,7 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
         _this2.performSearch();
       });
       this.setState({
-        isEprocurementUser: Object(userFunctions["x" /* isEprocurementUser */])()
+        isEprocurementUser: Object(userFunctions["v" /* isEprocurementUser */])()
       });
     }
   }, {
@@ -4528,10 +4418,10 @@ var search_container_SearchContainer = /*#__PURE__*/function (_Component) {
 
 /* harmony default export */ var search_container = (Object(withRouter["a" /* default */])(search_container_SearchContainer));
 // EXTERNAL MODULE: ./node_modules/react-router-dom/es/BrowserRouter.js
-var BrowserRouter = __webpack_require__(507);
+var BrowserRouter = __webpack_require__(512);
 
 // EXTERNAL MODULE: ./node_modules/react-router-dom/es/Route.js
-var Route = __webpack_require__(508);
+var Route = __webpack_require__(513);
 
 // EXTERNAL MODULE: ./src/search/ErrorBoundary.js
 var ErrorBoundary = __webpack_require__(52);
@@ -4545,7 +4435,7 @@ var ErrorBoundary = __webpack_require__(52);
 
 
 var search_SearchApp = function SearchApp(props) {
-  var isoCode = Object(userFunctions["x" /* isEprocurementUser */])() && Object(userFunctions["q" /* getIsoCode */])() || props.isocode;
+  var isoCode = Object(userFunctions["v" /* isEprocurementUser */])() && Object(userFunctions["o" /* getIsoCode */])() || props.isocode;
   var search = new services["a" /* SearchService */](isoCode, props.searchServicePath, services["b" /* parameterDefaults */].page, props.searchDefaults.rows, services["b" /* parameterDefaults */].sort, undefined, function () {});
   return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement(BrowserRouter["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(Route["a" /* default */], {
     path: "",

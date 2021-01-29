@@ -1,6 +1,6 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[9],{
 
-/***/ 31:
+/***/ 32:
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
@@ -204,9 +204,6 @@ var eventTypes = {
     },
     error: {
       event: 'quoteHistoryError'
-    },
-    quoteAgainClick: {
-      event: 'quoteAgainClick'
     }
   },
   quoteDetails: {
@@ -216,12 +213,6 @@ var eventTypes = {
     },
     error: {
       event: 'quoteDetailsPageError'
-    },
-    quotePlaceOrder: {
-      event: 'quotePlaceOrder'
-    },
-    quoteAgainClick: {
-      event: 'quoteAgainClick'
     }
   }
 };
@@ -251,7 +242,7 @@ var analytics_Analytics = function Analytics() {
       if (model.formName !== 'chooseAccount') {
         thisAnalyticEvent = _this.analyticTypes[eventType][model.formName][model.event];
       }
-    } else if (eventType === 'orderHistory' || eventType === 'orderDetails' || eventType === 'quoteHistory' || eventType === 'quoteDetails') {
+    } else if (eventType === 'orderHistory' || eventType === 'orderDetails') {
       thisAnalyticEvent = _this.analyticTypes[eventType][model.event];
     } else {
       thisAnalyticEvent = _this.analyticTypes[eventType];
@@ -406,7 +397,7 @@ var _analytics$analyticTy = Object(slicedToArray["a" /* default */])(analytics.a
 
 /***/ }),
 
-/***/ 513:
+/***/ 518:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -414,11 +405,11 @@ var _analytics$analyticTy = Object(slicedToArray["a" /* default */])(analytics.a
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return getAvailability; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return getPricing; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return matchListItems; });
-/* harmony import */ var C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
-/* harmony import */ var C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3);
+/* harmony import */ var C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+/* harmony import */ var C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
 /* harmony import */ var whatwg_fetch__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(40);
-/* harmony import */ var _stores_localStore__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(114);
+/* harmony import */ var _stores_localStore__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(111);
 /* harmony import */ var _scripts_loginStatus__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(12);
 /* harmony import */ var _utils_serviceFunctions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(28);
 /* harmony import */ var _utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(13);
@@ -432,7 +423,7 @@ var _analytics$analyticTy = Object(slicedToArray["a" /* default */])(analytics.a
 
 
 var availabilityUrlRequest = function availabilityUrlRequest(url, countryCode, partNo) {
-  url = url.replace('{partnumber}', partNo).replace('{countryCode}', Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* isEprocurementUser */ "x"])() ? Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* getEprocUserCountryCode */ "m"])().toUpperCase() : countryCode);
+  url = url.replace('{partnumber}', partNo).replace('{countryCode}', Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* isEprocurementUser */ "v"])() ? Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* getEprocUserCountryCode */ "k"])().toUpperCase() : countryCode);
   return url;
 };
 
@@ -447,10 +438,10 @@ var legacyAddToCartUrlRequest = function legacyAddToCartUrlRequest(url, partNo, 
 };
 
 var addToCartUrlRequest = function addToCartUrlRequest(url, partNo, quantity, cartId) {
-  var userId = Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* getUserId */ "w"])();
+  var userId = Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* getUserId */ "u"])();
   userId = userId !== '' ? userId : 'anonymous';
-  url = url.replace('{localeCountry}', Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* isEprocurementUser */ "x"])() ? Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* getEprocUserCountryCode */ "m"])().toLowerCase() : Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* getCountryCode */ "i"])()).replace('{localeLanguage}', Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* isEprocurementUser */ "x"])() ? Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* getEprocUserLanguage */ "n"])().toLowerCase() : Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* getLanguage */ "r"])()).replace('{userType}', userId).replace('{guid}', cartId ? cartId : 'null').concat('', '?successWithCart=true');
-  url = cartId ? url : url.concat('', "&createCart=".concat(!Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* isEprocurementUser */ "x"])()));
+  url = url.replace('{localeCountry}', Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* isEprocurementUser */ "v"])() ? Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* getEprocUserCountryCode */ "k"])().toLowerCase() : Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* getCountryCode */ "g"])()).replace('{localeLanguage}', Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* isEprocurementUser */ "v"])() ? Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* getEprocUserLanguage */ "l"])().toLowerCase() : Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* getLanguage */ "p"])()).replace('{userType}', userId).replace('{guid}', cartId ? cartId : 'null').concat('', '?successWithCart=true');
+  url = cartId ? url : url.concat('', "&createCart=".concat(!Object(_utils_userFunctions__WEBPACK_IMPORTED_MODULE_6__[/* isEprocurementUser */ "v"])()));
   return url;
 };
 
@@ -459,10 +450,10 @@ function addToCart(_x, _x2, _x3, _x4, _x5) {
 }
 
 function _addToCart() {
-  _addToCart = Object(C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(isCommerceApiMigrated, url, partNo, quantity, throwError) {
+  _addToCart = Object(C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(isCommerceApiMigrated, url, partNo, quantity, throwError) {
     var products, options, localStore, cartId, urlRequest, response, json, _json, _options, _urlRequest, _response, _json2;
 
-    return C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+    return C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
@@ -605,9 +596,9 @@ function getAvailability(_x6, _x7, _x8) {
 }
 
 function _getAvailability() {
-  _getAvailability = Object(C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(url, countryCode, partNo) {
+  _getAvailability = Object(C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(url, countryCode, partNo) {
     var options, urlRequest, response, json;
-    return C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+    return C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
@@ -643,9 +634,9 @@ function getPricing(_x9, _x10, _x11, _x12) {
 }
 
 function _getPricing() {
-  _getPricing = Object(C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(url, sku, soldToId, salesOrg) {
+  _getPricing = Object(C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(url, sku, soldToId, salesOrg) {
     var options, urlRequest, response, json;
-    return C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+    return C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
@@ -710,7 +701,7 @@ var matchListItems = function matchListItems(skuListData, pricesAPIResults) {
 
 /***/ }),
 
-/***/ 523:
+/***/ 528:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -722,13 +713,13 @@ var react = __webpack_require__(0);
 var react_default = /*#__PURE__*/__webpack_require__.n(react);
 
 // EXTERNAL MODULE: ./node_modules/react-router-dom/es/HashRouter.js
-var HashRouter = __webpack_require__(510);
+var HashRouter = __webpack_require__(515);
 
 // EXTERNAL MODULE: ./node_modules/react-router-dom/es/Switch.js + 1 modules
-var Switch = __webpack_require__(512);
+var Switch = __webpack_require__(516);
 
 // EXTERNAL MODULE: ./node_modules/react-router-dom/es/Route.js
-var Route = __webpack_require__(508);
+var Route = __webpack_require__(513);
 
 // CONCATENATED MODULE: ./src/my-account/routes.js
 /* harmony default export */ var routes = ({
@@ -771,13 +762,13 @@ var Route = __webpack_require__(508);
 var slicedToArray = __webpack_require__(7);
 
 // EXTERNAL MODULE: ./node_modules/react-router-dom/es/Link.js
-var es_Link = __webpack_require__(509);
+var es_Link = __webpack_require__(514);
 
 // EXTERNAL MODULE: ./node_modules/react-router-dom/es/withRouter.js + 1 modules
-var withRouter = __webpack_require__(511);
+var withRouter = __webpack_require__(517);
 
 // EXTERNAL MODULE: ./src/typography/title.js
-var typography_title = __webpack_require__(494);
+var typography_title = __webpack_require__(501);
 
 // EXTERNAL MODULE: ./node_modules/react-dom/index.js
 var react_dom = __webpack_require__(6);
@@ -880,7 +871,7 @@ var loginStatus = __webpack_require__(12);
 var redirectFunctions = __webpack_require__(17);
 
 // EXTERNAL MODULE: ./src/utils/spinner/index.js
-var spinner = __webpack_require__(93);
+var spinner = __webpack_require__(90);
 
 // EXTERNAL MODULE: ./src/utils/eCommerceFunctions.js
 var eCommerceFunctions = __webpack_require__(23);
@@ -960,7 +951,7 @@ var aside_Tile = function Tile(_ref) {
   var tile = _ref.tile,
       pathname = _ref.pathname;
 
-  if (tile.requiresEcommerce === "true" && Object(eCommerceFunctions["e" /* isCartHidden */])() || tile.isHiddenForEprocUser === "true" && Object(userFunctions["y" /* isEprocurementUserRole */])()) {
+  if (tile.requiresEcommerce === "true" && Object(eCommerceFunctions["e" /* isCartHidden */])() || tile.isHiddenForEprocUser === "true" && Object(userFunctions["w" /* isEprocurementUserRole */])()) {
     return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null);
   }
 
@@ -1111,7 +1102,7 @@ var link_tile_LinkTile = function LinkTile(_ref) {
 var myaccount_Tile = function Tile(_ref) {
   var tile = _ref.tile;
 
-  if (tile.requiresEcommerce === "true" && Object(eCommerceFunctions["e" /* isCartHidden */])() || tile.isHiddenForEprocUser === "true" && Object(userFunctions["y" /* isEprocurementUserRole */])()) {
+  if (tile.requiresEcommerce === "true" && Object(eCommerceFunctions["e" /* isCartHidden */])() || tile.isHiddenForEprocUser === "true" && Object(userFunctions["w" /* isEprocurementUserRole */])()) {
     return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null);
   }
 
@@ -1176,13 +1167,13 @@ var myaccount_MyAccount = function MyAccount(_ref2) {
 var objectSpread = __webpack_require__(15);
 
 // EXTERNAL MODULE: ./src/detail-tiles/hooks/useProfile.js
-var useProfile = __webpack_require__(91);
+var useProfile = __webpack_require__(88);
 
 // EXTERNAL MODULE: ./src/detail-tiles/index.js + 1 modules
 var detail_tiles = __webpack_require__(53);
 
 // EXTERNAL MODULE: ./src/detail-tiles/utils/generateTiles.js
-var generateTiles = __webpack_require__(104);
+var generateTiles = __webpack_require__(103);
 
 // CONCATENATED MODULE: ./src/my-profile/index.js
 
@@ -1281,7 +1272,7 @@ var regenerator = __webpack_require__(1);
 var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
-var asyncToGenerator = __webpack_require__(3);
+var asyncToGenerator = __webpack_require__(4);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js
 var classCallCheck = __webpack_require__(11);
@@ -1299,7 +1290,7 @@ var getPrototypeOf = __webpack_require__(19);
 var inherits = __webpack_require__(20);
 
 // EXTERNAL MODULE: ./node_modules/react-paginate/dist/react-paginate.js
-var react_paginate = __webpack_require__(488);
+var react_paginate = __webpack_require__(493);
 var react_paginate_default = /*#__PURE__*/__webpack_require__.n(react_paginate);
 
 // EXTERNAL MODULE: ./node_modules/whatwg-fetch/fetch.js
@@ -1379,7 +1370,7 @@ var history_services_HistoryService = /*#__PURE__*/function () {
 
 /* harmony default export */ var history_services = (history_services_HistoryService);
 // EXTERNAL MODULE: ./src/constants/index.js
-var constants = __webpack_require__(113);
+var constants = __webpack_require__(110);
 
 // CONCATENATED MODULE: ./src/common/delivery-status/index.js
 
@@ -1551,10 +1542,10 @@ delivery_status_DeliveryStatus.defaultProps = {
 };
 /* harmony default export */ var delivery_status = (delivery_status_DeliveryStatus);
 // EXTERNAL MODULE: ./src/utils/date-formatter/index.js
-var date_formatter = __webpack_require__(489);
+var date_formatter = __webpack_require__(495);
 
 // EXTERNAL MODULE: ./src/utils/get-locale/index.js
-var get_locale = __webpack_require__(490);
+var get_locale = __webpack_require__(496);
 
 // CONCATENATED MODULE: ./src/history/components/order-list-item.js
 
@@ -1659,7 +1650,7 @@ var count_header_CountHeader = function CountHeader(props) {
 
 /* harmony default export */ var count_header = (count_header_CountHeader);
 // EXTERNAL MODULE: ./src/utils/dropdown/index.js
-var dropdown = __webpack_require__(495);
+var dropdown = __webpack_require__(494);
 
 // CONCATENATED MODULE: ./src/history/components/time-period-dropdown.js
 
@@ -2184,10 +2175,10 @@ var order_history_OrderHistory = /*#__PURE__*/function (_Component) {
 
 /* harmony default export */ var order_history = (order_history_OrderHistory);
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 3 modules
-var toConsumableArray = __webpack_require__(144);
+var toConsumableArray = __webpack_require__(145);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js + 1 modules
-var objectWithoutProperties = __webpack_require__(116);
+var objectWithoutProperties = __webpack_require__(498);
 
 // CONCATENATED MODULE: ./src/details/details.services.js
 
@@ -2327,7 +2318,7 @@ var details_services_buildSearchURL = function buildSearchURL(endpoint, lineItem
   });
   rows = skus.length;
   keywords = skus.join(' ');
-  return url = "".concat(endpoint, "/category_facet$shop:Shop?keyword=").concat(keywords, "&rows=").concat(rows, "&isocode=").concat(isocode, "&multiselect=true&page=1&sort=most-relevant").concat(Object(userFunctions["h" /* getCategoryReferenceType */])());
+  return url = "".concat(endpoint, "/category_facet$shop:Shop?keyword=").concat(keywords, "&rows=").concat(rows, "&isocode=").concat(isocode, "&multiselect=true&page=1&sort=most-relevant").concat(Object(userFunctions["f" /* getCategoryReferenceType */])());
 };
 
 var getItemDetails = /*#__PURE__*/function () {
@@ -2644,10 +2635,10 @@ shipment_Shipment.defaultProps = {
 };
 /* harmony default export */ var components_shipment = (shipment_Shipment);
 // EXTERNAL MODULE: ./src/utils/get-isocode/index.js
-var get_isocode = __webpack_require__(502);
+var get_isocode = __webpack_require__(507);
 
 // EXTERNAL MODULE: ./src/utils/group-by/index.js
-var group_by = __webpack_require__(503);
+var group_by = __webpack_require__(508);
 
 // EXTERNAL MODULE: ./src/search/ErrorBoundary.js
 var ErrorBoundary = __webpack_require__(52);
@@ -2659,10 +2650,10 @@ var modal = __webpack_require__(14);
 var addToCartModal = __webpack_require__(55);
 
 // EXTERNAL MODULE: ./src/sku-details/services/index.js
-var services = __webpack_require__(513);
+var services = __webpack_require__(518);
 
 // EXTERNAL MODULE: ./src/stores/localStore.js
-var stores_localStore = __webpack_require__(114);
+var stores_localStore = __webpack_require__(111);
 
 // CONCATENATED MODULE: ./src/details/order-details/index.js
 
@@ -2848,7 +2839,7 @@ var order_details_OrderDetails = /*#__PURE__*/function (_Component) {
 
         if (account) {
           var includeCountryName = true;
-          var addressArray = Object(userFunctions["s" /* getOrderDetailsAddress */])(account, includeCountryName);
+          var addressArray = Object(userFunctions["q" /* getOrderDetailsAddress */])(account, includeCountryName);
           return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, addressArray.map(function (addressLine) {
             return /*#__PURE__*/react_default.a.createElement("div", {
               className: "".concat(_this.rootStyle, "-address1"),
@@ -3064,7 +3055,7 @@ var order_details_OrderDetails = /*#__PURE__*/function (_Component) {
                   if (data && data.account && data.account.length) {
                     // Add Country Names to data
                     data.account.map(function (account) {
-                      var countryName = Object(userFunctions["j" /* getCountryName */])(account.country, _this2.config);
+                      var countryName = Object(userFunctions["h" /* getCountryName */])(account.country, _this2.config);
                       account.countryName = countryName;
                       account.state = account.region;
                     });
@@ -3183,30 +3174,10 @@ var quote_list_item_QuoteListItem = /*#__PURE__*/function (_Component) {
 
     _this = Object(possibleConstructorReturn["a" /* default */])(this, Object(getPrototypeOf["a" /* default */])(QuoteListItem).call(this, props));
 
-    _this.quoteAgain = function (e) {
-      e.preventDefault();
-      var _this$props = _this.props,
-          setAnalytics = _this$props.setAnalytics,
-          data = _this$props.data;
-      var quoteId = data.quoteId;
-
-      if (quoteId) {
-        var quoteAgainModel = {
-          detail: {
-            quoteId: quoteId
-          }
-        };
-        setAnalytics('quoteAgainClick', quoteAgainModel);
-      }
-    };
-
     _this.renderQuoteAgainButton = function () {
       return /*#__PURE__*/react_default.a.createElement("a", {
         className: "cmp-button",
-        href: "/#",
-        onClick: function onClick(e) {
-          return _this.quoteAgain(e);
-        }
+        href: "/#"
       }, _this.props.quoteAgainTitle);
     };
 
@@ -3216,17 +3187,17 @@ var quote_list_item_QuoteListItem = /*#__PURE__*/function (_Component) {
   Object(createClass["a" /* default */])(QuoteListItem, [{
     key: "render",
     value: function render() {
-      var _this$props2 = this.props,
-          _this$props2$data = _this$props2.data,
-          data = _this$props2$data === void 0 ? {} : _this$props2$data,
-          numberText = _this$props2.numberText,
-          created = _this$props2.created,
-          expires = _this$props2.expires,
-          shipment = _this$props2.shipment,
-          icons = _this$props2.icons,
-          orderNumberText = _this$props2.orderNumberText,
-          isShowQuoteAgainButton = _this$props2.isShowQuoteAgainButton,
-          newQuote = _this$props2.newQuote;
+      var _this$props = this.props,
+          _this$props$data = _this$props.data,
+          data = _this$props$data === void 0 ? {} : _this$props$data,
+          numberText = _this$props.numberText,
+          created = _this$props.created,
+          expires = _this$props.expires,
+          shipment = _this$props.shipment,
+          icons = _this$props.icons,
+          orderNumberText = _this$props.orderNumberText,
+          isShowQuoteAgainButton = _this$props.isShowQuoteAgainButton,
+          newQuote = _this$props.newQuote;
       var quoteId = data.quoteId,
           orderNumber = data.orderNumber,
           quoteCreationDate = data.quoteCreationDate,
@@ -3372,9 +3343,9 @@ var quote_history_QuoteHistory = /*#__PURE__*/function (_Component) {
       var _this$state = _this.state,
           currentPage = _this$state.currentPage,
           pageSize = _this$state.pageSize;
-      var userId = Object(userFunctions["w" /* getUserId */])();
-      var soldToId = Object(userFunctions["t" /* getSoldToId */])() || Object(userFunctions["l" /* getDummySoldToId */])();
-      var queryParam = "userId=".concat(userId, "&soldToId=").concat(soldToId, "&currentPage=").concat(currentPage, "&pageSize=").concat(pageSize, "&fields=DEFAULT");
+      var userId = Object(userFunctions["u" /* getUserId */])();
+      var soldToId = Object(userFunctions["r" /* getSoldToId */])() || Object(userFunctions["j" /* getDummySoldToId */])();
+      var queryParam = "userId=".concat(userId, "&soldToId=").concat(soldToId, "&currentPage=").concat(currentPage, "&pageSize=").concat(pageSize, "&fields=FULL");
 
       if (activeTabFilter && activeTabFilter !== "ALL") {
         queryParam = "".concat(queryParam, "&state=").concat(activeTabFilter);
@@ -3677,8 +3648,7 @@ var quote_history_QuoteHistory = /*#__PURE__*/function (_Component) {
           quoteAgainTitle: _this5.props.configs.quoteAgainTitle,
           index: index,
           isShowQuoteAgainButton: _this5.props.configs.isShowQuoteAgainButton,
-          newQuote: _this5.props.configs.newQuote,
-          setAnalytics: _this5.setAnalytics
+          newQuote: _this5.props.configs.newQuote
         });
       }), listCount > 0 && this.renderPagination()));
     }
@@ -3741,7 +3711,7 @@ var quote_details_QuoteDetails = /*#__PURE__*/function (_Component) {
         detail: detail,
         event: event
       };
-      analytics["b" /* default */].setAnalytics(analytics["a" /* analyticTypes */][_this.page.analytics.reference].name, model);
+      analytics["b" /* default */].setAnalytics(analytics["a" /* analyticTypes */]['quoteDetails'].name, model);
     };
 
     _this.toggleModal = function () {
@@ -3774,7 +3744,7 @@ var quote_details_QuoteDetails = /*#__PURE__*/function (_Component) {
       var _this$state = _this.state,
           detailsUrl = _this$state.detailsUrl,
           quoteId = _this$state.quoteId;
-      var url = Object(userFunctions["v" /* getUrlPath */])(detailsUrl, quoteId);
+      var url = Object(userFunctions["t" /* getUrlPath */])(detailsUrl, quoteId);
       getQuoteDetails(url, _this.setError).then(function (data) {
         var quotes = data && data.quotes || undefined;
         var totalItemsCount = 0;
@@ -3804,7 +3774,7 @@ var quote_details_QuoteDetails = /*#__PURE__*/function (_Component) {
       var address = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
       if (address) {
-        var addressArray = Object(userFunctions["o" /* getFullCompanyAddress */])(address, true);
+        var addressArray = Object(userFunctions["m" /* getFullCompanyAddress */])(address, true);
         return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, addressArray.map(function (addressLine) {
           return /*#__PURE__*/react_default.a.createElement("div", {
             className: "".concat(_this.rootStyle, "-address1"),
@@ -3837,31 +3807,7 @@ var quote_details_QuoteDetails = /*#__PURE__*/function (_Component) {
 
       if (quoteId) {
         new sessionStore["a" /* default */]().setQuoteId(quoteId);
-        var quoteDetails = _this.state.quoteDetails;
-        var totalItems = quoteDetails.totalItems,
-            entries = quoteDetails.entries,
-            subTotal = quoteDetails.subTotal,
-            totalShippingAndHandling = quoteDetails.totalShippingAndHandling,
-            totalDiscounts = quoteDetails.totalDiscounts,
-            totalTax = quoteDetails.totalTax,
-            _quoteDetails$totalPr = quoteDetails.totalPriceWithTax,
-            totalPriceWithTax = _quoteDetails$totalPr === void 0 ? {} : _quoteDetails$totalPr;
-        var placeOrderModel = {
-          detail: {
-            quoteId: quoteId,
-            subTotal: subTotal,
-            totalTax: totalTax,
-            totalDiscounts: totalDiscounts,
-            totalShippingAndHandling: totalShippingAndHandling,
-            totalPriceWithTax: totalPriceWithTax,
-            totalItems: totalItems,
-            entries: entries
-          }
-        };
-
-        _this.setAnalytics('quotePlaceOrder', placeOrderModel);
-
-        var checkoutUrl = Object(userFunctions["g" /* getCartCheckoutUrl */])(constants["h" /* STORE */], constants["b" /* CHECKOUT */]);
+        var checkoutUrl = Object(userFunctions["e" /* getCartCheckoutUrl */])(constants["h" /* STORE */], constants["b" /* CHECKOUT */]);
         window.location.href = checkoutUrl;
       }
     };
@@ -3870,18 +3816,7 @@ var quote_details_QuoteDetails = /*#__PURE__*/function (_Component) {
       var quoteDetails = _this.state.quoteDetails;
       var quoteStatus = quoteDetails.quoteStatus,
           quoteId = quoteDetails.quoteId;
-      var commerceConfigs = document.getElementById('commerce-configs-json');
-
-      if (commerceConfigs) {
-        commerceConfigs = JSON.parse(commerceConfigs.innerHTML);
-      }
-
-      var _commerceConfigs = commerceConfigs,
-          isQuoteDisabled = _commerceConfigs.isQuoteDisabled,
-          isCheckoutDisabled = _commerceConfigs.isCheckoutDisabled;
-      var approvalStatus = Object(userFunctions["f" /* getApprovalStatus */])();
-      var isDisabled = Object(userFunctions["b" /* convertToBoolean */])(isQuoteDisabled) || Object(userFunctions["b" /* convertToBoolean */])(isCheckoutDisabled) || approvalStatus === 'R';
-      return quoteStatus === constants["c" /* DELIVERY_STATUS */].OPEN && !isDisabled && /*#__PURE__*/react_default.a.createElement("div", {
+      return quoteStatus === constants["c" /* DELIVERY_STATUS */].OPEN && /*#__PURE__*/react_default.a.createElement("div", {
         className: className,
         "data-locator": elementLocator
       }, /*#__PURE__*/react_default.a.createElement("a", {
@@ -3894,33 +3829,15 @@ var quote_details_QuoteDetails = /*#__PURE__*/function (_Component) {
       }, _this.props.config.reorderTitle));
     };
 
-    _this.quoteAgain = function (e, quoteId) {
-      e.preventDefault();
-
-      if (quoteId) {
-        var quoteAgainModel = {
-          detail: {
-            quoteId: quoteId
-          }
-        };
-
-        _this.setAnalytics('quoteAgainClick', quoteAgainModel);
-      }
-    };
-
     _this.renderQuoteAgainButton = function (className) {
       var quoteDetails = _this.state.quoteDetails;
-      var quoteStatus = quoteDetails.quoteStatus,
-          quoteId = quoteDetails.quoteId;
+      var quoteStatus = quoteDetails.quoteStatus;
       return quoteStatus === constants["c" /* DELIVERY_STATUS */].EXPIRED && /*#__PURE__*/react_default.a.createElement("div", {
         className: className,
         "data-locator": "quote-details-quote-again-cta"
       }, /*#__PURE__*/react_default.a.createElement("a", {
         className: "cmp-button",
-        href: "/#",
-        onClick: function onClick(e) {
-          return _this.quoteAgain(e, quoteId);
-        }
+        href: "/#"
       }, _this.props.config.quoteAgainTitle));
     };
 
@@ -4122,7 +4039,7 @@ var quote_details_QuoteDetails = /*#__PURE__*/function (_Component) {
     };
 
     _this.state = {
-      quoteId: Object(userFunctions["u" /* getUrlParameter */])("id"),
+      quoteId: Object(userFunctions["s" /* getUrlParameter */])("id"),
       detailsUrl: props.config.fetchDetailsEndPoint,
       itemsUrl: props.config.fetchItemsEndPoint,
       quoteDetails: {},
@@ -4132,13 +4049,6 @@ var quote_details_QuoteDetails = /*#__PURE__*/function (_Component) {
       modalShown: false,
       modalConfig: props.config.modalInfo,
       totalItemsCount: 0
-    };
-    _this.page = {
-      name: "Quote Details",
-      type: "Quotes",
-      analytics: {
-        reference: "quoteDetails"
-      }
     };
     return _this;
   }
@@ -4208,7 +4118,7 @@ var quote_details_QuoteDetails = /*#__PURE__*/function (_Component) {
     key: "getDerivedStateFromProps",
     value: function getDerivedStateFromProps(nextProps, prevState) {
       var quoteId = prevState.quoteId;
-      var urlQuoteId = Object(userFunctions["u" /* getUrlParameter */])("id");
+      var urlQuoteId = Object(userFunctions["s" /* getUrlParameter */])("id");
 
       if (quoteId !== urlQuoteId) {
         return {

@@ -1,6 +1,6 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[4],{
 
-/***/ 31:
+/***/ 32:
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
@@ -204,9 +204,6 @@ var eventTypes = {
     },
     error: {
       event: 'quoteHistoryError'
-    },
-    quoteAgainClick: {
-      event: 'quoteAgainClick'
     }
   },
   quoteDetails: {
@@ -216,12 +213,6 @@ var eventTypes = {
     },
     error: {
       event: 'quoteDetailsPageError'
-    },
-    quotePlaceOrder: {
-      event: 'quotePlaceOrder'
-    },
-    quoteAgainClick: {
-      event: 'quoteAgainClick'
     }
   }
 };
@@ -251,7 +242,7 @@ var analytics_Analytics = function Analytics() {
       if (model.formName !== 'chooseAccount') {
         thisAnalyticEvent = _this.analyticTypes[eventType][model.formName][model.event];
       }
-    } else if (eventType === 'orderHistory' || eventType === 'orderDetails' || eventType === 'quoteHistory' || eventType === 'quoteDetails') {
+    } else if (eventType === 'orderHistory' || eventType === 'orderDetails') {
       thisAnalyticEvent = _this.analyticTypes[eventType][model.event];
     } else {
       thisAnalyticEvent = _this.analyticTypes[eventType];
@@ -406,16 +397,16 @@ var _analytics$analyticTy = Object(slicedToArray["a" /* default */])(analytics.a
 
 /***/ }),
 
-/***/ 516:
+/***/ 521:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(11);
-/* harmony import */ var C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(16);
-/* harmony import */ var C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(18);
-/* harmony import */ var C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(19);
-/* harmony import */ var C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(20);
-/* harmony import */ var C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(41);
+/* harmony import */ var C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(11);
+/* harmony import */ var C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(16);
+/* harmony import */ var C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(18);
+/* harmony import */ var C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(19);
+/* harmony import */ var C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(20);
+/* harmony import */ var C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(41);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(0);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_6__);
 
@@ -427,27 +418,27 @@ var _analytics$analyticTy = Object(slicedToArray["a" /* default */])(analytics.a
 
 
 var Input = /*#__PURE__*/function (_PureComponent) {
-  Object(C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])(Input, _PureComponent);
+  Object(C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])(Input, _PureComponent);
 
   function Input(props) {
     var _this;
 
-    Object(C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(this, Input);
+    Object(C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(this, Input);
 
-    _this = Object(C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(this, Object(C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(Input).call(this, props));
+    _this = Object(C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(this, Object(C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(Input).call(this, props));
     _this.state = {
       value: '',
       isApplyDisabled: false
     };
-    _this.onChange = _this.onChange.bind(Object(C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])(Object(C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])(_this)));
-    _this.onBlur = _this.onBlur.bind(Object(C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])(Object(C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])(_this)));
-    _this.onKeyPress = _this.onKeyPress.bind(Object(C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])(Object(C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])(_this)));
-    _this.onKeyUp = _this.onKeyUp.bind(Object(C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])(Object(C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])(_this)));
-    _this.onFocus = _this.onFocus.bind(Object(C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])(Object(C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])(_this)));
+    _this.onChange = _this.onChange.bind(Object(C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])(Object(C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])(_this)));
+    _this.onBlur = _this.onBlur.bind(Object(C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])(Object(C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])(_this)));
+    _this.onKeyPress = _this.onKeyPress.bind(Object(C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])(Object(C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])(_this)));
+    _this.onKeyUp = _this.onKeyUp.bind(Object(C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])(Object(C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])(_this)));
+    _this.onFocus = _this.onFocus.bind(Object(C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])(Object(C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])(_this)));
     return _this;
   }
 
-  Object(C_Users_ankupadh1_Documents_sapient_waters_aem_website_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(Input, [{
+  Object(C_Users_iphk_Project_AEM_Waters_code_waters_aem_frontend_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(Input, [{
     key: "onChange",
     value: function onChange(e) {
       var _this$props = this.props,
@@ -567,7 +558,7 @@ Input.defaultProps = {
 
 /***/ }),
 
-/***/ 524:
+/***/ 529:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -582,7 +573,7 @@ __webpack_require__.d(__webpack_exports__, "useFieldApi", function() { return /*
 var defineProperty = __webpack_require__(36);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 3 modules
-var toConsumableArray = __webpack_require__(144);
+var toConsumableArray = __webpack_require__(145);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray.js + 3 modules
 var slicedToArray = __webpack_require__(7);
@@ -595,11 +586,11 @@ var react = __webpack_require__(0);
 var react_default = /*#__PURE__*/__webpack_require__.n(react);
 
 // EXTERNAL MODULE: ./node_modules/react-hook-form/dist/react-hook-form.ie11.js
-var react_hook_form_ie11 = __webpack_require__(504);
+var react_hook_form_ie11 = __webpack_require__(509);
 var react_hook_form_ie11_default = /*#__PURE__*/__webpack_require__.n(react_hook_form_ie11);
 
 // EXTERNAL MODULE: ./src/forms/fields/utils/stateWatcher.js + 1 modules
-var stateWatcher = __webpack_require__(485);
+var stateWatcher = __webpack_require__(490);
 
 // EXTERNAL MODULE: ./src/scripts/DigitalData.js
 var DigitalData = __webpack_require__(8);
@@ -608,7 +599,7 @@ var DigitalData = __webpack_require__(8);
 var ErrorBoundary = __webpack_require__(52);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectDestructuringEmpty.js
-var objectDestructuringEmpty = __webpack_require__(484);
+var objectDestructuringEmpty = __webpack_require__(489);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/typeof.js
 var esm_typeof = __webpack_require__(33);
@@ -822,7 +813,7 @@ var displaymessage_DisplayMessage = function DisplayMessage(_ref) {
 
 /* harmony default export */ var displaymessage = (react_default.a.memo(displaymessage_DisplayMessage));
 // EXTERNAL MODULE: ./src/forms/fields/patterns/index.js + 1 modules
-var patterns = __webpack_require__(67);
+var patterns = __webpack_require__(66);
 
 // CONCATENATED MODULE: ./src/forms/fields/components/requirements.js
 
@@ -915,13 +906,13 @@ var requirements_Requirements = function Requirements(_ref, ref) {
 
 /* harmony default export */ var components_requirements = (Object(react["forwardRef"])(requirements_Requirements));
 // EXTERNAL MODULE: ./src/forms/fields/utils/validations.js
-var validations = __webpack_require__(491);
+var validations = __webpack_require__(497);
 
 // EXTERNAL MODULE: ./src/utils/eCommerceFunctions.js
 var eCommerceFunctions = __webpack_require__(23);
 
 // EXTERNAL MODULE: ./src/utils/labelFunctions.js
-var labelFunctions = __webpack_require__(486);
+var labelFunctions = __webpack_require__(491);
 
 // CONCATENATED MODULE: ./src/forms/fields/input.js
 
@@ -1478,10 +1469,10 @@ var checkboxOrRadio_CheckboxOrRadio = function CheckboxOrRadio(_ref) {
 
 /* harmony default export */ var checkboxOrRadio = (react_default.a.memo(checkboxOrRadio_CheckboxOrRadio));
 // EXTERNAL MODULE: ./node_modules/react-select/dist/react-select.esm.js + 1 modules
-var react_select_esm = __webpack_require__(65);
+var react_select_esm = __webpack_require__(140);
 
 // EXTERNAL MODULE: ./src/styles/variables.scss
-var variables = __webpack_require__(31);
+var variables = __webpack_require__(32);
 var variables_default = /*#__PURE__*/__webpack_require__.n(variables);
 
 // CONCATENATED MODULE: ./src/forms/fields/styles/dropdown.scss.js
@@ -1737,7 +1728,7 @@ var hr_Hr = function Hr(_ref) {
 
 /* harmony default export */ var hr = (react_default.a.memo(hr_Hr));
 // EXTERNAL MODULE: ./node_modules/react-google-recaptcha/lib/esm/index.js + 3 modules
-var esm = __webpack_require__(505);
+var esm = __webpack_require__(510);
 
 // CONCATENATED MODULE: ./src/forms/fields/captcha.js
 
@@ -1781,7 +1772,7 @@ var captcha_Captcha = function Captcha(_ref) {
 
 /* harmony default export */ var captcha = (react_default.a.memo(captcha_Captcha));
 // EXTERNAL MODULE: ./node_modules/query-string/index.js
-var query_string = __webpack_require__(60);
+var query_string = __webpack_require__(59);
 
 // CONCATENATED MODULE: ./src/forms/fields/body.js
 
@@ -1913,7 +1904,7 @@ var label_Label = function Label(_ref) {
 var fileAttachment = __webpack_require__(74);
 
 // EXTERNAL MODULE: ./src/components/Input/Input.js
-var Input_Input = __webpack_require__(516);
+var Input_Input = __webpack_require__(521);
 
 // CONCATENATED MODULE: ./src/forms/fields/components/file-error-notification/index.js
 
@@ -2356,26 +2347,26 @@ var loginStatus = __webpack_require__(12);
 var redirectFunctions = __webpack_require__(17);
 
 // EXTERNAL MODULE: ./src/utils/spinner/index.js
-var spinner = __webpack_require__(93);
+var spinner = __webpack_require__(90);
 
 // EXTERNAL MODULE: ./src/utils/userFunctions.js
 var userFunctions = __webpack_require__(13);
 
 // EXTERNAL MODULE: ./src/my-account/services/SoldToDetailsLazy.js + 1 modules
-var SoldToDetailsLazy = __webpack_require__(37);
+var SoldToDetailsLazy = __webpack_require__(38);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/regenerator/index.js
 var regenerator = __webpack_require__(1);
 var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
-var asyncToGenerator = __webpack_require__(3);
+var asyncToGenerator = __webpack_require__(4);
 
 // CONCATENATED MODULE: ./src/forms/services/country-list.js
 
 
 
-var _Promise = typeof Promise === 'undefined' ? __webpack_require__(115).Promise : Promise;
+var _Promise = typeof Promise === 'undefined' ? __webpack_require__(112).Promise : Promise;
 
 var getData = /*#__PURE__*/function () {
   var _ref = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee(url) {
@@ -2757,9 +2748,9 @@ var form_Form = function Form(_ref) {
           var tempAddress;
           tempOption.name = item.customerNumber;
           tempOption.label = item.name;
-          tempAddress = Object(userFunctions["e" /* getAddressesByType */])(item, "soldToInfo")[0];
+          tempAddress = Object(userFunctions["d" /* getAddressesByType */])(item, "soldToInfo")[0];
           delete tempAddress.name;
-          tempOption.address = Object(userFunctions["o" /* getFullCompanyAddress */])(tempAddress, false);
+          tempOption.address = Object(userFunctions["m" /* getFullCompanyAddress */])(tempAddress, false);
           return tempOption;
         });
         config.options = tempArray;
@@ -2899,7 +2890,7 @@ var useFieldApi = FieldApi;
 
 /***/ }),
 
-/***/ 67:
+/***/ 66:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2920,7 +2911,7 @@ var fetch = __webpack_require__(40);
 
 
 
-var _Promise = typeof Promise === 'undefined' ? __webpack_require__(115).Promise : Promise;
+var _Promise = typeof Promise === 'undefined' ? __webpack_require__(112).Promise : Promise;
 
 
 
