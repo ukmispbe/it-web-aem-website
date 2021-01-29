@@ -1,6 +1,6 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[3],{
 
-/***/ 534:
+/***/ 529:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -36,7 +36,7 @@ var fetch = __webpack_require__(40);
 
 
 
-var _Promise = typeof Promise === 'undefined' ? __webpack_require__(112).Promise : Promise;
+var _Promise = typeof Promise === 'undefined' ? __webpack_require__(115).Promise : Promise;
 
 
 
