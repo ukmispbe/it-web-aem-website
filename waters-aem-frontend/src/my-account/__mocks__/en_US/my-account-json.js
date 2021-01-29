@@ -306,7 +306,8 @@ export default {
         expires: "Expires:",
         orderNumberText: "Order Number:",
         newQuote: "New Quote:",
-		isShowQuoteAgainButton: false,
+        isShowQuoteAgainButton: false,
+        isQuoteToOrderDisabled: true,
         paymentType: {
             purchaseOrder: {
                 label: "PO",
