@@ -11,7 +11,7 @@
     <filter root="/etc/map.publish"/>
     <filter root="/apps/settings/notification-templates/email/waters"/>
     <filter root="/apps/msm/wcm/rolloutconfigs/waterslanguagerollout"/>
-    <filter root="/apps/msm/wcm/rolloutconfigs/watersrolloutwithpublish"/>
+    <filter root="/apps/msm/wcm/rolloutconfigs/waterslanguagerolloutandpublish"/>
     <filter root="/var/waters">
         <exclude pattern="/var/waters/hybris-importer/jcr:content/(.*)?"/>
         <exclude pattern="/var/waters/notifications/system-notification(/.*)?"/>
