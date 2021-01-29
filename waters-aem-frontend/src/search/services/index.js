@@ -54,7 +54,13 @@ class SearchService {
         const searchString = `${this.path}?${paramString}`;
 
         return window
-            .fetch(searchString)
+            .fetch(searchString, {
+                method: 'GET',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
             .then(response => {
                 if (response.ok) {
                     return response.json();
@@ -85,7 +91,13 @@ class SearchService {
         }
 
         return window
-            .fetch(searchString)
+            .fetch(searchString, {
+                method: 'GET',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
             .then(response => {
                 if (response.ok) {
                     return response.json();
@@ -116,7 +128,13 @@ class SearchService {
             encodeURIComponent(contentTypeValue)
         )}?${paramString}${getCategoryReferenceType()}`;
 
-        return window.fetch(searchString).then(response => {
+        return window.fetch(searchString, {
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(response => {
             if (response.ok) {
                 return response.json();
             } else {
@@ -150,7 +168,13 @@ class SearchService {
             encodeURIComponent(contentTypeValue)
         )}${facetString}?${paramString}${getCategoryReferenceType()}`;
 
-        return window.fetch(searchString).then(response => {
+        return window.fetch(searchString, {
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(response => {
             if (response.ok) {
                 return response.json();
             } else {
