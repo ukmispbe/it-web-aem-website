@@ -25,7 +25,6 @@ export default (userDetailsUrl, soldToDetailsUrl, type, icon) => {
                 .then((soldToDetails) => {
                     let mergeAPIs = matchUserToSoldToAddresses(userDetails, soldToDetails);
                     setData(mergeAPIs);
-                    console.log("mergeAPIs", mergeAPIs)
                 });
             } else {
                 setData(createUserAddresses(userDetails));
@@ -42,14 +41,10 @@ export default (userDetailsUrl, soldToDetailsUrl, type, icon) => {
 
             if (userDetails && type !== 'password') {
                 if (userDetails.shipOrBillChangeFlag && !userDetails.soldToAccounts.length) {
-                    console.log("shipOrBillChangeFlag", userDetails.shipOrBillChangeFlag);
                     setData(createUserAddresses(userDetails));
 
                 } else if (userDetails.shipOrBillChangeFlag && userDetails.soldToAccounts.length) {
-                    console.log("shipOrBillChangeFlag", userDetails.shipOrBillChangeFlag);
-                    //console.log("udAdd", createUserAddresses(userDetails).addresses);
                     callSoldToDetails(userDetails)
-                    //setData(createUserAddresses(userDetails));
 
                 } else if (!userDetails.shipOrBillChangeFlag && userDetails.soldToAccounts.length){
                     callSoldToDetails(userDetails)

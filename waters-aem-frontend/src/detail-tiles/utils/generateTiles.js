@@ -27,7 +27,7 @@ export default (data, type, icon) => {
     const config = document.getElementById('json-config--cmp-detail-tiles--personal')
     ? JSON.parse(document.getElementById('json-config--cmp-detail-tiles--personal').innerHTML)
     : '';
-    console.log("generate Tiles data", data)
+
     switch (type) {
         case 'personal':
             let mailingAddress = data.userAddress.filter(function(i) {
@@ -81,7 +81,6 @@ export default (data, type, icon) => {
         case 'shipToInfo':
         case 'billToInfo':
             let defaultAddresses = data.soldToAccounts.length ? getDefaultSoldToAddresses(data.soldToAccounts) : data.addresses;
-            console.log("defaultAddress", defaultAddresses);
             return [
                 ...getAddressesByType(defaultAddresses, type).map(address => {
                 let tile = {

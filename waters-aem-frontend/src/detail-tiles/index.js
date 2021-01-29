@@ -125,7 +125,6 @@ const DetailTiles = ({
         }
 
         return tiles.map((tile, key) => {
-            console.log("TILES", tile.name, tile)
             if(tile.name === 'personalDetailsTile'){
                 const mailingAddress = tile.defaultValues.userAddress && tile.defaultValues.userAddress.filter(address => address.addressType === 'mailingAddress');
                 const userCountry = mailingAddress.length ? mailingAddress[0].countryCode.toLowerCase() : '';

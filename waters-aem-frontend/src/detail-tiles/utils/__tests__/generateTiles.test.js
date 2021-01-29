@@ -19,7 +19,6 @@ describe('Scenario Generating Tile With Proper Information', () => {
 
         it('Then is should return one tile of user\'s details', () => {
             const tiles = generateTiles(mockProfileData, "personal", defaultProps.icon);
-            console.log("mockgenerateTiles", tiles);
             expect(tiles).toHaveLength(expectedTiles.length);
             expect(tiles[0].columns).toHaveLength(expectedTiles[0].columns.length);
 
