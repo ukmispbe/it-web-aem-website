@@ -96,7 +96,7 @@
     .cmp-header {
         border-bottom: none;
         width: 100%;
-        &__logo {
+        &__top-bar__logo {
             img {
                 height: 32px;
                 width: 115px;
@@ -209,12 +209,16 @@
     }
 
     .cmp-title {
-        padding-right: 2cm;
+        padding-right: $space-s;
     }
 
     img {
         max-width: 100%;
      }
+
+	.image .cmp-image__image {
+		margin-top: $space-s;
+	}
 
     table, th, td {
         border-collapse: collapse;
@@ -239,4 +243,8 @@
     a:after > img {
          content: "";
     }
+
+	.cmp-accent-rule hr {
+	    margin-top: $space-xs;
+	}
 }
