@@ -23,6 +23,17 @@ const parameterDefaults = {
     contentTypeSelected: {},
 };
 
+const getSearchData = async (url) => {
+    const response = await fetch(url, {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    return await response;
+};
+
 class SearchService {
     constructor(
         isocode,
@@ -53,15 +64,7 @@ class SearchService {
         const paramString = this.getQueryParamString({ keyword, page, sort });
         const searchString = `${this.path}?${paramString}`;
 
-        return window
-            .fetch(searchString, {
-                method: 'GET',
-                credentials: 'include',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then(response => {
+        return getSearchData(searchString).then(response => {
                 if (response.ok) {
                     return response.json();
                 } else {
@@ -90,15 +93,7 @@ class SearchService {
             searchString = `${this.path}?${paramString}`;
         }
 
-        return window
-            .fetch(searchString, {
-                method: 'GET',
-                credentials: 'include',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then(response => {
+        return getSearchData(searchString).then(response => {
                 if (response.ok) {
                     return response.json();
                 } else {
@@ -128,13 +123,7 @@ class SearchService {
             encodeURIComponent(contentTypeValue)
         )}?${paramString}${getCategoryReferenceType()}`;
 
-        return window.fetch(searchString, {
-            method: 'GET',
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(response => {
+        return getSearchData(searchString).then(response => {
             if (response.ok) {
                 return response.json();
             } else {
@@ -168,13 +157,7 @@ class SearchService {
             encodeURIComponent(contentTypeValue)
         )}${facetString}?${paramString}${getCategoryReferenceType()}`;
 
-        return window.fetch(searchString, {
-            method: 'GET',
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(response => {
+        return getSearchData(searchString).then(response => {
             if (response.ok) {
                 return response.json();
             } else {
