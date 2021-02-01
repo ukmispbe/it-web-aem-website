@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactSVG from 'react-svg';
 import { getQuoteDetails } from '../details.services';
+import { buildViewCartURL }from '../../utils/eCommerceFunctions';
 import Shipment from '../components/shipment';
 import Spinner from "../../utils/spinner";
 import ErrorBoundary from '../../search/ErrorBoundary';
@@ -86,13 +87,37 @@ class QuoteDetails extends Component {
 
     async componentDidMount() {
         this.getQuoteDetailsData();
+
+        const commerceConfig = JSON.parse(
+            document.getElementById('commerce-configs-json').innerHTML
+        );
+        if(commerceConfig) {
+            this.setState({
+                addToCartUrl: commerceConfig.addToCartUrl,
+                viewCartUrl: buildViewCartURL(commerceConfig.viewCartUrl)
+            });
+            // Update modal config button with a callback and new cart url
+            const buttons = [...this.state.modalConfig.buttons];
+            buttons[0] = {
+                ...buttons[0],
+                action: buildViewCartURL(commerceConfig.viewCartUrl),
+                callback: "" //this.addToCartReorder
+            }
+            const updatedModalConfig = {
+                ...this.state.modalConfig,
+                buttons: buttons
+            }
+            this.setState({
+                modalConfig: updatedModalConfig
+            })
+        }
     }
 
     static getDerivedStateFromProps(nextProps, prevState){
         const {quoteId} = prevState;
         const urlQuoteId = getUrlParameter("id");
         if(quoteId !== urlQuoteId){
-          return {quoteId:urlQuoteId}
+            return {quoteId:urlQuoteId}
         }
     }
 
