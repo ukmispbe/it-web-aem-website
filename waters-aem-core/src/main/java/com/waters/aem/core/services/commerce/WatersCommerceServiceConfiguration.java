@@ -16,5 +16,5 @@ public @interface WatersCommerceServiceConfiguration {
     String addToCartUrl() default "https://dev1-services.waters.com/api/waters/product/v1/addtocart/{partnumber}/{quantity}";
 
     @AttributeDefinition(name = "View Cart URL", description = "URL for the View Cart button")
-    String viewCartUrl() default "https://wwwdt1.waters.com/waters/shoppingCart.htm";
+    String viewCartUrl() default "https://dev1.waters.com/store/{localeCountry}/{localeLanguage}/cart";
 }
