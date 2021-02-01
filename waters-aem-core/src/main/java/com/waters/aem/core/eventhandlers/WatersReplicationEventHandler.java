@@ -1,6 +1,7 @@
 package com.waters.aem.core.eventhandlers;
 
 import com.adobe.granite.workflow.PayloadMap;
+import com.day.cq.commons.Externalizer;
 import com.day.cq.replication.ReplicationActionType;
 import com.day.cq.wcm.api.NameConstants;
 import com.day.cq.workflow.WorkflowException;
@@ -16,11 +17,8 @@ import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.event.jobs.NotificationConstants;
 import org.apache.sling.settings.SlingSettingsService;
-import org.osgi.framework.BundleContext;
-import org.osgi.service.component.ComponentContext;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Deactivate;
 import org.osgi.service.component.annotations.Modified;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.event.Event;
@@ -55,8 +53,6 @@ public class WatersReplicationEventHandler implements EventHandler {
 
 	private Logger log = LoggerFactory.getLogger(WatersReplicationEventHandler.class);
 
-	private BundleContext bundleContext;
-
 	private Set<String> runmodes = Collections.emptySet();
 
 	@Reference
@@ -70,14 +66,12 @@ public class WatersReplicationEventHandler implements EventHandler {
 
 	private ResourceResolver resourceResolver;
 
-	public static final String AUTHOR_RUN_MODE = "author";
-
 	private String publishWorkflowPath = null;
 
 	private String unpublishWorkflowPath = null;
 
 	public void handleEvent(Event event) {
-		if (runmodes.contains(AUTHOR_RUN_MODE) && resourceResolver != null) {
+		if (runmodes.contains(Externalizer.AUTHOR)) {
 			log.trace("Replication Event triggered on author.");
 			final String actionInitiatorId = event.containsProperty("cq:user") ? event.getProperty("cq:user").toString()
 					: null;
@@ -85,18 +79,18 @@ public class WatersReplicationEventHandler implements EventHandler {
 					: null;
 			final String actionType = event.containsProperty("cq:type") ? event.getProperty("cq:type").toString()
 					: null;
-			if (actionInitiatorId != null && actionPath != null && actionType != null) {
+			if (actionInitiatorId != null && actionPath != null && actionType != null && resourceResolver != null) {
 				final String userId = actionInitiatorId;
 				log.debug("Replication action {} at path {} ", actionType, actionPath);
 				final Resource resource = resourceResolver.resolve(actionPath);
 				if (resource != null && resource.getResourceType().equalsIgnoreCase(NameConstants.NT_PAGE)
-						&& actionPath != null && (actionPath.contains(WatersConstants.ROOT_PATH)
+						&& (actionPath.contains(WatersConstants.ROOT_PATH)
 								|| actionPath.contains(WatersConstants.ORDER_ROOT_PATH))) {
-					if (ReplicationActionType.ACTIVATE == ReplicationActionType.fromName(actionType) && userId != null
+					if (ReplicationActionType.ACTIVATE == ReplicationActionType.fromName(actionType)
 							&& publishWorkflowPath != null) {
 						initiateWorkflow(publishWorkflowPath, userId, actionPath);
 					} else if (ReplicationActionType.DEACTIVATE == ReplicationActionType.fromName(actionType)
-							&& userId != null && unpublishWorkflowPath != null) {
+							&& unpublishWorkflowPath != null) {
 						initiateWorkflow(unpublishWorkflowPath, userId, actionPath);
 					}
 				}
@@ -135,8 +129,7 @@ public class WatersReplicationEventHandler implements EventHandler {
 
 	@Activate
 	@Modified
-	protected void activate(ComponentContext ctx, WatersReplicationEventHandlerConfiguration config) {
-		this.bundleContext = ctx.getBundleContext();
+	protected void activate(final WatersReplicationEventHandlerConfiguration config) {
 		runmodes = slingSettingsService.getRunModes();
 		this.publishWorkflowPath = config.getPublishWorkflowPath();
 		this.unpublishWorkflowPath = config.getUnpublishWorkflowPath();
@@ -144,15 +137,6 @@ public class WatersReplicationEventHandler implements EventHandler {
 			resourceResolver = resolverService.getResourceResolver("watersService");
 		} catch (LoginException loginException) {
 			log.error("Error with login exception.", loginException);
-		}
-	}
-
-	@Deactivate
-	protected void deactivate(ComponentContext ctx) {
-		this.bundleContext = null;
-		if (resourceResolver != null && resourceResolver.isLive()) {
-			resourceResolver.close();
-			resourceResolver = null;
 		}
 	}
 
