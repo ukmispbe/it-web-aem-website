@@ -94,7 +94,7 @@ export const getCompanyLogo = (dir, company) => {
     return `${logoDir}/${logo}.png`;
 };
 
-const buildViewCartURL = (url) => {
+export const buildViewCartURL = (url) => {
     url = url
         .replace('{localeCountry}', isEprocurementUser() ? getEprocUserCountryCode().toLowerCase() : getCountryCode())
         .replace('{localeLanguage}', isEprocurementUser() ? getEprocUserLanguage().toLowerCase() : getLanguage())
