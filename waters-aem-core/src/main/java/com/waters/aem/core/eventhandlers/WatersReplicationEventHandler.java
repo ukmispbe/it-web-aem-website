@@ -48,12 +48,8 @@ import org.osgi.service.event.EventConstants;
  * 
  */
 @Component(immediate = true, service = EventHandler.class, property = {
-
-        EventConstants.EVENT_TOPIC + "=" + NotificationConstants.TOPIC_JOB_FINISHED,
-        EventConstants.EVENT_FILTER + "=(" + NotificationConstants.NOTIFICATION_PROPERTY_JOB_TOPIC + "=com/day/cq/replication/job/publish)"})
-    
-//		Constants.SERVICE_DESCRIPTION + "=Waters Activation/Deactivation Event Handler ",
-//		EventConstants.EVENT_TOPIC + "=" + ReplicationAction.EVENT_TOPIC })
+		EventConstants.EVENT_TOPIC + "=" + NotificationConstants.TOPIC_JOB_FINISHED, EventConstants.EVENT_FILTER + "=("
+				+ NotificationConstants.NOTIFICATION_PROPERTY_JOB_TOPIC + "=com/day/cq/replication/job/publish)" })
 @Designate(ocd = WatersReplicationEventHandler.WatersReplicationEventHandlerConfiguration.class)
 public class WatersReplicationEventHandler implements EventHandler {
 
@@ -75,17 +71,20 @@ public class WatersReplicationEventHandler implements EventHandler {
 	private ResourceResolver resourceResolver;
 
 	public static final String AUTHOR_RUN_MODE = "author";
-	
+
 	private String publishWorkflowPath = null;
-	
+
 	private String unpublishWorkflowPath = null;
 
 	public void handleEvent(Event event) {
 		if (runmodes.contains(AUTHOR_RUN_MODE) && resourceResolver != null) {
 			log.trace("Replication Event triggered on author.");
-			final String actionInitiatorId = event.containsProperty("cq:user") ? event.getProperty("cq:user").toString() : null;
-			final String actionPath = event.containsProperty("cq:path") ? event.getProperty("cq:path").toString() : null;
-			final String actionType = event.containsProperty("cq:type") ? event.getProperty("cq:type").toString() : null;
+			final String actionInitiatorId = event.containsProperty("cq:user") ? event.getProperty("cq:user").toString()
+					: null;
+			final String actionPath = event.containsProperty("cq:path") ? event.getProperty("cq:path").toString()
+					: null;
+			final String actionType = event.containsProperty("cq:type") ? event.getProperty("cq:type").toString()
+					: null;
 			if (actionInitiatorId != null && actionPath != null && actionType != null) {
 				final String userId = actionInitiatorId;
 				log.debug("Replication action {} at path {} ", actionType, actionPath);
@@ -156,15 +155,15 @@ public class WatersReplicationEventHandler implements EventHandler {
 			resourceResolver = null;
 		}
 	}
-	
+
 	@ObjectClassDefinition(name = "Waters Publish/Unpublish Notification Workflow Configuration")
-    public @interface WatersReplicationEventHandlerConfiguration {
-        
-        @AttributeDefinition(name = "Waters Publish Notification Workflow Path")
-        String getPublishWorkflowPath() default "/var/workflow/models/waters-publish-notification-workflow";
-        
-        @AttributeDefinition(name = "Waters Unpublish Notification Workflow Path")
-        String getUnpublishWorkflowPath() default "/var/workflow/models/waters-unpublish-notification-workflow";
-    }
+	public @interface WatersReplicationEventHandlerConfiguration {
+
+		@AttributeDefinition(name = "Waters Publish Notification Workflow Path")
+		String getPublishWorkflowPath() default "/var/workflow/models/waters-publish-notification-workflow";
+
+		@AttributeDefinition(name = "Waters Unpublish Notification Workflow Path")
+		String getUnpublishWorkflowPath() default "/var/workflow/models/waters-unpublish-notification-workflow";
+	}
 
 }
