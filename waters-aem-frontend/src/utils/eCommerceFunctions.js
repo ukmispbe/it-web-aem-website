@@ -102,14 +102,11 @@ export const buildViewCartURL = (url) => {
 }
 
 export const setViewCartURL = () => {
-    let url;
     let cartClass = ".top-bar__nav__cart .cmp-header-links__link";
-    if (isEprocurementUser()) {
-        url = document.querySelector(cartClass).getAttribute("href");
-    } else {
+    if (!isEprocurementUser()) {
         const commerceJSON = document.querySelector("#commerce-configs-json");
         const config = JSON.parse(commerceJSON.innerHTML) ;
-        url = config.viewCartUrl ? buildViewCartURL(config.viewCartUrl) : "";
+        const url = config.viewCartUrl ? buildViewCartURL(config.viewCartUrl) : "";
+        document.querySelector(cartClass).setAttribute("href", url);
     }
-    document.querySelector(cartClass).setAttribute("href", url);
 }
