@@ -27,7 +27,7 @@
                 color: $color-link;
             }
 
-            padding-bottom: $space-xxs;
+            padding-bottom: $space-s;
             cursor: pointer;
 
             .cmp-categories-back {
@@ -160,6 +160,9 @@
         @include mobile {
             padding-bottom: $space-xs;
         }
+    }
+    ul li {
+        padding-bottom: $space-xxs;
     }
 }
 .cmp-search__results-item {
