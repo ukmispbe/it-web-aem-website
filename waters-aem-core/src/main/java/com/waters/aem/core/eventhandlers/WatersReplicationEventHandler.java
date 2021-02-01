@@ -35,7 +35,6 @@ import java.util.Set;
 import org.osgi.service.event.EventConstants;
 
 /**
- * @author murmahat
  * 
  *         This is an custom Event Handler which gets triggered whenever any
  *         page under /content/waters or /content/order is activated or
