@@ -1,7 +1,6 @@
 package com.waters.aem.core.eventhandlers;
 
 import com.adobe.granite.workflow.PayloadMap;
-import com.day.cq.replication.ReplicationAction;
 import com.day.cq.replication.ReplicationActionType;
 import com.day.cq.wcm.api.NameConstants;
 import com.day.cq.workflow.WorkflowException;
@@ -15,28 +14,47 @@ import com.waters.aem.core.services.ResourceResolverService;
 import org.apache.sling.api.resource.LoginException;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
-import org.apache.sling.api.resource.ResourceResolverFactory;
+import org.apache.sling.event.jobs.NotificationConstants;
 import org.apache.sling.settings.SlingSettingsService;
 import org.osgi.framework.BundleContext;
 import org.osgi.service.component.ComponentContext;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Deactivate;
+import org.osgi.service.component.annotations.Modified;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
+import org.osgi.service.metatype.annotations.AttributeDefinition;
+import org.osgi.service.metatype.annotations.Designate;
+import org.osgi.service.metatype.annotations.ObjectClassDefinition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.jcr.Session;
 import java.util.Collections;
 import java.util.Set;
-import org.osgi.framework.Constants;
 import org.osgi.service.event.EventConstants;
 
+/**
+ * @author murmahat
+ * 
+ *         This is an custom Event Handler which gets triggered whenever any
+ *         page under /content/waters or /content/order is activated or
+ *         deactivated. This calls the Waters Publish or Unpublish Notification
+ *         Workflow based on the replication action. These workflow sends email
+ *         to the global and regional content approvers about the page
+ *         activated/deactivated.
+ * 
+ */
 @Component(immediate = true, service = EventHandler.class, property = {
-		Constants.SERVICE_DESCRIPTION + "=Waters Activation/Deactivation Event Handler ",
-		EventConstants.EVENT_TOPIC + "=" + ReplicationAction.EVENT_TOPIC })
+
+        EventConstants.EVENT_TOPIC + "=" + NotificationConstants.TOPIC_JOB_FINISHED,
+        EventConstants.EVENT_FILTER + "=(" + NotificationConstants.NOTIFICATION_PROPERTY_JOB_TOPIC + "=com/day/cq/replication/job/publish)"})
+    
+//		Constants.SERVICE_DESCRIPTION + "=Waters Activation/Deactivation Event Handler ",
+//		EventConstants.EVENT_TOPIC + "=" + ReplicationAction.EVENT_TOPIC })
+@Designate(ocd = WatersReplicationEventHandler.WatersReplicationEventHandlerConfiguration.class)
 public class WatersReplicationEventHandler implements EventHandler {
 
 	private Logger log = LoggerFactory.getLogger(WatersReplicationEventHandler.class);
@@ -49,9 +67,6 @@ public class WatersReplicationEventHandler implements EventHandler {
 	private SlingSettingsService slingSettingsService;
 
 	@Reference
-	private ResourceResolverFactory resourceResolverFactory;
-
-	@Reference
 	private WorkflowService workflowService;
 
 	@Reference
@@ -60,60 +75,76 @@ public class WatersReplicationEventHandler implements EventHandler {
 	private ResourceResolver resourceResolver;
 
 	public static final String AUTHOR_RUN_MODE = "author";
+	
+	private String publishWorkflowPath = null;
+	
+	private String unpublishWorkflowPath = null;
 
 	public void handleEvent(Event event) {
 		if (runmodes.contains(AUTHOR_RUN_MODE) && resourceResolver != null) {
 			log.trace("Replication Event triggered on author.");
-			final ReplicationAction action = ReplicationAction.fromEvent(event);
-			if (action != null) {
-				final String userId = action.getUserId();
-				log.debug("Replication action {} at path {} ", action.getType().getName(), action.getPath());
-				final Resource resource = resourceResolver.resolve(action.getPath());
+			final String actionInitiatorId = event.containsProperty("cq:user") ? event.getProperty("cq:user").toString() : null;
+			final String actionPath = event.containsProperty("cq:path") ? event.getProperty("cq:path").toString() : null;
+			final String actionType = event.containsProperty("cq:type") ? event.getProperty("cq:type").toString() : null;
+			if (actionInitiatorId != null && actionPath != null && actionType != null) {
+				final String userId = actionInitiatorId;
+				log.debug("Replication action {} at path {} ", actionType, actionPath);
+				final Resource resource = resourceResolver.resolve(actionPath);
 				if (resource != null && resource.getResourceType().equalsIgnoreCase(NameConstants.NT_PAGE)
-						&& (action.getPath().contains(WatersConstants.ROOT_PATH)
-								|| action.getPath().contains(WatersConstants.ORDER_ROOT_PATH))) {
-					if (ReplicationActionType.ACTIVATE == action.getType()) {
-						performWorkflow("/var/workflow/models/waters-publish-notification-workflow", userId,
-								action.getPath());
-						log.trace("Waters Publish Notification Workflow triggered.");
-					} else if (ReplicationActionType.DEACTIVATE == action.getType()) {
-						performWorkflow("/var/workflow/models/waters-unpublish-notification-workflow", userId,
-								action.getPath());
-						log.trace("Waters Unpublish Notification Workflow triggered.");
+						&& actionPath != null && (actionPath.contains(WatersConstants.ROOT_PATH)
+								|| actionPath.contains(WatersConstants.ORDER_ROOT_PATH))) {
+					if (ReplicationActionType.ACTIVATE == ReplicationActionType.fromName(actionType) && userId != null
+							&& publishWorkflowPath != null) {
+						initiateWorkflow(publishWorkflowPath, userId, actionPath);
+					} else if (ReplicationActionType.DEACTIVATE == ReplicationActionType.fromName(actionType)
+							&& userId != null && unpublishWorkflowPath != null) {
+						initiateWorkflow(unpublishWorkflowPath, userId, actionPath);
 					}
 				}
 			}
 		}
 	}
 
-	private void performWorkflow(final String model, final String userId, final String path) {
+	/**
+	 * This method is used to call the Waters Publish or Unpublish Notification
+	 * Workflow based on the replication action. It takes workflowModelPath, userId
+	 * and payloadPath as parameters.
+	 * 
+	 * @param wfModelPath
+	 * @param userId
+	 * @param payloadPath
+	 */
+	private void initiateWorkflow(final String wfModelPath, final String userId, final String payloadPath) {
 		try {
 			log.debug("Attempting to configure workflow");
 			final Session adminSession = resourceResolver.adaptTo(Session.class);
 			WorkflowSession wfSession = workflowService.getWorkflowSession(adminSession);
 
-			WorkflowModel wfModel = wfSession.getModel(model);
+			WorkflowModel wfModel = wfSession.getModel(wfModelPath);
 			if (wfModel != null) {
-				WorkflowData wfData = wfSession.newWorkflowData(PayloadMap.TYPE_JCR_PATH, path);
+				WorkflowData wfData = wfSession.newWorkflowData(PayloadMap.TYPE_JCR_PATH, payloadPath);
 				wfData.getMetaDataMap().put("initiator", userId);
-				log.debug("Starting workflow using model: {}", wfModel.getId());
 				wfSession.startWorkflow(wfModel, wfData);
+				log.debug("Starting workflow using model: {}", wfModel.getId());
 			} else {
 				log.warn("No workflow model found. Skipping transaction.");
 			}
-		} catch (WorkflowException ex) {
-			log.error("Error starting workflow.", ex);
+		} catch (WorkflowException wfException) {
+			log.error("Error starting workflow.", wfException);
 		}
 	}
 
 	@Activate
-	protected void activate(ComponentContext ctx) {
+	@Modified
+	protected void activate(ComponentContext ctx, WatersReplicationEventHandlerConfiguration config) {
 		this.bundleContext = ctx.getBundleContext();
 		runmodes = slingSettingsService.getRunModes();
+		this.publishWorkflowPath = config.getPublishWorkflowPath();
+		this.unpublishWorkflowPath = config.getUnpublishWorkflowPath();
 		try {
 			resourceResolver = resolverService.getResourceResolver("watersService");
-		} catch (LoginException e) {
-			e.printStackTrace();
+		} catch (LoginException loginException) {
+			log.error("Error with login exception.", loginException);
 		}
 	}
 
@@ -125,5 +156,15 @@ public class WatersReplicationEventHandler implements EventHandler {
 			resourceResolver = null;
 		}
 	}
+	
+	@ObjectClassDefinition(name = "Waters Publish/Unpublish Notification Workflow Configuration")
+    public @interface WatersReplicationEventHandlerConfiguration {
+        
+        @AttributeDefinition(name = "Waters Publish Notification Workflow Path")
+        String getPublishWorkflowPath() default "/var/workflow/models/waters-publish-notification-workflow";
+        
+        @AttributeDefinition(name = "Waters Unpublish Notification Workflow Path")
+        String getUnpublishWorkflowPath() default "/var/workflow/models/waters-unpublish-notification-workflow";
+    }
 
 }
