@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 
 import Select from './components/select';
 import DisplayMessage from "./components/displaymessage";
@@ -13,6 +13,12 @@ const Dropdown = ({}) => {
     const { register } = useContext(useFormApi);
 
     let newLabel = renderFormattedLabelText(label, validation.required, optionalLabel)
+
+    useEffect(() => {
+        return () => {
+            register({ name }, { required: false });
+        }
+    }, [])
 
     return (
         <div className="cmp-form-field-dropdown--wrapper">

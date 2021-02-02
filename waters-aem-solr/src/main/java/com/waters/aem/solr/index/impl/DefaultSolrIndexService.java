@@ -62,7 +62,7 @@ public class DefaultSolrIndexService implements SolrIndexService {
      * This methods takes List<String> paths as input and adds those to solr
      */
     @Override
-    public boolean addPageToIndex(final List<String> paths) throws IOException, SolrServerException {
+    public boolean addPageToIndex(final List<String> paths, String collection) throws IOException, SolrServerException {
         boolean success = true;
         List<SolrInputDocument> documentList = new ArrayList<SolrInputDocument>();
 
@@ -71,17 +71,17 @@ public class DefaultSolrIndexService implements SolrIndexService {
         		for (String path : paths) {
         			final SolrInputDocument document = getSolrInputDocument(path);
 
-                    LOG.info("adding solr document to index : {}", document);
+                    LOG.debug("adding solr document to index : {}", document);
                     documentList.add(document);
 				}
-        		  success = solrIndexClient.addToIndex(documentList);
+        		  success = solrIndexClient.addToIndex(documentList, collection);
             
         }
         	catch(RouteException e) {
         		LOG.error("Add to index skipped due to : {}", e.getMessage());
         	}
         } else {
-            LOG.info("solr index service disabled, not adding path to index : {}", paths);
+            LOG.debug("solr index service disabled, not adding path to index : {}", paths);
         }
 
         return success;
@@ -95,7 +95,7 @@ public class DefaultSolrIndexService implements SolrIndexService {
 
         if (enabled) {
         	try {
-            LOG.info("deleting paths {} from solr index...", paths);
+            LOG.debug("deleting paths {} from solr index...", paths);
 
             success = solrIndexClient.deleteFromIndex(paths);
             }
@@ -103,7 +103,7 @@ public class DefaultSolrIndexService implements SolrIndexService {
         		LOG.error("delete from index skipped due to : {}", e.getMessage());
         	}
         } else {
-            LOG.info("solr index service disabled, not deleting path from index : {}", paths);
+            LOG.debug("solr index service disabled, not deleting path from index : {}", paths);
         }
 
         return success;
@@ -116,7 +116,7 @@ public class DefaultSolrIndexService implements SolrIndexService {
         	try {
             final SolrInputDocument document = getSolrInputDocument(path);
 
-            LOG.info("adding solr document to index : {}", document);
+            LOG.debug("adding solr document to index : {}", document);
 
             success = solrIndexClient.addToIndex(document);
         }
@@ -124,7 +124,7 @@ public class DefaultSolrIndexService implements SolrIndexService {
         		LOG.error("Add to index skipped due to : {}", e.getMessage());
         	}
         } else {
-            LOG.info("solr index service disabled, not adding path to index : {}", path);
+            LOG.debug("solr index service disabled, not adding path to index : {}", path);
         }
 
         return success;
@@ -136,7 +136,7 @@ public class DefaultSolrIndexService implements SolrIndexService {
 
         if (enabled) {
         	try {
-            LOG.info("deleting path {} from solr index...", path);
+            LOG.debug("deleting path {} from solr index...", path);
 
             success = solrIndexClient.deleteFromIndex(path);
             }
@@ -144,7 +144,7 @@ public class DefaultSolrIndexService implements SolrIndexService {
         		LOG.error("delete from index skipped due to : {}", e.getMessage());
         	}
         } else {
-            LOG.info("solr index service disabled, not deleting path from index : {}", path);
+            LOG.debug("solr index service disabled, not deleting path from index : {}", path);
         }
 
         return success;

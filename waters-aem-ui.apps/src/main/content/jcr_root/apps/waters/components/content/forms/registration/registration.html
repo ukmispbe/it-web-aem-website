@@ -49,6 +49,7 @@
             "formName": "registration",
             "submitEndpoint": "${registration.registrationSubmitUrl @ context='unsafe'}",
             "buttonText": "${'Create Account' @ i18n, context='text'}",
+            "altButtonText": "${'Continue' @ i18n, context='text'}",
             "redirectUrl": "${registration.redirectLink.href @ context='unsafe'}",
             "needsToBeSignedOut": true,
             "elementLocator": "registration-form",
@@ -208,8 +209,26 @@
                     "optionalLabel": "${'(optional)' @ i18n, context='text'}"
                 },
                 {
+                    "type": "label",
+                    "name": "addressInformationLabel",
+                    "label": "${'Address information will be required to place orders online.' @ i18n, context='unsafe'}"
+                },
+                {
+                    "type": "checkbox",
+                    "name": "addAddresses",
+                    "label": "${'I want to add address information now.' @ i18n, context='text'}",
+                    "optionalLabel": "${'(optional)' @ i18n, context='text'}"
+                },
+                {
+                    "type": "label",
+                    "name": "anyTimeLabel",
+                    "active": true,
+                    "label": "${'You can add this informtion any time during checkout.' @ i18n, context='unsafe'}"
+                },
+                {
                     "type": "captcha",
                     "name": "captcha",
+                    "active": true,
                     "siteKey": "${registration.captchaSiteKey @ context='unsafe'}",
                     "validation": {
                         "required": true,
@@ -219,6 +238,7 @@
                 {
                     "type": "textwithlinks",
                     "name": "privacy",
+                    "active": true,
                     "config": [
                         {
                             "type": "text",
@@ -366,8 +386,418 @@
             ]
         }
     </script>
+    <script type="application/json" id="cmp-registration-address-form">
+        {
+            "formName": "registrationAddress",
+            "customFormClass": "cmp-form--shipping-address",
+            "submitEndpoint": "${registration.registrationSubmitUrl @ context='unsafe'}",
+            "redirectUrl": "${registration.redirectLink.href @ context='unsafe'}",
+            "statesUrl": "${registration.countryStatesUrl @ context='unsafe'}",
+            "buttonText": "${'Create Account' @ i18n, context='text'}",
+            "elementLocator": "shipping-address-form",
+            "needsToBeSignedOut": true,
+            "icons": {
+                "checkmarkIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
+                "validIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
+                "invalidIcon": "/content/dam/waters/en/brand-assets/icons/attention.svg",
+                "eyeIcon": "/content/dam/waters/en/brand-assets/icons/eye.svg",
+                "eyeOffIcon": "/content/dam/waters/en/brand-assets/icons/eye-off.svg",
+                "signInIcon": "/content/dam/waters/en/brand-assets/icons/user.svg",
+                "lockIcon": "/content/dam/waters/en/brand-assets/icons/lock.svg"
+            },
+            "fields": [
+                {
+                    "type": "navigateLink",
+                    "text": "${'I dont want to add address information now.' @ i18n, context='unsafe'}",
+                    "name": "backLink",
+                    "link": "#"
+                },
+                {
+                    "type": "label",
+                    "name": "requiredLabel",
+                    "label": "${'*Required field' @ i18n, context='unsafe'}"
+                },
+                {
+                    "type": "label",
+                    "name": "adressLabel",
+                    "addClass": "addressLabel",
+                    "label": "${'Shipping Address' @ i18n, context='unsafe'}"
+                },
+                {
+                    "type": "formNotification",
+                    "name": "notification",
+                    "active": true,
+                    "config": [
+                        {
+                            "type": "text",
+                            "text": "${'It may take up to' @ i18n, context='text'}",
+                            "rightSpace": "true"
+                        },
+                        {
+                            "type": "text",
+                            "text": "${'24 Hours' @ i18n, context='text'}",
+                            "className": "boldText",
+                            "rightSpace": "true"
+                        },
+                        {
+                            "type": "text",
+                            "text": "${'for us to verify your address and it may not be available for future orders until verification is complete.' @ i18n, context='text'}",
+                            "rightSpace": "false"
+                        }
+                    ]
+                },
+                {
+                    "type": "text",
+                    "name": "shippingOrganizationName1",
+                    "active": false,
+                    "label": "${'Organization Name' @ i18n, context='text'}",
+                    "validation": {
+                        "required": true,
+                        "maxLength": {
+                            "value": 40,
+                            "message": "${'Maximum 40 characters allowed' @i18n, context='unsafe'}"
+                        },
+                        "validateFnName": "noWhitespaceOnly",
+                        "validationMsg": "${'Please enter a valid organization name.' @ i18n, context='unsafe'}",
+                        "requiredMsg": "${'Please enter an organization name.' @ i18n, context='unsafe'}"
+                    }
+                },
+                {
+                    "type": "text",
+                    "name": "shippingOrganizationName2",
+                    "active": false,
+                    "validation": {
+                        "required": false,
+                        "maxLength": {
+                            "value": 40,
+                            "message": "${'Maximum 40 characters allowed' @i18n, context='unsafe'}"
+                        }
+                    }
+                },
+                {
+                    "type": "text",
+                    "name": "shippingOrganizationName3",
+                    "active": false,
+                    "validation": {
+                        "required": false,
+                        "maxLength": {
+                            "value": 40,
+                            "message": "${'Maximum 40 characters allowed' @i18n, context='unsafe'}"
+                        }
+                    }
+                },                
+                {
+                    "type": "text",
+                    "name": "shippingOrganizationName4",
+                    "active": false,
+                    "validation": {
+                        "required": false,
+                        "maxLength": {
+                            "value": 40,
+                            "message": "${'Maximum 40 characters allowed' @i18n, context='unsafe'}"
+                        }
+                    }
+                }, 
+                {
+                    "type": "addLineButton",
+                    "addClass": "add-line-item",
+                    "name": "shippingOrganizationName_Btn",
+                    "value": "${'Add Line' @ i18n, context='unsafe'}",
+                    "iconSrc": "/content/dam/waters/en/brand-assets/icons/add.svg"
+                },    
+                {
+                    "type": "text",
+                    "name": "shippingStreetAddress1",
+                    "label": "${'Street Address' @ i18n, context='text'}",
+                    "validation": {
+                        "required": true,
+                        "maxLength": {
+                            "value": 40,
+                            "message": "${'Maximum 40 characters allowed' @i18n, context='unsafe'}"
+                        },
+                        "validateFnName": "noWhitespaceOnly",
+                        "validationMsg": "${'Please enter a valid street address.' @ i18n, context='unsafe'}",
+                        "requiredMsg": "${'Please enter a street address.' @ i18n, context='unsafe'}"
+                    }
+                },
+                {
+                    "type": "text",
+                    "name": "shippingStreetAddress2",
+                    "active": false,
+                    "validation": {
+                        "required": false,
+                        "maxLength": {
+                            "value": 40,
+                            "message": "${'Maximum 40 characters allowed' @i18n, context='unsafe'}"
+                        }
+                    }
+                },
+                {
+                    "type": "addLineButton",
+                    "addClass": "add-line-item",
+                    "name": "shippingStreetAddress_Btn",
+                    "value": "${'Add Line' @ i18n, context='unsafe'}",
+                    "iconSrc": "/content/dam/waters/en/brand-assets/icons/add.svg"
+                },
+                {
+                    "type": "text",
+                    "name": "shippingCity",
+                    "label": "${'City' @ i18n, context='text'}",
+                    "validation": {
+                        "required": true,
+                        "maxLength": {
+                            "value": 40,
+                            "message": "${'Maximum 40 characters allowed' @i18n, context='unsafe'}"
+                        },
+                        "validateFnName": "noWhitespaceOnly",
+                        "validationMsg": "${'Please enter a valid city.' @ i18n, context='unsafe'}",
+                        "requiredMsg": "${'Please enter a city.' @ i18n, context='unsafe'}"
+                    }
+                },
+                {
+                    "type": "dropdown",
+                    "name": "shippingState",
+                    "label": "${'State/Province/Region' @ i18n, context='text'}",
+                    "placeholder": "${'Select...' @ i18n, context='text'}",
+                    "dropdownIndicator": "/content/dam/waters/en/brand-assets/icons/down.svg",
+                    "active": false,
+                    "validation": {
+                        "required": true,
+                        "requiredMsg": "${'Please select your state.' @ i18n, context='text'}"
+                    }
+                },
+                {
+                    "type": "text",
+                    "name": "shippingZipPostalCode",
+                    "label": "${'Zip/Postal Code' @ i18n, context='text'}",
+                    "validation": {
+                        "required": true,
+                        "validateFnName": "noWhitespaceOnly",
+                        "validationMsg": "${'Please enter a Zip/Postal Code.' @ i18n, context='unsafe'}",
+                        "requiredMsg": "${'Please enter a Zip/Postal Code.' @ i18n, context='unsafe'}"
+                    }
+                },                
+                {
+                    "type": "text",
+                    "name": "shippingCountry",
+                    "label": "${'Country' @ i18n, context='text'}",
+                    "disabled": true,
+                    "validation": {
+                        "required": true
+                    }
+                },  
+				{
+                    "type": "checkbox",
+                    "name": "sameAddress",
+                    "initialState": true,
+                    "label": "${'Billing address is the same as shipping' @ i18n, context='text'}"
+                },
+                {
+                    "type": "label",
+                    "name": "billingAddressLabel",
+                    "addClass": "addressLabel",
+                    "label": "${'Billing Address' @ i18n, context='unsafe'}",
+                    "active": false
+                },
+                {
+                    "type": "text",
+                    "name": "billingOrganizationName1",
+                    "label": "${'Organization Name' @ i18n, context='text'}",
+                    "active": false,
+                    "validation": {
+                        "required": true,
+                        "maxLength": {
+                            "value": 40,
+                            "message": "${'Maximum 40 characters allowed' @i18n, context='unsafe'}"
+                        },
+                        "validateFnName": "noWhitespaceOnly",
+                        "validationMsg": "${'Please enter a valid organization name.' @ i18n, context='unsafe'}",
+                        "requiredMsg": "${'Please enter an organization name.' @ i18n, context='unsafe'}"
+                    }
+                },
+                {
+                    "type": "text",
+                    "name": "billingOrganizationName2",
+                    "active": false,
+                    "validation": {
+                        "required": false,
+                        "maxLength": {
+                            "value": 40,
+                            "message": "${'Maximum 40 characters allowed' @i18n, context='unsafe'}"
+                        }
+                    }
+                },
+                {
+                    "type": "text",
+                    "name": "billingOrganizationName3",
+                    "active": false,
+                    "validation": {
+                        "required": false,
+                        "maxLength": {
+                            "value": 40,
+                            "message": "${'Maximum 40 characters allowed' @i18n, context='unsafe'}"
+                        }
+                    }
+                },                
+                {
+                    "type": "text",
+                    "name": "billingOrganizationName4",
+                    "active": false,
+                    "validation": {
+                        "required": false,
+                        "maxLength": {
+                            "value": 40,
+                            "message": "${'Maximum 40 characters allowed' @i18n, context='unsafe'}"
+                        }
+                    }
+                },     
+                                {
+                    "type": "addLineButton",
+                    "addClass": "add-line-item",
+                    "name": "billingOrganizationName_Btn",
+                    "value": "${'Add Line' @ i18n, context='unsafe'}",
+                    "iconSrc": "/content/dam/waters/en/brand-assets/icons/add.svg",
+                    "active": false
+                },
+                {
+                    "type": "text",
+                    "name": "billingStreetAddress1",
+                    "label": "${'Street Address' @ i18n, context='text'}",
+                    "active": false,
+                    "validation": {
+                        "required": true,
+                        "maxLength": {
+                            "value": 40,
+                            "message": "${'Maximum 40 characters allowed' @i18n, context='unsafe'}"
+                        },
+                        "validateFnName": "noWhitespaceOnly",
+                        "validationMsg": "${'Please enter a valid street address.' @ i18n, context='unsafe'}",
+                        "requiredMsg": "${'Please enter a street address.' @ i18n, context='unsafe'}"
+                    }
+                },
+                {
+                    "type": "text",
+                    "name": "billingStreetAddress2",
+                    "active": false,
+                    "validation": {
+                        "required": false,
+                        "maxLength": {
+                            "value": 40,
+                            "message": "${'Maximum 40 characters allowed' @i18n, context='unsafe'}"
+                        }
+                    }
+                },
+                {
+                    "type": "addLineButton",
+                    "addClass": "add-line-item",
+                    "name": "billingStreetAddress_Btn",
+                    "value": "${'Add Line' @ i18n, context='unsafe'}",
+                    "iconSrc": "/content/dam/waters/en/brand-assets/icons/add.svg",
+                    "active": false
+                },
+                {
+                    "type": "text",
+                    "name": "billingCity",
+                    "label": "${'City' @ i18n, context='text'}",
+                    "active": false,
+                    "validation": {
+                        "required": true,
+                        "maxLength": {
+                            "value": 40,
+                            "message": "${'Maximum 40 characters allowed' @i18n, context='unsafe'}"
+                        },
+                        "validateFnName": "noWhitespaceOnly",
+                        "validationMsg": "${'Please enter a valid city.' @ i18n, context='unsafe'}",
+                        "requiredMsg": "${'Please enter a city.' @ i18n, context='unsafe'}"
+                    }
+                },
+                {
+                    "type": "dropdown",
+                    "name": "billingState",
+                    "label": "${'State/Province/Region' @ i18n, context='text'}",
+                    "active": false,
+                    "placeholder": "${'Select...' @ i18n, context='text'}",
+                    "dropdownIndicator": "/content/dam/waters/en/brand-assets/icons/down.svg",
+                    "validation": {
+                        "required": true,
+                        "requiredMsg": "${'Please select your state.' @ i18n, context='text'}"
+                    }
+                },
+                {
+                    "type": "text",
+                    "name": "billingZipPostalCode",
+                    "label": "${'Zip/Postal Code' @ i18n, context='text'}",
+                    "active": false,
+                    "validation": {
+                        "required": true,
+                        "validateFnName": "noWhitespaceOnly",
+                        "validationMsg": "${'Please enter a Zip/Postal Code.' @ i18n, context='unsafe'}",
+                        "requiredMsg": "${'Please enter a Zip/Postal Code.' @ i18n, context='unsafe'}"
+                    }
+                },
+                {
+                    "type": "text",
+                    "name": "billingCountry",
+                    "label": "${'Country' @ i18n, context='text'}",
+                    "disabled": true,
+                    "active": false,
+                    "validation": {
+                        "required": true
+                    }
+                },                 
+
+                {
+                    "type": "captcha",
+                    "name": "shippingCaptcha",
+                    "siteKey": "${registration.captchaSiteKey @ context='unsafe'}",
+                    "validation": {
+                        "required": true,
+                        "requiredMsg": "${'Please check the captcha.' @ i18n, context='text'}"
+                    }
+                },
+                {
+                    "type": "textwithlinks",
+                    "name": "privacy",
+                    "config": [
+                        {
+                            "type": "text",
+                            "text": "${'By clicking the CREATE ACCOUNT button, you are agreeing to our' @ i18n, context='text'}",
+                            "rightSpace": "true"
+                        },
+                        {
+                            "type": "link",
+                            "label": "${'Terms of Use' @ i18n, context='text'}",
+                            "url": "${registration.termsOfUseLink.href @ context='unsafe'}",
+                            "blank": "${registration.newWindow @ context='unsafe'}",
+                            "rightSpace": "true"
+                        },
+                        {
+                            "type": "text",
+                            "text": "${'and understand that the information you have provided on this website will be used and processed by Waters in accordance with the' @ i18n, context='text'}",
+                            "rightSpace": "true"
+                        },
+                        {
+                            "type": "link",
+                            "label": "${'Waters Privacy Notice' @ i18n, context='text'}",
+                            "url": "${registration.privacyNoticeLink.href @ context='unsafe'}",
+                            "blank": "${registration.newWindow @ context='unsafe'}",
+                            "rightSpace": "false"
+                        },
+                        {
+                            "type": "text",
+                            "text": "${'.' @ i18n, context='text'}",
+                            "rightSpace": "false"
+                        }
+                    ]
+                }
+            ]
+        }
+    </script>
 </div>
 <sly
         data-sly-use.patterns="/apps/waters/components/content/patterns.html"
         data-sly-call="${patterns.placeholder @ show=true, text=component.title}"
 />
+<sly data-sly-use.clientlib="/libs/granite/sightly/templates/clientlib.html" data-sly-call="${clientlib.js @ categories='waters.forms'}"/>
+<!--/* Load client forms css asynchronously using preload */-->
+<link rel="preload" href="/etc.clientlibs/waters/components/content/forms/clientlib-forms.css" as="style"  onload="this.onload=null;this.rel='stylesheet'">

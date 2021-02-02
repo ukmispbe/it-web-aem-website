@@ -23,6 +23,8 @@ const Select = (props) => {
         switch (name) {
             case "country":
                 return options.map(val => setupOptions(val.displayName, val.countryCode));
+            case "billingState":
+            case "shippingState":
             case "state":
                 return options.map(val => setupOptions(val.displayName, val.stateCode));
             case "namePrefix":

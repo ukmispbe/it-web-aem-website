@@ -1,6 +1,47 @@
 .cmp-container {
     margin: $space-l -30% $space-xl;
     padding: 0 30%;
+    position: relative;
+    overflow-y: hidden;
+    z-index: $cmp-container-z-index;
+    
+    &__background-image {
+        position: absolute;
+        z-index: -2;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+
+        > div {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+        }
+
+        img {
+            width: 100%;
+            object-fit: cover;
+            height: 100%;
+
+            @include mobile {
+                height: 100%;
+            }
+        }
+
+        .cmp-image__title {
+            display: none;
+        }
+    }
+
+    &__background-overlay {
+        z-index: -1;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+    }
 
     @include mobile {
         margin-top: 0;
@@ -182,5 +223,71 @@
 .cmp-container--smallPadding .cmp-container {
     .cmp-container__wrapper {
         padding: $space-l 0;
+    }
+}
+
+.cmp-container--position0 .cmp-container {
+    .cmp-container__background-image img {
+        object-position: 0 0%;
+    }
+}
+
+.cmp-container--position10 .cmp-container {
+    .cmp-container__background-image img {
+        object-position: 0 10%;
+    }
+}
+
+.cmp-container--position20 .cmp-container {
+    .cmp-container__background-image img {
+        object-position: 0 20%;
+    }
+}
+
+.cmp-container--position30 .cmp-container {
+    .cmp-container__background-image img {
+        object-position: 0 30%;
+    }
+}
+
+.cmp-container--position40 .cmp-container {
+    .cmp-container__background-image img {
+        object-position: 0 40%;
+    }
+}
+
+.cmp-container--position50 .cmp-container {
+    .cmp-container__background-image img {
+        object-position: 0 50%;
+    }
+}
+
+.cmp-container--position60 .cmp-container {
+    .cmp-container__background-image img {
+        object-position: 0 60%;
+    }
+}
+
+.cmp-container--position70 .cmp-container {
+    .cmp-container__background-image img {
+        object-position: 0 70%;
+    }
+}
+
+.cmp-container--position80 .cmp-container {
+    .cmp-container__background-image img {
+        object-position: 0 80%;
+    }
+}
+
+.cmp-container--position90 .cmp-container {
+    .cmp-container__background-image img {
+        object-position: 0 90%;
+    }
+}
+
+.cmp-container--position100 .cmp-container {
+    .cmp-container__background-image img {
+        object-position: 0 100%;
     }
 }

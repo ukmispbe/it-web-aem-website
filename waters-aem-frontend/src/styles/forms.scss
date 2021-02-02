@@ -272,7 +272,11 @@
 
         &--input {
             position: relative;
-        }
+
+            .fieldHidden {
+                display: none;
+            }
+       }
 
         &--icons {
             position: absolute;
@@ -620,5 +624,71 @@
 .cmp-trouble-signing-in-form,#js-contact-support-form {
     .cmp-form {
         margin-bottom: 0;
+    }
+}
+
+#js-registration-form {
+    .cmp-form {
+        .cmp-form-field {           
+            width: 100%;
+        }  
+
+        .cmp-form-field-label {
+            .addressLabel {
+                display: block;
+                @include font-h4;
+                margin-bottom: $space-xxxs;
+            }
+        }
+		.cmp-form-field-addLineButton {
+			display: inline-block;
+            width: 100%;
+            margin-top: 0;
+            margin-left: 0;
+
+			.add-line-item {
+				margin-top: $space-xs;
+                margin-left: 0;
+                white-space: nowrap;
+                cursor: pointer;
+                span {
+                    padding-right: 2px;
+                    vertical-align: middle;
+                }
+			}
+			svg .st0,
+			svg .st1 {
+				stroke: $color-blue-50;
+			}
+			svg {
+				width: $icon-m;
+				height: $icon-m;
+			}
+        }	
+        .noLabel {
+            margin-top: $space-s;
+        }
+
+        .cmp-form-field-left-formNotification--notification {
+            float: left;
+            padding: 0 $space-xxs $space-xxs $space-xxs;
+            height: 100%;
+          
+            svg {
+                width: $icon-m;
+                height: $icon-m;
+                svg .st1 {
+                    stroke: $color-icon;
+                }
+            }
+        }
+
+        .cmp-form-field-right-formNotification--notification {
+            @include font-body;
+            display: table-cell;
+            .boldText {
+                font-weight: $font-weight-bold;
+            }
+        }
     }
 }

@@ -47,14 +47,14 @@ public class DefaultSolrIndexClient implements SolrIndexClient {
      * This methods takes List<SolrInputDocument> documents as input and adds those to solr
      */
     @Override
-    public boolean addToIndex(final List<SolrInputDocument> documents) throws IOException, SolrServerException {
+    public boolean addToIndex(final List<SolrInputDocument> documents, String collectionName) throws IOException, SolrServerException {
     	  UpdateRequest req = new UpdateRequest();
     	    req.add(documents);
     	    req.setCommitWithin(commitWithinMs);
     	    if(enableAuthentication) {
     	    req.setBasicAuthCredentials(userName,password);
     	    }
-    	return processResponse(req.process(solrClient, collection), req);
+    	return processResponse(req.process(solrClient, collectionName), req);
     }
 
     /**
@@ -107,7 +107,7 @@ public class DefaultSolrIndexClient implements SolrIndexClient {
                 .withConnectionTimeout(configuration.connectionTimeout())
                 .withSocketTimeout(configuration.socketTimeout()) .build();
       
-        LOG.info("created solr client, commit within : {}ms, hard commit : {}, collection : {}", commitWithinMs,
+        LOG.debug("created solr client, commit within : {}ms, hard commit : {}, collection : {}", commitWithinMs,
             hardCommit, collection);
     }
 	
