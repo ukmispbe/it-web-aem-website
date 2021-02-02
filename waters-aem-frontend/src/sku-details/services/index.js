@@ -2,14 +2,19 @@ import 'whatwg-fetch';
 import LocalStore from '../../stores/localStore';
 import loginStatus from '../../scripts/loginStatus';
 import { fetchData } from '../../utils/serviceFunctions';
-import { getCountryCode, getLanguage, getUserId } from '../../utils/userFunctions';
-import { isEprocurementUser, getEprocUserCountryCode, getEprocUserLanguage } from '../../utils/userFunctions';
+import {
+    getCountryCode,
+    getLanguage,
+    getUserId,
+    isEprocurementUser,
+    getEprocUserCountryCode,
+    getEprocUserLanguage
+} from '../../utils/userFunctions';
 
 const availabilityUrlRequest = (url, countryCode, partNo) => {
     url = url
-            .replace('{partnumber}', partNo)
-            .replace('{countryCode}', isEprocurementUser() ? getEprocUserCountryCode().toUpperCase() : countryCode);
-
+        .replace('{partnumber}', partNo)
+        .replace('{countryCode}', isEprocurementUser() ? getEprocUserCountryCode().toUpperCase() : countryCode);
     return url;
 }
 

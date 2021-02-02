@@ -2,6 +2,13 @@ import ReactHtmlParser from 'react-html-parser';
 
 import SessionStore from '../stores/sessionStore';
 import loginStatus from '../scripts/loginStatus';
+import {
+    getCountryCode,
+    getLanguage,
+    isEprocurementUser,
+    getEprocUserCountryCode,
+    getEprocUserLanguage
+} from '../utils/userFunctions';
 // This function determines the eCommerce Status of the User / Country combination
 // The eCommerce status is determined from the "data-ecommerce-state" which is returned in the header Navigation
 export const isCartHidden = () => {
@@ -9,6 +16,7 @@ export const isCartHidden = () => {
     const headerNavigation_cartLI = document.querySelector('.top-bar__nav__cart');    
     if (headerNavigation_cartLI) {
         eCommStatus = headerNavigation_cartLI.attributes["data-ecommerce-state"].value.toUpperCase();
+        setViewCartURL();
     }
     if (eCommStatus === "DISABLED") {
         return true;
@@ -20,7 +28,7 @@ export const isCartHidden = () => {
         if (loginStatus.state()) { 
             const store = new SessionStore();
             const soldToDetails = store.getSoldToDetails();
-            if (!soldToDetails  || soldToDetails.length   === 0) {
+            if (!soldToDetails  || soldToDetails.length === 0) {
                 return true;
             }
         }
@@ -37,6 +45,7 @@ export const isSignInHidden = () => {
     const headerNavigation_cartLI = document.querySelector('.top-bar__nav__cart');    
     if (headerNavigation_cartLI) {
         eCommStatus = headerNavigation_cartLI.attributes["data-ecommerce-state"].value.toUpperCase();
+        setViewCartURL();
     }
     if (eCommStatus === "DISABLED" || eCommStatus === "PARTIAL_ENABLED") {
         return true;
@@ -84,3 +93,20 @@ export const getCompanyLogo = (dir, company) => {
 
     return `${logoDir}/${logo}.png`;
 };
+
+export const buildViewCartURL = (url) => {
+    url = url
+        .replace('{localeCountry}', isEprocurementUser() ? getEprocUserCountryCode().toLowerCase() : getCountryCode())
+        .replace('{localeLanguage}', isEprocurementUser() ? getEprocUserLanguage().toLowerCase() : getLanguage())
+    return url;
+}
+
+export const setViewCartURL = () => {
+    let cartClass = ".top-bar__nav__cart .cmp-header-links__link";
+    if (!isEprocurementUser()) {
+        const commerceJSON = document.querySelector("#commerce-configs-json");
+        const config = JSON.parse(commerceJSON.innerHTML) ;
+        const url = config.viewCartUrl ? buildViewCartURL(config.viewCartUrl) : "";
+        document.querySelector(cartClass).setAttribute("href", url);
+    }
+}
