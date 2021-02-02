@@ -14,7 +14,6 @@ const commerceConfigs = {
     "pricingUrl": "https://api-sbox.waters.com/dev-waters-product-exp-api-v1/api/products/prices",
     "addToCartUrl": "https://api-sbox.waters.com/dev-waters-cart-proxy-api-v1/{localeCountry}/{localeLanguage}/users/{userType}/carts/{guid}/entries",
     "viewCartUrl": "https://dev-cart.waters.com/store/us/en/cart",
-    "isCommerceApiMigrated": "true",
     "countryCode": "US",
     "isoCode": "en",
     "addToCartLabel": "Add to Cart",
