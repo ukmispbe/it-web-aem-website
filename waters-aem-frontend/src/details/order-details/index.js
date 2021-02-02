@@ -16,6 +16,7 @@ import LocalStore from '../../stores/localStore';
 import loginStatus from '../../scripts/loginStatus';
 import { getOrderDetailsAddress, getCountryName } from '../../utils/userFunctions';
 
+import '../../styles/order-details.scss';
 class OrderDetails extends Component {
     constructor({setErrorBoundaryToTrue, resetErrorBoundaryToFalse, removeNotifications, ...props}) {
         super({setErrorBoundaryToTrue, resetErrorBoundaryToFalse, removeNotifications, ...props});

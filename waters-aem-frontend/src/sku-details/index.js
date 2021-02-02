@@ -26,6 +26,8 @@ import {
     NO_PRICE_NO_ADD_TO_CART,
 } from '../constants';
 
+import '../styles/skudetails.scss';
+
 class SkuDetails extends React.Component {
     constructor(props) {
         super(props);

@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import ImageViewer from './image-viewer';
 import ImageThumbnails from './image-thumbnails';
 
+import '../styles/image-carousel.scss';
+
 class ImageCarousel extends React.Component {
     constructor() {
         super();
