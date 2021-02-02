@@ -85,14 +85,18 @@
         orphans: 3;
     }
 
-    .image, .table {
+    .image {
         page-break-inside: avoid;
+    }
+
+    .table {
+        page-break-inside: auto; 
     }
 
     .cmp-header {
         border-bottom: none;
         width: 100%;
-        &__logo {
+        &__top-bar__logo {
             img {
                 height: 32px;
                 width: 115px;
@@ -146,8 +150,9 @@
 
     h1 {
         font-size: $font-size-h1-pcs;
-        padding-bottom: $space-s;
-        margin-right: -135px;
+        margin-right: 0;
+        margin-bottom: 0;
+        padding-bottom: 0;
     }
 
     h2 {
@@ -191,6 +196,10 @@
         width: 100%;
     }
 
+    .aem-Grid.aem-Grid-default7 > .aem-GridColumn.aem-GridColumndefault-1 {
+        max-width: 100%;
+    }
+
     .aem-GridColumn {
         padding-right: 0;
     }
@@ -200,12 +209,16 @@
     }
 
     .cmp-title {
-        padding-right: 2cm;
+        padding-right: $space-s;
     }
 
     img {
         max-width: 100%;
      }
+
+	.image .cmp-image__image {
+		margin-top: $space-s;
+	}
 
     table, th, td {
         border-collapse: collapse;
@@ -230,4 +243,8 @@
     a:after > img {
          content: "";
     }
+
+	.cmp-accent-rule hr {
+	    margin-top: $space-xs;
+	}
 }
