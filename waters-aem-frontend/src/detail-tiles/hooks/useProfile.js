@@ -9,28 +9,17 @@ import { matchUserToSoldToAddresses, createUserAddresses } from '../../utils/use
 export default (userDetailsUrl, soldToDetailsUrl, type, icon) => {
     const [data, setData] = useState();
     const [tiles, setTiles] = useState([]);
-    
-    // If the address verification flag is true
-    // and the customer doesn't have any sold to Mapped
-    // pull the address information from the Springboot User Details API
-
-    // If the address verification flag is false
-    // and the customer has sold to mapped
-    // pull the address information from the Mule User API
 
     function callSoldToDetails(userDetails) {
         if (userDetails && userDetails.userId && userDetails.salesOrg) {
-            if(type !== 'password') {
-                SoldToDetailsLazy(soldToDetailsUrl, userDetails.userId, userDetails.salesOrg)
-                .then((soldToDetails) => {
-                    let mergeAPIs = matchUserToSoldToAddresses(userDetails, soldToDetails);
-                    setData(mergeAPIs);
-                });
-            } else {
-                setData(createUserAddresses(userDetails));
-            }
+            SoldToDetailsLazy(soldToDetailsUrl, userDetails.userId, userDetails.salesOrg)
+            .then((soldToDetails) => {
+                let mergeAPIs = matchUserToSoldToAddresses(userDetails, soldToDetails);
+                setData(mergeAPIs);
+            });
         }
     }
+
     function getData() {
         const checkSessionStore = false;
         UserDetailsLazy(userDetailsUrl, checkSessionStore)
@@ -39,15 +28,13 @@ export default (userDetailsUrl, soldToDetailsUrl, type, icon) => {
                 userDetails.phone = userDetails.phone.replace(/\D/g,'');
             }
 
-            if (userDetails && type !== 'password') {
-                if (userDetails.shipOrBillChangeFlag && !userDetails.soldToAccounts.length) {
-                    setData(createUserAddresses(userDetails));
-
-                } else if (userDetails.shipOrBillChangeFlag && userDetails.soldToAccounts.length) {
-                    callSoldToDetails(userDetails)
-
-                } else if (!userDetails.shipOrBillChangeFlag && userDetails.soldToAccounts.length){
-                    callSoldToDetails(userDetails)
+            if (type !== 'password') {
+                if (userDetails.soldToAccounts.length) {
+                    userDetails.shipOrBillChangeFlag
+                        ? setData(createUserAddresses(userDetails))
+                        : callSoldToDetails(userDetails);
+                } else {
+                    setData(createUserAddresses(userDetails))
                 }
             } else {
                 setData(createUserAddresses(userDetails));
