@@ -5,6 +5,7 @@ import SkuItem from './views/sku-item';
 import LitItem from './views/lit-item';
 import LoginStatus from '../scripts/loginStatus';
 import SignIn from '../scripts/signIn';
+import { buildViewCartURL } from '../utils/eCommerceFunctions';
 
 import {isEprocurementUser as isEprocurementApp, isEprocurementUserRole} from '../utils/userFunctions';
 import { callCustomerPriceApi } from '../utils/userFunctions';
@@ -12,6 +13,10 @@ import { callCustomerPriceApi } from '../utils/userFunctions';
 class SkuList extends React.Component {
     constructor(props) {
         super(props);
+        
+        props.skuConfig.modalInfo.buttons[0].action = buildViewCartURL(props.skuConfig.modalInfo.buttons[0].action);
+//        props.skuConfig.addToCartUrl = buildViewCartURL(props.skuConfig.addToCartUrl);
+
 
         this.state = {
             skuConfig: this.props.skuConfig,
