@@ -4,63 +4,44 @@ import PropTypes from 'prop-types';
 
 const SubFacetTags = props => {
     const facets = props.facets ? props.facets : {};
-    const defaultFacet = `${props.defaultFacet}_facet`;
-    const mapping = [];
+    const mapping = props.subFacetMap.filter((item) => facets[item.facetName]).map((item) => ({
+                        name: item.facetName,
+                        category: item.facetValue,
+                        translation: item.facetTranslation,
+                        facets: facets[item.facetName],
+                    }));
 
-    for (let i = 0; i < props.filterMap.length; i++) {
-        if (props.filterMap[i].categoryFacetName === defaultFacet) {
-            const appLibrary = props.filterMap[i];
-            const categories = appLibrary.orderedFacets;
-
-            for (let c = 0; c < categories.length; c++) {
-                const category = categories[c];
-
-                if (facets[category.facetName]) {
-                    mapping.push({
-                        name: category.facetName,
-                        category: category.facetValue,
-                        translation: category.facetTranslation,
-                        facets: facets[category.facetName],
-                    });
-                }
-            }
-        }
-    }
     const tags = props.selectedFacets && Object.keys(props.selectedFacets).length !== 0
         ? Object.keys(props.selectedFacets).map((facet, index) => {
-              const f = props.selectedFacets[facet];
-              const category = [];
+            const facetGroupSelectedValues = props.selectedFacets[facet];
+            const category = [];
+            facetGroupSelectedValues.forEach((item, index) => {
+                mapping.forEach((subFacet) => {
+                    subFacet.name === facet &&
+                    category.push(
+                        <a
+                            key={`facetTag-${index}`}
+                            href="javascript:void(0);"
+                            onClick={() =>
+                                props.removeTag({
+                                    categoryId: subFacet.name,
+                                    facet: item,
+                                })
+                            }
+                        >
+                            <ReactSVG src={props.text.closeIcon} />
+                            <span>
+                                {subFacet.translation}: {item}
+                            </span>
+                        </a>
+                    );
+                })
+            });
 
-              for (let i = 0; i < f.length; i++) {
-                  const selected = f[i];
-                  for (let n = 0; n < mapping.length; n++) {
-                      const cat = mapping[n];
-
-                      if (cat.name === facet) {
-                          category.push(
-                              <a
-                                  key={`facetTag-${i}`}
-                                  href="javascript:void(0);"
-                                  onClick={() =>
-                                      props.removeTag({
-                                          categoryId: cat.name,
-                                          facet: selected,
-                                      })
-                                  }
-                              >
-                                  <ReactSVG src={props.text.closeIcon} />
-                                  <span>
-                                      {cat.translation}: {selected}
-                                  </span>
-                              </a>
-                          );
-                      }
-                  }
-              }
-
-              return category;
-          })
+            return category;
+        })
         : null;
+
 
     return <>
             {props.selectedFacets && tags}
@@ -101,7 +82,7 @@ const KeywordTag = props => {
 }
 
 SubFacetTags.propTypes = {
-    filterMap: PropTypes.array.isRequired,
+    subFacetMap: PropTypes.array.isRequired,
     defaultFacet: PropTypes.string.isRequired,
     removeTag: PropTypes.func.isRequired,
     selectedFacets: PropTypes.object.isRequired,
@@ -109,7 +90,7 @@ SubFacetTags.propTypes = {
 }
 
 SubFacetTags.defaultProps = {
-    filterMap: [],
+    subFacetMap: [],
     defaultFacet: '',
     removeTag: () => {},
     selectedFacets: {},

@@ -146,16 +146,17 @@ class SearchService {
     ) => {
         const paramString = this.getQueryParamString({ keyword, page, sort });
         const facetString = this.getQueryFacetString(facets);
-        const searchString = `${
-            this.path
-        }/category_facet$${category.toLowerCase()}:${encodeURIComponent(
-            encodeURIComponent(category)
-        )}&contenttype_facet$${contentTypeName.replace(
+        const contentTypeString = contentTypeName !== 'NA' ? `&contenttype_facet$${contentTypeName.replace(
             '_facet',
             ''
         )}:${encodeURIComponent(
             encodeURIComponent(contentTypeValue)
-        )}${facetString}?${paramString}${getCategoryReferenceType()}`;
+        )}` : '';
+        const searchString = `${
+            this.path
+        }/category_facet$${category.toLowerCase()}:${encodeURIComponent(
+            encodeURIComponent(category)
+        )}${contentTypeString}${facetString}?${paramString}${getCategoryReferenceType()}`;
 
         return getSearchData(searchString).then(response => {
             if (response.ok) {
@@ -445,18 +446,12 @@ class SearchService {
 }
 
 const searchMapper = {
-    mapFacetGroups: (contentType, filterMap, facets) => {
-        const facetName = `${contentType}_facet`;
+    mapFacetGroups: (subFacetsMap, facets) => {
+        if (!subFacetsMap) { return; }
 
-        const facet = Array.isArray(filterMap.orderedFacets)
-            ? filterMap.orderedFacets.find(item => item.facetName === facetName)
-            : null;
+        const subFacets = subFacetsMap.filter(item => facets[item.facetName]);
 
-        if (!facet) { return; }
-
-        const orderedFacets = facet.orderedFacets.filter(item => facets[item.facetName]);
-
-        const mapping = orderedFacets.map(facet => {
+        const mapping = subFacets.map(facet => {
             return {
                 name: facet.facetName,
                 category: facet.facetValue,

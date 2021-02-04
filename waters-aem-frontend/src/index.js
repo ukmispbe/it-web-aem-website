@@ -114,6 +114,10 @@ if (searchAppContainer) {
         document.getElementById('search-results-categories-json').innerHTML
     );
 
+    const subFacetMap = JSON.parse(
+        document.getElementById('search-results-filters-json').innerHTML
+    );
+
 
     let accountModalConfig = {};
     let baseSignInUrlString = "";
@@ -132,6 +136,7 @@ if (searchAppContainer) {
                 searchLocale={data.locale}
                 searchText={text}
                 filterMap={filterMap}
+                subFacetMap={subFacetMap}
                 isocode={data.isocode}
                 baseSignInUrl={baseSignInUrlString}
             />

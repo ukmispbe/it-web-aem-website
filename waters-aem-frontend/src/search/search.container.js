@@ -41,6 +41,8 @@ class SearchContainer extends Component {
         this.setState({isEprocurementUser: isEprocurementUser()});
     }
 
+    getFacetKey = (key) => `${key}_facet`;
+
     parseFacetsFromUrlToArray = () => this.search.mapFacetGroupsToArray(parse(location.search).facet);
 
     addHistoryListener = () => {
@@ -75,6 +77,7 @@ class SearchContainer extends Component {
         const query = this.search.getParamsFromString();
         this.query = query;
 
+        // Setting up the sort filter value
         if (
             (typeof this.query.keyword === parameterValues.undefined ||
                 this.query.keyword === parameterDefaults.keyword) &&
@@ -94,9 +97,11 @@ class SearchContainer extends Component {
             ? this.query.content_type
             : null;
 
+        // Fetch selected contentType object from filterMap
         const contentTypeElement = this.findContentType(
             this.props.filterMap,
-            contentType
+            contentType,
+            this.getCategoryFacetKey(category)
         );
 
         const contentTypeSelected = contentTypeElement
@@ -161,7 +166,8 @@ class SearchContainer extends Component {
 
         const contentTypeElement = this.findContentType(
             this.props.filterMap,
-            query.content_type
+            query.content_type,
+            this.getCategoryFacetKey(query.category)
         );
 
         this.setState({
@@ -192,7 +198,8 @@ class SearchContainer extends Component {
         } else {
             const contentTypeElement = this.findContentType(
                 this.props.filterMap,
-                query.content_type
+                query.content_type,
+                this.getCategoryFacetKey(query.category)
             );
 
             this.setState({
@@ -306,6 +313,7 @@ class SearchContainer extends Component {
 
     executeSearch = (query, rows) => {
         const searchType = this.getSearchType(query);
+        console.log(console.log('Query: ', query));
 
 
         this.setStateForActiveCategory(query);
@@ -329,15 +337,15 @@ class SearchContainer extends Component {
 
     getSearchType = query => {
 
-        if (this.isCategoryOnlySelected(query.category, query.content_type)) {
+        if (query.category && !query.content_type && !this.isFacetsSelected(query.facets)) {
             return SEARCH_TYPES.CATEGORY_ONLY;
         }
 
-        if (query.content_type && !this.isFacetsSelected(query.facets)) {
+        if (query.category && query.content_type && !this.isFacetsSelected(query.facets)) {
             return SEARCH_TYPES.CONTENT_TYPE;
         }
 
-        if (query.content_type && this.isFacetsSelected(query.facets)) {
+        if (query.category && this.isFacetsSelected(query.facets)) {
             return SEARCH_TYPES.SUB_FACETS;
         }
 
@@ -419,10 +427,23 @@ class SearchContainer extends Component {
             .catch(error => this.searchOnError(error));
     }
 
-    findContentType = (items, content_type) =>
-        items.find(
-            element => element.categoryFacetName === `${content_type}_facet`
+    getCategoryFacetKey = (category) => this.getFacetKey(this.createStrippedFacetName(category));
+
+    findContentType = (items, content_type, selectedCategory) => {
+        let category = selectedCategory && items.find(
+            element => element.categoryFacetName === selectedCategory
         );
+
+        let contentTypeObject;
+
+        if (category && category.orderedFacets) {
+            contentTypeObject = category.orderedFacets.find(
+                element => element.facetName === this.getFacetKey(content_type)
+            );
+        }
+
+        return contentTypeObject;
+    }
 
     isCategoryOnlySelected = (category, content_type) =>
         category && !content_type ? true : false;
@@ -431,8 +452,7 @@ class SearchContainer extends Component {
         Object.entries(selectedFacets).length !== 0 ? true : false;
 
     getFilterMap = (authoredTags, backendFacets) => {
-        const strippedCategoryFacetName = this.createStrippedFacetName(this.state.category);
-        const categoryFacetName = `${strippedCategoryFacetName}_facet`;
+        const categoryFacetName = this.getCategoryFacetKey(this.state.category);
         const category = authoredTags.find(authoredItem => authoredItem.categoryFacetName === categoryFacetName);
         let orderedFacetsMap = [];
 
@@ -446,17 +466,12 @@ class SearchContainer extends Component {
             );
 
             const orderedFacetsWithCount = orderedFacets.map(facet => {
-                const authTag = authoredTags.find(
-                    authoredItem =>
-                        facet.facetValue === authoredItem.categoryFacetValue
-                );
                 const beFacet = backendFacets.find(
                     beFacet => beFacet.value === facet.facetValue
                 );
 
                 return {
                     ...facet,
-                    orderedFacets: authTag ? authTag.orderedFacets : [],
                     count: beFacet ? beFacet.count : 0
                 };
             });
@@ -533,7 +548,7 @@ class SearchContainer extends Component {
         newState.facets = res.facets;
         if ("activeIndex" in this.state) {
             newState.facets['activeIndex'] = this.state.activeIndex;
-            newState.activeFilterIndex = this.getActiveFilterIndex(this.state.contentType, newState.filterMap, newState.facets, this.state.activeIndex);
+            newState.activeFilterIndex = this.getActiveFilterIndex(this.props.subFacetMap, newState.facets, this.state.activeIndex);
         } else {
             if (newState.facets in this.state) {
                 newState.facets['activeIndex'] = "";
@@ -597,8 +612,8 @@ class SearchContainer extends Component {
 
     submitAnalytics = data => Analytics.setAnalytics(analyticTypes.search.name, data);
 
-    getActiveFilterIndex = (contentType, filterMap, facets, facetName) => {
-        const mappings = searchMapper.mapFacetGroups(contentType, filterMap, facets);
+    getActiveFilterIndex = (subFacetMap, facets, facetName) => {
+        const mappings = searchMapper.mapFacetGroups(subFacetMap, facets);
         const activeFilterIndex = (mappings && Array.isArray(mappings))
             ? mappings.findIndex(item => item.name === facetName)
             : this.state.activeFilterIndex;
@@ -836,10 +851,11 @@ class SearchContainer extends Component {
 
         const contentTypeElement = this.findContentType(
             this.props.filterMap,
-            query.content_type
+            query.content_type,
+            this.getCategoryFacetKey(this.state.category)
         );
         const contentTypeName = contentTypeElement
-            ? contentTypeElement.categoryFacetName
+            ? contentTypeElement.facetName
             : 'NA';
 
         return contentTypeName;
@@ -850,10 +866,11 @@ class SearchContainer extends Component {
 
         const contentTypeElement = this.findContentType(
             this.props.filterMap,
-            query.content_type
+            query.content_type,
+            this.getCategoryFacetKey(this.state.category)
         );
         const contentTypeValue = contentTypeElement
-            ? contentTypeElement.categoryFacetValue
+            ? contentTypeElement.facetValue
             : 'NA';
 
         return contentTypeValue;
@@ -864,10 +881,11 @@ class SearchContainer extends Component {
 
         const contentTypeElement = this.findContentType(
             this.props.filterMap,
-            query.content_type
+            query.content_type,
+            this.getCategoryFacetKey(this.state.category)
         );
         const categoryFacetTranslation = contentTypeElement
-            ? contentTypeElement.categoryFacetTranslation
+            ? contentTypeElement.facetTranslation
             : 'NA';
 
         return categoryFacetTranslation;
@@ -886,9 +904,9 @@ class SearchContainer extends Component {
                 )
             ) {
                 return {
-                    facetName: this.state.contentTypeSelected.categoryFacetName,
-                    facetValue: this.state.contentTypeSelected.categoryFacetValue,
-                    facetTranslation: this.state.contentTypeSelected.categoryFacetTranslation
+                    facetName: this.state.contentTypeSelected.facetName,
+                    facetValue: this.state.contentTypeSelected.facetValue,
+                    facetTranslation: this.state.contentTypeSelected.facetTranslation
                 };
             } else if (
                 this.state.contentTypeSelected.hasOwnProperty('facetName')
@@ -899,14 +917,13 @@ class SearchContainer extends Component {
 
         const query = this.getQueryObject();
 
-        const contentType = this.props.filterMap.find(
-            item => item.categoryFacetName === `${query.content_type}_facet`
-        );
+        
+        const contentType = query.content_type && query.category && this.findContentType(this.props.filterMap, this.getFacetKey(query.content_type), this.getCategoryFacetKey(query.category));
 
         return {
-            facetName: contentType ? contentType.categoryFacetName : '',
-            facetValue: contentType ? contentType.categoryFacetValue : '',
-            facetTranslation: contentType ? contentType.categoryFacetTranslation : ''
+            facetName: contentType ? contentType.facetName : '',
+            facetValue: contentType ? contentType.facetValue : '',
+            facetTranslation: contentType ? contentType.facetTranslation : ''
         };
     };
 
@@ -1140,6 +1157,7 @@ class SearchContainer extends Component {
             items: this.state.facets,
             filterMap: this.state.filterMap,
             defaultFacet: this.props.defaultFacet,
+            subFacetMap: this.props.subFacetMap,
             selectedFacets: this.state.selectedFacets,
             contentType: this.state.contentType,
             facetGroupsSelectedOrder: this.state.facetGroupsSelectedOrder,
