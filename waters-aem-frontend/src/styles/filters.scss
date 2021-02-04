@@ -376,6 +376,10 @@
         float: none;
         width: 100%;
     }
+    @include tablet-and-over {
+        display: none;
+    }
+    
 }
 
 .cmp-search-filters__tags.clearfix {
