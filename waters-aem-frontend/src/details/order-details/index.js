@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactSVG from 'react-svg';
-import { getOrderDetails, getItemDetails, matchLineItems, buildViewCartURL } from '../details.services';
+import { getOrderDetails, getItemDetails, matchLineItems } from '../details.services';
 import Shipment from '../components/shipment';
 import DateFormatter from '../../utils/date-formatter';
 import GetLocale from "../../utils/get-locale";
@@ -15,7 +15,7 @@ import Analytics, { analyticTypes } from '../../analytics';
 import LocalStore from '../../stores/localStore';
 import loginStatus from '../../scripts/loginStatus';
 import { getOrderDetailsAddress, getCountryName } from '../../utils/userFunctions';
-
+import { buildViewCartURL } from '../../utils/eCommerceFunctions'
 class OrderDetails extends Component {
     constructor({setErrorBoundaryToTrue, resetErrorBoundaryToFalse, removeNotifications, ...props}) {
         super({setErrorBoundaryToTrue, resetErrorBoundaryToFalse, removeNotifications, ...props});

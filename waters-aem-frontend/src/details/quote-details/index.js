@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactSVG from 'react-svg';
-import { getQuoteDetails, buildViewCartURL } from '../details.services';
+import { getQuoteDetails } from '../details.services';
+import { buildViewCartURL }from '../../utils/eCommerceFunctions';
 import Shipment from '../components/shipment';
 import Spinner from "../../utils/spinner";
 import ErrorBoundary from '../../search/ErrorBoundary';

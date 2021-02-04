@@ -13,7 +13,7 @@ const commerceConfigs = {
     "availabilityUrl": "https://dev-www.waters.com:8443/api/waters/product/v1/availability/{partnumber}/{countryCode}",
     "pricingUrl": "https://api-sbox.waters.com/dev-waters-product-exp-api-v1/api/products/prices",
     "addToCartUrl": "https://api-sbox.waters.com/dev-waters-cart-proxy-api-v1/{localeCountry}/{localeLanguage}/users/{userType}/carts/{guid}/entries",
-    "viewCartUrl": "https://dev-cart.waters.com/store/us/en/cart",
+    "viewCartUrl": "https://www.waters.com/store/{localeCountry}/{localeLanguage}/cart",
     "countryCode": "US",
     "isoCode": "en",
     "addToCartLabel": "Add to Cart",
