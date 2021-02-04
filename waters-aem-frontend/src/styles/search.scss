@@ -506,6 +506,9 @@ div.cmp-search__no-results {
         float: right;
         width: 270px;
         text-align: left;
+        @media screen and (min-width: #{$tablet-width + 1px}) and (max-width:880px) {
+            float: left;
+        }
     }
 
 
