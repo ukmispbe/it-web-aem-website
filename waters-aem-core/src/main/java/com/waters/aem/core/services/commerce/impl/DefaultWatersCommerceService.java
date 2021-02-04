@@ -17,7 +17,9 @@ public final class DefaultWatersCommerceService implements WatersCommerceService
 
     private volatile String addToCartUrl;
 
-    private volatile String viewCartUrl;
+    private volatile String ecomViewCartUrl;
+
+    private volatile String eprocViewCartUrl;
 
     @Override
     public String getSkuAvailabilityUrl() {
@@ -35,8 +37,13 @@ public final class DefaultWatersCommerceService implements WatersCommerceService
     }
 
     @Override
-    public String getViewCartUrl() {
-        return viewCartUrl;
+    public String getEcomViewCartUrl() {
+        return ecomViewCartUrl;
+    }
+
+    @Override
+    public String getEprocViewCartUrl() {
+        return eprocViewCartUrl;
     }
 
     @Activate
@@ -45,7 +52,8 @@ public final class DefaultWatersCommerceService implements WatersCommerceService
         skuAvailabilityUrl = configuration.skuAvailabilityUrl();
         skuCustomerPriceUrl = configuration.skuCustomerPriceUrl();
         addToCartUrl = configuration.addToCartUrl();
-        viewCartUrl = configuration.viewCartUrl();
+        ecomViewCartUrl = configuration.ecomViewCartUrl();
+        eprocViewCartUrl = configuration.eprocViewCartUrl();
     }
 }
 

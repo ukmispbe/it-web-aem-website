@@ -447,15 +447,7 @@ public final class Footer extends AbstractComponent implements ComponentExporter
     }
 
     public String getAddToCartUrl() {
-        if (isCommerceApiMigrated()) {
-            return siteContext.getAddToCartURL();
-        } else {
             return watersCommerceService.getAddToCartUrl();
-        }
-    }
-
-    public boolean isCommerceApiMigrated() {
-        return siteContext.isCommerceApiMigrated();
     }
 
     public boolean isCheckoutDisabled() {
@@ -467,11 +459,7 @@ public final class Footer extends AbstractComponent implements ComponentExporter
     }
 
     public String viewCartUrl() {
-        if (isCommerceApiMigrated()) {
-            return siteContext.getViewCartURL();
-        } else {
-        return watersCommerceService.getViewCartUrl();
-        }
+        return isEprocurement() ? watersCommerceService.getEprocViewCartUrl() : watersCommerceService.getEcomViewCartUrl();
     }
 
     public boolean getCustomerPriceApiDisabled() {

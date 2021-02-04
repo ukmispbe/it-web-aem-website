@@ -322,7 +322,6 @@ class SkuDetails extends React.Component {
                         addToCartLabel={config.addToCartLabel}
                         addToCartQty={config.defaultSkuQty}
                         addToCartUrl={config.addToCartUrl}
-                        isCommerceApiMigrated={config.isCommerceApiMigrated}
                         toggleErrorModal={this.toggleErrorModal}
                         analyticsConfig={this.state.analyticsConfig}
                     ></AddToCart>

@@ -26,8 +26,15 @@ public interface WatersCommerceService {
     /**
      * Get the configured view cart URL.
      *
-     * @return View Cart URL
+     * @return Ecom View Cart URL
      */
-    String getViewCartUrl();
+    String getEcomViewCartUrl();
+
+    /**
+     * Get the configured view cart URL.
+     *
+     * @return Eproc View Cart URL
+     */
+    String getEprocViewCartUrl();
 
 }
