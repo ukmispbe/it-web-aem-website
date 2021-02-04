@@ -1719,7 +1719,6 @@ const commerceConfigsJSON = {
         "pricingUrl": "https://api.waters.com/waters-product-exp-api-v1/api/products/prices",
         "addToCartUrl": "https://api.waters.com/waters-cart-proxy-api-v1/{localeCountry}/{localeLanguage}/users/{userType}/carts/{guid}/entries",
         "viewCartUrl": "https://www.waters.com/store/us/en/cart",
-        "isCommerceApiMigrated": "true",
         "isCustomerPriceApiDisabled": "false",
         "isCheckoutDisabled": "false",
         "isQuoteDisabled": "false",

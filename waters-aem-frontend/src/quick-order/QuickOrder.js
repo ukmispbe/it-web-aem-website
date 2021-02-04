@@ -18,7 +18,6 @@ function QuickOrder(props) {
         multipleItemsLink,
         addItemsIcon,
         multipleItemsIcon,
-        isCommerceApiMigrated,
         showLabel,
         titleText,
         price,
@@ -142,7 +141,6 @@ function QuickOrder(props) {
                     qtyLabel={qtyLabel}
                     addToCartLabel={buttonLabel}
                     addToCartUrl={addToCartUrl}
-                    isCommerceApiMigrated={isCommerceApiMigrated}
                     toggleParentModal={toggleModal}
                     toggleErrorModal={toggleErrorModal}
                     analyticsConfig={{ sku, price, context: shopAllCartContext, name: titleText }}
@@ -193,7 +191,6 @@ QuickOrder.defaultProps = {
     addItemsIcon: PropTypes.string,
     multipleItemsIcon: PropTypes.string,
     showLabel: PropTypes.bool,
-    isCommerceApiMigrated: PropTypes.bool,
     titleText: PropTypes.string,
     price: PropTypes.string,
     skuConfig: PropTypes.object,
@@ -202,7 +199,6 @@ QuickOrder.defaultProps = {
 
 QuickOrder.defaultProps = {
     buttonLabel: '',
-    isCommerceApiMigrated: true,
     addToCartPlaceHolder: '',
     addToCartUrl: '',
     multipleItemsLabel: '',
