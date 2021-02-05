@@ -24,14 +24,6 @@ const priceUrlRequest = (endpoint, sku, soldToId, salesOrg) => {
     return url = `${endpoint}?productNumber=${sku}&customerNumber=${soldToId}&salesOrg=${salesOrg}`;
 }
 
-const legacyAddToCartUrlRequest = (url, partNo, quantity) => {
-    url = url
-        .replace('{partnumber}', partNo)
-        .replace('{quantity}', quantity);
-
-    return url;
-}
-
 const addToCartUrlRequest = (url, partNo, quantity, cartId) => {
     let userId = getUserId();
     userId = userId !== '' ? userId : 'anonymous';
@@ -47,8 +39,7 @@ const addToCartUrlRequest = (url, partNo, quantity, cartId) => {
     return url;
 }
 
-export async function addToCart(isCommerceApiMigrated, url, partNo, quantity, throwError) {
-    if (isCommerceApiMigrated === 'true' || isCommerceApiMigrated === true) {
+export async function addToCart(url, partNo, quantity, throwError) {
         // Check if partNo is a single product or an array of products
         let products = '';
         if (Array.isArray(partNo)) {
@@ -91,7 +82,7 @@ export async function addToCart(isCommerceApiMigrated, url, partNo, quantity, th
             if (json && json.errors && json.errors.length && json.errors[0].type === 'CartError') {
                 loginStatus.state() && cartId && localStore.removeCartId();
                 !loginStatus.state() && cartId && localStore.removeGUID();
-                addToCart(isCommerceApiMigrated, url, partNo, quantity, throwError);
+                addToCart(url, partNo, quantity, throwError);
             } else {
                 throwError({
                     status: 500,
@@ -106,22 +97,6 @@ export async function addToCart(isCommerceApiMigrated, url, partNo, quantity, th
             });
             return response.status;
         }
-
-    } else {
-
-        const options = {
-            method: 'POST',
-            credentials: 'include',
-            body: JSON.stringify({
-                partNumbers: partNo,
-                quantity: quantity,
-            })
-        }
-        const urlRequest = legacyAddToCartUrlRequest(url, partNo, quantity);
-        const response = await fetchData(urlRequest, options, throwError);
-        const json = await response.json();
-        return json;
-    }
 }
 
 export async function getAvailability(url, countryCode, partNo) {

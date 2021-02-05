@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactSVG from 'react-svg';
-import { getOrderDetails, getItemDetails, matchLineItems, buildViewCartURL } from '../details.services';
+import { getOrderDetails, getItemDetails, matchLineItems } from '../details.services';
 import Shipment from '../components/shipment';
 import DateFormatter from '../../utils/date-formatter';
 import GetLocale from "../../utils/get-locale";
@@ -15,8 +15,10 @@ import Analytics, { analyticTypes } from '../../analytics';
 import LocalStore from '../../stores/localStore';
 import loginStatus from '../../scripts/loginStatus';
 import { getOrderDetailsAddress, getCountryName } from '../../utils/userFunctions';
+import { buildViewCartURL } from '../../utils/eCommerceFunctions'
 
 import '../../styles/order-details.scss';
+
 class OrderDetails extends Component {
     constructor({setErrorBoundaryToTrue, resetErrorBoundaryToFalse, removeNotifications, ...props}) {
         super({setErrorBoundaryToTrue, resetErrorBoundaryToFalse, removeNotifications, ...props});
@@ -36,7 +38,6 @@ class OrderDetails extends Component {
             isLoading: true,
             modalShown: false,
             modalConfig: props.config.modalInfo,
-            isCommerceApiMigrated: false,
             addToCartUrl: '',
             viewCartUrl: '',
             errorCartErrors: []
@@ -119,8 +120,8 @@ class OrderDetails extends Component {
 
     addToCartReorder = (e) => {
         e.preventDefault();
-        const { isCommerceApiMigrated, addToCartUrl, reorderData } = this.state;
-        addToCart(isCommerceApiMigrated, addToCartUrl, reorderData, null, this.setError)     
+        const { addToCartUrl, reorderData } = this.state;
+        addToCart(addToCartUrl, reorderData, null, this.setError)     
         .then(response => {
             // Redirect if at least one item was successfully added to the cart
             if(response && response.cartModifications && response.cartModifications.length) {
@@ -146,26 +147,24 @@ class OrderDetails extends Component {
         );
         if(commerceConfig) {
             this.setState({
-                isCommerceApiMigrated: JSON.parse(commerceConfig.isCommerceApiMigrated.toLowerCase()),
                 addToCartUrl: commerceConfig.addToCartUrl,
                 viewCartUrl: buildViewCartURL(commerceConfig.viewCartUrl)
             });
-            if(commerceConfig.isCommerceApiMigrated.toLowerCase() === 'true') {
-                // Update modal config button with a callback and new cart url
-                const buttons = [...this.state.modalConfig.buttons];
-                buttons[0] = {
-                    ...buttons[0],
-                    action: buildViewCartURL(commerceConfig.viewCartUrl),
-                    callback: this.addToCartReorder
-                }
-                const updatedModalConfig = {
-                    ...this.state.modalConfig,
-                    buttons: buttons
-                }
-                this.setState({
-                    modalConfig: updatedModalConfig
-                })
-            }
+
+            // Update modal config button with a callback and new cart url
+            const buttons = [...this.state.modalConfig.buttons];
+            buttons[0] = {
+                ...buttons[0],
+                action: buildViewCartURL(commerceConfig.viewCartUrl),
+                callback: this.addToCartReorder
+            };
+            const updatedModalConfig = {
+                ...this.state.modalConfig,
+                buttons: buttons
+            };
+            this.setState({
+                modalConfig: updatedModalConfig
+            });
         }
 
         const { detailsUrl, itemsUrl, orderId, userIsocode } = this.state;
@@ -332,11 +331,9 @@ class OrderDetails extends Component {
                         <div className="cmp-order-details__order-total_left" data-locator="order-summary-label-total-price">{config.totalLabel}</div>
                         <div className="cmp-order-details__order-total_right" data-locator="order-summary-price-total-price"><h1>{orderDetails.orderTotal}</h1></div>
                     </div>
-                    {this.state.isCommerceApiMigrated && (
-                        <div className={`${this.rootStyle}__reorder`} data-locator="order-details-reorder">
+                    <div className={`${this.rootStyle}__reorder`} data-locator="order-details-reorder">
                             {this.renderReorderButton()}
-                        </div>
-                    )}
+                    </div>
                 </div>
             </div>
             </>
@@ -360,11 +357,9 @@ class OrderDetails extends Component {
                 <div className={`${this.rootStyle}__order-shipment-list`} data-locator="order-shipment-list">
                     {Object.keys(airbills).length > 0 && this.getShipmentList(airbills, orderDetails)}
                 </div>
-                {this.state.isCommerceApiMigrated && (
-                    <div className="order-shipment__reorder" data-locator="order-shipment-reorder">
+                <div className="order-shipment__reorder" data-locator="order-shipment-reorder">
                         {this.renderReorderButton()}
-                    </div>
-                )}
+                </div>
             </>
         )
     }

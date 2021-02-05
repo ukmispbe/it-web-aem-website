@@ -3,7 +3,7 @@
 a.cmp-button,
 button.cmp-button {
     padding: $space-xs $space-l;
-    margin-bottom: $space-l;
+    margin-bottom: $space-s;
     color: $color-font-light;
     text-transform: uppercase;
     background-color: $color-blue-50;
@@ -36,7 +36,6 @@ button.cmp-button {
     @include mobile {
         width: 100%;
         float: left;
-        margin-bottom: $space-s;
         padding: $space-xs $space-xxs;
     }
 }
