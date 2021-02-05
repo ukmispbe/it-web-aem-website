@@ -113,15 +113,7 @@ public class QuickOrder implements ComponentExporter {
     public String getAddItemsIcon() { return addItemsIcon.getPath(); }
 
     public String getAddToCartUrl() {
-        if (isCommerceApiMigrated()) {
-            return siteContext.getAddToCartURL();
-        } else {
-            return watersCommerceService.getAddToCartUrl();
-        }
-    }
-
-    public boolean isCommerceApiMigrated() {
-        return siteContext.isCommerceApiMigrated();
+        return watersCommerceService.getAddToCartUrl();
     }
 
     @Nonnull

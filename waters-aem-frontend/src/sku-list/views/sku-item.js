@@ -295,7 +295,6 @@ class SkuItem extends React.Component {
                         addToCartLabel={skuConfig.addToCartLabel}
                         addToCartQty={skuConfig.defaultSkuQty}
                         addToCartUrl={skuConfig.addToCartUrl}
-                        isCommerceApiMigrated={skuConfig.isCommerceApiMigrated}
                         toggleErrorModal={this.toggleErrorModal}
                         analyticsConfig={this.state.analyticsConfig}
                         qtyLabel={skuConfig.qtyAriaLabel}

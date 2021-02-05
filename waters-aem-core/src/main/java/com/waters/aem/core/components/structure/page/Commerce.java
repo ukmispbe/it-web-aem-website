@@ -47,55 +47,9 @@ public class Commerce {
     @InheritInject
     private CountryCommerceConfig countryCommerceConfig = CountryCommerceConfig.FULL_ENABLED;
 
-    @DialogField(fieldLabel = "Currency ISO Code",
-            fieldDescription = "For countries using a non-standard ISO currency code (ISO-4217) " +
-                    "in Waters SAP, provide the non-standard ISO code here.",
-            ranking = 3)
-    @TextField
-    @InheritInject
-    private String currencyIsoCode;
-
-    @DialogField(fieldLabel = "Currency Language Override",
-            fieldDescription = "Two character language code used to format the currency display. Setting this will " +
-                    "override the default.",
-            ranking = 4)
-    @TextField
-    @InheritInject
-    private String currencyLanguageCode;
-
-    @DialogField(fieldLabel = "Currency Country Override",
-            fieldDescription = "Two character country code used to format the currency display. Setting this will " +
-                    "override the default.",
-            ranking = 5)
-    @TextField
-    @InheritInject
-    private String currencyCountryCode;
-
-    @DialogField(fieldLabel = "Add To Cart URL",
-            fieldDescription = "Enter the Commerce Add to Cart URL. This will override default url configured in OSGI service",
-            ranking = 6)
-    @TextField
-    @InheritInject
-    private String addToCartUrl;
-
-    @DialogField(fieldLabel = "View Cart URL",
-            fieldDescription = "Enter the Commerce View Cart URL. This will override default url configured in OSGI service",
-            ranking = 7)
-    @TextField
-    @InheritInject
-    private String viewCartUrl;
-
-    @DialogField(fieldDescription = "Enable this to make Add to Cart and View Cart URL effective",
-            value = "true",
-            ranking = 8)
-    @CheckBox(title = "commerceAPI",
-            text = "Commerce API Migrated")
-    @Inject
-    private Boolean commerceAPI;
-
     @DialogField(fieldDescription = "Enable this to disable Mule Customer Price URL",
             value = "true",
-            ranking = 9)
+            ranking = 3)
     @CheckBox(title = "customerPriceApiDisabled",
             text = "Disable Mule CustomerPrice API")
     @Inject
@@ -103,7 +57,7 @@ public class Commerce {
 
     @DialogField(fieldDescription = "Enable this to make Checkout  Disable",
             value = "true",
-            ranking = 10)
+            ranking = 4)
     @CheckBox(title = "checkoutDisabled",
             text = "Disable Checkout")
     @Inject
@@ -111,7 +65,7 @@ public class Commerce {
 
     @DialogField(fieldDescription = "Enable this to make Quote  Disable",
             value = "true",
-            ranking = 11)
+            ranking = 5)
     @CheckBox(title = "quoteDisabled",
             text = "Disable Quote")
     @Inject
@@ -119,27 +73,11 @@ public class Commerce {
 
     @DialogField(fieldDescription = "Enable this to always allow PO payment.",
             value = "true",
-            ranking = 12)
+            ranking = 6)
     @CheckBox(title = "explicitAllowPO",
             text = "Always allow PO payment")
     @Inject
     private Boolean explicitAllowPO;
-
-    @DialogField(fieldDescription = "Show Quote History Link.",
-            value = "true",
-            ranking = 13)
-    @CheckBox(title = "showQuoteHistory",
-            text = "Show Quote History Link?")
-    @Inject
-    private Boolean showQuoteHistory;
-
-    public Boolean getShowQuoteHistory() {
-        return showQuoteHistory;
-    }
-
-    public String getAddToCartUrl() {
-        return addToCartUrl;
-    }
 
     public SiteConfig getSiteConfig() {
         return siteConfig;
@@ -147,9 +85,5 @@ public class Commerce {
 
     public CountryCommerceConfig getCountryCommerceConfig() {
         return countryCommerceConfig;
-    }
-
-    public String getCurrencyIsoCode() {
-        return currencyIsoCode;
     }
 }

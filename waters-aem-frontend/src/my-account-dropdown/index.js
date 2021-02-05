@@ -337,6 +337,7 @@ class MyAccountDropDown extends React.Component {
         const urlParams = parseQueryParams(window.location.search);
         const token = urlParams['1tu'] || '';
         const sessionStore = new SessionStore();
+        const localStore = new LocalStore();
         const { requestFailureTitle, requestFailureMessage, sessionTimeoutTitle, sessionTimeoutMessage } = this.props.eProcSetupFailure;
         const checkAndSetError = async (responseJson = {}) => {
             try {
@@ -386,6 +387,8 @@ class MyAccountDropDown extends React.Component {
             } else if (!loginStatus.state()) {
                 sessionStore.removeUserDetails();
                 sessionStore.removeSoldToDetails();
+                localStore.removeGUID();
+                localStore.removeCartId();
                 await checkAndSetError();
             }
         } catch (e) {
