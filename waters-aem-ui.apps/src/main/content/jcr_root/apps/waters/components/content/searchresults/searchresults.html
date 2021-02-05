@@ -65,6 +65,7 @@
      data-sly-call="${patterns.placeholder @ show=true, text=component.title}"/>
 
      <sly data-sly-use.clientlib="/libs/granite/sightly/templates/clientlib.html" data-sly-call="${clientlib.js @ categories='waters.searchresults'}"/>
-     <sly data-sly-use.clientlib="/libs/granite/sightly/templates/clientlib.html" data-sly-call="${clientlib.all @ categories='waters.skulist'}"/>
+     <sly data-sly-use.clientlib="/libs/granite/sightly/templates/clientlib.html" data-sly-call="${clientlib.js @ categories='waters.skulist'}"/>
      <!--/* Load client searchresults css asynchronously using preload */-->
 <link rel="preload" href="/etc.clientlibs/waters/components/content/searchresults/clientlib-searchresults.css" as="style"  onload="this.onload=null;this.rel='stylesheet'">
+<link rel="preload" href="/etc.clientlibs/waters/components/content/skudetails/clientlib-skudetails.css" as="style"  onload="this.onload=null;this.rel='stylesheet'">
