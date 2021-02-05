@@ -4,7 +4,7 @@ import { soldToDetailsJSON } from "../__mocks__/en_US/mock-services-json";
 import SessionStore from "../../stores/sessionStore";
 
 describe("Feature: SoldToDetailsLazy Service", () => {
-    const url = 'https://api-sbox.waters.com/dev-waters-user-exp-api-v1/api/users';
+    const url = '';
     const userId = '9ETRLcbBXOBS9iLEefW-Vw==';
     const salesOrg = 'US01';
     
@@ -23,17 +23,42 @@ describe("Feature: SoldToDetailsLazy Service", () => {
             });
         });
 
-        describe("When user is logged in and sold to details is in the browser session", () => {
-            it("Then it should return sold to details from the browser session", async () => {
+        describe("When user is logged in and the filtered sold to details is in the browser session", () => {
+            it("Then it should make a call for the addresses", async () => {
+                const serviceMock = jest.fn(() => {
+                    return soldToDetailsJSON;
+                });
+                let storedSTDetails = [{
+                        customerNumber: "W8IfyyXIEaCpaXS9ZlRiwQ==",
+                        name: "ASTRAZENECA PHARMACEUTICALS LP",
+                        soldToFlag: 1,
+                        salesOrg: "US01",
+                    },
+                    {
+                        customerNumber: "u2stlNZcouqS9WE3ieAdEQ==",
+                        soldToFlag: 0,
+                    },
+                    {
+                        customerNumber: "Bz1afPbh5PESk5p3P6s9_A==",
+                        soldToFlag: 0,
+                    },
+                    {
+                        customerNumber: "D0hoqFIfcuxtbWPM5wE27Q==",
+                        soldToFlag: 0,
+                    },
+                ];
                 loginStatus.state = jest.fn(() => true);
 
                 const sessionStore = new SessionStore();
+                sessionStore.getSoldToDetails = jest.fn(() => storedSTDetails);
+                sessionStore.setSoldToDetails = jest.fn();
 
-                sessionStore.getSoldToDetails = jest.fn(() => soldToDetailsJSON);
+                const response = await SoldToDetailsLazy(url, userId, salesOrg, sessionStore, serviceMock);
 
-                const response = await SoldToDetailsLazy(url, userId, salesOrg, sessionStore);
-
+                expect(sessionStore.getSoldToDetails).toHaveBeenCalled();
                 expect(response).toEqual(soldToDetailsJSON);
+                expect(serviceMock).toHaveBeenCalled();
+                expect(sessionStore.setSoldToDetails).toHaveBeenCalled();
             });
         });
 
@@ -46,7 +71,6 @@ describe("Feature: SoldToDetailsLazy Service", () => {
                 loginStatus.state = jest.fn(() => true);
 
                 const sessionStore = new SessionStore();
-
                 sessionStore.getSoldToDetails = jest.fn(() => null);
                 sessionStore.setSoldToDetails = jest.fn();
 

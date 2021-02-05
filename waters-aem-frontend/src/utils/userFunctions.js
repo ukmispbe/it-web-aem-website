@@ -275,7 +275,6 @@ export const userDetailsAddresses = (addresses, addressType) => {
 };
 
 export const createUserAddresses = (userDetails) => {
-    console.log(userDetails);
     let addresses = userDetails.userAddress;
 
     userDetails.addresses = {
@@ -298,7 +297,6 @@ export const matchUserToSoldToAddresses = (userDetailsAPIDetails, soldToAPIDetai
                     'shipToInfo': soldToAPIDetails[i].shipToInfo || [],
                     'payerInfo': soldToAPIDetails[i].payerInfo || []
                 };
-                console.log("matchUserToSoldToAddresses", account.addresses);
             }
         }
     });
@@ -395,14 +393,14 @@ export const getUsertype = () => {
         return userType;
     }
     const userConfig = document.getElementById('account-modal-configs-json')
-    
+
     try {
         const siteConfig = userConfig ? JSON.parse(
             document.getElementById('account-modal-configs-json').innerHTML
         ).siteConfig : '';
         
         siteConfig && sessionStore.setUserType(siteConfig || '');
-        
+
         return siteConfig;
     } catch (e) {
         return '';
@@ -442,8 +440,8 @@ export const getUrlPath = (url, id) => {
 }
 
 export const getUrlParameter = (name = '') => {
-        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-        const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-        const results = regex.exec(window.location.hash);
-        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+    const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+    const results = regex.exec(window.location.hash);
+    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
 };

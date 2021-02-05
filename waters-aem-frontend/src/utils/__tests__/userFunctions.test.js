@@ -372,83 +372,6 @@ document.body.innerHTML = mockBodyHTML;
             }]
         };
 
-        // let addresses = {
-        //     "soldToInfo": [
-        //       {
-        //         "partnerNumber": "W8IfyyXIEaCpaXS9ZlRiwQ==",
-        //         "isDefault": false,
-        //         "name": "ASTRAZENECA PHARMACEUTICALS LP",
-        //         "address1": "Master Name 2",
-        //         "address2": "Master Name 3",
-        //         "address3": "Master Name 5",
-        //         "street": "Master - Street 1 331 CLAY RD",
-        //         "street2": "Master - Street 4 Robinson envlave",
-        //         "city": "ROCHESTER",
-        //         "postBoxNumber": "989",
-        //         "district": "MONROE",
-        //         "state": "NY",
-        //         "stateName": "New York",
-        //         "postalCode": "14623-3226",
-        //         "country": "US",
-        //         "countryName": "USA"
-        //       }
-        //     ],
-        //     "billToInfo": [
-        //       {
-        //         "partnerNumber": "enQcKCKHfIXyqLfdlWsnMA==",
-        //         "isDefault": true,
-        //         "name": "ASTRAZENECA",
-        //         "address2": "ACCOUNTS PAYABLE",
-        //         "street": "PO BOX 15250",
-        //         "city": "WILMINGTON",
-        //         "postBoxNumber": "15250",
-        //         "district": "NEW CASTLE",
-        //         "state": "DE",
-        //         "stateName": "Delaware",
-        //         "postalCode": "19850-5250",
-        //         "country": "US",
-        //         "countryName": "USA"
-        //       }
-        //     ],
-        //     "shipToInfo": [
-        //       {
-        //         "partnerNumber": "W8IfyyXIEaCpaXS9ZlRiwQ==",
-        //         "isDefault": true,
-        //         "name": "ASTRAZENECA PHARMACEUTICALS LP",
-        //         "address1": "Master Name 2",
-        //         "address2": "Master Name 3",
-        //         "address3": "Master Name 5",
-        //         "street": "Master - Street 1 331 CLAY RD",
-        //         "street2": "Master - Street 4 Robinson envlave",
-        //         "city": "ROCHESTER",
-        //         "postBoxNumber": "989",
-        //         "district": "MONROE",
-        //         "state": "NY",
-        //         "stateName": "New York",
-        //         "postalCode": "14623-3226",
-        //         "country": "US",
-        //         "countryName": "USA"
-        //       }
-        //     ],
-        //     "payerInfo": [
-        //       {
-        //         "partnerNumber": "enQcKCKHfIXyqLfdlWsnMA==",
-        //         "isDefault": true,
-        //         "name": "ASTRAZENECA",
-        //         "address2": "ACCOUNTS PAYABLE",
-        //         "street": "PO BOX 15250",
-        //         "city": "WILMINGTON",
-        //         "postBoxNumber": "15250",
-        //         "district": "NEW CASTLE",
-        //         "state": "DE",
-        //         "stateName": "Delaware",
-        //         "postalCode": "19850-5250",
-        //         "country": "US",
-        //         "countryName": "USA"
-        //       }
-        //     ]
-        //   };
-
         describe('When Given Type shipToInfo', () => {
             it('Then it should only return addresses with type shipToInfo', () => {
                 const newAddresses = userFunctions.getAddressesByType(addresses, "shipToInfo");
@@ -503,7 +426,6 @@ document.body.innerHTML = mockBodyHTML;
         describe('When Provided With Sold To Account Data', () => {
             it('Then it should return only the Default Sold To Data', () => {
                 const defaultSoldTo = userFunctions.getDefaultSoldTo(soldToAccounts);
-
                 expect(defaultSoldTo).toStrictEqual(soldToAccounts[0]);
             });
         });
@@ -521,12 +443,12 @@ document.body.innerHTML = mockBodyHTML;
     });
 
     describe('Scenario getDefaultSoldToAddresses Function', () => {
-        const soldToAccounts = soldToDetailsJSON.customers;
+        const soldToAccounts = defaultData.soldToAccounts;
 
         describe('When Provided With Sold To Account Data', () => {
             it('Then it should return only the Default Sold To Addresses', () => {
                 const getDefaultSoldToAddresses = userFunctions.getDefaultSoldToAddresses(soldToAccounts);
-                expect(getDefaultSoldToAddresses.addresses.billToInfo).toStrictEqual(soldToAccounts.billToInfo);
+                expect(getDefaultSoldToAddresses).toStrictEqual(soldToAccounts[0].addresses);
             });
         });
 

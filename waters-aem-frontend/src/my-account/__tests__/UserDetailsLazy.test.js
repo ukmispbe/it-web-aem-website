@@ -4,6 +4,9 @@ import { userDetailsJSON } from "../__mocks__/en_US/mock-services-json";
 import SessionStore from "../../stores/sessionStore";
 
 describe("Feature: UserDetailsLazy Service", () => {
+    document.body.innerHTML = '<nav class="cmp-header__top-bar__nav"></nav>';
+
+    const url = '';
     afterEach(() => {
         jest.restoreAllMocks();
     });
@@ -13,7 +16,7 @@ describe("Feature: UserDetailsLazy Service", () => {
             it("Then is should return an empty response", async () => {
                 loginStatus.state = jest.fn(() => false);
 
-                const response = await UserDetailsLazy('', false);
+                const response = await UserDetailsLazy(url, false);
 
                 expect(response).toEqual({});
             });
@@ -27,7 +30,7 @@ describe("Feature: UserDetailsLazy Service", () => {
 
                 sessionStore.getUserDetails = jest.fn(() => userDetailsJSON);
 
-                const response = await UserDetailsLazy('', true, sessionStore);
+                const response = await UserDetailsLazy(url, true, sessionStore);
 
                 expect(response).toEqual(userDetailsJSON);
             });
@@ -36,7 +39,7 @@ describe("Feature: UserDetailsLazy Service", () => {
         describe("When user is logged in and user details is not in the browser session", () => {
             it("Then it should make a backend request to get user details and save in the browser session", async () => {
                 const serviceMock = jest.fn(() => {
-                    return {}
+                    return userDetailsJSON;
                 });
                 
                 loginStatus.state = jest.fn(() => true);
@@ -46,9 +49,10 @@ describe("Feature: UserDetailsLazy Service", () => {
                 sessionStore.getUserDetails = jest.fn(() => null);
                 sessionStore.setUserDetails = jest.fn();
 
-                const response = await UserDetailsLazy('', true, sessionStore, serviceMock);
+                const response = await UserDetailsLazy(url, true, sessionStore, serviceMock);
 
                 expect(serviceMock).toHaveBeenCalled();
+                expect(response).toEqual(userDetailsJSON);
                 expect(sessionStore.setUserDetails).toHaveBeenCalled();
             });
         });
@@ -68,7 +72,7 @@ describe("Feature: UserDetailsLazy Service", () => {
                 sessionStore.getUserDetails = jest.fn(() => null);
                 sessionStore.setUserDetails = jest.fn();
 
-                const response = await UserDetailsLazy('', true, sessionStore, serviceMock);
+                const response = await UserDetailsLazy(url, true, sessionStore, serviceMock);
 
                 expect(response).toEqual({});
                 expect(sessionStore.setUserDetails).not.toHaveBeenCalled();

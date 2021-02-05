@@ -61,7 +61,9 @@ describe('Feature: Sold To Details Service', () => {
         describe("When status is other than 200", () => {
             it("Then it should return a failed flag", async () => {
                 window.fetch = jest.fn(() => {
-                    throw "force expection";
+                    return {
+                        status: 500
+                    }
                 });
 
                 loginStatus.state = jest.fn(() => true);

@@ -80,7 +80,7 @@ export default (data, type, icon) => {
             ];
         case 'shipToInfo':
         case 'billToInfo':
-            let defaultAddresses = data.soldToAccounts.length ? getDefaultSoldToAddresses(data.soldToAccounts) : data.addresses;
+            let defaultAddresses = data.addresses ? data.addresses : getDefaultSoldToAddresses(data.soldToAccounts);
             return [
                 ...getAddressesByType(defaultAddresses, type).map(address => {
                 let tile = {

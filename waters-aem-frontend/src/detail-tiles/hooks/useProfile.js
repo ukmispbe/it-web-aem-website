@@ -57,7 +57,6 @@ export default (userDetailsUrl, soldToDetailsUrl, type, icon) => {
     }, []);
 
     useEffect(() => {
-        console.log("data before generate tiles", data);
         setTiles(generateTiles(data, type, icon));
     }, [data]);
 
