@@ -18,8 +18,7 @@ const SoldToDetails = async (url) => {
         const json = await response.json();
 
         if (response.status === 200) {
-            const returnArray = Array.isArray(json.customers) ? json.customers : [];
-            return returnArray;
+            return (json && json.customers && Array.isArray(json.customers)) ? json.customers : [];
         } else if (response.status === 401 && window.location.href.indexOf('my-account.html') !== -1) {
             signInRedirect();
         }
@@ -30,7 +29,7 @@ const SoldToDetails = async (url) => {
     } catch (error) {
         return {
             failed: true,
-            error: response.status
+            error: error
         }
     }
 }

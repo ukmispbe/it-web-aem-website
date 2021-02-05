@@ -11,11 +11,21 @@ import { checkRenderInput,
         checkEventsInput, 
         checkEventsCheckbox } from '../__utils__/utils';
 import mockBodyHTML from '../../__mocks__/en_US/html/mock-body-html';
+import { mockDigitalDataJSON } from '../../__mocks__/en_US/html/mock-html-json';
 
 const mockSubmitFn = jest.fn();
 const isocode = 'en_us';
 
 let wrapper;
+
+beforeAll(() => {
+    window.digitalData = mockDigitalDataJSON.html;
+
+    Object.defineProperty(global.window, 'scrollTo', {
+        value: jest.fn()
+    });
+});
+
 beforeEach(async () => {
     await act(async () => {
         wrapper = mount(<Form config={personalConfig} submitFn={mockSubmitFn} isocode={isocode} />);
@@ -69,10 +79,10 @@ describe('Feature: Personal Details Form', () => {
                 checkRenderCheckbox(wrapper, "communications");
             });
 
-            it('Then it should render a disabled submit button', async () => {
+            it('Then it should not render a disabled submit button', async () => {
                 const button = wrapper.find('button');
                 expect(button.exists()).toEqual(true);
-                expect(button.instance().disabled).toEqual(true);
+                expect(button.instance().disabled).toEqual(false);
                 expect(button.instance().type).toEqual("submit");
             });
 

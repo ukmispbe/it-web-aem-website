@@ -26,7 +26,7 @@ const SearchBreadcrumb = (props) => {
             return (
                 <li className="cmp-breadcrumb__item" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
                     <a onClick={(e) => clearSession(e, linkInfo.path)} className='cmp-breadcrumb__item-link'>
-                        <span itemprop="name"><EllipsisText text={title} length={"20"} /></span>
+                        <span itemprop="name"><EllipsisText text={title} length={20} /></span>
                     </a>
                 </li>
             )
@@ -35,7 +35,7 @@ const SearchBreadcrumb = (props) => {
             return (
                 <li className="cmp-breadcrumb__item" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
                     <a href={linkInfo.path} className='cmp-breadcrumb__item-link'>
-                        <span itemprop="name"><EllipsisText text={title} length={"20"} /></span>
+                        <span itemprop="name"><EllipsisText text={title} length={20} /></span>
                     </a>
                 </li>
             )

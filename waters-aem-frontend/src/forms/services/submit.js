@@ -6,7 +6,7 @@ import UserDetails from '../../my-account/services/UserDetails';
 import SoldToDetailsLazy from '../../my-account/services/SoldToDetailsLazy';
 import { signInRedirect, getNamedHeaderLink } from '../../utils/redirectFunctions';
 import { postData } from '../../utils/serviceFunctions';
-import { matchAddresses } from '../../utils/userFunctions';
+import { matchUserToSoldToAddresses } from '../../utils/userFunctions';
 import { convertFileIntoBase64, getAttachmentFieldName } from '../fields/utils/fileAttachment';
 
 export async function registrationSubmit(data) {
@@ -218,11 +218,11 @@ export async function personalSubmit(data) {
         store.setPersonalDetailsUpdated();
 
         if (responseBody && responseBody.userId && responseBody.salesOrg) {
-                SoldToDetailsLazy(this.soldToDetailsUrl, responseBody.userId, responseBody.salesOrg)
-                .then((soldToDetails) => {
-                    let mergeAPIs = matchAddresses(responseBody, soldToDetails);
-                    this.setProfileData(mergeAPIs);
-                });
+            SoldToDetailsLazy(this.soldToDetailsUrl, responseBody.userId, responseBody.salesOrg)
+            .then((soldToDetails) => {
+                let mergeAPIs = matchUserToSoldToAddresses(responseBody, soldToDetails);
+                this.setProfileData(mergeAPIs);
+            });
         }
 
         const model = {

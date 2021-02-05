@@ -14,6 +14,17 @@ describe('Feature: Category Dropdown Component', () => {
         categoryValue: 0
     };
 
+    Object.defineProperty(window, 'matchMedia', {
+        value: () => ({
+            matches: false,
+            addListener: () => { },
+            removeListener: () => { }
+        }),
+        writable: true,
+        enumerable: true,
+        configurable: true
+    });
+
     describe('Scenario: Device Rendering', () => {
         describe('When viewing on desktop', () => {
             beforeAll(() => {

@@ -5,6 +5,7 @@ import { act } from 'react-dom/test-utils';
 import Form from '../form';
 import { signInConfig } from '../__mocks__/en_US/mockData';
 import mockBodyHTML from '../../__mocks__/en_US/html/mock-body-html';
+import { mockDigitalDataJSON } from '../../__mocks__/en_US/html/mock-html-json';
 
 import { checkRenderInput, 
     checkRenderPassword, 
@@ -14,6 +15,14 @@ import { checkRenderInput,
 const mockSubmitFn = jest.fn();
 const isocode = 'en_us';
 let wrapper;
+
+beforeAll(() => {
+    window.digitalData = mockDigitalDataJSON.html;
+
+    Object.defineProperty(global.window, 'scrollTo', {
+        value: jest.fn()
+    });
+});
 
 beforeEach(async () => {
     await act(async () => {
@@ -51,8 +60,8 @@ describe('Feature: Sign In Form', () => {
                 expect(link.exists()).toEqual(true);
             });
 
-            let isDisabled = true;
-            it('Then it should render a disabled submit button', async () => {
+            let isDisabled = false;
+            it('Then it should not render a disabled submit button', async () => {
                 checkRenderSubmitButton(wrapper, "SIGN IN", isDisabled);
             });
         });
