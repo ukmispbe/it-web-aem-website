@@ -19,6 +19,10 @@ let wrapper;
 
 beforeAll(() => {
     window.digitalData = mockDigitalDataJSON.html;
+
+    Object.defineProperty(global.window, 'scrollTo', {
+        value: jest.fn()
+    });
 });
 
 beforeEach(async () => {
@@ -59,8 +63,8 @@ describe('Feature: Reset Password Form', () => {
                 checkRenderPassword(wrapper, "confirmPassword", isValidation);
             });
 
-            const isDisabledButton = true;
-            it('Then it should render a disabled submit button', async () => {
+            const isDisabledButton = false;
+            it('Then it should not render a disabled submit button', async () => {
                 checkRenderSubmitButton(wrapper, "Reset Password", isDisabledButton);
             });
 

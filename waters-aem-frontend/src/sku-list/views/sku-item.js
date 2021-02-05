@@ -411,7 +411,7 @@ class SkuItem extends React.Component {
         }
         const imageAltLabel = relatedSku.primaryImageAlt ? relatedSku.primaryImageAlt : relatedSku.title;
         return (
-            <li>
+            <li key={relatedSku.code}>
                 <div className={'cmp-sku-list__container ' + disabledClass}>
                     <div className="cmp-sku-list__right">
                         <img
@@ -447,7 +447,6 @@ class SkuItem extends React.Component {
 }
 
 SkuItem.propTypes = {
-    key: PropTypes.string.isRequired,
     relatedSku: PropTypes.object.isRequired,
     skuConfig: PropTypes.object.isRequired,
     baseSignInUrl: PropTypes.string.isRequired,
@@ -457,7 +456,6 @@ SkuItem.propTypes = {
 };
 
 SkuItem.defaultProps = {
-    key: '',
     relatedSku: {},
     skuConfig: {},
     baseSignInUrl: '',

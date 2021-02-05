@@ -2,6 +2,7 @@
 
 exports[`Feature: Sign In Form Scenario: Rendering When initial render Then the snapshot should match 1`] = `
 <form
+  autocomplete="off"
   className="cmp-form cmp-form--registration "
   data-locator="form-component"
   onSubmit={[Function]}
@@ -28,6 +29,7 @@ exports[`Feature: Sign In Form Scenario: Rendering When initial render Then the 
         aria-label="email"
         aria-labelledby="email"
         aria-required={true}
+        autocomplete="off"
         className=""
         data-locator="email"
         id="email"
@@ -77,6 +79,7 @@ exports[`Feature: Sign In Form Scenario: Rendering When initial render Then the 
         aria-label="password"
         aria-labelledby="password"
         aria-required={true}
+        autocomplete="off"
         className=""
         data-locator="password"
         id="password"

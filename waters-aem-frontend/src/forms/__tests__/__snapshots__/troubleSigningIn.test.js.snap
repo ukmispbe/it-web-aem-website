@@ -2,6 +2,7 @@
 
 exports[`Feature:Trouble Signing In Form Scenario: Rendering When initial render Then the snapshot should match 1`] = `
 <form
+  autocomplete="off"
   className="cmp-form cmp-form--registration "
   data-locator="form-component"
   onSubmit={[Function]}
@@ -33,6 +34,7 @@ exports[`Feature:Trouble Signing In Form Scenario: Rendering When initial render
         aria-label="email"
         aria-labelledby="email"
         aria-required={true}
+        autocomplete="off"
         className=""
         data-locator="email"
         id="email"
@@ -82,6 +84,7 @@ exports[`Feature:Trouble Signing In Form Scenario: Rendering When initial render
         aria-label="firstName"
         aria-labelledby="firstName"
         aria-required={true}
+        autocomplete="off"
         className=""
         data-locator="firstname"
         id="firstName"
@@ -131,6 +134,7 @@ exports[`Feature:Trouble Signing In Form Scenario: Rendering When initial render
         aria-label="lastName"
         aria-labelledby="lastName"
         aria-required={true}
+        autocomplete="off"
         className=""
         data-locator="lastname"
         id="lastName"
@@ -180,6 +184,7 @@ exports[`Feature:Trouble Signing In Form Scenario: Rendering When initial render
         aria-label="company"
         aria-labelledby="company"
         aria-required={true}
+        autocomplete="off"
         className=""
         data-locator="company"
         id="company"
@@ -364,6 +369,7 @@ exports[`Feature:Trouble Signing In Form Scenario: Rendering When initial render
         aria-label="password"
         aria-labelledby="password"
         aria-required={true}
+        autocomplete="off"
         className=""
         data-locator="password"
         id="password"
@@ -482,6 +488,7 @@ exports[`Feature:Trouble Signing In Form Scenario: Rendering When initial render
         aria-label="confirmPassword"
         aria-labelledby="confirmPassword"
         aria-required={true}
+        autocomplete="off"
         className=""
         data-locator="confirmpassword"
         id="confirmPassword"

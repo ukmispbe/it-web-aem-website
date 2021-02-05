@@ -18,6 +18,10 @@ let wrapper;
 
 beforeAll(() => {
     window.digitalData = mockDigitalDataJSON.html;
+
+    Object.defineProperty(global.window, 'scrollTo', {
+        value: jest.fn()
+    });
 });
 
 beforeEach(async () => {
@@ -56,8 +60,8 @@ describe('Feature: Sign In Form', () => {
                 expect(link.exists()).toEqual(true);
             });
 
-            let isDisabled = true;
-            it('Then it should render a disabled submit button', async () => {
+            let isDisabled = false;
+            it('Then it should not render a disabled submit button', async () => {
                 checkRenderSubmitButton(wrapper, "SIGN IN", isDisabled);
             });
         });

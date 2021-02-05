@@ -202,6 +202,9 @@ Array [
         <div
           className="cmp-search-filters__emptytags"
         />
+        <div>
+          Loading...
+        </div>
       </div>
     </div>
   </div>,

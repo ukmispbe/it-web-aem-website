@@ -29,6 +29,10 @@ let wrapper;
 
 beforeAll(() => {
     window.digitalData = mockDigitalDataJSON.html;
+
+    Object.defineProperty(global.window, 'scrollTo', {
+        value: jest.fn()
+    });
 });
 
 beforeEach(async () => {
@@ -106,8 +110,8 @@ describe('Feature: Registration Form', () => {
                 checkRenderTextWithLinks(wrapper, "privacy", "By clicking the CREATE ACCOUNT button, you are agreeing to our Terms of Use and understand that the information you have provided on this website will be used and processed by Waters in accordance with the Waters Privacy Notice.");
             });
 
-            const isDisabledButton = true;
-            it('Then it should render a disabled submit button', async () => {
+            const isDisabledButton = false;
+            it('Then it should not render a disabled submit button', async () => {
                 checkRenderSubmitButton(wrapper, "Create Account", isDisabledButton);
             });
 
