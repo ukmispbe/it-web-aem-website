@@ -27,7 +27,7 @@
                 color: $color-link;
             }
 
-            padding-bottom: $space-xxs;
+            padding-bottom: $space-s;
             cursor: pointer;
 
             .cmp-categories-back {
@@ -75,7 +75,6 @@
     width: 75%;
     float: left;
     padding-left: 2%;
-    margin-top: $space-l;
 
     &__header {
         width: 60%;
@@ -162,6 +161,9 @@
             padding-bottom: $space-xs;
         }
     }
+    ul li {
+        padding-bottom: $space-xxs;
+    }
 }
 .cmp-search__results-item {
     padding: $space-m;
@@ -174,7 +176,7 @@
         margin-top: $space-s;
 
         svg {
-            margin: ($space-xxxs + 0.2em) $space-xxxs 0 $space-xxxs;
+            margin: $space-xxxs $space-xxxs 0 $space-xxxs;
             width: $icon-s;
             height: $icon-s;
 
