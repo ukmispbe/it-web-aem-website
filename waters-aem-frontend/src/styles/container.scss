@@ -291,3 +291,36 @@
         object-position: 0 100%;
     }
 }
+
+// Default height
+.cmp-container--smallHeight .cmp-container {
+    min-height: 12em;
+
+    @include mobile {
+        min-height: auto;
+    }
+}
+
+.cmp-container--mediumHeight .cmp-container {
+    min-height: 16em;
+
+    @include mobile {
+        min-height: auto;
+    }
+}
+
+.cmp-container--largeHeight .cmp-container {
+    min-height: 20em;
+
+    @include mobile {
+        min-height: auto;
+    }
+}
+
+.cmp-container--xlargeHeight .cmp-container {
+    min-height: 24em;
+
+    @include mobile {
+        min-height: auto;
+    }
+}

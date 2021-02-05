@@ -310,3 +310,15 @@ input[type='number']::-webkit-outer-spin-button {
         min-height: auto;
     }
 }
+// container default
+.container--default {
+    padding: 0 14px;
+
+    @include mobile {
+        padding: 0 4px;
+    }
+
+    @include tablet {
+        padding: 0 12px;
+    }
+}
