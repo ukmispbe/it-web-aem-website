@@ -339,6 +339,94 @@
                     }
                 }  
             }
+
+            .cmp-sku-list {
+                &__container {
+                    background-color: $color-background-light;
+                    padding: $space-m $space-m $space-xs $space-m;
+                    width: 100%;
+                    clear: both;
+                    display: inline-block;
+                    min-height: 185px;
+                }
+        
+                &__right {
+                float: right;
+                width: 12em;
+                margin-left: $space-m;
+        
+                    img {
+                        width: 100%;
+                        margin-bottom: $space-s;
+                        background: #fff;
+                        border: 1px solid #c6cdd2
+                    }
+                }
+                
+                &__priceinfo {
+                    padding-right: $space-xs;
+                    line-height: 1.2em;
+                    height: $space-xl;
+
+                    span {
+                        margin-bottom: $space-xxxs;
+                    }
+                    .cmp-sku__price {
+                        @include font-h3;
+                        font-size: $font-size-h2;
+                        margin-bottom: $space-xxxs;
+        
+                        @include mobile {
+                            @include font-h2;
+                            line-height: ($line-height-text + .1em);
+                            color: $color-font-dark;
+                            font-weight: $font-weight-regular;
+                            margin-bottom: $space-xxxs;
+                        }
+                    }
+                }
+
+                &__code {
+                    @include font-body;
+                    @include font-utility;
+                    margin-bottom: $space-xxxs;
+                }
+            }
+            
+            .cmp-sku-details {    
+                &__code {
+                    @include font-body;
+                    @include font-utility;
+                    margin-bottom: $space-xxs;
+                }
+        
+                &__title {
+                    @include font-h3;
+                    margin-bottom: $space-xxs;
+        
+                    @include tablet-and-under {
+                        margin-bottom: $space-s;
+                    }
+                }        
+                
+                &__buyinfo {
+                    display: flex;
+                    flex-flow: row;
+                    flex-wrap: wrap;
+                }
+        
+                &__quantitytext {
+                    @include font-body;
+                    @include font-utility;
+                    display: flex;
+                    align-items: center;
+                    height: $space-m;
+                    border-left: $border-divider-small;
+                    padding: 0 $space-s 0 $space-xs;
+                    margin-bottom: $space-xxxs;
+                    margin-top: $space-xxxs;       
+                }
+            }
         }
     }
 }
