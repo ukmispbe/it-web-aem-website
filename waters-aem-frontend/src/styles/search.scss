@@ -548,13 +548,6 @@ div.cmp-search__no-results {
 
 }
 
-.cmp-search-inline {
-    background-color: $overlay-dark;
-    border-radius: $border-radius;
-    padding: $space-xs $space-m;
-    height: $height-medium;
-}
-
 .show-sort-filters {
     @include mobile {
         #surveyContent {

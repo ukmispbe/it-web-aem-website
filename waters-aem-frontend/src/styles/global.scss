@@ -340,6 +340,13 @@ input[type='number']::-webkit-outer-spin-button {
     }
 }
 
+.cmp-spinner-inline {
+    background-color: $overlay-dark;
+    border-radius: $border-radius;
+    padding: $space-xs $space-m;
+    height: $height-medium;
+}
+
 html.showing-spinner {
     overflow: hidden;
     height: 100%;
