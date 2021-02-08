@@ -310,3 +310,24 @@ input[type='number']::-webkit-outer-spin-button {
         min-height: auto;
     }
 }
+
+.cmp-spinner-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: $overlay-dark;
+    width: 200%;
+    height: 130%;
+    padding: 50% 80%;
+    margin: -30%;
+    z-index: $cmp-spinner-overlay-z-index;
+
+    > div {
+        margin-left: -32px;
+    }
+}
+
+html.showing-spinner {
+    overflow: hidden;
+    height: 100%;
+}
