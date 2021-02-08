@@ -54,7 +54,6 @@ class SkuList extends React.Component {
 
         if(record.code) {
             return <SkuItem
-                key={index}
                 relatedSku={record}
                 skuConfig={this.props.skuConfig}
                 baseSignInUrl={this.props.baseSignInUrl}

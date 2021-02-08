@@ -8,14 +8,14 @@ import DetailTile from '../index';
 import Tile from '../views/tile';
 
 //Mocked Props
-import DefaultProps from '../__mocks__/en_US/index';
+import { defaultProps } from '../__mocks__/en_US/index';
 
 const keys = {
     tilesTitle: '.cmp-detail-tiles--title',
     addTile: '.cmp-detail-tiles--add',
     emptyTileListTile: '.cmp-detail-tiles-list--tile.no-address',
     nonEmptyTileListTile: '.cmp-detail-tiles-list--tile',
-    nonEmptyTileListTileID: `#${DefaultProps.tileName}`,
+    nonEmptyTileListTileID: `#${defaultProps.tileName}`,
     tileColumn: '.cmp-detail-tiles-list--tile-column',
     tileColumnTitle: '.cmp-detail-tiles-list--tile-column--title',
     tileColumnText: '.cmp-detail-tiles-list--tile-column--text',
@@ -44,10 +44,10 @@ describe('Feature: Detail Tiles Component', () => {
     describe('Scenario: Rendering Tile List', () => {
         describe('When title is present', () => {
             it('Then it should render title for list', () => {
-                const wrapper = buildShallowWrapper(DetailTile, DefaultProps);
+                const wrapper = buildShallowWrapper(DetailTile, defaultProps);
 
                 const titleDiv = wrapper.find(keys.tilesTitle).first();
-                expect(titleDiv.text()).toEqual(DefaultProps.title);
+                expect(titleDiv.text()).toEqual(defaultProps.title);
             });
         });
         // Add Tile
@@ -57,12 +57,12 @@ describe('Feature: Detail Tiles Component', () => {
     describe('Scenario: Rendering Individual Tile', () => {
         let wrapper;
         const props = {
-            name: DefaultProps.tileName,
-            columns: DefaultProps.columns,
-            defaultValues: DefaultProps.defaultValues,
-            form: DefaultProps.form,
-            formMessage: DefaultProps.formMessage,
-            icon: DefaultProps.icons.edit
+            name: defaultProps.tileName,
+            columns: defaultProps.columns,
+            defaultValues: defaultProps.defaultValues,
+            form: defaultProps.form,
+            formMessage: defaultProps.formMessage,
+            icon: defaultProps.icons.edit
         };
 
         beforeAll(() => {
@@ -140,18 +140,18 @@ describe('Feature: Detail Tiles Component', () => {
     describe('Scenario Rendering a Blank Tile', () => {
         let wrapper;
         const props = {
-            name: DefaultProps.tileName,
+            name: defaultProps.tileName,
             columns: [
                 {
-                    title: DefaultProps.noAddressMessage,
-                    addTitle: DefaultProps.addTitle,
-                    addIcon: DefaultProps.icons.add
+                    title: defaultProps.noAddressMessage,
+                    addTitle: defaultProps.addTitle,
+                    addIcon: defaultProps.icons.add
                 }
             ],
-            defaultValues: DefaultProps.defaultValues,
-            form: DefaultProps.form,
-            formMessage: DefaultProps.formMessage,
-            icon: DefaultProps.icons.edit,
+            defaultValues: defaultProps.defaultValues,
+            form: defaultProps.form,
+            formMessage: defaultProps.formMessage,
+            icon: defaultProps.icons.edit,
             isNoAddress: true
         };
 
@@ -171,7 +171,7 @@ describe('Feature: Detail Tiles Component', () => {
                 const title = blankTile.find(keys.emptyTileListTileTitle);
                 expect(title).toHaveLength(1);
                 expect(title.first().text()).toEqual(
-                    DefaultProps.noAddressMessage
+                    defaultProps.noAddressMessage
                 );
             });
 
@@ -188,7 +188,7 @@ describe('Feature: Detail Tiles Component', () => {
                     .first();
                 const title = addTile.find(keys.emptyTileListTileAddTitle);
                 expect(title).toHaveLength(1);
-                expect(title.first().text()).toEqual(DefaultProps.addTitle);
+                expect(title.first().text()).toEqual(defaultProps.addTitle);
             });
         });
     });
@@ -196,13 +196,13 @@ describe('Feature: Detail Tiles Component', () => {
     describe('Scenario Rendering Tile with Notification', () => {
         let wrapper;
         const props = {
-            name: DefaultProps.tileName,
-            columns: DefaultProps.columns,
-            defaultValues: DefaultProps.defaultValues,
-            form: DefaultProps.form,
-            formMessage: DefaultProps.formMessage,
-            icon: DefaultProps.icons.edit,
-            notification: DefaultProps.notification
+            name: defaultProps.tileName,
+            columns: defaultProps.columns,
+            defaultValues: defaultProps.defaultValues,
+            form: defaultProps.form,
+            formMessage: defaultProps.formMessage,
+            icon: defaultProps.icons.edit,
+            notification: defaultProps.notification
         };
 
         beforeAll(() => {
@@ -235,12 +235,12 @@ describe('Feature: Detail Tiles Component', () => {
     describe('Scenario Rendering the Form', () => {
         let wrapper;
         const props = {
-            name: DefaultProps.tileName,
-            columns: DefaultProps.columns,
-            defaultValues: DefaultProps.defaultValues,
-            form: DefaultProps.form,
-            formMessage: DefaultProps.formMessage,
-            icon: DefaultProps.icons.edit
+            name: defaultProps.tileName,
+            columns: defaultProps.columns,
+            defaultValues: defaultProps.defaultValues,
+            form: defaultProps.form,
+            formMessage: defaultProps.formMessage,
+            icon: defaultProps.icons.edit
         };
 
         beforeAll(() => {
@@ -274,12 +274,12 @@ describe('Feature: Detail Tiles Component', () => {
     describe('Scenario Render Tile and check snapshots', () => {
         let wrapper;
         let props = {
-            name: DefaultProps.tileName,
-            columns: DefaultProps.columns,
-            defaultValues: DefaultProps.defaultValues,
-            form: DefaultProps.form,
-            formMessage: DefaultProps.formMessage,
-            icon: DefaultProps.icons.edit
+            name: defaultProps.tileName,
+            columns: defaultProps.columns,
+            defaultValues: defaultProps.defaultValues,
+            form: defaultProps.form,
+            formMessage: defaultProps.formMessage,
+            icon: defaultProps.icons.edit
         };
 
         describe('When notification is not present', () => {
@@ -289,7 +289,7 @@ describe('Feature: Detail Tiles Component', () => {
             });
         });
 
-        props.notification = DefaultProps.notification;
+        props.notification = defaultProps.notification;
 
         describe('When notification is present', () => {
             it('Then the snapshot should match', () => {
@@ -301,9 +301,9 @@ describe('Feature: Detail Tiles Component', () => {
         props.isNoAddress = true;
         props.columns = [
             {
-                title: DefaultProps.noAddressMessage,
-                addTitle: DefaultProps.addTitle,
-                addIcon: DefaultProps.icons.add
+                title: defaultProps.noAddressMessage,
+                addTitle: defaultProps.addTitle,
+                addIcon: defaultProps.icons.add
             }
         ];
 

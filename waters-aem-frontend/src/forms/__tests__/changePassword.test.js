@@ -3,8 +3,9 @@ import renderer from 'react-test-renderer';
 import { mount } from 'enzyme';
 import { act } from 'react-dom/test-utils';
 import Form from '../form';
-import mockBodyHTML from '../../__mocks__/en_US/html/mock-body-html';
 
+import mockBodyHTML from '../../__mocks__/en_US/html/mock-body-html';
+import { mockDigitalDataJSON } from '../../__mocks__/en_US/html/mock-html-json';
 import { changePasswordConfig } from '../__mocks__/en_US/mockData';
 import { checkRenderInput,
         checkRenderPassword, 
@@ -16,6 +17,14 @@ const mockSubmitFn = jest.fn();
 const isocode = 'en_us';
 
 let wrapper;
+
+beforeAll(() => {
+    window.digitalData = mockDigitalDataJSON.html;
+
+    Object.defineProperty(global.window, 'scrollTo', {
+        value: jest.fn()
+    });
+});
 
 beforeEach(async () => {
     await act(async () => {
@@ -60,8 +69,8 @@ describe('Feature: Change Password Form', () => {
                 checkRenderPassword(wrapper, "confirmNewPassword", isValidation);
             });           
 
-            const isDisabledButton = true;
-            it('Then it should render a disabled submit button', async () => {
+            const isDisabledButton = false;
+            it('Then it should not render a disabled submit button', async () => {
                 checkRenderSubmitButton(wrapper, "Change Password", isDisabledButton);
             });
 

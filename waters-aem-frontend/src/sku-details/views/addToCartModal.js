@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import ErrorMessages from '../../scripts/ErrorMessages';
 import { useModalApi } from '../../utils/modal'
-import { elementLocator } from '../../utils/eCommerceFunctions';
+import { buildViewCartURL, elementLocator } from '../../utils/eCommerceFunctions';
 
 const keys = {
     AddToCartPrefix: 'cmp-atc-modal',
@@ -87,7 +87,7 @@ const AddToCartModalBody = props => {
         ) {
             return (
                 <a
-                    href={btn.action}
+                    href={buildViewCartURL(btn.action)}
                     className={keys.MainButton}
                     target={btn.target || ''}
                     {...(btn.callback && { onClick: (e)=>btn.callback(e) })}

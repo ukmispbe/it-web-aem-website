@@ -2,7 +2,9 @@
 
 exports[`Feature: Personal Details Form Scenario: Rendering When initial render Then the snapshot should match 1`] = `
 <form
-  className="cmp-form cmp-form--registration"
+  autocomplete="off"
+  className="cmp-form cmp-form--registration "
+  data-locator="form-component"
   onSubmit={[Function]}
 >
   <div
@@ -10,15 +12,27 @@ exports[`Feature: Personal Details Form Scenario: Rendering When initial render 
   >
     <label
       className=""
+      data-locator="first-name"
       htmlFor="firstName"
     >
       First Name
+      <span
+        className="cmp-form-field--required"
+      >
+        *
+      </span>
     </label>
     <div
       className="cmp-form-field--input"
     >
       <input
+        aria-label="firstName"
+        aria-labelledby="firstName"
+        aria-required={true}
+        autocomplete="off"
         className=""
+        data-locator="firstname"
+        id="firstName"
         name="firstName"
         onBlur={[Function]}
         onChange={[Function]}
@@ -48,15 +62,27 @@ exports[`Feature: Personal Details Form Scenario: Rendering When initial render 
   >
     <label
       className=""
+      data-locator="last-name"
       htmlFor="lastName"
     >
       Last Name
+      <span
+        className="cmp-form-field--required"
+      >
+        *
+      </span>
     </label>
     <div
       className="cmp-form-field--input"
     >
       <input
+        aria-label="lastName"
+        aria-labelledby="lastName"
+        aria-required={true}
+        autocomplete="off"
         className=""
+        data-locator="lastname"
+        id="lastName"
         name="lastName"
         onBlur={[Function]}
         onChange={[Function]}
@@ -86,15 +112,27 @@ exports[`Feature: Personal Details Form Scenario: Rendering When initial render 
   >
     <label
       className=""
+      data-locator="company"
       htmlFor="company"
     >
       Company
+      <span
+        className="cmp-form-field--required"
+      >
+        *
+      </span>
     </label>
     <div
       className="cmp-form-field--input"
     >
       <input
+        aria-label="company"
+        aria-labelledby="company"
+        aria-required={true}
+        autocomplete="off"
         className=""
+        data-locator="company"
+        id="company"
         name="company"
         onBlur={[Function]}
         onChange={[Function]}
@@ -124,16 +162,28 @@ exports[`Feature: Personal Details Form Scenario: Rendering When initial render 
   >
     <label
       className=""
+      data-locator="email-address"
       htmlFor="email"
     >
       Email Address
+      <span
+        className="cmp-form-field--required"
+      >
+        *
+      </span>
     </label>
     <div
       className="cmp-form-field--input"
     >
       <input
+        aria-label="email"
+        aria-labelledby="email"
+        aria-required={true}
+        autocomplete="off"
         className=""
+        data-locator="email"
         disabled={true}
+        id="email"
         name="email"
         onBlur={[Function]}
         onChange={[Function]}
@@ -160,6 +210,7 @@ exports[`Feature: Personal Details Form Scenario: Rendering When initial render 
   >
     <label
       className=""
+      data-locator="phone-number"
       htmlFor="phone"
     >
       Phone Number
@@ -167,14 +218,19 @@ exports[`Feature: Personal Details Form Scenario: Rendering When initial render 
         className="cmp-form-field--optional"
       >
          
-        (optional)
       </span>
     </label>
     <div
       className="cmp-form-field--input"
     >
       <input
+        aria-label="phone"
+        aria-labelledby="phone"
+        aria-required={false}
+        autocomplete="off"
         className=""
+        data-locator="phone"
+        id="phone"
         name="phone"
         onBlur={[Function]}
         onChange={[Function]}
@@ -206,15 +262,20 @@ exports[`Feature: Personal Details Form Scenario: Rendering When initial render 
       className="cmp-form-field-dropdown--wrapper"
     >
       <label
+        data-locator="country-label"
         htmlFor="country"
       >
-        Country
+        Country*
       </label>
       <div
+        aria-describedby="cmp-custom-dropdown__single-value"
         className="cmp-form-field-dropdown--wrapper"
+        data-locator="country"
+        tabindex="0"
       >
         <div
           className="css-ssi0ig-container cmp-custom-dropdown--is-disabled"
+          id="country"
           onKeyDown={[Function]}
         >
           <div
@@ -223,12 +284,12 @@ exports[`Feature: Personal Details Form Scenario: Rendering When initial render 
             onTouchEnd={[Function]}
           >
             <div
-              className="css-1hwfws3 cmp-custom-dropdown__value-container"
+              className="css-1hwfws3 cmp-custom-dropdown__value-container cmp-custom-dropdown__value-container--has-value"
             >
               <div
-                className="css-151xaom-placeholder cmp-custom-dropdown__placeholder"
+                className="css-0 cmp-custom-dropdown__single-value cmp-custom-dropdown__single-value--is-disabled"
               >
-                Select...
+                United States
               </div>
               <div
                 className="css-1g6gooi"
@@ -243,6 +304,7 @@ exports[`Feature: Personal Details Form Scenario: Rendering When initial render 
                 >
                   <input
                     aria-autocomplete="list"
+                    aria-label="country"
                     autoCapitalize="none"
                     autoComplete="off"
                     autoCorrect="off"
@@ -266,7 +328,7 @@ exports[`Feature: Personal Details Form Scenario: Rendering When initial render 
                         "width": "1px",
                       }
                     }
-                    tabIndex="0"
+                    tabIndex="-1"
                     type="text"
                     value=""
                   />
@@ -324,10 +386,15 @@ exports[`Feature: Personal Details Form Scenario: Rendering When initial render 
     className="cmp-form-field cmp-form-field-checkbox"
   >
     <input
+      aria-disabled={false}
+      aria-labelledby="communications"
+      aria-required={true}
       className="valid"
+      data-locator="communications"
       id="communications"
       name="communications"
       readOnly={true}
+      role="checkbox"
       type="checkbox"
     />
     <a
@@ -344,20 +411,21 @@ exports[`Feature: Personal Details Form Scenario: Rendering When initial render 
         htmlFor="communications"
         onClick={[Function]}
       >
-        I want to receive communications from Waters. 
+        I want to receive communications from Waters.* 
       </label>
       
     </div>
   </div>
   <button
-    className="cmp-button cmp-button--no-border cmp-form--submit cmp-button--disabled"
-    disabled={true}
+    className="cmp-button cmp-button--no-border cmp-form--submit"
+    data-locator="form-submit"
     type="submit"
   >
     Save Changes
   </button>
   <a
     className="cmp-button cmp-button--cancel"
+    data-locator="cancel"
     onClick={[Function]}
   >
     Cancel

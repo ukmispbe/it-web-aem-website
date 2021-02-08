@@ -19,17 +19,14 @@ const buildAddress = address => {
     return addressArray.map((x, i) => <div key={i + 1}>{x}</div>);
 }
 
-const config = document.getElementById(
-    'json-config--cmp-detail-tiles--personal'
-)
-    ? JSON.parse(
-        document.getElementById('json-config--cmp-detail-tiles--personal')
-            .innerHTML
-    )
-    : '';
+
 //soldToInfo billToInfo shipToInfo payerInfo carrierInfo
 export default (data, type, icon) => {
     if (!data) return [];
+
+    const config = document.getElementById('json-config--cmp-detail-tiles--personal')
+    ? JSON.parse(document.getElementById('json-config--cmp-detail-tiles--personal').innerHTML)
+    : '';
 
     switch (type) {
         case 'personal':
@@ -81,13 +78,12 @@ export default (data, type, icon) => {
                     defaultValues: data
                 }
             ];
-
         case 'shipToInfo':
         case 'billToInfo':
-            let defaultSoldToAddresses = getDefaultSoldToAddresses(data.soldToAccounts);
+            let defaultAddresses = data.addresses ? data.addresses : getDefaultSoldToAddresses(data.soldToAccounts);
             return [
-                ...getAddressesByType(defaultSoldToAddresses, type).map(address => {
-                    let tile = {
+                ...getAddressesByType(defaultAddresses, type).map(address => {
+                let tile = {
                         name: type,
                         columns: [
                             {
@@ -112,7 +108,7 @@ export default (data, type, icon) => {
                         defaultValues: address
                     };
 
-                    if (address.pending) {
+                    if (address.shipOrBillChangeFlag) {
                         tile.notification = newNotification(
                             'Address Verification Pending',
                             'Orders may be delayed',

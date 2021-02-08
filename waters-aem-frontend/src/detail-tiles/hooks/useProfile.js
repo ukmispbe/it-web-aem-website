@@ -4,12 +4,22 @@ import UserDetailsLazy from '../../my-account/services/UserDetailsLazy';
 import SoldToDetailsLazy from '../../my-account/services/SoldToDetailsLazy';
 import loginStatus from '../../scripts/loginStatus';
 import { notLoggedInRedirect } from '../../utils/redirectFunctions';
-import { matchAddresses } from '../../utils/userFunctions';
+import { matchUserToSoldToAddresses, createUserAddresses } from '../../utils/userFunctions';
 
 export default (userDetailsUrl, soldToDetailsUrl, type, icon) => {
     const [data, setData] = useState();
     const [tiles, setTiles] = useState([]);
-    
+
+    function callSoldToDetails(userDetails) {
+        if (userDetails && userDetails.userId && userDetails.salesOrg) {
+            SoldToDetailsLazy(soldToDetailsUrl, userDetails.userId, userDetails.salesOrg)
+            .then((soldToDetails) => {
+                let mergeAPIs = matchUserToSoldToAddresses(userDetails, soldToDetails);
+                setData(mergeAPIs);
+            });
+        }
+    }
+
     function getData() {
         const checkSessionStore = false;
         UserDetailsLazy(userDetailsUrl, checkSessionStore)
@@ -18,16 +28,16 @@ export default (userDetailsUrl, soldToDetailsUrl, type, icon) => {
                 userDetails.phone = userDetails.phone.replace(/\D/g,'');
             }
 
-            if (userDetails && userDetails.userId && userDetails.salesOrg) {
-                if(type !== 'password') {
-                    SoldToDetailsLazy(soldToDetailsUrl, userDetails.userId, userDetails.salesOrg)
-                    .then((soldToDetails) => {
-                        let mergeAPIs = matchAddresses(userDetails, soldToDetails);
-                        setData(mergeAPIs);
-                    });
+            if (type !== 'password') {
+                if (userDetails.soldToAccounts.length) {
+                    userDetails.shipOrBillChangeFlag
+                        ? setData(createUserAddresses(userDetails))
+                        : callSoldToDetails(userDetails);
                 } else {
-                    setData(userDetails);
+                    setData(createUserAddresses(userDetails))
                 }
+            } else {
+                setData(createUserAddresses(userDetails));
             }
         });
     }

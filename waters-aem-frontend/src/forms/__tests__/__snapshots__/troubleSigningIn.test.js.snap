@@ -2,7 +2,9 @@
 
 exports[`Feature:Trouble Signing In Form Scenario: Rendering When initial render Then the snapshot should match 1`] = `
 <form
-  className="cmp-form cmp-form--registration"
+  autocomplete="off"
+  className="cmp-form cmp-form--registration "
+  data-locator="form-component"
   onSubmit={[Function]}
 >
   <div
@@ -10,9 +12,15 @@ exports[`Feature:Trouble Signing In Form Scenario: Rendering When initial render
   >
     <label
       className=""
+      data-locator="email-address"
       htmlFor="email"
     >
       Email Address
+      <span
+        className="cmp-form-field--required"
+      >
+        *
+      </span>
     </label>
     <div
       className="cmp-form_description"
@@ -23,7 +31,13 @@ exports[`Feature:Trouble Signing In Form Scenario: Rendering When initial render
       className="cmp-form-field--input"
     >
       <input
+        aria-label="email"
+        aria-labelledby="email"
+        aria-required={true}
+        autocomplete="off"
         className=""
+        data-locator="email"
+        id="email"
         name="email"
         onBlur={[Function]}
         onChange={[Function]}
@@ -53,15 +67,27 @@ exports[`Feature:Trouble Signing In Form Scenario: Rendering When initial render
   >
     <label
       className=""
+      data-locator="first-name"
       htmlFor="firstName"
     >
       First Name
+      <span
+        className="cmp-form-field--required"
+      >
+        *
+      </span>
     </label>
     <div
       className="cmp-form-field--input"
     >
       <input
+        aria-label="firstName"
+        aria-labelledby="firstName"
+        aria-required={true}
+        autocomplete="off"
         className=""
+        data-locator="firstname"
+        id="firstName"
         name="firstName"
         onBlur={[Function]}
         onChange={[Function]}
@@ -91,15 +117,27 @@ exports[`Feature:Trouble Signing In Form Scenario: Rendering When initial render
   >
     <label
       className=""
+      data-locator="last-name"
       htmlFor="lastName"
     >
       Last Name
+      <span
+        className="cmp-form-field--required"
+      >
+        *
+      </span>
     </label>
     <div
       className="cmp-form-field--input"
     >
       <input
+        aria-label="lastName"
+        aria-labelledby="lastName"
+        aria-required={true}
+        autocomplete="off"
         className=""
+        data-locator="lastname"
+        id="lastName"
         name="lastName"
         onBlur={[Function]}
         onChange={[Function]}
@@ -129,15 +167,27 @@ exports[`Feature:Trouble Signing In Form Scenario: Rendering When initial render
   >
     <label
       className=""
+      data-locator="company"
       htmlFor="company"
     >
       Company
+      <span
+        className="cmp-form-field--required"
+      >
+        *
+      </span>
     </label>
     <div
       className="cmp-form-field--input"
     >
       <input
+        aria-label="company"
+        aria-labelledby="company"
+        aria-required={true}
+        autocomplete="off"
         className=""
+        data-locator="company"
+        id="company"
         name="company"
         onBlur={[Function]}
         onChange={[Function]}
@@ -169,15 +219,20 @@ exports[`Feature:Trouble Signing In Form Scenario: Rendering When initial render
       className="cmp-form-field-dropdown--wrapper"
     >
       <label
+        data-locator="country-label"
         htmlFor="country"
       >
-        Country
+        Country*
       </label>
       <div
+        aria-describedby="cmp-custom-dropdown__single-value"
         className="cmp-form-field-dropdown--wrapper"
+        data-locator="country"
+        tabindex="0"
       >
         <div
           className="css-1pcexqc-container"
+          id="country"
           onKeyDown={[Function]}
         >
           <div
@@ -186,12 +241,12 @@ exports[`Feature:Trouble Signing In Form Scenario: Rendering When initial render
             onTouchEnd={[Function]}
           >
             <div
-              className="css-1hwfws3 cmp-custom-dropdown__value-container"
+              className="css-1hwfws3 cmp-custom-dropdown__value-container cmp-custom-dropdown__value-container--has-value"
             >
               <div
-                className="css-151xaom-placeholder cmp-custom-dropdown__placeholder"
+                className="css-0 cmp-custom-dropdown__single-value"
               >
-                Select...
+                United States
               </div>
               <div
                 className="css-1g6gooi"
@@ -206,6 +261,7 @@ exports[`Feature:Trouble Signing In Form Scenario: Rendering When initial render
                 >
                   <input
                     aria-autocomplete="list"
+                    aria-label="country"
                     autoCapitalize="none"
                     autoComplete="off"
                     autoCorrect="off"
@@ -229,7 +285,7 @@ exports[`Feature:Trouble Signing In Form Scenario: Rendering When initial render
                         "width": "1px",
                       }
                     }
-                    tabIndex="0"
+                    tabIndex="-1"
                     type="text"
                     value=""
                   />
@@ -270,7 +326,7 @@ exports[`Feature:Trouble Signing In Form Scenario: Rendering When initial render
           <input
             name="country"
             type="hidden"
-            value=""
+            value="us"
           />
         </div>
         <div
@@ -296,15 +352,27 @@ exports[`Feature:Trouble Signing In Form Scenario: Rendering When initial render
   >
     <label
       className=""
+      data-locator="create-password"
       htmlFor="password"
     >
       Create Password
+      <span
+        className="cmp-form-field--required"
+      >
+        *
+      </span>
     </label>
     <div
       className="cmp-form-field--input"
     >
       <input
+        aria-label="password"
+        aria-labelledby="password"
+        aria-required={true}
+        autocomplete="off"
         className=""
+        data-locator="password"
+        id="password"
         name="password"
         onBlur={[Function]}
         onChange={[Function]}
@@ -402,16 +470,28 @@ exports[`Feature:Trouble Signing In Form Scenario: Rendering When initial render
     </div>
     <label
       className="cmp-form-field--label-matching"
+      data-locator="confirm-password"
       htmlFor="confirmPassword"
     >
       Confirm Password
+      <span
+        className="cmp-form-field--required"
+      >
+        *
+      </span>
     </label>
     
     <div
       className="cmp-form-field--input"
     >
       <input
+        aria-label="confirmPassword"
+        aria-labelledby="confirmPassword"
+        aria-required={true}
+        autocomplete="off"
         className=""
+        data-locator="confirmpassword"
+        id="confirmPassword"
         name="confirmPassword"
         onBlur={[Function]}
         onChange={[Function]}
@@ -448,10 +528,15 @@ exports[`Feature:Trouble Signing In Form Scenario: Rendering When initial render
     className="cmp-form-field cmp-form-field-checkbox"
   >
     <input
+      aria-disabled={false}
+      aria-labelledby="communications"
+      aria-required={false}
       className="valid"
+      data-locator="communications"
       id="communications"
       name="communications"
       readOnly={true}
+      role="checkbox"
       type="checkbox"
     />
     <a
@@ -481,7 +566,14 @@ exports[`Feature:Trouble Signing In Form Scenario: Rendering When initial render
   <div
     className="cmp-form-field cmp-form-field-captcha"
   >
-    <div />
+    <div
+      data-locator="captcha"
+    />
+    <span
+      className="cmp-form-field--errorText"
+    >
+      
+    </span>
   </div>
   <div
     className="cmp-form-field cmp-form-field-textwithlinks"
@@ -489,26 +581,30 @@ exports[`Feature:Trouble Signing In Form Scenario: Rendering When initial render
     <div
       className="cmp-form-field-textwithlinks--privacy "
     >
-       
       By clicking the CREATE ACCOUNT button, you are agreeing to our
        
-       
       <a
+        className=""
+        data-locator="terms-of-use"
         href=""
-        rel="noopener"
+        id="text-with-link-1"
+        rel="noopener noreferrer"
         target="_blank"
+        title=""
       >
         Terms of Use
       </a>
        
-       
       and understand that the information you have provided on this website will be used and processed by Waters in accordance with the
        
-       
       <a
+        className=""
+        data-locator="waters-privacy-notice."
         href=""
-        rel="noopener"
+        id="text-with-link-3"
+        rel="noopener noreferrer"
         target="_blank"
+        title=""
       >
         Waters Privacy Notice.
       </a>
@@ -516,8 +612,8 @@ exports[`Feature:Trouble Signing In Form Scenario: Rendering When initial render
     </div>
   </div>
   <button
-    className="cmp-button cmp-button--no-border cmp-form--submit cmp-button--disabled"
-    disabled={true}
+    className="cmp-button cmp-button--no-border cmp-form--submit"
+    data-locator="form-submit"
     type="submit"
   >
     Create Account

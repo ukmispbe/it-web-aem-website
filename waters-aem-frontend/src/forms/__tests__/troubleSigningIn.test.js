@@ -11,12 +11,21 @@ import { checkRenderInput,
         checkEventsReCAPTCHA,
         checkEventsInput } from '../__utils__/utils';
 import mockBodyHTML from '../../__mocks__/en_US/html/mock-body-html';
+import { mockDigitalDataJSON } from '../../__mocks__/en_US/html/mock-html-json';
 
 const mockSubmitFn = jest.fn();
 const isocode = 'en_us';
 const sitekey = "6Ld5WMIUAAAAACZQvEc7I75aEg5AC8YUUO0W7zRG";
 
 let wrapper;
+
+beforeAll(() => {
+    window.digitalData = mockDigitalDataJSON.html;
+
+    Object.defineProperty(global.window, 'scrollTo', {
+        value: jest.fn()
+    });
+});
 
 beforeEach(async () => {
     await act(async () => {
@@ -50,8 +59,8 @@ describe('Feature:Trouble Signing In Form', () => {
                 checkRenderReCAPTCHA(wrapper, sitekey);
             });
 
-            const isDisabledButton = true;
-            it('Then it should render a disabled submit button', async () => {
+            const isDisabledButton = false;
+            it('Then it should not render a disabled submit button', async () => {
                 checkRenderSubmitButton(wrapper, "Create Account", isDisabledButton);
             });
 
