@@ -552,34 +552,6 @@ div.cmp-search__no-results {
 
 }
 
-.cmp-search-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    background-color: $overlay-dark;
-    width: 200%;
-    height: 130%;
-    padding: 50% 80%;
-    margin: -30%;
-    z-index: $cmp-search-overlay-z-index;
-
-    > div {
-        margin-left: -32px;
-    }
-}
-
-.cmp-search-inline {
-    background-color: $overlay-dark;
-    border-radius: $border-radius;
-    padding: $space-xs $space-m;
-    height: $height-medium;
-}
-
-html.showing-spinner {
-    overflow: hidden;
-    height: 100%;
-}
-
 .show-sort-filters {
     @include mobile {
         #surveyContent {

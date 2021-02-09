@@ -37,7 +37,7 @@ class LoadingSpinner extends Component {
         }
 
         return (
-            <div className={'cmp-search-' + sType}>
+            <div className={'cmp-spinner-' + sType}>
                 <ClipLoader
                     sizeUnit={'px'}
                     size={sSize}
