@@ -25,17 +25,11 @@ public final class SearchResultsCategory {
 
     @DialogField(fieldLabel = "Category",
             fieldDescription = "Select a tag corresponding to a top-level search category.",
+            required = true,
             ranking = 1)
     @TagInputField(multiple = false)
     @WatersTagInject
     private Tag categoryTag;
-
-    @DialogField(fieldLabel = "Ordered Facets",
-            fieldDescription = "Select facet tags in the order that they should be displayed on the Search Results page.",
-            ranking = 2)
-    @TagInputField
-    @WatersTagInject
-    private List<Tag> orderedFacetTags = Collections.emptyList();
 
     @DialogField(fieldLabel = "Sort By",
             fieldDescription = "Select tags for sort order of Search Results.",
@@ -55,16 +49,6 @@ public final class SearchResultsCategory {
 
     public String getCategoryFacetTranslation() {
         return categoryTag == null ? null : categoryTag.getTitle(siteContext.getLocale());
-    }
-
-    public List<Map<String, String>> getOrderedFacets() {
-        return orderedFacetTags.stream()
-                .map(tag -> ImmutableMap.<String, String>builder()
-                        .put("facetName", SearchUtils.getSolrFacetName(tag.getName()))
-                        .put("facetValue", tag.getTitle())
-                        .put("facetTranslation", tag.getTitle(siteContext.getLocale()))
-                        .build())
-                .collect(Collectors.toList());
     }
 
     public List<Map<String, String>> getSortBy() {
