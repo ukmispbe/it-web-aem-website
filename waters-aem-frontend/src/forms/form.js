@@ -22,6 +22,8 @@ import SoldToDetailsLazy from '../my-account/services/SoldToDetailsLazy';
 import countryList from './services/country-list';
 import { retrieveData } from './services/retrieve';
 
+import '../../src/styles/forms.scss';
+
 const FormApi = createContext(null);
 FormApi.displayName = 'FormApi';
 const FieldApi = createContext(null);

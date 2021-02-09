@@ -11,6 +11,7 @@ import Tabs from '../../navigation/tabs';
 import Spinner from '../../utils/spinner';
 import Analytics, { analyticTypes, setClickAnalytics, setSelectDropdownAnalytics } from '../../analytics';
 
+import '../../styles/order-history.scss';
 class OrderHistory extends Component {
     constructor(props) {
         super(props);

@@ -5,6 +5,7 @@ const compConfig = [
     },
     {
         aemCompName: 'imagegallery',
+        enableCSS: true
     },
     {
         aemCompName: 'video'
@@ -24,7 +25,8 @@ const compConfig = [
         enableCSS: true
     },
     {
-        aemCompName: 'skudetails'
+        aemCompName: 'skudetails',
+        enableCSS: true
     },
     {
         aemCompName: 'skulist'

@@ -10,6 +10,8 @@ import OrderDetails from "../details/order-details";
 import QuoteHistory from "../history/quote-history";
 import QuoteDetails from "../details/quote-details";
 
+import '../styles/my-account.scss';
+
 const MyAccountRouter = (props) => {
     return (
         <HashRouter hashType={"noslash"}>
