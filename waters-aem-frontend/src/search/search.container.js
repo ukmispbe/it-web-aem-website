@@ -10,13 +10,7 @@ import Analytics, { analyticTypes } from '../analytics';
 import Loading from './components/loading';
 import SearchComponent from './search.component';
 import { isEprocurementUser } from '../utils/userFunctions';
-
-const SEARCH_TYPES = {
-    CATEGORY_ONLY: 'category only',
-    CONTENT_TYPE: 'content type',
-    SUB_FACETS: 'sub facets'
-}
-
+import { SEARCH_TYPES } from '../constants';
 
 class SearchContainer extends Component {
     constructor(props) {
@@ -313,8 +307,6 @@ class SearchContainer extends Component {
 
     executeSearch = (query, rows) => {
         const searchType = this.getSearchType(query);
-        console.log(console.log('Query: ', query));
-
 
         this.setStateForActiveCategory(query);
 
@@ -336,6 +328,9 @@ class SearchContainer extends Component {
     }
 
     getSearchType = query => {
+        if (!query) {
+            return SEARCH_TYPES.CATEGORY_ONLY;
+        }
 
         if (query.category && !query.content_type && !this.isFacetsSelected(query.facets)) {
             return SEARCH_TYPES.CATEGORY_ONLY;
@@ -427,7 +422,7 @@ class SearchContainer extends Component {
             .catch(error => this.searchOnError(error));
     }
 
-    getCategoryFacetKey = (category) => this.getFacetKey(this.createStrippedFacetName(category));
+    getCategoryFacetKey = (category) => category ? this.getFacetKey(this.createStrippedFacetName(category)) : '';
 
     findContentType = (items, content_type, selectedCategory) => {
         let category = selectedCategory && items.find(
@@ -515,7 +510,7 @@ class SearchContainer extends Component {
             res.num_found !== 0
                 ? Object.assign({}, this.getFilterMap(
                     this.props.filterMap,
-                    res.facets[this.parentCategory]
+                    (res.facets && res.facets[this.parentCategory]) || []
                 ))
                 : [];
         
@@ -837,7 +832,7 @@ class SearchContainer extends Component {
     };
 
     handleRemoveContentType = () => {
-        const query = parse(window.location.search);
+        const query = this.getQueryObject();
 
         delete query.content_type;
 
@@ -879,11 +874,11 @@ class SearchContainer extends Component {
     getSelectedContentTypeTranslation = () => {
         const query = this.getQueryObject();
 
-        const contentTypeElement = this.findContentType(
+        const contentTypeElement = query.content_type ? this.findContentType(
             this.props.filterMap,
             query.content_type,
             this.getCategoryFacetKey(this.state.category)
-        );
+        ) : '';
         const categoryFacetTranslation = contentTypeElement
             ? contentTypeElement.facetTranslation
             : 'NA';
@@ -904,9 +899,9 @@ class SearchContainer extends Component {
                 )
             ) {
                 return {
-                    facetName: this.state.contentTypeSelected.facetName,
-                    facetValue: this.state.contentTypeSelected.facetValue,
-                    facetTranslation: this.state.contentTypeSelected.facetTranslation
+                    facetName: this.state.contentTypeSelected.facetName || '',
+                    facetValue: this.state.contentTypeSelected.facetValue || '',
+                    facetTranslation: this.state.contentTypeSelected.facetTranslation || ''
                 };
             } else if (
                 this.state.contentTypeSelected.hasOwnProperty('facetName')

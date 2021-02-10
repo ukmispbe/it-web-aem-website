@@ -2,6 +2,7 @@ import 'whatwg-fetch';
 import SessionStore from '../stores/sessionStore';
 import loginStatus from '../scripts/loginStatus';
 import DigitalData from '../scripts/DigitalData';
+import { SEARCH_TYPES } from '../constants';
 
 export const getCountryCode = () => {
     return DigitalData.country ? DigitalData.country.toLowerCase() : '';
@@ -406,3 +407,54 @@ export const getUrlParameter = (name = '') => {
         const results = regex.exec(window.location.hash);
         return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
 };
+
+export const getSearchString = (path, paramString, requestObject = {}, type = '') => {
+    const {
+        category,
+        contentTypeKey,
+        contentTypeValue,
+        contentTypeName,
+        facetString,
+    } = requestObject;
+    let searchString;
+
+    switch(type) {
+        case SEARCH_TYPES.CATEGORY_ONLY:
+            searchString = category !== "All" 
+            ? `${
+                path
+            }/category_facet$${category.toLowerCase()}:${encodeURIComponent(
+                encodeURIComponent(category)
+            )}?${paramString}${getCategoryReferenceType()}`
+            : `${path}?${paramString}`;
+            break;
+
+        case SEARCH_TYPES.CONTENT_TYPE:
+            searchString = `${
+                path
+            }/category_facet$${category.toLowerCase()}:${encodeURIComponent(
+                encodeURIComponent(category)
+            )}&contenttype_facet$${contentTypeKey}:${encodeURIComponent(
+                encodeURIComponent(contentTypeValue)
+            )}?${paramString}${getCategoryReferenceType()}`;
+            break;
+
+        case SEARCH_TYPES.SUB_FACETS:
+            const contentTypeString = contentTypeName !== 'NA' ? `&contenttype_facet$${contentTypeName.replace(
+                '_facet',
+                ''
+            )}:${encodeURIComponent(
+                encodeURIComponent(contentTypeValue)
+            )}` : '';
+            searchString = `${
+                path
+            }/category_facet$${category.toLowerCase()}:${encodeURIComponent(
+                encodeURIComponent(category)
+            )}${contentTypeString}${facetString}?${paramString}${getCategoryReferenceType()}`;
+            break;
+        
+        default:
+            searchString = `${path}?${paramString}`;
+    }
+    return searchString;
+}
