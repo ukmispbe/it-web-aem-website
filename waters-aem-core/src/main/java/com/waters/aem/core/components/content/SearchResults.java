@@ -49,12 +49,12 @@ public final class SearchResults {
     @Inject
     private List<SearchResultsCategory> categories = Collections.emptyList();
 
-    @DialogField(fieldLabel = "Ordered Facets",
+    @DialogField(fieldLabel = "Ordered Sub Facets",
             fieldDescription = "Select facet tags in the order that they should be displayed on the Search Results page.",
             		tab = 2,ranking = 1)
     @TagInputField
     @WatersTagInject
-    private List<Tag> orderedFacetTags = Collections.emptyList();
+    private List<Tag> orderedSubFacetTags = Collections.emptyList();
 
     @Inject
     private List<JsonFields> filterList = new ArrayList<>();
@@ -64,14 +64,14 @@ public final class SearchResults {
     }
 
 
-    public List<Map<String, String>> getOrderedFacets() {
-        return orderedFacetTags.stream()
+    public String getOrderedSubFacets() throws JsonProcessingException {
+        return MAPPER.writeValueAsString(orderedSubFacetTags.stream()
                 .map(tag -> ImmutableMap.<String, String>builder()
                         .put("facetName", SearchUtils.getSolrFacetName(tag.getName()))
                         .put("facetValue", tag.getTitle())
                         .put("facetTranslation", tag.getTitle(siteContext.getLocale()))
                         .build())
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()));
     }
 
     /**

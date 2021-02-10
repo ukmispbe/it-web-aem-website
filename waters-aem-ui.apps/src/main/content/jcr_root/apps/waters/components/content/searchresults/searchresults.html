@@ -11,6 +11,10 @@
     ${searchResults.categoriesAsJson @ context='unsafe'}
 </script>
 
+<script type="application/json" id="search-results-filters-json">
+    ${searchResults.orderedSubFacets @ context='unsafe'}
+</script>
+
 <script type="application/json" id="search-results-translations-json">
     {
         "sort": {
