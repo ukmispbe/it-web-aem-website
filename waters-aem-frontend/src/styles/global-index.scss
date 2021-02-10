@@ -1,10 +1,11 @@
+@import "../../node_modules/normalize-scss/sass/normalize/import-now.scss";
+
 @import 'variables.scss';
 @import 'mixins.scss';
 @import 'typography.scss';
 
 @import 'global.scss';
 @import 'buttons.scss';
-@import 'dividers.scss';
 @import 'images.scss';
 @import 'header.scss';
 @import 'footer.scss';
