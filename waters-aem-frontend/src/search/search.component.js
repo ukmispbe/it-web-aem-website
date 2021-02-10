@@ -62,6 +62,7 @@ const SearchComponent = props => {
                 <ResultsBody
                     text={props.text}
                     filterMap={props.filterMap}
+                    subFacetMap={props.subFacetFiltersProps.subFacetMap}
                     skuConfig={props.skuConfig}
                     searchParams={props.searchParams}
                     categoryProps={props.categoryProps}

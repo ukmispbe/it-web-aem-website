@@ -1,6 +1,7 @@
 import 'whatwg-fetch';
 import SessionStore from '../../stores/sessionStore';
-import { getCategoryReferenceType } from '../../utils/userFunctions';
+import { getCategoryReferenceType, getSearchString } from '../../utils/userFunctions';
+import { SEARCH_TYPES } from '../../constants';
 
 const queryString = require('query-string');
 
@@ -62,7 +63,7 @@ class SearchService {
         sort = parameterDefaults.sort,
     }) => {
         const paramString = this.getQueryParamString({ keyword, page, sort });
-        const searchString = `${this.path}?${paramString}`;
+        const searchString = getSearchString(this.path, paramString);
 
         return getSearchData(searchString).then(response => {
                 if (response.ok) {
@@ -82,16 +83,14 @@ class SearchService {
         category = parameterDefaults.category,
     } = {}) => {
         const paramString = this.getQueryParamString({ keyword, page, sort });
-
-        let searchString = `${
-            this.path
-        }/category_facet$${category.toLowerCase()}:${encodeURIComponent(
-            encodeURIComponent(category)
-        )}?${paramString}${getCategoryReferenceType()}`;
-
-        if (category === "All" ) {
-            searchString = `${this.path}?${paramString}`;
-        }
+        const searchString = getSearchString(
+            this.path,
+            paramString,
+            {
+                category,
+            },
+            SEARCH_TYPES.CATEGORY_ONLY,
+        );
 
         return getSearchData(searchString).then(response => {
                 if (response.ok) {
@@ -115,13 +114,16 @@ class SearchService {
         } = {}
     ) => {
         const paramString = this.getQueryParamString({ keyword, page, sort });
-        const searchString = `${
-            this.path
-        }/category_facet$${category.toLowerCase()}:${encodeURIComponent(
-            encodeURIComponent(category)
-        )}&contenttype_facet$${contentTypeKey}:${encodeURIComponent(
-            encodeURIComponent(contentTypeValue)
-        )}?${paramString}${getCategoryReferenceType()}`;
+        const searchString = getSearchString(
+            this.path,
+            paramString,
+            {
+                category,
+                contentTypeKey,
+                contentTypeValue,
+            },
+            SEARCH_TYPES.CONTENT_TYPE,
+        );
 
         return getSearchData(searchString).then(response => {
             if (response.ok) {
@@ -146,16 +148,17 @@ class SearchService {
     ) => {
         const paramString = this.getQueryParamString({ keyword, page, sort });
         const facetString = this.getQueryFacetString(facets);
-        const searchString = `${
-            this.path
-        }/category_facet$${category.toLowerCase()}:${encodeURIComponent(
-            encodeURIComponent(category)
-        )}&contenttype_facet$${contentTypeName.replace(
-            '_facet',
-            ''
-        )}:${encodeURIComponent(
-            encodeURIComponent(contentTypeValue)
-        )}${facetString}?${paramString}${getCategoryReferenceType()}`;
+        const searchString = getSearchString(
+            this.path,
+            paramString,
+            {
+                category,
+                contentTypeName,
+                contentTypeValue,
+                facetString
+            },
+            SEARCH_TYPES.SUB_FACETS,
+        );
 
         return getSearchData(searchString).then(response => {
             if (response.ok) {
@@ -445,18 +448,12 @@ class SearchService {
 }
 
 const searchMapper = {
-    mapFacetGroups: (contentType, filterMap, facets) => {
-        const facetName = `${contentType}_facet`;
+    mapFacetGroups: (subFacetsMap, facets) => {
+        if (!subFacetsMap) { return; }
 
-        const facet = Array.isArray(filterMap.orderedFacets)
-            ? filterMap.orderedFacets.find(item => item.facetName === facetName)
-            : null;
+        const subFacets = subFacetsMap.filter(item => facets[item.facetName]);
 
-        if (!facet) { return; }
-
-        const orderedFacets = facet.orderedFacets.filter(item => facets[item.facetName]);
-
-        const mapping = orderedFacets.map(facet => {
+        const mapping = subFacets.map(facet => {
             return {
                 name: facet.facetName,
                 category: facet.facetValue,

@@ -119,7 +119,7 @@ class Filter extends Component {
         }
     }
 
-    getMappings = () => searchMapper.mapFacetGroups(this.props.contentType, this.props.filterMap, this.props.facets);
+    getMappings = () => searchMapper.mapFacetGroups(this.props.filterMap, this.props.facets);
 
     getFilters() {
         if(this.props.showTagsOnly) return <></>;

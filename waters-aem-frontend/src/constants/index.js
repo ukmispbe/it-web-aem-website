@@ -16,3 +16,8 @@ export const DELIVERY_STATUS = {
 };
 export const STORE = 'store';
 export const CHECKOUT = 'checkout';
+export const SEARCH_TYPES = {
+    CATEGORY_ONLY: 'category only',
+    CONTENT_TYPE: 'content type',
+    SUB_FACETS: 'sub facets'
+}

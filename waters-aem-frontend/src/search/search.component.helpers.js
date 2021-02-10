@@ -30,12 +30,13 @@ const FilterTagList = ({
     text,
     filterMap,
     filterTagsProps,
-    filterTagsEvents
+    filterTagsEvents,
+    subFacetMap
 }) => {
     const isKeywordSpecified = filterTagsProps.keyword && filterTagsProps.keyword !== parameterDefaults.keyword;
     const isContentTypeSelected = Object.entries(filterTagsProps.contentTypeSelected).length !== 0 && filterTagsProps.contentTypeSelected.facetTranslation
 
-    if (!isKeywordSpecified && !isContentTypeSelected) {
+    if (!isKeywordSpecified && !isContentTypeSelected && Object.entries(filterTagsProps.selectedFacets).length === 0) {
         return <div className="cmp-search-filters__emptytags" />;
     }
 
@@ -61,8 +62,7 @@ const FilterTagList = ({
             selectedFacets={filterTagsProps.selectedFacets}
             facets={filterTagsProps.facets}
             removeTag={filterTagsEvents.onSubFacetRemove}
-            filterMap={filterMap}
-            defaultFacet={filterTagsProps.contentType} />
+            subFacetMap={subFacetMap} />
         : <></>;
 
     return (
@@ -81,14 +81,16 @@ FilterTagList.propTypes = {
     text: propTypes.text,
     filterMap: propTypes.filterMap,
     filterTagsProps: propTypes.filterTagsProps,
-    filterTagsEvents: propTypes.filterTagsEvents
+    filterTagsEvents: propTypes.filterTagsEvents,
+    subFacetMap: proptTypes.subFacetMap,
 }
 
 FilterTagList.defaultProps = {
     text: defaultProps.text,
     filterMap: defaultProps.filterMap,
     filterTagsProps: defaultProps.filterTagsProps,
-    filterTagsEvents: defaultProps.filterTagsEvents
+    filterTagsEvents: defaultProps.filterTagsEvents,
+    subFacetMap: defaultProps.subFacetMap,
 }
 
 const Aside = ({
@@ -159,35 +161,30 @@ const Menu = ({
     filterTagsProps,
     filterTagsEvents
 }) => {
-    if (menuProps.showContentTypeMenu) {
-        return (
-            <ContentTypeMenu
-                heading={menuProps.heading}
-                items={contentTypeMenuProps.items}
-                onClick={contentTypeMenuEvents.onContentTypeItemClick} />
-        );
-    }
+    const contentTypeMenu = menuProps.showContentTypeMenu && <ContentTypeMenu
+            heading={menuProps.heading}
+            items={contentTypeMenuProps.items}
+            onClick={contentTypeMenuEvents.onContentTypeItemClick} />
 
     const filterTags = FilterTagList({
         text,
         filterMap,
         filterTagsProps,
-        filterTagsEvents
+        filterTagsEvents,
+        subFacetMap : subFacetFiltersProps.subFacetMap,
     });
-
-    if (menuProps.showFacetMenu) {
-        return (
-            <FacetMenu
+    const facetMenu = <FacetMenu
                 heading={menuProps.backLinkText}
                 selectedValue={facetMenuProps.selectedValue}
                 previousIcon={facetMenuProps.previousIcon}
                 filterTags={filterTags}
-                onClear={facetMenuEvents.onContentTypeRemoval}>
+                onClear={facetMenuEvents.onContentTypeRemoval}
+                showFacetMenuHeading={menuProps.showFacetMenu}>
 
                 <Filter
                     facets={subFacetFiltersProps.items}
                     text={text}
-                    filterMap={subFacetFiltersProps.filterMap}
+                    filterMap={subFacetFiltersProps.subFacetMap}
                     defaultFacet={subFacetFiltersProps.defaultFacet}
                     selectHandler={subFacetFiltersEvents.onFilterSelect}
                     selectedFacets={subFacetFiltersProps.selectedFacets}
@@ -197,9 +194,11 @@ const Menu = ({
                     activeIndex={subFacetFiltersProps.activeIndex}
                     onGroupClick={subFacetFiltersEvents.onGroupClick} />
 
-            </FacetMenu>
-        );
-    }
+            </FacetMenu>;
+    return <>
+        {contentTypeMenu}
+        {facetMenu}
+    </>
 }
 
 Menu.propTypes = {
@@ -357,6 +356,7 @@ Pagination.defaultProps = {
 const ResultsBody = ({
     text,
     filterMap,
+    subFacetMap,
     skuConfig,
     searchParams,
     categoryProps,
@@ -369,7 +369,7 @@ const ResultsBody = ({
     filterTagsEvents,
     resultsProps,
     resultsEvents,
-    isEprocurementUser
+    isEprocurementUser,
 }) => {
     const desktopView = () => {
         return (
@@ -402,7 +402,8 @@ const ResultsBody = ({
                         text={text}
                         filterMap={filterMap}
                         filterTagsProps={filterTagsProps}
-                        filterTagsEvents={filterTagsEvents} />
+                        filterTagsEvents={filterTagsEvents}
+                        subFacetMap={subFacetMap} />
 
                     <ResultsContent
                         text={text}
@@ -457,7 +458,8 @@ const ResultsBody = ({
                         text={text}
                         filterMap={filterMap}
                         filterTagsProps={filterTagsProps}
-                        filterTagsEvents={filterTagsEvents} />
+                        filterTagsEvents={filterTagsEvents}
+                        subFacetMap={subFacetMap} />
 
                     <ResultsContent
                         text={text}
@@ -487,6 +489,7 @@ const ResultsBody = ({
 ResultsBody.propTypes = {
     text: propTypes.text,
     filterMap: propTypes.filterMap,
+    subFacetMap: propTypes.subFacetMap,
     skuConfig: propTypes.skuConfig,
     searchParams: propTypes.searchParams,
     categoryProps: propTypes.categoryProps,
@@ -503,6 +506,7 @@ ResultsBody.propTypes = {
 ResultsBody.defaultProps = {
     text: defaultProps.text,
     filterMap: defaultProps.filterMap,
+    subFacetMap: defaultProps.subFacetMap,
     skuConfig: defaultProps.skuConfig,
     searchParams: defaultProps.searchParams,
     categoryProps: defaultProps.categoryProps,

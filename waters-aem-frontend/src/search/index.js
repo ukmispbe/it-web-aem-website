@@ -33,6 +33,7 @@ const SearchApp = props => {
                                 searchText={props.searchText}
                                 searchLocale={props.searchLocale}
                                 filterMap={props.filterMap}
+                                subFacetMap={props.subFacetMap}
                                 isocode={isoCode}
                                 search={search}
                                 baseSignInUrl={props.baseSignInUrl}
