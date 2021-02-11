@@ -35,7 +35,7 @@
       background: $color-white;
       @include font-utility;
       &:active {
-        border: 2px solid $color-focus;
+        border: $border-focus;
       }
       font-family: inherit;
       font-weight: inherit;
@@ -44,7 +44,7 @@
       -moz-appearance: textfield;
 
       &:focus {
-        outline: 2px solid $color-focus;
+        outline: $border-focus;
       }
     }
 
