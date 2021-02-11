@@ -23,7 +23,29 @@
     }
     
     .cmp-sku-details__quantity{
-       padding: $space-xxs $space-xs $space-xxs;
+      padding: $space-xxs $space-xs $space-xxs;
+      margin: 0 $space-xxs 0 0;
+      width: 65px;
+      height: 3.1em;
+      float: left;
+      border: $border-medium;
+      -webkit-appearance: none;
+      -webkit-border-radius: $border-radius;
+      border-radius: $border-radius;
+      background: $color-white;
+      @include font-utility;
+      &:active {
+        border: 2px solid $color-focus;
+      }
+      font-family: inherit;
+      font-weight: inherit;
+      text-align: center;
+
+      -moz-appearance: textfield;
+
+      &:focus {
+        outline: 2px solid $color-focus;
+      }
     }
 
   .quick-order-sku {

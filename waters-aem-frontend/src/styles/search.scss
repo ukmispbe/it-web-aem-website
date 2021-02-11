@@ -68,11 +68,6 @@
             margin: $space-s 0;
         }
     }
-    .inactive {
-        &:hover {
-            border: $border-disabled;
-        }    
-    }
 }
 .cmp-search__container {
     position: relative;
