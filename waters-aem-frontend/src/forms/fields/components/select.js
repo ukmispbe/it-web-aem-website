@@ -14,8 +14,8 @@ const DropdownIndicator = props => {
 };
 
 const Select = (props) => {
-    const { name, options, dropdownIndicator, placeholder, disabled } = useContext(useFieldApi);
-    const { triggerValidation, setValue, getValue, activateField, deactivateField, setCountrySaved, regionalConfig } = useContext(useFormApi);
+    const { name, options, dropdownIndicator, placeholder, disabled, defaultValue } = useContext(useFieldApi);
+    const { triggerValidation, setValue, getValue, activateField, deactivateField, setCountrySaved, regionalConfig, displayProductType, displaySubProductType } = useContext(useFormApi);
     const [selectedValue, setSelectedValue] = useState(getValue(name) ? getValue(name).toLowerCase() : (props.defaultValue || ""));
     const setupOptions = (label, value) => ({ label: label, value: value });
 
@@ -60,6 +60,7 @@ const Select = (props) => {
         <ReactSelect
             {...props}
             options={getOptions()}
+            defaultValue={{ value: "CO2_BULK"}}
             isDisabled={disabled}
             isSearchable={true}
             styles={customStyles}

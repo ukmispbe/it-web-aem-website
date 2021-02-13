@@ -10,7 +10,7 @@ const FieldValidationDisplay = ({
     const formState = useFormStateContext();
     const errors = useErrorsContext();
 
-    const { options, type } = useContext(useFieldApi);
+    const { options, type, addClass } = useContext(useFieldApi);
 
     const isDirty = (name) => formState.touched[0] && (typeof formState.touched[0] === "object" ? formState.touched[0].has(name) : formState.touched.indexOf(name) > -1);
     const isDirtyMatch = (name) => matchName !== "" ? isDirty(name) : false;
@@ -19,19 +19,19 @@ const FieldValidationDisplay = ({
     const isValidMatch = (name) => matchName !== "" ? isValid(name) : true;
 
     const renderClean = () => (
-        <div className={`cmp-form-field cmp-form-field-${type}`}>
+        <div className={addClass ? `cmp-form-field cmp-form-field-${type} ${addClass}` : `cmp-form-field cmp-form-field-${type} `}>
             {children}
         </div>
     );
 
     const renderValid = () => (
-        <div className={`cmp-form-field cmp-form-field-${type} cmp-form-field--valid`}>
+        <div className={addClass ? `cmp-form-field cmp-form-field-${type} cmp-form-field--valid  ${addClass}` : `cmp-form-field cmp-form-field-${type} cmp-form-field--valid`}>
             {children}
         </div>
     );
 
     const renderInvalid = () => (
-        <div className={`cmp-form-field cmp-form-field-${type} cmp-form-field--invalid`}>
+        <div className={addClass ? `cmp-form-field cmp-form-field-${type} cmp-form-field--invalid  ${addClass}` : `cmp-form-field cmp-form-field-${type} cmp-form-field--invalid`}>
             {children}
         </div>
     );
