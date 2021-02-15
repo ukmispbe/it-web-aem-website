@@ -11,6 +11,7 @@ import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.icfolson.aem.library.api.link.Link;
+import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.api.page.PageManagerDecorator;
 import com.icfolson.aem.library.models.annotations.LinkInject;
 import com.waters.aem.core.components.content.links.BasicLink;
@@ -64,6 +65,9 @@ public class MyAccount implements ComponentExporter {
 
     @Inject
     private PageManagerDecorator pageManager;
+
+    @Inject
+    private PageDecorator currentPage;
 
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
@@ -151,6 +155,10 @@ public class MyAccount implements ComponentExporter {
         return accountService.getOrderListUrl();
     }
 
+    public String getQuoteHistoryUrl() {
+        return accountService.getQuoteHistoryUrl();
+    }
+
     public String getSearchUrl() {
         return searchService.getBaseUrl();
     }
@@ -160,4 +168,9 @@ public class MyAccount implements ComponentExporter {
     public String getExportedType() {
         return RESOURCE_TYPE;
     }
+
+    public Boolean getDisableQuoteHistory() {
+        return currentPage.getInherited("quoteDisabled", Boolean.FALSE);
+    }
+
 }

@@ -23,7 +23,8 @@ import './polyfills';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import MyAccountDropDown from './my-account-dropdown/index';
-import SearchBar from './search/components/searchbar';
+import HeaderSearchBar from "./header-search-bar";
+import HeaderSearchModal from "./header-search-modal";
 
 
 function getAuthoredDataForSearchBar(c, h) {
@@ -48,7 +49,6 @@ const MyAccountDropDownContainer = document.querySelector(
 );
 const searchBarContainer = document.getElementById('js-search-bar');
 const header = document.querySelector('.cmp-header');
-const headerSearchBarContainer = document.getElementById('header-search-bar');
 
 if (header && MyAccountDropDownContainer) {
     const config = JSON.parse(
@@ -67,29 +67,10 @@ if (header && MyAccountDropDownContainer) {
     );
 }
 
-if (searchBarContainer && header) {
-    const data = getAuthoredDataForSearchBar(searchBarContainer, header);
-    const searchLabels = {
-        clear: data.clearLabel,
-        search: data.searchLabel,
-        autoSuggest: data.autoSuggestLabel,
-    }
-    ReactDOM.render(
-        <SearchBar
-            iconSearch={data.iconSearch}
-            iconClear={data.iconClear}
-            searchPath={data.searchPath}
-            placeholderTablet={data.placeholderTablet}
-            placeholderMobile={data.placeholderMobile}
-            baseUrl={data.baseUrl}
-            isocode={data.isocode}
-            labels={searchLabels}
-        />,
-        searchBarContainer
-    );
-}
+const headerSearchBarContainer = document.getElementById('header-search-bar');
+const headerMobileSearchContainer = document.getElementById('mobile-header-search-container');
 
-if (headerSearchBarContainer && header) {
+if (headerMobileSearchContainer && headerSearchBarContainer && header) {
     const data = getAuthoredDataForSearchBar(headerSearchBarContainer, header);
     const searchLabels = {
         clear: data.clearLabel,
@@ -97,7 +78,7 @@ if (headerSearchBarContainer && header) {
         autoSuggest: data.autoSuggestLabel,
     }
     ReactDOM.render(
-        <SearchBar
+        <HeaderSearchBar
             iconSearch={data.iconSearch}
             iconClear={data.iconClear}
             searchPath={data.searchPath}
@@ -109,5 +90,20 @@ if (headerSearchBarContainer && header) {
             labels={searchLabels}
         />,
         headerSearchBarContainer
+    );
+
+    ReactDOM.render(
+        <HeaderSearchModal
+            iconSearch={data.iconSearch}
+            iconClear={data.iconClear}
+            searchPath={data.searchPath}
+            placeholderTablet={data.placeholderTablet}
+            placeholderMobile={data.placeholderMobile}
+            baseUrl={data.baseUrl}
+            isocode={data.isocode}
+            customStyle={data.customStyle}
+            labels={searchLabels}
+        />,
+        headerMobileSearchContainer
     );
 }

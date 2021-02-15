@@ -120,4 +120,18 @@ public interface WatersAccountService {
       * @return contactSupport API URL
       */
       String getContactSupportUrl();
+
+    /**
+      * Get the configured endpoint for quoteHistoryUrl API.
+      *
+      * @return quoteHistoryUrl API URL
+      */
+      String getQuoteHistoryUrl(); 
+      
+      /**
+      * Get the configured endpoint for countryList API.
+      *
+      * @return countryListUrl API URL
+      */
+      String getCountryListUrl();
 }

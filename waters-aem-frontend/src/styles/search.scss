@@ -14,6 +14,61 @@
     @include mobile {
         margin-left: -4px;
     }
+
+    .cmp-category-wrapper {
+        @include  tablet-and-under {
+            display: none;
+        }
+
+        .cmp-category-item {
+            .cmp-category-label {
+                @include font-h4;
+                font-weight: $font-weight-bold;
+                color: $color-link;
+            }
+
+            padding-bottom: $space-xxs;
+            cursor: pointer;
+
+            .cmp-categories-back {
+                display: inline;
+                div {
+                    display: inline;
+                }
+                svg {
+                    height: $icon-s;
+                    width: $icon-s;
+                    margin-right: $space-xxxs;
+                    .st0 {
+                        stroke: $color-link;
+                    }
+                }
+            }
+        }
+
+        .backLink {
+            .cmp-category-label {
+                font-weight: $font-weight-light;
+            }
+        }
+
+        .active {
+            cursor: default;
+            .cmp-category-label {
+                color: black;
+            }
+        }
+
+        .cmp-category-separator {
+            height: 0;
+            margin: $space-s 0;
+        }
+    }
+    .inactive {
+        &:hover {
+            border: $border-disabled;
+        }    
+    }
 }
 .cmp-search__container {
     position: relative;
@@ -54,28 +109,6 @@
         top: 0;
         margin-top: $space-s;
     }
-
-    .cmp-search-filters__tags {
-
-        @include tablet {
-            width: 100%;
-            padding: 0;
-            margin-bottom: $space-m;
-
-            a {
-                margin: 0 $space-xxs $space-s 0;
-            }
-        }
-
-        @include mobile {
-            margin-top: 0;
-            margin-bottom: $space-s;
-
-            a {
-                margin: 0 $space-xxs $space-xxs 0;
-            }
-        }
-    }
 }
 .cmp-search__results-container {
     @include list-container;
@@ -87,9 +120,58 @@
             display: none;
         }
     }
+
     &Count {
-        .query {
+        margin-bottom: 0;
+
+        .count {
             color: $color-font-dark;
+            font-weight: $font-weight-bold;
+        }
+
+        .results {
+            @include font-utility-large;
+        }
+
+        .query-box {
+            margin-bottom: $space-xs;
+
+            .query {
+                color: $color-font-dark;
+                margin-bottom: 0;
+                display: inline-block;
+            }
+
+            .category {
+                font-size: $font-size-small;
+                margin-left: $space-xxxs;
+            }
+        }
+
+        &.noresults {
+            width: 70%;
+            margin-left: 0;
+            margin-bottom: $space-s;
+            overflow: visible;
+            height: auto;
+        }
+
+        @include tablet-and-under {
+            margin: unset;
+            overflow: visible;
+            text-overflow: unset;
+            white-space: normal;
+            overflow: visible;
+            height: auto;
+
+            &.noresults {
+                width: 100%;
+                margin: 0;
+            }
+        }
+
+        @include mobile {
+            padding-bottom: $space-xs;
         }
     }
 }
@@ -399,7 +481,7 @@ div.cmp-search__no-results {
 }
 
 .cmp-search-show-btn,
-.cmp-search-category-dropdown{
+.cmp-search-category-dropdown {
     @include tablet {
         float: left;
         margin-bottom: 0;
@@ -411,65 +493,55 @@ div.cmp-search__no-results {
     }
 }
 
-.cmp-search__resultsCount {
-    margin-bottom: 0;
+.cmp-search__related-suggestions {
+    @include inline-tag-list;
 
-    &.noresults {
-        width: 70%;
-        margin-left: 0;
-        margin-bottom: $space-s;
-        overflow: visible;
-        height: auto;
+    .related-searches-text {
+        display: inline-block;
+        margin-right: $space-xs;
+        padding-top: $space-xxxs;
     }
-    @include tablet-and-under {
-        margin: unset;
-        padding-bottom: $space-s;
-        overflow: visible;
-        text-overflow: unset;
-        white-space: normal;
-        overflow: visible;
-        height: auto;
-        &.noresults {
-            width: 100%;
-            margin: 0;
+
+    a.item {
+        background-color: $color-blue-10;
+        color: $color-link;
+        svg {
+            .st0 {
+                stroke: $color-link;
+            }
         }
     }
 
-    @include mobile {
-        padding-bottom: $space-s;
-    }
-
-    .text-strike {
-        text-decoration: line-through;
+    a.item:hover {
+        color: $color-link-hover;
+        svg {
+            .st0 {
+                stroke: $color-link-hover;
+            }
+        }
     }
 }
 
-.cmp-search__related-suggestions {
-    @include font-body;
+.cmp-search__sorted-container {
     color: $color-font-medium;
 
-    .item {
-        color: $color-link;
-        height: 1em;
-        padding: 0 $space-xxs;
-        cursor: pointer;
+    .cmp-search__resultsCount {
+        float: left;
+        width: 50%;
     }
 
-    .item:hover {
-        text-decoration: underline;
+    .cmp-search-sortby {
+        float: right;
+        width: 270px;
+        text-align: left;
     }
 
-    .vertical-bar {
-        color: $color-border-medium;
-    }
-}
 
-.cmp-search__sorted-container{
     @include mobile {
         display: flex;
         flex-wrap: wrap;
 
-        .cmp-search__sorted-by{
+        .cmp-search__sorted-by {
             order: 0;
             padding-bottom: $space-xs;
             padding-top: 0;
@@ -478,7 +550,12 @@ div.cmp-search__no-results {
             order: 1;
         }
     }
+
+    .text-strike {
+        text-decoration: line-through;
+    }
 }
+
 .cmp-search__sorted-by {
     @include font-small;
     display: none;
@@ -486,7 +563,8 @@ div.cmp-search__no-results {
     width: 100%;
     @include mobile {
         display: block;
-        padding: $space-m 0;
+        padding-bottom: $space-xs;
+        padding-top: 0;
         float: none;
         width: 100%;
     }
@@ -499,9 +577,6 @@ div.cmp-search__no-results {
     }
 }
 
-div.cmp-search__sorted-by {
-    padding: $space-s 0;
-}
 .cmp-search-overlay {
     position: fixed;
     top: 0;

@@ -65,7 +65,7 @@ public class AdjustPathReferencesLiveAction implements LiveAction {
                             if (prop.isMultiple()) {
                                 adjustMultiValuedProperties(prop, destinationLanguageCode,destinationUrl);
                             } else {
-                                adjustSingleValueProperty(prop, destinationLanguageCode,destinationUrl);
+                                adjustSingleValueProperty(prop, destinationLanguageCode,destinationUrl, target);
                             }
                         }
                     }
@@ -125,9 +125,10 @@ public class AdjustPathReferencesLiveAction implements LiveAction {
         }
     }
 
-    private void adjustSingleValueProperty(final Property prop, final String destinationLanguageCode, final String destinationUrl)
+    private void adjustSingleValueProperty(final Property prop, final String destinationLanguageCode, final String destinationUrl, final Resource targetResource)
     throws RepositoryException {
         final String value = prop.getString();
+        Node node = targetResource.adaptTo(Node.class);		
 
         if (isPossiblePath(value)) {
             final String languageCode = getPropertyLanguageCode(value);
@@ -138,13 +139,20 @@ public class AdjustPathReferencesLiveAction implements LiveAction {
             else if (shouldAdjustReferences(destinationUrl)){
                 prop.setValue(value.replace(WatersConstants.ROOT_PATH_LANGUAGE_MASTERS, WatersConstants.ORDER_ROOT_PATH));
             }
-        }
-
-        else if (shouldAdjustReferences(destinationUrl) && prop.getParent().getPath().contains("/footer/par/experiencefragment") && prop.getName().contentEquals("fragmentPath")){
-            prop.setValue("");
-        } else if (shouldAdjustReferences(destinationUrl) && prop.getParent().getName().equalsIgnoreCase("breadcrumb") && prop.getName().contentEquals("startLevel")){
-            prop.setValue("3");
-        }
+		} else if (shouldAdjustReferences(destinationUrl)) {
+			if (prop.getParent().getName().equalsIgnoreCase("breadcrumb")) {
+				node.setProperty("disableShadowing", "true");
+				node.setProperty("startLevel", "3");
+			} else if (prop.getParent().getName().equalsIgnoreCase("navigation")) {
+				node.setProperty("disableShadowing", "true");
+			} else if (prop.getParent().getPath().contains("/footer/par/experiencefragment")) {
+				node.setProperty("fragmentPath", "");
+			} else if (prop.getParent().getPath().contains("/root/sectioncontainer")) {
+				if (node.getProperty("title").getString().equals("Product Support")) {
+					node.setProperty("hideOnEproc", "true");
+				}
+			}
+		}
     }
 
     // deprecated methods

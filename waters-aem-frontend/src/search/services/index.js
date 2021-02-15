@@ -1,5 +1,6 @@
 import 'whatwg-fetch';
 import SessionStore from '../../stores/sessionStore';
+import { getCategoryReferenceType } from '../../utils/userFunctions';
 
 const queryString = require('query-string');
 
@@ -20,6 +21,17 @@ const parameterDefaults = {
     sort: parameterValues.sort.mostRecent,
     selectedFacets: {},
     contentTypeSelected: {},
+};
+
+const getSearchData = async (url) => {
+    const response = await fetch(url, {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    return await response;
 };
 
 class SearchService {
@@ -52,9 +64,7 @@ class SearchService {
         const paramString = this.getQueryParamString({ keyword, page, sort });
         const searchString = `${this.path}?${paramString}`;
 
-        return window
-            .fetch(searchString)
-            .then(response => {
+        return getSearchData(searchString).then(response => {
                 if (response.ok) {
                     return response.json();
                 } else {
@@ -72,15 +82,18 @@ class SearchService {
         category = parameterDefaults.category,
     } = {}) => {
         const paramString = this.getQueryParamString({ keyword, page, sort });
-        const searchString = `${
+
+        let searchString = `${
             this.path
         }/category_facet$${category.toLowerCase()}:${encodeURIComponent(
             encodeURIComponent(category)
-        )}?${paramString}`;
+        )}?${paramString}${getCategoryReferenceType()}`;
 
-        return window
-            .fetch(searchString)
-            .then(response => {
+        if (category === "All" ) {
+            searchString = `${this.path}?${paramString}`;
+        }
+
+        return getSearchData(searchString).then(response => {
                 if (response.ok) {
                     return response.json();
                 } else {
@@ -108,9 +121,9 @@ class SearchService {
             encodeURIComponent(category)
         )}&contenttype_facet$${contentTypeKey}:${encodeURIComponent(
             encodeURIComponent(contentTypeValue)
-        )}?${paramString}`;
+        )}?${paramString}${getCategoryReferenceType()}`;
 
-        return window.fetch(searchString).then(response => {
+        return getSearchData(searchString).then(response => {
             if (response.ok) {
                 return response.json();
             } else {
@@ -142,9 +155,9 @@ class SearchService {
             ''
         )}:${encodeURIComponent(
             encodeURIComponent(contentTypeValue)
-        )}${facetString}?${paramString}`;
+        )}${facetString}?${paramString}${getCategoryReferenceType()}`;
 
-        return window.fetch(searchString).then(response => {
+        return getSearchData(searchString).then(response => {
             if (response.ok) {
                 return response.json();
             } else {
@@ -155,7 +168,7 @@ class SearchService {
     };
 
     getSuggestedKeywords = async (rows, term) => {
-        const searchString = `${this.path}/v1/autocomplete?term=${term}&rows=${rows}&isocode=${this.options.isocode}`;
+        const searchString = `${this.path}/v1/autocomplete?term=${term}&rows=${rows}&isocode=${this.options.isocode}${getCategoryReferenceType()}`;
 
         const callService = window.fetch(searchString).then(response => {
             if (response.ok) {
@@ -285,7 +298,7 @@ class SearchService {
     createQueryObject(params) {
         const obj = {};
 
-        obj['keyword'] = params.keyword;
+        obj['keyword'] = params.keyword ? params.keyword.replace("%","") : params.keyword;     
         obj['page'] = params.page || parameterDefaults.page;
         obj['facets'] = {};
         obj['sort'] = params.sort;
@@ -362,7 +375,8 @@ class SearchService {
         Object.keys(parameters).length !== 0
             ? Object.keys(parameters).reduce(
                 (accumulator, currentValue) =>
-                    `${accumulator}=${parameters[accumulator]}&${currentValue}=${parameters[currentValue]}`
+                    `${accumulator ? accumulator + '&' : accumulator}${currentValue}=${encodeURIComponent(parameters[currentValue])}`,
+                ''
             )
             : '';
 

@@ -13,6 +13,7 @@ import Body from './body';
 import Link from './link';
 import TextWithLinks from './textWithLinks';
 import Label from './label';
+import File from './file';
 
 const formType = {
     text: Input,
@@ -29,7 +30,8 @@ const formType = {
     body: Body,
     link: Link,
     textwithlinks: TextWithLinks,
-    label: Label
+    label: Label,
+    file: File
 };
 
 const Field = ({}) => {

@@ -19,6 +19,7 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.apache.sling.api.resource.Resource;
 
 import javax.jcr.Session;
 import java.util.Arrays;
@@ -90,7 +91,8 @@ public final class LibraryAssetReplicationPreprocessor extends AbstractReplicati
         final ResourceResolver resourceResolver) {
         return Arrays.stream(replicationAction.getPaths())
             .filter(path -> path.startsWith(WatersConstants.DAM_PATH))
-            .map(path -> resourceResolver.getResource(path).adaptTo(LibraryAsset.class))
+            .map(path ->
+                    resourceResolver.getResource(path)!=null?resourceResolver.getResource(path).adaptTo(LibraryAsset.class) : new LibraryAsset())
             .filter(Objects :: nonNull)
             .filter(LibraryAsset :: isLibraryAsset)
             .collect(Collectors.toList());

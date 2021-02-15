@@ -1,15 +1,21 @@
 // entry point for SKU. Move this up to global entry point if we want babel to polyfill everything we need at build time
 import React from 'react';
 import PropTypes from 'prop-types';
-import ListItem from './views/listItem';
+import SkuItem from './views/sku-item';
+import LitItem from './views/lit-item';
 import LoginStatus from '../scripts/loginStatus';
 import SignIn from '../scripts/signIn';
+import { buildViewCartURL } from '../utils/eCommerceFunctions';
+
 import {isEprocurementUser as isEprocurementApp, isEprocurementUserRole} from '../utils/userFunctions';
 import { callCustomerPriceApi } from '../utils/userFunctions';
 
 class SkuList extends React.Component {
     constructor(props) {
         super(props);
+        
+        // Update the Continue to cart Button on Modal with the correct Country & Locale
+        props.skuConfig.modalInfo.buttons[0].action = buildViewCartURL(props.skuConfig.modalInfo.buttons[0].action);
 
         this.state = {
             skuConfig: this.props.skuConfig,
@@ -42,6 +48,25 @@ class SkuList extends React.Component {
         }
     }
 
+    renderResultByType(record, index) {
+        let nextIcon = this.props.skuConfig.skuInfo.nextIcon;
+        let onItemClick = this.props.onItemClick;
+
+        if(record.code) {
+            return <SkuItem
+                key={index}
+                relatedSku={record}
+                skuConfig={this.props.skuConfig}
+                baseSignInUrl={this.props.baseSignInUrl}
+                onItemClick={this.props.onItemClick}
+                userInfo={this.state.userInfo}
+                isEProcurementUserRestricted={this.state.isEProcurementUserRestricted}
+            />
+        } else {
+            return <LitItem result={record} nextIcon={nextIcon} key={index} onItemClick={onItemClick} />
+        }
+    };
+
     render() {
         const signIn = this.renderSignIn();
         return (
@@ -54,17 +79,14 @@ class SkuList extends React.Component {
                             </div>
                         )}
                         {signIn}
-                        {this.props.data.map((record, index) => (
-                            <ListItem
-                                key={index}
-                                relatedSku={record}
-                                skuConfig={this.props.skuConfig}
-                                baseSignInUrl={this.props.baseSignInUrl}
-                                onItemClick={this.props.onItemClick}
-                                userInfo={this.state.userInfo}
-                                isEProcurementUserRestricted={this.state.isEProcurementUserRestricted}
-                            />
-                        ))}
+
+                        <div className="cmp-search__results-container">
+                            <ul className="cmp-search__results">
+                                {this.props.data.map((record, index) => (
+                                    this.renderResultByType(record, index)
+                                ))}
+                            </ul>
+                        </div>
                     </>
                 )}
             </>

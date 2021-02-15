@@ -109,13 +109,14 @@ public class Commerce {
     @Inject
     private Boolean checkoutDisabled;
 
-    @DialogField(fieldDescription = "Enable this to make Quote  Disable",
+    @DialogField(fieldDescription = "Enable this to make Quote Disable",
             value = "true",
             ranking = 11)
     @CheckBox(title = "quoteDisabled",
             text = "Disable Quote")
     @Inject
     private Boolean quoteDisabled;
+    public Boolean getQuoteDisabled() { return quoteDisabled; }
 
     @DialogField(fieldDescription = "Enable this to always allow PO payment.",
             value = "true",

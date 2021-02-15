@@ -26,6 +26,16 @@ hr,
     }
 }
 
+hr.small-accent-rule {
+    margin: 0 0 $space-xs 0;
+    width: 5em;
+    background-color: $color-accent;
+    height: 4px;
+    border: none;
+    text-align: left;
+}
+
+
 // Spacers
 .cmp-spacer--xxs hr {
     margin: 0;
@@ -84,3 +94,25 @@ hr,
     height: $height-medium; 
     margin: 0 $space-xs;
 }
+
+.h-small {
+    border-top: $border-divider-small;
+  }
+  .h-large {
+    border-top: $border-divider-large;
+  }
+  
+  .v-small {
+    border-left: $border-divider-small;
+    height: 1em;
+    margin: 0 $space-xxs;
+  }
+  .v-large {
+    border-left: $border-divider-large;
+    height: $height-medium;
+    margin: 0 $space-xs;
+  }
+  
+  .h-accent {
+    border-top: 4px solid $color-accent;
+  }

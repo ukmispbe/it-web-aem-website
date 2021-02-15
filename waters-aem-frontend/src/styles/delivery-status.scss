@@ -23,7 +23,7 @@
             height: $icon-m;
             width: $icon-m;
             .st0,
-            .st1 {
+            .st1, g {
                 stroke-width: 1.0px;
                 stroke: $color-icon;
             }
@@ -58,6 +58,22 @@
             .st1 {
                 stroke-width: 1.5px;
                 stroke: $color-disabled;
+            }
+        }
+        margin-right: $space-xxs;
+    }
+
+    .rejected-icon{
+        display: inline-block;  
+        line-height: $icon-m; 
+        
+        svg {
+            height: $icon-m;
+            width: $icon-m;
+            .st0,
+            .st1 {
+                stroke-width: 1.5px;
+                stroke: $color-red-50;
             }
         }
         margin-right: $space-xxs;

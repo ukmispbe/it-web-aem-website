@@ -1,4 +1,5 @@
 import EmailService from "../../services/EmailService";
+import { validateUploadFile } from '../utils/fileAttachment';
 
 const test = (value, regex) => regex.test(value);
 
@@ -12,6 +13,39 @@ const removeError = (...refs) => {
 
     return true;
 };
+
+const getFileValidation = (fileObj, validation) => {
+    let status = false;
+    let errorMsg = '';
+    const {
+        fileTypePattern,
+        attachmentFileSize,
+        maxAttachmentFileNameSizeWithExt,
+        attachmentFileInvalidValidMsg,
+        attachmentFileSizeErrorMsg,
+        attachmentFileNameLengthErrorMsg,
+        attachmentFileNameErrorMsg
+    } = validation;
+    const labels = { 
+        attachmentFileSizeErrorMsg, 
+        attachmentFileNameLengthErrorMsg, 
+        attachmentFileNameErrorMsg 
+    };
+    const config = { maxAttachmentFileNameSizeWithExt, attachmentFileSize };
+
+    if (fileObj) {
+        const fileValidation = validateUploadFile(fileObj, labels, config);
+        const fileType = new RegExp(fileTypePattern, 'i');
+        if (!fileType.test(fileObj.name)) {
+            status = true;
+            errorMsg = attachmentFileInvalidValidMsg;
+        } else if (fileValidation.status) {
+            status = true;
+            errorMsg = fileValidation.error;
+        }
+    }
+    return { status, errorMsg };
+}
 
 export const functions = {
     noValidation: () => true,
@@ -148,7 +182,9 @@ export const functions = {
             return false;
         }
     },
-    email: (value, ref, invalidMsg, setError, clearError) => {
+    email: (value, ref, invalidMsg, setError, clearError, setErrorBoundaryToTrue, removeNotifications) => {
+        // Clear Notifications because Notification Error could be set
+        removeNotifications();
         if (
             test(
                 value,
@@ -163,7 +199,7 @@ export const functions = {
         }
     },
 
-    newEmail: (value, emailValidationEndpoint, ref, invalidMsg, setError, clearError) => {
+    newEmail: (value, emailValidationEndpoint, ref, invalidMsg, setError, clearError, setErrorBoundaryToTrue, removeNotifications, setValue, name) => {
         // Only Run if invalidMsg is supplied
         if (invalidMsg) {
             if (
@@ -186,27 +222,45 @@ export const functions = {
                                 invalidMsg,
                                 ref
                             );
+                            removeNotifications();
                             return false;
                         }
-    
+                        
+                        removeNotifications();
                         clearError("alreadyRegistered");
                         return removeError(ref);
                     })
                     .catch(err => {
-                        setError(
-                            "alreadyRegistered",
-                            "alreadyRegistered",
-                            err,
-                            ref
-                        );
-                        return false;
+                        // Clear the Input Error, Clear the Text and invoke the Notification
+                        setValue(name, "", true);
+                        removeError(ref);
+                        setErrorBoundaryToTrue({code: 500});
+                        return true;
                     });
     
                 return newEmail;
             } else {
+                removeNotifications();
                 clearError("alreadyRegistered");
                 return true;
             }
         }
+    },
+    fileValidation: (value, ref, validation, setError, clearError) => {
+        if (ref) {
+            if (value && value.length === 1) {
+                const { status, errorMsg } = getFileValidation(value[0], validation);
+                if (status) {
+                    setError(ref.name, ref.name, errorMsg, ref);
+                    return false;
+                }
+                clearError(ref.name);
+                return true;
+            } else {
+                clearError(ref.name);
+                return true;
+            }
+        }
+        return true;
     }
 };

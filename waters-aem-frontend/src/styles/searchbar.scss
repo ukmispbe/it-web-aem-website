@@ -160,6 +160,7 @@
                 background-color: transparent;
                 border: none;
                 padding: 0;
+                height: $height-medium;
             }
             &-search, &-clear {
                 height: 100%;
@@ -191,6 +192,7 @@
                     .st0 {
                         stroke-width: 2;
                         stroke: $color-white;
+                        fill: transparent;
                     }
                 }
             }
@@ -221,15 +223,17 @@ body.cmp-search-bar__auto-suggest--open {
     .cmp-search-bar {
         z-index: $cmp-search-bar-z-index;
     }
-    .cmp-banner {
-        -ms-overflow-y: visible;
-        overflow-y: unset;
-        z-index: $cmp-banner-active-overlay-z-index;
-    }
+    @include tablet-and-over  {
+        .cmp-banner {
+            -ms-overflow-y: visible;
+            overflow-y: unset;
+            z-index: $cmp-banner-active-overlay-z-index;
+        }
 
-    .cmp-title {
-        position: relative;
-        z-index: $cmp-title-z-index;
+        .cmp-title {
+            position: relative;
+            z-index: $cmp-title-z-index;
+        }
     }
 }
 

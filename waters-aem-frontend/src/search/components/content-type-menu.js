@@ -7,9 +7,12 @@ const ContentTypeMenu = props => {
             props.items.map(item => {
                     return (
                         <div key={item.facetName} 
-                            className="content-type-menu-container__item"
-                            onClick={() => props.onClick(item)}>
-                            
+                            className={`content-type-menu-container__item ${item.count === 0 ? "inactive" : ""}`}
+                            onClick={() => {
+                                    if (item.count !== 0) {
+                                        props.onClick(item);
+                                    }
+                                }}>                           
                             <div>
                                 <a href="#" onClick={(e) => {e.preventDefault(); return false;}}
                                     data-count={` (${item.count})`}>

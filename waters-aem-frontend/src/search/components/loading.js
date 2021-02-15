@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Spinner from './spinner';
+import Spinner from '../../utils/spinner';
 
 const Loading = ({visible}) => {
     if (!visible) {

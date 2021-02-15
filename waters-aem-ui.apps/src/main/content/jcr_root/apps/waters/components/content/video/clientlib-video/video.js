@@ -1,13 +1,13 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[16],{
 
-/***/ 497:
+/***/ 505:
 /***/ (function(module, exports) {
 
 /* (ignored) */
 
 /***/ }),
 
-/***/ 522:
+/***/ 533:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -15,32 +15,32 @@
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js
-var classCallCheck = __webpack_require__(13);
+var classCallCheck = __webpack_require__(11);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass.js
-var createClass = __webpack_require__(17);
+var createClass = __webpack_require__(16);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js
-var possibleConstructorReturn = __webpack_require__(20);
+var possibleConstructorReturn = __webpack_require__(18);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js
-var getPrototypeOf = __webpack_require__(21);
+var getPrototypeOf = __webpack_require__(19);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits.js + 1 modules
-var inherits = __webpack_require__(22);
+var inherits = __webpack_require__(20);
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js
-var assertThisInitialized = __webpack_require__(38);
+var assertThisInitialized = __webpack_require__(41);
 
 // EXTERNAL MODULE: ./node_modules/react/index.js
 var react = __webpack_require__(0);
 var react_default = /*#__PURE__*/__webpack_require__.n(react);
 
 // EXTERNAL MODULE: ./node_modules/@brightcove/react-player-loader/dist/brightcove-react-player-loader.es.js
-var brightcove_react_player_loader_es = __webpack_require__(496);
+var brightcove_react_player_loader_es = __webpack_require__(504);
 
 // EXTERNAL MODULE: ./src/scripts/screenSizes.js
-var screenSizes = __webpack_require__(12);
+var screenSizes = __webpack_require__(10);
 
 // CONCATENATED MODULE: ./src/video/video-modal-body.js
 
@@ -74,9 +74,9 @@ var video_modal_body_VideoModalBody = /*#__PURE__*/function (_React$Component) {
         controls: !screenSizes["a" /* default */].isMobile() ? true : false,
         loop: false
       };
-      return react_default.a.createElement(react_default.a.Fragment, null, react_default.a.createElement("div", {
+      return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement("div", {
         className: "cmp-video_modal-body"
-      }, react_default.a.createElement(brightcove_react_player_loader_es["a" /* default */], {
+      }, /*#__PURE__*/react_default.a.createElement(brightcove_react_player_loader_es["a" /* default */], {
         options: optionsVideoJS,
         videoId: this.props.config.brightcoveVideoId,
         playerId: this.props.config.brightcovePlayerId,
@@ -94,11 +94,11 @@ var video_modal_body_VideoModalBody = /*#__PURE__*/function (_React$Component) {
 
 /* harmony default export */ var video_modal_body = (video_modal_body_VideoModalBody);
 // EXTERNAL MODULE: ./node_modules/react-lines-ellipsis/lib/index.js
-var lib = __webpack_require__(487);
+var lib = __webpack_require__(500);
 var lib_default = /*#__PURE__*/__webpack_require__.n(lib);
 
 // EXTERNAL MODULE: ./node_modules/react-lines-ellipsis/lib/responsiveHOC.js
-var responsiveHOC = __webpack_require__(498);
+var responsiveHOC = __webpack_require__(506);
 var responsiveHOC_default = /*#__PURE__*/__webpack_require__.n(responsiveHOC);
 
 // CONCATENATED MODULE: ./src/video/video-description.js
@@ -124,7 +124,7 @@ var video_description_VideoDescription = /*#__PURE__*/function (_React$Component
   Object(createClass["a" /* default */])(VideoDescription, [{
     key: "render",
     value: function render() {
-      var toggleEllipsisContent = this.props.useEllipsis ? react_default.a.createElement(ResponsiveEllipsis, {
+      var toggleEllipsisContent = this.props.useEllipsis ? /*#__PURE__*/react_default.a.createElement(ResponsiveEllipsis, {
         style: {
           whiteSpace: 'pre-wrap'
         },
@@ -134,7 +134,7 @@ var video_description_VideoDescription = /*#__PURE__*/function (_React$Component
         trimRight: "true",
         basedOn: "words"
       }) : this.props.text;
-      return react_default.a.createElement("p", {
+      return /*#__PURE__*/react_default.a.createElement("p", {
         "class": "cmp-video_description",
         onClick: this.props.click ? this.props.click : null
       }, toggleEllipsisContent);
@@ -205,9 +205,9 @@ var video_VideoContainer = /*#__PURE__*/function (_React$Component) {
     };
 
     _this.renderVideoInfo = function () {
-      return react_default.a.createElement(react_default.a.Fragment, null, _this.state.title && react_default.a.createElement("h3", {
+      return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, _this.state.title && /*#__PURE__*/react_default.a.createElement("h3", {
         className: "cmp-video_title"
-      }, _this.state.title), _this.state.description && react_default.a.createElement(video_description, {
+      }, _this.state.title), _this.state.description && /*#__PURE__*/react_default.a.createElement(video_description, {
         text: _this.state.description,
         useEllipsis: _this.state.useEllipsis
       }));
@@ -228,10 +228,10 @@ var video_VideoContainer = /*#__PURE__*/function (_React$Component) {
   Object(createClass["a" /* default */])(VideoContainer, [{
     key: "render",
     value: function render() {
-      return react_default.a.createElement("div", {
+      return /*#__PURE__*/react_default.a.createElement("div", {
         className: "cmp-video_video-container",
         ref: this.videoRef
-      }, react_default.a.createElement(video_modal_body, {
+      }, /*#__PURE__*/react_default.a.createElement(video_modal_body, {
         config: this.props.videoConfig,
         onVideoSuccess: this.onSuccess,
         onVideoFailure: this.onFailure

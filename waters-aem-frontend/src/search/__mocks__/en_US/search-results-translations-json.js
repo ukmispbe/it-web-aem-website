@@ -2,14 +2,23 @@ const searchResultsTranslationsJSON = {
     "sortAndFilterButton": "Sort and Filter",
     "applyButton": "Apply",
     "doneButton": "Done",
-    "sortByHeading": "Sort By",
     "sortedBy": "Sorted by",
-    "sortByBestMatch": "Best Match",
-    "sortByMostRecent": "Most Recent",
+    "sort": {
+        "prefix": "Sort by: ",
+        "options": {
+            "bestMatch": "Best Match",
+            "mostRecent": "Most Recent"
+        }
+    },
     "filterByHeading": "Filter by",
     "clearAllFilters": "Clear All",
     "filterSearchPlaceholder": "Search",
-    "resultsText": "Showing {startResults}\u002D{endResults} of {count} results ",
+    "resultsText": "Showing {count} results",
+    "resultsForText": "Showing {count} results for",
+    "categoryLabel": "Category:",
+    "inCategoryText": "in ",
+    "relatedSearchesText": "Related Searches",
+    "noResultsText": "Showing 0 results",
     "noResultsTitle": "We didn't find any results for your search.",
     "noResultsDescription": "Check your spelling or broaden your search by using fewer or more general keywords, or ",
     "noResultsSearchLinkText": "start a new search",
@@ -24,9 +33,17 @@ const searchResultsTranslationsJSON = {
     "filterIcon": "/content/dam/waters/en/brand-assets/icons/filter.svg",
     "checkmarkIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
     "contentType": "Content Type",
+    "resultType": "Result Type",
     "filterBy": "Filter By",
     "keyWordLabel": "Keyword",
-    "showResultCount": "Show {count} Results"
+    "showResultCount": "Show {count} Results",
+    "homeLinkText": "Home",
+    "searchLinkText": "Search",
+    "allResultsText": "Show All Results",
+    "allResultsTextMobile": "All",
+    "categoryText": "Category",
+    "allCategoriesText": "All Categories",
+    "anyResultTypeText": "Any Result Type"
 };
 
 export default searchResultsTranslationsJSON;

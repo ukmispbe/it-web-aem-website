@@ -1,7 +1,5 @@
 .content-type-menu-container {
-    margin-top: $space-l;
-
-    @include tablet-and-under {
+    @include mobile {
         margin-top: $space-l;
     }
 }
@@ -36,6 +34,27 @@
         a {
             color: $color-link-hover;
             text-decoration: underline;
+        }
+    }
+}
+
+.content-type-menu-container__body {
+    .inactive {
+        &:hover,
+        &:focus {
+            border: none;
+            cursor: default;   
+            a {
+                color: $color-disabled; 
+                text-decoration: none;
+            }
+        }
+        a {
+            color: $color-disabled;
+            cursor: default;   
+            &:after {
+                color: $color-disabled;
+            }
         }
     }
 }

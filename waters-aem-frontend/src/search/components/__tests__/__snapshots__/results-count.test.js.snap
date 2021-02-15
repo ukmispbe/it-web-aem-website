@@ -2,122 +2,172 @@
 
 exports[`Feature: ResultsCount React Component Scenario: Rendering When keyword is not provided Then the snapshot should match 1`] = `
 <div
-  className="cmp-search__resultsCount-container"
-  data-locator="results-count-container"
+  className="cmp-search__resultsCount"
+  data-locator="results-count"
 >
-  <h2
-    className="cmp-search__resultsCount"
-    data-locator="results-count"
+  <div
+    class="query-box"
   >
-    Showing 1-24 of 24 results 
-  </h2>
+    <span
+      class="results"
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": "Showing <span class='count'>24</span> results",
+        }
+      }
+    />
+  </div>
+  <hr
+    className="small-accent-rule"
+  />
 </div>
 `;
 
 exports[`Feature: ResultsCount React Component Scenario: Rendering When keyword is provided with spelling suggestion Then the snapshot should match 1`] = `
 <div
-  className="cmp-search__resultsCount-container"
-  data-locator="results-count-container"
+  className="cmp-search__resultsCount"
+  data-locator="results-count"
 >
-  <h2
-    className="cmp-search__resultsCount"
-    data-locator="results-count"
+  <span
+    class="results"
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "Showing <span class='count'>24</span> results for ",
+      }
+    }
+  />
+  <span
+    className="text-strike"
   >
-    Showing 1-24 of 24 results 
-    <span>
-      for 
-      <span
-        className="text-strike"
-      >
-        milk
-      </span>
-       
-      <strong>
-        <q
-          className="query"
-        >
-          got milk?
-        </q>
-        .
-      </strong>
+    milk
+  </span>
+  <div
+    class="query-box"
+  >
+    <h1
+      className="query"
+    >
+      got milk?
+    </h1>
+     
+     
+     
+    <span
+      class="category"
+    >
+      in All
     </span>
-  </h2>
+  </div>
+  <hr
+    className="small-accent-rule"
+  />
 </div>
 `;
 
 exports[`Feature: ResultsCount React Component Scenario: Rendering When keyword is provided without spelling suggestion Then the snapshot should match 1`] = `
 <div
-  className="cmp-search__resultsCount-container"
-  data-locator="results-count-container"
+  className="cmp-search__resultsCount"
+  data-locator="results-count"
 >
-  <h2
-    className="cmp-search__resultsCount"
-    data-locator="results-count"
+  <span
+    class="results"
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "Showing <span class='count'>24</span> results for ",
+      }
+    }
+  />
+  
+  <div
+    class="query-box"
   >
-    Showing 1-24 of 24 results 
-    <span>
-      for 
-      <strong>
-        <q
-          className="query"
-        >
-          milk
-        </q>
-        .
-      </strong>
+    <h1
+      className="query"
+    >
+      milk
+    </h1>
+     
+     
+     
+    <span
+      class="category"
+    >
+      in All
     </span>
-  </h2>
+  </div>
+  <hr
+    className="small-accent-rule"
+  />
 </div>
 `;
 
 exports[`Feature: ResultsCount React Component Scenario: Rendering When more than one related keyword is provided Then the snapshot should match 1`] = `
 <div
-  className="cmp-search__resultsCount-container"
-  data-locator="results-count-container"
+  className="cmp-search__resultsCount"
+  data-locator="results-count"
 >
-  <h2
-    className="cmp-search__resultsCount"
-    data-locator="results-count"
+  <span
+    class="results"
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "Showing <span class='count'>24</span> results for ",
+      }
+    }
+  />
+  <span
+    className="text-strike"
   >
-    Showing 1-24 of 24 results 
-    <span>
-      for 
-      <span
-        className="text-strike"
-      >
-        milk
-      </span>
-       
-      <strong>
-        <q
-          className="query"
-        >
-          got milk?
-        </q>
-        .
-      </strong>
+    milk
+  </span>
+  <div
+    class="query-box"
+  >
+    <h1
+      className="query"
+    >
+      got milk?
+    </h1>
+     
+     
+     
+    <span
+      class="category"
+    >
+      in All
     </span>
-  </h2>
+  </div>
+  <hr
+    className="small-accent-rule"
+  />
   <div
     className="cmp-search__related-suggestions"
   >
-    Related Searches 
-    <a
-      className="item"
-      onClick={[Function]}
-    >
-      ... it does a body good!
-    </a>
     <span
-      className="vertical-bar"
+      class="related-searches-text"
     >
-      |
+      Related Searches
     </span>
     <a
+      aria-label="... it does a body good!"
       className="item"
+      href="javascript:void(0);"
       onClick={[Function]}
     >
-      milkyway
+      <div />
+      <span>
+        ... it does a body good!
+      </span>
+    </a>
+    <a
+      aria-label="milkyway"
+      className="item"
+      href="javascript:void(0);"
+      onClick={[Function]}
+    >
+      <div />
+      <span>
+        milkyway
+      </span>
     </a>
   </div>
 </div>
@@ -125,41 +175,60 @@ exports[`Feature: ResultsCount React Component Scenario: Rendering When more tha
 
 exports[`Feature: ResultsCount React Component Scenario: Rendering When one related keyword is provided Then the snapshot should match 1`] = `
 <div
-  className="cmp-search__resultsCount-container"
-  data-locator="results-count-container"
+  className="cmp-search__resultsCount"
+  data-locator="results-count"
 >
-  <h2
-    className="cmp-search__resultsCount"
-    data-locator="results-count"
+  <span
+    class="results"
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "Showing <span class='count'>24</span> results for ",
+      }
+    }
+  />
+  <span
+    className="text-strike"
   >
-    Showing 1-24 of 24 results 
-    <span>
-      for 
-      <span
-        className="text-strike"
-      >
-        milk
-      </span>
-       
-      <strong>
-        <q
-          className="query"
-        >
-          got milk?
-        </q>
-        .
-      </strong>
+    milk
+  </span>
+  <div
+    class="query-box"
+  >
+    <h1
+      className="query"
+    >
+      got milk?
+    </h1>
+     
+     
+     
+    <span
+      class="category"
+    >
+      in All
     </span>
-  </h2>
+  </div>
+  <hr
+    className="small-accent-rule"
+  />
   <div
     className="cmp-search__related-suggestions"
   >
-    Related Searches 
+    <span
+      class="related-searches-text"
+    >
+      Related Searches
+    </span>
     <a
+      aria-label="... it does a body good!"
       className="item"
+      href="javascript:void(0);"
       onClick={[Function]}
     >
-      ... it does a body good!
+      <div />
+      <span>
+        ... it does a body good!
+      </span>
     </a>
   </div>
 </div>
@@ -167,28 +236,46 @@ exports[`Feature: ResultsCount React Component Scenario: Rendering When one rela
 
 exports[`Feature: ResultsCount React Component Scenario: Rendering When the number of results is higher than the allowed page count Then the snapshot should match 1`] = `
 <div
-  className="cmp-search__resultsCount-container"
-  data-locator="results-count-container"
+  className="cmp-search__resultsCount"
+  data-locator="results-count"
 >
-  <h2
-    className="cmp-search__resultsCount"
-    data-locator="results-count"
+  <div
+    class="query-box"
   >
-    Showing 1-25 of 26 results 
-  </h2>
+    <span
+      class="results"
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": "Showing <span class='count'>26</span> results",
+        }
+      }
+    />
+  </div>
+  <hr
+    className="small-accent-rule"
+  />
 </div>
 `;
 
 exports[`Feature: ResultsCount React Component Scenario: Rendering When the number of results is less than the allowed page count Then the snapshot should match 1`] = `
 <div
-  className="cmp-search__resultsCount-container"
-  data-locator="results-count-container"
+  className="cmp-search__resultsCount"
+  data-locator="results-count"
 >
-  <h2
-    className="cmp-search__resultsCount"
-    data-locator="results-count"
+  <div
+    class="query-box"
   >
-    Showing 1-24 of 24 results 
-  </h2>
+    <span
+      class="results"
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": "Showing <span class='count'>24</span> results",
+        }
+      }
+    />
+  </div>
+  <hr
+    className="small-accent-rule"
+  />
 </div>
 `;

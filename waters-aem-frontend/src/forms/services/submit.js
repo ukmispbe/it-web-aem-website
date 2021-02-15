@@ -3,22 +3,11 @@ import { parse } from 'query-string';
 import SessionStore from '../../stores/sessionStore';
 import DigitalData from '../../scripts/DigitalData';
 import UserDetails from '../../my-account/services/UserDetails';
-import { signInRedirect } from '../../utils/redirectFunctions';
-import { getNamedHeaderLink } from '../../utils/redirectFunctions';
+import SoldToDetailsLazy from '../../my-account/services/SoldToDetailsLazy';
+import { signInRedirect, getNamedHeaderLink } from '../../utils/redirectFunctions';
+import { postData } from '../../utils/serviceFunctions';
 import { matchAddresses } from '../../utils/userFunctions';
-
-const postData = async (url, data) => {
-    const response = await fetch(url, {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    });
-
-    return await response;
-};
+import { convertFileIntoBase64, getAttachmentFieldName } from '../fields/utils/fileAttachment';
 
 export async function registrationSubmit(data) {
     delete data.confirmPassword;
@@ -218,7 +207,6 @@ export async function changePasswordSubmit(data) {
 }
 
 export async function personalSubmit(data) {
-
     const response = await postData(this.url, data);
     const responseBody = await response.json();
     // remove all previous server error notifications
@@ -228,9 +216,15 @@ export async function personalSubmit(data) {
         const store = new SessionStore();
         store.setUserDetails(responseBody);
         store.setPersonalDetailsUpdated();
-        const soldToDetails = store.getSoldToDetails();
-        const mergedResponse = matchAddresses(responseBody, soldToDetails);
-        this.setProfileData(mergedResponse);
+
+        if (responseBody && responseBody.userId && responseBody.salesOrg) {
+                SoldToDetailsLazy(this.soldToDetailsUrl, responseBody.userId, responseBody.salesOrg)
+                .then((soldToDetails) => {
+                    let mergeAPIs = matchAddresses(responseBody, soldToDetails);
+                    this.setProfileData(mergeAPIs);
+                });
+        }
+
         const model = {
             "communications":data.communications 
         }
@@ -330,7 +324,6 @@ export async function signInSubmit(data) {
         scrollToY(0);
     }
 }
-
 
 const setNewSoldTo = (newSoldto) => {
     const store = new SessionStore();
@@ -444,28 +437,39 @@ export async function submitAccount(selectedAccount, urlChooseAccount) {
 }
 
 export async function contactSupportSubmit(data) {
-    const isCaptcha = data.hasOwnProperty('captcha');
-    if (isCaptcha) {
-        this.url = `${this.url}?captcha=${data.captcha}`;
-        delete data.captcha;
-    }
-
-    const response = await postData(this.url, data);
-    const responseBody = await response.json();
-    
-    // remove all previous server error notifications
-    this.setError();
-
-    if (response.status === 200) {
-        this.setFormAnalytics('submit');
-
-        if (this.redirect) {
-            window.location.replace(this.redirect);
+    try {
+        window.dispatchEvent(new CustomEvent("showLoaderEproc", { detail: { showLoader: true }}));
+        const isCaptcha = data.hasOwnProperty('captcha');
+        if (isCaptcha) {
+            this.url = `${this.url}?captcha=${data.captcha}`;
+            delete data.captcha;
         }
-    } else {
-        this.setFormAnalytics('error', responseBody);
-        this.setError(responseBody);
-        scrollToY(0);
+        const attachmentFieldName = getAttachmentFieldName(data);
+        const { fileName, base64Value } = await convertFileIntoBase64(data[attachmentFieldName]);
+        const encodeValue = base64Value.replace(/^[^,]*,/, '');
+        const formData = { ...data, [attachmentFieldName]: encodeValue, hasAttachment: encodeValue ? 'Y': 'N', fileName};
+
+        const response = await postData(this.url, formData);
+        const responseBody = await response.json();
+
+        // remove all previous server error notifications
+        this.setError();
+
+        if (response.status === 200) {
+            this.setFormAnalytics('submit');
+
+            if (this.redirect) {
+                window.location.replace(this.redirect);
+            }
+        } else {
+            this.setFormAnalytics('error', responseBody);
+            this.setError(responseBody);
+            scrollToY(0);
+        }
+        window.dispatchEvent(new CustomEvent("showLoaderEproc", { detail: { showLoader: false }}));
+    } catch (e) {
+        console.error(e);
+        window.dispatchEvent(new CustomEvent("showLoaderEproc", { detail: { showLoader: false }}));
     }
 }
 

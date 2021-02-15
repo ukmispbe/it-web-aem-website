@@ -6,11 +6,11 @@
                 <hr>
             </div>
         </div>
-        <p>Labels</p>
+        <p>Labels - ${labels.category}</p>
         <ol data-sly-list.labelList="${labels.labelList}">
             ${labelList.labelKey} : ${labelList.labelValue} <br/>
         </ol>
-        <p>Configs</p>
+        <p>Configs - ${labels.category}</p>
         <ol data-sly-list.configList="${labels.configList}">
             ${configList.text} : ${configList.link.path} <br/>
         </ol>

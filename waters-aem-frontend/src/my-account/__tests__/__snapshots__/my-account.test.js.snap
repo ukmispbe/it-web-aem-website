@@ -94,7 +94,7 @@ exports[`Feature: My Account Component Scenario: Rendering When ecommerce is not
         >
           <div
             className="cmp-linktile--icon"
-            data-locator="orders-icon"
+            data-locator="orders-and-quotes-icon"
           />
         </div>
         <div
@@ -102,9 +102,9 @@ exports[`Feature: My Account Component Scenario: Rendering When ecommerce is not
         >
           <div
             className="cmp-linktile--title"
-            data-locator="orders"
+            data-locator="orders-and-quotes"
           >
-            Orders
+            Orders and Quotes
           </div>
           <div
             className="cmp-linktile--links"
@@ -296,7 +296,7 @@ exports[`Feature: My Account Component Scenario: Rendering when ecommerce is dis
         >
           <div
             className="cmp-linktile--icon"
-            data-locator="orders-icon"
+            data-locator="orders-and-quotes-icon"
           />
         </div>
         <div
@@ -304,9 +304,9 @@ exports[`Feature: My Account Component Scenario: Rendering when ecommerce is dis
         >
           <div
             className="cmp-linktile--title"
-            data-locator="orders"
+            data-locator="orders-and-quotes"
           >
-            Orders
+            Orders and Quotes
           </div>
           <div
             className="cmp-linktile--links"

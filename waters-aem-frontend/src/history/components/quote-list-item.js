@@ -1,66 +1,83 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import DeliveryStatus from '../../common/delivery-status'
-import DateFormatter from '../../utils/date-formatter'
-import GetLocale from '../../utils/get-locale'
+import DeliveryStatus from '../../common/delivery-status';
 import { setClickAnalytics } from '../../analytics';
+import { DELIVERY_STATUS } from '../../constants';
 import { elementLocator } from '../../utils/eCommerceFunctions';
-
-const getShipmentStatus = (data, index) => {
-    let status = data;
-    if(index == 1){
-        status = "Expired";
-    }
-    if(index == 2){
-        status = "Order Placed";
-    }
-    return status;
-}
-
 class QuoteListItem extends Component {
     constructor(props) {
         super(props);
-        this.userLocale = GetLocale.getLocale()
+    }
+
+    quoteAgain = (e) => {
+        e.preventDefault();
+        const {setAnalytics,data} = this.props;   
+         const {quoteId} = data;
+        if(quoteId){
+         const quoteAgainModel ={
+             detail:{
+                 quoteId,
+             }
+         }
+         setAnalytics('quoteAgainClick', quoteAgainModel)       
+        }
     }
 
     renderQuoteAgainButton = () => {
         return (
-            <a className="cmp-button" href="/#" >
+            <a className="cmp-button" href="/#" onClick={(e) => this.quoteAgain(e)} >
                 {this.props.quoteAgainTitle}
             </a>
         )
     }
     
     render() {
-        const deliveryStatus = getShipmentStatus(this.props.data.deliveryStatus, this.props.index);
+        const {data = {}, numberText, created, expires, shipment, icons, orderNumberText, isShowQuoteAgainButton, newQuote} = this.props;
+        const {quoteId,orderNumber, quoteCreationDate, quoteExpirationDate, totalPriceFormatted, quoteStatus, replacedQuoteNumber} = data;
+        const showExpireDate = !!(quoteStatus === DELIVERY_STATUS.PENDING || quoteStatus === DELIVERY_STATUS.REJECTED || quoteStatus === DELIVERY_STATUS.OPEN);
+        const showOrderNumber = !!(quoteStatus === DELIVERY_STATUS.ORDER_PLACED);
+        const showQuoteAgainBtn = !!(quoteStatus === DELIVERY_STATUS.EXPIRED);
+		const showQuoteReplacedNumber = !!(quoteStatus === DELIVERY_STATUS.QUOTE_REPLACED);
         return (
             <div className='cmp-order-list__container'>
                 <div className="cmp-order-list__left">
                     <div className="cmp-order-list__order-number">
                         <a
-                            href={'#quotedetails?id=' + this.props.data.orderNumber}
-                            onClick={() => setClickAnalytics("Quote History", "Quote Details, " + this.props.data.orderNumber, '#quotedetails?id=' + this.props.data.orderNumber)}
-                            data-locator={elementLocator(`${this.props.numberText} ${this.props.data.orderNumber}`)}
+                            href={'#quotedetails?id=' + quoteId}
+                            onClick={() => setClickAnalytics("Quote History", "Quote Details, " + quoteId, '#quotedetails?id=' + quoteId)}
+                            data-locator={elementLocator(`${numberText} ${quoteId}`)}
                         >
-                            {this.props.numberText + " " + this.props.data.orderNumber}
+                            {numberText + " " + quoteId}
                         </a>
                     </div>
-                    <div className="cmp-order-list__date" data-locator="order-list-date">
-                        {DateFormatter.dateFormatter(this.props.data.date, this.userLocale)}
+                    <div className="cmp-quote-data-section">
+                    {quoteCreationDate && (<div className="cmp-order-list__date" data-locator="quote-history-tiles-created-date">
+                        {`${created} ${quoteCreationDate}`}
+                    </div>)}
+                    {showExpireDate && quoteExpirationDate && (<div className="cmp-order-list__date" data-locator="quote-history-tiles-expires-date">
+                        {`${expires} ${quoteExpirationDate}`}
+                    </div>)}
+                    {showOrderNumber && orderNumber && (<div className="cmp-order-list__order-number-text" data-locator="quote-order-number">
+                        {`${orderNumberText} ${orderNumber}`}
+                    </div>)}
+					{showQuoteReplacedNumber && replacedQuoteNumber && (<div className="cmp-order-list__order-number-text" data-locator="quote-order-number">
+						{`${newQuote} ${replacedQuoteNumber}`}
+					</div>)}
                     </div>
+                    
                 </div>
                 <div className="cmp-order-list__right" data-locator="order-list-right">
                     <hr className="cmp-order-list_hr"/>
-                    <DeliveryStatus
-                        status={deliveryStatus}
-                        labels={this.props.shipment}
-                        icons={this.props.icons}
-                    />            
+                    {quoteStatus && (<DeliveryStatus
+                        status={quoteStatus}
+                        labels={shipment}
+                        icons={icons}
+                    />)}            
                 </div>
-                <div className="cmp-order-list__total cmp-order-list__left" data-locator="order-list-total">
-                    {this.props.data.orderTotal}
-                </div>
-                {this.props.index == 1 && (
+                {totalPriceFormatted && (<div className="cmp-order-list__total cmp-order-list__left" data-locator="order-list-total">
+                    {totalPriceFormatted}
+                </div>)}
+                {showQuoteAgainBtn && isShowQuoteAgainButton && (
                     <div className="cmp-order-list__right quote-again-section" data-locator="quote-history-quote-again">
                         {this.renderQuoteAgainButton()}
                     </div>

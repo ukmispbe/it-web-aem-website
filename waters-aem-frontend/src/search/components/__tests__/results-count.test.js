@@ -15,8 +15,21 @@ describe('Feature: ResultsCount React Component', () => {
         spell_suggestion: '',
         onRelatedSuggestionClick: jest.fn(() => {}),
         text: {
-          resultsText: 'Showing {startResults}-{endResults} of {count} results '
-        }
+            resultsText: 'Showing {count} results',
+            resultsForText: 'Showing {count} results for ',
+            noResultsText: 'Showing 0 results',
+            relatedSearchesText: 'Related Searches',
+            inCategoryText: 'in ',
+            searchIcon: 'search.svg'
+        },
+        categoryOptions: [
+            {
+                translation: "Shop",
+                name: "Shop",
+                count: 633
+            }
+        ],
+        categoryValue: 0
     };
 
     describe('Scenario: Rendering', () => {
@@ -94,15 +107,15 @@ describe('Feature: ResultsCount React Component', () => {
                 props.query = 'milk';
                 props.spell_related_suggestions = ['... it does a body good!'];
                 
-                const spyOnHanlder = spyOn(props, 'onRelatedSuggestionClick');
+                const spyOnHandler = spyOn(props, 'onRelatedSuggestionClick');
 
                 const wrapper = shallow(<ResultsCount {...props} />);
 
-                wrapper.find('.cmp-search__related-suggestions .item').simulate('click');
+                wrapper.find('.cmp-search__related-suggestions a.item').simulate('click');
 
-                expect(spyOnHanlder).toHaveBeenCalled();
+                expect(spyOnHandler).toHaveBeenCalled();
 
-                spyOnHanlder.mockRestore();
+                spyOnHandler.mockRestore();
             });
         });
     });

@@ -16,14 +16,23 @@
         "sortAndFilterButton": "${'Sort and Filter' @ i18n, context='unsafe'}",
         "applyButton": "${'Apply' @ i18n, context='unsafe'}",
         "doneButton": "${'Done' @ i18n, context='unsafe'}",
-        "sortByHeading": "${'Sort By' @ i18n, context='unsafe'}",
         "sortedBy": "${'Sorted by' @ i18n, context='unsafe'}",
-        "sortByBestMatch": "${'Best Match' @ i18n, context='unsafe'}",
-        "sortByMostRecent": "${'Most Recent' @ i18n, context='unsafe'}",
+        "sort": {
+            "prefix": "${'Sort by: ' @ i18n, context='unsafe'}",
+            "options": {
+                "bestMatch": "${'Best Match' @ i18n, context='unsafe'}",
+                "mostRecent": "${'Most Recent' @ i18n, context='unsafe'}"
+            }
+        },
         "filterByHeading": "${'Filter by' @ i18n, context='unsafe'}",
         "clearAllFilters": "${'Clear All' @ i18n, context='unsafe'}",
         "filterSearchPlaceholder": "${'Search' @ i18n, context='unsafe'}",
-        "resultsText": "${'Showing {0}-{1} of {2} results ' @ format=['{startResults}', '{endResults}', '{count}'], i18n, context='unsafe'}",
+        "resultsText": "${'Showing {0} results' @ format=['{count}'], i18n, context='unsafe'}",
+        "resultsForText": "${'Showing {0} results for ' @ format=['{count}'], i18n, context='unsafe'}",
+        "categoryLabel": "${'Category:' @ i18n, context='unsafe'}",
+        "inCategoryText": "${'in ' @ i18n, context='unsafe'}",
+        "relatedSearchesText": "${'Related Searches' @ i18n, context='unsafe'}",
+        "noResultsText": "${'Showing 0 results' @ i18n, context='unsafe'}",
         "noResultsTitle": "${'We didn\'t find any results for your search.' @ i18n, context='unsafe'}",
         "noResultsDescription": "${'Check your spelling or broaden your search by using fewer or more general keywords, or ' @ i18n, context='unsafe'}",
         "noResultsSearchLinkText": "${'start a new search' @ i18n, context='unsafe'}",
@@ -38,9 +47,17 @@
         "filterIcon": "/content/dam/waters/en/brand-assets/icons/filter.svg",
         "checkmarkIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
         "contentType": "${'Content Type' @ i18n, context='unsafe'}",
+        "resultType": "${'Result Type' @ i18n, context='unsafe'}",
         "filterBy": "${'Filter By' @ i18n, context='unsafe'}",
         "keyWordLabel": "${'Keyword' @ i18n, context='unsafe'}",
-        "showResultCount": "${'Show {0} Results' @ format=['{count}'], i18n, context='unsafe'}"
+        "showResultCount": "${'Show {0} Results' @ format=['{count}'], i18n, context='unsafe'}",
+        "homeLinkText": "${'Home' @ i18n, context='unsafe'}",
+        "searchLinkText": "${'Search' @ i18n, context='unsafe'}",
+        "allResultsText": "${'Show All Results' @ i18n, context='unsafe'}",
+        "allResultsTextMobile": "${'All' @ i18n, context='unsafe'}",
+        "categoryText": "${'Category' @ i18n, context='unsafe'}",
+        "allCategoriesText": "${'All Categories' @ i18n, context='unsafe'}",
+        "anyResultTypeText": "${'Any Result Type' @ i18n, context='unsafe'}"
     }
 </script>
 
@@ -49,4 +66,3 @@
 
      <sly data-sly-use.clientlib="/libs/granite/sightly/templates/clientlib.html" data-sly-call="${clientlib.js @ categories='waters.searchresults'}"/>
      <sly data-sly-use.clientlib="/libs/granite/sightly/templates/clientlib.html" data-sly-call="${clientlib.all @ categories='waters.skulist'}"/>
-     <sly data-sly-use.clientlib="/libs/granite/sightly/templates/clientlib.html" data-sly-call="${clientlib.all @ categories='waters.skudetails'}"/>

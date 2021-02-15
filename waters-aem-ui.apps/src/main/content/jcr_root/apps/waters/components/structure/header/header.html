@@ -10,6 +10,7 @@
     data-signin-url="${!header.eprocurement ? header.signInLink.href : ''}"
     data-register-url="${!header.eprocurement ? header.createAccountLink.href : ''}"
     data-switch-account-url="${!header.eprocurement ? header.switchAccountLink.href : ''}"
+    data-country-list-url="${header.countryListUrl}"
 >
     <div class="cmp-header__overlay overlay"></div>
     <div class="cmp-header__top-bar">
@@ -37,32 +38,18 @@
             >
                 <ul class="cmp-header__top-bar__nav__ul">
                     <li class="top-bar__nav__search top-bar__nav__item" data-locator="header-section-search">
-                        <div data-sly-test="${header.eprocurement}" id="header-search-bar"
+                        <div id="header-search-bar"
                             data-base-url="${header.searchUrl}"
                             data-icon-clear="/content/dam/waters/en/brand-assets/icons/close.svg"
                             data-icon-search="/content/dam/waters/en/brand-assets/icons/search.svg"
                             data-isocode="${header.isocode}"
-                            data-placeholder-mobile="${'Search' @ i18n}"
+                            data-placeholder-mobile="${'What are you looking for?' @ i18n}"
                             data-placeholder-tablet="${'What are you looking for?' @ i18n}"
                             data-custom-style="cmp-header-search-bar"
                             data-auto-suggest-label="${'Search Box' @ i18n}"
                             data-clear-label="${'Clear' @ i18n}"
                             data-search-label="${'Search' @ i18n}">
                         </div>
-                        
-                        <a  data-sly-test="${!header.eprocurement}"
-                            class="cmp-header-links__link"
-                            href="${header.legacySearchUrl}"
-                            data-locator="link-header-my-account-search"
-                        >
-                            <span>${'Search' @ i18n}</span>
-                            <img
-                                alt="${'Search' @ i18n}"
-                                src="/content/dam/waters/en/brand-assets/icons/search.svg"
-                                class="inline-svg"
-                                data-locator="header-search-icon"
-                            />
-                        </a>
                     </li>
                     <li class="top-bar__nav__user${header.eprocurement ? '--hide':''} top-bar__nav__item">
                         <a
@@ -140,6 +127,14 @@
                                         "class": "dropdown__item-list__my-orders",
                                         "linkName": "Order History",
                                         "isHiddenForEprocUser": "true"
+                                    },
+                                    {
+                                        "text": "${header.disableQuoteHistory ?  '' : 'Quote History' @ i18n, context='unsafe'}",
+                                        "url": "${!header.eprocurement && header.disableQuoteHistory ? '' : header.quotesLink  @ context='unsafe'}",
+                                        "target": "_self",
+                                        "class": "dropdown__item-list__my-quotes",
+                                        "linkName": "Quote History",
+                                        "isHiddenForEprocUser": "true"
                                     }
                                 ]
                             }
@@ -185,5 +180,6 @@
             data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"
         ></div>
     </div>
+    <div id="mobile-header-search-container"></div>
     <div data-sly-test="${header.eprocurement}" id="cmp-header--loader"></div>
 </header>

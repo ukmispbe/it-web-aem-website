@@ -11,6 +11,7 @@ import BtnHideSortFilter from './components/btn-hide-sort-filter';
 import BtnApplySortFilter from './components/btn-apply-sort-filter';
 import BtnDoneSortFilter from './components/btn-done-sort-filter';
 import Sort from './components/sort';
+
 import BtnShowSortFilter from './components/btn-show-sort-filter';
 import ResultsCount from './components/results-count';
 import {
@@ -19,10 +20,11 @@ import {
     ClearAllTag,
     KeywordTag,
 } from './components/filter-tags';
-const SkuList = React.lazy(() => import(/* webpackChunkName: "skulist" */'../sku-list'));
-import Results from './components/results';
 import { propTypes, defaultProps } from './search.component.props';
 import { isEprocurementUser } from '../utils/userFunctions';
+import CategoryList from '../navigation/category-list';
+const SkuList = React.lazy(() => import(/* webpackChunkName: "skulist" */'../sku-list'));
+import screenSizes from '../scripts/screenSizes';
 
 const FilterTagList = ({
     text,
@@ -89,16 +91,23 @@ FilterTagList.defaultProps = {
     filterTagsEvents: defaultProps.filterTagsEvents
 }
 
-
 const Aside = ({
     text,
     asideProps,
     asideEvents,
-    children
+    children,
+    items,
+    activeIndex,
+    categoryClick,
+    clearSessionStore
 }) => {
-
     return (
         <div className="container__left cmp-search__sort-filter" data-locator="left-container-filter">
+            {!isEprocurementUser() && <CategoryList items={items}
+                text={text}
+                activeIndex={activeIndex}
+                onClick={categoryClick} 
+                clearSessionStore={clearSessionStore} />}
             <BtnHideSortFilter
                 text={text}
                 onClick={asideEvents.onHideSortFilterClick} />
@@ -113,14 +122,14 @@ const Aside = ({
                 text={text}
                 collapseFilters={asideEvents.onCollapseFilters} />
 
-            <div className="cmp-search__sort-filter__container">
-                <Sort
-                    sortValue={asideProps.sortByValue}
-                    sortHandler={asideEvents.onSort}
-                    text={text} />
-                {children}
-            </div>
-
+                <div className="cmp-search__sort-filter__container">
+                    { screenSizes.isMobile() && <Sort
+                        sortValue={asideProps.sortByValue}
+                        sortHandler={asideEvents.onSort}
+                        text={text} />
+                    }
+                        {children}
+                </div>
         </div>
     );
 }
@@ -136,7 +145,6 @@ Aside.defaultProps = {
     asideProps: defaultProps.asideProps,
     asideEvents: defaultProps.asideEvents
 }
-
 
 const Menu = ({
     text,
@@ -170,7 +178,7 @@ const Menu = ({
     if (menuProps.showFacetMenu) {
         return (
             <FacetMenu
-                heading={menuProps.heading}
+                heading={menuProps.backLinkText}
                 selectedValue={facetMenuProps.selectedValue}
                 previousIcon={facetMenuProps.previousIcon}
                 filterTags={filterTags}
@@ -222,52 +230,53 @@ Menu.defaultProps = {
     filterTagsEvents: defaultProps.filterTagsEvents
 }
 
-
-const SkuResults = ({
+const SearchResults = ({
     items,
     skuConfig,
     onItemClick
 }) => {
     const isEprocUser = isEprocurementUser();
-    const skuData = Array.isArray(items)
+    const searchData = Array.isArray(items)
         ? items.map(item => {
-            return {
-                code: item.skucode,
-                category_facet: item.category_facet,
-                contenttype_facet: item.contenttype_facet,
-                skuPageHref: isEprocUser ? item.eprocUrl : item.url,
-                formattedPrice: item.displayprice,
-                primaryImageAlt: item.title,
-                primaryImageThumbnail: item.thumbnail,
-                discontinued: item.status !== 'Active', // covers DiscontinueNoReplacement, DiscontinueWithReplacement, ObsoleteNoReplacement, and ObsoleteWithReplacement
-                replacementskuurl: item.replacementskuurl,
-                replacementskucode: item.replacementskucode,
-                title: item.title,
-            };
-        }) : [];
-
+            if (item.skucode) {
+                return {
+                    code: item.skucode,
+                    category_facet: item.category_facet,
+                    contenttype_facet: item.contenttype_facet,
+                    skuPageHref: isEprocUser ? item.eprocUrl : item.url,
+                    formattedPrice: item.displayprice,
+                    primaryImageAlt: item.title,
+                    primaryImageThumbnail: item.thumbnail,
+                    discontinued: item.status !== 'Active', // covers DiscontinueNoReplacement, DiscontinueWithReplacement, ObsoleteNoReplacement, and ObsoleteWithReplacement
+                    replacementskuurl: item.replacementskuurl,
+                    replacementskucode: item.replacementskucode,
+                    title: item.title,
+                }
+            } else {
+                return item;
+            }
+        }): [];
     return (
         <Suspense fallback={<div>Loading...</div>}>
             <SkuList
                 skuConfig={skuConfig}
-                data={skuData}
+                data={searchData}
                 onItemClick={onItemClick} />
         </Suspense>
     );
 }
 
-SkuResults.propTypes = {
+SearchResults.propTypes = {
     skuConfig: propTypes.skuConfig,
     items: PropTypes.any,
     onItemClick: PropTypes.func.isRequired
 };
 
-SkuResults.defaultProps = {
+SearchResults.defaultProps = {
     skuConfig: defaultProps.skuConfig,
     items: [],
     onItemClick: () => { }
 };
-
 
 const ResultsContent = ({
     text,
@@ -278,19 +287,10 @@ const ResultsContent = ({
 }) => {
     const items = resultsProps.items[searchParams.page];
 
-    if (resultsProps.isSkuList) {
-        return (
-            <SkuResults
-                items={items}
-                skuConfig={skuConfig}
-                onItemClick={resultsEvents.onResultsItemClick} />
-        );
-    }
-
     return (
-        <Results
-            results={items}
-            nextIcon={text.nextIcon}
+        <SearchResults
+            items={items}
+            skuConfig={skuConfig}
             onItemClick={resultsEvents.onResultsItemClick} />
     );
 }
@@ -310,7 +310,6 @@ ResultsContent.defaultProps = {
     resultsProps: defaultProps.resultsProps,
     resultsEvents: defaultProps.resultsEvents
 }
-
 
 const Pagination = ({
     resultsProps,
@@ -365,63 +364,123 @@ const ResultsBody = ({
     showSortFilterProps,
     showSortFilterEvents,
     asideProps,
+    asideEvents,
     filterTagsProps,
     filterTagsEvents,
     resultsProps,
     resultsEvents,
     isEprocurementUser
 }) => {
-    return (
-        <div className="cmp-search__container">
-            <div className="cmp-search__container__header clearfix">
-                {!isEprocurementUser && <CategoryDropdown
-
-                    categoryDownIcon={text.downIcon}
-                    categoryIsSearchable={false}
-                    categoryOnChange={categoryEvents.onCategoryDropdownChange}
-                    categoryOptions={categoryProps.categories}
-                    categoryValue={categoryProps.activeIndex} />}
-
-                <BtnShowSortFilter
-                    text={text}
-                    setupFilters={showSortFilterEvents.onSetupFilters}
-                    resetToSavedState={showSortFilterEvents.onResetToSavedState}
-                    collapseFilters={showSortFilterProps.collapseFilters}
-                    onClose={showSortFilterEvents.onClose} />
-                <div className="cmp-search__sorted-by">
-                    {text.sortedBy}:{' '}
-                    {asideProps.sortByText === 'most-relevant'
-                        ? text.sortByBestMatch
-                        : text.sortByMostRecent}
+    const desktopView = () => {
+        return (
+            <div className="cmp-search__container">
+                <div className="cmp-search__container__header clearfix">
+                    {!isEprocurementUser && <CategoryDropdown
+                        categoryDownIcon={text.downIcon}
+                        categoryLabelPrefix={text.categoryLabel}
+                        categoryIsSearchable={false}
+                        categoryOnChange={categoryEvents.onCategoryDropdownChange}
+                        categoryOptions={categoryProps.categories}
+                        categoryValue={categoryProps.activeIndex} />}
                 </div>
-            </div>
-            <div className="cmp-search__sorted-container">
-                <ResultsCount
-                    {...resultsProps}
-                    text={text}
-                    onRelatedSuggestionClick={resultsEvents.onRelatedSuggestionClick} />
+                <div className="cmp-search__sorted-container">
+                        <div className="cmp-search__sort-filter__container clearfix">
+                            <ResultsCount
+                                {...resultsProps}
+                                text={text}
+                                categoryOptions={categoryProps.categories}
+                                categoryValue={categoryProps.activeIndex}
+                                onRelatedSuggestionClick={resultsEvents.onRelatedSuggestionClick}  />
 
-                <FilterTagList
-                    text={text}
-                    filterMap={filterMap}
-                    filterTagsProps={filterTagsProps}
-                    filterTagsEvents={filterTagsEvents} />
+                            <Sort
+                                sortValue={asideProps.sortByValue}
+                                sortHandler={asideEvents.onSort}
+                                text={text} />
+                        </div>
 
-                <ResultsContent
-                    text={text}
-                    filterMap={filterMap}
-                    skuConfig={skuConfig}
-                    searchParams={searchParams}
+                    <FilterTagList
+                        text={text}
+                        filterMap={filterMap}
+                        filterTagsProps={filterTagsProps}
+                        filterTagsEvents={filterTagsEvents} />
+
+                    <ResultsContent
+                        text={text}
+                        filterMap={filterMap}
+                        skuConfig={skuConfig}
+                        searchParams={searchParams}
+                        resultsProps={resultsProps}
+                        resultsEvents={resultsEvents} />
+                </div>
+
+                <Pagination
                     resultsProps={resultsProps}
-                    resultsEvents={resultsEvents} />
+                    resultsEvents={resultsEvents}
+                    nextIcon={text.nextIcon}
+                    previousIcon={text.previousIcon} />
             </div>
+        );
+    }
+    const mobileView = () => {
+        return (
+            <div className="cmp-search__container">
+                <div className="cmp-search__container__header clearfix">
+                    <ResultsCount
+                        {...resultsProps}
+                        text={text}
+                        categoryOptions={categoryProps.categories}
+                        categoryValue={categoryProps.activeIndex}
+                        onRelatedSuggestionClick={resultsEvents.onRelatedSuggestionClick}  />
+                    {!isEprocurementUser && <CategoryDropdown
+                        categoryDownIcon={text.downIcon}
+                        categoryLabelPrefix={text.categoryLabel}
+                        categoryIsSearchable={false}
+                        categoryOnChange={categoryEvents.onCategoryDropdownChange}
+                        categoryOptions={categoryProps.categories}
+                        categoryValue={categoryProps.activeIndex} />}
 
-            <Pagination
-                resultsProps={resultsProps}
-                resultsEvents={resultsEvents}
-                nextIcon={text.nextIcon}
-                previousIcon={text.previousIcon} />
-        </div>
+                    <BtnShowSortFilter
+                        text={text}
+                        setupFilters={showSortFilterEvents.onSetupFilters}
+                        resetToSavedState={showSortFilterEvents.onResetToSavedState}
+                        collapseFilters={showSortFilterProps.collapseFilters}
+                        onClose={showSortFilterEvents.onClose} />
+                    <div className="cmp-search__sorted-by">
+                        {text.sortedBy}:{' '}
+                        {asideProps.sortByText === 'most-relevant'
+                            ? text.sort.options.bestMatch
+                            : text.sort.options.mostRecent}
+                    </div>
+                </div>
+                <div className="cmp-search__sorted-container">
+                    <FilterTagList
+                        text={text}
+                        filterMap={filterMap}
+                        filterTagsProps={filterTagsProps}
+                        filterTagsEvents={filterTagsEvents} />
+
+                    <ResultsContent
+                        text={text}
+                        filterMap={filterMap}
+                        skuConfig={skuConfig}
+                        searchParams={searchParams}
+                        resultsProps={resultsProps}
+                        resultsEvents={resultsEvents} />
+                </div>
+
+                <Pagination
+                    resultsProps={resultsProps}
+                    resultsEvents={resultsEvents}
+                    nextIcon={text.nextIcon}
+                    previousIcon={text.previousIcon} />
+            </div>
+        );
+    }
+
+    return (
+        <>
+            { screenSizes.isTabletAndOver() ? desktopView() : mobileView() }
+        </>
     );
 }
 
@@ -457,5 +516,4 @@ ResultsBody.defaultProps = {
     resultsEvents: defaultProps.resultsEvents
 }
 
-
-export { FilterTagList, Aside, Menu, SkuResults, ResultsContent, Pagination, ResultsBody }
+export { FilterTagList, Aside, Menu, SearchResults, ResultsContent, Pagination, ResultsBody }

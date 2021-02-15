@@ -25,7 +25,7 @@
                     ]
                 },
                 {
-                    "title": "${'Orders' @ i18n, context='unsafe'}",
+                    "title": "${'Orders and Quotes' @ i18n, context='unsafe'}",
                     "icon": "/content/dam/waters/en/brand-assets/icons/package.svg",
                     "requiresEcommerce": "true",
                     "isHiddenForEprocUser": "true",
@@ -42,10 +42,9 @@
                             "isHidden": "true"
                         },
                         {
-                            "text": "${'Quote History' @ i18n, context='unsafe'}",
-                            "url": "${'#quotehistory' @ context='unsafe'}",
-                            "linkName": "Quote History",
-                            "isHidden": "true"
+                            "text": "${myaccount.disableQuoteHistory ? '' : 'Quote History' @ i18n, context='unsafe'}",
+                            "url": "${myaccount.disableQuoteHistory ? '' : '#quotehistory' @ context='unsafe'}",
+                            "linkName": "Quote History"
                         },
                         {
                             "text": "${'Quote History' @ i18n, context='unsafe'}",
@@ -143,7 +142,7 @@
                 }         
             },
             "quoteHistory": {
-                "fetchEndPoint": "${myaccount.orderListUrl @ context='unsafe'}",
+                "fetchEndPoint": "${myaccount.quoteHistoryUrl @ context='unsafe'}",
                 "title": "${'Quote History' @ i18n, context='unsafe'}",
                 "resultsText": "${'Showing {0}-{1} of {2} Quotes' @ format=['{startResults}', '{endResults}', '{count}'], i18n, context='unsafe'}",
                 "noResultsFoundTitle": "${'Sorry, no quotes found.' @ i18n, context='unsafe'}",
@@ -153,6 +152,12 @@
                 "numberText": "${'Quote Number: ' @ i18n, context='unsafe'}",
                 "itemsText": "${' Items' @ i18n, context='unsafe'}",
                 "quoteAgainTitle": "${'Quote again' @ i18n, context='unsafe'}",
+                "created": "${'Created:' @ i18n, context='unsafe'}",
+                "expires": "${'Expires:' @ i18n, context='unsafe'}",
+                "orderNumberText": "${'Order Number: ' @ i18n, context='unsafe'}",
+				"newQuote": "${'New Quote: ' @ i18n, context='unsafe'}",
+                "isShowQuoteAgainButton": false,
+				
                 "shipment": {
                     "shipmentText": "${'Shipment' @ i18n, context='unsafe'}",
                     "trackShipmentText": "${'Track Shipment' @ i18n, context='unsafe'}",
@@ -162,10 +167,16 @@
                     "completeLabel": "${'Shipped' @ i18n, context='unsafe'}",
                     "completeShippedLabel": "${'Shipped on ' @ i18n, context='unsafe'}",
                     "expiredLabel": "${'Expired' @ i18n, context='unsafe'}",
-                    "orderPlacedLabel": "${'Order Placed' @ i18n, context='unsafe'}"
+                    "orderPlacedLabel": "${'Order Placed' @ i18n, context='unsafe'}",
+                    "quoteReplacedLabel": "${'Quote Replaced' @ i18n, context='unsafe'}",
+                    "pendingLabel": "${'Pending' @ i18n, context='unsafe'}",
+                    "rejectedLabel": "${'Rejected' @ i18n, context='unsafe'}"
                 },
                 "icons": {
                     "openIcon": "/content/dam/waters/en/brand-assets/icons/refresh.svg",
+                    "pendingIcon": "/content/dam/waters/en/brand-assets/icons/pending.svg",
+                    "replacedIcon":"/content/dam/waters/en/brand-assets/icons/repeat.svg",
+                    "rejectedIcon":"/content/dam/waters/en/brand-assets/icons/attention.svg",
                     "closedIcon": "/content/dam/waters/en/brand-assets/icons/close.svg",
                     "partialIcon": "/content/dam/waters/en/brand-assets/icons/success.svg",
                     "completeIcon": "/content/dam/waters/en/brand-assets/icons/success.svg",
@@ -261,7 +272,7 @@
                 }
             },
             "quoteDetails": {
-                "fetchDetailsEndPoint": "${myaccount.orderDetailsUrl @ context='unsafe'}",
+                "fetchDetailsEndPoint": "${myaccount.quoteHistoryUrl @ context='unsafe'}",
                 "fetchItemsEndPoint": "${myaccount.searchUrl @ context='unsafe'}",
                 "historyTitle": "${'Quote History' @ i18n, context='unsafe'}",
                 "detailsTitle": "${'Quote Details' @ i18n, context='unsafe'}",
@@ -285,6 +296,13 @@
                 "minusSign": "${'-' @ i18n, context='unsafe'}",
                 "totalLabel": "${'Quote Total' @ i18n, context='unsafe'}",
                 "reorderTitle": "${'Place Order' @ i18n, context='unsafe'}",
+                "quoteAgainTitle": "${'Quote again' @ i18n, context='unsafe'}",
+                "created": "${'Created:' @ i18n, context='unsafe'}",
+                "expires": "${'Expires:' @ i18n, context='unsafe'}",
+                "orderNumberText": "${'Order Number: ' @ i18n, context='unsafe'}",
+                "newQuote": "${'New Quote: ' @ i18n, context='unsafe'}",
+                "isShowQuoteAgainButton": false,
+                "isQuoteToOrderDisabled": true,
                 "paymentType": {
                     "purchaseOrder": {
                         "label": "${'PO' @ i18n, context='unsafe'}",
@@ -306,15 +324,22 @@
                     "completeLabel": "${'Shipped' @ i18n, context='unsafe'}",
                     "completeShippedLabel": "${'Shipped on ' @ i18n, context='unsafe'}",
                     "expiredLabel": "${'Expired' @ i18n, context='unsafe'}",
-                    "orderPlacedLabel": "${'Order Placed' @ i18n, context='unsafe'}"
+                    "orderPlacedLabel": "${'Order Placed' @ i18n, context='unsafe'}",
+                    "quoteReplacedLabel": "${'Quote Replaced' @ i18n, context='unsafe'}",
+                    "pendingLabel": "${'Pending' @ i18n, context='unsafe'}",
+                    "rejectedLabel": "${'Rejected' @ i18n, context='unsafe'}"
                 },
                 "icons": {
                     "openIcon": "/content/dam/waters/en/brand-assets/icons/refresh.svg",
+                    "pendingIcon": "/content/dam/waters/en/brand-assets/icons/pending.svg",
+                    "replacedIcon":"/content/dam/waters/en/brand-assets/icons/repeat.svg",
+                    "rejectedIcon":"/content/dam/waters/en/brand-assets/icons/attention.svg",
                     "closedIcon": "/content/dam/waters/en/brand-assets/icons/close.svg",
                     "partialIcon": "/content/dam/waters/en/brand-assets/icons/success.svg",
                     "completeIcon": "/content/dam/waters/en/brand-assets/icons/success.svg",
                     "expiredIcon": "/content/dam/waters/en/brand-assets/icons/x.svg",
-                    "orderPlacedIcon": "/content/dam/waters/en/brand-assets/icons/success.svg"
+                    "orderPlacedIcon": "/content/dam/waters/en/brand-assets/icons/success.svg",
+                    "newQuoteOrderIcon": "/content/dam/waters/en/brand-assets/icons/transfer.svg"
                 },
                 "modalInfo":{
                     "icon":"/content/dam/waters/en/brand-assets/icons/cart.svg",
@@ -357,6 +382,7 @@
             "form": {
                 "formName": "personaldetails",
                 "submitEndpoint": "${myaccount.myAccountUpdateUrl @ context='unsafe'}",
+                "soldToDetailsUrl": "${myaccount.soldToDetailsUrl @ context='unsafe'}",
                 "buttonText": "${'Save Changes' @ i18n, context='unsafe'}",
 				"buttonLocator": "save-changes",
                 "cancelText": "${'Cancel' @ i18n, context='unsafe'}",
