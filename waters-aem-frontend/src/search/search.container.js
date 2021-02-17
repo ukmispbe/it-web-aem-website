@@ -1183,18 +1183,14 @@ class SearchContainer extends Component {
     }
 
     noSearchResultsToggle = () => {
-        let zeroResultsXF = document.querySelector('#zeroresults');
-        console.log("zeroResultsXF", zeroResultsXF);
+        const zeroResultsXF = document.querySelector('#zeroresults');
         const hideZeroResultsClass = 'has-search-results';
-        let parentLayoutContainer = zeroResultsXF.closest('.layoutcontainer');
-        console.log("parentLayoutContainer", parentLayoutContainer);
+        let parentLayoutContainer = zeroResultsXF && zeroResultsXF.closest('.layoutcontainer');
 
-        if (zeroResultsXF && this.state.noResults) {
+        if (parentLayoutContainer && this.state.noResults) {
             domElements.removeClass(parentLayoutContainer, hideZeroResultsClass);
-            console.log("removeClass", hideZeroResultsClass);
-        } else if (zeroResultsXF && !this.state.noResults) {
+        } else if (parentLayoutContainer && !this.state.noResults) {
             domElements.addClass(parentLayoutContainer, hideZeroResultsClass)
-            console.log("addClass", hideZeroResultsClass);
         }
     }
 
@@ -1203,7 +1199,9 @@ class SearchContainer extends Component {
             return <Loading visible={true} />
         };
 
-        this.noSearchResultsToggle();
+        if (!this.state.loading) {
+            this.noSearchResultsToggle();
+        }
 
         if (this.state.noResults) {
             return <SearchBreadcrumb

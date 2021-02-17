@@ -2,18 +2,9 @@
 @import 'mixins.scss';
 @import 'typography.scss';
 
-
-.no-search-results {
-    display: block;
-}
-.aem-Grid {
-    > .layoutcontainer {
-        & .responsivegrid {
-            & .has-search-results {
-                display: none;
-            }
-        }
-    }
+//hide no search results XF
+.aem-Grid > .layoutcontainer.responsivegrid.has-search-results {
+    display: none !important;
 }
 
 .cmp-search-results {
