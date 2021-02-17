@@ -39,14 +39,15 @@ const CreateIRequestForm = ({
       }
 
       if (productOptions.length === 1) {
-        setClearActiveLabel(supportRequestFields, "productRequiringSupportLabel", true);
-        setClearActiveLabel(supportRequestFields, "productDetailsLabel", true);
-        // set the drop down value 
-        productDetailsDropDown.addClass = "hidden-dropdown";
+        setClearActiveLabel(supportRequestFields, "productDetailsText", true); 
+        setClearActiveLabel(supportRequestFields, "productDetailsValue", true); 
+        setClearActiveLabel(supportRequestFields, "productDetails", false);
+        // set the Text value 
+
       }
       else {
-        setClearActiveLabel(supportRequestFields, "productRequiringSupportLabel", false);
-        setClearActiveLabel(supportRequestFields, "productDetailsLabel", false);       
+        setClearActiveLabel(supportRequestFields, "productDetailsText", false);       
+        setClearActiveLabel(supportRequestFields, "productDetails", true); 
       }
     }
     setSupportRequestFormConfig(supportReqFormConfig);
@@ -88,12 +89,40 @@ const CreateIRequestForm = ({
     setShowForm(0);
   }
 
-  const handleDisplayProductType = ()=>  {
-    //setShowForm(0);
+  // Display or Hide the Product Options Drop Down
+  const handleDisplayProductTypeDropDown = (displayDropDownFlag)=>  {
+    if (supportReqFormConfig) {
+      const supportRequestFields = supportReqFormConfig.config.fields;
+      setClearActiveLabel(supportRequestFields, "productType", displayDropDownFlag); 
+      setSupportRequestFormConfig(supportReqFormConfig);  
+    }
   }
 
-  const handleDisplaySubProductType = ()=>  {
-    //setShowForm(0);
+  // If the Product Selected has sub Options Populate and display, otherwise clear options and hide
+  const handleChangeProductType = (productOption) => {
+    if (supportReqFormConfig) {
+      const supportRequestFields = supportReqFormConfig.config.fields;
+      const allSubProductOptions = supportReqFormConfig.config.subOptions;
+      let subProductOptions;
+      if (allSubProductOptions) {
+        subProductOptions = allSubProductOptions.find(obj => {
+          return obj.optionValue === productOption.value;
+        });
+      }
+
+      const subProductDropDown = supportRequestFields.find(obj => {
+        return obj.name === "subProductType"
+      });
+      if (subProductDropDown) {
+        if (subProductOptions) {
+          subProductDropDown.options = subProductOptions.options;
+          setClearActiveLabel(supportRequestFields, "subProductType", true);
+        } else {
+          subProductDropDown.options = [];
+          setClearActiveLabel(supportRequestFields, "subProductType", false);
+        }
+      }
+    }
   }
 
   switch (showForm) {
@@ -107,17 +136,20 @@ const CreateIRequestForm = ({
         />
       </Suspense>) ;
     case 1:
+      // Temp Values to mimic setting API Response 
       const formValues = {
-        "productDetails": "CO2_BULK"
+        "productDetailsValue": "CO2_BULK",
+        "productDetailsText": "CO2 Bulk Delivery 500G System"
       };
+      // End of Temp Values to mimic setting API Response 
       return (
           <Suspense fallback={<div>Loading...</div>}>
             <Form
               {...supportReqFormConfig}
               defaultValues={formValues}
               navigateBackFn={handleNavigateBackFn}
-              displayProductType={handleDisplayProductType}
-              displaySubProductType={handleDisplaySubProductType}
+              displayProductTypeDropDown={handleDisplayProductTypeDropDown}
+              changeProductType={handleChangeProductType}
               submitFn={checkIRequestSubmit}
               isocode={isocode}
             />

@@ -44,8 +44,8 @@ const Form = ({
     toggleAddressFn,
     navigateBackFn,
     addAddressesFn,
-    displayProductType,
-    displaySubProductType
+    displayProductTypeDropDown,
+    changeProductType
 }) => {
     if (defaultValues) {
         defaultValues.communications =
@@ -355,8 +355,8 @@ const Form = ({
             toggleAddressFn,
             navigateBackFn,
             addAddressesFn,
-            displayProductType,
-            displaySubProductType,
+            displayProductTypeDropDown,
+            changeProductType,
             setErrorBoundaryToTrue,
             resetErrorBoundaryToFalse,
             removeNotifications,

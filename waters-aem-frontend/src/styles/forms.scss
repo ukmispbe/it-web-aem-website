@@ -696,3 +696,36 @@
         }
     }
 }
+#js-irequest-form {
+    .cmp-form {
+        .text-as-label {  
+            input:disabled {
+                border: none !important;
+                padding: 0;
+                color: $color-black;
+            }
+            .cmp-form-field--icons {
+                display: none;
+            }           
+        }
+        .text-hidden {  
+            display: none;
+        }
+        .cmp-back-link {
+            a {
+                vertical-align: text-bottom;
+            }
+            svg {
+                width: $icon-s;
+                height: $icon-s;
+                .st0,
+                .st1 {
+                    stroke: $color-link;
+                }
+            }
+        }
+        .cmp-heading-label {
+            @include font-h4;
+        }
+    }
+}

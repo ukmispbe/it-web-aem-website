@@ -15,7 +15,7 @@ const DropdownIndicator = props => {
 
 const Select = (props) => {
     const { name, options, dropdownIndicator, placeholder, disabled, defaultValue } = useContext(useFieldApi);
-    const { triggerValidation, setValue, getValue, activateField, deactivateField, setCountrySaved, regionalConfig, displayProductType, displaySubProductType } = useContext(useFormApi);
+    const { triggerValidation, setValue, getValue, activateField, deactivateField, setCountrySaved, regionalConfig, displayProductTypeDropDown, changeProductType } = useContext(useFormApi);
     const [selectedValue, setSelectedValue] = useState(getValue(name) ? getValue(name).toLowerCase() : (props.defaultValue || ""));
     const setupOptions = (label, value) => ({ label: label, value: value });
 
@@ -53,6 +53,25 @@ const Select = (props) => {
             }
             // Update Country Code in State
             setCountrySaved(option.value);
+        }
+
+        if (name === "supportType") {
+            // Check if Option is "I need Help with an Issue"
+            // Display or Hide Product Type Drop Down
+            if (option.value === "HELP") {
+                displayProductTypeDropDown(true); 
+                triggerValidation(["supportType"]);            
+            }
+            else {
+                displayProductTypeDropDown(false);
+                triggerValidation(["supportType"]);
+            }
+        }
+        if (name === "productType") {
+            // Pass the option to the changeProductType function to determine if Sub Product Type Drop Down needs displaying
+            // Display or Hide Product Type Drop Down
+            changeProductType(option);
+            triggerValidation(["productType"]);
         }
     };
 

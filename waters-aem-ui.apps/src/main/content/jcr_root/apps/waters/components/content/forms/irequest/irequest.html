@@ -14,8 +14,6 @@
                 "checkmarkIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
                 "validIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
                 "invalidIcon": "/content/dam/waters/en/brand-assets/icons/attention.svg",
-                "eyeIcon": "/content/dam/waters/en/brand-assets/icons/eye.svg",
-                "eyeOffIcon": "/content/dam/waters/en/brand-assets/icons/eye-off.svg",
                 "signInIcon": "/content/dam/waters/en/brand-assets/icons/user.svg"
             },
             "fields": [
@@ -27,7 +25,7 @@
                 {
                     "type": "text",
                     "name": "serialNumber",
-                    "label": "${'Enter Serial Number ' @ i18n, context='text'}",
+                    "label": "${'Enter Serial Number or Software Support Plan ID' @ i18n, context='text'}",
                     "validation": {
                         "required": true,
                         "maxLength": {
@@ -59,32 +57,30 @@
         {
             "formName": "irequest",
             "submitEndpoint": "${irequest.registrationSubmitUrl @ context='unsafe'}",
-            "buttonText": "${'Create Account' @ i18n, context='text'}",
-            "altButtonText": "${'Continue' @ i18n, context='text'}",
+            "buttonText": "${'Send Request' @ i18n, context='text'}",
             "redirectUrl": "${irequest.redirectLink.href @ context='unsafe'}",
             "needsToBeSignedOut": true,
-            "elementLocator": "registration-form",
-			"buttonLocator": "create-account",
+            "elementLocator": "irequest-form",
+			"buttonLocator": "send-request",
             "icons": {
                 "checkmarkIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
                 "validIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
                 "invalidIcon": "/content/dam/waters/en/brand-assets/icons/attention.svg",
-                "eyeIcon": "/content/dam/waters/en/brand-assets/icons/eye.svg",
-                "eyeOffIcon": "/content/dam/waters/en/brand-assets/icons/eye-off.svg",
-                "signInIcon": "/content/dam/waters/en/brand-assets/icons/user.svg",
                 "lockIcon": "/content/dam/waters/en/brand-assets/icons/lock.svg"
             },
             "fields": [
                 {
                     "type": "navigateLink",
-                    "text": "${'Enter a different Serial Number.' @ i18n, context='unsafe'}",
+                    "addClass": "cmp-back-link",
+                    "text": "${'Back' @ i18n, context='unsafe'}",
                     "name": "backLink",
+                    "iconSrc": "/content/dam/waters/en/brand-assets/icons/left.svg",
                     "link": "#"
                 },
                 {
                     "type": "label",
                     "name": "serialNumberLabel",
-                    "label": "${'Serial Number:' @ i18n, context='unsafe'}"
+                    "label": "${'Serial Number or Software Support Plan ID:' @ i18n, context='unsafe'}"
                 },
                 {
                     "type": "label",
@@ -106,20 +102,28 @@
                     "type": "label",
                     "name": "requiredLabel",
                     "label": "${'*Required field' @ i18n, context='unsafe'}"
+                }, 
+                {
+                    "type": "text",
+                    "active": false,
+                    "addClass": "text-as-label",
+                    "disabled": true,
+                    "name": "productDetailsText",
+                    "label": "${'Product Requiring Support' @ i18n, context='unsafe'}",
+                    "validation": {
+                        "required": false
+                    }
+                }, 
+                {
+                    "type": "text",
+                    "active": false,
+                    "addClass": "text-hidden",
+                    "disabled": true,
+                    "name": "productDetailsValue",
+                    "validation": {
+                        "required": false
+                    }
                 },
-                {
-                    "type": "label",
-                    "active": false,
-                    "addClass": "cmp-heading-label",
-                    "name": "productRequiringSupportLabel",
-                    "label": "${'Product Requiring Support' @ i18n, context='unsafe'}"
-                }, 
-                {
-                    "type": "label",
-                    "active": false,
-                    "name": "productDetailsLabel",
-                    "label": "${'CO2 Bulk Delivery 500G System' @ i18n, context='unsafe'}"
-                }, 
                 {
                     "type": "dropdown",
                     "name": "productDetails",
@@ -130,7 +134,7 @@
                         {"value":"CO2_BULK","label": "${'CO2 Bulk Delivery 500G System' @ i18n, context='text'}"},
                         {"value":"TA_AD","label": "${'S/W Suite TA Advantage v5.0 Kit' @ i18n, context='text'}"}
                     ],
-                    "active": true,
+                    "active": false,
                     "validation": {
                         "required": true,
                         "requiredMsg": "${'Please select your Product.' @ i18n, context='text'}"
@@ -170,7 +174,7 @@
                         {"value":"MALDI","label": "${'Maldi Instruments' @ i18n, context='text'}"},
                         {"value":"SFC","label": "${'SFC of SFC-MS Instruments' @ i18n, context='text'}"}
                     ],
-                    "active": true,
+                    "active": false,
                     "validation": {
                         "required": true,
                         "requiredMsg": "${'Please select a product type.' @ i18n, context='text'}"
@@ -184,7 +188,7 @@
                     "dropdownIndicator": "/content/dam/waters/en/brand-assets/icons/down.svg",
                     "options": [
                     ],
-                    "active": true,
+                    "active": false,
                     "validation": {
                         "required": true,
                         "requiredMsg": "${'Please select a sub product type.' @ i18n, context='text'}"
@@ -194,6 +198,7 @@
                     "type": "textarea",
                     "name": "formDescription",
                     "label": "${'Support Request Summary' @ i18n, context='text'}",
+                    "optionalLabel": "${'(optional)' @ i18n, context='text'}",
                     "resize": false,
                     "rows": 5,
                     "validation": {
@@ -279,7 +284,21 @@
                         "required": false,
                         "validationMsg": "${'Please enter a valid phone number (Numbers Only).' @ i18n, context='text'}"
                     }
-                },              
+                },  
+                {
+                    "type": "radio",
+                    "name": "contactMethod",
+                    "label": "${'Email' @ i18n, context='unsafe'}",
+                    "options": [
+                        {"name":"LC","label": "${'LC Software' @ i18n, context='text'}"},
+                        {"name":"MS","label": "${'MS Software' @ i18n, context='text'}"}
+                    ],
+                    "validation": {
+                        "required": true,
+                        "validateFnName": "checkBoxOrRadio",
+                        "validationMsg": "Select an Account"
+                    }
+                },           
                 {
                     "type": "textwithlinks",
                     "name": "privacy",

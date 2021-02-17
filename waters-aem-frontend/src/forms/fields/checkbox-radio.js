@@ -73,7 +73,7 @@ const CheckboxOrRadio = ({}) => {
 
             const thisState = state[thisName];
 
-            if (config.getRadioOptions && options) {
+            if (options) {
                 for (let key of Object.keys(state)) {
                     if (key === thisName) {
                         state[key].isChecked = true;
@@ -204,10 +204,13 @@ const CheckboxOrRadio = ({}) => {
         ) : (
                 <div id={name} className={`cmp-form-field-${type}--grouping`}>
                     {options.map((option, i) => {
-                        let address=[];
-                        option.address.map((addressPiece) => {
-                            address.push(<div className={`cmp-form-field-${type}--address1`}>{addressPiece}</div>)
-                        })
+                        let address;
+                        if (option.address) {
+                            address=[];
+                            option.address.map((addressPiece) => {
+                                address.push(<div className={`cmp-form-field-${type}--address1`}>{addressPiece}</div>)
+                            })
+                        }
                         return (
                             <>
                                 <div style={{ paddingTop: "10px" }}
