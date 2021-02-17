@@ -6,32 +6,6 @@ exports[`Feature: FacetMenu Component Scenario: Rendering When content type has 
   data-locator="facet-menu-container"
 >
   <div
-    className="facet-menu-container__heading"
-    data-locator="facet-menu-container-heading"
-  >
-    <div
-      className="heading--with-selected-value"
-      data-locator="heading-with-selected-value"
-    >
-      <div
-        className="back-btn"
-      >
-        <a
-          data-locator="link-back-button"
-          href="javascript:void(0)"
-          onClick={[MockFunction]}
-        >
-          <div />
-           
-          Filter By
-        </a>
-      </div>
-      <h3>
-        Application Note
-      </h3>
-    </div>
-  </div>
-  <div
     className="facet-menu-container__body"
     data-locator="facet-menu-container-body"
   />

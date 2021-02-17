@@ -82,7 +82,7 @@ FilterTagList.propTypes = {
     filterMap: propTypes.filterMap,
     filterTagsProps: propTypes.filterTagsProps,
     filterTagsEvents: propTypes.filterTagsEvents,
-    subFacetMap: proptTypes.subFacetMap,
+    subFacetMap: propTypes.subFacetMap,
 }
 
 FilterTagList.defaultProps = {
