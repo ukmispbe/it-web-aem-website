@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { parameterValues, parameterDefaults, searchMapper } from './services/index';
 import { parse, stringify } from 'query-string';
 import { withRouter } from 'react-router-dom';
-import NoResults from './components/no-results';
+//import NoResults from './components/no-results';
 import validator from 'validator';
 import domElements from '../scripts/domElements';
 import screenSizes from '../scripts/screenSizes';
@@ -11,6 +11,7 @@ import Loading from './components/loading';
 import SearchComponent from './search.component';
 import { isEprocurementUser } from '../utils/userFunctions';
 import { SEARCH_TYPES } from '../constants';
+import SearchBreadcrumb from '../common/search-breadcrumb';
 
 class SearchContainer extends Component {
     constructor(props) {
@@ -1181,15 +1182,35 @@ class SearchContainer extends Component {
         };
     }
 
+    noSearchResultsToggle = () => {
+        let zeroResultsXF = document.querySelector('#zeroresults');
+        console.log("zeroResultsXF", zeroResultsXF);
+        const hideZeroResultsClass = 'has-search-results';
+        let parentLayoutContainer = zeroResultsXF.closest('.layoutcontainer');
+        console.log("parentLayoutContainer", parentLayoutContainer);
+
+        if (zeroResultsXF && this.state.noResults) {
+            domElements.removeClass(parentLayoutContainer, hideZeroResultsClass);
+            console.log("removeClass", hideZeroResultsClass);
+        } else if (zeroResultsXF && !this.state.noResults) {
+            domElements.addClass(parentLayoutContainer, hideZeroResultsClass)
+            console.log("addClass", hideZeroResultsClass);
+        }
+    }
+
     render() {
         if (this.state.loading && !screenSizes.isTabletAndUnder()) {
             return <Loading visible={true} />
         };
 
+        this.noSearchResultsToggle();
+
         if (this.state.noResults) {
-            return <NoResults
-                        searchText={this.props.searchText}
-                        query={this.state.keyword} />;
+            return <SearchBreadcrumb
+                        text={this.props.searchText}
+                        searchParams={this.state.searchParams}
+                        clearSessionStore={this.props.search.clearSessionStore}
+                        noResults={this.state.noResults}/>;
         }
 
         return <SearchComponent

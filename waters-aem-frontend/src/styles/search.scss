@@ -2,6 +2,20 @@
 @import 'mixins.scss';
 @import 'typography.scss';
 
+
+.no-search-results {
+    display: block;
+}
+.aem-Grid {
+    > .layoutcontainer {
+        & .responsivegrid {
+            & .has-search-results {
+                display: none;
+            }
+        }
+    }
+}
+
 .cmp-search-results {
     margin-left: -14px;
 

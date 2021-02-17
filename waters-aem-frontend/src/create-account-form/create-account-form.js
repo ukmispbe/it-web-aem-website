@@ -259,7 +259,7 @@ const CreateAccountForm = ({
           lastName: registrationData.data.lastName,
           company: registrationData.data.company,
           communications: registrationData.data.communications
-       }
+        }
       }
       return (
           <Suspense fallback={<div>Loading...</div>}>
@@ -284,7 +284,7 @@ const CreateAccountForm = ({
             shippingCountry: registrationData.data.countryName,
             billingCountry: registrationData.data.countryName,
             country: registrationData.data.country
-         }
+          }
         }
 
         return (
