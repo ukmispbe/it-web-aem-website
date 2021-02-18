@@ -5,20 +5,25 @@
    <sly data-sly-test="${properties.backgroundColor}">
       <div id="${container.id}" class="cmp-container" style="${container.backgroundStyle @ context='styleString'}">
    </sly>
-   <sly
-      data-sly-use.container="com.waters.aem.core.components.content.Container">
-   <div class="cmp-container__wrapper">
-   <sly
-      data-sly-resource="${resource @ resourceType='wcm/foundation/components/responsivegrid'}"></sly>
-   </div>
-   <div class="cmp-container__background-overlay"></div>
-   <div class="cmp-container__background-image">
-   <sly data-sly-test="${properties.backgroundImageReference}"> <picture>
-   <source srcset="${container.desktopUrl}"
-      media="(min-width: 651px) and (max-width: 1200px)">
-   <source srcset="${container.mobileUrl}" media="(max-width: 650px)">
-   <img src="${container.desktopUrl}"> </picture></sly>
-   </div>
+   <sly data-sly-use.container="com.waters.aem.core.components.content.Container">
+	   <div class="cmp-container__wrapper">
+		   <sly data-sly-resource="${resource @ resourceType='wcm/foundation/components/responsivegrid'}"></sly>
+		</div>
+		<div class="cmp-container__background-overlay"></div>
+		<div class="cmp-container__background-image">
+		   <sly data-sly-test="${properties.backgroundImageReference}">
+			   <picture>
+				   <source srcset="${container.desktopUrl}" media="(min-width: 651px) and (max-width: 1200px)">
+				   <source srcset="${container.mobileUrl}" media="(max-width: 650px)">
+				   <img src="${container.desktopUrl}">
+				</picture>
+			</sly>
+	   </div>
    </sly>
-   </div>
+   <sly data-sly-test="${properties.backgroundColor}">
+      </div>
+   </sly>
+   <sly data-sly-test="${properties.backgroundImageReference}">
+      </div>
+   </sly>
 </template>
