@@ -14,7 +14,7 @@ import Field from './fields';
 import Analytics, { analyticTypes } from "../analytics";
 import SessionStore from '../stores/sessionStore';
 import loginStatus from '../scripts/loginStatus';
-import { homePageRedirect } from '../utils/redirectFunctions';
+import { homePageRedirect, signInRedirect } from '../utils/redirectFunctions';
 import Spinner from "../utils/spinner";
 import { elementLocator } from '../utils/eCommerceFunctions';
 import { getAddressesByType, getFullCompanyAddress } from '../utils/userFunctions';
@@ -44,8 +44,7 @@ const Form = ({
     toggleAddressFn,
     navigateBackFn,
     addAddressesFn,
-    displayProductTypeDropDown,
-    changeProductType
+    displayProductTypeDropDown
 }) => {
     if (defaultValues) {
         defaultValues.communications =
@@ -356,7 +355,6 @@ const Form = ({
             navigateBackFn,
             addAddressesFn,
             displayProductTypeDropDown,
-            changeProductType,
             setErrorBoundaryToTrue,
             resetErrorBoundaryToFalse,
             removeNotifications,

@@ -26,7 +26,7 @@ const TextArea = ({
         isCharOver: false,
     });
 
-    const { disabled, matchLabel, emailValidationEndpoint, optionalLabel } = useContext(useFieldApi);
+    const { disabled, matchLabel, emailValidationEndpoint, optionalLabel, placeHolder } = useContext(useFieldApi);
     const { register, setError, setValue, clearError } = useContext(useFormApi);
 
     const errors = useErrorsContext();
@@ -116,8 +116,8 @@ const TextArea = ({
                         onFocus={toggleReq}
                         onChange={updateReq}
                         onKeyUp={onKeyUp}
-                        placeholder=" "
-                        disabled={disabled}
+                        placeholder={ placeHolder ? placeHolder :" "}
+                        disabled={disabled} 
                         aria-labelledby={name}
                         aria-required={validation.required}
                         resize={resize}

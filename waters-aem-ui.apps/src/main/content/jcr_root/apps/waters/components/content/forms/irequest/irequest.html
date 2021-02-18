@@ -7,9 +7,9 @@
             "submitEndpoint": "${irequest.passwordResetUrl @ context='unsafe'}",
             "redirectUrl": "${irequest.redirectEcommLink.href @ context='unsafe'}",
             "buttonText": "${'CONTINUE' @ i18n, context='text'}",
-            "elementLocator": "check-email-form",
+            "elementLocator": "check-serial-form",
 			"buttonLocator": "continue",
-            "needsToBeSignedOut": true,
+            "needsToBeSignedIn": false,
             "icons": {
                 "checkmarkIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
                 "validIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
@@ -59,7 +59,7 @@
             "submitEndpoint": "${irequest.registrationSubmitUrl @ context='unsafe'}",
             "buttonText": "${'Send Request' @ i18n, context='text'}",
             "redirectUrl": "${irequest.redirectLink.href @ context='unsafe'}",
-            "needsToBeSignedOut": true,
+            "needsToBeSignedIn": false,
             "elementLocator": "irequest-form",
 			"buttonLocator": "send-request",
             "icons": {
@@ -147,10 +147,11 @@
                     "placeholder": "${'Select...' @ i18n, context='text'}",
                     "dropdownIndicator": "/content/dam/waters/en/brand-assets/icons/down.svg",
                     "options": [
-                        {"value":"MNT","label": "${'Maintenance' @ i18n, context='text'}"},
+                        {"value":"TECH","label": "${'Technical Support' @ i18n, context='text'}"},
+                        {"value":"MNT","label": "${'Preventative Maintenance' @ i18n, context='text'}"},
                         {"value":"QUAL","label": "${'Qualification' @ i18n, context='text'}"},
-                        {"value":"INST_REL","label": "${'Installation-Relocation' @ i18n, context='text'}"},
-                        {"value":"HELP","label": "${'I need help with an issue' @ i18n, context='text'}"}
+                        {"value":"INST_REL","label": "${'Installation-Relocation' @ i18n, context='text'}"}
+                        
                     ],
                     "active": true,
                     "validation": {
@@ -181,24 +182,11 @@
                     }
                 },
                 {
-                    "type": "dropdown",
-                    "name": "subProductType",
-                    "label": "${'Sub Product Type' @ i18n, context='text'}",
-                    "placeholder": "${'Select...' @ i18n, context='text'}",
-                    "dropdownIndicator": "/content/dam/waters/en/brand-assets/icons/down.svg",
-                    "options": [
-                    ],
-                    "active": false,
-                    "validation": {
-                        "required": true,
-                        "requiredMsg": "${'Please select a sub product type.' @ i18n, context='text'}"
-                    }
-                },
-                {
                     "type": "textarea",
                     "name": "formDescription",
                     "label": "${'Support Request Summary' @ i18n, context='text'}",
                     "optionalLabel": "${'(optional)' @ i18n, context='text'}",
+                    "placeHolder": "${'Please provide a brief summary of your issue. Be sure to include any pertinent information such as system configuration.' @ i18n, context='text'}",
                     "resize": false,
                     "rows": 5,
                     "validation": {
@@ -288,10 +276,10 @@
                 {
                     "type": "radio",
                     "name": "contactMethod",
-                    "label": "${'Email' @ i18n, context='unsafe'}",
+                    "label": "${'Preferred Method of Contact' @ i18n, context='unsafe'}",
                     "options": [
-                        {"name":"LC","label": "${'LC Software' @ i18n, context='text'}"},
-                        {"name":"MS","label": "${'MS Software' @ i18n, context='text'}"}
+                        {"name":"E","label": "${'Email' @ i18n, context='text'}"},
+                        {"name":"P","label": "${'Phone' @ i18n, context='text'}"}
                     ],
                     "validation": {
                         "required": true,
@@ -333,40 +321,6 @@
                             "text": "${'.' @ i18n, context='text'}",
                             "rightSpace": "false"
                         }
-                    ]
-                }
-            ],
-            "subOptions": [
-                {
-                    "optionValue": "LC",
-                    "options": [
-                        {"value":"B1254","label": "${'Empower Build 1154' @ i18n, context='text'}"},
-                        {"value":"B2154","label": "${'Empower Build 2154' @ i18n, context='text'}"},
-                        {"value":"EMP3","label": "${'Empower3' @ i18n, context='text'}"},                        
-                        {"value":"BRE2","label": "${'Breeze2' @ i18n, context='text'}"},
-                        {"value":"BRE3_3","label": "${'Breeze3.3' @ i18n, context='text'}"},
-                        {"value":"OTHER","label": "${'Other than listed' @ i18n, context='text'}"}
-                    ]
-                },
-                {
-                    "optionValue": "MS",
-                    "options": [
-                        {"value":"ML41","label": "${'Masslynx 4.1' @ i18n, context='text'}"},
-                        {"value":"ML40","label": "${'Masslynx 4.0' @ i18n, context='text'}"},
-                        {"value":"PLGS","label": "${'PLGS' @ i18n, context='text'}"},                        
-                        {"value":"ID_ION","label": "${'Identity/Ion Expression' @ i18n, context='text'}"},
-                        {"value":"2154","label": "${'Empower 2154' @ i18n, context='text'}"},
-                        {"value":"1154","label": "${'Empower 1154' @ i18n, context='text'}"},
-                        {"value":"OTHER","label": "${'Other than listed' @ i18n, context='text'}"}
-                    ]
-                },
-                {
-                    "optionValue": "NUGEN",
-                    "options": [
-                        {"value":"SDMS","label": "${'NuGenesis SDMS' @ i18n, context='text'}"},
-                        {"value":"SVP","label": "${'SDMS Vision Publisher' @ i18n, context='text'}"},
-                        {"value":"AWM","label": "${'Analytical Workflow Manager (AWM)' @ i18n, context='text'}"},                        
-                        {"value":"ID_ION","label": "${'Identity/Ion Expression' @ i18n, context='text'}"}
                     ]
                 }
             ]
