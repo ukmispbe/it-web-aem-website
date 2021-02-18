@@ -226,6 +226,18 @@
     }
 }
 
+.cmp-container--mediumPadding .cmp-container {
+    .cmp-container__wrapper {
+        padding: $space-m 0;
+    }
+}
+
+.cmp-container--xlargePadding .cmp-container {
+    .cmp-container__wrapper {
+        padding: $space-xl 0;
+    }
+}
+
 .cmp-container--position0 .cmp-container {
     .cmp-container__background-image img {
         object-position: 0 0%;
