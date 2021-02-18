@@ -169,8 +169,8 @@ public class MyAccount implements ComponentExporter {
         return RESOURCE_TYPE;
     }
 
-    public Boolean getShowQuoteHistory() {
-        return currentPage.getInherited("showQuoteHistory", Boolean.FALSE);
+    public Boolean getDisableQuoteHistory() {
+        return currentPage.getInherited("quoteDisabled", Boolean.FALSE);
     }
 
 }

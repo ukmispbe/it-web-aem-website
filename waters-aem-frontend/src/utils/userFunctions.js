@@ -78,6 +78,13 @@ export const getSoldToIdSource = (soldToId, dummySoldto) => {
     return soldTo;
 }
 
+export const getApprovalStatus = () => {
+    const store = new SessionStore();
+    const userDetails = store.getUserDetails();
+    const approvalStatus = userDetails && userDetails.approvalStatus || '';
+    return approvalStatus;
+}
+
 //Note: Returning all possible soldTo values for debugging and in case of future needs
 export const callCustomerPriceApi = (custPriceApiDisabled) => {
     let salesOrg = getSalesOrg();
@@ -496,4 +503,15 @@ export const getSearchString = (path, paramString, requestObject = {}, type = ''
             searchString = `${path}?${paramString}`;
     }
     return searchString;
+}
+
+
+export const convertToBoolean = (value = '') => {
+    let status = false;
+    if(typeof value === "string"){
+        if(value.toLowerCase() === 'true'){
+            status = true;
+        }
+    }
+    return status
 }
