@@ -23,7 +23,6 @@ class QuoteListItem extends Component {
         }
     }
 
-
     renderQuoteAgainButton = () => {
         return (
             <a className="cmp-button" href="/#" onClick={(e) => this.quoteAgain(e)} >
@@ -52,10 +51,10 @@ class QuoteListItem extends Component {
                         </a>
                     </div>
                     <div className="cmp-quote-data-section">
-                    {quoteCreationDate && (<div className="cmp-order-list__date" data-locator="order-list-created-date">
+                    {quoteCreationDate && (<div className="cmp-order-list__date" data-locator="quote-history-tiles-created-date">
                         {`${created} ${quoteCreationDate}`}
                     </div>)}
-                    {showExpireDate && quoteExpirationDate && (<div className="cmp-order-list__date" data-locator="order-list-expires-date">
+                    {showExpireDate && quoteExpirationDate && (<div className="cmp-order-list__date" data-locator="quote-history-tiles-expires-date">
                         {`${expires} ${quoteExpirationDate}`}
                     </div>)}
                     {showOrderNumber && orderNumber && (<div className="cmp-order-list__order-number-text" data-locator="quote-order-number">
