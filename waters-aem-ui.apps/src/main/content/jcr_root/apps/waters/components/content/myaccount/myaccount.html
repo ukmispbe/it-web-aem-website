@@ -42,8 +42,8 @@
                             "isHidden": "true"
                         },
                         {
-                            "text": "${myaccount.showQuoteHistory ? 'Quote History' : '' @ i18n, context='unsafe'}",
-                            "url": "${myaccount.showQuoteHistory ? '#quotehistory' : '' @ context='unsafe'}",
+                            "text": "${myaccount.disableQuoteHistory ? '' : 'Quote History' @ i18n, context='unsafe'}",
+                            "url": "${myaccount.disableQuoteHistory ? '' : '#quotehistory' @ context='unsafe'}",
                             "linkName": "Quote History"
                         },
                         {
@@ -302,6 +302,7 @@
                 "orderNumberText": "${'Order Number: ' @ i18n, context='unsafe'}",
                 "newQuote": "${'New Quote: ' @ i18n, context='unsafe'}",
                 "isShowQuoteAgainButton": false,
+                "isQuoteToOrderDisabled": true,
                 "paymentType": {
                     "purchaseOrder": {
                         "label": "${'PO' @ i18n, context='unsafe'}",
