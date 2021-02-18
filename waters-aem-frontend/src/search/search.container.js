@@ -1182,14 +1182,17 @@ class SearchContainer extends Component {
     }
 
     noSearchResultsToggle = () => {
-        const zeroResultsXF = document.querySelector('#zeroresults');
-        const hideZeroResultsClass = 'has-search-results';
-        let parentLayoutContainer = zeroResultsXF && zeroResultsXF.closest('.layoutcontainer');
+        const isInEditMode = document.getElementById("header").hasAttribute("data-is-edit-mode");
+        if (!isInEditMode) {
+            const zeroResultsXF = document.querySelector('#zeroresults');
+            const hideZeroResultsClass = 'has-search-results';
+            const parentLayoutContainer = zeroResultsXF && zeroResultsXF.closest('.layoutcontainer');
 
-        if (parentLayoutContainer && this.state.noResults) {
-            domElements.removeClass(parentLayoutContainer, hideZeroResultsClass);
-        } else if (parentLayoutContainer && !this.state.noResults) {
-            domElements.addClass(parentLayoutContainer, hideZeroResultsClass)
+            if (parentLayoutContainer && this.state.noResults) {
+                domElements.removeClass(parentLayoutContainer, hideZeroResultsClass);
+            } else if (parentLayoutContainer && !this.state.noResults) {
+                domElements.addClass(parentLayoutContainer, hideZeroResultsClass)
+            }
         }
     }
 
