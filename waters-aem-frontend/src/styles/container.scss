@@ -13,6 +13,18 @@
             padding: 0 80%; 
         }
     }
+
+    .cmp-container__wrapper,  .cmp-container__background-overlay{
+        margin-left: -66px;
+
+        @include mobile {
+            margin: 0;
+        }
+
+        @include tablet {
+            margin-left: -28px;
+        }
+    }
 }
 
 :not(.container--default):not(.cmp-container--full-width) {
@@ -73,10 +85,12 @@
 }
 
 .cmp-container__wrapper {
-    padding: $space-xl 0 $space-xl 0;
+    padding-top: $space-xl;
+    padding-bottom: $space-xl;
     
     @include mobile {
-        padding: $space-l 0 $space-s 0;
+        padding-top: $space-l;
+        padding-bottom: $space-s;
     }
 }
 
@@ -139,15 +153,13 @@
     }
 
     .cmp-container__wrapper {
-        padding: $space-xl 0 ($space-xl + $space-xxs 0);
-        margin: 0 $space-xl;
+        padding: $space-xl $space-xl ($space-xl + $space-xxs) $space-xl;
 
         .cmp-title__text div {
             text-align: left;
         }
 
         @include mobile {
-            margin: 0;
             padding: $space-l 0;
         }
     }
@@ -214,30 +226,35 @@
 .cmp-container--full-width {
     &.cmp-container--xlargePadding .cmp-container {
         .cmp-container__wrapper {
-            padding: $space-xxl 0;
+            padding-top: $space-xxl;
+            padding-bottom: $space-xxl;
         }
     }
     &.cmp-container--largePadding .cmp-container {
         .cmp-container__wrapper {
-            padding: $space-xl 0;
+            padding-top: $space-xl;
+            padding-bottom: $space-xl;
         }
     }
 
     &.cmp-container--mediumPadding .cmp-container {
         .cmp-container__wrapper {
-            padding: $space-l 0;
+            padding-top: $space-l;
+            padding-bottom: $space-l;
         }
     }
 
     &.cmp-container--smallPadding .cmp-container {
         .cmp-container__wrapper {
-            padding: $space-m 0;
+            padding-top: $space-m;
+            padding-bottom: $space-m;
         }
     }
 
     &.cmp-container--xSmallPadding .cmp-container {
         .cmp-container__wrapper {
-            padding: $space-s 0;
+            padding-top: $space-s;
+            padding-bottom: $space-s;
         }
     }
 }
