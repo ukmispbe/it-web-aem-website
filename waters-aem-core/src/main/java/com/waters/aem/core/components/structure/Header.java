@@ -206,11 +206,11 @@ public final class Header extends AbstractComponent implements ComponentExporter
     private Link quotesLink;
 
     public String getQuotesLink() {
-        return getShowQuoteHistory() ? quotesLink.getHref().replace(WatersConstants.ROOT_PATH,"/nextgen") : StringUtils.EMPTY;
+        return getDisableQuoteHistory() ? StringUtils.EMPTY : quotesLink.getHref().replace(WatersConstants.ROOT_PATH,"/nextgen") ;
     }
 
-    public Boolean getShowQuoteHistory() {
-        return currentPage.getInherited("showQuoteHistory", Boolean.FALSE);
+    public Boolean getDisableQuoteHistory() {
+        return currentPage.getInherited("quoteDisabled", Boolean.FALSE);
     }
 
     @Nonnull

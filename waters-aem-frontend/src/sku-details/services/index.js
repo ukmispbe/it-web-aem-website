@@ -15,7 +15,6 @@ const availabilityUrlRequest = (url, countryCode, partNo) => {
     url = url
         .replace('{partnumber}', partNo)
         .replace('{countryCode}', isEprocurementUser() ? getEprocUserCountryCode().toUpperCase() : countryCode);
-
     return url;
 }
 

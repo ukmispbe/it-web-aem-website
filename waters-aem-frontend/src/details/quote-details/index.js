@@ -10,7 +10,7 @@ import AddToCartBody from '../../sku-details/views/addToCartModal';
 import Analytics, { analyticTypes } from '../../analytics';
 import { DELIVERY_STATUS, STORE, CHECKOUT } from '../../constants';
 import DeliveryStatus from '../../common/delivery-status';
-import { getFullCompanyAddress, getCartCheckoutUrl, getUrlPath, getUrlParameter } from '../../utils/userFunctions';
+import { getFullCompanyAddress, getCartCheckoutUrl, getUrlPath, getUrlParameter, convertToBoolean, getApprovalStatus } from '../../utils/userFunctions';
 import SessionStore from '../../stores/sessionStore';
 
 class QuoteDetails extends Component {
@@ -138,7 +138,7 @@ class QuoteDetails extends Component {
 
     renderAddress = (address = {}) => {
         if(address){
-            const addressArray = getFullCompanyAddress(address, false);
+            const addressArray = getFullCompanyAddress(address, true);
             return (
                 <>
                     {addressArray.map((addressLine) => <div className={`${this.rootStyle}-address1`} data-locator="order-details-address">{addressLine}</div>)}
@@ -191,13 +191,22 @@ class QuoteDetails extends Component {
        }
     }
 
-    renderReorderButton = className => {
+    renderPlaceOrderButton = (className,elementLocator) => {
         const {quoteDetails} = this.state;
-        const {quoteStatus, quoteId} = quoteDetails
-        return quoteStatus === DELIVERY_STATUS.OPEN && (
-            <div className={className} data-locator="quote-details-reorder">
-                <a className="cmp-button" href="#" onClick={(e) => this.placeOrderForQuote(e,quoteId)} >
-                    {this.props.config.reorderTitle}
+        const {quoteStatus, quoteId} = quoteDetails;
+        const {config} = this.props;
+        const {reorderTitle,isQuoteToOrderDisabled} = config;
+        let commerceConfigs = document.getElementById('commerce-configs-json');
+        if(commerceConfigs){
+            commerceConfigs = JSON.parse(commerceConfigs.innerHTML);
+        }
+        const {isQuoteDisabled,isCheckoutDisabled} = commerceConfigs;
+        const approvalStatus = getApprovalStatus()
+        const isDisabled = convertToBoolean(isQuoteDisabled) || convertToBoolean(isCheckoutDisabled) || approvalStatus === 'R' || isQuoteToOrderDisabled;
+        return quoteStatus === DELIVERY_STATUS.OPEN && !isDisabled && (
+            <div className={className} data-locator={elementLocator}>
+                <a className="cmp-button" href="#" onClick={(e) => this.placeOrderForQuote(e,quoteId)} data-locator={`${elementLocator}-button`} >
+                    {reorderTitle}
                 </a>
             </div>
         )
@@ -288,10 +297,10 @@ class QuoteDetails extends Component {
                     />)} 
                 </div>
                 <div className={`${this.rootStyle}__order-info`}>
-                    {quoteCreationDate && (<div className={`${this.rootStyle}__order-date`} data-locator="order-date">
+                    {quoteCreationDate && (<div className={`${this.rootStyle}__order-date`} data-locator="quote-details-created-date">
                         {`${created} ${quoteCreationDate}`}
                     </div>)}
-                    {showExpireDate && quoteExpirationDate && (<div className={`${this.rootStyle}__order-date`} data-locator="order-date">
+                    {showExpireDate && quoteExpirationDate && (<div className={`${this.rootStyle}__order-date`} data-locator="quote-details-expire-date">
                     {`${expires} ${quoteExpirationDate}`}
                     </div>)}
                     <div className={`${this.rootStyle}__address-container`}>
@@ -329,7 +338,7 @@ class QuoteDetails extends Component {
                         <div className={`${this.rootStyle}__order-total_left`} data-locator="order-summary-label-total-price">{totalLabel}</div>
                         <div className={`${this.rootStyle}__order-total_right`} data-locator="order-summary-price-total-price"><h1>{totalPriceValue}</h1></div>
                     </div>
-                    {this.renderReorderButton(`${this.rootStyle}__reorder`)}
+                    {this.renderPlaceOrderButton(`${this.rootStyle}__reorder`,"quote-details-summary-order-place")}
                     {isShowQuoteAgainButton && this.renderQuoteAgainButton(`${this.rootStyle}__reorder`)}
                 </div>
             </div>
@@ -367,7 +376,7 @@ class QuoteDetails extends Component {
                             isQuoteDetails={true}
                         />
                     </div>
-                    {this.renderReorderButton("order-shipment__reorder")}
+                    {this.renderPlaceOrderButton("order-shipment__reorder","quote-details-shipment-order-place")}
                     {isShowQuoteAgainButton && this.renderQuoteAgainButton("order-shipment__reorder")}
                 </>
             )
