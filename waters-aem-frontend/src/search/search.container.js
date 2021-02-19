@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { parameterValues, parameterDefaults, searchMapper } from './services/index';
 import { parse, stringify } from 'query-string';
 import { withRouter } from 'react-router-dom';
-import NoResults from './components/no-results';
 import validator from 'validator';
 import domElements from '../scripts/domElements';
 import screenSizes from '../scripts/screenSizes';
@@ -11,6 +10,7 @@ import Loading from './components/loading';
 import SearchComponent from './search.component';
 import { isEprocurementUser } from '../utils/userFunctions';
 import { SEARCH_TYPES } from '../constants';
+import SearchBreadcrumb from '../common/search-breadcrumb';
 
 class SearchContainer extends Component {
     constructor(props) {
@@ -1181,15 +1181,36 @@ class SearchContainer extends Component {
         };
     }
 
+    noSearchResultsToggle = () => {
+        const isInEditMode = document.getElementById("header").hasAttribute("data-is-edit-mode");
+        if (!isInEditMode) {
+            const zeroResultsXF = document.querySelector('#zeroresults');
+            const hideZeroResultsClass = 'has-search-results';
+            const parentLayoutContainer = zeroResultsXF && zeroResultsXF.closest('.layoutcontainer');
+
+            if (parentLayoutContainer && this.state.noResults) {
+                domElements.removeClass(parentLayoutContainer, hideZeroResultsClass);
+            } else if (parentLayoutContainer && !this.state.noResults) {
+                domElements.addClass(parentLayoutContainer, hideZeroResultsClass)
+            }
+        }
+    }
+
     render() {
         if (this.state.loading && !screenSizes.isTabletAndUnder()) {
             return <Loading visible={true} />
         };
 
+        if (!this.state.loading) {
+            this.noSearchResultsToggle();
+        }
+
         if (this.state.noResults) {
-            return <NoResults
-                        searchText={this.props.searchText}
-                        query={this.state.keyword} />;
+            return <SearchBreadcrumb
+                        text={this.props.searchText}
+                        searchParams={this.state.searchParams}
+                        clearSessionStore={this.props.search.clearSessionStore}
+                        noResults={this.state.noResults}/>;
         }
 
         return <SearchComponent
