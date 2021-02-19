@@ -20,8 +20,7 @@ public final class LocaleUtils {
      */
     public static Locale getLocaleWithCountryForPage(final PageDecorator page) {
         final Locale locale = page.getLanguage();
-
-        if (StringUtils.isNotEmpty(locale.getCountry())) {
+        if (!page.getPath().contains("pt/pt") && StringUtils.isNotEmpty(locale.getCountry())) {
             return locale;
         }
 
