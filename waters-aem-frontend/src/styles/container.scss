@@ -1,11 +1,11 @@
 .cmp-container--full-width {
     .cmp-container {
-        margin: $space-l -30% $space-xl;
-        padding: 0 30%;
+        margin: $space-l -40% $space-xl;
+        padding: 0 40%;
 
         @include large-desktop {
-            margin: $space-l -50% $space-xl;
-            padding: 0 50%;  
+            margin: $space-l -60% $space-xl;
+            padding: 0 60%;  
         }
     
         @include extra-large-desktop {
@@ -14,7 +14,7 @@
         }
     }
 
-    .cmp-container__wrapper,  .cmp-container__background-overlay{
+    .cmp-container__wrapper, &.cmp-container--left .cmp-container__background-overlay {
         margin-left: -66px;
 
         @include mobile {
