@@ -1,0 +1,185 @@
+/*
+* This file is being used in teaser component for features styles
+* Styles are copied from existing features.scss.
+* Due to some html(features.html) containers are different from teaser.html, 
+* selectors are also different. Because, Teaser is out of the box component. But, work is the similar.
+*/
+.cmp-feature {
+    .cmp-teaser {
+        svg,
+        img {
+            height: $icon-l;
+            width: $icon-l;
+            margin-bottom: $space-xxs;
+            color: $color-icon;
+            .st0 {
+                stroke: $color-icon;
+                stroke-width: 0.75px;
+            }
+            .st1 {
+                stroke: $color-icon;
+                stroke-width: 0.75px;
+            }
+        }
+
+        &__title {
+            @include font-h3;
+            margin-bottom: $space-xxs;
+        }
+        &__description {
+            @include font-body;
+            margin-bottom: $space-s;
+        }
+
+        &__action-container {
+            .cmp-teaser__action-link {
+                @include font-body;
+                color: $color-link;
+                margin-bottom: $space-xxs;
+                display: block;
+            }
+        }
+
+        margin-bottom: $space-l;
+    }
+
+    &--left {
+        .cmp-teaser {
+            margin-bottom: $space-xxs;
+            display: grid;
+            grid-template-columns: ($icon-l + $space-xs) 1fr;
+
+            @include IE11-only {
+                display: inline-flex;
+            }
+            .cmp-teaser__image {
+                margin-right: $space-xs;
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    &--noPadding {
+        .cmp-teaser {
+            margin-bottom: 0;
+        }
+    }
+
+    &--reverse {
+        .cmp-teaser {
+            svg,
+            img {
+                color: $color-white;
+                .st0 {
+                    stroke: $color-white;
+                }
+                .st1 {
+                    stroke: $color-white;
+                }
+            }
+
+            &__title {
+                color: $color-white;
+            }
+
+            &__description {
+                p {
+                    color: $color-white;
+                }
+            }
+
+            &__action-link {
+                color: $color-gray-20 !important;
+
+                &:hover {
+                    color: $color-font-light !important;
+                }
+            }
+        }
+    }
+
+    &--signin {
+        .cmp-teaser {
+            margin: 0 0 $space-xxs 0;
+            padding: 0;
+
+            @include mobile {
+                margin: 0;
+            }
+        }
+        .cmp-teaser {
+            margin: 0;
+
+            &__content {
+                display: flex;
+                flex-wrap: wrap;
+            }
+
+            &__title {
+                order: 0;
+                display: block;
+                flex-basis: 100%;
+            }
+
+            &__description {
+                order: 1;
+                display: inline-block;
+                margin: 0;
+            }
+
+            .cmp-image__image {
+                display: none;
+            }
+
+            .icon-with-link {
+                order: 2;
+                display: inline-block;
+                svg,
+                img {
+                    display: inline-block;
+                    height: (($icon-s + $icon-m) / 2);
+                    width: (($icon-s + $icon-m) / 2);
+                    color: $color-link;
+
+                    .st0 {
+                        stroke: $color-link;
+                        stroke-width: 1px;
+                    }
+
+                    .st1 {
+                        stroke: $color-link;
+                        stroke-width: 1px;
+                    }
+                }
+
+                &:hover {
+                    cursor: pointer;
+                    svg,
+                    img {
+                        color: $color-link-hover;
+
+                        .st0 {
+                            stroke: $color-link-hover;
+                        }
+
+                        .st1 {
+                            stroke: $color-link-hover;
+                        }
+                    }
+                }
+            }
+
+            &__action-container {
+                order: 3;
+                display: inline-flex;
+                margin: 0;
+                .cmp-teaser__action-link {
+                    @include font-body;
+                    color: $color-link;
+                    margin: 0 $space-xxxs 0;
+                    display: block;
+                }
+            }
+        }
+    }
+}

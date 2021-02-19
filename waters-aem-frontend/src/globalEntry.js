@@ -20,6 +20,7 @@ import './scripts/collapsible';
 import './scripts/skulist';
 import './scripts/continueButton';
 import './scripts/textModifier';
+import './scripts/teaser';
 
 import './polyfills';
 import React from 'react';
