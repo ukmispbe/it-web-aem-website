@@ -1,4 +1,5 @@
 .cmp-container--full-width {
+
     .cmp-container {
         margin: $space-l -30% $space-xl;
         padding: 0 30%;
@@ -14,34 +15,31 @@
         }
     }
 
-    .cmp-container__wrapper, &.cmp-container--left .cmp-container__background-overlay {
-        margin-left: -66px;
-        margin-right: 66px;
+    .cmp-container__wrapper {
+        margin: 0 -14px;
 
         @include mobile {
-            margin: 0;
+            margin: 0 0 0 -4px;
         }
 
         @include tablet {
-            margin-left: -28px;
-            margin-right: 28px;
+            margin: 0 0 0 -12px;
         }
     }
 }
 
-:not(.container--default):not(.cmp-container--full-width) {
-   & > .cmp-container {
-        margin: 0 -66px;
+.container.responsivegrid:not(.container--default):not(.cmp-container--full-width), .cmp-container--full-width {
+    padding: 0 14px !important;
 
-        @include mobile {
-            margin: 0 -16px;
-        }
+    @include mobile {
+        padding: 0 4px !important;
+    }
 
-        @include tablet {
-            margin: 0 -28px;
-        }
+    @include tablet {
+        padding: 0 12px !important;
     }
 }
+
 .cmp-container {
     position: relative;
     overflow-y: hidden;
@@ -162,6 +160,7 @@
         }
 
         @include mobile {
+            margin: 0;
             padding: $space-l 0;
         }
     }
