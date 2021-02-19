@@ -1,5 +1,6 @@
 package com.waters.aem.core.components;
 
+import com.day.cq.commons.LanguageUtil;
 import com.day.cq.i18n.I18n;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.waters.aem.core.components.structure.page.Commerce;
@@ -40,6 +41,9 @@ public final class SiteContext {
     private I18n i18n;
 
     public Locale getLocale() {
+        if(currentPage.getPath().contains("pt/pt") && StringUtils.isNotEmpty(currentPage.getPath())) {
+            return LocaleUtils.getLocaleWithCountryForPage(currentPage);
+        }
         return currentPage.getLanguage(false);
     }
 
