@@ -307,7 +307,7 @@ export default {
         orderNumberText: "Order Number:",
         newQuote: "New Quote:",
         isShowQuoteAgainButton: false,
-        isQuoteToOrderDisabled: true,
+        isQuoteToOrderDisabled: false,
         paymentType: {
             purchaseOrder: {
                 label: "PO",
