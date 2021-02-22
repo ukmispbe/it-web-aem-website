@@ -24,6 +24,7 @@ import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.servlets.SlingAllMethodsServlet;
 import org.apache.sling.servlets.annotations.SlingServletPaths;
 import org.apache.sling.settings.SlingSettingsService;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.osgi.service.component.annotations.*;
 import org.osgi.service.metatype.annotations.AttributeDefinition;
@@ -110,8 +111,7 @@ public class WatersContentService extends SlingAllMethodsServlet {
                         if (StringUtils.isNotBlank(navigationCompJsonResponse)) {
                             LOG.info("JSON returned with full page content for: {}", path);
                             LOG.info("JSON fetched from AEM in {} ms", stopwatch.elapsed(TimeUnit.MILLISECONDS));
-                            if (path.contains("cart-checkout"))
-                                pageJsonResponse = updateLanguageListJson(pageJsonResponse, resourceResolver, path);
+                            pageJsonResponse = updateLanguageListJson(pageJsonResponse, resourceResolver, path);
                             pageJsonResponse = pageJsonResponse.replace("/content/waters","/nextgen");
                             return pageContentJsonConstant + pageJsonResponse + navigationContentJsonConstant + navigationCompJsonResponse + "}";
                         }
@@ -128,17 +128,23 @@ public class WatersContentService extends SlingAllMethodsServlet {
         return pageContentJsonConstant + pageJsonResponse + "}";
     }
 
-    private String updateLanguageListJson(String pageJsonResponse, ResourceResolver resourceResolver, String path) throws Exception {
-        final JSONObject cartPageJson = new JSONObject(pageJsonResponse);
-        final JSONObject cartFooterJson = cartPageJson.getJSONObject("footer");
-        final JSONObject languageListJsonValue = updateLanguageListJsonValue(resourceResolver, path);
-
-        cartFooterJson.put("languageListJson", languageListJsonValue.toString());
-        cartPageJson.put("footer", cartFooterJson);
-        return cartPageJson.toString();
+    private String updateLanguageListJson(String pageJsonResponse, ResourceResolver resourceResolver, String path) {
+        if (path.contains("cart-checkout")) {
+            try {
+                final JSONObject cartPageJson = new JSONObject(pageJsonResponse);
+                final JSONObject cartFooterJson = cartPageJson.getJSONObject("footer");
+                final JSONObject languageListJsonValue = updateLanguageListJsonValue(resourceResolver, path);
+                cartFooterJson.put("languageListJson", languageListJsonValue.toString());
+                cartPageJson.put("footer", cartFooterJson);
+                return cartPageJson.toString();
+            } catch (JSONException e) {
+                LOG.error("Exception occurred in updateLanguageListJson()/updateLanguageListJsonValue() method of WatersContentService class: ", e);
+            }
+        }
+        return pageJsonResponse;
     }
 
-    private JSONObject updateLanguageListJsonValue(ResourceResolver resourceResolver, String path) throws Exception {
+    private JSONObject updateLanguageListJsonValue(ResourceResolver resourceResolver, String path) throws JSONException {
         final JSONObject languageListJsonValue = new JSONObject(Objects.requireNonNull(
                 Objects.requireNonNull(resourceResolver.getResource(
                         path.substring(0, path.indexOf("/cart-checkout")) + "/jcr:content/footer"))
