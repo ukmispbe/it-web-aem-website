@@ -24,6 +24,7 @@ import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.servlets.SlingAllMethodsServlet;
 import org.apache.sling.servlets.annotations.SlingServletPaths;
 import org.apache.sling.settings.SlingSettingsService;
+import org.json.JSONObject;
 import org.osgi.service.component.annotations.*;
 import org.osgi.service.metatype.annotations.AttributeDefinition;
 import org.osgi.service.metatype.annotations.Designate;
@@ -39,6 +40,8 @@ import java.net.HttpURLConnection;
 import java.security.KeyManagementException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Iterator;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -49,6 +52,7 @@ import java.util.concurrent.TimeUnit;
 @Designate(ocd = WatersContentService.Config.class)
 public class WatersContentService extends SlingAllMethodsServlet {
 
+    private static final String HTML = ".html";
     private static final Logger LOG = LoggerFactory.getLogger(WatersContentService.class);
 
     @Reference
@@ -97,7 +101,6 @@ public class WatersContentService extends SlingAllMethodsServlet {
             if (null != resourceResolver.getResource(path)) {
                 pagePublishCaaSUrl = hostName.concat(path.concat("/_jcr_content.caas.infinity.json")).replace(WatersConstants.CUSTOM_ROOT_PATH, WatersConstants.ROOT_PATH);
                 pageJsonResponse = getHttpResponseAsStringForURI(pagePublishCaaSUrl);
-                pageJsonResponse = pageJsonResponse.replaceAll("/content/waters","/nextgen");
                 if (StringUtils.isNotBlank(responseLevel) && responseLevel.equalsIgnoreCase("full")) {
                     final Resource resource = resourceResolver.getResource(path + "/jcr:content/header/par/navigation");
                     if (null != resource) {
@@ -107,6 +110,9 @@ public class WatersContentService extends SlingAllMethodsServlet {
                         if (StringUtils.isNotBlank(navigationCompJsonResponse)) {
                             LOG.info("JSON returned with full page content for: {}", path);
                             LOG.info("JSON fetched from AEM in {} ms", stopwatch.elapsed(TimeUnit.MILLISECONDS));
+                            if (path.contains("cart-checkout"))
+                                pageJsonResponse = updateLanguageListJson(pageJsonResponse, resourceResolver, path);
+                            pageJsonResponse = pageJsonResponse.replace("/content/waters","/nextgen");
                             return pageContentJsonConstant + pageJsonResponse + navigationContentJsonConstant + navigationCompJsonResponse + "}";
                         }
                     }
@@ -120,6 +126,32 @@ public class WatersContentService extends SlingAllMethodsServlet {
         LOG.info("JSON returned for: {}", path);
         LOG.info("JSON fetched from AEM in {} ms", stopwatch.elapsed(TimeUnit.MILLISECONDS));
         return pageContentJsonConstant + pageJsonResponse + "}";
+    }
+
+    private String updateLanguageListJson(String pageJsonResponse, ResourceResolver resourceResolver, String path) throws Exception {
+        final JSONObject cartPageJson = new JSONObject(pageJsonResponse);
+        final JSONObject cartFooterJson = cartPageJson.getJSONObject("footer");
+        final JSONObject languageListJsonValue = updateLanguageListJsonValue(resourceResolver, path);
+
+        cartFooterJson.put("languageListJson", languageListJsonValue.toString());
+        cartPageJson.put("footer", cartFooterJson);
+        return cartPageJson.toString();
+    }
+
+    private JSONObject updateLanguageListJsonValue(ResourceResolver resourceResolver, String path) throws Exception {
+        final JSONObject languageListJsonValue = new JSONObject(Objects.requireNonNull(
+                Objects.requireNonNull(resourceResolver.getResource(
+                        path.substring(0, path.indexOf("/cart-checkout")) + "/jcr:content/footer"))
+                        .getValueMap()
+                        .get("languageListJson", String.class)));
+
+        final Iterator<?> keys = languageListJsonValue.keys();
+        while(keys.hasNext()) {
+            final String key = String.valueOf(keys.next());
+            final String value = languageListJsonValue.getString(key);
+            languageListJsonValue.put(key, value.substring(0, value.indexOf(HTML)) + "/cart-checkout.html");
+        }
+        return languageListJsonValue;
     }
 
     private final String getHttpResponseAsStringForURI(final String URI) throws KeyStoreException, NoSuchAlgorithmException, KeyManagementException {
@@ -159,8 +191,8 @@ public class WatersContentService extends SlingAllMethodsServlet {
         if (pagePath.startsWith(WatersConstants.CUSTOM_ROOT_PATH)) {
             pagePath = pagePath.replace(WatersConstants.CUSTOM_ROOT_PATH, WatersConstants.ROOT_PATH);
         }
-        if (pagePath.endsWith(".html")) {
-            pagePath = pagePath.replace(".html", "");
+        if (pagePath.endsWith(HTML)) {
+            pagePath = pagePath.replace(HTML, "");
         }
         return pagePath;
     }
