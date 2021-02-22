@@ -285,7 +285,7 @@ class QuoteHistory extends Component {
         const {configs} = this.props;
         const {quoteHistoryAvailableAfter,quoteHistoryAvailableAfterDate} = configs;
         const quoteDate = DateFormatter.dateFormatter(quoteHistoryAvailableAfterDate, userLocale);
-        const quoteMessage = quoteHistoryAvailableAfter.replace(/[{]quoteDate[}]/, quoteDate.toLocaleString(undefined, {maximumFractionDigits:0}));
+        const quoteMessage = quoteHistoryAvailableAfter.replace(/[{]quoteDate[}]/, quoteDate);
         return (
             <div className="cmp-order-list__quote-history-message" data-locator="old-quote-history-message">{quoteMessage}</div>
         );
