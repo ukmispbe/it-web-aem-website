@@ -9,6 +9,8 @@ import TimePeriodDropdown from '../components/time-period-dropdown';
 import FilterDropdown from '../components/filter-dropdown';
 import Tabs from '../../navigation/tabs';
 import Spinner from '../../utils/spinner';
+import DateFormatter from '../../utils/date-formatter';
+import GetLocale from "../../utils/get-locale";
 import {getSoldToId, getDummySoldToId, getUserId} from '../../utils/userFunctions'
 import Analytics, { analyticTypes, setClickAnalytics, setSelectDropdownAnalytics } from '../../analytics';
 
@@ -16,6 +18,7 @@ class QuoteHistory extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            userLocale: GetLocale.getLocale(),
             listItems: "",
             noOfMonths: 1,
             poNumber: "",
@@ -277,6 +280,18 @@ class QuoteHistory extends Component {
         );
     }
 
+    renderQuoteDateMessage = () =>{
+        const {userLocale} = this.state;
+        const {configs} = this.props;
+        const {quoteHistoryAvailableAfter,quoteHistoryAvailableAfterDate} = configs;
+        const quoteDate = DateFormatter.dateFormatter(quoteHistoryAvailableAfterDate, userLocale);
+        const quoteMessage = quoteHistoryAvailableAfter.replace(/[{]quoteDate[}]/, quoteDate.toLocaleString(undefined, {maximumFractionDigits:0}));
+        return (
+            <div className="cmp-order-list__quote-history-message" data-locator="old-quote-history-message">{quoteMessage}</div>
+        );
+
+    }
+
     render() {
         const {listCount,listItems, noResults, loading} = this.state;
         return (
@@ -288,6 +303,9 @@ class QuoteHistory extends Component {
                         <div className="cmp-order-list__header clearfix" data-locator="order-list-header-clearfix">
                             {this.renderDropDowns()}
                             {this.renderCountHeader()}
+                        </div>
+                        <div className="cmp-order-list__quote-message-container">
+                            {this.renderQuoteDateMessage()}
                         </div>
 
                         {noResults && this.renderNoResults()}
