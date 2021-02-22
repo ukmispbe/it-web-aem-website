@@ -93,6 +93,17 @@ public class MyAccount implements ComponentExporter {
     @Inject
     private List<BasicLink> links = new ArrayList<>();
 
+    @DialogField(fieldLabel = "Date quote history is available after",
+            fieldDescription = "The date post which quote history is available",
+            ranking = 3)
+    @TextField
+    @Inject
+    private String quoteHistoryAvailableAfter;
+
+    public String getQuoteHistoryAvailableAfter() {
+        return quoteHistoryAvailableAfter;
+    }
+
     public List<BasicLink> getLinks() {
         return links;
     }
