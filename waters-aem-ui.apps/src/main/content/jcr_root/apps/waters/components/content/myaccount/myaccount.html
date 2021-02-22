@@ -143,7 +143,7 @@
             },
             "quoteHistory": {
                 "fetchEndPoint": "${myaccount.quoteHistoryUrl @ context='unsafe'}",
-                "quoteHistoryAvailableAfter": "${'Quote history is available as of {0}' @ i18n, context='unsafe'}",
+                "quoteHistoryAvailableAfter": "${'Quote history is available as of {0}' @ format=['{quoteDate}'], i18n, context='unsafe'}",
                 "quoteHistoryAvailableAfterDate": "${myaccount.quoteHistoryAvailableAfter @ context='unsafe'}",
                 "title": "${'Quote History' @ i18n, context='unsafe'}",
                 "resultsText": "${'Showing {0}-{1} of {2} Quotes' @ format=['{startResults}', '{endResults}', '{count}'], i18n, context='unsafe'}",

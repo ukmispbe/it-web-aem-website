@@ -23,6 +23,16 @@
             padding-bottom: $space-xs;
         }
     }
+    .cmp-order-list__quote-message-container{
+        @include mobile {
+            width: 100%;
+        }
+        .cmp-order-list__quote-history-message{
+            @include font-body; 
+            color: $color-gray-50;
+            margin-bottom: $space-s;
+        }
+    }
     .cmp-order-list__dropdowns {
         float: right;
         width: 50%;
