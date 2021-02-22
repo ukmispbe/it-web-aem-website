@@ -3,6 +3,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const WebpackLifecyclePlugin = require('./webpack-lifecycle/index');
 const requireContext = require('require-context');
 const { push } = require('aemsync');
+const fs = require('fs');
+const pathConfig = require('./pathConfig.js');
 
 function recursiveIssuer(m) {
     if (m.issuer) {
@@ -22,16 +24,13 @@ const targets = [
 
 module.exports = {
     entry: {
-        main: './src/entry.js'
+        main: './src/entry.js',
+        global: './src/globalEntry.js'
         // print: './src/printEntry.js',
         // head: './src/headEntry.js'
     },
     output: {
-        path: path.resolve(
-            __dirname,
-            '../../',
-            'waters-aem-ui.apps/src/main/content/jcr_root/apps/waters/clientlibs/clientlib-site'
-        )
+        path: path.resolve(__dirname, '../', 'build')
     },
     module: {
         rules: [
@@ -62,7 +61,7 @@ module.exports = {
     plugins: [
         new MiniCssExtractPlugin({
             filename: '[name].css',
-            chunkFilename: '[id].css'
+            chunkFilename: '/etc.clientlibs/waters/components/content/[name]/clientlib-[name].css',
         }),
         new WebpackLifecyclePlugin({
             emit: {
@@ -101,9 +100,37 @@ module.exports = {
             done: {
                 type: 'tap',
                 cb: stats => {
+
+                    let fileCount = 1;
+                    for (let fileConfig of pathConfig.pathConfig) {
+                        const buildPath = fileConfig.filePath ? fileConfig.filePath : fileConfig.fileName;
+                        const ignoreFile = fileConfig.fileName.includes('print') || fileConfig.fileName.includes('head');
+                        if(!ignoreFile) {
+                            fs.rename(
+                                path.resolve(__dirname, '../', 'build', buildPath),
+                                path.resolve(
+                                    __dirname,
+                                    '../../',
+                                    fileConfig.aemPath,
+                                    fileConfig.fileName
+                                ),
+                                err => {
+                                    if (err) {
+                                        console.log(err);
+                                        return;
+                                    }
+                                    console.log(`${fileConfig.fileName} moved to AEM`);
+                                    fileCount++;
+                                    if (fileCount === pathConfig.pathConfig.length - 2) {
+                                        console.log(`webpack all file build successfully.`);
+                                    }
+                                }
+                            );
+                        }
+                    }
+
                     for (const key in stats.compilation.assets) {
                         const assetObj = stats.compilation.assets[key];
-
                         // webpack doesn't allow mutliple outputs to be named according to our current clientlibs setup.
                         // so for now, we are only pushing main.js and main.scss to AEM on watch
                         if (key.includes('print')) {
@@ -153,29 +180,23 @@ module.exports = {
     optimization: {
         splitChunks: {
             cacheGroups: {
-                mainStyles: {
-                    name: 'main',
-                    test: (m, c, entry = 'main') =>
-                        m.constructor.name === 'CssModule' &&
-                        recursiveIssuer(m) === entry,
+                reactVendor: {
+                    name: 'react_vendors',
+                    test: /[\\/]node_modules[\\/](react|react-dom|prop-types|query-string|react-svg|react-router|react-router-dom|validator|react-paginate|whatwg-fetch|react-autosuggest|react-autowhatever|react-html-parser|react-spinners|es6-promise|react-hook-form)[\\/]/,
                     chunks: 'all',
-                    enforce: true
+                    priority: 3
                 },
-                printStyles: {
-                    name: 'print',
-                    test: (m, c, entry = 'print') =>
-                        m.constructor.name === 'CssModule' &&
-                        recursiveIssuer(m) === entry,
+                vendor: {
+                    name: 'node_vendors',
+                    test: /[\\/]node_modules[\\/]/,
                     chunks: 'all',
-                    enforce: true
+                    priority: 2
                 },
-                headStyles: {
-                    name: 'head',
-                    test: (m, c, entry = 'print') =>
-                        m.constructor.name === 'CssModule' &&
-                        recursiveIssuer(m) === entry,
+                utility: {
+                    name: 'utility',
+                    test: /[\\/]utils|scripts|typography|stores[\\/]/,
                     chunks: 'all',
-                    enforce: true
+                    priority: 3
                 }
             }
         },
