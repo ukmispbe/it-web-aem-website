@@ -43,8 +43,8 @@
                     "validation": {
                         "required": true,
                         "maxLength": {
-                            "value": 40,
-                            "message": "${'Maximum 40 characters allowed' @i18n, context='unsafe'}"
+                            "value": 35,
+                            "message": "${'Maximum 35 characters allowed' @i18n, context='unsafe'}"
                         },
                         "validateFnName": "noWhitespaceOnly",
                         "requiredMsg": "${'Please enter an Organization.' @ i18n, context='unsafe'}"
@@ -56,6 +56,7 @@
     <script type="application/json" id="cmp-irequest-form">
         {
             "formName": "irequest",
+            "recordType": "Support",
             "submitEndpoint": "${irequest.registrationSubmitUrl @ context='unsafe'}",
             "buttonText": "${'Send Request' @ i18n, context='text'}",
             "redirectUrl": "${irequest.redirectLink.href @ context='unsafe'}",
@@ -88,8 +89,7 @@
                     "label": "${'Organization:' @ i18n, context='unsafe'}"
                 },
                 {
-                    "type": "hr",
-                    "name": "sectionHR",
+                    "type": "break",
                     "addClass": "cmp-section-hr"
                 },               
                 {

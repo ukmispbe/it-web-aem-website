@@ -115,6 +115,16 @@ const CreateIRequestForm = ({
   function callSerialAPI(formData) {
     let options = [];
 
+    // Truncate organization to 3 letters and add the wildcard (*)
+    let organizationSearchString = "";
+    if (formData.organization.length <= 3) {
+      organizationSearchString = formData.organization + "*";
+    }
+    else {
+      organizationSearchString = formData.organization.substr(0, 3) + "*";
+    }
+    console.log(`Serial API Parameters, Serial Number: ${formData.serialNumber}, Organization: ${organizationSearchString}`);
+
     // Temporary Code to be replaced by API Call
     if (formData.serialNumber === "1234") {
       // Populate & display drop down
@@ -130,6 +140,8 @@ const CreateIRequestForm = ({
       initialIRequestFormValues.productDetailsValue = "CO2_BULK";
       initialIRequestFormValues.productDetailsText = "CO2 Bulk Delivery 500G System";
     }
+    // End of Temporary Code to be replaced by API Call
+    
     if (userDetails) {
       initialIRequestFormValues.company = userDetails.userInfo.company;
       initialIRequestFormValues.email = userDetails.userInfo.email;
@@ -138,14 +150,67 @@ const CreateIRequestForm = ({
       initialIRequestFormValues.phone = userDetails.userInfo.phone;
     }
     setInitialIRequestFormValues (initialIRequestFormValues);
-    // End of Temporary Code to be replaced by API Call
+
     return options;
   }
 
   function  checkIRequestSubmit(data) {
-    const form1Data = serialFormData;
-    setShowForm(2);
+
+    // Need to create the Short Description  
+    const ShortDescription = createShortDestription(data.supportType, data.productType); 
+    // Add the "Support" from Config
+    const recordType = { "recordType": supportReqFormConfig.config.recordType };
+
+    processPreferredContactMethod(data);
+    // Format the form data & call the API 
+    const formData = {...serialFormData, ...recordType, ...ShortDescription,  ...data};
+
+    // Output the processed data to the console until the API is ready
+    console.log("Submit API Data: ",  formData);
+
+    // Show the same form until API is Ready
+    setShowForm(1);
   }
+
+  // Determine if Email or Phone & Delete "E" & "P"
+  function processPreferredContactMethod(requestFormData) {
+    requestFormData.preferredContactMethod = "E";
+    if (requestFormData.P === "on") {
+      requestFormData.preferredContactMethod = "P";
+    }
+    delete requestFormData.E;
+    delete requestFormData.P;
+  }
+
+  // Use the values to pull the desriptions back from the config
+  function createShortDestription(supportType, productType) {
+    if (supportReqFormConfig) {
+      const supportRequestFields = supportReqFormConfig.config.fields;
+      if (supportRequestFields) {
+        const supportTypeControl = supportRequestFields.find(obj => {
+          return obj.name === "supportType"
+        });
+        const supportTypeOption = supportTypeControl.options.find(obj => {
+          return obj.value === supportType
+        });
+        if (supportType === "TECH") {
+          // Append SupportType & ProductType Descriptions 
+          const productTypeControl = supportRequestFields.find(obj => {
+            return obj.name === "productType"
+          });
+          const productTypeOption = productTypeControl.options.find(obj => {
+            return obj.value === productType
+          });   
+          return { "shortDescription": `${supportTypeOption.label} : ${productTypeOption.label}` };
+
+        } else {
+          // Set SupportType Description
+          return { "shortDescription": supportTypeOption.label };
+        }
+      }
+    }
+  }
+   
 
   const handleNavigateBackFn = ()=>  {
     // Set the Serial Number and Oroganization Labels to their default values

@@ -724,6 +724,14 @@
                 }
             }
         }
+        .cmp-section-hr {
+            hr {
+                border-bottom: solid 4px $color-disabled;
+                height: 0;
+                margin: 0;
+                width: 100%;
+            }
+        }
         .cmp-heading-label {
             @include font-h4;
         }
