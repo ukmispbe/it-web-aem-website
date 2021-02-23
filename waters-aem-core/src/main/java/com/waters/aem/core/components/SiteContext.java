@@ -40,6 +40,9 @@ public final class SiteContext {
     private I18n i18n;
 
     public Locale getLocale() {
+        if(currentPage.getPath().contains("pt/pt") && StringUtils.isNotEmpty(currentPage.getPath())) {
+            return LocaleUtils.getLocaleWithCountryForPage(currentPage);
+        }
         return currentPage.getLanguage(false);
     }
 

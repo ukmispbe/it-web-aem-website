@@ -143,6 +143,8 @@
             },
             "quoteHistory": {
                 "fetchEndPoint": "${myaccount.quoteHistoryUrl @ context='unsafe'}",
+                "quoteHistoryAvailableAfter": "${'Quote history is available as of {0}' @ format=['{quoteDate}'], i18n, context='unsafe'}",
+                "quoteHistoryAvailableAfterDate": "${myaccount.quoteHistoryAvailableAfter @ context='unsafe'}",
                 "title": "${'Quote History' @ i18n, context='unsafe'}",
                 "resultsText": "${'Showing {0}-{1} of {2} Quotes' @ format=['{startResults}', '{endResults}', '{count}'], i18n, context='unsafe'}",
                 "noResultsFoundTitle": "${'Sorry, no quotes found.' @ i18n, context='unsafe'}",
@@ -302,7 +304,7 @@
                 "orderNumberText": "${'Order Number: ' @ i18n, context='unsafe'}",
                 "newQuote": "${'New Quote: ' @ i18n, context='unsafe'}",
                 "isShowQuoteAgainButton": false,
-                "isQuoteToOrderDisabled": true,
+                "isQuoteToOrderDisabled": false,
                 "paymentType": {
                     "purchaseOrder": {
                         "label": "${'PO' @ i18n, context='unsafe'}",

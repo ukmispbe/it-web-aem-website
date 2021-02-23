@@ -74,10 +74,6 @@ const SearchBreadcrumb = (props) => {
         let links = []; 
         const homeUrl = getNamedHeaderLink("data-homepage-url");
         const baseSearchUrl = getNamedHeaderLink("data-search-path");
-        let correctKeyword = props.searchParams.keyword;
-        if (props.searchParams.spell_suggestion) {
-            correctKeyword = props.searchParams.spell_suggestion;
-        }
 
         const homeLink = {"title": props.text.homeLinkText, "path": homeUrl} ;
         links.push(homeLink);
@@ -85,37 +81,44 @@ const SearchBreadcrumb = (props) => {
         const searchLink = {"title": props.text.searchLinkText, "path": baseSearchUrl} ;
         links.push(searchLink);
 
-        if (correctKeyword && correctKeyword !== "*:*" ) {
-            const urlOptions = {
-                keywordParam : props.searchParams.keyword, 
-                categoryParam: "", 
-                contentTypeParam: ""
+        if(!props.noResults || props.noResults == undefined || props.noResults == null) {
+            let correctKeyword = props.searchParams.keyword;
+            if (props.searchParams.spell_suggestion) {
+                correctKeyword = props.searchParams.spell_suggestion;
             }
-            const queryString = buildQueryString(baseSearchUrl, urlOptions);
-            const queryLink = {"title": correctKeyword, "path": queryString} ;
-            links.push(queryLink);
-        }
 
-        if (props.searchParams.category) {
-            const urlOptions = {
-                keywordParam : correctKeyword, 
-                categoryParam: props.searchParams.category, 
-                contentTypeParam: ""
+            if (correctKeyword && correctKeyword !== "*:*" ) {
+                const urlOptions = {
+                    keywordParam : props.searchParams.keyword,
+                    categoryParam: "",
+                    contentTypeParam: ""
+                }
+                const queryString = buildQueryString(baseSearchUrl, urlOptions);
+                const queryLink = {"title": correctKeyword, "path": queryString} ;
+                links.push(queryLink);
             }
-            const queryString = buildQueryString(baseSearchUrl, urlOptions);
-            const categoryLink = {"title": props.searchParams.category, "path": queryString} ;
-            links.push(categoryLink);
-        }
-        
-        if (props.searchParams.contentTypeSelected.facetTranslation) {
-            const urlOptions = {
-                keywordParam : correctKeyword, 
-                categoryParam: props.searchParams.category, 
-                contentTypeParam: props.searchParams.content_type
+
+            if (props.searchParams.category) {
+                const urlOptions = {
+                    keywordParam : correctKeyword,
+                    categoryParam: props.searchParams.category,
+                    contentTypeParam: ""
+                }
+                const queryString = buildQueryString(baseSearchUrl, urlOptions);
+                const categoryLink = {"title": props.searchParams.category, "path": queryString} ;
+                links.push(categoryLink);
             }
-            const queryString = buildQueryString(baseSearchUrl, urlOptions);
-            const categoryLink = {"title": props.searchParams.contentTypeSelected.facetTranslation, "path": queryString} ;
-            links.push(categoryLink);
+
+            if (props.searchParams.contentTypeSelected.facetTranslation) {
+                const urlOptions = {
+                    keywordParam : correctKeyword,
+                    categoryParam: props.searchParams.category,
+                    contentTypeParam: props.searchParams.content_type
+                }
+                const queryString = buildQueryString(baseSearchUrl, urlOptions);
+                const categoryLink = {"title": props.searchParams.contentTypeSelected.facetTranslation, "path": queryString} ;
+                links.push(categoryLink);
+            }
         }
         return links;
     }
@@ -123,8 +126,8 @@ const SearchBreadcrumb = (props) => {
     const linkData = createLinkData();
     return (
         <nav class="cmp-breadcrumb">
-           <ol id="searchBreadcrumb" class="cmp-breadcrumb__list fader-fade" itemscope="" itemtype="http://schema.org/BreadcrumbList">
-               <div class="fader-container fader-container--left" style={{width: 0 + "px"}}></div>
+            <ol id="searchBreadcrumb" class="cmp-breadcrumb__list fader-fade" itemscope="" itemtype="http://schema.org/BreadcrumbList">
+                <div class="fader-container fader-container--left" style={{width: 0 + "px"}}></div>
                     {renderBreadcrumb(linkData)}
                 <div class="fader-container fader-container--right" style={{width: 65 + "px"}}></div>
             </ol>        

@@ -26,14 +26,16 @@ async function textModifier() {
         Array.from(textReplaceElements).forEach(el => {
             const matches = el.innerHTML.match(/{{(.*?)}}/gi);
 
-            Array.from(matches).forEach(match => {
-                const splitMatch = match.split('.');
-                const key = splitMatch[0].replace('{{', '');
-                const field = splitMatch[1].replace('}}', '');
-                const replacement = replaceObj[objMapping[key]][field];
+            if(matches) {
+                Array.from(matches).forEach(match => {
+                    const splitMatch = match.split('.');
+                    const key = splitMatch[0].replace('{{', '');
+                    const field = splitMatch[1].replace('}}', '');
+                    const replacement = replaceObj[objMapping[key]][field];
 
-                el.innerHTML = el.innerHTML.replace(match, replacement);
-            });
+                    el.innerHTML = el.innerHTML.replace(match, replacement);
+                });
+            }
         });
     }
 }
