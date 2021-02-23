@@ -2,7 +2,7 @@ import React, { Suspense, useState, useEffect } from "react";
 import { retrieveData } from '../forms/services/retrieve';
 import SessionStore from '../stores/sessionStore';
 import loginStatus from  '../scripts/loginStatus';
-import { signInRedirect } from '../utils/redirectFunctions';
+import { signInRedirect, getNamedHeaderLink } from '../utils/redirectFunctions';
 
 const Form = React.lazy(() => import(/* webpackChunkName: "forms" */'../forms/form'));
 
@@ -35,7 +35,7 @@ const CreateIRequestForm = ({
         }
     }
 
-    const url = "https://dev1-services.waters.com/api/waters/user/v1/details"
+    const url = getNamedHeaderLink("data-user-details-url");
     // Call API & Update User Details
     retrieveData(url)
     .then((results) => {

@@ -9,7 +9,7 @@
             "buttonText": "${'CONTINUE' @ i18n, context='text'}",
             "elementLocator": "check-serial-form",
 			"buttonLocator": "continue",
-            "needsToBeSignedIn": false,
+            "needsToBeSignedIn": true,
             "icons": {
                 "checkmarkIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
                 "validIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
@@ -60,7 +60,7 @@
             "submitEndpoint": "${irequest.registrationSubmitUrl @ context='unsafe'}",
             "buttonText": "${'Send Request' @ i18n, context='text'}",
             "redirectUrl": "${irequest.redirectLink.href @ context='unsafe'}",
-            "needsToBeSignedIn": false,
+            "needsToBeSignedIn": true,
             "elementLocator": "irequest-form",
 			"buttonLocator": "send-request",
             "icons": {
@@ -194,14 +194,8 @@
                             "value": 1000,
                             "message": "${'Maximum 1000 characters allowed' @i18n, context='unsafe'}"
                         },
-                        "required": false,
+                        "required": true,
                         "requiredMsg": "${'Please enter a message.' @ i18n, context='unsafe'}"
-                    },
-                    "showTextInfo": {
-                        "remainingMoreTextMsg": "${'characters left' @i18n, context='unsafe'}",
-                        "remainingOneTextMsg": "${'character left' @i18n, context='unsafe'}",
-                        "overMoreTextMsg": "${'characters over' @i18n, context='unsafe'}",
-                        "overOneTextMsg": "${'character over' @i18n, context='unsafe'}"
                     }
                 },
                 {
@@ -265,7 +259,7 @@
                 {
                     "type": "text",
                     "name": "secondaryPhone",
-                    "label": "${'Phone Number' @ i18n, context='unsafe'}",
+                    "label": "${'Secondary Phone Number' @ i18n, context='unsafe'}",
                     "optionalLabel": "${'(optional)' @ i18n, context='text'}",
                     "validation": {
                         "validateFnName": "blankOrNumbersOnly",
