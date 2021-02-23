@@ -1,6 +1,5 @@
 package com.waters.aem.core.components;
 
-import com.day.cq.commons.LanguageUtil;
 import com.day.cq.i18n.I18n;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.waters.aem.core.components.structure.page.Commerce;
