@@ -39,7 +39,7 @@
         }
 
         @include mobile {
-            margin-right: 0px;
+            margin-right: 0;
             width: 100% !important;
         }
 
@@ -56,7 +56,7 @@
             @include tablet-and-under {
                 flex-direction: row;
                 align-items: flex-start;
-                margin-top: 0px;
+                margin-top: 0;
             }
 
             svg,
