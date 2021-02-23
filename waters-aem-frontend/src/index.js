@@ -31,7 +31,7 @@ import CountrySelector from './country-selector';
 import SessionStore from './stores/sessionStore';
 import LoginStatus from "./scripts/loginStatus";
 import CreateAccountForm from './create-account-form';
-import CreateIRequestForm from './create-irequest-form';
+import CreateRequestForm from './create-request-form';
 
 import Spinner from './utils/spinner';
 
@@ -340,17 +340,17 @@ if (videoContainers) {
     });
 }
 
-const iRequestFormContainer = document.getElementById(
-    'js-irequest-form'
+const requestFormContainer = document.getElementById(
+    'js-support-request-form'
 );
 
-if (iRequestFormContainer) {
+if (requestFormContainer) {
     const configCheckSerialForm = JSON.parse(
         document.getElementById('cmp-check-serial-form').innerHTML
     );
 
     let configSupportRequestForm = JSON.parse(
-        document.getElementById('cmp-irequest-form').innerHTML
+        document.getElementById('cmp-support-request-form').innerHTML
     );
 
     // Set Country list url
@@ -367,13 +367,12 @@ if (iRequestFormContainer) {
     }
 
     ReactDOM.render(
-        // replace isocode with a value supplied by AEM
-        <CreateIRequestForm
+        <CreateRequestForm
             supportRequestFormConfig={supportRequestForm}
             checkSerialFormConfig={checkSerialForm}
             isocode={DigitalData.language}
         />,
-        iRequestFormContainer
+        requestFormContainer
     );
 }
 

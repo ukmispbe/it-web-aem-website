@@ -6,12 +6,7 @@ import { signInRedirect, getNamedHeaderLink } from '../utils/redirectFunctions';
 
 const Form = React.lazy(() => import(/* webpackChunkName: "forms" */'../forms/form'));
 
-
-
-
-
-
-const CreateIRequestForm = ({
+const CreateRequestForm = ({
     supportRequestFormConfig,
     checkSerialFormConfig,
     isocode,
@@ -275,4 +270,4 @@ const CreateIRequestForm = ({
   }
 };
 
-export default CreateIRequestForm;
+export default CreateRequestForm;

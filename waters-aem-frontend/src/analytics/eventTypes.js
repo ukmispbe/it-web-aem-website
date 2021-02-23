@@ -151,16 +151,16 @@ const eventTypes = {
                 event: 'checkSerialFormError'
             }
         },
-        irequest: {
-            name: 'irequest',
+        supportRequest: {
+            name: 'supportRequest',
             load: {
-                event: 'irequestFormLoad'
+                event: 'supportRequestFormLoad'
             },
             submit: {
-                event: 'irequestFormSubmit'
+                event: 'supportRequestFormSubmit'
             },
             error: {
-                event: 'irequestFormError'
+                event: 'supportRequestFormError'
             }
         }               
     },
