@@ -1,0 +1,158 @@
+/*
+* This file is being used in teaser component for externallist styles
+* Styles are copied from existing externallist.scss.
+* Due to some html(externallist.html) containers are different from teaser.html, 
+* selectors are also different. Because, Teaser is out of the box component. But, work is the similar.
+*/
+.cmp-external-list {
+    .cmp-teaser {
+        margin-bottom: $space-l;
+
+        .cmp-image__image {
+            display: none;
+        }
+
+        &__content {
+            @include font-body;
+            display: flex;
+            display: -webkit-flex;
+            flex-direction: column;
+        }
+
+        .cmp-teaser__title {
+            margin-bottom: $space-xs;
+            order: 1;
+            -webkit-order: 1;
+
+            h2 {
+                @include font-h3;
+            }
+        }
+
+        .cmp-teaser__pretitle {
+            order: 2;
+            -webkit-order: 2;
+            margin-bottom: $space-xs;
+        }
+
+        .icon-with-link {
+            display: block;
+            order: 3;
+            -webkit-order: 3;
+
+            img,
+            svg {
+                display: block;
+            }
+        }
+
+        &__action-container {
+            order: 4;
+            -webkit-order: 4;
+            margin-bottom: $space-xxs;
+            .cmp-teaser__action-link {
+                @include font-h3;
+            }
+        }
+
+        &__description {
+            order: 5;
+            -webkit-order: 5;
+            p {
+                @include font-body;
+            }
+        }
+
+        &__image {
+            padding: 0;
+            margin: 0;
+
+            img,
+            svg {
+                border: $border-medium;
+            }
+        }
+
+        @include mobile {
+            margin-bottom: $space-m;
+        }
+    }
+
+    &--noPadding {
+        .cmp-teaser {
+            margin-bottom: 0;
+        }
+    }
+
+    &--horizontal {
+        .cmp-teaser {
+            margin-bottom: $space-xxl;
+            &__image {
+                float: left;
+
+                @include tablet-and-over {
+                    width: 192px;
+                    margin-right: $space-s;
+                }
+
+                img {
+                    border: $border-medium;
+
+                    @include tablet-and-over {
+                        width: 192px;
+                    }
+                }
+            }
+
+            &__action-link {
+                a {
+                    vertical-align: top;
+                }
+            }
+
+            &__description {
+                p {
+                    @include tablet-and-over {
+                        display: block;
+                        overflow: hidden;
+                    }
+                }
+            }
+
+            @include tablet-and-under {
+                margin-bottom: $space-m;
+            }
+        }
+    }
+
+    &--reverse {
+        .cmp-teaser {
+            color: $color-font-light;
+            h2 {
+                color: $color-font-light;
+            }
+
+            &__description {
+                p {
+                    color: $color-font-light;
+                }
+            }
+
+            &__image {
+                img {
+                    border: $border-light;
+                }
+            }
+
+            &__action-container {
+                a {
+                    color: $color-gray-20;
+
+                    &:hover {
+                        color: $color-font-light;
+                    }
+                }
+            }
+        }
+    }
+}

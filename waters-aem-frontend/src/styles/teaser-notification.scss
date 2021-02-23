@@ -1,0 +1,294 @@
+/*
+* This file is being used in teaser component for notification styles
+* Styles are copied from existing notification.scss.
+* Due to some html(notification.html) containers are different from teaser.html, 
+* selectors are also different. Because, Teaser is out of the box component. But, work is the similar.
+*/
+.cmp-notification {
+    .cmp-teaser,
+    &--sitewide {
+        display: flex;
+        justify-content: center;
+        background-color: $color-background-light;
+        border: $border-light;
+        border-radius: $border-radius;
+        padding: $space-s;
+        margin-bottom: $space-l;
+
+        .cmp-image {
+            svg,
+            img {
+                display: inline-block;
+                height: $icon-m;
+                width: $icon-l;
+                padding-right: $space-xxs;
+                margin: 0;
+                color: $color-icon;
+            }
+        }
+
+        .cmp-teaser__action-link:not(:last-of-type)::after {
+            content: "|";
+            cursor: auto;
+            display: inline-block;
+            text-decoration: none;
+            color: $color-gray-30;
+            padding-left: $space-xxxs;
+        }
+    }
+
+    &--sitewide {
+        background-color: $color-blue-10;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    &--my-account {
+        @include mobile {
+            .cmp-teaser {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    &-dismiss {
+        display: inline;
+        padding-left: $space-xxs;
+    }
+
+    .cmp-teaser {
+        &__content {
+            display: inherit;
+        }
+
+        &__description {
+            display: inline;
+            text-align: center;
+            @include font-body;
+            margin: 0 0 0 $space-xxxs;
+            p {
+                padding: 0;
+                margin: 0;
+            }
+        }
+
+        &__title {
+            font-weight: $font-weight-regular;
+            font-size: inherit;
+            padding-right: $space-xxxs;
+            display: inline;
+            padding: 0;
+            margin: 0;
+        }
+
+        &__action-container {
+            display: inline;
+            padding-left: $space-xxxs;
+            .cmp-teaser__action-link {
+                display: inline-block;
+            }
+        }
+    }
+
+    &--left {
+        .cmp-teaser {
+            justify-content: left;
+            background-color: transparent;
+            border: none;
+            padding: 0;
+        }
+    }
+
+    &--feature {
+        .cmp-teaser {
+            justify-content: center;
+            background-color: transparent;
+            border: unset;
+            border-top: 2px solid $color-teal-20;
+            border-bottom: 2px solid $color-teal-20;
+            border-radius: unset;
+        }
+    }
+
+    &--success {
+        .cmp-teaser {
+            background-color: $color-teal-10;
+            border: 1px solid $color-teal-20;
+
+            svg,
+            img {
+                color: $color-success;
+                .st0 {
+                    stroke: $color-success;
+                }
+            }
+        }
+    }
+
+    &--error {
+        .cmp-teaser {
+            transition: transform 200ms ease-in-out;
+            background-color: $color-red-10;
+            border: 1px solid $color-red-20;
+
+            svg,
+            img {
+                color: $color-error;
+                .st0 {
+                    stroke: $color-error;
+                }
+            }
+        }
+    }
+
+    &--userError {
+        .cmp-teaser {
+            background-color: $color-red-10;
+            border: 1px solid $color-red-20;
+
+            svg,
+            img {
+                color: $color-error;
+                .st0 {
+                    stroke: $color-error;
+                }
+            }
+        }
+    }
+
+    &--sitewide {
+        .cmp-teaser {
+            background-color: $color-blue-10;
+            border-top: 1px solid $color-blue-20;
+            border-bottom: 1px solid $color-blue-20;
+            margin: 0 -30% 0;
+        }
+    }
+
+    &--inline {
+        &.cmp-notification--inline-sku {
+            .cmp-teaser {
+                padding: $space-xxxs 0;
+                margin-bottom: 0;
+            }
+        }
+
+        .cmp-teaser {
+            padding: ($space-xxs - 0.1em) $space-xxs $space-xxs $space-xxs;
+            justify-content: left;
+            @include mobile {
+                padding: $space-xs;
+            }
+
+            svg,
+            img {
+                height: ($icon-m - 0.25em) !important;
+                padding-right: $space-xxxs !important;
+                margin-top: 0.1em;
+                padding-top: $space-xxxs;
+            }
+
+            &__description {
+                @include font-small;
+            }
+            &__title {
+                @include font-small;
+            }
+
+            &__action-container {
+                @include font-small;
+            }
+        }
+    }
+
+    &--dark {
+        .cmp-teaser {
+            background-color: $color-background-dark;
+            border: none;
+            color: $color-font-light;
+
+            svg,
+            img {
+                color: $color-white;
+                .st0 {
+                    stroke: $color-white;
+                }
+            }
+
+            &__description {
+                color: $color-font-light;
+            }
+
+            &__title {
+                color: $color-font-light;
+            }
+
+            &__action-container {
+                a {
+                    color: $color-gray-20;
+
+                    &:hover {
+                        color: $color-white;
+                    }
+                }
+            }
+        }
+
+        .cmp-teaser__action-link:not(:last-of-type)::after {
+            color: $color-gray-30;
+        }
+    }
+
+    &--center {
+        .cmp-teaser {
+            border: unset;
+            background-color: transparent;
+            padding: 0;
+        }
+    }
+
+    &--dynamic {
+        height: 0;
+        .cmp-teaser {
+            opacity: 0;
+        }
+
+        &.cmp-notification--error {
+            height: auto;
+            .cmp-teaser {
+                transition: $fade-transition;
+                opacity: 1;
+            }
+        }
+    }
+}
+// outer classes
+.cmp-specification-table {
+    .cmp-teaser {
+        justify-content: normal;
+        background-color: transparent;
+        padding: $space-s 0;
+    }
+}
+.cmp-sku-details--sticky {
+    .cmp-teaser {
+        display: none;
+    }
+}
+.cmp-sku-list__container {
+    .cmp-teaser {
+        justify-content: left;
+        padding: $space-xxs 0 0 0;
+
+        @include IE11-only {
+            justify-content: flex-start;
+        }
+
+        @include mobile {
+            padding: $space-xxs 0 0 0;
+        }
+    }
+}
+.container-sitewide-notification {
+    background-color: $color-blue-10;
+}
