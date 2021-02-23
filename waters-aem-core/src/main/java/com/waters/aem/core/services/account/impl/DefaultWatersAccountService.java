@@ -109,7 +109,9 @@ public class DefaultWatersAccountService implements WatersAccountService {
     }
 
     @Override
-    public String getSignInEndpoint() { return signInEndpoint; }
+    public String getSignInEndpoint() {
+        return signInEndpoint;
+    }
 
     @Override
     public String getSignOutEndpoint() {
@@ -147,10 +149,14 @@ public class DefaultWatersAccountService implements WatersAccountService {
     }
 
     @Override
-    public String getCountryStatesUrl() { return countryStatesUrl; }
+    public String getCountryStatesUrl() {
+        return countryStatesUrl;
+    }
 
     @Override
-    public String getSupportRequestUrl() { return supportRequestUrl; }
+    public String getSupportRequestUrl() {
+        return supportRequestUrl;
+    }
 
     @Activate
     @Modified
@@ -176,6 +182,5 @@ public class DefaultWatersAccountService implements WatersAccountService {
         countryListUrl = configuration.countryListUrl();
         countryStatesUrl = configuration.countryStatesUrl();
         supportRequestUrl = configuration.supportRequestUrl();
-
     }
 }
