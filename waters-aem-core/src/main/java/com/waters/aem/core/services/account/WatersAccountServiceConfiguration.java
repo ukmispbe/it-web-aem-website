@@ -65,4 +65,7 @@ public @interface WatersAccountServiceConfiguration {
     
     @AttributeDefinition(name = "Country States API Url", description = "Url for Country States API")
     String countryStatesUrl() default "https://api-sbox.waters.com/dev-waters-country-exp-api-v1/api/countries/{country}?states=true";
+
+    @AttributeDefinition(name = "Support Request API Url", description = "Url for Support Request API")
+    String supportRequestUrl() default "";
 }
