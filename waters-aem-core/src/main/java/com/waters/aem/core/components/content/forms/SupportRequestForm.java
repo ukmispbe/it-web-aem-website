@@ -49,6 +49,14 @@ public class SupportRequestForm implements ComponentExporter {
     @Inject
     private PageManagerDecorator pageManager;
 
+    @DialogField(fieldLabel = "Open in New Window",
+            fieldDescription = "Select this option to open 'Privacy Notice' & 'Terms of Use' in new window",
+            ranking = 6)
+    @Switch(offText = "No", onText = "Yes")
+    @Inject
+    @Default(booleanValues = false)
+    private Boolean newWindow;
+
     @DialogField(fieldLabel = "Login Link",
         fieldDescription = "Select or enter the link URL",
         required  = true,
@@ -56,6 +64,14 @@ public class SupportRequestForm implements ComponentExporter {
     @PathField(rootPath = WatersConstants.ROOT_PATH)
     @LinkInject
     private Link loginLink;
+
+    @DialogField(fieldLabel = "Waters Privacy Link",
+            fieldDescription = "Select or enter the link URL",
+            required  = true,
+            ranking = 4)
+    @PathField(rootPath = WatersConstants.ROOT_PATH)
+    @LinkInject
+    private Link watersPrivacyLink;
 
     @DialogField(fieldLabel = "Consent Link",
         fieldDescription = "Select or enter the link URL",
@@ -74,14 +90,6 @@ public class SupportRequestForm implements ComponentExporter {
     @LinkInject
     private Link redirectLink;
 
-    @DialogField(fieldLabel = "Waters Privacy Link",
-            fieldDescription = "Select or enter the link URL",
-            required  = true,
-            ranking = 4)
-    @PathField(rootPath = WatersConstants.ROOT_PATH)
-    @LinkInject
-    private Link watersPrivacyLink;
-
     @DialogField(fieldLabel = "Terms of Use Link",
             fieldDescription = "Select or enter the link URL for Terms of Use",
             required  = true,
@@ -89,14 +97,6 @@ public class SupportRequestForm implements ComponentExporter {
     @PathField(rootPath = WatersConstants.ROOT_PATH)
     @LinkInject
     private Link termsOfUseLink;
-
-    @DialogField(fieldLabel = "Open in New Window",
-            fieldDescription = "Select this option to open 'Privacy Notice' & 'Terms of Use' in new window",
-            ranking = 6)
-    @Switch(offText = "No", onText = "Yes")
-    @Inject
-    @Default(booleanValues = false)
-    private Boolean newWindow;
 
     @DialogField(fieldLabel = "Open in Modal",
             fieldDescription = "Select this option to open 'Privacy Notice' & 'Terms of Use' in Modal",
