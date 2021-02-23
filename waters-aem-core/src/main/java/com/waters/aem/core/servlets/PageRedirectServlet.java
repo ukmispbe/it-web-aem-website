@@ -41,7 +41,7 @@ public class PageRedirectServlet
         extends SlingSafeMethodsServlet {
 
     private Set<String> excludedResourceTypes;
-    private static Logger LOG = LoggerFactory.getLogger(PageRedirectServlet.class);
+    private static Logger log = LoggerFactory.getLogger(PageRedirectServlet.class);
     private static final String WCM_MODE_PARAM = "wcmmode";
 
     @Reference
@@ -71,7 +71,7 @@ public class PageRedirectServlet
                     redirectTarget = resource.getResourceResolver().map(request, redirectTarget) + ".html";
                 }
                 redirectTarget = appendWcmModeQueryParameter(request, redirectTarget);
-                LOG.debug("Redirecting page {} to target {}", resource.getPath(), redirectTarget);
+                log.debug("Redirecting page {} to target {}", resource.getPath(), redirectTarget);
                 if (redirectType.equals("301")) {
                     response.setStatus(301);
                     response.setHeader("Location", redirectTarget);
@@ -102,14 +102,14 @@ public class PageRedirectServlet
 
     private String appendWcmModeQueryParameter(SlingHttpServletRequest request, String redirectTarget) {
         if (isModeDisabledChangeRequest(request)) {
-            redirectTarget = redirectTarget + (redirectTarget.contains("?") ? "&" : "?") + "wcmmode" + "=disabled";
+            redirectTarget = redirectTarget + (redirectTarget.contains("?") ? "&" : "?") + WCM_MODE_PARAM + "=disabled";
         }
         return redirectTarget;
     }
 
     private boolean isModeDisabledChangeRequest(SlingHttpServletRequest request) {
         boolean isModeChangeRequest = false;
-        String modeChange = request.getParameter("wcmmode");
+        String modeChange = request.getParameter(WCM_MODE_PARAM);
         if (StringUtils.equalsIgnoreCase(modeChange, WCMMode.DISABLED.name())) {
             isModeChangeRequest = true;
         }
@@ -156,7 +156,7 @@ public class PageRedirectServlet
     private String getExternalizedUrl(final SlingHttpServletRequest request, final String path) {
         final int protocolIndex = path.indexOf(":/");
         final int queryIndex = path.indexOf('?');
-        String redirectPath;
+        String redirectPath = "";
         try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(null)) {
             if (protocolIndex > -1 && (queryIndex == -1 || queryIndex > protocolIndex)) {
                 redirectPath = path;
@@ -168,7 +168,7 @@ public class PageRedirectServlet
                         path + "." + PathConstants.EXTENSION_HTML);
             }
         } catch (LoginException e) {
-            throw new RuntimeException(e);
+            log.error("Error while externalizing the URL: ", e);
         }
         return redirectPath;
     }

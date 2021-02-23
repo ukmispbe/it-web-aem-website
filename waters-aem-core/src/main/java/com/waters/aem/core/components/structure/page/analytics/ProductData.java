@@ -5,7 +5,6 @@ import com.icfolson.aem.library.api.page.PageDecorator;
 import com.waters.aem.core.commerce.models.Classification;
 import com.waters.aem.core.commerce.models.DisplayableSku;
 import com.waters.aem.core.commerce.models.Sku;
-import com.waters.aem.core.commerce.models.SkuImage;
 import com.waters.aem.core.components.SiteContext;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
