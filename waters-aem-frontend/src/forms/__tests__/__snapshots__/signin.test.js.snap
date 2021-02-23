@@ -42,6 +42,7 @@ exports[`Feature: Sign In Form Scenario: Rendering When initial render Then the 
       />
       <div
         className="cmp-form-field--icons"
+        data-locator="cmp-form-field-icons"
       >
         <div
           className="valid-icon"
@@ -53,6 +54,7 @@ exports[`Feature: Sign In Form Scenario: Rendering When initial render Then the 
     </div>
     <span
       className="cmp-form-field--errorText"
+      data-locator="cmp-form-field-errorText"
     >
       
     </span>
@@ -92,6 +94,7 @@ exports[`Feature: Sign In Form Scenario: Rendering When initial render Then the 
       />
       <div
         className="cmp-form-field--icons"
+        data-locator="cmp-form-field-icons"
       >
         <div
           className="showHide-icon toggled"
@@ -111,6 +114,7 @@ exports[`Feature: Sign In Form Scenario: Rendering When initial render Then the 
     </div>
     <span
       className="cmp-form-field--errorText"
+      data-locator="cmp-form-field-errorText"
     >
       
     </span>
@@ -132,6 +136,7 @@ exports[`Feature: Sign In Form Scenario: Rendering When initial render Then the 
     </div>
   </div>
   <button
+    aria-label="form submit button"
     className="cmp-button cmp-button--no-border cmp-form--submit"
     data-locator="form-submit"
     type="submit"

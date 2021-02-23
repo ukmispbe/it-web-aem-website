@@ -29,7 +29,8 @@ const TextWithLinks = ({}) => {
         <>
             {
                 config.length > 0 && (
-                    <div className={`cmp-form-field-${type}--${name} ` + (addClass ? addClass : '')}>
+                    <div className={`cmp-form-field-${type}--${name} ` + (addClass ? addClass : '')}
+                        data-locator={elementLocator(`cmp-form-field-${type}-${name}`)}>
                         {config.map((block, index) => {
                             let itemToRender = block.type === "link" ? renderLink({...block, className: block.className || '', title: block.title || '', id: block.id || `text-with-link-${index}`}) : renderText(block);
                             let space="";
@@ -37,7 +38,7 @@ const TextWithLinks = ({}) => {
                             if(block.rightSpace !== "false" || typeof block.rightSpace == "undefined") {
                                 space = " ";
                             }
-                        return <React.Fragment key={index}>{itemToRender}{space}</React.Fragment>
+                            return <React.Fragment key={index}>{itemToRender}{space}</React.Fragment>
                         })}
                     </div>
                 )

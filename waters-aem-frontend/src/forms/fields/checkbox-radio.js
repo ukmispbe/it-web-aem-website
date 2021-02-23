@@ -61,7 +61,7 @@ const CheckboxOrRadio = ({}) => {
     const checkHandler = (event, thisName) => {
         if (!disabled) {
              // Check if Same Address
-             if (thisName === "sameAddress") {
+            if (thisName === "sameAddress") {
                 toggleAddressFn();
                 triggerValidation(["sameAddress"]);
             }
@@ -178,6 +178,7 @@ const CheckboxOrRadio = ({}) => {
                     )}
                 </a>
                 <div
+                    data-locator={elementLocator(`${thisName}-${type}-wrapper`)}
                     className={
                         `cmp-form-field-${type}--wrapper` +
                         (disabled ? ' disabled' : '')

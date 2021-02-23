@@ -18,7 +18,7 @@ const Body = ({ text, additionalText }) => {
         <div>
             {text}
             {displayAdditionalText && (
-                <span className="cmp-form__additionalText">
+                <span className="cmp-form__additionalText" data-locator="cmp-form-additionalText">
                     {displayAdditionalText}
                 </span>
             )}

@@ -35,12 +35,14 @@ const FormNotification = ({}) => {
             {
                 config.length > 0 && (
                     <div className={`cmp-form-field-${type}--${name} ` + (addClass ? addClass : '')}>
-                        <div className={`cmp-form-field-left-${type}--${name} ` + (addClass ? addClass : '')}>
+                        <div className={`cmp-form-field-left-${type}--${name} ` + (addClass ? addClass : '')}
+                            data-locator={elementLocator(`${type}-${name}-icon`)}>
                             <ReactSVG 
                                 src="/content/dam/waters/en/brand-assets/icons/attention.svg"
                             />
                         </div>
-                        <div className={`cmp-form-field-right-${type}--${name} ` + (addClass ? addClass : '')}>
+                        <div className={`cmp-form-field-right-${type}--${name} ` + (addClass ? addClass : '')}
+                        data-locator={elementLocator(`${type}-${name}-message`)}>
                         {config.map((block, index) => {
                             let itemToRender = block.type === "link" ? renderLink({...block, className: block.className || '', title: block.title || '', id: block.id || `text-with-link-${index}`}) : renderSpan(block);
                             let space="";
