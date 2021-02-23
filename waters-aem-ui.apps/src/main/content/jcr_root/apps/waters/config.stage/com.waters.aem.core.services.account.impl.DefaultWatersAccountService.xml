@@ -24,4 +24,3 @@
           countryListUrl="https://api-sbox.waters.com/uat-waters-country-exp-api-v1/api/countries"
           countryStatesUrl="https://api-sbox.waters.com/uat-waters-country-exp-api-v1/api/countries/{country}?states=true"
           supportRequestUrl=""  />
-          supportRequestUrl=""  />
