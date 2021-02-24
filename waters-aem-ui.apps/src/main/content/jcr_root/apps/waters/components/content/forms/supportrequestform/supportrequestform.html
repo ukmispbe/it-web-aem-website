@@ -6,10 +6,10 @@
             "customFormClass": "cmp-form--check-serial",
             "submitEndpoint": "${supportRequest.supportRequestUrl @ context='unsafe'}",
             "redirectUrl": "${supportRequest.redirectLink.href @ context='unsafe'}",
-            "buttonText": "${'CONTINUE' @ i18n, context='text'}",
+            "buttonText": "${'Continue' @ i18n, context='text'}",
             "elementLocator": "check-serial-form",
 			"buttonLocator": "continue",
-            "needsToBeSignedIn": false,
+            "needsToBeSignedIn": true,
             "icons": {
                 "checkmarkIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
                 "validIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
@@ -62,7 +62,7 @@
             "redirectUrl": "${supportRequest.redirectLink.href @ context='unsafe'}",
             "loginUrl": "${supportRequest.loginLink.href @ context='unsafe'}",
             "consentUrl": "${supportRequest.consentLink.href @ context='unsafe'}",
-            "needsToBeSignedIn": false,
+            "needsToBeSignedIn": true,
             "elementLocator": "support-request-form",
 			"buttonLocator": "send-request",
             "icons": {
@@ -170,7 +170,7 @@
                     "options": [
                         {"value":"LC","label": "${'LC Software' @ i18n, context='text'}"},
                         {"value":"MS","label": "${'MS Software' @ i18n, context='text'}"},
-                        {"value":"NUGEN","label": "${'NuGenisis Software' @ i18n, context='text'}"},                        
+                        {"value":"NUGEN","label": "${'NuGenesis Software' @ i18n, context='text'}"},                        
                         {"value":"UPLC_HPLC","label": "${'UPLC/HPLC Hardware' @ i18n, context='text'}"},
                         {"value":"QUAD","label": "${'Quadrupole Instruments' @ i18n, context='text'}"},
                         {"value":"TOF","label": "${'Time of Flight Instruments' @ i18n, context='text'}"},
@@ -198,12 +198,6 @@
                         },
                         "required": false,
                         "requiredMsg": "${'Please enter a message.' @ i18n, context='unsafe'}"
-                    },
-                    "showTextInfo": {
-                        "remainingMoreTextMsg": "${'characters left' @i18n, context='unsafe'}",
-                        "remainingOneTextMsg": "${'character left' @i18n, context='unsafe'}",
-                        "overMoreTextMsg": "${'characters over' @i18n, context='unsafe'}",
-                        "overOneTextMsg": "${'character over' @i18n, context='unsafe'}"
                     }
                 },
                 {

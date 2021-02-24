@@ -12,7 +12,7 @@ const CreateRequestForm = ({
     isocode,
 }) => {
   const [showForm, setShowForm] = useState();
-
+  const [isInEditMode, setIsInEditMode] = useState(document.getElementById("header").hasAttribute("data-is-edit-mode"));
   const [ serialFormConfig, setCheckSerialFormConfig ] = useState(checkSerialFormConfig);
   const [ supportReqFormConfig, setSupportRequestFormConfig ] = useState(supportRequestFormConfig);
   const [initialIRequestFormValues, setInitialIRequestFormValues] = useState({});
@@ -21,13 +21,15 @@ const CreateRequestForm = ({
 
   useEffect(() => {
     const needsToBeSignedIn = serialFormConfig.config.needsToBeSignedIn;
-    if (needsToBeSignedIn) {
-        if (!loginStatus.state()) {
-            const store = new SessionStore();
-            store.setSignInRedirect(window.location.href);
-            signInRedirect();
-            return null;
-        }
+    if (!isInEditMode) {
+      if (needsToBeSignedIn) {
+          if (!loginStatus.state()) {
+              const store = new SessionStore();
+              store.setSignInRedirect(window.location.href);
+              signInRedirect();
+              return null;
+          }
+      }
     }
 
     const url = getNamedHeaderLink("data-user-details-url");
