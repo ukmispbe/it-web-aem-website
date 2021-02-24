@@ -18,6 +18,9 @@ const Select = (props) => {
     const { triggerValidation, setValue, getValue, activateField, deactivateField, setCountrySaved, regionalConfig, displayProductTypeDropDown } = useContext(useFormApi);
     const [selectedValue, setSelectedValue] = useState(getValue(name) ? getValue(name).toLowerCase() : (props.defaultValue || ""));
     const setupOptions = (label, value) => ({ label: label, value: value });
+    const constTech = "TECH";
+    const constSupportType = "supportType";
+    const constCO2Bulk = "CO2_BULK";
 
     const getOptions = () => {
         switch (name) {
@@ -55,16 +58,16 @@ const Select = (props) => {
             setCountrySaved(option.value);
         }
 
-        if (name === "supportType") {
+        if (name === constSupportType) {
             // Check if Option is "Technical Support"
             // Display or Hide Product Type Drop Down
-            if (option.value === "TECH") {
+            if (option.value === constTech) {
                 displayProductTypeDropDown(true); 
-                triggerValidation(["supportType"]);            
+                triggerValidation([constSupportType]);            
             }
             else {
                 displayProductTypeDropDown(false);
-                triggerValidation(["supportType"]);
+                triggerValidation([constSupportType]);
             }
         }
     };
@@ -73,7 +76,7 @@ const Select = (props) => {
         <ReactSelect
             {...props}
             options={getOptions()}
-            defaultValue={{ value: "CO2_BULK"}}
+            defaultValue={{ value: constCO2Bulk}}
             isDisabled={disabled}
             isSearchable={true}
             styles={customStyles}

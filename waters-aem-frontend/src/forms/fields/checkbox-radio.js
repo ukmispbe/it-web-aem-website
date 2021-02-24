@@ -39,7 +39,7 @@ const CheckboxOrRadio = ({}) => {
             const defaultOptions = options.map((option, i) => {
                 const thisOption = {
                     [option.name]: {
-                        isChecked: option.name === initialState ? true :false,
+                        isChecked: option.name === initialState,
                         required:
                             validation &&
                             validation.validateFnName &&
