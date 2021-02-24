@@ -1,37 +1,216 @@
 <div data-sly-use.supportRequest="com.waters.aem.core.components.content.forms.SupportRequestForm">
     <div class="cmp-form--attach" id="js-support-request-form"></div>
-    <script type="application/json" id="cmp-support-request-form">
+    <script type="application/json" id="cmp-check-serial-form">
         {
-            "formName": "supportRequestForm",
+            "formName": "checkSerial",
+            "customFormClass": "cmp-form--check-serial",
             "submitEndpoint": "${supportRequest.supportRequestUrl @ context='unsafe'}",
-            "buttonText": "${'SEND REQUEST' @ i18n, context='text'}",
             "redirectUrl": "${supportRequest.redirectLink.href @ context='unsafe'}",
-            "loginUrl": "${supportRequest.loginLink.href @ context='unsafe'}",
-            "consentUrl": "${supportRequest.consentLink.href @ context='unsafe'}",
+            "buttonText": "${'CONTINUE' @ i18n, context='text'}",
+            "elementLocator": "check-serial-form",
+			"buttonLocator": "continue",
+            "needsToBeSignedIn": false,
             "icons": {
                 "checkmarkIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
                 "validIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
                 "invalidIcon": "/content/dam/waters/en/brand-assets/icons/attention.svg",
-                "eyeIcon": "/content/dam/waters/en/brand-assets/icons/eye.svg",
-                "eyeOffIcon": "/content/dam/waters/en/brand-assets/icons/eye-off.svg",
-                "signInIcon": "/content/dam/waters/en/brand-assets/icons/user.svg",
-                "docIcon": "/content/dam/waters/en/brand-assets/icons/document.svg"
+                "signInIcon": "/content/dam/waters/en/brand-assets/icons/user.svg"
             },
             "fields": [
                 {
-                    "type": "dropdown",
-                    "name": "formCategoryType",
-                    "defaultValue": "technical support",
-                    "label": "${'Select a Category' @ i18n, context='text'}",
-                    "dropdownIndicator": "/content/dam/waters/en/brand-assets/icons/down.svg",
-                    "options": [
-                        {"value":"technical support", "label": "${'Technical Support' @ i18n, context='text'}"},
-                        {"value":"order support","label": "${'Order Support' @ i18n, context='text'}"}
-                    ],
+                    "type": "label",
+                    "name": "requiredLabel",
+                    "label": "${'*Required field' @ i18n, context='unsafe'}"
+                },                
+                {
+                    "type": "text",
+                    "name": "serialNumber",
+                    "label": "${'Enter Serial Number or Software Support Plan ID' @ i18n, context='text'}",
                     "validation": {
                         "required": true,
-                        "requiredMsg": "${'Please select a category.' @ i18n, context='text'}"
+                        "maxLength": {
+                            "value": 40,
+                            "message": "${'Maximum 40 characters allowed' @i18n, context='unsafe'}"
+                        },
+                        "validateFnName": "noWhitespaceOnly",
+                        "requiredMsg": "${'Please enter a Serial Number.' @ i18n, context='unsafe'}"
                     }
+                },            
+                {
+                    "type": "text",
+                    "name": "organization",
+                    "label": "${'Organization' @ i18n, context='text'}",
+                    "validation": {
+                        "required": true,
+                        "maxLength": {
+                            "value": 40,
+                            "message": "${'Maximum 40 characters allowed' @i18n, context='unsafe'}"
+                        },
+                        "validateFnName": "noWhitespaceOnly",
+                        "requiredMsg": "${'Please enter an Organization.' @ i18n, context='unsafe'}"
+                    }
+                }           
+            ]
+        }
+    </script>
+    <script type="application/json" id="cmp-support-request-form">
+        {
+            "formName": "supportRequest",
+            "recordType": "Support",
+            "submitEndpoint": "${supportRequest.supportRequestUrl @ context='unsafe'}",
+            "buttonText": "${'Send Request' @ i18n, context='text'}",
+            "redirectUrl": "${supportRequest.redirectLink.href @ context='unsafe'}",
+            "loginUrl": "${supportRequest.loginLink.href @ context='unsafe'}",
+            "consentUrl": "${supportRequest.consentLink.href @ context='unsafe'}",
+            "needsToBeSignedIn": false,
+            "elementLocator": "support-request-form",
+			"buttonLocator": "send-request",
+            "icons": {
+                "checkmarkIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
+                "validIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
+                "invalidIcon": "/content/dam/waters/en/brand-assets/icons/attention.svg",
+                "lockIcon": "/content/dam/waters/en/brand-assets/icons/lock.svg"
+            },
+            "fields": [
+                {
+                    "type": "navigateLink",
+                    "addClass": "cmp-back-link",
+                    "text": "${'Back' @ i18n, context='unsafe'}",
+                    "name": "backLink",
+                    "iconSrc": "/content/dam/waters/en/brand-assets/icons/left.svg",
+                    "link": "#"
+                },
+                {
+                    "type": "label",
+                    "name": "serialNumberLabel",
+                    "label": "${'Serial Number or Software Support Plan ID:' @ i18n, context='unsafe'}"
+                },
+                {
+                    "type": "label",
+                    "name": "organizationLabel",
+                    "label": "${'Organization:' @ i18n, context='unsafe'}"
+                },
+                {
+                    "type": "break",
+                    "addClass": "cmp-section-hr"
+                },               
+                {
+                    "type": "label",
+                    "addClass": "cmp-heading-label",
+                    "name": "supportRequestDetailsLabel",
+                    "label": "${'Support Request Details' @ i18n, context='unsafe'}"
+                },                
+                {
+                    "type": "label",
+                    "name": "requiredLabel",
+                    "label": "${'*Required field' @ i18n, context='unsafe'}"
+                }, 
+                {
+                    "type": "text",
+                    "active": false,
+                    "addClass": "text-as-label",
+                    "disabled": true,
+                    "name": "productDetailsText",
+                    "label": "${'Product Requiring Support' @ i18n, context='unsafe'}",
+                    "validation": {
+                        "required": false
+                    }
+                }, 
+                {
+                    "type": "text",
+                    "active": false,
+                    "addClass": "text-hidden",
+                    "disabled": true,
+                    "name": "productDetailsValue",
+                    "validation": {
+                        "required": false
+                    }
+                },
+                {
+                    "type": "dropdown",
+                    "name": "productDetails",
+                    "label": "${'Product Requiring Support' @ i18n, context='text'}",
+                    "placeholder": "${'Select...' @ i18n, context='text'}",
+                    "dropdownIndicator": "/content/dam/waters/en/brand-assets/icons/down.svg",
+                    "options": [
+                        {"value":"CO2_BULK","label": "${'CO2 Bulk Delivery 500G System' @ i18n, context='text'}"},
+                        {"value":"TA_AD","label": "${'S/W Suite TA Advantage v5.0 Kit' @ i18n, context='text'}"}
+                    ],
+                    "active": false,
+                    "validation": {
+                        "required": true,
+                        "requiredMsg": "${'Please select your Product.' @ i18n, context='text'}"
+                    }
+                },                
+                {
+                    "type": "dropdown",
+                    "name": "supportType",
+                    "label": "${'Type of Support Request' @ i18n, context='text'}",
+                    "placeholder": "${'Select...' @ i18n, context='text'}",
+                    "dropdownIndicator": "/content/dam/waters/en/brand-assets/icons/down.svg",
+                    "options": [
+                        {"value":"TECH","label": "${'Technical Support' @ i18n, context='text'}"},
+                        {"value":"MNT","label": "${'Preventative Maintenance' @ i18n, context='text'}"},
+                        {"value":"QUAL","label": "${'Qualification' @ i18n, context='text'}"},
+                        {"value":"INST_REL","label": "${'Installation-Relocation' @ i18n, context='text'}"}
+                        
+                    ],
+                    "active": true,
+                    "validation": {
+                        "required": true,
+                        "requiredMsg": "${'Please select your type of Support Request.' @ i18n, context='text'}"
+                    }
+                },
+                {
+                    "type": "dropdown",
+                    "name": "productType",
+                    "label": "${'Product Type' @ i18n, context='text'}",
+                    "placeholder": "${'Select...' @ i18n, context='text'}",
+                    "dropdownIndicator": "/content/dam/waters/en/brand-assets/icons/down.svg",
+                    "options": [
+                        {"value":"LC","label": "${'LC Software' @ i18n, context='text'}"},
+                        {"value":"MS","label": "${'MS Software' @ i18n, context='text'}"},
+                        {"value":"NUGEN","label": "${'NuGenisis Software' @ i18n, context='text'}"},                        
+                        {"value":"UPLC_HPLC","label": "${'UPLC/HPLC Hardware' @ i18n, context='text'}"},
+                        {"value":"QUAD","label": "${'Quadrupole Instruments' @ i18n, context='text'}"},
+                        {"value":"TOF","label": "${'Time of Flight Instruments' @ i18n, context='text'}"},
+                        {"value":"MALDI","label": "${'Maldi Instruments' @ i18n, context='text'}"},
+                        {"value":"SFC","label": "${'SFC of SFC-MS Instruments' @ i18n, context='text'}"}
+                    ],
+                    "active": false,
+                    "validation": {
+                        "required": true,
+                        "requiredMsg": "${'Please select a product type.' @ i18n, context='text'}"
+                    }
+                },
+                {
+                    "type": "textarea",
+                    "name": "formDescription",
+                    "label": "${'Support Request Summary' @ i18n, context='text'}",
+                    "optionalLabel": "${'(optional)' @ i18n, context='text'}",
+                    "placeHolder": "${'Please provide a brief summary of your issue. Be sure to include any pertinent information such as system configuration.' @ i18n, context='text'}",
+                    "resize": false,
+                    "rows": 5,
+                    "validation": {
+                        "maxLength": {
+                            "value": 32000,
+                            "message": "${'Maximum 32000 characters allowed' @i18n, context='unsafe'}"
+                        },
+                        "required": false,
+                        "requiredMsg": "${'Please enter a message.' @ i18n, context='unsafe'}"
+                    },
+                    "showTextInfo": {
+                        "remainingMoreTextMsg": "${'characters left' @i18n, context='unsafe'}",
+                        "remainingOneTextMsg": "${'character left' @i18n, context='unsafe'}",
+                        "overMoreTextMsg": "${'characters over' @i18n, context='unsafe'}",
+                        "overOneTextMsg": "${'character over' @i18n, context='unsafe'}"
+                    }
+                },
+                {
+                    "type": "label",
+                    "addClass": "cmp-heading-label",
+                    "name": "contactInformationLabel",
+                    "label": "${'Contact Information for this Request' @ i18n, context='unsafe'}"
                 },
                 {
                     "type": "text",
@@ -73,63 +252,59 @@
                         "validateFnName": "email",
                         "validationMsg": "${'Please enter a valid email address.' @ i18n, context='text'}"
                     }
-                },
+                }, 
                 {
                     "type": "text",
                     "name": "phone",
-                    "label": "${'Phone' @ i18n, context='text'}",
-                    "active": true,
+                    "label": "${'Phone Number' @ i18n, context='unsafe'}",
                     "validation": {
-                        "required": false,
-                        "maxLength": {
-                            "value": 40,
-                            "message": "${'Maximum 40 characters allowed' @i18n, context='unsafe'}"
-                        },
                         "validateFnName": "blankOrNumbersOnly",
-                        "validationMsg": "${'Please enter a valid phone number.' @ i18n, context='unsafe'}"
+                        "required": true,
+                        "requiredMsg": "${'Please enter a phone number (Numbers Only).' @ i18n, context='unsafe'}",
+                        "validationMsg": "${'Please enter a valid phone number (Numbers Only).' @ i18n, context='text'}"
                     }
                 },
                 {
-                    "type": "textarea",
-                    "name": "formDescription",
-                    "label": "${'How can we help you?' @ i18n, context='text'}",
-                    "resize": false,
-                    "rows": 5,
+                    "type": "text",
+                    "name": "secondaryPhone",
+                    "label": "${'Phone Number' @ i18n, context='unsafe'}",
+                    "optionalLabel": "${'(optional)' @ i18n, context='text'}",
                     "validation": {
-                        "maxLength": {
-                            "value": 100,
-                            "message": "${'Maximum 100 characters allowed' @i18n, context='unsafe'}"
-                        },
-                        "required": true,
-                        "requiredMsg": "${'Please enter a message.' @ i18n, context='unsafe'}"
-                    },
-                    "showTextInfo": {
-                        "remainingMoreTextMsg": "${'characters left' @i18n, context='unsafe'}",
-                        "remainingOneTextMsg": "${'character left' @i18n, context='unsafe'}",
-                        "overMoreTextMsg": "${'characters over' @i18n, context='unsafe'}",
-                        "overOneTextMsg": "${'character over' @i18n, context='unsafe'}"
+                        "validateFnName": "blankOrNumbersOnly",
+                        "required": false,
+                        "validationMsg": "${'Please enter a valid phone number (Numbers Only).' @ i18n, context='text'}"
                     }
-                },
-
+                },  
+                {
+                    "type": "radio",
+                    "name": "contactMethod",
+                    "label": "${'Preferred Method of Contact' @ i18n, context='unsafe'}",
+                    "options": [
+                        {"name":"E","label": "${'Email' @ i18n, context='text'}"},
+                        {"name":"P","label": "${'Phone' @ i18n, context='text'}"}
+                    ],
+                    "validation": {
+                        "required": true,
+                        "validateFnName": "checkBoxOrRadio",
+                        "validationMsg": "Select an Account"
+                    }
+                },           
                 {
                     "type": "textwithlinks",
                     "name": "privacy",
-                    "openModal": "contactSupport.newModal",
+                    "active": true,
                     "config": [
                         {
                             "type": "text",
-                            "text": "${'By clicking the SEND MESSAGE button, you are agreeing to our' @ i18n, context='text'}",
+                            "text": "${'By clicking the CREATE ACCOUNT button, you are agreeing to our' @ i18n, context='text'}",
                             "rightSpace": "true"
                         },
                         {
                             "type": "link",
                             "label": "${'Terms of Use' @ i18n, context='text'}",
-                            "title": "${'Terms of Use' @ i18n, context='text'}",
-                            "url": "${supportRequest.newModal ? supportRequest.termsOfUseLink.path : supportRequest.termsOfUseLink.href @ context='unsafe'}",
-                            "blank": "${supportRequest.newWindow @ context='unsafe'}",
-                            "rightSpace": "true",
-                            "className": "terms-of-use",
-                            "id": "contact-support-form-terms-of-use"
+                            "url": "${irequest.termsOfUseLink.href @ context='unsafe'}",
+                            "blank": "${irequest.newWindow @ context='unsafe'}",
+                            "rightSpace": "true"
                         },
                         {
                             "type": "text",
@@ -138,13 +313,10 @@
                         },
                         {
                             "type": "link",
-                            "label": "${'Waters Privacy' @ i18n, context='text'}",
-                            "title": "${'Privacy Policy' @ i18n, context='text'}",
-                            "url": "${supportRequest.newModal ? supportRequest.privacyNoticeLink.path : supportRequest.privacyNoticeLink.href @ context='unsafe'}",
-                            "blank": "${supportRequest.newWindow @ context='unsafe'}",
-                            "rightSpace": "false",
-                            "className": "waters-privacy",
-                            "id": "contact-support-form-waters-privacy"
+                            "label": "${'Waters Privacy Notice' @ i18n, context='text'}",
+                            "url": "${irequest.privacyNoticeLink.href @ context='unsafe'}",
+                            "blank": "${irequest.newWindow @ context='unsafe'}",
+                            "rightSpace": "false"
                         },
                         {
                             "type": "text",

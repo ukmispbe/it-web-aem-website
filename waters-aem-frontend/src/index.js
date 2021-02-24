@@ -31,6 +31,8 @@ import CountrySelector from './country-selector';
 import SessionStore from './stores/sessionStore';
 import LoginStatus from "./scripts/loginStatus";
 import CreateAccountForm from './create-account-form';
+import CreateRequestForm from './create-request-form';
+
 import Spinner from './utils/spinner';
 
 if (process.env.NODE_ENV !== 'production') {
@@ -336,6 +338,42 @@ if (videoContainers) {
             );
         }
     });
+}
+
+const requestFormContainer = document.getElementById(
+    'js-support-request-form'
+);
+
+if (requestFormContainer) {
+    const configCheckSerialForm = JSON.parse(
+        document.getElementById('cmp-check-serial-form').innerHTML
+    );
+
+    let configSupportRequestForm = JSON.parse(
+        document.getElementById('cmp-support-request-form').innerHTML
+    );
+
+    // Set Country list url
+    configSupportRequestForm.countryListUrl = headerRef.dataset.countryListUrl ? headerRef.dataset.countryListUrl : '';
+
+    const supportRequestForm = {
+        config: configSupportRequestForm,
+        submitFn: registrationSubmit,
+        callback: headerData.userDetailsUrl,
+    }
+
+    const checkSerialForm = {
+        config: configCheckSerialForm,
+    }
+
+    ReactDOM.render(
+        <CreateRequestForm
+            supportRequestFormConfig={supportRequestForm}
+            checkSerialFormConfig={checkSerialForm}
+            isocode={DigitalData.language}
+        />,
+        requestFormContainer
+    );
 }
 
 const registrationFormContainer = document.getElementById(

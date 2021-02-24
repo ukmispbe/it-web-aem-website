@@ -39,7 +39,7 @@ const CheckboxOrRadio = ({}) => {
             const defaultOptions = options.map((option, i) => {
                 const thisOption = {
                     [option.name]: {
-                        isChecked: false,
+                        isChecked: option.name === initialState ? true :false,
                         required:
                             validation &&
                             validation.validateFnName &&
@@ -73,7 +73,7 @@ const CheckboxOrRadio = ({}) => {
 
             const thisState = state[thisName];
 
-            if (config.getRadioOptions && options) {
+            if (options) {
                 for (let key of Object.keys(state)) {
                     if (key === thisName) {
                         state[key].isChecked = true;
@@ -109,14 +109,14 @@ const CheckboxOrRadio = ({}) => {
     const renderLabel = (thisName, lbl) => {
         let formattedLabel = lbl;
         // If a check Box and required add required indicator to label
-        if (state[thisName].required && type !== 'radio') {
+        if (state[thisName] && state[thisName].required && type !== 'radio') {
             formattedLabel = renderFormattedLabelText(label, true)
         }
         return (
             <>
                 {formattedLabel + ' '}
-                {renderAddOnLink(thisName)}
-                {!state[thisName].required && type !== 'radio' && optionalLabel && (
+                {state[thisName] && renderAddOnLink(thisName)}
+                {state[thisName] && !state[thisName].required && type !== 'radio' && optionalLabel && (
                     <span className="cmp-form-field--optional">{optionalLabel}</span>
                 )}
             </>
@@ -203,11 +203,20 @@ const CheckboxOrRadio = ({}) => {
             renderType(name, label)
         ) : (
                 <div id={name} className={`cmp-form-field-${type}--grouping`}>
+                    {label && (<label
+                        htmlFor={name}
+                        onClick={e => checkHandler(e, name)}
+                    >
+                        {renderLabel(name, label)}
+                    </label>)}
                     {options.map((option, i) => {
-                        let address=[];
-                        option.address.map((addressPiece) => {
-                            address.push(<div className={`cmp-form-field-${type}--address1`}>{addressPiece}</div>)
-                        })
+                        let address;
+                        if (option.address) {
+                            address=[];
+                            option.address.map((addressPiece) => {
+                                address.push(<div className={`cmp-form-field-${type}--address1`}>{addressPiece}</div>)
+                            })
+                        }
                         return (
                             <>
                                 <div style={{ paddingTop: "10px" }}
