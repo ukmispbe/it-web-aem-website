@@ -14,7 +14,8 @@ class DeliveryStatus extends Component {
             deliveryStatus: "",
             icon: "",
             iconClassName: "",
-            deliveryStatusClass: ""
+            deliveryStatusClass: "",
+            elementDataLocator: "delivery"
         }
     }
 
@@ -48,39 +49,47 @@ class DeliveryStatus extends Component {
         let icon = "";
         let iconClassName = "delivery-icon";
         let deliveryStatusClass = '';
+        let elementDataLocator = 'delivery-icon';
 
         switch(status) {
             case DELIVERY_STATUS.PENDING:
                 deliveryStatus = labels.pendingLabel;
                 icon = icons.pendingIcon;
+                elementDataLocator = 'pending';
             break;
             case DELIVERY_STATUS.QUOTE_REPLACED:
                 deliveryStatus = labels.quoteReplacedLabel;
                 icon = icons.replacedIcon;
+                elementDataLocator = 'quote-replaced';
             break;
             case DELIVERY_STATUS.REJECTED:
                 deliveryStatus = labels.rejectedLabel;
                 icon = icons.rejectedIcon;
                 iconClassName= "rejected-icon";
+                elementDataLocator = 'quote-rejected';
             break;
             case DELIVERY_STATUS.EXPIRED:
                 deliveryStatus = labels.expiredLabel;
                 icon = icons.expiredIcon;
                 iconClassName= "delivery-icon-disabled";
                 deliveryStatusClass = "disabled";
+                elementDataLocator = 'quote-expired';
             break;
             case DELIVERY_STATUS.ORDER_PLACED:
                 deliveryStatus = labels.orderPlacedLabel;
                 icon = icons.orderPlacedIcon;
                 iconClassName = "delivery-icon-complete";
+                elementDataLocator = 'order-placed';
             break; 
             case DELIVERY_STATUS.OPEN:
                 deliveryStatus = labels.openLabel;
                 icon = icons.openIcon;
+                elementDataLocator = 'open';
             break;
             case DELIVERY_STATUS.PARTIAL:
                 deliveryStatus = labels.partialLabel;
                 icon = icons.partialIcon;
+                elementDataLocator = 'partial';
             break;
             case DELIVERY_STATUS.COMPLETE:
                 if(shipped.shippedDate && shipped.shippedDate !== ""){    
@@ -90,6 +99,7 @@ class DeliveryStatus extends Component {
                 }
                 icon = icons.completeIcon;
                 iconClassName = "delivery-icon-complete";
+                elementDataLocator = 'complete';
             break;     
             default:
                 deliveryStatus = labels.openLabel;
@@ -99,6 +109,7 @@ class DeliveryStatus extends Component {
             icon: icon,
             iconClassName: iconClassName,
             deliveryStatusClass,
+            elementDataLocator
         });
     }
     componentDidMount() {
@@ -115,10 +126,10 @@ class DeliveryStatus extends Component {
         return (
             <>
                 <div className={`delivery-status ${this.state.deliveryStatusClass}`} data-locator="delivery-status">          
-                    <div className={this.state.iconClassName}>
+                    <div className={this.state.iconClassName} data-locator={`${this.state.elementDataLocator}-delivery-icon`}>
                         <ReactSVG src={this.state.icon} />
                     </div>
-                    <div className="delivery-text" data-locator="delivery-text">
+                    <div className="delivery-text" data-locator={`${this.state.elementDataLocator}-delivery-text`}>
                         {this.state.deliveryStatus}
                     </div>
                     {this.renderTrackingLink()}
