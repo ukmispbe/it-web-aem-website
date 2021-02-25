@@ -8,7 +8,7 @@ exports[`Feature: Sign In Form Scenario: Rendering When initial render Then the 
   onSubmit={[Function]}
 >
   <div
-    className="cmp-form-field cmp-form-field-email"
+    className="cmp-form-field cmp-form-field-email "
   >
     <label
       className=""
@@ -58,7 +58,7 @@ exports[`Feature: Sign In Form Scenario: Rendering When initial render Then the 
     </span>
   </div>
   <div
-    className="cmp-form-field cmp-form-field-password"
+    className="cmp-form-field cmp-form-field-password "
   >
     <label
       className=""
@@ -116,7 +116,7 @@ exports[`Feature: Sign In Form Scenario: Rendering When initial render Then the 
     </span>
   </div>
   <div
-    className="cmp-form-field cmp-form-field-link"
+    className="cmp-form-field cmp-form-field-link "
   >
     <div
       className="cmp-form-field-link--forgotPassword "

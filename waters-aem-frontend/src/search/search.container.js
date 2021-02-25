@@ -11,6 +11,7 @@ import SearchComponent from './search.component';
 import { isEprocurementUser } from '../utils/userFunctions';
 import { SEARCH_TYPES } from '../constants';
 import SearchBreadcrumb from '../common/search-breadcrumb';
+import NoResults from './components/no-results';
 
 class SearchContainer extends Component {
     constructor(props) {
@@ -1206,11 +1207,18 @@ class SearchContainer extends Component {
         }
 
         if (this.state.noResults) {
-            return <SearchBreadcrumb
+            return (
+                <>
+                    <SearchBreadcrumb
                         text={this.props.searchText}
                         searchParams={this.state.searchParams}
                         clearSessionStore={this.props.search.clearSessionStore}
-                        noResults={this.state.noResults}/>;
+                        noResults={this.state.noResults}/>
+                    <NoResults
+                        searchText={this.props.searchText}
+                        query={this.state.keyword} />
+                </>
+            )
         }
 
         return <SearchComponent
