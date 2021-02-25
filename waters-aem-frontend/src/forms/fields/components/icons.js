@@ -42,7 +42,7 @@ const Icons = ({}) => {
         );
 
     return (
-        <div className="cmp-form-field--icons">
+        <div className="cmp-form-field--icons" data-locator="cmp-form-field-icons">
             {eyeIcons}
             {!disabled && <ReactSVG src={icons.validIcon} className="valid-icon" />}
             {!disabled && <ReactSVG src={icons.invalidIcon} className="invalid-icon" />}
