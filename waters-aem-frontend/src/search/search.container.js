@@ -11,6 +11,8 @@ import SearchComponent from './search.component';
 import { isEprocurementUser } from '../utils/userFunctions';
 import { SEARCH_TYPES } from '../constants';
 import SearchBreadcrumb from '../common/search-breadcrumb';
+import cookieStore from '../stores/cookieStore';
+import loginStatus from '../scripts/loginStatus';
 
 class SearchContainer extends Component {
     constructor(props) {
@@ -539,6 +541,10 @@ class SearchContainer extends Component {
         };
 
         newState.noResults = !newState.results[query.page].length;
+
+        if (!loginStatus.state() && !newState.noResults && query.keyword && query.keyword !== parameterDefaults.keyword) {
+            cookieStore.setRecentSearches(query.keyword);
+        }
 
         newState.facets = res.facets;
         if ("activeIndex" in this.state) {

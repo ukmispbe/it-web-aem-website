@@ -33,6 +33,7 @@
         }
     }
 }
+
 .mobile-header-search-bar {
   display: flex;
   flex-direction: column;
@@ -52,5 +53,18 @@
   .cmp-search-bar {
     width: auto;
     margin: $space-xs $space-m;
+
+    & .react-autosuggest__section-container {
+      margin-left: -($space-m);
+      margin-right: -($space-m);
+      padding-left: ($space-m + $space-s);
+      padding-right: ($space-m + $space-s);
+
+      &:last-child {
+        .react-autosuggest__suggestions-list {
+          padding-left: $space-s;
+        }
+      }
+    }
   }
 }
