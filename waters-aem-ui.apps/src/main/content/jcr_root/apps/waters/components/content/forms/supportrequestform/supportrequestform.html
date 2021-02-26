@@ -5,7 +5,6 @@
             "formName": "checkSerial",
             "customFormClass": "cmp-form--check-serial",
             "submitEndpoint": "${supportRequest.supportRequestUrl @ context='unsafe'}",
-            "redirectUrl": "${supportRequest.redirectLink.href @ context='unsafe'}",
             "buttonText": "${'Continue' @ i18n, context='text'}",
             "elementLocator": "check-serial-form",
 			"buttonLocator": "continue",
@@ -59,8 +58,6 @@
             "recordType": "Support",
             "submitEndpoint": "${supportRequest.supportRequestUrl @ context='unsafe'}",
             "buttonText": "${'Send Request' @ i18n, context='text'}",
-            "redirectUrl": "${supportRequest.redirectLink.href @ context='unsafe'}",
-            "loginUrl": "${supportRequest.loginLink.href @ context='unsafe'}",
             "consentUrl": "${supportRequest.consentLink.href @ context='unsafe'}",
             "needsToBeSignedIn": true,
             "elementLocator": "support-request-form",
@@ -296,8 +293,8 @@
                         {
                             "type": "link",
                             "label": "${'Terms of Use' @ i18n, context='text'}",
-                            "url": "${irequest.termsOfUseLink.href @ context='unsafe'}",
-                            "blank": "${irequest.newWindow @ context='unsafe'}",
+                            "url": "${supportRequest.termsOfUseLink.href @ context='unsafe'}",
+                            "blank": "${supportRequest.newWindow @ context='unsafe'}",
                             "rightSpace": "true"
                         },
                         {
@@ -308,8 +305,8 @@
                         {
                             "type": "link",
                             "label": "${'Waters Privacy Notice' @ i18n, context='text'}",
-                            "url": "${irequest.privacyNoticeLink.href @ context='unsafe'}",
-                            "blank": "${irequest.newWindow @ context='unsafe'}",
+                            "url": "${supportRequest.privacyNoticeLink.href @ context='unsafe'}",
+                            "blank": "${supportRequest.newWindow @ context='unsafe'}",
                             "rightSpace": "false"
                         },
                         {
