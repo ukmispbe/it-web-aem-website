@@ -1,4 +1,5 @@
 import DigitalData from "../scripts/DigitalData";
+import { RECENT_SEARCHES_EXPIRY_TIME } from "../constants";
 
 const keys = {
     loggedInStatus: 'WatersGreetingCookie',
@@ -47,7 +48,7 @@ const cookieStore = {
         const existingCookie = getCookie(cookieName);
         const searchKeywords = existingCookie ? JSON.parse(existingCookie) : [];
         // 30 Days expiry time
-        const expires = new Date(new Date().getTime() + parseInt(expires) * 1000 * 60 * 60 * 24);
+        const expires = new Date(new Date().getTime() + parseInt(RECENT_SEARCHES_EXPIRY_TIME) * 1000 * 60 * 60 * 24);
         if (searchKeywords.indexOf(keyword) !== -1) {
             return;
         }
