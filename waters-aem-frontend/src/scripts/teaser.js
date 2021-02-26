@@ -39,5 +39,4 @@ function removeLinkFromTitle(section) {
 renderSvgFromImg('.cmp-teaser__image img');
 removeLinkFromTitle('.cmp-feature');
 removeLinkFromTitle('.cmp-external-list');
-removeLinkFromTitle('.cmp-notification');
 updateExternalLink('.cmp-teaser__action-container a');
