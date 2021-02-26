@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Feature: NoResults React Component Scenario: Rendering When the component renders with props Then the snapshot should match 1`] = `
+<div
+  className="cmp-search__no-results"
+>
+  <h1
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "TITLE",
+      }
+    }
+  />
+  <p>
+    DESCRIPTION
+    <a
+      href="http://localhost/"
+    >
+      LINK_TEXT
+    </a>
+    .
+  </p>
+</div>
+`;
