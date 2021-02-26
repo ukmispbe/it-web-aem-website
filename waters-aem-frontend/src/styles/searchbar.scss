@@ -142,7 +142,15 @@
         }
         .react-autosuggest__suggestions-container {
             top: $height-medium;
+            padding: 0;
+        }
+
+        .react-autosuggest__section-container {
             padding: $space-xs $space-s;
+
+            .react-autosuggest__section-title {
+                margin-bottom: $space-xxs;
+            }
 
             .react-autosuggest__suggestions-list {
                 padding: 0;
@@ -152,6 +160,11 @@
                 }
             }
         }
+
+        .react-autosuggest__section-container:not(:last-child) {
+            border-bottom: $border-medium;
+        }
+
         .cmp-search-bar__icons {
             top: 0;
             right: 0;
