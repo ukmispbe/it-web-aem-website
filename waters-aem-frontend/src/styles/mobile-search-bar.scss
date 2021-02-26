@@ -59,12 +59,6 @@
       margin-right: -($space-m);
       padding-left: ($space-m + $space-s);
       padding-right: ($space-m + $space-s);
-
-      &:last-child {
-        .react-autosuggest__suggestions-list {
-          padding-left: $space-s;
-        }
-      }
     }
   }
 }

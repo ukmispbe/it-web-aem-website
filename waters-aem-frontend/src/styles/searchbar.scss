@@ -157,9 +157,6 @@
                 margin-bottom: 0;
                 .react-autosuggest__suggestion {
                     margin-bottom: $space-xxs;
-                    &:last-child {
-                        margin-bottom: $space-xxxs;
-                    }
                 }
             }
         }
