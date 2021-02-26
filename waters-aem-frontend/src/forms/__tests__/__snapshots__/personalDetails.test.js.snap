@@ -8,7 +8,7 @@ exports[`Feature: Personal Details Form Scenario: Rendering When initial render 
   onSubmit={[Function]}
 >
   <div
-    className="cmp-form-field cmp-form-field-text"
+    className="cmp-form-field cmp-form-field-text "
   >
     <label
       className=""
@@ -60,7 +60,7 @@ exports[`Feature: Personal Details Form Scenario: Rendering When initial render 
     </span>
   </div>
   <div
-    className="cmp-form-field cmp-form-field-text"
+    className="cmp-form-field cmp-form-field-text "
   >
     <label
       className=""
@@ -112,7 +112,7 @@ exports[`Feature: Personal Details Form Scenario: Rendering When initial render 
     </span>
   </div>
   <div
-    className="cmp-form-field cmp-form-field-text"
+    className="cmp-form-field cmp-form-field-text "
   >
     <label
       className=""
@@ -164,7 +164,7 @@ exports[`Feature: Personal Details Form Scenario: Rendering When initial render 
     </span>
   </div>
   <div
-    className="cmp-form-field cmp-form-field-email"
+    className="cmp-form-field cmp-form-field-email "
   >
     <label
       className=""
@@ -214,7 +214,7 @@ exports[`Feature: Personal Details Form Scenario: Rendering When initial render 
     </span>
   </div>
   <div
-    className="cmp-form-field cmp-form-field-text"
+    className="cmp-form-field cmp-form-field-text "
   >
     <label
       className=""
@@ -266,7 +266,7 @@ exports[`Feature: Personal Details Form Scenario: Rendering When initial render 
     </span>
   </div>
   <div
-    className="cmp-form-field cmp-form-field-dropdown"
+    className="cmp-form-field cmp-form-field-dropdown "
   >
     <div
       className="cmp-form-field-dropdown--wrapper"
@@ -395,7 +395,7 @@ exports[`Feature: Personal Details Form Scenario: Rendering When initial render 
     </div>
   </div>
   <div
-    className="cmp-form-field cmp-form-field-checkbox"
+    className="cmp-form-field cmp-form-field-checkbox "
   >
     <input
       aria-disabled={false}

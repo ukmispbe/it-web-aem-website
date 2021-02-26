@@ -8,7 +8,7 @@ exports[`Feature: Registration Form Scenario: Rendering When initial render Then
   onSubmit={[Function]}
 >
   <div
-    className="cmp-form-field cmp-form-field-email"
+    className="cmp-form-field cmp-form-field-email "
   >
     <label
       className=""
@@ -65,7 +65,7 @@ exports[`Feature: Registration Form Scenario: Rendering When initial render Then
     </span>
   </div>
   <div
-    className="cmp-form-field cmp-form-field-text"
+    className="cmp-form-field cmp-form-field-text "
   >
     <label
       className=""
@@ -117,7 +117,7 @@ exports[`Feature: Registration Form Scenario: Rendering When initial render Then
     </span>
   </div>
   <div
-    className="cmp-form-field cmp-form-field-text"
+    className="cmp-form-field cmp-form-field-text "
   >
     <label
       className=""
@@ -169,7 +169,7 @@ exports[`Feature: Registration Form Scenario: Rendering When initial render Then
     </span>
   </div>
   <div
-    className="cmp-form-field cmp-form-field-text"
+    className="cmp-form-field cmp-form-field-text "
   >
     <label
       className=""
@@ -221,7 +221,7 @@ exports[`Feature: Registration Form Scenario: Rendering When initial render Then
     </span>
   </div>
   <div
-    className="cmp-form-field cmp-form-field-dropdown"
+    className="cmp-form-field cmp-form-field-dropdown "
   >
     <div
       className="cmp-form-field-dropdown--wrapper"
@@ -358,7 +358,7 @@ exports[`Feature: Registration Form Scenario: Rendering When initial render Then
     </div>
   </div>
   <div
-    className="cmp-form-field cmp-form-field-password"
+    className="cmp-form-field cmp-form-field-password "
   >
     <label
       className=""
@@ -539,7 +539,7 @@ exports[`Feature: Registration Form Scenario: Rendering When initial render Then
     </span>
   </div>
   <div
-    className="cmp-form-field cmp-form-field-checkbox"
+    className="cmp-form-field cmp-form-field-checkbox "
   >
     <input
       aria-disabled={false}
@@ -579,7 +579,7 @@ exports[`Feature: Registration Form Scenario: Rendering When initial render Then
     </div>
   </div>
   <div
-    className="cmp-form-field cmp-form-field-captcha"
+    className="cmp-form-field cmp-form-field-captcha "
   >
     <div
       data-locator="captcha"
@@ -592,7 +592,7 @@ exports[`Feature: Registration Form Scenario: Rendering When initial render Then
     </span>
   </div>
   <div
-    className="cmp-form-field cmp-form-field-textwithlinks"
+    className="cmp-form-field cmp-form-field-textwithlinks "
   >
     <div
       className="cmp-form-field-textwithlinks--privacy "
