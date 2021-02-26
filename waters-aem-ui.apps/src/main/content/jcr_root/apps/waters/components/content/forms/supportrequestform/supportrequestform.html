@@ -69,7 +69,8 @@
                 "checkmarkIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
                 "validIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
                 "invalidIcon": "/content/dam/waters/en/brand-assets/icons/attention.svg",
-                "lockIcon": "/content/dam/waters/en/brand-assets/icons/lock.svg"
+                "lockIcon": "/content/dam/waters/en/brand-assets/icons/lock.svg",
+                "docIcon": "/content/dam/waters/en/brand-assets/icons/document.svg"
             },
             "fields": [
                 {
@@ -287,37 +288,8 @@
                     "type": "textwithlinks",
                     "name": "privacy",
                     "active": true,
-                    "config": [
-                        {
-                            "type": "text",
-                            "text": "${'By clicking the CREATE ACCOUNT button, you are agreeing to our' @ i18n, context='text'}",
-                            "rightSpace": "true"
-                        },
-                        {
-                            "type": "link",
-                            "label": "${'Terms of Use' @ i18n, context='text'}",
-                            "url": "${irequest.termsOfUseLink.href @ context='unsafe'}",
-                            "blank": "${irequest.newWindow @ context='unsafe'}",
-                            "rightSpace": "true"
-                        },
-                        {
-                            "type": "text",
-                            "text": "${'and understand that the information you have provided on this website will be used and processed by Waters in accordance with the' @ i18n, context='text'}",
-                            "rightSpace": "true"
-                        },
-                        {
-                            "type": "link",
-                            "label": "${'Waters Privacy Notice' @ i18n, context='text'}",
-                            "url": "${irequest.privacyNoticeLink.href @ context='unsafe'}",
-                            "blank": "${irequest.newWindow @ context='unsafe'}",
-                            "rightSpace": "false"
-                        },
-                        {
-                            "type": "text",
-                            "text": "${'.' @ i18n, context='text'}",
-                            "rightSpace": "false"
-                        }
-                    ]
+                    "openModal": "contactSupport.newModal",
+                    "consentUrl": "${supportRequest.consentLink.href @ context='unsafe'}"
                 }
             ]
         }

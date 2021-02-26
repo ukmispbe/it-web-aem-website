@@ -35,19 +35,19 @@ function LegalLinkModal(props) {
             console.error(error);
         }
     }
-
+    
     // Wait untill selector is loaded
     function waitUntilLinkExists(container) {
-        const elem = document.getElementById(container);
-        if (elem) {
+        var links = document.querySelectorAll(container);
+        if (links && links.length > 0) {
+        links.forEach.call(links, function (link) {
             // Adds addEventListener event on terms-of-use' and privacy-policy link
-            document.addEventListener('click', function (event) {
-                if (event.target.id === container) {
+            link.addEventListener('click', function (event) {
                     event.preventDefault();
                     openModal(event);
                     clearTimeout(instanceTimeOut);
-                }
             });
+        });
         } else {
             instanceTimeOut = setTimeout(function () {
                 waitUntilLinkExists(container);
@@ -57,8 +57,9 @@ function LegalLinkModal(props) {
 
     // componentDidMount
     useEffect(() => {
-        waitUntilLinkExists('contact-support-form-terms-of-use');
-        waitUntilLinkExists('contact-support-form-waters-privacy');
+        waitUntilLinkExists('#contact-support-form-terms-of-use');
+        waitUntilLinkExists('#contact-support-form-waters-privacy');
+        waitUntilLinkExists('.link-open-modal a');
     }, []);
 
     // Close Modal
