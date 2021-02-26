@@ -84,9 +84,9 @@ class SearchBar extends Component {
                 suggestions: suggestions
             });
         }
-        if (suggestions.length) {
+        if (recentSuggestions.length) {
             updatedSuggestions.push({
-                title: 'Recently Searched',
+                title: this.props.labels.recentlySearched,
                 suggestions: recentSuggestions
             });
         }
