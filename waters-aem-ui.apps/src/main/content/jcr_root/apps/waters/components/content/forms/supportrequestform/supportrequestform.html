@@ -285,7 +285,7 @@
                     "type": "textwithlinks",
                     "name": "privacy",
                     "active": true,
-                    "openModal": "contactSupport.newModal",
+                    "openModal": ${supportRequest.newModal @ context='unsafe'},
                     "consentUrl": "${supportRequest.consentLink.href @ context='unsafe'}"
                 }
             ]
