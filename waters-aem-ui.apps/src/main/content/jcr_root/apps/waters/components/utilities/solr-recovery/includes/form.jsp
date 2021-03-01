@@ -6,7 +6,7 @@
             Page Path
         </label>
         <span>
-			<input type="text" ng-disabled="form.fullIndex === 'true'" name="pagePath" class="coral-Textfield" ng-required="true" ng-pattern="/^\/.+$/" ng-model="form.pagePath" placeholder="Page path"/>
+			<input type="text" name="pagePath" class="coral-Textfield" ng-required="true" ng-pattern="/^\/.+$/" ng-model="form.pagePath" placeholder="Page path"/>
 		</span>
     </div>
 
@@ -16,7 +16,6 @@
         </label>
         <span>
 			<div class="coral-Selector">
-                <fieldset style="border:none;padding:0;margin:0;" ng-disabled="form.fullIndex === 'true'">
 				<label class="coral-Selector-option">
 					<input ng-model="form.action" type="radio" class="coral-Selector-input" name="action" value="add"/>
 					<span class="coral-Selector-description">Add to Index</span>
@@ -25,7 +24,6 @@
 					<input ng-model="form.action" type="radio" class="coral-Selector-input" name="action" value="delete"/>
 					<span class="coral-Selector-description">Delete from Index</span>
 				</label>
-                </fieldset>
 			</div>
 		</span>
     </div>
@@ -36,32 +34,12 @@
         </label>
         <span>
 			<div class="coral-Selector">
-                <fieldset style="border:none;padding:0;margin:0;" ng-disabled="form.fullIndex === 'true'">
 				<label class="coral-Selector-option">
 					<input ng-model="form.includeDescendants" type="radio" class="coral-Selector-input" name="includeDescendants" value="true"/>
 					<span class="coral-Selector-description">Yes</span>
 				</label>
 				<label class="coral-Selector-option">
 					<input ng-model="form.includeDescendants" type="radio" class="coral-Selector-input" name="includeDescendants" value="false"/>
-					<span class="coral-Selector-description">No</span>
-				</label>
-                </fieldset>
-			</div>
-		</span>
-    </div>
-
-    <div class="form-row">
-        <label acs-coral-heading>
-            Full Index
-        </label>
-        <span>
-			<div class="coral-Selector">
-				<label class="coral-Selector-option">
-					<input ng-model="form.fullIndex" type="radio" class="coral-Selector-input" name="fullIndex" value="true"/>
-					<span class="coral-Selector-description">Yes</span>
-				</label>
-				<label class="coral-Selector-option">
-					<input ng-model="form.fullIndex" type="radio" class="coral-Selector-input" name="fullIndex" value="false"/>
 					<span class="coral-Selector-description">No</span>
 				</label>
 			</div>
