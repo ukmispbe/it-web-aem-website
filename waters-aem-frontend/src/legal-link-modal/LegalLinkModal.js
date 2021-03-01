@@ -38,7 +38,7 @@ function LegalLinkModal(props) {
     
     // Wait untill selector is loaded
     function waitUntilLinkExists(container) {
-        var links = document.querySelectorAll(container);
+        const links = document.querySelectorAll(container);
         if (links && links.length > 0) {
         links.forEach.call(links, function (link) {
             // Adds addEventListener event on terms-of-use' and privacy-policy link
