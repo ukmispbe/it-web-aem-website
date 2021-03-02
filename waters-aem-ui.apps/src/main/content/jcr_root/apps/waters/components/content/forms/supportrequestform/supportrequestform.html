@@ -32,7 +32,7 @@
                             "message": "${'Maximum 40 characters allowed' @i18n, context='unsafe'}"
                         },
                         "validateFnName": "noWhitespaceOnly",
-                        "requiredMsg": "${'Please enter a Serial Number.' @ i18n, context='unsafe'}"
+                        "requiredMsg": "${'Serial Number is required' @ i18n, context='unsafe'}"
                     }
                 },            
                 {
@@ -42,11 +42,11 @@
                     "validation": {
                         "required": true,
                         "maxLength": {
-                            "value": 40,
-                            "message": "${'Maximum 40 characters allowed' @i18n, context='unsafe'}"
+                            "value": 35,
+                            "message": "${'Maximum 35 characters allowed' @i18n, context='unsafe'}"
                         },
                         "validateFnName": "noWhitespaceOnly",
-                        "requiredMsg": "${'Please enter an Organization.' @ i18n, context='unsafe'}"
+                        "requiredMsg": "${'Organization is required' @ i18n, context='unsafe'}"
                     }
                 }           
             ]
@@ -80,11 +80,13 @@
                 {
                     "type": "label",
                     "name": "serialNumberLabel",
+                    "addClass": "cmp-text-label",
                     "label": "${'Serial Number or Software Support Plan ID:' @ i18n, context='unsafe'}"
                 },
                 {
                     "type": "label",
                     "name": "organizationLabel",
+                    "addClass": "cmp-text-label",
                     "label": "${'Organization:' @ i18n, context='unsafe'}"
                 },
                 {
@@ -193,13 +195,13 @@
                             "value": 32000,
                             "message": "${'Maximum 32000 characters allowed' @i18n, context='unsafe'}"
                         },
-                        "required": false,
+                        "required": true,
                         "requiredMsg": "${'Please enter a message.' @ i18n, context='unsafe'}"
                     }
                 },
                 {
                     "type": "label",
-                    "addClass": "cmp-heading-label",
+                    "addClass": "cmp-bold-label",
                     "name": "contactInformationLabel",
                     "label": "${'Contact Information for this Request' @ i18n, context='unsafe'}"
                 },
@@ -258,7 +260,7 @@
                 {
                     "type": "text",
                     "name": "secondaryPhone",
-                    "label": "${'Phone Number' @ i18n, context='unsafe'}",
+                    "label": "${'Secondary Phone Number' @ i18n, context='unsafe'}",
                     "optionalLabel": "${'(optional)' @ i18n, context='text'}",
                     "validation": {
                         "validateFnName": "blankOrNumbersOnly",
@@ -287,7 +289,7 @@
                     "config": [
                         {
                             "type": "text",
-                            "text": "${'By clicking the CREATE ACCOUNT button, you are agreeing to our' @ i18n, context='text'}",
+                            "text": "${'By clicking the SEND REQUEST button, you are agreeing to our' @ i18n, context='text'}",
                             "rightSpace": "true"
                         },
                         {
