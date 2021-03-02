@@ -69,7 +69,8 @@
                 "checkmarkIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
                 "validIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
                 "invalidIcon": "/content/dam/waters/en/brand-assets/icons/attention.svg",
-                "lockIcon": "/content/dam/waters/en/brand-assets/icons/lock.svg"
+                "lockIcon": "/content/dam/waters/en/brand-assets/icons/lock.svg",
+                "docIcon": "/content/dam/waters/en/brand-assets/icons/document.svg"
             },
             "fields": [
                 {
@@ -289,37 +290,8 @@
                     "type": "textwithlinks",
                     "name": "privacy",
                     "active": true,
-                    "config": [
-                        {
-                            "type": "text",
-                            "text": "${'By clicking the SEND REQUEST button, you are agreeing to our' @ i18n, context='text'}",
-                            "rightSpace": "true"
-                        },
-                        {
-                            "type": "link",
-                            "label": "${'Terms of Use' @ i18n, context='text'}",
-                            "url": "${irequest.termsOfUseLink.href @ context='unsafe'}",
-                            "blank": "${irequest.newWindow @ context='unsafe'}",
-                            "rightSpace": "true"
-                        },
-                        {
-                            "type": "text",
-                            "text": "${'and understand that the information you have provided on this website will be used and processed by Waters in accordance with the' @ i18n, context='text'}",
-                            "rightSpace": "true"
-                        },
-                        {
-                            "type": "link",
-                            "label": "${'Waters Privacy Notice' @ i18n, context='text'}",
-                            "url": "${irequest.privacyNoticeLink.href @ context='unsafe'}",
-                            "blank": "${irequest.newWindow @ context='unsafe'}",
-                            "rightSpace": "false"
-                        },
-                        {
-                            "type": "text",
-                            "text": "${'.' @ i18n, context='text'}",
-                            "rightSpace": "false"
-                        }
-                    ]
+                    "openModal": ${supportRequest.newModal @ context='unsafe'},
+                    "consentUrl": "${supportRequest.consentLink.href @ context='unsafe'}"
                 }
             ]
         }
@@ -370,8 +342,8 @@
                     "type": "doubleLabel",
                     "name": "caseNumberLabel",
                     "addClass": [
-                        "cmp-label-standard",
-                        "cmp-label-bold"
+                        "cmp-utility-label-large",
+                        "cmp-utility-label-large"
                     ],
                     "label": "${'Case Number:' @ i18n, context='unsafe'}"
                 },
@@ -428,7 +400,7 @@
                     "label": "${'Support Request Summary:' @ i18n, context='text'}",
                     "disabled": true,
                     "resize": false,
-                    "rows": 5,
+                    "rows": 10,
                     "validation": {
                         "maxLength": {
                             "value": 32000,

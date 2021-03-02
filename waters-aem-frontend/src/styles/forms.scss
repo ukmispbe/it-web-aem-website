@@ -705,10 +705,13 @@
         }
     }
 }
-#js-support-request-form {
+#js-support-request-form,
+#cmp-support-request-confirmation {
     .cmp-form {
         .text-as-label {  
             @include font-body;
+            font-size: $font-size-body;
+            margin-bottom: $space-xxs;
             input:disabled {
                 border: none !important;
                 padding: 0;
@@ -743,24 +746,38 @@
         }
         .cmp-heading-label {
             @include font-h2;
+            margin-bottom: $space-xxs;
         }
         .cmp-form-field-doubleLabel {
-            @include font-body; 
             label:first-child {
                 margin-right: $space-xs;
             }
             display: flex;
             .cmp-label-bold {
-                font-weight: $font-weight-bold;
+                @include font-h4;
             }
             .cmp-label-standard {
-                font-weight: $font-weight-light;
+                @include font-utility;
             }
         }
         .cmp-form-field-radio {
             label {
                 font-weight: $font-weight-bold;
             }
+        }
+        .cmp-text-label {
+            @include font-body;
+            font-size: $font-size-body;
+            margin-bottom: $space-xxs;
+        }
+        .cmp-bold-label {
+            @include font-body;
+            font-size: $font-size-body;
+            font-weight: $font-weight-bold;
+            margin-bottom: $space-xxs;
+        }
+        .cmp-utility-label-large {
+            @include font-utility-large;
         }
     }
 }
