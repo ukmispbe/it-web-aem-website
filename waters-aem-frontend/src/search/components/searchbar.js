@@ -162,8 +162,8 @@ class SearchBar extends Component {
         this.inputElement.focus();
         this.addSearchBarFocusCss();
         this.setState(
-            {value: '', suggestions: [], openOverlay: !!this.state.recentlySearched.length}, 
-            () => !this.state.recentlySearched.length && this.removeCssOverridesForSearchBody()
+            {value: '', suggestions: [], openOverlay: !!this.state.recentSuggestions.length}, 
+            () => !this.state.recentSuggestions.length && this.removeCssOverridesForSearchBody()
         );
     }
 
