@@ -699,6 +699,7 @@
 #js-support-request-form {
     .cmp-form {
         .text-as-label {  
+            @include font-body;
             input:disabled {
                 border: none !important;
                 padding: 0;
@@ -733,7 +734,24 @@
             }
         }
         .cmp-heading-label {
-            @include font-h4;
+            @include font-h2;
+            margin-bottom: $space-xxs;
+        }
+        .cmp-form-field-radio {
+            label {
+                font-weight: $font-weight-bold;
+            }
+        }
+        .cmp-text-label {
+            @include font-body;
+            font-size: $font-size-body;
+            margin-bottom: $space-xxs;
+        }
+        .cmp-bold-label {
+            @include font-body;
+            font-size: $font-size-body;
+            font-weight: $font-weight-bold;
+            margin-bottom: $space-xxs;
         }
     }
 }
