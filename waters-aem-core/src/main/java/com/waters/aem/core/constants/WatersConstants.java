@@ -112,6 +112,10 @@ public final class WatersConstants {
     
     public static final int ORDER_LANGUAGE_ROOT = 2;
 
+    public static final String LABELS = "labels";
+
+    public static final String CONFIGS = "configs";
+
     public static final Map<String,String> CURRENCY_FORMATS = ImmutableMap.<String, String>builder() .put("JPY","#,##0") .put("WON","#,##0") .build();
 
     private WatersConstants() {
