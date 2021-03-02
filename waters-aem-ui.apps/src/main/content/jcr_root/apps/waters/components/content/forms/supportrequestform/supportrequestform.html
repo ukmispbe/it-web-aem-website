@@ -286,37 +286,8 @@
                     "type": "textwithlinks",
                     "name": "privacy",
                     "active": true,
-                    "config": [
-                        {
-                            "type": "text",
-                            "text": "${'By clicking the SEND REQUEST button, you are agreeing to our' @ i18n, context='text'}",
-                            "rightSpace": "true"
-                        },
-                        {
-                            "type": "link",
-                            "label": "${'Terms of Use' @ i18n, context='text'}",
-                            "url": "${supportRequest.termsOfUseLink.href @ context='unsafe'}",
-                            "blank": "${supportRequest.newWindow @ context='unsafe'}",
-                            "rightSpace": "true"
-                        },
-                        {
-                            "type": "text",
-                            "text": "${'and understand that the information you have provided on this website will be used and processed by Waters in accordance with the' @ i18n, context='text'}",
-                            "rightSpace": "true"
-                        },
-                        {
-                            "type": "link",
-                            "label": "${'Waters Privacy Notice' @ i18n, context='text'}",
-                            "url": "${supportRequest.privacyNoticeLink.href @ context='unsafe'}",
-                            "blank": "${supportRequest.newWindow @ context='unsafe'}",
-                            "rightSpace": "false"
-                        },
-                        {
-                            "type": "text",
-                            "text": "${'.' @ i18n, context='text'}",
-                            "rightSpace": "false"
-                        }
-                    ]
+                    "openModal": ${supportRequest.newModal @ context='unsafe'},
+                    "consentUrl": "${supportRequest.consentLink.href @ context='unsafe'}"
                 }
             ]
         }
