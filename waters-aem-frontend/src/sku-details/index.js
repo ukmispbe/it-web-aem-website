@@ -53,8 +53,8 @@ class SkuDetails extends React.Component {
             skuAvailability: {},
             addToCartQty: undefined,
             custPrice: undefined,
+            listPrice: undefined,
             custPriceApiDisabled: this.props.config.isCustomerPriceApiDisabled,
-            listPrice: this.props.price,
             analyticsConfig: {
                 context: mainCartContext,
                 name: this.props.titleText,
@@ -79,17 +79,13 @@ class SkuDetails extends React.Component {
             pricingUrl, skuNumber, userCountry } = this.state;
 
         if (!isGlobal) {
-            if (LoginStatus.state()) {
-                let userInfo = callCustomerPriceApi(custPriceApiDisabled);
-                if (Object.keys(userInfo).length > 0 && userInfo.callCustApi) {
-                    this.setState({
-                        userInfo: userInfo
-                    }, () => {
-                        this.getCustPricing(pricingUrl, skuNumber, userInfo, this.props.price);
-                    });
-                } else {
-                    this.setState({ loading: false });
-                }
+            let userInfo = callCustomerPriceApi(custPriceApiDisabled);
+            if (Object.keys(userInfo).length > 0 && userInfo.callCustApi) {
+                this.setState({
+                    userInfo: userInfo
+                }, () => {
+                    this.getCustPricing(pricingUrl, skuNumber, userInfo);
+                });
             } else {
                 this.setState({ loading: false });
             }
@@ -144,16 +140,15 @@ class SkuDetails extends React.Component {
     };
 
     //Note: getCustPricing Method should be an exact match between SKU Details and SKU List
-    getCustPricing = (pricingUrl, skuNumber, userInfo, propListPrice) => {
-        getPricing(pricingUrl, skuNumber, userInfo.dynamicSoldTo, userInfo.salesOrg)
+    getCustPricing = (pricingUrl, skuNumber, userInfo) => {
+        getPricing(pricingUrl, skuNumber, userInfo, "DEFAULT")
             .then(response => {
                 if (response.status && response.status === 200) {
                     let match = matchListItems(skuNumber, response);
-                    let listPriceValue = (match.listPrice !== '' && match.listPrice != undefined) ? match.listPrice : propListPrice;
                     this.setState({
                         skuData: match,
                         custPrice: match.custPrice,
-                        listPrice: listPriceValue,
+                        listPrice: match.listPrice,
                         loading: false
                     }, () => {
                         //this.checkPricingAnalytics();
@@ -162,18 +157,19 @@ class SkuDetails extends React.Component {
                     // Add Error Object to State
                     this.setState({
                         errorPriceType: [BAD_REQUEST_CODE, SERVER_ERROR_CODE].includes(getHttpStatusFromErrors(response.errors, response.status)) ?
-                            (isEprocurementApp() ? UNAVAILABLE_PRICE_WITH_ADD_TO_CART : LIST_PRICE_WITH_ADD_TO_CART) : NO_PRICE_NO_ADD_TO_CART,
+                            (isEprocurementUser() ? UNAVAILABLE_PRICE_WITH_ADD_TO_CART : LIST_PRICE_WITH_ADD_TO_CART) : NO_PRICE_NO_ADD_TO_CART,
                         loading: false
                     });
                 }
             })
-            .catch(() => {
+            .catch(err => {
                 // Add Error Object to State
                 this.setState({
                     errorPriceType: NO_PRICE_NO_ADD_TO_CART,
                     loading: false
                 });
-            });
+            }
+        );
     }
 
     toggleModal = () => {
@@ -425,7 +421,6 @@ class SkuDetails extends React.Component {
 
 SkuDetails.propTypes = {
     config: PropTypes.object.isRequired,
-    price: PropTypes.string.isRequired,
     countryRestricted: PropTypes.string,
     skuNumber: PropTypes.string.isRequired,
     titleText: PropTypes.string.isRequired,
@@ -436,7 +431,6 @@ SkuDetails.propTypes = {
 
 SkuDetails.defaultProps = {
     config: {},
-    price: '',
     countryRestricted: '',
     skuNumber: '',
     titleText: '',

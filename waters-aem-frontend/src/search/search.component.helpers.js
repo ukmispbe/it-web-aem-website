@@ -258,7 +258,7 @@ const SearchResults = ({
     return (
         <Suspense fallback={<div>Loading...</div>}>
             <SkuList
-                skuConfig={skuConfig}
+                config={skuConfig}
                 data={searchData}
                 onItemClick={onItemClick} />
         </Suspense>

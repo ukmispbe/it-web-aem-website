@@ -62,7 +62,7 @@ class QuoteDetails extends Component {
 
     getQuoteDetailsData = () => {
         const { detailsUrl, quoteId } = this.state;       
-        const url = getUrlPath(detailsUrl, quoteId);
+        const url = getQuoteDetailsUrl(detailsUrl, quoteId);
         getQuoteDetails(url, this.setError)
             .then((data) => {
                 const quotes = data && data.quotes || undefined;

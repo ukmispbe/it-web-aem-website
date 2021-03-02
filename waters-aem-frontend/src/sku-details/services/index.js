@@ -23,6 +23,23 @@ const priceUrlRequest = (endpoint, sku, soldToId, salesOrg) => {
     return url = `${endpoint}?productNumber=${sku}&customerNumber=${soldToId}&salesOrg=${salesOrg}`;
 }
 
+
+
+export const getCustPricingUrl = (url, sku, userInfo, fields) => {
+//https://api-sbox.waters.com/dev-waters-product-exp-api-v1/api/products/prices?productNumber=176001125&customerNumber=anonymous&fields=DEFAULT
+//https://api-sbox.waters.com/dev-waters-product-exp-api-v1/api/products/prices?productNumber=176003102&customerNumber=UqgJ47QF9iB5GmN0Gprxxg==&salesOrg=US01
+    let customerNumber = userInfo && userInfo.soldToId ? userInfo.soldToId : 'anonymous';
+    let custUrl = `${url}?productNumber=${sku}&customerNumber=${customerNumber}`;
+
+    if (userInfo && userInfo.salesOrg) { 
+        let salesOrg = userInfo.salesOrg;
+        return url = custUrl + `&salesOrg=${salesOrg}`;
+    } else {
+        fields = fields.toUpperCase();
+        return url = custUrl + `&fields=${fields}`;
+    }
+}
+
 const addToCartUrlRequest = (url, partNo, quantity, cartId) => {
     let userId = getUserId();
     userId = userId !== '' ? userId : 'anonymous';
@@ -110,18 +127,26 @@ export async function getAvailability(url, countryCode, partNo) {
     return json;
 }
 
-export async function getPricing(url, sku, soldToId, salesOrg) {
+export async function getPricing(url, sku, userInfo, fields) {
     if (Array.isArray(sku)) {
         sku = sku.map(skuItem => skuItem.code).join(',');
     }
-
     const options = {
         method: 'GET',
         credentials: 'include',
         mode: 'cors'
     }
 
-    const urlRequest = priceUrlRequest(url, sku, soldToId, salesOrg);
+    if (!userInfo) {
+        options = {
+            countryCode: getCountryCode(),
+            language: getLanguage(),
+            channel: 'ECOMM',
+            ...options
+        }
+    }
+
+    const urlRequest = getCustPricingUrl(url, sku, userInfo, fields);
     const response = await fetchData(urlRequest, options);
     const json = await response.json();
 
@@ -132,6 +157,7 @@ export async function getPricing(url, sku, soldToId, salesOrg) {
     }
     return json;
 }
+
 
 export const matchListItems = (skuListData, pricesAPIResults) => {
     let skuListItem = {

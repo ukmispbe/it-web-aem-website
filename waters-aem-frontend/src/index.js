@@ -195,14 +195,14 @@ const skuDetailsContainer = document.querySelector('.cmp-sku-details__ecom');
 const skuDetailsConfig = JSON.parse(
     document.getElementById('commerce-configs-json').innerHTML
 );
+console.log("skuDetailsConfig", skuDetailsConfig);
 
-let skuData, skuDetailsListPrice;
+let skuData;
 if (document.querySelector('.cmp-sku-details__ecom')) {
     // If a product is discontinued, the ecom class never gets added,
     // but not having a price is a valid option for some products
     // This check allows us to pass in a price of undefined without breaking the frontend
     skuData = document.querySelector('.cmp-sku-details__ecom');
-    skuDetailsListPrice = skuData.dataset.price;
 }
 
 if (skuDetailsContainer) {
@@ -233,7 +233,6 @@ if (skuDetailsContainer) {
             <Suspense fallback={<div>Loading...</div>}>
                 <SkuDetails
                     config={skuDetailsConfig}
-                    price={skuDetailsListPrice}
                     countryRestricted={skuCountryRestricted}
                     skuNumber={skuNumber}
                     titleText={skuTitle}
@@ -261,7 +260,7 @@ if (skuListContainer) {
     ReactDOM.render(
         <Suspense fallback={<div>Loading...</div>}>
             <SkuList
-                skuConfig={skuDetailsConfig}
+                config={skuDetailsConfig}
                 data={skuListData}
                 title={skuListTitle}
             />
