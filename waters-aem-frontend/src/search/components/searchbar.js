@@ -73,18 +73,15 @@ class SearchBar extends Component {
         );
     }
 
-    // To render recent searches suggestions
-    shouldRenderSuggestions = (value, reason) => true;
-
     transformSuggestionObject = (suggestions, recentSuggestions = []) => {
         const updatedSuggestions = [];
-        if (suggestions.length) {
+        if (suggestions && suggestions.length) {
             updatedSuggestions.push({
                 title: '',
                 suggestions: suggestions
             });
         }
-        if (recentSuggestions.length) {
+        if (recentSuggestions && recentSuggestions.length) {
             updatedSuggestions.push({
                 title: this.props.labels.recentlySearched,
                 suggestions: recentSuggestions
@@ -93,9 +90,9 @@ class SearchBar extends Component {
         return updatedSuggestions;
     }
 
-    renderSectionTitle = (section) => section.title && section.suggestions.length ? <strong>{section.title}</strong> : '';
+    renderSectionTitle = (section = {}) => section.title && section.suggestions && section.suggestions.length ? <strong>{section.title}</strong> : '';
     
-    getSectionSuggestions = (section) => section.suggestions;
+    getSectionSuggestions = (section = {}) => section.suggestions;
 
     renderAutoSuggest = () => {
         const inputProps = {
@@ -122,7 +119,7 @@ class SearchBar extends Component {
                     renderSuggestion={this.renderSuggestionCallback}
                     renderSectionTitle={this.renderSectionTitle}
                     getSectionSuggestions={this.getSectionSuggestions}
-                    shouldRenderSuggestions={this.shouldRenderSuggestions}
+                    shouldRenderSuggestions={() => true}
                     inputProps={inputProps}/>;
     };
 
@@ -164,7 +161,10 @@ class SearchBar extends Component {
     handleClearIconClick = e => {
         this.inputElement.focus();
         this.addSearchBarFocusCss();
-        this.setState({value: '', suggestions: [], openOverlay: false}, () => this.removeCssOverridesForSearchBody());
+        this.setState(
+            {value: '', suggestions: [], openOverlay: !!this.state.recentlySearched.length}, 
+            () => !this.state.recentlySearched.length && this.removeCssOverridesForSearchBody()
+        );
     }
 
     handleSearchValueChange = (event, { newValue }) => {
