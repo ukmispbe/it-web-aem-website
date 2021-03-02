@@ -7,16 +7,19 @@ import { signInRedirect, getNamedHeaderLink } from '../utils/redirectFunctions';
 const Form = React.lazy(() => import(/* webpackChunkName: "forms" */'../forms/form'));
 
 const CreateRequestForm = ({
+    confirmationFormConfig,
     supportRequestFormConfig,
     checkSerialFormConfig,
     isocode,
 }) => {
-  const [showForm, setShowForm] = useState();
-  const [isInEditMode, setIsInEditMode] = useState(document.getElementById("header").hasAttribute("data-is-edit-mode"));
+  const [ showForm, setShowForm ] = useState();
+  const [ isInEditMode, setIsInEditMode ] = useState(document.getElementById("header").hasAttribute("data-is-edit-mode"));
   const [ serialFormConfig, setCheckSerialFormConfig ] = useState(checkSerialFormConfig);
   const [ supportReqFormConfig, setSupportRequestFormConfig ] = useState(supportRequestFormConfig);
-  const [initialIRequestFormValues, setInitialIRequestFormValues] = useState({});
-  const [serialFormData, setSerialFormData ] = useState();
+  const [ confFormConfig, SetConfFormConfig ] = useState(confirmationFormConfig);
+  const [ initialIRequestFormValues, setInitialIRequestFormValues ] = useState({});
+  const [ initialConfirmationFormValues, setInitialConfirmationFormValues ] = useState({});
+  const [ serialFormData, setSerialFormData ] = useState();
   const [ userDetails, setUserDetails ] = useState();
 
   useEffect(() => {
@@ -127,16 +130,16 @@ const CreateRequestForm = ({
       // Populate & display drop down
       options.push({"value":"CO2_BULK","label": "CO2 Bulk Delivery 500G System"});
       options.push({"value":"TA_AD","label": "S/W Suite TA Advantage v5.0 Kit"});
-      initialIRequestFormValues.contactMethod = "E";
+
     }
     else {
       // Populate single drop down option, select it and make drop down inactive
       // Populate label & display
       options.push({"value":"CO2_BULK","label": "CO2 Bulk Delivery 500G System"});
-      initialIRequestFormValues.contactMethod = "E";
       initialIRequestFormValues.productDetailsValue = "CO2_BULK";
       initialIRequestFormValues.productDetailsText = "CO2 Bulk Delivery 500G System";
     }
+    initialIRequestFormValues.contactMethod = "Email";
     // End of Temporary Code to be replaced by API Call
     
     if (userDetails) {
@@ -165,22 +168,37 @@ const CreateRequestForm = ({
     // Output the processed data to the console until the API is ready
     console.log("Submit API Data: ",  formData);
 
+    // Set up the default Values for the confirmation
+    initialConfirmationFormValues.caseNumberLabel = "01234567890";
+    initialConfirmationFormValues.serialNumberLabel = formData.serialNumber;
+    initialConfirmationFormValues.organizationLabel = formData.organization;
+    initialConfirmationFormValues.productDetailsLabel = formData.productDetails;
+    initialConfirmationFormValues.typeOfSupportRequestLabel = formData.supportType;
+    initialConfirmationFormValues.requestSummary = formData.formDescription;
+    initialConfirmationFormValues.fullNameLabel = `${formData.firstName} ${formData.lastName}`;
+    initialConfirmationFormValues.emailLabel = formData.email;
+    initialConfirmationFormValues.phoneNumberLabel = formData.phone;
+    initialConfirmationFormValues.preferredMethodOfContactLabel = formData.preferredContactMethod;
+    setInitialConfirmationFormValues(initialConfirmationFormValues);
     // Show the same form until API is Ready
-    setShowForm(1);
+    // setShowForm(1);
+    // Show Confirmation Form
+    setShowForm(2);
   }
 
-  // Determine if Email or Phone & Delete "E" & "P"
+  // Determine if Email or Phone & Delete "Email" & "Phone"
   function processPreferredContactMethod(requestFormData) {
-    requestFormData.preferredContactMethod = "E";
-    if (requestFormData.P === "on") {
-      requestFormData.preferredContactMethod = "P";
+    requestFormData.preferredContactMethod = "Email";
+    if (requestFormData.Phone === "on") {
+      requestFormData.preferredContactMethod = "Phone";
     }
-    delete requestFormData.E;
-    delete requestFormData.P;
+    delete requestFormData.Email;
+    delete requestFormData.Phone;
   }
 
   // Use the values to pull the desriptions back from the config
   function createShortDestription(supportType, productType) {
+    const constTechSupport = "TS";
     if (supportReqFormConfig) {
       const supportRequestFields = supportReqFormConfig.config.fields;
       if (supportRequestFields) {
@@ -190,7 +208,7 @@ const CreateRequestForm = ({
         const supportTypeOption = supportTypeControl.options.find(obj => {
           return obj.value === supportType
         });
-        if (supportType === "TECH") {
+        if (supportType === constTechSupport) {
           // Append SupportType & ProductType Descriptions 
           const productTypeControl = supportRequestFields.find(obj => {
             return obj.name === "productType"
@@ -199,8 +217,8 @@ const CreateRequestForm = ({
             return obj.value === productType
           });   
           return { "shortDescription": `${supportTypeOption.label} : ${productTypeOption.label}` };
-
-        } else {
+        } 
+        else {
           // Set SupportType Description
           return { "shortDescription": supportTypeOption.label };
         }
@@ -262,6 +280,16 @@ const CreateRequestForm = ({
               defaultValues={initialIRequestFormValues}
               navigateBackFn={handleNavigateBackFn}
               displayProductTypeDropDown={handleDisplayProductTypeDropDown}
+              submitFn={checkIRequestSubmit}
+              isocode={isocode}
+            />
+          </Suspense>);
+    case 2:
+      return (
+          <Suspense fallback={<div>Loading...</div>}>
+            <Form
+              {...confFormConfig}
+              defaultValues={initialConfirmationFormValues}
               submitFn={checkIRequestSubmit}
               isocode={isocode}
             />

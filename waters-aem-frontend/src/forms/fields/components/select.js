@@ -18,7 +18,7 @@ const Select = (props) => {
     const { triggerValidation, setValue, getValue, activateField, deactivateField, setCountrySaved, regionalConfig, displayProductTypeDropDown } = useContext(useFormApi);
     const [selectedValue, setSelectedValue] = useState(getValue(name) ? getValue(name).toLowerCase() : (props.defaultValue || ""));
     const setupOptions = (label, value) => ({ label: label, value: value });
-    const constTech = "TECH";
+    const constTech = "TS";
     const constSupportType = "supportType";
     const constCO2Bulk = "CO2_BULK";
 

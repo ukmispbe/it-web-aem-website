@@ -193,6 +193,22 @@ const Form = ({
 
     }, [config]);
 
+    // Hook to Hide the content fragment above the Confirmation and change the page title
+    useEffect(() => {
+        if (config.formName === "supportRequestConfirmation") {
+            const titleElements = document.getElementsByClassName("cmp-title__text");
+            if (titleElements && titleElements.length === 2) {              
+                titleElements[0].innerText = config.pageTitle;
+            }
+
+            const featuresDiv = document.getElementsByClassName("cmp-text"); 
+            if (featuresDiv) {
+                featuresDiv[0].style.display = "none"; 
+            }
+        }
+
+    }, [config.formName]);
+
     // Hook to check the user's Authentication Status and redirect if needed
     useEffect(() => {
         if (!isInEditMode) {

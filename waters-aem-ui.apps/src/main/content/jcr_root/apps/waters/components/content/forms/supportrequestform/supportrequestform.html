@@ -33,7 +33,7 @@
                             "message": "${'Maximum 40 characters allowed' @i18n, context='unsafe'}"
                         },
                         "validateFnName": "noWhitespaceOnly",
-                        "requiredMsg": "${'Please enter a Serial Number.' @ i18n, context='unsafe'}"
+                        "requiredMsg": "${'Serial Number is required' @ i18n, context='unsafe'}"
                     }
                 },            
                 {
@@ -43,11 +43,11 @@
                     "validation": {
                         "required": true,
                         "maxLength": {
-                            "value": 40,
-                            "message": "${'Maximum 40 characters allowed' @i18n, context='unsafe'}"
+                            "value": 35,
+                            "message": "${'Maximum 35 characters allowed' @i18n, context='unsafe'}"
                         },
                         "validateFnName": "noWhitespaceOnly",
-                        "requiredMsg": "${'Please enter an Organization.' @ i18n, context='unsafe'}"
+                        "requiredMsg": "${'Organization is required' @ i18n, context='unsafe'}"
                     }
                 }           
             ]
@@ -56,7 +56,7 @@
     <script type="application/json" id="cmp-support-request-form">
         {
             "formName": "supportRequest",
-            "recordType": "Support",
+            "recordType": "SUPPORT",
             "submitEndpoint": "${supportRequest.supportRequestUrl @ context='unsafe'}",
             "buttonText": "${'Send Request' @ i18n, context='text'}",
             "redirectUrl": "${supportRequest.redirectLink.href @ context='unsafe'}",
@@ -83,11 +83,13 @@
                 {
                     "type": "label",
                     "name": "serialNumberLabel",
+                    "addClass": "text-as-label",
                     "label": "${'Serial Number or Software Support Plan ID:' @ i18n, context='unsafe'}"
                 },
                 {
                     "type": "label",
                     "name": "organizationLabel",
+                    "addClass": "text-as-label",
                     "label": "${'Organization:' @ i18n, context='unsafe'}"
                 },
                 {
@@ -149,10 +151,10 @@
                     "placeholder": "${'Select...' @ i18n, context='text'}",
                     "dropdownIndicator": "/content/dam/waters/en/brand-assets/icons/down.svg",
                     "options": [
-                        {"value":"TECH","label": "${'Technical Support' @ i18n, context='text'}"},
-                        {"value":"MNT","label": "${'Preventative Maintenance' @ i18n, context='text'}"},
+                        {"value":"TS","label": "${'Technical Support' @ i18n, context='text'}"},
+                        {"value":"PM","label": "${'Preventative Maintenance' @ i18n, context='text'}"},
                         {"value":"QUAL","label": "${'Qualification' @ i18n, context='text'}"},
-                        {"value":"INST_REL","label": "${'Installation-Relocation' @ i18n, context='text'}"}
+                        {"value":"INST","label": "${'Installation-Relocation' @ i18n, context='text'}"}
                         
                     ],
                     "active": true,
@@ -168,12 +170,12 @@
                     "placeholder": "${'Select...' @ i18n, context='text'}",
                     "dropdownIndicator": "/content/dam/waters/en/brand-assets/icons/down.svg",
                     "options": [
-                        {"value":"LC","label": "${'LC Software' @ i18n, context='text'}"},
-                        {"value":"MS","label": "${'MS Software' @ i18n, context='text'}"},
-                        {"value":"NUGEN","label": "${'NuGenesis Software' @ i18n, context='text'}"},                        
-                        {"value":"UPLC_HPLC","label": "${'UPLC/HPLC Hardware' @ i18n, context='text'}"},
+                        {"value":"LCSW","label": "${'LC Software' @ i18n, context='text'}"},
+                        {"value":"MSSW","label": "${'MS Software' @ i18n, context='text'}"},
+                        {"value":"NGSW","label": "${'NuGenesis Software' @ i18n, context='text'}"},                        
+                        {"value":"LCHW","label": "${'UPLC/HPLC Hardware' @ i18n, context='text'}"},
                         {"value":"QUAD","label": "${'Quadrupole Instruments' @ i18n, context='text'}"},
-                        {"value":"TOF","label": "${'Time of Flight Instruments' @ i18n, context='text'}"},
+                        {"value":"TOFI","label": "${'Time of Flight Instruments' @ i18n, context='text'}"},
                         {"value":"MALDI","label": "${'Maldi Instruments' @ i18n, context='text'}"},
                         {"value":"SFC","label": "${'SFC of SFC-MS Instruments' @ i18n, context='text'}"}
                     ],
@@ -196,7 +198,7 @@
                             "value": 32000,
                             "message": "${'Maximum 32000 characters allowed' @i18n, context='unsafe'}"
                         },
-                        "required": false,
+                        "required": true,
                         "requiredMsg": "${'Please enter a message.' @ i18n, context='unsafe'}"
                     }
                 },
@@ -261,7 +263,7 @@
                 {
                     "type": "text",
                     "name": "secondaryPhone",
-                    "label": "${'Phone Number' @ i18n, context='unsafe'}",
+                    "label": "${'Secondary Phone Number' @ i18n, context='unsafe'}",
                     "optionalLabel": "${'(optional)' @ i18n, context='text'}",
                     "validation": {
                         "validateFnName": "blankOrNumbersOnly",
@@ -274,13 +276,13 @@
                     "name": "contactMethod",
                     "label": "${'Preferred Method of Contact' @ i18n, context='unsafe'}",
                     "options": [
-                        {"name":"E","label": "${'Email' @ i18n, context='text'}"},
-                        {"name":"P","label": "${'Phone' @ i18n, context='text'}"}
+                        {"name":"Email","label": "${'Email' @ i18n, context='text'}"},
+                        {"name":"Phone","label": "${'Phone' @ i18n, context='text'}"}
                     ],
                     "validation": {
                         "required": true,
                         "validateFnName": "checkBoxOrRadio",
-                        "validationMsg": "Select an Account"
+                        "validationMsg": "Select a Preferred Method of Contact"
                     }
                 },           
                 {
@@ -290,7 +292,7 @@
                     "config": [
                         {
                             "type": "text",
-                            "text": "${'By clicking the CREATE ACCOUNT button, you are agreeing to our' @ i18n, context='text'}",
+                            "text": "${'By clicking the SEND REQUEST button, you are agreeing to our' @ i18n, context='text'}",
                             "rightSpace": "true"
                         },
                         {
@@ -318,6 +320,153 @@
                             "rightSpace": "false"
                         }
                     ]
+                }
+            ]
+        }
+    </script>
+    <script type="application/json" id="cmp-support-request-confirmation">
+        {
+            "formName": "supportRequestConfirmation",
+            "recordType": "Support",
+            "pageTitle": "${'Your Support Request Was Created' @ i18n, context='text'}",
+            "submitEndpoint": "${supportRequest.supportRequestUrl @ context='unsafe'}",
+            "buttonText": "${'Create Another Request' @ i18n, context='text'}",
+            "redirectUrl": "${supportRequest.redirectLink.href @ context='unsafe'}",
+            "loginUrl": "${supportRequest.loginLink.href @ context='unsafe'}",
+            "consentUrl": "${supportRequest.consentLink.href @ context='unsafe'}",
+            "needsToBeSignedIn": true,
+            "elementLocator": "support-request-form",
+			"buttonLocator": "send-request",
+            "icons": {
+                "checkmarkIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
+                "validIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
+                "invalidIcon": "/content/dam/waters/en/brand-assets/icons/attention.svg",
+                "lockIcon": "/content/dam/waters/en/brand-assets/icons/lock.svg"
+            },
+            "fields": [
+                {
+                    "type": "textwithlinks",
+                    "name": "privacy",
+                    "active": true,
+                    "config": [
+                        {
+                            "type": "text",
+                            "text": "${'Weve sent you an email confirmation of your request to' @ i18n, context='text'}",
+                            "rightSpace": "true"
+                        },
+                        {
+                            "type": "text",
+                            "text": "${'gary_mantha@waters.com.' @ i18n, context='text'}",
+                            "rightSpace": "true"
+                        },
+                        {
+                            "type": "text",
+                            "text": "${'Someone will contact you shortly.' @ i18n, context='text'}",
+                            "rightSpace": "false"
+                        }
+                    ]
+                },
+                {
+                    "type": "doubleLabel",
+                    "name": "caseNumberLabel",
+                    "addClass": [
+                        "cmp-label-standard",
+                        "cmp-label-bold"
+                    ],
+                    "label": "${'Case Number:' @ i18n, context='unsafe'}"
+                },
+                {
+                    "type": "break",
+                    "addClass": "cmp-section-hr"
+                },               
+                {
+                    "type": "label",
+                    "addClass": "cmp-heading-label",
+                    "name": "requestSummaryLabel",
+                    "label": "${'Request Summary' @ i18n, context='unsafe'}"
+                },
+                {
+                    "type": "doubleLabel",
+                    "name": "serialNumberLabel",
+                    "addClass": [
+                        "cmp-label-bold",
+                        "cmp-label-standard"
+                    ],
+                    "label": "${'Serial Number or Software Support Plan ID:' @ i18n, context='unsafe'}"
+                },
+                {
+                    "type": "doubleLabel",
+                    "name": "organizationLabel",
+                    "addClass": [
+                        "cmp-label-bold",
+                        "cmp-label-standard"
+                    ],
+                    "label": "${'Organization:' @ i18n, context='unsafe'}"
+                },
+                {
+                    "type": "doubleLabel",
+                    "name": "productDetailsLabel",
+                    "addClass": [
+                        "cmp-label-bold",
+                        "cmp-label-standard"
+                    ],
+                    "label": "${'Product Details:' @ i18n, context='unsafe'}"
+                },
+                {
+                    "type": "doubleLabel",
+                    "name": "typeOfSupportRequestLabel",
+                    "addClass": [
+                        "cmp-label-bold",
+                        "cmp-label-standard"
+                    ],
+                    "label": "${'Type of Support Request:' @ i18n, context='unsafe'}"
+                },
+                {
+                    "type": "textarea",
+                    "addClass": "cmp-text-area-read-only",
+                    "name": "requestSummary",
+                    "label": "${'Support Request Summary:' @ i18n, context='text'}",
+                    "disabled": true,
+                    "resize": false,
+                    "rows": 5,
+                    "validation": {
+                        "maxLength": {
+                            "value": 32000,
+                            "message": "${'Maximum 32000 characters allowed' @i18n, context='unsafe'}"
+                        }
+                    }
+                },
+                {
+                    "type": "label",
+                    "name": "contactInformationLabel",
+                    "label": "${'Contact Information:' @ i18n, context='unsafe'}"
+                },
+                {
+                    "type": "label",
+                    "addClass": "cmp-label-standard",
+                    "name": "fullNameLabel",
+                    "label": "${'Paul Beard' @ i18n, context='unsafe'}"
+                },
+                {
+                    "type": "label",
+                    "addClass": "cmp-label-standard",
+                    "name": "emailLabel",
+                    "label": "${'paul_beard@waters.com' @ i18n, context='unsafe'}"
+                },
+                {
+                    "type": "label",
+                    "addClass": "cmp-label-standard",
+                    "name": "phoneNumberLabel",
+                    "label": "${'07890009999' @ i18n, context='unsafe'}"
+                },
+                {
+                    "type": "doubleLabel",
+                    "name": "preferredMethodOfContactLabel",
+                    "addClass": [
+                        "cmp-label-standard",
+                        "cmp-label-standard"
+                    ],
+                    "label": "${'Preferred Method of Contact:' @ i18n, context='unsafe'}"
                 }
             ]
         }
