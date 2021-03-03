@@ -62,7 +62,7 @@ public class DefaultSolrIndexService implements SolrIndexService {
      * This methods takes List<String> paths as input and adds those to solr
      */
     @Override
-    public boolean addPageToIndex(final List<String> paths, String collection) throws IOException, SolrServerException {
+    public boolean addPageToIndex(final List<String> paths) throws IOException, SolrServerException {
         boolean success = true;
         List<SolrInputDocument> documentList = new ArrayList<SolrInputDocument>();
 
@@ -74,7 +74,7 @@ public class DefaultSolrIndexService implements SolrIndexService {
                     LOG.debug("adding solr document to index : {}", document);
                     documentList.add(document);
 				}
-        		  success = solrIndexClient.addToIndex(documentList, collection);
+        		  success = solrIndexClient.addToIndex(documentList);
             
         }
         	catch(RouteException e) {
