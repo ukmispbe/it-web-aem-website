@@ -619,6 +619,11 @@
     .cmp-form-field-textwithlinks--privacy {
         margin-top: $space-s;
         @include font-small;
+        span {
+            .cmp-bold {
+                font-weight: $font-weight-bold;
+            }
+        }
     }
 
     &__submission-error {
@@ -749,6 +754,7 @@
             margin-bottom: $space-xxs;
         }
         .cmp-form-field-doubleLabel {
+            margin-bottom: 0;;
             label:first-child {
                 margin-right: $space-xs;
             }
@@ -758,6 +764,11 @@
             }
             .cmp-label-standard {
                 @include font-utility;
+            }
+            .cmp-label-basic {
+                @include font-body;
+                font-size: $font-size-body;
+                margin-bottom: $space-xxs;
             }
         }
         .cmp-form-field-radio {
@@ -778,6 +789,10 @@
         }
         .cmp-utility-label-large {
             @include font-utility-large;
+        }
+        .cmp-label-standard {
+            @include font-utility;
+            margin-bottom: 0;
         }
     }
 }

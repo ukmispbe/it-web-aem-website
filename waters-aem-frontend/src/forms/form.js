@@ -202,7 +202,7 @@ const Form = ({
             }
 
             const featuresDiv = document.getElementsByClassName("cmp-text"); 
-            if (featuresDiv) {
+            if (featuresDiv && featuresDiv.length !== 0) {
                 featuresDiv[0].style.display = "none"; 
             }
         }

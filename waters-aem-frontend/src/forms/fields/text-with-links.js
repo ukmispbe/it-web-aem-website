@@ -21,7 +21,10 @@ const TextWithLinks = ({}) => {
             )
     }
 
-    const renderText = ({ text }) => {
+    const renderText = ({ text, addClass }) => {
+        if (addClass) {
+            return (<span clssName={addClass}>{text}</span>)
+        }
         return (text)
     }
 
