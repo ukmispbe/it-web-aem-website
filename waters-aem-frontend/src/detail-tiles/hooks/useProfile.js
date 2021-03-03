@@ -29,7 +29,7 @@ export default (userDetailsUrl, soldToDetailsUrl, type, icon) => {
             }
 
             if (type !== 'password') {
-                if (userDetails.soldToAccounts.length) {
+                if (userDetails && userDetails.soldToAccounts && userDetails.soldToAccounts.length) {
                     userDetails.shipOrBillChangeFlag
                         ? setData(createUserAddresses(userDetails))
                         : callSoldToDetails(userDetails);

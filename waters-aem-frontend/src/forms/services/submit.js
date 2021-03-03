@@ -6,7 +6,7 @@ import UserDetails from '../../my-account/services/UserDetails';
 import SoldToDetailsLazy from '../../my-account/services/SoldToDetailsLazy';
 import { signInRedirect, getNamedHeaderLink } from '../../utils/redirectFunctions';
 import { postData } from '../../utils/serviceFunctions';
-import { matchUserToSoldToAddresses } from '../../utils/userFunctions';
+import { matchUserToSoldToAddresses, createUserAddresses } from '../../utils/userFunctions';
 import { convertFileIntoBase64, getAttachmentFieldName } from '../fields/utils/fileAttachment';
 
 export async function registrationSubmit(data) {
@@ -206,6 +206,17 @@ export async function changePasswordSubmit(data) {
     }
 }
 
+function callSoldToDetails(userDetails, soldToDetailsUrl) {
+    let mergeAPIs = userDetails;
+    if (userDetails && userDetails.userId && userDetails.salesOrg) {
+        SoldToDetailsLazy(soldToDetailsUrl, userDetails.userId, userDetails.salesOrg)
+        .then((soldToDetails) => {
+            mergeAPIs = matchUserToSoldToAddresses(userDetails, soldToDetails);
+        });
+    }
+    return mergeAPIs;
+}
+
 export async function personalSubmit(data) {
     const response = await postData(this.url, data);
     const responseBody = await response.json();
@@ -217,12 +228,12 @@ export async function personalSubmit(data) {
         store.setUserDetails(responseBody);
         store.setPersonalDetailsUpdated();
 
-        if (responseBody && responseBody.userId && responseBody.salesOrg) {
-            SoldToDetailsLazy(this.soldToDetailsUrl, responseBody.userId, responseBody.salesOrg)
-            .then((soldToDetails) => {
-                let mergeAPIs = matchUserToSoldToAddresses(responseBody, soldToDetails);
-                this.setProfileData(mergeAPIs);
-            });
+        if (responseBody && responseBody.soldToAccounts && responseBody.soldToAccounts.length) {
+            responseBody.shipOrBillChangeFlag
+                ? this.setProfileData(createUserAddresses(responseBody))
+                : this.setProfileData(callSoldToDetails(responseBody, this.soldToDetailsUrl));
+        } else {
+            this.setProfileData(createUserAddresses(responseBody))
         }
 
         const model = {
@@ -231,6 +242,7 @@ export async function personalSubmit(data) {
         this.setFormAnalytics('submit', model);
 
         this.callback();
+        scrollToY(0);
     } else if (response.status === 401) {
         signInRedirect();
     } else {

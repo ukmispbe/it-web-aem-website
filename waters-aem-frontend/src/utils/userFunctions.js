@@ -258,7 +258,7 @@ export const getDefaultSoldToAddresses = (soldToAccounts) => {
 export const userDetailsAddresses = (addresses, addressType) => {
     let userAddress = [];
 
-    if (addresses.length){
+    if (addresses && addresses.length){
         for (let i = 0; i < addresses.length; i++) {
             if(addresses[i].addressType === addressType) {
                 let address = {
