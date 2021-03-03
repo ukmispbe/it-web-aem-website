@@ -10,7 +10,7 @@ export default (userDetailsUrl, soldToDetailsUrl, type, icon) => {
     const [data, setData] = useState();
     const [tiles, setTiles] = useState([]);
 
-    function callSoldToDetails(userDetails) {
+    function callSoldToDetails(userDetails, soldToDetailsUrl) {
         if (userDetails && userDetails.userId && userDetails.salesOrg) {
             SoldToDetailsLazy(soldToDetailsUrl, userDetails.userId, userDetails.salesOrg)
             .then((soldToDetails) => {
@@ -32,7 +32,7 @@ export default (userDetailsUrl, soldToDetailsUrl, type, icon) => {
                 if (userDetails && userDetails.soldToAccounts && userDetails.soldToAccounts.length) {
                     userDetails.shipOrBillChangeFlag
                         ? setData(createUserAddresses(userDetails))
-                        : callSoldToDetails(userDetails);
+                        : callSoldToDetails(userDetails, soldToDetailsUrl);
                 } else {
                     setData(createUserAddresses(userDetails))
                 }

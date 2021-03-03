@@ -206,17 +206,6 @@ export async function changePasswordSubmit(data) {
     }
 }
 
-function callSoldToDetails(userDetails, soldToDetailsUrl) {
-    let mergeAPIs = userDetails;
-    if (userDetails && userDetails.userId && userDetails.salesOrg) {
-        SoldToDetailsLazy(soldToDetailsUrl, userDetails.userId, userDetails.salesOrg)
-        .then((soldToDetails) => {
-            mergeAPIs = matchUserToSoldToAddresses(userDetails, soldToDetails);
-        });
-    }
-    return mergeAPIs;
-}
-
 export async function personalSubmit(data) {
     const response = await postData(this.url, data);
     const responseBody = await response.json();
@@ -228,16 +217,23 @@ export async function personalSubmit(data) {
         store.setUserDetails(responseBody);
         store.setPersonalDetailsUpdated();
 
-        if (responseBody && responseBody.soldToAccounts && responseBody.soldToAccounts.length) {
-            responseBody.shipOrBillChangeFlag
-                ? this.setProfileData(createUserAddresses(responseBody))
-                : this.setProfileData(callSoldToDetails(responseBody, this.soldToDetailsUrl));
+        if (responseBody && responseBody.soldToAccounts && responseBody.soldToAccounts.length &&
+            responseBody.userId && responseBody.salesOrg) {
+            if (responseBody.shipOrBillChangeFlag && (responseBody.shipOrBillChangeFlag == 1)) {
+                this.setProfileData(createUserAddresses(responseBody));
+            } else {
+                SoldToDetailsLazy(this.soldToDetailsUrl, responseBody.userId, responseBody.salesOrg)
+                    .then((soldToDetails) => {
+                        let mergeAPIs = matchUserToSoldToAddresses(responseBody, soldToDetails);
+                        this.setProfileData(mergeAPIs);
+                    });
+            }
         } else {
-            this.setProfileData(createUserAddresses(responseBody))
+            this.setProfileData(createUserAddresses(responseBody));
         }
 
         const model = {
-            "communications":data.communications 
+            "communications": data.communications
         }
         this.setFormAnalytics('submit', model);
 
@@ -414,7 +410,6 @@ export async function chooseAccountSubmit(data) {
         scrollToY(0);
     }
 }
-
 
 export async function submitAccount(selectedAccount, urlChooseAccount) {
 
