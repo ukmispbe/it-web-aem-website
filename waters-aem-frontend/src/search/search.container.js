@@ -333,15 +333,15 @@ class SearchContainer extends Component {
             return SEARCH_TYPES.CATEGORY_ONLY;
         }
 
-        if (query.category && !query.content_type && !this.isFacetsSelected(query.facets)) {
+        if (this.isCategoryOnlySelected(query.category, query.content_type)) {
             return SEARCH_TYPES.CATEGORY_ONLY;
         }
 
-        if (query.category && query.content_type && !this.isFacetsSelected(query.facets)) {
+        if (query.content_type && !this.isFacetsSelected(query.facets)) {
             return SEARCH_TYPES.CONTENT_TYPE;
         }
 
-        if (query.category && this.isFacetsSelected(query.facets)) {
+        if (query.content_type && this.isFacetsSelected(query.facets)) {
             return SEARCH_TYPES.SUB_FACETS;
         }
 
@@ -839,7 +839,7 @@ class SearchContainer extends Component {
     };
 
     handleRemoveContentType = () => {
-        const query = this.getQueryObject();
+        const query = parse(window.location.search);
 
         delete query.content_type;
 
