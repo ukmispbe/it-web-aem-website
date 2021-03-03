@@ -20,7 +20,7 @@ import { elementLocator } from '../utils/eCommerceFunctions';
 import { getAddressesByType, getFullCompanyAddress } from '../utils/userFunctions';
 import SoldToDetailsLazy from '../my-account/services/SoldToDetailsLazy';
 import countryList from './services/country-list';
-import { retrieveData } from './services/retrieve';
+import { retrieveDataNoCredentials } from './services/retrieve';
 
 import '../../src/styles/forms.scss';
 
@@ -155,7 +155,7 @@ const Form = ({
     useEffect(() => {
         if (config.formName === "registrationAddress") {
             // Call API & Update Config
-            retrieveData(config.statesUrl.replace("{country}", defaultValues.country))
+            retrieveDataNoCredentials(config.statesUrl.replace("{country}", defaultValues.country))
             .then((results) => {
                 if (results[0]) {
                     const showStates = results[0].showStates;
