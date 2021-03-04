@@ -44,7 +44,7 @@ public interface SolrIndexClient {
      * @throws IOException if error occurs communicating with Solr server
      * @throws SolrServerException if error occurs in Solr index request
      */
-    boolean addToIndex(List<SolrInputDocument> document, String collection) throws IOException, SolrServerException;
+    boolean addToIndex(List<SolrInputDocument> document) throws IOException, SolrServerException;
 
 
     /**

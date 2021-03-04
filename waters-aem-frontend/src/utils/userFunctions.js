@@ -505,6 +505,7 @@ export const getSearchString = (path, paramString, requestObject = {}, type = ''
     return searchString;
 }
 
+
 export const convertToBoolean = (value = '') => {
     let status = false;
     if(typeof value === "string"){

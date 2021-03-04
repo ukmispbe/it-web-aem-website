@@ -27,6 +27,7 @@ class SearchContainer extends Component {
     }
 
     componentDidMount() {
+        this.setState({isEprocurementUser: isEprocurementUser()});
         this.addHistoryListener();
         this.addResizeListener();
         
@@ -35,7 +36,6 @@ class SearchContainer extends Component {
         this.setState({tabHistory: sessionStore.searchTabHistory, facetGroupsSelectedOrder}, () => {
             this.performSearch();
         });
-        this.setState({isEprocurementUser: isEprocurementUser()});
     }
 
     getFacetKey = (key) => `${key}_facet`;
@@ -72,6 +72,7 @@ class SearchContainer extends Component {
 
     initialState = () => {
         const query = this.search.getParamsFromString();
+        const isEprocUser = isEprocurementUser();
         this.query = query;
 
         // Setting up the sort filter value
@@ -88,7 +89,7 @@ class SearchContainer extends Component {
                     : this.query.sort;
         }
 
-        const category = this.query.category ? this.query.category : '';
+        const category = this.query.category ? this.query.category : (isEprocUser ? 'Shop' :'');
 
         const contentType = this.query.content_type
             ? this.query.content_type
@@ -428,8 +429,14 @@ class SearchContainer extends Component {
     getCategoryFacetKey = (category) => category ? this.getFacetKey(this.createStrippedFacetName(category)) : '';
 
     findContentType = (items, content_type, selectedCategory) => {
-        let category = selectedCategory && items.find(
-            element => element.categoryFacetName === selectedCategory
+        let categoryValue = selectedCategory;
+
+        if (!categoryValue && this.state && this.state.isEprocurementUser) {
+            categoryValue = this.getCategoryFacetKey('Shop');
+        }
+
+        const category = categoryValue && items.find(
+            element => element.categoryFacetName === categoryValue
         );
 
         let contentTypeObject;
@@ -920,7 +927,7 @@ class SearchContainer extends Component {
         const query = this.getQueryObject();
 
         
-        const contentType = query.content_type && query.category && this.findContentType(this.props.filterMap, this.getFacetKey(query.content_type), this.getCategoryFacetKey(query.category));
+        const contentType = query.content_type && (query.category || this.state.isEprocurementUser) && this.findContentType(this.props.filterMap, this.getFacetKey(query.content_type), this.getCategoryFacetKey(query.category));
 
         return {
             facetName: contentType ? contentType.facetName : '',
