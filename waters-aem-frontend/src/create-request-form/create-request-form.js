@@ -21,7 +21,7 @@ const CreateRequestForm = ({
   const [ initialConfirmationFormValues, setInitialConfirmationFormValues ] = useState({});
   const [ serialFormData, setSerialFormData ] = useState();
   const [ userDetails, setUserDetails ] = useState();
-
+  const constTechSupport = "TS";
   useEffect(() => {
     const needsToBeSignedIn = serialFormConfig.config.needsToBeSignedIn;
     if (!isInEditMode) {
@@ -89,8 +89,6 @@ const CreateRequestForm = ({
         setClearActiveLabel(supportRequestFields, "productDetailsText", true); 
         setClearActiveLabel(supportRequestFields, "productDetailsValue", true); 
         setClearActiveLabel(supportRequestFields, "productDetails", false);
-        
-
       }
       else {
         // Display the drop down and hide the text boxes
@@ -172,18 +170,33 @@ const CreateRequestForm = ({
     initialConfirmationFormValues.caseNumberLabel = "01234567890";
     initialConfirmationFormValues.serialNumberLabel = formData.serialNumber;
     initialConfirmationFormValues.organizationLabel = formData.organization;
-    initialConfirmationFormValues.productDetailsLabel = formData.productDetails;
-    initialConfirmationFormValues.typeOfSupportRequestLabel = formData.supportType;
+    initialConfirmationFormValues.productDetailsLabel = formData.productDetailsText ? formData.productDetailsText : getDescriptionFromFields(formData.productDetails, "productDetails", supportReqFormConfig.config.fields);   
+    initialConfirmationFormValues.typeOfSupportRequestLabel = getDescriptionFromFields(formData.supportType, "supportType", supportReqFormConfig.config.fields);
+    if (formData.supportType === constTechSupport) {
+      initialConfirmationFormValues.productTypeLabel = getDescriptionFromFields(formData.productType, "productType", supportReqFormConfig.config.fields);
+    }  
     initialConfirmationFormValues.requestSummary = formData.formDescription;
+    initialConfirmationFormValues.requestSummaryEllipsis = formData.formDescription;
     initialConfirmationFormValues.fullNameLabel = `${formData.firstName} ${formData.lastName}`;
     initialConfirmationFormValues.emailLabel = formData.email;
     initialConfirmationFormValues.phoneNumberLabel = formData.phone;
     initialConfirmationFormValues.preferredMethodOfContactLabel = formData.preferredContactMethod;
     setInitialConfirmationFormValues(initialConfirmationFormValues);
-    // Show the same form until API is Ready
-    // setShowForm(1);
     // Show Confirmation Form
     setShowForm(2);
+  }
+
+  function getDescriptionFromFields(value, controlName, fields) {
+    let option;
+    const control = fields.find(obj => {
+      return obj.name === controlName
+    });
+    if (control && control.options){
+      option = control.options.find(obj => {
+        return obj.value === value
+      });
+    }
+    return option.label;
   }
 
   // Determine if Email or Phone & Delete "Email" & "Phone"
@@ -198,30 +211,17 @@ const CreateRequestForm = ({
 
   // Use the values to pull the desriptions back from the config
   function createShortDestription(supportType, productType) {
-    const constTechSupport = "TS";
-    if (supportReqFormConfig) {
-      const supportRequestFields = supportReqFormConfig.config.fields;
-      if (supportRequestFields) {
-        const supportTypeControl = supportRequestFields.find(obj => {
-          return obj.name === "supportType"
-        });
-        const supportTypeOption = supportTypeControl.options.find(obj => {
-          return obj.value === supportType
-        });
-        if (supportType === constTechSupport) {
-          // Append SupportType & ProductType Descriptions 
-          const productTypeControl = supportRequestFields.find(obj => {
-            return obj.name === "productType"
-          });
-          const productTypeOption = productTypeControl.options.find(obj => {
-            return obj.value === productType
-          });   
-          return { "shortDescription": `${supportTypeOption.label} : ${productTypeOption.label}` };
-        } 
-        else {
-          // Set SupportType Description
-          return { "shortDescription": supportTypeOption.label };
-        }
+    
+    if (supportReqFormConfig && supportReqFormConfig.config.fields) {
+      const supportTypeDescription = getDescriptionFromFields(supportType, "supportType", supportReqFormConfig.config.fields);
+      if (supportType === constTechSupport) {
+        // Append SupportType & ProductType Descriptions 
+        const productTypeDescription = getDescriptionFromFields(productType, "productType", supportReqFormConfig.config.fields);
+        return { "shortDescription": `${supportTypeDescription} : ${productTypeDescription}` };
+      } 
+      else {
+        // Set SupportType Description
+        return { "shortDescription": supportTypeDescription };
       }
     }
   }

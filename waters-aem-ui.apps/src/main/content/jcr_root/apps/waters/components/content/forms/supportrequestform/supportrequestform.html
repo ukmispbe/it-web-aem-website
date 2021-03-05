@@ -291,7 +291,7 @@
                     "name": "privacy",
                     "active": true,
                     "openModal": ${supportRequest.newModal @ context='unsafe'},
-                    "consentUrl": "${supportRequest.consentLink.href @ context='unsafe'}"
+                    "consentUrl": "${supportRequest.consentLink.path @ context='unsafe'}"
                 }
             ]
         }
@@ -395,22 +395,29 @@
                     "label": "${'Type of Support Request:' @ i18n, context='unsafe'}"
                 },
                 {
-                    "type": "textarea",
-                    "addClass": "cmp-text-area-read-only",
-                    "name": "requestSummary",
-                    "label": "${'Support Request Summary:' @ i18n, context='text'}",
-                    "disabled": true,
-                    "resize": false,
-                    "rows": 10,
-                    "validation": {
-                        "maxLength": {
-                            "value": 32000,
-                            "message": "${'Maximum 32000 characters allowed' @i18n, context='unsafe'}"
-                        }
-                    }
+                    "type": "doubleLabel",
+                    "name": "productTypeLabel",
+                    "addClass": [
+                        "cmp-label-bold",
+                        "cmp-label-standard"
+                    ],
+                    "label": "${'Product Type:' @ i18n, context='unsafe'}"
                 },
                 {
                     "type": "label",
+                    "addClass": "cmp-label-bold",
+                    "name": "requestSummaryEllipsisLabel",
+                    "label": "${'Support Request Summary:' @ i18n, context='unsafe'}"
+                },
+                {
+                    "type": "multiLines",
+                    "addClass": "cmp-multiline-ellipsis",
+                    "maxLine": "10",
+                    "name": "requestSummaryEllipsis"
+                },
+                {
+                    "type": "label",
+                    "addClass": "cmp-label-bold",
                     "name": "contactInformationLabel",
                     "label": "${'Contact Information:' @ i18n, context='unsafe'}"
                 },

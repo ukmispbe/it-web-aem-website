@@ -619,10 +619,8 @@
     .cmp-form-field-textwithlinks--privacy {
         margin-top: $space-s;
         @include font-small;
-        span {
-            .cmp-bold {
-                font-weight: $font-weight-bold;
-            }
+        .cmp-bold {
+            font-weight: $font-weight-bold;
         }
     }
 
@@ -781,18 +779,19 @@
             font-size: $font-size-body;
             margin-bottom: $space-xxs;
         }
-        .cmp-bold-label {
+        .cmp-label-bold {
             @include font-body;
             font-size: $font-size-body;
             font-weight: $font-weight-bold;
-            margin-bottom: $space-xxs;
+            margin-top: $space-xxs;
+            margin-bottom: 0;
         }
         .cmp-utility-label-large {
             @include font-utility-large;
         }
         .cmp-label-standard {
             @include font-utility;
-            margin-bottom: 0;
+            margin-bottom: $space-xxxs;
         }
     }
 }

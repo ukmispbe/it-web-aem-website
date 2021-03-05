@@ -18,6 +18,7 @@ import AddLineButton from './add-line-button';
 import NavigateLink  from './navigate-link';
 import FormNotification from './form-notification';
 import DoubleLabel from './double-label';
+import MultiLines from './multiLines';
 
 const formType = {
     text: Input,
@@ -39,7 +40,8 @@ const formType = {
     addLineButton: AddLineButton,
     navigateLink: NavigateLink,
     formNotification: FormNotification,
-    doubleLabel: DoubleLabel
+    doubleLabel: DoubleLabel,
+    multiLines: MultiLines
 };
 
 const Field = ({}) => {

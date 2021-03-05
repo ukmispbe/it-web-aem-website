@@ -198,7 +198,12 @@ const CreateAccountForm = ({
             && field.name !== "billingOrganizationName4"
             && field.name !== "billingStreetAddress2"
           ) {
-            field.active = true;
+            if (field.name === "billingState" && !field.options) {
+              field.active = false;
+            }
+            else {
+              field.active = true;
+            }       
           }
         });
       }
