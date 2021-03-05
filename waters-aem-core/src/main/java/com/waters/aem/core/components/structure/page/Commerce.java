@@ -47,9 +47,33 @@ public class Commerce {
     @InheritInject
     private CountryCommerceConfig countryCommerceConfig = CountryCommerceConfig.FULL_ENABLED;
 
+    @DialogField(fieldLabel = "Currency ISO Code",
+            fieldDescription = "For countries using a non-standard ISO currency code (ISO-4217) " +
+                    "in Waters SAP, provide the non-standard ISO code here.",
+            ranking = 3)
+    @TextField
+    @InheritInject
+    private String currencyIsoCode;
+
+    @DialogField(fieldLabel = "Currency Language Override",
+            fieldDescription = "Two character language code used to format the currency display. Setting this will " +
+                    "override the default.",
+            ranking = 4)
+    @TextField
+    @InheritInject
+    private String currencyLanguageCode;
+
+    @DialogField(fieldLabel = "Currency Country Override",
+            fieldDescription = "Two character country code used to format the currency display. Setting this will " +
+                    "override the default.",
+            ranking = 5)
+    @TextField
+    @InheritInject
+    private String currencyCountryCode;
+
     @DialogField(fieldDescription = "Enable this to disable Mule Customer Price URL",
             value = "true",
-            ranking = 3)
+            ranking = 6)
     @CheckBox(title = "customerPriceApiDisabled",
             text = "Disable Mule CustomerPrice API")
     @Inject
@@ -57,7 +81,7 @@ public class Commerce {
 
     @DialogField(fieldDescription = "Enable this to make Checkout  Disable",
             value = "true",
-            ranking = 4)
+            ranking = 7)
     @CheckBox(title = "checkoutDisabled",
             text = "Disable Checkout")
     @Inject
@@ -65,7 +89,7 @@ public class Commerce {
 
     @DialogField(fieldDescription = "Enable this to make Quote Disable",
             value = "true",
-            ranking = 5)
+            ranking = 8)
     @CheckBox(title = "quoteDisabled",
             text = "Disable Quote")
     @Inject
@@ -74,7 +98,7 @@ public class Commerce {
 
     @DialogField(fieldDescription = "Enable this to always allow PO payment.",
             value = "true",
-            ranking = 6)
+            ranking = 9)
     @CheckBox(title = "explicitAllowPO",
             text = "Always allow PO payment")
     @Inject
