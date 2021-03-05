@@ -49,45 +49,13 @@ public class SupportRequestForm implements ComponentExporter {
     @Inject
     private PageManagerDecorator pageManager;
 
-    @DialogField(fieldLabel = "Open in New Window",
-            fieldDescription = "Select this option to open 'Privacy Notice' & 'Terms of Use' in new window",
-            ranking = 4)
-    @Switch(offText = "No", onText = "Yes")
-    @Inject
-    @Default(booleanValues = false)
-    private Boolean newWindow;
-
-    @DialogField(fieldLabel = "Waters Privacy Link",
-            fieldDescription = "Select or enter the link URL",
-            required  = true,
-            ranking = 2)
-    @PathField(rootPath = WatersConstants.ROOT_PATH)
-    @LinkInject
-    private Link watersPrivacyLink;
-
     @DialogField(fieldLabel = "Consent Link",
         fieldDescription = "Select or enter the link URL",
         required  = true,
         ranking = 1)
-    @PathField(rootPath = WatersConstants.ROOT_PATH)
+    @PathField(rootPath = WatersConstants.DAM_PATH)
     @LinkInject
     private Link consentLink;
-
-    @DialogField(fieldLabel = "Terms of Use Link",
-            fieldDescription = "Select or enter the link URL for Terms of Use",
-            required  = true,
-            ranking = 3)
-    @PathField(rootPath = WatersConstants.ROOT_PATH)
-    @LinkInject
-    private Link termsOfUseLink;
-
-    @DialogField(fieldLabel = "Open in Modal",
-            fieldDescription = "Select this option to open 'Privacy Notice' & 'Terms of Use' in Modal",
-            ranking = 5)
-    @Switch(offText = "No", onText = "Yes")
-    @Inject
-    @Default(booleanValues = false)
-    private Boolean newModal;
 
     public Link getConsentLink() {
         return LinkUtils.getMappedLink(pageManager, consentLink);
@@ -96,20 +64,6 @@ public class SupportRequestForm implements ComponentExporter {
     public String getSupportRequestUrl() {
         return accountService.getSupportRequestUrl();
     }
-
-    public Link getPrivacyNoticeLink() {
-        return LinkUtils.getMappedLink(pageManager, watersPrivacyLink);
-    }
-
-    public Link getTermsOfUseLink() {
-        return LinkUtils.getMappedLink(pageManager,termsOfUseLink);
-    }
-
-    public Boolean isNewWindow() {
-        return newWindow;
-    }
-
-    public Boolean isNewModal() { return newModal; }
 
     @Nonnull
     @Override
