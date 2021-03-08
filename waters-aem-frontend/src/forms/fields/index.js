@@ -18,7 +18,7 @@ import AddLineButton from './add-line-button';
 import NavigateLink  from './navigate-link';
 import FormNotification from './form-notification';
 import DoubleLabel from './double-label';
-import MultiLines from './multiLines';
+import MultiLines from './multi-lines';
 
 const formType = {
     text: Input,
