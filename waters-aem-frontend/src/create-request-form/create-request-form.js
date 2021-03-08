@@ -196,7 +196,7 @@ const CreateRequestForm = ({
       return obj.name === constConfirmationLabel
     });
     if (confirmationLableObject) {
-      confirmationLableObject.config[1].label = formData.email;
+      confirmationLableObject.config[1].text = `${formData.email}.`;
     }   
     SetConfFormConfig(confFormConfig);
 

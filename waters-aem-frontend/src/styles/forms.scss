@@ -614,7 +614,8 @@
 
     .cmp-form-field-textwithlinks--confirmationLabel {
         margin-top: $space-s;
-        @include font-small;
+        @include font-body;
+        font-size: $font-size-body;
         .cmp-bold {
             font-weight: $font-weight-bold;
         }
@@ -713,7 +714,6 @@
             input:disabled {
                 border: none !important;
                 padding: 0;
-                color: $color-black;
             }
             .cmp-form-field--icons {
                 display: none;
@@ -741,7 +741,7 @@
             hr {
                 border-bottom: $border-divider-large;
                 height: 0;
-                margin: $space-xxs 0;
+                margin: 0.5em 0;
                 width: 100%;
                 margin-bottom: 0;
             }
@@ -749,6 +749,22 @@
         .cmp-heading-label {
             @include font-h2;
             margin-bottom: $space-xxs;
+        }
+        .cmp-form-field-doubleLabel {
+            margin-bottom: 0;;
+            label:first-child {
+                margin-right: $space-xs;
+            }
+            display: flex;
+            .cmp-label-bold {
+                @include font-h4;
+                margin-bottom: $space-xxs;
+            }
+            .cmp-label-standard {
+                @include font-body;
+                margin-bottom: $space-xxs;
+            }
+
         }
         .cmp-form-field-radio {
             label {
@@ -760,11 +776,20 @@
             font-size: $font-size-body;
             margin-bottom: $space-xxs;
         }
-        .cmp-bold-label {
+        .cmp-label-bold {
             @include font-body;
             font-size: $font-size-body;
             font-weight: $font-weight-bold;
-            margin-bottom: $space-xxs;
+            margin-top: $space-xxs;
+            margin-bottom: 0;
+        }
+        .cmp-utility-label-large {
+            @include font-utility-large;
+        }
+        .cmp-label-standard {
+            @include font-body;
+            font-size: $font-size-body;
+            margin-bottom: 0;
         }
     }
 }

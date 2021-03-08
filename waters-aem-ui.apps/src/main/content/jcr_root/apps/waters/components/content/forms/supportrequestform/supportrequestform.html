@@ -56,7 +56,6 @@
         {
             "formName": "supportRequest",
             "recordType": "SUPPORT",
-            "submitEndpoint": "${supportRequest.supportRequestUrl @ context='unsafe'}",
             "buttonText": "${'Send Request' @ i18n, context='text'}",
             "consentUrl": "${supportRequest.consentLink.href @ context='unsafe'}",
             "needsToBeSignedIn": true,
@@ -298,11 +297,7 @@
             "formName": "supportRequestConfirmation",
             "recordType": "Support",
             "pageTitle": "${'Your Support Request Was Created' @ i18n, context='text'}",
-            "submitEndpoint": "${supportRequest.supportRequestUrl @ context='unsafe'}",
             "buttonText": "${'Create Another Request' @ i18n, context='text'}",
-            "redirectUrl": "${supportRequest.redirectLink.href @ context='unsafe'}",
-            "loginUrl": "${supportRequest.loginLink.href @ context='unsafe'}",
-            "consentUrl": "${supportRequest.consentLink.href @ context='unsafe'}",
             "needsToBeSignedIn": true,
             "elementLocator": "support-request-form",
 			"buttonLocator": "send-request",
@@ -326,7 +321,7 @@
                         {
                             "type": "text",
                             "addClass": "cmp-bold",
-                            "text": "${'gary_mantha@waters.com.' @ i18n, context='text'}",
+                            "text": "${'' @ i18n, context='text'}",
                             "rightSpace": "true"
                         },
                         {
