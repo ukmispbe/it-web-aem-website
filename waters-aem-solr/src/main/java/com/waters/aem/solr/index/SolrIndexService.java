@@ -69,11 +69,12 @@ public interface SolrIndexService extends PageEventHandlerConfiguration {
 
 	/**
 	 * @param paths
+	 * @param collectionName
 	 * @return
 	 * @throws SolrServerException 
 	 * @throws IOException 
 	 */
-	boolean addPageToIndex(List<String> paths) throws IOException, SolrServerException;
+	boolean addPageToIndex(List<String> paths, String collectionName) throws IOException, SolrServerException;
 
 	
 	/**

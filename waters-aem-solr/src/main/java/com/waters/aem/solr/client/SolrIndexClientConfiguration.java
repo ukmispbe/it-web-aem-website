@@ -50,4 +50,8 @@ public @interface SolrIndexClientConfiguration {
     @AttributeDefinition(name = "Socket Timeout",
         description = "Timeout value in milliseconds when reading from Solr server.")
     int socketTimeout() default 10000;
+    
+    @AttributeDefinition(name = "Solr Server Host Name",
+    	description = "This is the Solr Server Host Name")
+	String solrHostName() default "dev-solr1.waters.com";
 }

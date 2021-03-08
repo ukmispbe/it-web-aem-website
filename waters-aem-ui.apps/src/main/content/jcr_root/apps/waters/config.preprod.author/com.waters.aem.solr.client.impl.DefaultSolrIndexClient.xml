@@ -13,4 +13,5 @@
           hardCommit="{Boolean}false"
           connectionTimeout="{Long}20000"
           socketTimeout="{Long}20000"
-          commitWithinMs="{Long}-1"/>
+          commitWithinMs="{Long}-1"
+		  solrHostName="preprod-solr1.waters"/>
