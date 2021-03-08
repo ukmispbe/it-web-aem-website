@@ -114,6 +114,10 @@ if (searchAppContainer) {
         document.getElementById('search-results-categories-json').innerHTML
     );
 
+    const subFacetMap = JSON.parse(
+        document.getElementById('search-results-filters-json').innerHTML
+    );
+
 
     let accountModalConfig = {};
     let baseSignInUrlString = "";
@@ -132,6 +136,7 @@ if (searchAppContainer) {
                 searchLocale={data.locale}
                 searchText={text}
                 filterMap={filterMap}
+                subFacetMap={subFacetMap}
                 isocode={data.isocode}
                 baseSignInUrl={baseSignInUrlString}
             />
@@ -348,6 +353,10 @@ if (registrationFormContainer) {
 
     const country = DigitalData.page.country.toLowerCase();
 
+    const configRegistrationAddressForm = JSON.parse(
+        document.getElementById('cmp-registration-address-form').innerHTML
+    );
+
     const swapFirstAndLastNames = () => {
         const indexofFirstName = configRegistrationForm.fields.map(e => e.name).indexOf('firstName');
         const indexofLastName = configRegistrationForm.fields.map(e => e.name).indexOf('lastName');
@@ -396,12 +405,18 @@ if (registrationFormContainer) {
 
     // Set Country list url
     configRegistrationForm.countryListUrl = headerRef.dataset.countryListUrl ? headerRef.dataset.countryListUrl : '';
+    
+    const registrationAddressForm = {
+        config: configRegistrationAddressForm,
+        callback: headerData.userDetailsUrl,
+    }
 
     ReactDOM.render(
         // replace isocode with a value supplied by AEM
         <CreateAccountForm
             registrationFormConfig={registrationForm}
             checkEmailFormConfig={checkEmailForm}
+            addressFormConfig={registrationAddressForm}
             isocode={DigitalData.language}
             isTwoStepRegistrationForm={isTwoStepRegistrationForm}
         />,
@@ -619,15 +634,11 @@ function waitUntilUserExists(store, container, callback) {
 // Quick Order Component
 const quickOrderContainer = document.getElementById("quick-order");
 if (quickOrderContainer) {
-    const store = new SessionStore();
-    waitUntilUserExists(store, quickOrderContainer, quickOrder);
-}
-function quickOrder(container) {
     const props = JSON.parse(document.getElementById("cmp-quick-order").innerHTML);
     const skuConfig = JSON.parse(document.getElementById('commerce-configs-json').innerHTML);
     ReactDOM.render(
         <Suspense fallback={<div>Loading...</div>}><QuickOrder {...props} skuConfig={skuConfig} /></Suspense>,
-        container
+        quickOrderContainer
     );
 }
 // End Quick Order Component

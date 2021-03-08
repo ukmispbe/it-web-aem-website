@@ -71,31 +71,9 @@ public class Commerce {
     @InheritInject
     private String currencyCountryCode;
 
-    @DialogField(fieldLabel = "Add To Cart URL",
-            fieldDescription = "Enter the Commerce Add to Cart URL. This will override default url configured in OSGI service",
-            ranking = 6)
-    @TextField
-    @InheritInject
-    private String addToCartUrl;
-
-    @DialogField(fieldLabel = "View Cart URL",
-            fieldDescription = "Enter the Commerce View Cart URL. This will override default url configured in OSGI service",
-            ranking = 7)
-    @TextField
-    @InheritInject
-    private String viewCartUrl;
-
-    @DialogField(fieldDescription = "Enable this to make Add to Cart and View Cart URL effective",
-            value = "true",
-            ranking = 8)
-    @CheckBox(title = "commerceAPI",
-            text = "Commerce API Migrated")
-    @Inject
-    private Boolean commerceAPI;
-
     @DialogField(fieldDescription = "Enable this to disable Mule Customer Price URL",
             value = "true",
-            ranking = 9)
+            ranking = 6)
     @CheckBox(title = "customerPriceApiDisabled",
             text = "Disable Mule CustomerPrice API")
     @Inject
@@ -103,7 +81,7 @@ public class Commerce {
 
     @DialogField(fieldDescription = "Enable this to make Checkout  Disable",
             value = "true",
-            ranking = 10)
+            ranking = 7)
     @CheckBox(title = "checkoutDisabled",
             text = "Disable Checkout")
     @Inject
@@ -111,7 +89,7 @@ public class Commerce {
 
     @DialogField(fieldDescription = "Enable this to make Quote Disable",
             value = "true",
-            ranking = 11)
+            ranking = 8)
     @CheckBox(title = "quoteDisabled",
             text = "Disable Quote")
     @Inject
@@ -120,15 +98,11 @@ public class Commerce {
 
     @DialogField(fieldDescription = "Enable this to always allow PO payment.",
             value = "true",
-            ranking = 12)
+            ranking = 9)
     @CheckBox(title = "explicitAllowPO",
             text = "Always allow PO payment")
     @Inject
     private Boolean explicitAllowPO;
-
-    public String getAddToCartUrl() {
-        return addToCartUrl;
-    }
 
     public SiteConfig getSiteConfig() {
         return siteConfig;
@@ -136,9 +110,5 @@ public class Commerce {
 
     public CountryCommerceConfig getCountryCommerceConfig() {
         return countryCommerceConfig;
-    }
-
-    public String getCurrencyIsoCode() {
-        return currencyIsoCode;
     }
 }

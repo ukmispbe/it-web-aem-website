@@ -310,3 +310,44 @@ input[type='number']::-webkit-outer-spin-button {
         min-height: auto;
     }
 }
+
+// container default
+.container--default {
+    padding: 0 14px;
+
+    @include mobile {
+        padding: 0 4px;
+    }
+
+    @include tablet {
+        padding: 0 12px;
+    }
+}
+
+.cmp-spinner-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: $overlay-dark;
+    width: 200%;
+    height: 130%;
+    padding: 50% 80%;
+    margin: -30%;
+    z-index: $cmp-spinner-overlay-z-index;
+
+    > div {
+        margin-left: -32px;
+    }
+}
+
+.cmp-spinner-inline {
+    background-color: $overlay-dark;
+    border-radius: $border-radius;
+    padding: $space-xs $space-m;
+    height: $height-medium;
+}
+
+html.showing-spinner {
+    overflow: hidden;
+    height: 100%;
+}

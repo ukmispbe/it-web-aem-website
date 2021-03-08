@@ -16,7 +16,7 @@ class SkuList extends React.Component {
         
         // Update the Continue to cart Button on Modal with the correct Country & Locale
         props.skuConfig.modalInfo.buttons[0].action = buildViewCartURL(props.skuConfig.modalInfo.buttons[0].action);
-
+        
         this.state = {
             skuConfig: this.props.skuConfig,
             skuAvailability: {},
@@ -54,7 +54,6 @@ class SkuList extends React.Component {
 
         if(record.code) {
             return <SkuItem
-                key={index}
                 relatedSku={record}
                 skuConfig={this.props.skuConfig}
                 baseSignInUrl={this.props.baseSignInUrl}

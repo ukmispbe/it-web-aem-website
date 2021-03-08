@@ -13,8 +13,11 @@ public @interface WatersCommerceServiceConfiguration {
     String skuCustomerPriceUrl() default "https://api-sbox.waters.com/dev-waters-product-exp-api-v1/api/products/prices";
 
     @AttributeDefinition(name = "Add to Cart Endpoint", description = "URL for the Add to Cart endpoint")
-    String addToCartUrl() default "https://dev1-services.waters.com/api/waters/product/v1/addtocart/{partnumber}/{quantity}";
+    String addToCartUrl() default "https://api-sbox.waters.com/dev-waters-cart-proxy-api-v1/{localeCountry}/{localeLanguage}/users/{userType}/carts/{guid}/entries";
 
-    @AttributeDefinition(name = "View Cart URL", description = "URL for the View Cart button")
-    String viewCartUrl() default "https://dev1.waters.com/store/{localeCountry}/{localeLanguage}/cart";
+    @AttributeDefinition(name = "View Cart URL (Ecom)", description = "URL for the View Cart button")
+    String ecomViewCartUrl() default "https://dev1.waters.com/store/{localeCountry}/{localeLanguage}/cart";
+
+    @AttributeDefinition(name = "View Cart URL (Eproc)", description = "URL for the View Cart button")
+    String eprocViewCartUrl() default "https://dev1-order.waters.com/store/{localeLanguage}/cart";
 }

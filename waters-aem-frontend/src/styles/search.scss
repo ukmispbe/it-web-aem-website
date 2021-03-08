@@ -1,3 +1,7 @@
+@import 'variables.scss';
+@import 'mixins.scss';
+@import 'typography.scss';
+
 .cmp-search-results {
     margin-left: -14px;
 
@@ -16,7 +20,7 @@
     }
 
     .cmp-category-wrapper {
-        @include  tablet-and-under {
+        @include  mobile {
             display: none;
         }
 
@@ -27,7 +31,7 @@
                 color: $color-link;
             }
 
-            padding-bottom: $space-xxs;
+            padding-bottom: $space-s;
             cursor: pointer;
 
             .cmp-categories-back {
@@ -64,29 +68,16 @@
             margin: $space-s 0;
         }
     }
-    .inactive {
-        &:hover {
-            border: $border-disabled;
-        }    
-    }
 }
 .cmp-search__container {
     position: relative;
     width: 75%;
     float: left;
     padding-left: 2%;
-    margin-top: $space-l;
 
     &__header {
         width: 60%;
         margin-left: -15%;
-
-        @include tablet {
-            width: 100%;
-            float: none;
-            padding-left: 0;
-            margin-left: 0;
-        }
 
         @include mobile {
             width: 100%;
@@ -96,12 +87,7 @@
             margin-top: $space-s * -1;
         }
     }
-    @include tablet {
-        width: 100%;
-        float: none;
-        padding-left: 0;
-        margin-top: 0;
-    }
+
     @include mobile {
         width: 100%;
         float: none;
@@ -156,7 +142,7 @@
             height: auto;
         }
 
-        @include tablet-and-under {
+        @include mobile {
             margin: unset;
             overflow: visible;
             text-overflow: unset;
@@ -174,6 +160,9 @@
             padding-bottom: $space-xs;
         }
     }
+    ul li {
+        padding-bottom: $space-xxs;
+    }
 }
 .cmp-search__results-item {
     padding: $space-m;
@@ -186,7 +175,7 @@
         margin-top: $space-s;
 
         svg {
-            margin: ($space-xxxs + 0.2em) $space-xxxs 0 $space-xxxs;
+            margin: $space-xxxs $space-xxxs 0 $space-xxxs;
             width: $icon-s;
             height: $icon-s;
 
@@ -415,13 +404,10 @@ div.cmp-search__no-results {
                 right: 12px;
             }
         }
-        @include tablet-and-under {
+        @include mobile {
             display: block;
         }
-        @include tablet {
-            float: right;
-            margin-bottom: 0;
-        }
+
         @include mobile {
             margin-bottom: $space-s;
             svg {
@@ -465,14 +451,6 @@ div.cmp-search__no-results {
         }
     }
 
-    @include tablet {
-        margin-right: $space-xxs;
-
-        .css-1l0huv0-control.cmp-custom-dropdown__control{
-            max-height: 51px;
-        }
-    }
-
     @include mobile {
         svg {
             margin: 0 2% 0 0;
@@ -482,12 +460,7 @@ div.cmp-search__no-results {
 
 .cmp-search-show-btn,
 .cmp-search-category-dropdown {
-    @include tablet {
-        float: left;
-        margin-bottom: 0;
-        padding-bottom: $space-l;
-        min-width: 130px;
-    }
+
     @include mobile {
         padding-bottom: 0;
     }
@@ -534,6 +507,9 @@ div.cmp-search__no-results {
         float: right;
         width: 270px;
         text-align: left;
+        @media screen and (min-width: #{$tablet-width + 1px}) and (max-width:880px) {
+            float: left;
+        }
     }
 
 
@@ -568,45 +544,11 @@ div.cmp-search__no-results {
         float: none;
         width: 100%;
     }
-    @include tablet {
-        display: block;
-        padding-top: $space-s;
 
-        float: right;
-        width: auto;
-    }
-}
-
-.cmp-search-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    background-color: $overlay-dark;
-    width: 200%;
-    height: 130%;
-    padding: 50% 80%;
-    margin: -30%;
-    z-index: $cmp-search-overlay-z-index;
-
-    > div {
-        margin-left: -32px;
-    }
-}
-
-.cmp-search-inline {
-    background-color: $overlay-dark;
-    border-radius: $border-radius;
-    padding: $space-xs $space-m;
-    height: $height-medium;
-}
-
-html.showing-spinner {
-    overflow: hidden;
-    height: 100%;
 }
 
 .show-sort-filters {
-    @include tablet-and-under {
+    @include mobile {
         #surveyContent {
             display: none;
         }
@@ -640,25 +582,9 @@ html.showing-spinner {
         }
     }
 
-    @include tablet {
-        height: 100vh;
-
-        .cmp-search__resultsCount-container {
-            z-index: -1;
-        }
-
-        .cmp-search__results-container {
-            position: relative;
-            z-index: -1;
-        }
-
-        .cmp-search-bar {
-            z-index: -1;
-        }
-    }
 }
 
-@include tablet-and-under {
+@include mobile {
     #js-search-app {
         .overlay {
             position: fixed;

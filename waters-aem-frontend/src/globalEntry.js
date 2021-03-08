@@ -1,3 +1,5 @@
+import './styles/global-index.scss';
+
 import './scripts/stickyService';
 import './scripts/backtotop';
 import './scripts/anchor';

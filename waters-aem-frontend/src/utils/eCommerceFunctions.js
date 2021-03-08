@@ -103,10 +103,8 @@ export const buildViewCartURL = (url) => {
 
 export const setViewCartURL = () => {
     let cartClass = ".top-bar__nav__cart .cmp-header-links__link";
-    if (!isEprocurementUser()) {
-        const commerceJSON = document.querySelector("#commerce-configs-json");
-        const config = JSON.parse(commerceJSON.innerHTML) ;
-        const url = config.viewCartUrl ? buildViewCartURL(config.viewCartUrl) : "";
-        document.querySelector(cartClass).setAttribute("href", url);
-    }
+    const commerceJSON = document.querySelector("#commerce-configs-json");
+    const config = JSON.parse(commerceJSON.innerHTML) ;
+    const url = config.viewCartUrl ? buildViewCartURL(config.viewCartUrl) : "";
+    document.querySelector(cartClass).setAttribute("href", url);
 }

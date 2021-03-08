@@ -39,6 +39,7 @@ public interface SolrIndexClient {
      * Add/update a document in the Solr index.
      * 
      * @param document Solr document
+     * @param collection Name of collection
      * @return true if indexing is successful, false otherwise
      * @throws IOException if error occurs communicating with Solr server
      * @throws SolrServerException if error occurs in Solr index request
@@ -49,7 +50,7 @@ public interface SolrIndexClient {
     /**
      * Remove a record from the Solr index.
      * 
-     * @param id ID (i.e. page path for AEM pages)
+     * @param ids ID (i.e. page path for AEM pages)
      * @return true if de-indexing is successful, false otherwise
      * @throws IOException if error occurs communicating with Solr server
      * @throws SolrServerException if error occurs in Solr index request

@@ -257,14 +257,17 @@ const myAccountJSON = {
 				orderPlacedIcon: "/content/dam/waters/en/brand-assets/icons/success.svg",
 			},
 			tabs: [{
+					name: "All Quotes"
+				}, {
+					name: "Open Quotes"
+				},
+				{
+					name: "Closed Quotes"
+				}
+			],
+			blankItemTabs: [{
 				name: "All Quotes"
-			}, {
-				name: "Open Quotes"
-			},
-			{
-				name: "Closed Quotes"
 			}],
-			blankItemTabs:[{name: "All Quotes"}],
 			dropdownfilters: {
 				all: "All Quotes",
 				open: "Open Quotes",
@@ -310,7 +313,7 @@ const myAccountJSON = {
 			orderNumberText: "Order Number:",
 			newQuote: "New Quote:",
 			isShowQuoteAgainButton: false,
-			isQuoteToOrderDisabled: true,
+			isQuoteToOrderDisabled: false,
 			paymentType: {
 				purchaseOrder: {
 					label: "PO",
@@ -1698,19 +1701,145 @@ const detailTilesChangePasswordJSON = {
 const globalTranslationsJSON = {
 	configId: "global-translations-json",
 	html: {
-        "dismissButton": "Dismiss",
-        "cancelButton": "Cancel",
-        "preferredCountryHeading": "Select your Preferred Country",
-        "changeCountryText": "Changing the country you shop from may affect factors including account pricing, shipping options and product availability.",
-        "changeCountryNewTabText": "Your new country website will open in a new browser tab.",
-        "changeCountryNoteText": "Note",
-        "changeCountryButton": "Change Country"
-    },
+		"dismissButton": "Dismiss",
+		"cancelButton": "Cancel",
+		"preferredCountryHeading": "Select your Preferred Country",
+		"changeCountryText": "Changing the country you shop from may affect factors including account pricing, shipping options and product availability.",
+		"changeCountryNewTabText": "Your new country website will open in a new browser tab.",
+		"changeCountryNoteText": "Note",
+		"changeCountryButton": "Change Country"
+	},
 };
 
 const countryListJSON = {
 	configId: "country-list-json",
-	html: [{"href":"/nextgen/us/en.html","title":"United States"},{"href":"/nextgen/au/en.html","title":"Australia"},{"href":"/nextgen/at/de.html","title":"Austria"},{"href":"/nextgen/be/en.html","title":"Belgium"},{"href":"/nextgen/br/pt.html","title":"Brazil"},{"href":"/nextgen/ca/en.html","title":"Canada"},{"href":"/nextgen/cn/zh.html","title":"China"},{"href":"/nextgen/cz/en.html","title":"Czech Republic"},{"href":"/nextgen/dk/en.html","title":"Denmark"},{"href":"/nextgen/ee/en.html","title":"Estonia"},{"href":"/nextgen/fi/en.html","title":"Finland"},{"href":"/nextgen/fr/fr.html","title":"France"},{"href":"/nextgen/de/de.html","title":"Germany"},{"href":"/nextgen/hk/en.html","title":"Hong Kong"},{"href":"/nextgen/hu/en.html","title":"Hungary"},{"href":"/nextgen/is/en.html","title":"Iceland"},{"href":"/nextgen/in/en.html","title":"India"},{"href":"/nextgen/id/en.html","title":"Indonesia"},{"href":"/nextgen/ie/en.html","title":"Ireland"},{"href":"/nextgen/it/it.html","title":"Italy"},{"href":"/nextgen/jp/ja.html","title":"Japan"},{"href":"/nextgen/lv/en.html","title":"Latvia"},{"href":"/nextgen/lt/en.html","title":"Lithuania"},{"href":"/nextgen/my/en.html","title":"Malaysia"},{"href":"/nextgen/mx/es.html","title":"Mexico"},{"href":"/nextgen/nl/en.html","title":"Netherlands"},{"href":"/nextgen/nz/en.html","title":"New Zealand"},{"href":"/nextgen/no/en.html","title":"Norway"},{"href":"/nextgen/ph/en.html","title":"Philippines"},{"href":"/nextgen/pl/en.html","title":"Poland"},{"href":"/nextgen/pt/pt.html","title":"Portugal"},{"href":"/nextgen/pr/en.html","title":"Puerto Rico"},{"href":"/nextgen/sg/en.html","title":"Singapore"},{"href":"/nextgen/kr/ko.html","title":"South Korea"},{"href":"/nextgen/es/es.html","title":"Spain"},{"href":"/nextgen/se/en.html","title":"Sweden"},{"href":"/nextgen/ch/fr.html","title":"Switzerland"},{"href":"/nextgen/tw/zh.html","title":"Taiwan"},{"href":"/nextgen/th/en.html","title":"Thailand"},{"href":"/nextgen/gb/en.html","title":"United Kingdom"},{"href":"/nextgen/vn/en.html","title":"Vietnam"},{"href":"/nextgen/xg/en.html","title":"Other"}],
+	html: [{
+		"href": "/nextgen/us/en.html",
+		"title": "United States"
+	}, {
+		"href": "/nextgen/au/en.html",
+		"title": "Australia"
+	}, {
+		"href": "/nextgen/at/de.html",
+		"title": "Austria"
+	}, {
+		"href": "/nextgen/be/en.html",
+		"title": "Belgium"
+	}, {
+		"href": "/nextgen/br/pt.html",
+		"title": "Brazil"
+	}, {
+		"href": "/nextgen/ca/en.html",
+		"title": "Canada"
+	}, {
+		"href": "/nextgen/cn/zh.html",
+		"title": "China"
+	}, {
+		"href": "/nextgen/cz/en.html",
+		"title": "Czech Republic"
+	}, {
+		"href": "/nextgen/dk/en.html",
+		"title": "Denmark"
+	}, {
+		"href": "/nextgen/ee/en.html",
+		"title": "Estonia"
+	}, {
+		"href": "/nextgen/fi/en.html",
+		"title": "Finland"
+	}, {
+		"href": "/nextgen/fr/fr.html",
+		"title": "France"
+	}, {
+		"href": "/nextgen/de/de.html",
+		"title": "Germany"
+	}, {
+		"href": "/nextgen/hk/en.html",
+		"title": "Hong Kong"
+	}, {
+		"href": "/nextgen/hu/en.html",
+		"title": "Hungary"
+	}, {
+		"href": "/nextgen/is/en.html",
+		"title": "Iceland"
+	}, {
+		"href": "/nextgen/in/en.html",
+		"title": "India"
+	}, {
+		"href": "/nextgen/id/en.html",
+		"title": "Indonesia"
+	}, {
+		"href": "/nextgen/ie/en.html",
+		"title": "Ireland"
+	}, {
+		"href": "/nextgen/it/it.html",
+		"title": "Italy"
+	}, {
+		"href": "/nextgen/jp/ja.html",
+		"title": "Japan"
+	}, {
+		"href": "/nextgen/lv/en.html",
+		"title": "Latvia"
+	}, {
+		"href": "/nextgen/lt/en.html",
+		"title": "Lithuania"
+	}, {
+		"href": "/nextgen/my/en.html",
+		"title": "Malaysia"
+	}, {
+		"href": "/nextgen/mx/es.html",
+		"title": "Mexico"
+	}, {
+		"href": "/nextgen/nl/en.html",
+		"title": "Netherlands"
+	}, {
+		"href": "/nextgen/nz/en.html",
+		"title": "New Zealand"
+	}, {
+		"href": "/nextgen/no/en.html",
+		"title": "Norway"
+	}, {
+		"href": "/nextgen/ph/en.html",
+		"title": "Philippines"
+	}, {
+		"href": "/nextgen/pl/en.html",
+		"title": "Poland"
+	}, {
+		"href": "/nextgen/pt/pt.html",
+		"title": "Portugal"
+	}, {
+		"href": "/nextgen/pr/en.html",
+		"title": "Puerto Rico"
+	}, {
+		"href": "/nextgen/sg/en.html",
+		"title": "Singapore"
+	}, {
+		"href": "/nextgen/kr/ko.html",
+		"title": "South Korea"
+	}, {
+		"href": "/nextgen/es/es.html",
+		"title": "Spain"
+	}, {
+		"href": "/nextgen/se/en.html",
+		"title": "Sweden"
+	}, {
+		"href": "/nextgen/ch/fr.html",
+		"title": "Switzerland"
+	}, {
+		"href": "/nextgen/tw/zh.html",
+		"title": "Taiwan"
+	}, {
+		"href": "/nextgen/th/en.html",
+		"title": "Thailand"
+	}, {
+		"href": "/nextgen/gb/en.html",
+		"title": "United Kingdom"
+	}, {
+		"href": "/nextgen/vn/en.html",
+		"title": "Vietnam"
+	}, {
+		"href": "/nextgen/xg/en.html",
+		"title": "Other"
+	}],
 };
 
 const commerceConfigsJSON = {
@@ -1732,8 +1861,7 @@ const commerceConfigsJSON = {
         "pricingUrl": "https://api.waters.com/waters-product-exp-api-v1/api/products/prices",
         "addToCartUrl": "https://api.waters.com/waters-cart-proxy-api-v1/{localeCountry}/{localeLanguage}/users/{userType}/carts/{guid}/entries",
         "viewCartUrl": "https://www.waters.com/store/{localeCountry}/{localeLanguage}/cart",
-        "isCommerceApiMigrated": "true",
-        "isCustomerPriceApiDisabled": "false",
+        "isCustomerPriceApiDisabled": "true",
         "isCheckoutDisabled": "false",
         "isQuoteDisabled": "false",
         "countryCode": "US",
@@ -1835,7 +1963,7 @@ const commerceConfigsJSON = {
 
 const accountModalConfigsJSON = {
 	configId: "account-modal-configs-json",
-	html:  {
+	html: {
 		"userDetailsUrl": "https://prodservices.waters.com/api/waters/user/v1/details",
 		"soldToDetailsUrl": "https://prodservices.waters.com/api/waters/user/v1/retrievesoldto",
 		"siteConfig": "eCommerce",
@@ -1873,8 +2001,7 @@ const accountModalConfigsJSON = {
 			"url": "/nextgen/us/en/account/create-account.html",
 			"linkName": "Create Account"
 		},
-		"itemList": [
-			{
+		"itemList": [{
 				"text": "Profile",
 				"url": "/nextgen/us/en/account/my-account.html#profile",
 				"target": "_self",
@@ -1894,6 +2021,26 @@ const accountModalConfigsJSON = {
 	},
 };
 
+const mockDigitalDataJSON = {
+	configId: "datalayer-json",
+	html: {
+		"document": {
+			"firstPublishDate": "",
+			"lastPublishDate": "2021-01-22",
+			"tags": [],
+			"title": "English",
+			"name": "en",
+			"id": null
+		},
+		"page": {
+			"category": "",
+			"country": "US",
+			"type": "",
+			"language": "en"
+		}
+	},
+};
+
 export {
 	myAccountJSON,
 	detailTilesPersonalJSON,
@@ -1905,4 +2052,5 @@ export {
 	countryListJSON,
 	commerceConfigsJSON,
 	accountModalConfigsJSON,
+	mockDigitalDataJSON
 };

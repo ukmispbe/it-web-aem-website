@@ -77,7 +77,8 @@ const propTypes = {
         contentType: PropTypes.string,
         facetGroupsSelectedOrder: PropTypes.array.isRequired,
         collapseAllFilters: PropTypes.bool.isRequired,
-        activeIndex: PropTypes.number.isRequired
+        activeIndex: PropTypes.number.isRequired,
+        subFacetMap: PropTypes.array.isRequired | PropTypes.object,
     }).isRequired,
     subFacetFiltersEvents: PropTypes.shape({
         onFilterSelect: PropTypes.func.isRequired,
@@ -97,7 +98,8 @@ const propTypes = {
         onKeywordRemove: PropTypes.func.isRequired,
         onContentTypeRemove: PropTypes.func.isRequired,
         onSubFacetRemove: PropTypes.func.isRequired
-    }).isRequired
+    }).isRequired,
+    subFacetMap: PropTypes.array.isRequired | PropTypes.object,
 };
 
 const defaultProps = {
@@ -179,7 +181,8 @@ const defaultProps = {
         contentType: '',
         facetGroupsSelectedOrder: [],
         collapseAllFilters: false,
-        activeIndex: -1
+        activeIndex: -1,
+        subFacetMap: []
     },
     subFacetFiltersEvents: {
         onFilterSelect: () => {},
@@ -199,7 +202,8 @@ const defaultProps = {
         onKeywordRemove: () => {},
         onContentTypeRemove: () => {},
         onSubFacetRemove: () => {}
-    }
+    },
+    subFacetMap: []
 };
 
 export {

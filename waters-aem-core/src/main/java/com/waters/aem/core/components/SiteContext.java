@@ -104,12 +104,12 @@ public final class SiteContext {
         return currentPage.getInherited("addToCartUrl", watersCommerceService.getAddToCartUrl());
     }
 
-    public String getViewCartURL() {
-        return currentPage.getInherited("viewCartUrl", watersCommerceService.getViewCartUrl());
+    public String getEcomViewCartURL() {
+        return currentPage.getInherited("ecomViewCartUrl", watersCommerceService.getEcomViewCartUrl());
     }
 
-    public boolean isCommerceApiMigrated(){
-        return currentPage.getInherited("commerceAPI", false);
+    public String getEprocViewCartURL() {
+        return currentPage.getInherited("eprocViewCartUrl", watersCommerceService.getEprocViewCartUrl());
     }
 
     public boolean isCustomerPriceApiDisabled(){

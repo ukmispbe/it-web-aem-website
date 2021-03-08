@@ -305,7 +305,7 @@ class QuoteHistory extends Component {
                                 quoteAgainTitle={this.props.configs.quoteAgainTitle}
                                 index={index}
                                 isShowQuoteAgainButton={this.props.configs.isShowQuoteAgainButton}
-                                newQuote={this.props.configs.newQuote}
+								newQuote={this.props.configs.newQuote}
                                 setAnalytics={this.setAnalytics}
                             />
                         ))}

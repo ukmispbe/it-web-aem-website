@@ -6,7 +6,7 @@ import { OrderDetails } from '../order-details/index';
 import * as getOrderDetails from '../details.services';
 import { myAccountJSON } from '../../__mocks__/en_US/html/mock-html-json';
 import { orderDetailsJSON } from '../__mocks__/en_US/services-json.test';
-import mockBodyHTML from '../../__mocks__/en_US/html/mock-body-html'
+import mockBodyHTML from '../../__mocks__/en_US/html/mock-body-html';
 
 describe('Feature: Order Details Component', () => {
     let wrapper;

@@ -25,6 +25,7 @@ public final class SearchResultsCategory {
 
     @DialogField(fieldLabel = "Category",
             fieldDescription = "Select a tag corresponding to a top-level search category.",
+            required = true,
             ranking = 1)
     @TagInputField(multiple = false)
     @WatersTagInject

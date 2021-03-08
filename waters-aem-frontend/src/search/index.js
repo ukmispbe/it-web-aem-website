@@ -5,6 +5,8 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { isEprocurementUser, getIsoCode } from '../utils/userFunctions';
 import ErrorBoundary from './ErrorBoundary';
 
+import '../styles/search.scss';
+
 const SearchApp = props => {
     const isoCode = (isEprocurementUser() && getIsoCode()) || props.isocode;
     const search = new SearchService(
@@ -31,6 +33,7 @@ const SearchApp = props => {
                                 searchText={props.searchText}
                                 searchLocale={props.searchLocale}
                                 filterMap={props.filterMap}
+                                subFacetMap={props.subFacetMap}
                                 isocode={isoCode}
                                 search={search}
                                 baseSignInUrl={props.baseSignInUrl}

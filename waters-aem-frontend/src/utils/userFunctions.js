@@ -2,6 +2,7 @@ import 'whatwg-fetch';
 import SessionStore from '../stores/sessionStore';
 import loginStatus from '../scripts/loginStatus';
 import DigitalData from '../scripts/DigitalData';
+import { SEARCH_TYPES } from '../constants';
 
 export const getCountryCode = () => {
     return DigitalData.country ? DigitalData.country.toLowerCase() : '';
@@ -186,7 +187,7 @@ export const getFullCompanyAddress = (address, includeCountryName) => {
 
 export const getCountryName = (countryCode, config) => {
     if (!countryCode || countryCode.trim() === '') return '';
-    const fields = config.form.fields;
+    const fields = config.form ? config.form.fields : config.fields;
 
     const countryField = fields.filter(field => {
         return field.name === 'country';
@@ -204,7 +205,7 @@ export const getCountryName = (countryCode, config) => {
 };
 
 export const getFullName = data => {
-    const mailingAddress = data.userAddress.filter(address => address.addressType === 'mailingAddress');
+    const mailingAddress = data.userAddress ? data.userAddress.filter(address => address.addressType === 'mailingAddress') : [];
     const userCountry = mailingAddress.length ? mailingAddress[0].countryCode.toLowerCase() : '';
     const firstName = data.firstName ? data.firstName.trim() : '';
     const lastName = data.lastName ? data.lastName.trim() : '';
@@ -216,7 +217,7 @@ export const getFullName = data => {
     }
 };
 
-//soldToInfo billToInfo shipToInfo payerInfo carrierInfo
+//Type Options: soldToInfo billToInfo shipToInfo payerInfo carrierInfo
 export const getAddressesByType = (addresses, type) => {
     let addressTypeData = [];
     for (let key of Object.keys(addresses)) {
@@ -254,6 +255,63 @@ export const getDefaultSoldToAddresses = (soldToAccounts) => {
     }
 }
 
+export const userDetailsAddresses = (addresses, addressType) => {
+    let userAddress = [];
+
+    if (addresses && addresses.length){
+        for (let i = 0; i < addresses.length; i++) {
+            if(addresses[i].addressType === addressType) {
+                let address = {
+                    name: addresses[i].company || "",
+                    address1 : addresses[i].address1 || "",
+                    address2: addresses[i].address2 || "",
+                    address3: addresses[i].address3 || "",
+                    street: addresses[i].street || "",
+                    street2: addresses[i].street2 || "",
+                    city: addresses[i].city || "",
+                    state: addresses[i].stateRegion || "",
+                    postalCode: addresses[i].zip || "",
+                    country: addresses[i].countryCode || "",
+                    addressType: addressType,
+                }
+
+                userAddress.push(address);
+            }
+        }
+    }
+    return userAddress;
+};
+
+export const createUserAddresses = (userDetails) => {
+    let addresses = userDetails.userAddress;
+
+    userDetails.addresses = {
+        billToInfo: userDetailsAddresses(addresses, "billingAddress"),
+        shipToInfo: userDetailsAddresses(addresses, "shippingAddress")
+    }
+
+    return userDetails;
+}
+
+//Type Options: soldToInfo billToInfo shipToInfo payerInfo carrierInfo
+export const matchUserToSoldToAddresses = (userDetailsAPIDetails, soldToAPIDetails) => {
+    userDetailsAPIDetails.soldToAccounts.forEach(account => {
+        for (let i = 0; i < soldToAPIDetails.length; i++) {
+            if(account.soldTo === soldToAPIDetails[i].customerNumber) {
+                account.company = soldToAPIDetails[i].name;
+                account.addresses = {
+                    'soldToInfo': soldToAPIDetails[i].soldToInfo || [],
+                    'billToInfo': soldToAPIDetails[i].billToInfo || [],
+                    'shipToInfo': soldToAPIDetails[i].shipToInfo || [],
+                    'payerInfo': soldToAPIDetails[i].payerInfo || []
+                };
+            }
+        }
+    });
+
+    return userDetailsAPIDetails;
+}
+
 // Save only the User Details allowed
 export const filterUserDetails = (inputUser) => {
     let filteredUser = {};
@@ -271,6 +329,7 @@ export const filterUserDetails = (inputUser) => {
         filteredUser.approvalStatus = inputUser.approvalStatus;
         filteredUser.userRole = inputUser.userRole;
         filteredUser.isoCode = inputUser.isoCode;
+        filteredUser.shipOrBillChangeFlag = inputUser.shipOrBillChangeFlag;
 
         if (inputUser.soldToAccounts && inputUser.soldToAccounts.length !== 0) {
             filteredUser.soldToAccounts = inputUser.soldToAccounts;
@@ -342,14 +401,14 @@ export const getUsertype = () => {
         return userType;
     }
     const userConfig = document.getElementById('account-modal-configs-json')
-    
+
     try {
         const siteConfig = userConfig ? JSON.parse(
             document.getElementById('account-modal-configs-json').innerHTML
         ).siteConfig : '';
         
         siteConfig && sessionStore.setUserType(siteConfig || '');
-        
+
         return siteConfig;
     } catch (e) {
         return '';
@@ -368,25 +427,6 @@ export const getEprocUserLanguage = () => {
     const store = new SessionStore();
     const userDetails = store.getUserDetails();
     return userDetails.localeLanguage || '';
-}
-
-//soldToInfo billToInfo shipToInfo payerInfo carrierInfo
-export const matchAddresses = (userDetailsAPIDetails, soldToAPIDetails) => {
-    userDetailsAPIDetails.soldToAccounts.forEach(account => {
-        for (let i = 0; i < soldToAPIDetails.length; i++) {
-            if(account.soldTo === soldToAPIDetails[i].customerNumber) {
-                account.company = soldToAPIDetails[i].name;
-                account.addresses = {
-                    'soldToInfo': soldToAPIDetails[i].soldToInfo || [],
-                    'billToInfo': soldToAPIDetails[i].billToInfo || [],
-                    'shipToInfo': soldToAPIDetails[i].shipToInfo || [],
-                    'payerInfo': soldToAPIDetails[i].payerInfo || []
-                };
-            } 
-        }
-    });
-
-    return userDetailsAPIDetails;
 }
 
 export const getCategoryReferenceType = () => {
@@ -408,11 +448,63 @@ export const getUrlPath = (url, id) => {
 }
 
 export const getUrlParameter = (name = '') => {
-        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-        const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-        const results = regex.exec(window.location.hash);
-        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+    const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+    const results = regex.exec(window.location.hash);
+    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
 };
+
+export const getSearchString = (path, paramString, requestObject = {}, type = '') => {
+    const {
+        category,
+        contentTypeKey,
+        contentTypeValue,
+        contentTypeName,
+        facetString,
+    } = requestObject;
+    let searchString;
+
+    switch(type) {
+        case SEARCH_TYPES.CATEGORY_ONLY:
+            searchString = category !== "All" 
+            ? `${
+                path
+            }/category_facet$${category.toLowerCase()}:${encodeURIComponent(
+                encodeURIComponent(category)
+            )}?${paramString}${getCategoryReferenceType()}`
+            : `${path}?${paramString}`;
+            break;
+
+        case SEARCH_TYPES.CONTENT_TYPE:
+            searchString = `${
+                path
+            }/category_facet$${category.toLowerCase()}:${encodeURIComponent(
+                encodeURIComponent(category)
+            )}&contenttype_facet$${contentTypeKey}:${encodeURIComponent(
+                encodeURIComponent(contentTypeValue)
+            )}?${paramString}${getCategoryReferenceType()}`;
+            break;
+
+        case SEARCH_TYPES.SUB_FACETS:
+            const contentTypeString = contentTypeName !== 'NA' ? `&contenttype_facet$${contentTypeName.replace(
+                '_facet',
+                ''
+            )}:${encodeURIComponent(
+                encodeURIComponent(contentTypeValue)
+            )}` : '';
+            searchString = `${
+                path
+            }/category_facet$${category.toLowerCase()}:${encodeURIComponent(
+                encodeURIComponent(category)
+            )}${contentTypeString}${facetString}?${paramString}${getCategoryReferenceType()}`;
+            break;
+        
+        default:
+            searchString = `${path}?${paramString}`;
+    }
+    return searchString;
+}
+
 
 export const convertToBoolean = (value = '') => {
     let status = false;

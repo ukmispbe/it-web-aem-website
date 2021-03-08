@@ -169,7 +169,7 @@ class QuoteDetails extends Component {
     placeOrderForQuote = (e, quoteId) => {
 	   e.preventDefault();
        if(quoteId){		
-        (new SessionStore()).setQuoteId(quoteId);   
+        (new SessionStore()).setQuoteId(quoteId);    
         const {quoteDetails} = this.state;
         const {totalItems, entries, subTotal, totalShippingAndHandling, totalDiscounts, totalTax, totalPriceWithTax = {}} = quoteDetails
         const placeOrderModel ={
@@ -184,9 +184,10 @@ class QuoteDetails extends Component {
                 entries,
             }
         }
-        this.setAnalytics('quotePlaceOrder', placeOrderModel)       
+        this.setAnalytics('quotePlaceOrder', placeOrderModel)      
 		const checkoutUrl =  getCartCheckoutUrl(STORE,CHECKOUT);
-        window.location.href = checkoutUrl;
+        setTimeout(()=>{ window.location.href = checkoutUrl; }, 500);
+        
        }
     }
 
@@ -225,7 +226,7 @@ class QuoteDetails extends Component {
 
     renderQuoteAgainButton = className => {
         const {quoteDetails} = this.state;
-        const {quoteStatus,quoteId} = quoteDetails;
+        const {quoteStatus, quoteId} = quoteDetails;
         return quoteStatus === DELIVERY_STATUS.EXPIRED && (
             <div className={className} data-locator="quote-details-quote-again-cta">
                 <a className="cmp-button" href="/#" onClick={(e) => this.quoteAgain(e,quoteId)} >

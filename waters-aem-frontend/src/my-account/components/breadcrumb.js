@@ -17,16 +17,18 @@ const Breadcrumb = (props) => {
         const handleResize = () => setIsMobile(ScreenSizes.isMobile());
         window.addEventListener('resize', handleResize);
         return () => {
-            window.removeEventListener('resize', handleResize);
-            breadcrumb.classList.remove('show');
+            if(breadcrumb && breadcrumb.classList) {
+                window.removeEventListener('resize', handleResize);
+                breadcrumb.classList.remove('show');
+            }
         };
     }, []);
-
-    const renderBackToLink = () => {
+	
+	const renderBackToLink = () => {
         const parentRoutePath = currentPath.parentTrail[currentPath.parentTrail.length-1];
         const parentRouteName = Object.values(routes).filter(route=>route.path===parentRoutePath)[0].name;
-        const parentConfig = props.config.routes[parentRouteName];
-
+        const parentConfig = props.config.routes[parentRouteName];	
+		
         return (
             <li className="cmp-breadcrumb-back">
                 <Link class="cmp-breadcrumb-back__link cmp-button--secondary cmp-button--no-border cmp-button--with-icon"
@@ -43,7 +45,7 @@ const Breadcrumb = (props) => {
         const linkRoute = Object.values(routes).filter(route=>route.path===linkPath)[0];
         const linkRouteName = linkRoute.name;
         const linkConfig = props.config.routes[linkRouteName];
-
+		
         return (
             <li className="cmp-breadcrumb__item" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
                 <Link to={linkRoute.path} className='cmp-breadcrumb__item-link' itemprop="item">
@@ -53,7 +55,7 @@ const Breadcrumb = (props) => {
         )
     }
 
-    const renderBreadcrumb = () => {
+    const renderBreadcrumb = () => {		
         const parentLinks = currentPath.parentTrail.map(renderBreadcrumbLink);
         return parentLinks;
     }

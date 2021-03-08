@@ -193,6 +193,10 @@ public class Registration implements ComponentExporter {
         return twoStepRegistrationForm;
     }
 
+    public String getCountryStatesUrl() {
+        return accountService.getCountryStatesUrl();
+    }
+
     @Nonnull
     @Override
     public String getExportedType() {
