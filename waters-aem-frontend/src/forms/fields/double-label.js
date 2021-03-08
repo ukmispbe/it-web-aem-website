@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useFieldApi } from '../form';
+const CLASS_LENGTH = 2;
 
 const DoubleLabel = ({ name, addClass, label}) => {
     const { initialState  } = useContext(useFieldApi);
@@ -14,7 +15,7 @@ const DoubleLabel = ({ name, addClass, label}) => {
     let classLeft;
     let classRight;
     if (addClass) {
-        if (addClass.length === 2) {
+        if (addClass.length === CLASS_LENGTH) {
             classLeft = addClass[0];
             classRight = addClass[1];
         }

@@ -4,6 +4,7 @@ import SessionStore from '../stores/sessionStore';
 import loginStatus from  '../scripts/loginStatus';
 import { signInRedirect, getNamedHeaderLink } from '../utils/redirectFunctions';
 import { renderDateToday } from '../utils/dateFunctions';
+import { CONTACT_METHOD, TECH_SUPPORT, PRODUCT_TYPE, CONFIRMATION_LABEL } from '../constants/index';
 
 const Form = React.lazy(() => import(/* webpackChunkName: "forms" */'../forms/form'));
 
@@ -22,9 +23,6 @@ const CreateRequestForm = ({
   const [ initialConfirmationFormValues, setInitialConfirmationFormValues ] = useState({});
   const [ serialFormData, setSerialFormData ] = useState();
   const [ userDetails, setUserDetails ] = useState();
-  const constTechSupport = "TS";
-  const constProductType = "productTypeLabel";
-  const constConfirmationLabel = "confirmationLabel";
 
   useEffect(() => {
     const needsToBeSignedIn = serialFormConfig.config.needsToBeSignedIn;
@@ -170,21 +168,23 @@ const CreateRequestForm = ({
     // Output the processed data to the console until the API is ready
     console.log("Submit API Data: ",  formData);
 
+    const {serialNumber, organization, productDetailsText, productDetails, supportType, productType, 
+      formDescription, firstName, lastName, email, phone, preferredContactMethod} = formData;
     // Set up the default Values for the confirmation
     initialConfirmationFormValues.caseNumberLabel = "01234567890";
     initialConfirmationFormValues.dateSubmittedLabel = renderDateToday();
-    initialConfirmationFormValues.serialNumberLabel = formData.serialNumber;
-    initialConfirmationFormValues.organizationLabel = formData.organization;
-    initialConfirmationFormValues.productDetailsLabel = formData.productDetailsText ? formData.productDetailsText : getDescriptionFromFields(formData.productDetails, "productDetails", supportReqFormConfig.config.fields);   
-    initialConfirmationFormValues.typeOfSupportRequestLabel = getDescriptionFromFields(formData.supportType, "supportType", supportReqFormConfig.config.fields);
+    initialConfirmationFormValues.serialNumberLabel = serialNumber;
+    initialConfirmationFormValues.organizationLabel = organization;
+    initialConfirmationFormValues.productDetailsLabel = productDetailsText ? productDetailsText : getDescriptionFromFields(productDetails, "productDetails", supportReqFormConfig.config.fields);   
+    initialConfirmationFormValues.typeOfSupportRequestLabel = getDescriptionFromFields(supportType, "supportType", supportReqFormConfig.config.fields);
 
-    if (formData.supportType === constTechSupport) {
-      initialConfirmationFormValues.productTypeLabel = getDescriptionFromFields(formData.productType, "productType", supportReqFormConfig.config.fields);
+    if (formData.supportType === TECH_SUPPORT) {
+      initialConfirmationFormValues.productTypeLabel = getDescriptionFromFields(productType, "productType", supportReqFormConfig.config.fields);
     }
     else {
       // Hide the Product Type Label
       const productTypeObject = confFormConfig.config.fields.find(obj => {
-        return obj.name === constProductType
+        return obj.name === PRODUCT_TYPE
       });
       if (productTypeObject) {
         productTypeObject.active = false;
@@ -192,20 +192,20 @@ const CreateRequestForm = ({
       SetConfFormConfig(confFormConfig);
     }  
     // Add the email address to the text-with-links config
-    const confirmationLableObject = confFormConfig.config.fields.find(obj => {
-      return obj.name === constConfirmationLabel
+    const confirmationLabelObject = confFormConfig.config.fields.find(obj => {
+      return obj.name === CONFIRMATION_LABEL
     });
-    if (confirmationLableObject) {
-      confirmationLableObject.config[1].text = `${formData.email}.`;
+    if (confirmationLabelObject) {
+      confirmationLabelObject.config[1].text = `${email}.`;
     }   
     SetConfFormConfig(confFormConfig);
 
-    initialConfirmationFormValues.requestSummary = formData.formDescription;
-    initialConfirmationFormValues.requestSummaryEllipsis = formData.formDescription;
-    initialConfirmationFormValues.fullNameLabel = `${formData.firstName} ${formData.lastName}`;
-    initialConfirmationFormValues.emailLabel = formData.email;
-    initialConfirmationFormValues.phoneNumberLabel = formData.phone;
-    initialConfirmationFormValues.preferredMethodOfContactLabel = formData.preferredContactMethod;
+    initialConfirmationFormValues.requestSummary = formDescription;
+    initialConfirmationFormValues.requestSummaryEllipsis = formDescription;
+    initialConfirmationFormValues.fullNameLabel = `${firstName} ${lastName}`;
+    initialConfirmationFormValues.emailLabel = email;
+    initialConfirmationFormValues.phoneNumberLabel = phone;
+    initialConfirmationFormValues.preferredMethodOfContactLabel = preferredContactMethod;
     setInitialConfirmationFormValues(initialConfirmationFormValues);
     // Show Confirmation Form
     setShowForm(2);
@@ -226,9 +226,9 @@ const CreateRequestForm = ({
 
   // Determine if Email or Phone & Delete "Email" & "Phone"
   function processPreferredContactMethod(requestFormData) {
-    requestFormData.preferredContactMethod = "Email";
+    requestFormData.preferredContactMethod = CONTACT_METHOD.EMAIL;
     if (requestFormData.Phone === "on") {
-      requestFormData.preferredContactMethod = "Phone";
+      requestFormData.preferredContactMethod = CONTACT_METHOD.PHONE;
     }
     delete requestFormData.Email;
     delete requestFormData.Phone;
@@ -239,7 +239,7 @@ const CreateRequestForm = ({
     
     if (supportReqFormConfig && supportReqFormConfig.config.fields) {
       const supportTypeDescription = getDescriptionFromFields(supportType, "supportType", supportReqFormConfig.config.fields);
-      if (supportType === constTechSupport) {
+      if (supportType === TECH_SUPPORT) {
         // Append SupportType & ProductType Descriptions 
         const productTypeDescription = getDescriptionFromFields(productType, "productType", supportReqFormConfig.config.fields);
         return { "shortDescription": `${supportTypeDescription} : ${productTypeDescription}` };

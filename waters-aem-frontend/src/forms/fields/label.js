@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { elementLocator } from '../../utils/eCommerceFunctions';
 import { useFieldApi } from '../form';
 
 const Label = ({ name, addClass, label, htmlFor ="" }) => {
@@ -12,7 +13,7 @@ const Label = ({ name, addClass, label, htmlFor ="" }) => {
     }, [name]);
 
     return (
-        <label className={addClass} htmlFor={htmlFor}>
+        <label className={addClass} htmlFor={htmlFor} data-locator={elementLocator(name)}>
             {labelValue || label}
         </label>   
     );

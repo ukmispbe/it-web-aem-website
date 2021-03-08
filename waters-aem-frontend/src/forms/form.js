@@ -154,7 +154,7 @@ const Form = ({
     }, [config.formName])
 
     useEffect(() => {
-        if (config.formName === "registrationAddress") {
+        if (config.formName === "registrationAddress" && config.statesUrl) {
             // Call API & Update Config
             retrieveDataNoCredentials(config.statesUrl.replace("{country}", defaultValues.country))
             .then((results) => {

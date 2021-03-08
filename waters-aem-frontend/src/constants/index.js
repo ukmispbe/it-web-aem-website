@@ -22,3 +22,15 @@ export const SEARCH_TYPES = {
     SUB_FACETS: 'sub facets'
 }
 export const RECENT_SEARCHES_EXPIRY_TIME = 30; // In days
+
+export const CONTACT_METHOD = {
+    EMAIL: 'Email',
+    PHONE: 'Phone'
+}
+export const TECH_SUPPORT = 'TS';
+export const PRODUCT_TYPE = 'productTypeLabel';
+export const CONFIRMATION_LABEL = 'confirmationLabel';
+export const SUUPORT_TYPE = 'supportType';
+export const CO2_BULK = 'CO2_BULK';
+
+
