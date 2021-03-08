@@ -372,6 +372,14 @@ if (requestFormContainer) {
     }
 
     ReactDOM.render(
+        <>
+            <CreateRequestForm
+                supportRequestFormConfig={supportRequestForm}
+                checkSerialFormConfig={checkSerialForm}
+                isocode={DigitalData.language}
+            />
+            <LegalLinkModal docIcon={configSupportRequestForm.icons.docIcon || ''} />
+        </>,
         <CreateRequestForm
             confirmationFormConfig={supportRequestConfirmationForm}
             supportRequestFormConfig={supportRequestForm}

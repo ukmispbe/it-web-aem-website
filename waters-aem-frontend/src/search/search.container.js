@@ -11,6 +11,9 @@ import SearchComponent from './search.component';
 import { isEprocurementUser } from '../utils/userFunctions';
 import { SEARCH_TYPES } from '../constants';
 import SearchBreadcrumb from '../common/search-breadcrumb';
+import cookieStore from '../stores/cookieStore';
+import loginStatus from '../scripts/loginStatus';
+import NoResults from './components/no-results';
 
 class SearchContainer extends Component {
     constructor(props) {
@@ -24,6 +27,7 @@ class SearchContainer extends Component {
     }
 
     componentDidMount() {
+        this.setState({isEprocurementUser: isEprocurementUser()});
         this.addHistoryListener();
         this.addResizeListener();
         
@@ -32,7 +36,6 @@ class SearchContainer extends Component {
         this.setState({tabHistory: sessionStore.searchTabHistory, facetGroupsSelectedOrder}, () => {
             this.performSearch();
         });
-        this.setState({isEprocurementUser: isEprocurementUser()});
     }
 
     getFacetKey = (key) => `${key}_facet`;
@@ -69,6 +72,7 @@ class SearchContainer extends Component {
 
     initialState = () => {
         const query = this.search.getParamsFromString();
+        const isEprocUser = isEprocurementUser();
         this.query = query;
 
         // Setting up the sort filter value
@@ -85,7 +89,7 @@ class SearchContainer extends Component {
                     : this.query.sort;
         }
 
-        const category = this.query.category ? this.query.category : '';
+        const category = this.query.category ? this.query.category : (isEprocUser ? 'Shop' :'');
 
         const contentType = this.query.content_type
             ? this.query.content_type
@@ -425,8 +429,14 @@ class SearchContainer extends Component {
     getCategoryFacetKey = (category) => category ? this.getFacetKey(this.createStrippedFacetName(category)) : '';
 
     findContentType = (items, content_type, selectedCategory) => {
-        let category = selectedCategory && items.find(
-            element => element.categoryFacetName === selectedCategory
+        let categoryValue = selectedCategory;
+
+        if (!categoryValue && this.state && this.state.isEprocurementUser) {
+            categoryValue = this.getCategoryFacetKey('Shop');
+        }
+
+        const category = categoryValue && items.find(
+            element => element.categoryFacetName === categoryValue
         );
 
         let contentTypeObject;
@@ -539,6 +549,10 @@ class SearchContainer extends Component {
         };
 
         newState.noResults = !newState.results[query.page].length;
+
+        if (!loginStatus.state() && !newState.noResults && query.keyword && query.keyword !== parameterDefaults.keyword) {
+            cookieStore.setRecentSearches(query.keyword);
+        }
 
         newState.facets = res.facets;
         if ("activeIndex" in this.state) {
@@ -913,7 +927,7 @@ class SearchContainer extends Component {
         const query = this.getQueryObject();
 
         
-        const contentType = query.content_type && query.category && this.findContentType(this.props.filterMap, this.getFacetKey(query.content_type), this.getCategoryFacetKey(query.category));
+        const contentType = query.content_type && (query.category || this.state.isEprocurementUser) && this.findContentType(this.props.filterMap, this.getFacetKey(query.content_type), this.getCategoryFacetKey(query.category));
 
         return {
             facetName: contentType ? contentType.facetName : '',
@@ -1206,11 +1220,18 @@ class SearchContainer extends Component {
         }
 
         if (this.state.noResults) {
-            return <SearchBreadcrumb
+            return (
+                <>
+                    <SearchBreadcrumb
                         text={this.props.searchText}
                         searchParams={this.state.searchParams}
                         clearSessionStore={this.props.search.clearSessionStore}
-                        noResults={this.state.noResults}/>;
+                        noResults={this.state.noResults}/>
+                    <NoResults
+                        searchText={this.props.searchText}
+                        query={this.state.keyword} />
+                </>
+            )
         }
 
         return <SearchComponent

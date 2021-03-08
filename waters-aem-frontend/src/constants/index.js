@@ -21,3 +21,4 @@ export const SEARCH_TYPES = {
     CONTENT_TYPE: 'content type',
     SUB_FACETS: 'sub facets'
 }
+export const RECENT_SEARCHES_EXPIRY_TIME = 30; // In days

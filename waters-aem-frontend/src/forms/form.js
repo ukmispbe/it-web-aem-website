@@ -434,6 +434,7 @@ const Form = ({
                 <button
                     type="submit"
                     className={"cmp-button cmp-button--no-border cmp-form--submit"}
+                    aria-label="form submit button"
                     data-locator={elementLocator(config.buttonLocator || 'form-submit')}
                 >
                     {config.buttonText}
@@ -441,6 +442,7 @@ const Form = ({
                 {config.cancelText && !!cancelHandler && (
                     <a
                         className="cmp-button cmp-button--cancel"
+                        aria-label="form cancel button"
                         onClick={cancelHandler}
                         data-locator={elementLocator(config.cancelText || 'form-cancel')}
                     >

@@ -601,15 +601,6 @@
             }
         }
     }
-    .cmp-text-area-read-only {
-        textarea {
-            border: none;
-            background-color: transparent;
-            padding: 0;
-            overflow-x: hidden;
-            overflow-y: hidden;
-        }
-    }
 
     .cmp-form-field-captcha {
         margin-top: $space-s;
@@ -722,6 +713,7 @@
             input:disabled {
                 border: none !important;
                 padding: 0;
+                color: $color-black;
             }
             .cmp-form-field--icons {
                 display: none;
@@ -758,22 +750,6 @@
             @include font-h2;
             margin-bottom: $space-xxs;
         }
-        .cmp-form-field-doubleLabel {
-            margin-bottom: 0;;
-            label:first-child {
-                margin-right: $space-xs;
-            }
-            display: flex;
-            .cmp-label-bold {
-                @include font-h4;
-                margin-bottom: $space-xxs;
-            }
-            .cmp-label-standard {
-                @include font-body;
-                margin-bottom: $space-xxs;
-            }
-
-        }
         .cmp-form-field-radio {
             label {
                 font-weight: $font-weight-bold;
@@ -784,20 +760,11 @@
             font-size: $font-size-body;
             margin-bottom: $space-xxs;
         }
-        .cmp-label-bold {
+        .cmp-bold-label {
             @include font-body;
             font-size: $font-size-body;
             font-weight: $font-weight-bold;
-            margin-top: $space-xxs;
-            margin-bottom: 0;
-        }
-        .cmp-utility-label-large {
-            @include font-utility-large;
-        }
-        .cmp-label-standard {
-            @include font-body;
-            font-size: $font-size-body;
-            margin-bottom: 0;
+            margin-bottom: $space-xxs;
         }
     }
 }

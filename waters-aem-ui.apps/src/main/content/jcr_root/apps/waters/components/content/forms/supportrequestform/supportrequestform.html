@@ -5,7 +5,6 @@
             "formName": "checkSerial",
             "customFormClass": "cmp-form--check-serial",
             "submitEndpoint": "${supportRequest.supportRequestUrl @ context='unsafe'}",
-            "redirectUrl": "${supportRequest.redirectLink.href @ context='unsafe'}",
             "buttonText": "${'Continue' @ i18n, context='text'}",
             "elementLocator": "check-serial-form",
 			"buttonLocator": "continue",
@@ -59,8 +58,6 @@
             "recordType": "SUPPORT",
             "submitEndpoint": "${supportRequest.supportRequestUrl @ context='unsafe'}",
             "buttonText": "${'Send Request' @ i18n, context='text'}",
-            "redirectUrl": "${supportRequest.redirectLink.href @ context='unsafe'}",
-            "loginUrl": "${supportRequest.loginLink.href @ context='unsafe'}",
             "consentUrl": "${supportRequest.consentLink.href @ context='unsafe'}",
             "needsToBeSignedIn": true,
             "elementLocator": "support-request-form",
@@ -173,7 +170,7 @@
                     "options": [
                         {"value":"LCSW","label": "${'LC Software' @ i18n, context='text'}"},
                         {"value":"MSSW","label": "${'MS Software' @ i18n, context='text'}"},
-                        {"value":"NGSW","label": "${'NuGenesis Software' @ i18n, context='text'}"},                        
+                        {"value":"NGSW","label": "${'NuGenesis Software' @ i18n, context='text'}"},
                         {"value":"LCHW","label": "${'UPLC/HPLC Hardware' @ i18n, context='text'}"},
                         {"value":"QUAD","label": "${'Quadrupole Instruments' @ i18n, context='text'}"},
                         {"value":"TOFI","label": "${'Time of Flight Instruments' @ i18n, context='text'}"},
@@ -290,7 +287,7 @@
                     "type": "textwithlinks",
                     "name": "privacy",
                     "active": true,
-                    "openModal": ${supportRequest.newModal @ context='unsafe'},
+                    "openModal": "${supportRequest.newModal @ context='unsafe'}",
                     "consentUrl": "${supportRequest.consentLink.path @ context='unsafe'}"
                 }
             ]
@@ -358,7 +355,7 @@
                 {
                     "type": "break",
                     "addClass": "cmp-section-hr"
-                },               
+                },
                 {
                     "type": "label",
                     "addClass": "cmp-heading-label",

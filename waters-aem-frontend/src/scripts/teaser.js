@@ -3,9 +3,14 @@
 * some functionalities, I had to do with help of javascript.
 */
 
+// ForEach function only works on Array in IE, not on NodeList. So adding a function to fix the issue
+function convertNodeListToArray(list) {
+    return Array.prototype.slice.call(list);
+}
+
 function renderSvgFromImg(selector) {
     const elements = document.querySelectorAll(selector);
-    elements.forEach(item => {
+    convertNodeListToArray(elements).forEach(item => {
         if (item.src && item.src.includes('.svg')) {
             item.classList.add('inline-svg');
         }
@@ -14,7 +19,7 @@ function renderSvgFromImg(selector) {
 
 function updateExternalLink(selector) {
     const elements = document.querySelectorAll(selector);
-    elements.forEach(item => {
+    convertNodeListToArray(elements).forEach(item => {
         const hasExternal = item.getAttribute('href') && !item.getAttribute('href').includes('www.waters.com') && !item.getAttribute('href').startsWith("/");
         if (hasExternal) {
             item.classList.add('external-link');
@@ -26,7 +31,7 @@ function updateExternalLink(selector) {
 
 function removeLinkFromTitle(section) {
     const titleElem = document.querySelectorAll(`${section} .cmp-teaser__title`);
-    titleElem.forEach(item => {
+    convertNodeListToArray(titleElem).forEach(item => {
         if (item && item.querySelector('.cmp-teaser__title-link') !== null) {
             const link = item.querySelector('.cmp-teaser__title-link');
             const text = link.innerText;
@@ -39,5 +44,4 @@ function removeLinkFromTitle(section) {
 renderSvgFromImg('.cmp-teaser__image img');
 removeLinkFromTitle('.cmp-feature');
 removeLinkFromTitle('.cmp-external-list');
-removeLinkFromTitle('.cmp-notification');
 updateExternalLink('.cmp-teaser__action-container a');

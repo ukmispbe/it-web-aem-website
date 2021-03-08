@@ -13,7 +13,7 @@ const Label = ({ name, addClass, label, htmlFor ="" }) => {
 
     return (
         <label className={addClass} htmlFor={htmlFor}>
-            {labelValue || label} 
+            {labelValue || label}
         </label>   
     );
 };
