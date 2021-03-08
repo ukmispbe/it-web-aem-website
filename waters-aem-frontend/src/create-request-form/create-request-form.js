@@ -3,7 +3,8 @@ import { retrieveData } from '../forms/services/retrieve';
 import SessionStore from '../stores/sessionStore';
 import loginStatus from  '../scripts/loginStatus';
 import { signInRedirect, getNamedHeaderLink } from '../utils/redirectFunctions';
-import { renderDateToday } from '../utils/dateFunctions';
+import GetLocale from '../utils/get-locale';
+import DateFormatter from '../utils/date-formatter/index';
 import { CONTACT_METHOD, TECH_SUPPORT, PRODUCT_TYPE, CONFIRMATION_LABEL } from '../constants/index';
 
 const Form = React.lazy(() => import(/* webpackChunkName: "forms" */'../forms/form'));
@@ -172,7 +173,9 @@ const CreateRequestForm = ({
       formDescription, firstName, lastName, email, phone, preferredContactMethod} = formData;
     // Set up the default Values for the confirmation
     initialConfirmationFormValues.caseNumberLabel = "01234567890";
-    initialConfirmationFormValues.dateSubmittedLabel = renderDateToday();
+    const now = new Date();
+    const dateString = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;
+    initialConfirmationFormValues.dateSubmittedLabel = DateFormatter.dateFormatter(dateString, GetLocale.getLocale())
     initialConfirmationFormValues.serialNumberLabel = serialNumber;
     initialConfirmationFormValues.organizationLabel = organization;
     initialConfirmationFormValues.productDetailsLabel = productDetailsText ? productDetailsText : getDescriptionFromFields(productDetails, "productDetails", supportReqFormConfig.config.fields);   
