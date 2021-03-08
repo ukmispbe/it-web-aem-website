@@ -318,7 +318,7 @@
             "fields": [
                 {
                     "type": "textwithlinks",
-                    "name": "privacy",
+                    "name": "confirmationLabel",
                     "active": true,
                     "config": [
                         {
@@ -348,6 +348,13 @@
                     ],
                     "label": "${'Case Number:' @ i18n, context='unsafe'}"
                 },
+                {
+                    "type": "label",
+                    "addClass": "cmp-label-standard",
+                    "name": "dateSubmittedLabel",
+                    "label": "${'' @ i18n, context='unsafe'}"
+                },
+
                 {
                     "type": "break",
                     "addClass": "cmp-section-hr"
@@ -425,19 +432,19 @@
                     "type": "label",
                     "addClass": "cmp-label-standard",
                     "name": "fullNameLabel",
-                    "label": "${'Paul Beard' @ i18n, context='unsafe'}"
+                    "label": "${'' @ i18n, context='unsafe'}"
                 },
                 {
                     "type": "label",
                     "addClass": "cmp-label-standard",
                     "name": "emailLabel",
-                    "label": "${'paul_beard@waters.com' @ i18n, context='unsafe'}"
+                    "label": "${'' @ i18n, context='unsafe'}"
                 },
                 {
                     "type": "label",
                     "addClass": "cmp-label-standard",
                     "name": "phoneNumberLabel",
-                    "label": "${'07890009999' @ i18n, context='unsafe'}"
+                    "label": "${'' @ i18n, context='unsafe'}"
                 },
                 {
                     "type": "doubleLabel",

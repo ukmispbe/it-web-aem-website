@@ -3,6 +3,7 @@ import { retrieveData } from '../forms/services/retrieve';
 import SessionStore from '../stores/sessionStore';
 import loginStatus from  '../scripts/loginStatus';
 import { signInRedirect, getNamedHeaderLink } from '../utils/redirectFunctions';
+import { renderDateToday } from '../utils/dateFunctions';
 
 const Form = React.lazy(() => import(/* webpackChunkName: "forms" */'../forms/form'));
 
@@ -22,6 +23,9 @@ const CreateRequestForm = ({
   const [ serialFormData, setSerialFormData ] = useState();
   const [ userDetails, setUserDetails ] = useState();
   const constTechSupport = "TS";
+  const constProductType = "productTypeLabel";
+  const constConfirmationLabel = "confirmationLabel";
+
   useEffect(() => {
     const needsToBeSignedIn = serialFormConfig.config.needsToBeSignedIn;
     if (!isInEditMode) {
@@ -168,13 +172,34 @@ const CreateRequestForm = ({
 
     // Set up the default Values for the confirmation
     initialConfirmationFormValues.caseNumberLabel = "01234567890";
+    initialConfirmationFormValues.dateSubmittedLabel = renderDateToday();
     initialConfirmationFormValues.serialNumberLabel = formData.serialNumber;
     initialConfirmationFormValues.organizationLabel = formData.organization;
     initialConfirmationFormValues.productDetailsLabel = formData.productDetailsText ? formData.productDetailsText : getDescriptionFromFields(formData.productDetails, "productDetails", supportReqFormConfig.config.fields);   
     initialConfirmationFormValues.typeOfSupportRequestLabel = getDescriptionFromFields(formData.supportType, "supportType", supportReqFormConfig.config.fields);
+
     if (formData.supportType === constTechSupport) {
       initialConfirmationFormValues.productTypeLabel = getDescriptionFromFields(formData.productType, "productType", supportReqFormConfig.config.fields);
+    }
+    else {
+      // Hide the Product Type Label
+      const productTypeObject = confFormConfig.config.fields.find(obj => {
+        return obj.name === constProductType
+      });
+      if (productTypeObject) {
+        productTypeObject.active = false;
+      }
+      SetConfFormConfig(confFormConfig);
     }  
+    // Add the email address to the text-with-links config
+    const confirmationLableObject = confFormConfig.config.fields.find(obj => {
+      return obj.name === constConfirmationLabel
+    });
+    if (confirmationLableObject) {
+      confirmationLableObject.config[1].label = formData.email;
+    }   
+    SetConfFormConfig(confFormConfig);
+
     initialConfirmationFormValues.requestSummary = formData.formDescription;
     initialConfirmationFormValues.requestSummaryEllipsis = formData.formDescription;
     initialConfirmationFormValues.fullNameLabel = `${formData.firstName} ${formData.lastName}`;
@@ -257,6 +282,10 @@ const CreateRequestForm = ({
       setSupportRequestFormConfig(supportReqFormConfig);  
     }
   }
+  
+  function  confirmationSubmit() {
+    location.reload();
+  }
 
   switch (showForm) {
     case 0:
@@ -290,7 +319,7 @@ const CreateRequestForm = ({
             <Form
               {...confFormConfig}
               defaultValues={initialConfirmationFormValues}
-              submitFn={checkIRequestSubmit}
+              submitFn={confirmationSubmit}
               isocode={isocode}
             />
           </Suspense>);
