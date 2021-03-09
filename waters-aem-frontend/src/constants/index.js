@@ -28,9 +28,9 @@ export const CONTACT_METHOD = {
     PHONE: 'Phone'
 }
 export const TECH_SUPPORT = 'TS';
-export const PRODUCT_TYPE = 'productTypeLabel';
+export const PRODUCT_TYPE_LABEL = 'productTypeLabel';
 export const CONFIRMATION_LABEL = 'confirmationLabel';
-export const SUUPORT_TYPE = 'supportType';
+export const SUPPORT_TYPE = 'supportType';
 export const CO2_BULK = 'CO2_BULK';
 
 

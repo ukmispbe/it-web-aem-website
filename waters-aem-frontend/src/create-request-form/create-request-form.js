@@ -5,7 +5,7 @@ import loginStatus from  '../scripts/loginStatus';
 import { signInRedirect, getNamedHeaderLink } from '../utils/redirectFunctions';
 import GetLocale from '../utils/get-locale';
 import DateFormatter from '../utils/date-formatter/index';
-import { CONTACT_METHOD, TECH_SUPPORT, PRODUCT_TYPE, CONFIRMATION_LABEL } from '../constants/index';
+import { CONTACT_METHOD, TECH_SUPPORT, PRODUCT_TYPE_LABEL, CONFIRMATION_LABEL } from '../constants/index';
 
 const Form = React.lazy(() => import(/* webpackChunkName: "forms" */'../forms/form'));
 
@@ -187,7 +187,7 @@ const CreateRequestForm = ({
     else {
       // Hide the Product Type Label
       const productTypeObject = confFormConfig.config.fields.find(obj => {
-        return obj.name === PRODUCT_TYPE
+        return obj.name === PRODUCT_TYPE_LABEL
       });
       if (productTypeObject) {
         productTypeObject.active = false;

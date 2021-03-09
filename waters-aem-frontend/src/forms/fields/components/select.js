@@ -4,7 +4,7 @@ import ReactSVG from "react-svg";
 
 import { useFieldApi, useFormApi } from '../../form';
 import customStyles from "../styles/dropdown.scss";
-import { TECH_SUPPORT, SUUPORT_TYPE, CO2_BULK } from '../../../constants/index';
+import { TECH_SUPPORT, SUPPORT_TYPE, CO2_BULK } from '../../../constants/index';
 
 
 const DropdownIndicator = props => {
@@ -57,16 +57,16 @@ const Select = (props) => {
             setCountrySaved(option.value);
         }
 
-        if (name === SUUPORT_TYPE) {
+        if (name === SUPPORT_TYPE) {
             // Check if Option is "Technical Support"
             // Display or Hide Product Type Drop Down
             if (option.value === TECH_SUPPORT) {
                 displayProductTypeDropDown(true); 
-                triggerValidation([SUUPORT_TYPE]);            
+                triggerValidation([SUPPORT_TYPE]);            
             }
             else {
                 displayProductTypeDropDown(false);
-                triggerValidation([SUUPORT_TYPE]);
+                triggerValidation([SUPPORT_TYPE]);
             }
         }
     };
