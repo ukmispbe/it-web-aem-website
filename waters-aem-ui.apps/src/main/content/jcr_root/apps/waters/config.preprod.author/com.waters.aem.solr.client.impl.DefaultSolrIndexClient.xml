@@ -14,4 +14,4 @@
           connectionTimeout="{Long}20000"
           socketTimeout="{Long}20000"
           commitWithinMs="{Long}-1"
-		  solrHostName="preprod-solr1.waters"/>
+		  solrHostName="preprod-solr1.waters.com"/>
