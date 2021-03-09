@@ -50,7 +50,10 @@ const TextWithLinks = ({}) => {
             )
     }
 
-    const renderText = ({ text }) => {
+    const renderText = ({ text, addClass }) => {
+        if (addClass) {
+            return (<span className={addClass}>{text}</span>)
+        }
         return (text)
     }
 

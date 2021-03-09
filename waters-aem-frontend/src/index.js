@@ -349,12 +349,13 @@ if (requestFormContainer) {
         document.getElementById('cmp-check-serial-form').innerHTML
     );
 
-    let configSupportRequestForm = JSON.parse(
+    const configSupportRequestForm = JSON.parse(
         document.getElementById('cmp-support-request-form').innerHTML
     );
 
-    // Set Country list url
-    configSupportRequestForm.countryListUrl = headerRef.dataset.countryListUrl ? headerRef.dataset.countryListUrl : '';
+    const configSupportRequestConfirmationForm = JSON.parse(
+        document.getElementById('cmp-support-request-confirmation').innerHTML
+    );
 
     const supportRequestForm = {
         config: configSupportRequestForm,
@@ -366,9 +367,14 @@ if (requestFormContainer) {
         config: configCheckSerialForm,
     }
 
+    const supportRequestConfirmationForm = {
+        config: configSupportRequestConfirmationForm,
+    }
+
     ReactDOM.render(
         <>
             <CreateRequestForm
+                confirmationFormConfig={supportRequestConfirmationForm}
                 supportRequestFormConfig={supportRequestForm}
                 checkSerialFormConfig={checkSerialForm}
                 isocode={DigitalData.language}

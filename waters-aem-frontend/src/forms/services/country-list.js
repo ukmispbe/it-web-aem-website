@@ -1,19 +1,9 @@
-const getData = async (url) => {
-    const response = await fetch(url, {
-        method: 'GET',
-        headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-        }
-    });
-
-    return await response;
-};
+import { getDataNoCredentials } from './retrieve';
 
 export default function countryList(url) {
     return new Promise(async resolve => {
         try {
-            const response = await getData(url);
+            const response = await getDataNoCredentials(url);
             const responseBody = await response.json();
 
             if (response.status === 200) {
