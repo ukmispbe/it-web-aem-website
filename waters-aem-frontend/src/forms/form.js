@@ -44,7 +44,8 @@ const Form = ({
     toggleAddressFn,
     navigateBackFn,
     addAddressesFn,
-    displayProductTypeDropDown
+    displayProductTypeDropDown,
+    fieldKey
 }) => {
     if (defaultValues) {
         defaultValues.communications =
@@ -401,7 +402,7 @@ const Form = ({
         }
 
         return (
-            <FieldApi.Provider value={getFieldApi} key={`field-${i}`}>
+            <FieldApi.Provider value={getFieldApi} key={fieldKey ? `${fieldKey}-${i}` : `field-${i}`}>
                 <Field />
             </FieldApi.Provider>
         );
