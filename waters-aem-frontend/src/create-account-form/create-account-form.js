@@ -297,6 +297,7 @@ const CreateAccountForm = ({
               toggleAddressFn={handleToggleAddressFn}
               navigateBackFn={handleNavigateBackFn}
               isocode={isocode}
+              fieldKey="addressField"
             />
           </Suspense>);
     default:
