@@ -3,8 +3,6 @@ package com.waters.aem.core.components.content;
 import com.adobe.cq.export.json.ExporterConstants;
 import com.adobe.cq.wcm.core.components.models.NavigationItem;
 import com.citytechinc.cq.component.annotations.Component;
-import com.citytechinc.cq.component.annotations.DialogField;
-import com.citytechinc.cq.component.annotations.widgets.MultiField;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.waters.aem.core.components.SiteContext;
@@ -19,9 +17,7 @@ import org.apache.sling.models.annotations.via.ResourceSuperType;
 
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
-import javax.inject.Named;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Component(value = "Navigation",

@@ -6,6 +6,8 @@ import { SearchService } from '../services/index';
 import OverLay from './overlay';
 import PropTypes from 'prop-types';
 import screenSizes from "../../scripts/screenSizes";
+import loginStatus from "../../scripts/loginStatus";
+import cookieStore from '../../stores/cookieStore';
 import { isEprocurementUser, getIsoCode } from '../../utils/userFunctions';
 
 const cssOverridesForSearchBar = "cmp-search-bar__auto-suggest--open";
@@ -32,8 +34,11 @@ class SearchBar extends Component {
             value: searchValue ? searchValue : '',
             suggestions: [],
             openOverlay: false,
-            placeholder: screenSizes.isMobile() ? this.props.placeholderMobile : this.props.placeholderTablet
+            placeholder: screenSizes.isMobile() ? this.props.placeholderMobile : this.props.placeholderTablet,
+            recentSearches: !loginStatus.state() && cookieStore.getRecentSearches() || []
         };
+
+        this.state.recentSuggestions = this.formatSuggestions(this.state.value.trim(), this.state.recentSearches);
 
         this.handleSuggestionsFetchRequestedDebounce = debounce(250, this.handleSuggestionsFetchRequested);
         this.handleWindowResizeDebounce = debounce(150, this.handleViewChange);
@@ -68,6 +73,27 @@ class SearchBar extends Component {
         );
     }
 
+    transformSuggestionObject = (suggestions, recentSuggestions = []) => {
+        const updatedSuggestions = [];
+        if (suggestions && suggestions.length) {
+            updatedSuggestions.push({
+                title: '',
+                suggestions: suggestions
+            });
+        }
+        if (recentSuggestions && recentSuggestions.length) {
+            updatedSuggestions.push({
+                title: this.props.labels.recentlySearched,
+                suggestions: recentSuggestions
+            });
+        }
+        return updatedSuggestions;
+    }
+
+    renderSectionTitle = (section = {}) => section.title && section.suggestions && section.suggestions.length ? <strong>{section.title}</strong> : '';
+    
+    getSectionSuggestions = (section = {}) => section.suggestions;
+
     renderAutoSuggest = () => {
         const inputProps = {
             placeholder: this.state.placeholder,
@@ -84,12 +110,16 @@ class SearchBar extends Component {
         }
 
         return <Autosuggest
-                    suggestions={this.state.suggestions}
+                    multiSection={true}
+                    suggestions={this.transformSuggestionObject(this.state.suggestions, this.state.recentSuggestions)}
                     onSuggestionsFetchRequested={this.handleSuggestionsFetchRequestedDebounce}
                     onSuggestionsClearRequested={this.onSuggestionsClearRequested}
                     onSuggestionSelected={this.handleSuggestionSelected}
                     getSuggestionValue={this.getSuggestionValueCallback}
                     renderSuggestion={this.renderSuggestionCallback}
+                    renderSectionTitle={this.renderSectionTitle}
+                    getSectionSuggestions={this.getSectionSuggestions}
+                    shouldRenderSuggestions={() => true}
                     inputProps={inputProps}/>;
     };
 
@@ -131,11 +161,14 @@ class SearchBar extends Component {
     handleClearIconClick = e => {
         this.inputElement.focus();
         this.addSearchBarFocusCss();
-        this.setState({value: '', suggestions: [], openOverlay: false}, () => this.removeCssOverridesForSearchBody());
+        this.setState(
+            {value: '', suggestions: [], openOverlay: !!this.state.recentSuggestions.length}, 
+            () => !this.state.recentSuggestions.length && this.removeCssOverridesForSearchBody()
+        );
     }
 
     handleSearchValueChange = (event, { newValue }) => {
-        if(newValue.length === 0) {
+        if(newValue.length === 0 && !this.state.recentSuggestions.length) {
             // this will prevent white space from appearing below the search bar
             // as the user backspaces and deletes all of the characters
             this.removeCssOverridesForSearchBar();
@@ -144,7 +177,7 @@ class SearchBar extends Component {
         this.setState({value: newValue}, () => {
             if(newValue.length === 0) {
                 // the user has manually cleared the search bar so need to update the state
-                this.setState({suggestions: [], openOverlay: false}, () => this.removeCssOverridesForSearchBody());
+                this.setState({suggestions: [], openOverlay: !!this.state.recentSuggestions.length || false}, () => !(!!this.state.recentSuggestions.length || false) && this.removeCssOverridesForSearchBody());
             }
         });
     }
@@ -155,15 +188,17 @@ class SearchBar extends Component {
         const suggestions = !(this.state.value.length < this.props.minSearchCharacters) 
             ? this.formatSuggestions(this.state.value.trim(), (await this.search.getSuggestedKeywords(this.props.maxSuggestions, this.state.value)))
             : [];
+
+        const recentSuggestions = this.formatSuggestions(this.state.value.trim(), this.state.recentSearches);
         
-        const openOverlay = suggestions.length !== 0;
+        const openOverlay = (suggestions.length !== 0) || (recentSuggestions.length !== 0);
 
         if(openOverlay) {
             this.addCssOverridesForSearchBar();
             this.addCssOverridesForSearchBody();
         }
 
-        this.setState({suggestions, openOverlay}, () => {
+        this.setState({suggestions, openOverlay, recentSuggestions}, () => {
             if(!openOverlay) {
                 this.removeCssOverridesForSearchBar();
                 this.removeCssOverridesForSearchBody();
@@ -176,7 +211,7 @@ class SearchBar extends Component {
         
         // delay updating the state so the onClick of the X icon is not ignored
         // otherwise, the event handler for the X icon will never execute
-        setTimeout(() => this.setState({openOverlay: false, suggestions: []}, () => this.removeCssOverridesForSearchBody()), 125);
+        setTimeout(() => this.setState({openOverlay: false, suggestions: [], recentSuggestions: []}, () => this.removeCssOverridesForSearchBody()), 125);
     };
 
     getSuggestionValueCallback = suggestion => suggestion.key;
@@ -185,7 +220,7 @@ class SearchBar extends Component {
 
     handleSuggestionSelected = (event, { suggestionValue}) => {
         this.removeCssOverridesForSearchBar();
-        this.setState({value: suggestionValue, suggestions: [], openOverlay: false}, () => {
+        this.setState({value: suggestionValue, suggestions: [], openOverlay: false, recentSuggestions: []}, () => {
             // clearing search session variables ensures the page position is set to the top after keyword search
             this.search.clearSessionStore();
             

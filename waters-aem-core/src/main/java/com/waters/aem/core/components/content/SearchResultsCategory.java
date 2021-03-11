@@ -38,9 +38,16 @@ public final class SearchResultsCategory {
     @WatersTagInject
     private List<Tag> orderedFacetTags = Collections.emptyList();
 
+    @DialogField(fieldLabel = "Default Facet",
+            fieldDescription = "Default facet to be expanded.",
+            ranking = 3)
+    @TagInputField(multiple = false)
+    @WatersTagInject
+    private Tag defaultFacet;
+
     @DialogField(fieldLabel = "Sort By",
             fieldDescription = "Select tags for sort order of Search Results.",
-            ranking = 3)
+            ranking = 4)
     @TagInputField(rootPath = "/content/cq:tags/waters/sort-by")
     @WatersTagInject
     private List<Tag> sortBy = Collections.emptyList();
@@ -56,6 +63,10 @@ public final class SearchResultsCategory {
 
     public String getCategoryFacetTranslation() {
         return categoryTag == null ? null : categoryTag.getTitle(siteContext.getLocale());
+    }
+
+    public String getDefaultFacet(){
+        return defaultFacet == null ? null : SearchUtils.getSolrFacetName(defaultFacet.getName());
     }
 
     public List<Map<String, String>> getOrderedFacets() {

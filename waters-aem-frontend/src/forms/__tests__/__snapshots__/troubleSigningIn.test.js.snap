@@ -8,7 +8,7 @@ exports[`Feature:Trouble Signing In Form Scenario: Rendering When initial render
   onSubmit={[Function]}
 >
   <div
-    className="cmp-form-field cmp-form-field-email"
+    className="cmp-form-field cmp-form-field-email "
   >
     <label
       className=""
@@ -47,6 +47,7 @@ exports[`Feature:Trouble Signing In Form Scenario: Rendering When initial render
       />
       <div
         className="cmp-form-field--icons"
+        data-locator="cmp-form-field-icons"
       >
         <div
           className="valid-icon"
@@ -58,12 +59,13 @@ exports[`Feature:Trouble Signing In Form Scenario: Rendering When initial render
     </div>
     <span
       className="cmp-form-field--errorText"
+      data-locator="cmp-form-field-errorText"
     >
       
     </span>
   </div>
   <div
-    className="cmp-form-field cmp-form-field-text"
+    className="cmp-form-field cmp-form-field-text "
   >
     <label
       className=""
@@ -97,6 +99,7 @@ exports[`Feature:Trouble Signing In Form Scenario: Rendering When initial render
       />
       <div
         className="cmp-form-field--icons"
+        data-locator="cmp-form-field-icons"
       >
         <div
           className="valid-icon"
@@ -108,12 +111,13 @@ exports[`Feature:Trouble Signing In Form Scenario: Rendering When initial render
     </div>
     <span
       className="cmp-form-field--errorText"
+      data-locator="cmp-form-field-errorText"
     >
       
     </span>
   </div>
   <div
-    className="cmp-form-field cmp-form-field-text"
+    className="cmp-form-field cmp-form-field-text "
   >
     <label
       className=""
@@ -147,6 +151,7 @@ exports[`Feature:Trouble Signing In Form Scenario: Rendering When initial render
       />
       <div
         className="cmp-form-field--icons"
+        data-locator="cmp-form-field-icons"
       >
         <div
           className="valid-icon"
@@ -158,12 +163,13 @@ exports[`Feature:Trouble Signing In Form Scenario: Rendering When initial render
     </div>
     <span
       className="cmp-form-field--errorText"
+      data-locator="cmp-form-field-errorText"
     >
       
     </span>
   </div>
   <div
-    className="cmp-form-field cmp-form-field-text"
+    className="cmp-form-field cmp-form-field-text "
   >
     <label
       className=""
@@ -197,6 +203,7 @@ exports[`Feature:Trouble Signing In Form Scenario: Rendering When initial render
       />
       <div
         className="cmp-form-field--icons"
+        data-locator="cmp-form-field-icons"
       >
         <div
           className="valid-icon"
@@ -208,12 +215,13 @@ exports[`Feature:Trouble Signing In Form Scenario: Rendering When initial render
     </div>
     <span
       className="cmp-form-field--errorText"
+      data-locator="cmp-form-field-errorText"
     >
       
     </span>
   </div>
   <div
-    className="cmp-form-field cmp-form-field-dropdown"
+    className="cmp-form-field cmp-form-field-dropdown "
   >
     <div
       className="cmp-form-field-dropdown--wrapper"
@@ -331,6 +339,7 @@ exports[`Feature:Trouble Signing In Form Scenario: Rendering When initial render
         </div>
         <div
           className="cmp-form-field--icons"
+          data-locator="cmp-form-field-icons"
         >
           <div
             className="valid-icon"
@@ -342,13 +351,14 @@ exports[`Feature:Trouble Signing In Form Scenario: Rendering When initial render
       </div>
       <span
         className="cmp-form-field--errorText"
+        data-locator="cmp-form-field-errorText"
       >
         
       </span>
     </div>
   </div>
   <div
-    className="cmp-form-field cmp-form-field-password"
+    className="cmp-form-field cmp-form-field-password "
   >
     <label
       className=""
@@ -382,6 +392,7 @@ exports[`Feature:Trouble Signing In Form Scenario: Rendering When initial render
       />
       <div
         className="cmp-form-field--icons"
+        data-locator="cmp-form-field-icons"
       >
         <div
           className="showHide-icon toggled"
@@ -401,6 +412,7 @@ exports[`Feature:Trouble Signing In Form Scenario: Rendering When initial render
     </div>
     <span
       className="cmp-form-field--errorText"
+      data-locator="cmp-form-field-errorText"
     >
       
     </span>
@@ -501,6 +513,7 @@ exports[`Feature:Trouble Signing In Form Scenario: Rendering When initial render
       />
       <div
         className="cmp-form-field--icons"
+        data-locator="cmp-form-field-icons"
       >
         <div
           className="showHide-icon toggled"
@@ -520,12 +533,13 @@ exports[`Feature:Trouble Signing In Form Scenario: Rendering When initial render
     </div>
     <span
       className="cmp-form-field--errorText"
+      data-locator="cmp-form-field-errorText"
     >
       
     </span>
   </div>
   <div
-    className="cmp-form-field cmp-form-field-checkbox"
+    className="cmp-form-field cmp-form-field-checkbox "
   >
     <input
       aria-disabled={false}
@@ -548,6 +562,7 @@ exports[`Feature:Trouble Signing In Form Scenario: Rendering When initial render
     </a>
     <div
       className="cmp-form-field-checkbox--wrapper"
+      data-locator="communications-checkbox-wrapper"
     >
       <label
         htmlFor="communications"
@@ -564,22 +579,24 @@ exports[`Feature:Trouble Signing In Form Scenario: Rendering When initial render
     </div>
   </div>
   <div
-    className="cmp-form-field cmp-form-field-captcha"
+    className="cmp-form-field cmp-form-field-captcha "
   >
     <div
       data-locator="captcha"
     />
     <span
       className="cmp-form-field--errorText"
+      data-locator="cmp-form-field-errorText"
     >
       
     </span>
   </div>
   <div
-    className="cmp-form-field cmp-form-field-textwithlinks"
+    className="cmp-form-field cmp-form-field-textwithlinks "
   >
     <div
       className="cmp-form-field-textwithlinks--privacy "
+      data-locator="cmp-form-field-textwithlinks-privacy"
     >
       By clicking the CREATE ACCOUNT button, you are agreeing to our
        
@@ -612,6 +629,7 @@ exports[`Feature:Trouble Signing In Form Scenario: Rendering When initial render
     </div>
   </div>
   <button
+    aria-label="form submit button"
     className="cmp-button cmp-button--no-border cmp-form--submit"
     data-locator="form-submit"
     type="submit"

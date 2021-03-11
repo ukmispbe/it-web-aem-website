@@ -9,7 +9,7 @@ import { elementLocator } from '../../utils/eCommerceFunctions';
 import { renderFormattedLabelText } from '../../utils/labelFunctions';
 
 const Dropdown = ({}) => {
-    const { name, label, defaultValue, validation, optionalLabel } = useContext(useFieldApi);
+    const { name, label, initialState, validation, optionalLabel } = useContext(useFieldApi);
     const { register } = useContext(useFormApi);
 
     let newLabel = renderFormattedLabelText(label, validation.required, optionalLabel)
@@ -26,7 +26,7 @@ const Dropdown = ({}) => {
             <div className={"cmp-form-field-dropdown--wrapper"} data-locator={elementLocator(name) || 'form-field-dropdown'} aria-describedby="cmp-custom-dropdown__single-value" tabindex="0">
                 <Select
                     name={name}
-                    defaultValue={defaultValue}
+                    defaultValue={initialState}
                     ref={register({name: name}, validation)}
                     id={name}
                     tabIndex="-1"

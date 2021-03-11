@@ -7,6 +7,9 @@ const skuDetails = {
     element: function() {
         return document.querySelector('.cmp-sku-details');
     },
+    skuListExists: function() {
+        return !!document.querySelector('.cmp-sku-list');
+    },
     exists: function() {
         return this.element() ? true : false;
     },

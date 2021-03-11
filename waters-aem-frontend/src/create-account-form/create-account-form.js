@@ -198,12 +198,7 @@ const CreateAccountForm = ({
             && field.name !== "billingOrganizationName4"
             && field.name !== "billingStreetAddress2"
           ) {
-            if (field.name === "billingState" && !field.options) {
-              field.active = false;
-            }
-            else {
-              field.active = true;
-            }           
+            field.active = !(field.name === "billingState" && !field.options)   
           }
         });
       }
@@ -264,7 +259,7 @@ const CreateAccountForm = ({
           lastName: registrationData.data.lastName,
           company: registrationData.data.company,
           communications: registrationData.data.communications
-       }
+        }
       }
       return (
           <Suspense fallback={<div>Loading...</div>}>
@@ -289,7 +284,7 @@ const CreateAccountForm = ({
             shippingCountry: registrationData.data.countryName,
             billingCountry: registrationData.data.countryName,
             country: registrationData.data.country
-         }
+          }
         }
 
         return (
@@ -302,6 +297,7 @@ const CreateAccountForm = ({
               toggleAddressFn={handleToggleAddressFn}
               navigateBackFn={handleNavigateBackFn}
               isocode={isocode}
+              fieldKey="addressField"
             />
           </Suspense>);
     default:

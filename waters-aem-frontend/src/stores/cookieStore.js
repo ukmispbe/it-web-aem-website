@@ -1,9 +1,11 @@
 import DigitalData from "../scripts/DigitalData";
+import { RECENT_SEARCHES_EXPIRY_TIME } from "../constants";
 
 const keys = {
     loggedInStatus: 'WatersGreetingCookie',
     soldToStatus: 'ST_STATUS',
-    locale: 'org.springframework.web.servlet.i18n.CookieLocaleResolver.LOCALE'
+    locale: 'org.springframework.web.servlet.i18n.CookieLocaleResolver.LOCALE',
+    recentSearches: 'waters.recentsearches'
 }
 
 function getCookie(cname) {
@@ -36,6 +38,24 @@ const cookieStore = {
         if(!existingCookie || existingCookie!==locale) {
             document.cookie = `${cookieName}=${locale}; path=/`;
         }
+    },
+    getRecentSearches: () => {
+        const cookieValue = getCookie(keys.recentSearches)
+        return cookieValue ? JSON.parse(cookieValue) : [];
+    },
+    setRecentSearches: (keyword, searchCount = 5) => {
+        const cookieName = keys.recentSearches;
+        const existingCookie = getCookie(cookieName);
+        const searchKeywords = existingCookie ? JSON.parse(existingCookie) : [];
+        // 30 Days expiry time
+        const expires = new Date(new Date().getTime() + parseInt(RECENT_SEARCHES_EXPIRY_TIME) * 1000 * 60 * 60 * 24);
+        if (searchKeywords.indexOf(keyword) !== -1) {
+            return;
+        }
+        searchKeywords.unshift(keyword);
+        if (searchKeywords.length >= searchCount )
+            searchKeywords.splice(searchCount, );
+        document.cookie = `${cookieName}=${JSON.stringify(searchKeywords)}; path=/; expires=${expires.toUTCString()}`;
     }
 }
 

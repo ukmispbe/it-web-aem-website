@@ -56,7 +56,7 @@ class SkuItem extends React.Component {
             skuAvailability: {},
             skuData: this.props.relatedSku,
             analyticsConfig: {
-                context: SkuDetails.exists() ? relatedCartContext : searchCartContext,
+                context: (SkuDetails.exists() || SkuDetails.skuListExists()) ? relatedCartContext : searchCartContext,
                 name: this.props.relatedSku.title,
                 price: this.props.relatedSku.formattedPrice,
                 custPrice: '',

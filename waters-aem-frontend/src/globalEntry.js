@@ -20,6 +20,7 @@ import './scripts/collapsible';
 import './scripts/skulist';
 import './scripts/continueButton';
 import './scripts/textModifier';
+import './scripts/teaser';
 
 import './polyfills';
 import React from 'react';
@@ -41,7 +42,8 @@ function getAuthoredDataForSearchBar(c, h) {
         customStyle: c.dataset.customStyle || '',
         clearLabel: c.dataset.clearLabel || '',
         searchLabel: c.dataset.searchLabel || '',
-        autoSuggestLabel: c.dataset.autoSuggestLabel || ''
+        autoSuggestLabel: c.dataset.autoSuggestLabel || '',
+        recentlySearchedLabel: c.dataset.recentlySearchedLabel || ''
     };
 }
 
@@ -78,6 +80,7 @@ if (headerMobileSearchContainer && headerSearchBarContainer && header) {
         clear: data.clearLabel,
         search: data.searchLabel,
         autoSuggest: data.autoSuggestLabel,
+        recentlySearched: data.recentlySearchedLabel,
     }
     ReactDOM.render(
         <HeaderSearchBar
