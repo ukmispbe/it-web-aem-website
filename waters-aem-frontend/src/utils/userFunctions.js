@@ -515,3 +515,10 @@ export const convertToBoolean = (value = '') => {
     }
     return status
 }
+
+export const setHeaderWelcome = (userName) => {
+    const userNameText = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__user .my-account-headline-text');
+    const config = JSON.parse(document.querySelector("#account-modal-configs-json").innerHTML);
+    const greeting = config && config.greeting && userName ? `${config.greeting} ${userName}` : config.title;
+    userNameText.innerHTML = greeting;
+}

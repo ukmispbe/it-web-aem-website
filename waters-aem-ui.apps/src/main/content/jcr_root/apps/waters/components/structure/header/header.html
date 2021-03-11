@@ -83,8 +83,9 @@
                                 "punchoutLogin": "${header.punchOutLoginEndpoint @ context='unsafe'}",
                                 "icon": "/content/dam/waters/en/brand-assets/icons/user.svg",
                                 "closeIcon": "/content/dam/waters/en/brand-assets/icons/close.svg",
-                                "title": "${'My Account' @ i18n , context='unsafe' }",
-                                "notRegistered": "${'Not registered yet?' @ i18n , context='unsafe' }",
+                                "title": "${'My Account' @ i18n, context='unsafe'}",
+                                "notRegistered": "${'Not registered yet?' @ i18n, context='unsafe'}",
+                                "greeting": "${'Hello, ' @ i18n, context='unsafe'}",
                                 "myAccount": {
                                     "text": "${'My Account' @ i18n, context='unsafe'}",
                                     "url": "${!header.eprocurement ? header.myAccountLink.href : '' @ context='unsafe'}",

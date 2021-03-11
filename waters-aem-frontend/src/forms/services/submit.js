@@ -6,7 +6,7 @@ import UserDetails from '../../my-account/services/UserDetails';
 import SoldToDetailsLazy from '../../my-account/services/SoldToDetailsLazy';
 import { signInRedirect, getNamedHeaderLink } from '../../utils/redirectFunctions';
 import { postData } from '../../utils/serviceFunctions';
-import { matchUserToSoldToAddresses } from '../../utils/userFunctions';
+import { getFullName, matchUserToSoldToAddresses, setHeaderWelcome } from '../../utils/userFunctions';
 import { convertFileIntoBase64, getAttachmentFieldName } from '../fields/utils/fileAttachment';
 
 export async function registrationSubmit(data) {
@@ -216,11 +216,13 @@ export async function personalSubmit(data) {
         const store = new SessionStore();
         store.setUserDetails(responseBody);
         store.setPersonalDetailsUpdated();
+        setHeaderWelcome(getFullName(responseBody));
 
         if (responseBody && responseBody.userId && responseBody.salesOrg) {
             SoldToDetailsLazy(this.soldToDetailsUrl, responseBody.userId, responseBody.salesOrg)
             .then((soldToDetails) => {
                 let mergeAPIs = matchUserToSoldToAddresses(responseBody, soldToDetails);
+
                 this.setProfileData(mergeAPIs);
             });
         }

@@ -191,7 +191,6 @@
                 }
                 
                 &.loggedIn {
-
                     .top-bar__nav__user__link {
                         svg .st1,
                         svg .st0{
@@ -202,6 +201,16 @@
 
                     &:hover .top-bar__nav__user__link {
                         color: $color-gray-50;
+                    }
+
+                    @include mobile {
+                        .top-bar__nav__user__link {
+                            svg .st1,
+                            svg .st0{
+                                stroke: $color-teal-30;
+                                stroke-width: 2px;
+                            }
+                        }
                     }
 
 
