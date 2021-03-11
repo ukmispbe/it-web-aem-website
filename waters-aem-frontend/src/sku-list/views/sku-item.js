@@ -43,7 +43,7 @@ class SkuItem extends React.Component {
                 text: this.props.currentSku.title,
                 partNumberLabel: this.props.config.skuInfo.partNumberLabel
             },
-            listPrice:undefined ,
+            listPrice:undefined,
             custPrice: undefined,
             skuInfo: this.props.config.skuInfo,
             skuNumber: this.props.currentSku.code,
@@ -70,12 +70,11 @@ class SkuItem extends React.Component {
 
     componentDidMount() {
         const { pricingUrl, skuNumber, userInfo } = this.state;
-        console.log("SKULIST userInfo", userInfo);
 
         if (Object.keys(userInfo).length > 0 && userInfo.callCustApi) {
             this.getCustPricing(pricingUrl, skuNumber, userInfo);
         } else {
-            this.setState({ loading: false });
+            this.setState({loading: false});
         }
     }
 
@@ -102,7 +101,7 @@ class SkuItem extends React.Component {
                     // Add Error Object to State
                     this.setState({
                         errorPriceType: [BAD_REQUEST_CODE, SERVER_ERROR_CODE].includes(getHttpStatusFromErrors(response.errors, response.status)) ?
-                            (isEprocurementUser() ? UNAVAILABLE_PRICE_WITH_ADD_TO_CART : LIST_PRICE_WITH_ADD_TO_CART) : NO_PRICE_NO_ADD_TO_CART,
+                            UNAVAILABLE_PRICE_WITH_ADD_TO_CART : NO_PRICE_NO_ADD_TO_CART,
                         loading: false
                     });
                 }
@@ -192,48 +191,56 @@ class SkuItem extends React.Component {
         }
     };
 
-    renderListOrUnavailablePrice = () => {
-        const { listPrice, skuInfo, errorPriceType } = this.state;
-        console.log("errorPriceType", errorPriceType)
-        if (errorPriceType === UNAVAILABLE_PRICE_WITH_ADD_TO_CART) {
-            console.log("errorPriceType is unavailable")
-            return (
-                <UnavailablePrice
-                    label={skuInfo.custPriceLabel}
-                    icon={skuInfo.lowStockIcon}
-                    text={skuInfo.unavailablePriceLabel}
-                />);
-        } else {
-            if (typeof listPrice !== 'undefined') {
-                console.log("listPrice", listPrice)
-                return (
-                    <Price
-                        label={skuInfo.listPriceLabel}
-                        price={listPrice}
-                        isListPrice={true}
-                    />);
-            }
-        }
-    }
+    // renderListOrUnavailablePrice = () => {
+    //     const { listPrice, skuInfo, errorPriceType } = this.state;
+    //     console.log("errorPriceType", errorPriceType)
+    //     if (errorPriceType === UNAVAILABLE_PRICE_WITH_ADD_TO_CART) {
+    //         return (
+    //             <UnavailablePrice
+    //                 label={skuInfo.custPriceLabel}
+    //                 icon={skuInfo.lowStockIcon}
+    //                 text={skuInfo.unavailablePriceLabel}
+    //             />);
+    //     } else {
+    //         if (typeof listPrice !== 'undefined') {
+    //             return (
+    //                 <Price
+    //                     label={skuInfo.listPriceLabel}
+    //                     price={listPrice}
+    //                     isListPrice={true}
+    //                 />);
+    //         }
+    //     }
+    // }
 
     renderPricing = () => {
         const { custPrice, listPrice, skuInfo, errorPriceType } = this.state;
+        let price = listPrice;
+        let label = skuInfo.listPriceLabel;
+        let isListPrice = false;
 
-        if (LoginStatus.state()) {
-            let price = typeof custPrice !== 'undefined' ? custPrice : listPrice;
-            if (errorPriceType !== '') {
-                return this.renderListOrUnavailablePrice();
+        console.log("errorPriceType", errorPriceType)
+            if (LoginStatus.state()) {
+                price = typeof custPrice !== 'undefined' ? custPrice : listPrice;
+                label = skuInfo.custPriceLabel;
+                isListPrice = true;
+            } 
+
+            if (errorPriceType !== '' || typeof price === 'undefined') {
+                return (
+                    <UnavailablePrice
+                        label={label}
+                        icon={skuInfo.lowStockIcon}
+                        text={skuInfo.unavailablePriceLabel}
+                    />);
             } else {
                 return (
                     <Price
-                        label={skuInfo.custPriceLabel}
+                        label={label}
                         price={price}
-                        isListPrice={false}
+                        isListPrice={isListPrice}
                     />);
             }
-        } else {
-            return this.renderListOrUnavailablePrice();
-        }
     }
 
     renderBuyInfoPartial = () => {

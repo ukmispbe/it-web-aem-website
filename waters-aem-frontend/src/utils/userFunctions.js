@@ -67,17 +67,6 @@ export const getDummySoldToId = () => {
     return dummySoldto;
 }
 
-export const getSoldToIdSource = (soldToId, dummySoldto) => {
-    let soldTo = '';
-    if (soldToId != '' && dummySoldto == '') {
-        soldTo = soldToId;
-    } else if (soldToId == '' && dummySoldto != '') {
-        soldTo = dummySoldto;
-    }
-
-    return soldTo;
-}
-
 export const getApprovalStatus = () => {
     const store = new SessionStore();
     const userDetails = store.getUserDetails();

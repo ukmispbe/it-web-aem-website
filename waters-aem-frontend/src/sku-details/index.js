@@ -157,7 +157,7 @@ class SkuDetails extends React.Component {
                     // Add Error Object to State
                     this.setState({
                         errorPriceType: [BAD_REQUEST_CODE, SERVER_ERROR_CODE].includes(getHttpStatusFromErrors(response.errors, response.status)) ?
-                            (isEprocurementUser() ? UNAVAILABLE_PRICE_WITH_ADD_TO_CART : LIST_PRICE_WITH_ADD_TO_CART) : NO_PRICE_NO_ADD_TO_CART,
+                            UNAVAILABLE_PRICE_WITH_ADD_TO_CART : NO_PRICE_NO_ADD_TO_CART,
                         loading: false
                     });
                 }
@@ -225,62 +225,89 @@ class SkuDetails extends React.Component {
         return (
             <SkuMessage
                 icon={this.props.config.commerceConfig.disabledIcon}
-                message={
-                    this.props.config.commerceConfig.partialDisabledText
-                }
-                link={
-                    this.props.config.commerceConfig.partialDisabledHref
-                }
-                linkMessage={
-                    this.props.config.commerceConfig
-                        .partialDisabledLinkText
-                }
+                message={this.props.config.commerceConfig.partialDisabledText}
+                link={this.props.config.commerceConfig.partialDisabledHref}
+                linkMessage={this.props.config.commerceConfig.partialDisabledLinkText}
             />
         );
     }
 
-    renderListOrUnavailablePrice = () => {
-        const { listPrice, skuInfo, errorPriceType, isStickyAvailable } = this.state;
-        const isHiddenListPrice = (errorPriceType === NO_PRICE_NO_ADD_TO_CART && isStickyAvailable && isEprocurementApp()) ? true : false;
-        if (errorPriceType === UNAVAILABLE_PRICE_WITH_ADD_TO_CART && !isStickyAvailable) {
-            return (
-                <UnavailablePrice
-                    label={skuInfo.custPriceLabel}
-                    icon={skuInfo.lowStockIcon}
-                    text={skuInfo.unavailablePriceLabel}
-                />);
-        } else {
-            if (typeof listPrice !== 'undefined' && !isHiddenListPrice) {
-                return (
-                    <Price
-                        label={skuInfo.listPriceLabel}
-                        price={listPrice}
-                        isListPrice={true}
-                    />);
-            } else {
-                return <></>;
-            }
-        }
-    }
+    // renderListOrUnavailablePrice = () => {
+    //     const { listPrice, skuInfo, errorPriceType, isStickyAvailable } = this.state;
+    //     const isHiddenListPrice = (errorPriceType === NO_PRICE_NO_ADD_TO_CART && isStickyAvailable && isEprocurementApp()) ? true : false;
+    //     if (errorPriceType === UNAVAILABLE_PRICE_WITH_ADD_TO_CART && !isStickyAvailable) {
+    //         return (
+    //             <UnavailablePrice
+    //                 label={skuInfo.custPriceLabel}
+    //                 icon={skuInfo.lowStockIcon}
+    //                 text={skuInfo.unavailablePriceLabel}
+    //             />);
+    //     } else {
+    //         if (typeof listPrice !== 'undefined' && !isHiddenListPrice) {
+    //             return (
+    //                 <Price
+    //                     label={skuInfo.listPriceLabel}
+    //                     price={listPrice}
+    //                     isListPrice={true}
+    //                 />);
+    //         } else {
+    //             return <></>;
+    //         }
+    //     }
+    // }
+
+    // renderPricing = () => {
+    //     const { custPrice, listPrice, skuInfo, errorPriceType } = this.state;
+
+    //     if (LoginStatus.state()) {
+    //         let price = typeof custPrice !== 'undefined' ? custPrice : listPrice;
+    //         if (errorPriceType !== '') {
+    //             return this.renderListOrUnavailablePrice();
+    //         } else {
+    //             return (
+    //                 <Price
+    //                     label={skuInfo.custPriceLabel}
+    //                     price={price}
+    //                     isListPrice={false}
+    //                 />
+    //             );
+    //         }
+    //     } else {
+    //         return this.renderListOrUnavailablePrice();
+    //     }
+    // }
 
     renderPricing = () => {
-        const { custPrice, listPrice, skuInfo, errorPriceType } = this.state;
+        const { custPrice, listPrice, skuInfo, errorPriceType, isStickyAvailable } = this.state;
+        let price = listPrice;
+        let label = skuInfo.listPriceLabel;
+        let isListPrice = false;
+        console.log("errorPriceType", errorPriceType)
 
         if (LoginStatus.state()) {
-            let price = typeof custPrice !== 'undefined' ? custPrice : listPrice;
-            if (errorPriceType !== '') {
-                return this.renderListOrUnavailablePrice();
-            } else {
+            price = typeof custPrice !== 'undefined' ? custPrice : listPrice;
+            label = skuInfo.custPriceLabel;
+            isListPrice = true;
+        } 
+
+        if (errorPriceType !== '' || typeof price === 'undefined') {
+            if(errorPriceType === UNAVAILABLE_PRICE_WITH_ADD_TO_CART && !isStickyAvailable){
                 return (
-                    <Price
-                        label={skuInfo.custPriceLabel}
-                        price={price}
-                        isListPrice={false}
-                    />
-                );
+                    <UnavailablePrice
+                        label={label}
+                        icon={skuInfo.lowStockIcon}
+                        text={skuInfo.unavailablePriceLabel}
+                    />);
+            } else {
+                return <><div>Test1234</div></>;
             }
         } else {
-            return this.renderListOrUnavailablePrice();
+            return (
+                <Price
+                    label={label}
+                    price={price}
+                    isListPrice={isListPrice}
+                />);
         }
     }
 

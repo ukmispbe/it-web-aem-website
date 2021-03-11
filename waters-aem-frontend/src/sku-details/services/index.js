@@ -131,20 +131,25 @@ export async function getPricing(url, sku, userInfo, fields) {
     if (Array.isArray(sku)) {
         sku = sku.map(skuItem => skuItem.code).join(',');
     }
-    const options = {
+    let options = {
         method: 'GET',
         credentials: 'include',
         mode: 'cors'
     }
 
-    if (!userInfo) {
+    if (!userInfo.soldToId) {
         options = {
-            countryCode: getCountryCode(),
+            countryCode: 'US',
+            //getCountryCode(),
             language: getLanguage(),
             channel: 'ECOMM',
-            ...options
+            method: 'GET',
+            mode: 'cors'
         }
     }
+
+    console.log("userInfo", userInfo)
+    console.log("options", options);
 
     const urlRequest = getCustPricingUrl(url, sku, userInfo, fields);
     const response = await fetchData(urlRequest, options);
