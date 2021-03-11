@@ -74,6 +74,8 @@ public class WatersContentService extends SlingAllMethodsServlet {
 
     private boolean sanitizeResponse;
 
+    private boolean labelsRefactoring;
+
     @Override
     public void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response) {
         try {
@@ -112,27 +114,29 @@ public class WatersContentService extends SlingAllMethodsServlet {
     }
 
     private final void removeJSONKeys(JSONObject jsonObject, String keyValue) {
-        jsonObject.remove(keyValue);
-        Iterator<String> it = jsonObject.keys();
-        while (it.hasNext()) {
-            String key = it.next();
-            Object childObj = null;
-            try {
-                childObj = jsonObject.get(key);
-            } catch (JSONException e) {
-                LOG.debug("Error while removing the keys: {}", e.getMessage());
-            }
-            if (childObj instanceof JSONObject) {
-                removeJSONKeys(((JSONObject) childObj), keyValue);
-            }
-            if (childObj instanceof JSONArray) {
-                JSONArray arrayChildObjs = ((JSONArray) childObj);
-                int size = arrayChildObjs.length();
-                for (int i = 0; i < size; i++) {
-                    try {
-                        removeJSONKeys(arrayChildObjs.getJSONObject(i), keyValue);
-                    } catch (JSONException e) {
-                        LOG.debug("Error while removing the keys: {}", e.getMessage());
+        if(jsonObject.toString().contains(keyValue)) {
+            jsonObject.remove(keyValue);
+            Iterator<String> it = jsonObject.keys();
+            while (it.hasNext()) {
+                String key = it.next();
+                Object childObj = null;
+                try {
+                    childObj = jsonObject.get(key);
+                } catch (JSONException e) {
+                    LOG.debug("Error while removing the keys: {}", e.getMessage());
+                }
+                if (childObj instanceof JSONObject) {
+                    removeJSONKeys(((JSONObject) childObj), keyValue);
+                }
+                if (childObj instanceof JSONArray) {
+                    JSONArray arrayChildObjs = ((JSONArray) childObj);
+                    int size = arrayChildObjs.length();
+                    for (int i = 0; i < size; i++) {
+                        try {
+                            removeJSONKeys(arrayChildObjs.getJSONObject(i), keyValue);
+                        } catch (JSONException e) {
+                            LOG.debug("Error while removing the keys: {}", e.getMessage());
+                        }
                     }
                 }
             }
@@ -166,7 +170,9 @@ public class WatersContentService extends SlingAllMethodsServlet {
                                 pageJsonResponse = sanitizeJSON(pageJsonResponse);
                                 navigationCompJsonResponse = sanitizeJSON(navigationCompJsonResponse);
                             }
-                            pageJsonResponse = refactorLabelsConfig(pageJsonResponse, path);
+                            if (labelsRefactoring) {
+                                pageJsonResponse = refactorLabelsConfig(pageJsonResponse, path);
+                            }
                             return pageContentJsonConstant + pageJsonResponse + navigationContentJsonConstant + navigationCompJsonResponse + "}";
                         }
                     }
@@ -182,7 +188,9 @@ public class WatersContentService extends SlingAllMethodsServlet {
         if (sanitizeResponse && keys.length > 1) {
             pageJsonResponse = sanitizeJSON(pageJsonResponse);
         }
-        pageJsonResponse = refactorLabelsConfig(pageJsonResponse, path);
+        if (labelsRefactoring) {
+            pageJsonResponse = refactorLabelsConfig(pageJsonResponse, path);
+        }
         return pageContentJsonConstant + pageJsonResponse + "}";
     }
 
@@ -233,7 +241,7 @@ public class WatersContentService extends SlingAllMethodsServlet {
         return pageJsonResponse;
     }
 
-    private void getMap(String json, String element, String type, Map map) {
+    private void getMap(String jsonString, String element, String type, Map map) {
         String listType= null;
         String jsonKey = null;
         String jsonValue = null;
@@ -243,16 +251,18 @@ public class WatersContentService extends SlingAllMethodsServlet {
             listType="configList"; jsonKey="text"; jsonValue="link";
         }
         try {
-            JSONObject jsonObject = new JSONObject(json).getJSONObject(element);
-            Iterator<String> iterator = jsonObject.keys();
-            while (iterator.hasNext()) {
-                String key = iterator.next();
-                if (jsonObject.get(key) instanceof JSONObject) {
-                    JSONObject innerJObject = jsonObject.getJSONObject(key);
-                    if (!innerJObject.has(jsonKey)) {
-                        getMap(innerJObject.toString(), listType, type, map);
-                    } else {
-                        map.put(innerJObject.getString(jsonKey),innerJObject.getString(jsonValue));
+            if(jsonString.contains(element)) {
+                JSONObject jsonObject = new JSONObject(jsonString).getJSONObject(element);
+                Iterator<String> iterator = jsonObject.keys();
+                while (iterator.hasNext()) {
+                    String key = iterator.next();
+                    if (jsonObject.get(key) instanceof JSONObject) {
+                        JSONObject innerJObject = jsonObject.getJSONObject(key);
+                        if (!innerJObject.has(jsonKey)) {
+                            getMap(innerJObject.toString(), listType, type, map);
+                        } else {
+                            map.put(innerJObject.getString(jsonKey), innerJObject.getString(jsonValue));
+                        }
                     }
                 }
             }
@@ -326,12 +336,17 @@ public class WatersContentService extends SlingAllMethodsServlet {
         hostName = configuration.getHostName();
         keys = configuration.getKeys();
         sanitizeResponse = configuration.enableSanitization();
+        labelsRefactoring = configuration.enableLabelsRefactoring();
     }
 
     @ObjectClassDefinition(name = "Waters Content Service Configuration")
     public @interface Config {
         @AttributeDefinition(name = "Host Name", description = "Set the publish host name e.g. http://www.hostname.com ")
         String getHostName();
+
+        @AttributeDefinition(name = "Refactor Labels component", description = "If true, labels component data will be simplified")
+        boolean enableLabelsRefactoring() default false;
+
 
         @AttributeDefinition(name = "Sanitize JSON response", description = "If true, elements in keys config will be removed from the repsonse.")
         boolean enableSanitization() default true;
