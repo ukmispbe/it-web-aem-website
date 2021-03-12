@@ -246,6 +246,7 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 			}
 			fullIndexInProgress = false;
 		} else {
+			collectionName = WATERS;
 			if (ADD.equals(action)) {
 				if (page == null) {
 					LOG.error("page not found for path : {}, returning error response", pagePath);
