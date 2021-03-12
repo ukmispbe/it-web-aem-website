@@ -113,7 +113,7 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 		final boolean fullIndex = Boolean.parseBoolean(request.getParameter("fullIndex"));
 		final String solrHostUrl = (String) props.get("solrHostName");
 		final Date date = new Date();
-		final SimpleDateFormat formatter = new SimpleDateFormat("ddMMMHHmmss");
+		final SimpleDateFormat formatter = new SimpleDateFormat("ddMMM");
 		final String collection = WATERS + "-" + formatter.format(date);
 		collectionName = fullIndex ? collection : WATERS;
 		ForkJoinPool forkJoinPool;
