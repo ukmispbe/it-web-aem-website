@@ -23,4 +23,5 @@
           contactSupportUrl="https://test1-services.waters.com/api/waters/contact/v1/support"
           countryListUrl="https://api-sbox.waters.com/qa-waters-country-exp-api-v1/api/countries"
           countryStatesUrl="https://api-sbox.waters.com/qa-waters-country-exp-api-v1/api/countries/{country}?states=true"
-          supportRequestUrl=""  />
+          supportRequestUrl=""
+          supportRequestEquipmentUrl="https://api-sbox.waters.com/qa-waters-asset-web-exp-api-v1/api/equipment"  />

@@ -149,4 +149,11 @@ public interface WatersAccountService {
       */
       String getSupportRequestUrl();
 
+      /**
+      * Get the configured endpoint for supportRequestEquipmentUrl API.
+      *
+      * @return support request equipment API URL
+      */
+      String getSupportRequestEquipmentUrl();
+
 }
