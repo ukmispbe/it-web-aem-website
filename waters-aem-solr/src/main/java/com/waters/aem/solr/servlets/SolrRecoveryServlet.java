@@ -134,11 +134,13 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 		String collectionAction;
 
 		if(fullIndex && fullIndexInProgress){
+			LOG.info("returning  full-indexing  in progress");
 			return;
 		}
 
 		if (fullIndex && !fullIndexInProgress) {
 			fullIndexInProgress = true;
+			LOG.info("fullIndexInProgress  flag set to true and indexing is in progress");
 			final PageManagerDecorator pageManager = request.getResourceResolver().adaptTo(PageManagerDecorator.class);
 			final PageDecorator watersPage = pageManager.getPage("/content/waters");
 			List<String> indexPaths = new ArrayList<>();
