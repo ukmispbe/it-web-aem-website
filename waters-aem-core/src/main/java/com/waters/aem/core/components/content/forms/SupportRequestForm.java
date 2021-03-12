@@ -63,6 +63,10 @@ public class SupportRequestForm implements ComponentExporter {
         return accountService.getSupportRequestUrl();
     }
 
+    public String getSupportRequestEquipmentUrl() {
+        return accountService.getSupportRequestEquipmentUrl();
+    }
+
     @Nonnull
     @Override
     public String getExportedType() {

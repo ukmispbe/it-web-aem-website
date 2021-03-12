@@ -6,7 +6,7 @@ import UserDetails from '../../my-account/services/UserDetails';
 import SoldToDetailsLazy from '../../my-account/services/SoldToDetailsLazy';
 import { signInRedirect, getNamedHeaderLink } from '../../utils/redirectFunctions';
 import { postData } from '../../utils/serviceFunctions';
-import { getFullName, matchUserToSoldToAddresses, setHeaderWelcome } from '../../utils/userFunctions';
+import { createUserAddresses, getFullName, matchUserToSoldToAddresses, setHeaderWelcome } from '../../utils/userFunctions';
 import { convertFileIntoBase64, getAttachmentFieldName } from '../fields/utils/fileAttachment';
 
 export async function registrationSubmit(data) {
@@ -218,21 +218,28 @@ export async function personalSubmit(data) {
         store.setPersonalDetailsUpdated();
         setHeaderWelcome(getFullName(responseBody));
 
-        if (responseBody && responseBody.userId && responseBody.salesOrg) {
-            SoldToDetailsLazy(this.soldToDetailsUrl, responseBody.userId, responseBody.salesOrg)
-            .then((soldToDetails) => {
-                let mergeAPIs = matchUserToSoldToAddresses(responseBody, soldToDetails);
-
-                this.setProfileData(mergeAPIs);
-            });
+        if (responseBody && responseBody.soldToAccounts && responseBody.soldToAccounts.length &&
+            responseBody.userId && responseBody.salesOrg) {
+            if (responseBody.shipOrBillChangeFlag && (responseBody.shipOrBillChangeFlag == 1)) {
+                this.setProfileData(createUserAddresses(responseBody));
+            } else {
+                SoldToDetailsLazy(this.soldToDetailsUrl, responseBody.userId, responseBody.salesOrg)
+                    .then((soldToDetails) => {
+                        let mergeAPIs = matchUserToSoldToAddresses(responseBody, soldToDetails);
+                        this.setProfileData(mergeAPIs);
+                    });
+            }
+        } else {
+            this.setProfileData(createUserAddresses(responseBody));
         }
 
         const model = {
-            "communications":data.communications 
+            "communications": data.communications
         }
         this.setFormAnalytics('submit', model);
 
         this.callback();
+        scrollToY(0);
     } else if (response.status === 401) {
         signInRedirect();
     } else {
@@ -404,7 +411,6 @@ export async function chooseAccountSubmit(data) {
         scrollToY(0);
     }
 }
-
 
 export async function submitAccount(selectedAccount, urlChooseAccount) {
 

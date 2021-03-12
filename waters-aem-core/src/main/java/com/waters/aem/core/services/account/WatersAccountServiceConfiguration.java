@@ -68,4 +68,7 @@ public @interface WatersAccountServiceConfiguration {
 
     @AttributeDefinition(name = "Support Request API Url", description = "Url for Support Request API")
     String supportRequestUrl() default "";
+
+    @AttributeDefinition(name = "Support Request API Equipment Url", description = "Url for Support Request Equipment API")
+    String supportRequestEquipmentUrl() default "https://api-sbox.waters.com/dev-waters-asset-web-exp-api-v1/api/equipment";
 }
