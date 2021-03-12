@@ -6,6 +6,7 @@ import com.citytechinc.cq.component.annotations.Property;
 import com.citytechinc.cq.component.annotations.Tab;
 import com.citytechinc.cq.component.annotations.widgets.CheckBox;
 import com.citytechinc.cq.component.annotations.widgets.Selection;
+import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.icfolson.aem.library.core.constants.ComponentConstants;
 import com.icfolson.aem.library.models.annotations.InheritInject;
 import com.waters.aem.core.constants.WatersConstants;
