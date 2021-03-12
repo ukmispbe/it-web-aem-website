@@ -90,14 +90,13 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 	@Reference
 	private SolrFullIndexConfigurationImpl solrFullIndexConfigurationImpl;
 
-	private String collectionName;
+	private volatile String collectionName;
 
 	public static final String HTTPS = "https://";
 
 	public static final int SOLR_PORT = 8983;
 
 	private volatile boolean fullIndexInProgress = false;
-
 
 	@Override
 	protected void doGet(@Nonnull final SlingHttpServletRequest request,
@@ -113,9 +112,8 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 		final boolean fullIndex = Boolean.parseBoolean(request.getParameter("fullIndex"));
 		final String solrHostUrl = (String) props.get("solrHostName");
 		final Date date = new Date();
-		final SimpleDateFormat formatter = new SimpleDateFormat("ddMMM");
-		final String collection = WATERS + "-" + formatter.format(date);
-		collectionName = fullIndex ? collection : WATERS;
+		final SimpleDateFormat formatter = new SimpleDateFormat("ddMMMHHmmss");
+
 		ForkJoinPool forkJoinPool;
 		HttpResponse httpResponse;
 		StatusLine statusLine = null;
@@ -133,11 +131,6 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 		boolean success = false;
 		String collectionAction;
 
-		if(fullIndex && fullIndexInProgress){
-			LOG.info("returning  full-indexing  in progress");
-			return;
-		}
-
 		if (fullIndex) {			
 			LOG.info("fullIndexInProgress  flag set to true and indexing is in progress");
 			final PageManagerDecorator pageManager = request.getResourceResolver().adaptTo(PageManagerDecorator.class);
@@ -154,13 +147,14 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 				success = false;				
 			} else {
 				if(fullIndex && !fullIndexInProgress){
+					collectionName = WATERS + "-" + formatter.format(date);
 					fullIndexInProgress = true;
 					collectionAction = CREATE;
 					httpResponse = createSolrCollection(collectionName, enableAuthentication, solrHostUrl, collectionAction);
 					if(httpResponse != null) {
 						statusLine = httpResponse.getStatusLine();
 					}				
-					LOG.info("Collection Created");
+					LOG.info("Collection Created with name : "+ collectionName);
 //					return;
 				}
 				LOG.info("The Solr Full Index create collection response status: {}", statusLine);
@@ -186,7 +180,7 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 								
 								if ((statusLine != null ? statusLine.getStatusCode() : 0) == 200) {
 									collectionAction = LISTALIASES;
-									httpResponse = createSolrCollection(collection, enableAuthentication, solrHostUrl, collectionAction);
+									httpResponse = createSolrCollection(collectionName, enableAuthentication, solrHostUrl, collectionAction);
 									if (httpResponse != null) {
 										statusLine = httpResponse.getStatusLine();
 									}
@@ -201,7 +195,7 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 										}
 
 										collectionAction = LIST;
-										httpResponse = createSolrCollection(collection, enableAuthentication, solrHostUrl, collectionAction);
+										httpResponse = createSolrCollection(collectionName, enableAuthentication, solrHostUrl, collectionAction);
 										if (httpResponse != null) {
 											statusLine = httpResponse.getStatusLine();
 										}
