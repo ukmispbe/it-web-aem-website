@@ -22,7 +22,6 @@ import {
     BAD_REQUEST_CODE,
     SERVER_ERROR_CODE,
     UNAVAILABLE_PRICE_WITH_ADD_TO_CART,
-    LIST_PRICE_WITH_ADD_TO_CART,
     NO_PRICE_NO_ADD_TO_CART,
 } from '../constants';
 
@@ -232,57 +231,11 @@ class SkuDetails extends React.Component {
         );
     }
 
-    // renderListOrUnavailablePrice = () => {
-    //     const { listPrice, skuInfo, errorPriceType, isStickyAvailable } = this.state;
-    //     const isHiddenListPrice = (errorPriceType === NO_PRICE_NO_ADD_TO_CART && isStickyAvailable && isEprocurementApp()) ? true : false;
-    //     if (errorPriceType === UNAVAILABLE_PRICE_WITH_ADD_TO_CART && !isStickyAvailable) {
-    //         return (
-    //             <UnavailablePrice
-    //                 label={skuInfo.custPriceLabel}
-    //                 icon={skuInfo.lowStockIcon}
-    //                 text={skuInfo.unavailablePriceLabel}
-    //             />);
-    //     } else {
-    //         if (typeof listPrice !== 'undefined' && !isHiddenListPrice) {
-    //             return (
-    //                 <Price
-    //                     label={skuInfo.listPriceLabel}
-    //                     price={listPrice}
-    //                     isListPrice={true}
-    //                 />);
-    //         } else {
-    //             return <></>;
-    //         }
-    //     }
-    // }
-
-    // renderPricing = () => {
-    //     const { custPrice, listPrice, skuInfo, errorPriceType } = this.state;
-
-    //     if (LoginStatus.state()) {
-    //         let price = typeof custPrice !== 'undefined' ? custPrice : listPrice;
-    //         if (errorPriceType !== '') {
-    //             return this.renderListOrUnavailablePrice();
-    //         } else {
-    //             return (
-    //                 <Price
-    //                     label={skuInfo.custPriceLabel}
-    //                     price={price}
-    //                     isListPrice={false}
-    //                 />
-    //             );
-    //         }
-    //     } else {
-    //         return this.renderListOrUnavailablePrice();
-    //     }
-    // }
-
     renderPricing = () => {
         const { custPrice, listPrice, skuInfo, errorPriceType, isStickyAvailable } = this.state;
         let price = listPrice;
         let label = skuInfo.listPriceLabel;
         let isListPrice = false;
-        console.log("errorPriceType", errorPriceType)
 
         if (LoginStatus.state()) {
             price = typeof custPrice !== 'undefined' ? custPrice : listPrice;
@@ -299,7 +252,7 @@ class SkuDetails extends React.Component {
                         text={skuInfo.unavailablePriceLabel}
                     />);
             } else {
-                return <><div>Test1234</div></>;
+                return <></>;
             }
         } else {
             return (
