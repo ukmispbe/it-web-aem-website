@@ -24,4 +24,4 @@
           countryListUrl="https://api.waters.com/waters-country-exp-api-v1/api/countries"
           countryStatesUrl="https://api.waters.com/waters-country-exp-api-v1/api/countries/{country}?states=true"
           supportRequestUrl=""
-          supportRequestEquipmentUrl="https://api-sbox.waters.com/waters-asset-web-exp-api-v1/api/equipment"  />
+          supportRequestEquipmentUrl="https://api.waters.com/waters-asset-web-exp-api-v1/api/equipment"  />
