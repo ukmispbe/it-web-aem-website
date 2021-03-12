@@ -142,6 +142,22 @@ class MyAccountDropDown extends React.Component {
         return userName;
     }
 
+    formatUserNameForHeader = (userDetails) => {
+        let firstName = userDetails.firstName;
+        let lastName = userDetails.lastName
+
+        if (firstName && lastName) {
+            if (userDetails.mailingAddressCountryCode === 'jp' || userDetails.mailingAddressCountryCode === 'cn' 
+            || userDetails.mailingAddressCountryCode === 'kr' || userDetails.mailingAddressCountryCode === 'tw') {
+                return `${lastName} ${firstName}`;
+            } else {
+                return `${firstName} ${lastName}`;
+            }
+        } else {
+            return null;
+        }
+    }
+
     willShow = (newState, caller = 'default') => {
         // Check if Personal Details have been updated
         const store = new SessionStore();
@@ -153,7 +169,7 @@ class MyAccountDropDown extends React.Component {
             let updatedUserName = '';
             if(Object.keys(savedUserDetails).length !== 0) {
                 updatedUserName = this.formatUserName(savedUserDetails);
-                setHeaderWelcome(updatedUserName);
+                setHeaderWelcome(this.formatUserNameForHeader(savedUserDetails));
             } else {
                 this.retrieveUserDetails();
             }
@@ -265,7 +281,7 @@ class MyAccountDropDown extends React.Component {
             if (Object.keys(userDetails).length && userDetails.userId && userDetails.salesOrg) {
                 const soldToDetails = await SoldToDetailsLazy(soldToDetailsUrl, userDetails.userId, userDetails.salesOrg);
                 const userName = this.formatUserName(userDetails);
-                setHeaderWelcome(userName);
+                setHeaderWelcome(this.formatUserNameForHeader(userDetails));
 
                 let priorityAccount = {};
                 let accountName = "";
@@ -309,7 +325,7 @@ class MyAccountDropDown extends React.Component {
         const soldToDetails = store.getSoldToDetails();
 
         const userName = this.formatUserName(userDetails);
-        setHeaderWelcome(userName);
+        setHeaderWelcome(this.formatUserNameForHeader(userDetails));
 
         const priorityAccount = soldToDetails && soldToDetails.length !== 0 ? soldToDetails[0] : {};
         const accountName = priorityAccount.company ? `${priorityAccount.company} ` : userDetails.company;
