@@ -91,8 +91,13 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 	private SolrFullIndexConfigurationImpl solrFullIndexConfigurationImpl;
 
 	private String collectionName;
+
 	public static final String HTTPS = "https://";
+
 	public static final int SOLR_PORT = 8983;
+
+	private volatile boolean fullIndexInProgress = false;
+
 
 	@Override
 	protected void doGet(@Nonnull final SlingHttpServletRequest request,
@@ -128,7 +133,12 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 		boolean success = false;
 		String collectionAction;
 
-		if (fullIndex) {
+		if(fullIndex && fullIndexInProgress){
+			return;
+		}
+
+		if (fullIndex && !fullIndexInProgress) {
+			fullIndexInProgress = true;
 			final PageManagerDecorator pageManager = request.getResourceResolver().adaptTo(PageManagerDecorator.class);
 			final PageDecorator watersPage = pageManager.getPage("/content/waters");
 			List<String> indexPaths = new ArrayList<>();
@@ -143,7 +153,7 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 				success = false;
 			} else {
 				collectionAction = CREATE;
-				httpResponse = collectionActionResponse(collectionName, enableAuthentication, solrHostUrl, collectionAction);
+				httpResponse = createSolrCollection(collectionName, enableAuthentication, solrHostUrl, collectionAction);
 				if(httpResponse != null) {
 					statusLine = httpResponse.getStatusLine();
 				}				
@@ -162,7 +172,7 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 							}
 							if (success) {
 								collectionAction = CREATEALIAS;
-								httpResponse = collectionActionResponse(collectionName, enableAuthentication, solrHostUrl, collectionAction);
+								httpResponse = createSolrCollection(collectionName, enableAuthentication, solrHostUrl, collectionAction);
 								if (httpResponse != null) {
 									statusLine = httpResponse.getStatusLine();
 								}
@@ -170,7 +180,7 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 								
 								if ((statusLine != null ? statusLine.getStatusCode() : 0) == 200) {
 									collectionAction = LISTALIASES;
-									httpResponse = collectionActionResponse(collection, enableAuthentication, solrHostUrl, collectionAction);
+									httpResponse = createSolrCollection(collection, enableAuthentication, solrHostUrl, collectionAction);
 									if (httpResponse != null) {
 										statusLine = httpResponse.getStatusLine();
 									}
@@ -185,7 +195,7 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 										}
 
 										collectionAction = LIST;
-										httpResponse = collectionActionResponse(collection, enableAuthentication, solrHostUrl, collectionAction);
+										httpResponse = createSolrCollection(collection, enableAuthentication, solrHostUrl, collectionAction);
 										if (httpResponse != null) {
 											statusLine = httpResponse.getStatusLine();
 										}
@@ -207,7 +217,7 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 													String oldCollectionName = iterator.next();
 													if (!StringUtils.equalsAnyIgnoreCase(oldCollectionName, collectionAlias)) {
 														collectionAction = DELETE;
-														httpResponse = collectionActionResponse(oldCollectionName, enableAuthentication, solrHostUrl, collectionAction);
+														httpResponse = createSolrCollection(oldCollectionName, enableAuthentication, solrHostUrl, collectionAction);
 														if (httpResponse != null) {
 															statusLine = httpResponse.getStatusLine();
 														}
@@ -227,12 +237,14 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 							LOG.error("Solr Full Index collection creation failed and response code is {}", statusLine);
 					} catch (Exception e) {
 						LOG.error("Solr Full Index collection failed due to {}", e.getMessage());
+						fullIndexInProgress = false;
 					}
 				} else {
 					LOG.error("Enable BatchIndexing for Solr Full Index");
 				}
 
 			}
+			fullIndexInProgress = false;
 		} else {
 			if (ADD.equals(action)) {
 				if (page == null) {
@@ -406,8 +418,8 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 		return builder;
 	}
 	
-	synchronized HttpResponse collectionActionResponse(String collectionName, boolean enableAuthentication,
-			String solrHostUrl, String collectionAction) throws MalformedURLException {
+	synchronized HttpResponse createSolrCollection(String collectionName, boolean enableAuthentication,
+												   String solrHostUrl, String collectionAction) throws MalformedURLException {
 		URIBuilder builder;
 		HttpResponse httpResponse = null;
 		Map<String, String> parameters = new HashMap<>();
