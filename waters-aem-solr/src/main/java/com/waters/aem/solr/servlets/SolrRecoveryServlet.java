@@ -138,8 +138,7 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 			return;
 		}
 
-		if (fullIndex && !fullIndexInProgress) {
-			fullIndexInProgress = true;
+		if (fullIndex) {			
 			LOG.info("fullIndexInProgress  flag set to true and indexing is in progress");
 			final PageManagerDecorator pageManager = request.getResourceResolver().adaptTo(PageManagerDecorator.class);
 			final PageDecorator watersPage = pageManager.getPage("/content/waters");
@@ -152,13 +151,18 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 			LOG.info("Adding paths to solr full index and count is : {}", indexPaths.size());
 			if (indexPaths.isEmpty()) {
 				LOG.error("No pages for Full indexing: {}", indexPaths.size());
-				success = false;
+				success = false;				
 			} else {
-				collectionAction = CREATE;
-				httpResponse = createSolrCollection(collectionName, enableAuthentication, solrHostUrl, collectionAction);
-				if(httpResponse != null) {
-					statusLine = httpResponse.getStatusLine();
-				}				
+				if(fullIndex && !fullIndexInProgress){
+					fullIndexInProgress = true;
+					collectionAction = CREATE;
+					httpResponse = createSolrCollection(collectionName, enableAuthentication, solrHostUrl, collectionAction);
+					if(httpResponse != null) {
+						statusLine = httpResponse.getStatusLine();
+					}				
+					LOG.info("Collection Created");
+//					return;
+				}
 				LOG.info("The Solr Full Index create collection response status: {}", statusLine);
 				if (enableBatchIndexing) {
 					try {
