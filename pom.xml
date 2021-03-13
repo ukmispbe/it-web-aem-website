@@ -43,7 +43,6 @@
         <itext.version>7.1.8</itext.version>
         <itext.html2pdf.version>2.1.5</itext.html2pdf.version>
         <osgi.bundle.status.plugin.version>2.0.2</osgi.bundle.status.plugin.version>
-        <bnd.version>5.1.2</bnd.version>
 
         <!-- defaults -->
         <aem.host>localhost</aem.host>
