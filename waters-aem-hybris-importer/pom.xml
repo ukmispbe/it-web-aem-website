@@ -139,20 +139,7 @@
         </dependency>
 
         <!-- test -->
-        <dependency>
-            <groupId>com.icfolson.aem.prosper</groupId>
-            <artifactId>prosper</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.apache.sling</groupId>
-                    <artifactId>org.apache.sling.models.api</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.apache.sling</groupId>
-                    <artifactId>org.apache.sling.models.impl</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+
         <dependency>
             <groupId>org.apache.sling</groupId>
             <artifactId>org.apache.sling.models.api</artifactId>
