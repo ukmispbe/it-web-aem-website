@@ -8,6 +8,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.slf4j.LoggerFactory;
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.Logger;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -18,6 +21,12 @@ public class TextTest {
     private Text text;
     private Page page;
     private Resource resource;
+
+    @BeforeEach
+    public void setUp() throws Exception {
+        Logger rootLogger = (Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
+        rootLogger.setLevel(Level.ERROR);
+    }
 
     @BeforeEach
     public void setup(AemContext context) throws Exception {
