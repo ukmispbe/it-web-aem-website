@@ -144,18 +144,9 @@ class MyAccountDropDown extends React.Component {
 
     formatUserNameForHeader = (userDetails) => {
         let firstName = userDetails.firstName;
-        let lastName = userDetails.lastName
+        let lastName = userDetails.lastName;
 
-        if (firstName && lastName) {
-            if (userDetails.mailingAddressCountryCode === 'jp' || userDetails.mailingAddressCountryCode === 'cn' 
-            || userDetails.mailingAddressCountryCode === 'kr' || userDetails.mailingAddressCountryCode === 'tw') {
-                return `${lastName} ${firstName}`;
-            } else {
-                return `${firstName} ${lastName}`;
-            }
-        } else {
-            return null;
-        }
+        return firstName && lastName ? formatUserName(userDetails) : null;
     }
 
     willShow = (newState, caller = 'default') => {

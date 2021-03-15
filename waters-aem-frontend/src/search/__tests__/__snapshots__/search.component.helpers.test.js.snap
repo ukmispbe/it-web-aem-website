@@ -305,36 +305,18 @@ exports[`Feature: Menu Component Scenario: Rendering When showing facet menu The
 `;
 
 exports[`Feature: Menu Component Scenario: Rendering When showing the content type menu Then it should match snapshot 1`] = `
-Array [
+<div
+  className="content-type-menu-container"
+>
   <div
-    className="content-type-menu-container"
+    className="content-type-menu-container__heading"
   >
-    <div
-      className="content-type-menu-container__heading"
-    >
-      filter By
-    </div>
-    <div
-      className="content-type-menu-container__body"
-    />
-  </div>,
+    filter By
+  </div>
   <div
-    className="facet-menu-container"
-    data-locator="facet-menu-container"
-  >
-    <div
-      className="facet-menu-container__body"
-      data-locator="facet-menu-container-body"
-    >
-      <div
-        className="cmp-search-filters"
-        id="js-search-filters"
-      >
-        <ul />
-      </div>
-    </div>
-  </div>,
-]
+    className="content-type-menu-container__body"
+  />
+</div>
 `;
 
 exports[`Feature: ResultsBody Component Scenario: Rendering When sorting by best match Then it should match snapshot 1`] = `
