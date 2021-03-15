@@ -69,10 +69,7 @@ const CreateRequestForm = ({
       else {
         organizationSearchString = data.organization.substr(0, 3) + "*";
       }
-    // Console.log for QA 
-    // Output the processed data to the console until the Real API is ready
-      console.log(`Serial API Parameters, Serial Number: ${data.serialNumber}, Organization: ${organizationSearchString}`);
-  
+
       serialNumberSubmit.call(this, serialFormConfig.config.equipmentEndpoint, organizationSearchString, data, processEquipmentData);
     }
   }
