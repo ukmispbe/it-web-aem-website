@@ -91,7 +91,7 @@ const CreateRequestForm = ({
         return obj.name === "serialNumberLabel"
       });
       if (serialNumberLabel) {
-        serialNumberLabel.label = `${serialNumberLabel.label}   ${formData.serialNumber}`;
+        serialNumberLabel.label = `${serialNumberLabel.label} ${formData.serialNumber}`;
       }
 
       const organizationLabel = supportRequestFields.find(obj => {
