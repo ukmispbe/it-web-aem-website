@@ -81,7 +81,6 @@ const CreateRequestForm = ({
   function processEquipmentData(equipmentResults, formData) {
     // Only process if no errors
     if (equipmentResults.errors) {
-      console.log("callback Function Zero Results", equipmentResults);
       return;
     }
 
