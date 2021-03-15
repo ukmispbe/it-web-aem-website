@@ -24,10 +24,10 @@ export const SEARCH_TYPES = {
 export const RECENT_SEARCHES_EXPIRY_TIME = 30; // In days
 
 export const CONTACT_METHOD = {
-    EMAIL: 'Email',
-    PHONE: 'Phone'
+    EMAIL: 'EMAIL',
+    PHONE: 'PHONE'
 }
-export const TECH_SUPPORT = 'TS';
+export const TECH_SUPPORT = 'TS|SUPPORT';
 export const PRODUCT_TYPE_LABEL = 'productTypeLabel';
 export const CONFIRMATION_LABEL = 'confirmationLabel';
 export const SUPPORT_TYPE = 'supportType';

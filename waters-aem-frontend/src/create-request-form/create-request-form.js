@@ -1,10 +1,9 @@
 import React, { Suspense, useState, useEffect } from "react";
 import { retrieveData } from '../forms/services/retrieve';
+import { serialNumberSubmit, iRequestSubmit } from '../forms/services/submit';
 import SessionStore from '../stores/sessionStore';
 import loginStatus from  '../scripts/loginStatus';
 import { signInRedirect, getNamedHeaderLink } from '../utils/redirectFunctions';
-import GetLocale from '../utils/get-locale';
-import DateFormatter from '../utils/date-formatter/index';
 import { CONTACT_METHOD, TECH_SUPPORT, PRODUCT_TYPE_LABEL, CONFIRMATION_LABEL } from '../constants/index';
 
 const Form = React.lazy(() => import(/* webpackChunkName: "forms" */'../forms/form'));
@@ -62,43 +61,82 @@ const CreateRequestForm = ({
 
   function checkSerialSubmit(data) {
     setSerialFormData(data);
+    if  (serialFormConfig) {
+      let organizationSearchString = "";
+      if (data.organization.length <= 3) {
+        organizationSearchString = data.organization + "*";
+      }
+      else {
+        organizationSearchString = data.organization.substr(0, 3) + "*";
+      }
+
+      serialNumberSubmit.call(this, serialFormConfig.config.equipmentEndpoint, organizationSearchString, data, processEquipmentData);
+    }
+  }
+
+  // Handles the callback from the Equipment API- Generates Drop Down or Label dependent on the number of results 
+  function processEquipmentData(equipmentResults, formData) {
+    // Only process if no errors
+    if (equipmentResults.errors) {
+      return;
+    }
+
     if (supportReqFormConfig) {
       const supportRequestFields = supportReqFormConfig.config.fields;
       const serialNumberLabel = supportRequestFields.find(obj => {
         return obj.name === "serialNumberLabel"
       });
       if (serialNumberLabel) {
-        serialNumberLabel.label = `${serialNumberLabel.label}   ${data.serialNumber}`;
+        serialNumberLabel.label = `${serialNumberLabel.label} ${formData.serialNumber}`;
       }
 
       const organizationLabel = supportRequestFields.find(obj => {
         return obj.name === "organizationLabel"
       });
       if (organizationLabel) {
-        organizationLabel.label = `${organizationLabel.label}   ${data.organization}`;
-      }
-      
-      const productOptions = callSerialAPI(data);
-   
-      const productDetailsDropDown = supportRequestFields.find(obj => {
-        return obj.name === "productDetails"
-      });
-      if (productDetailsDropDown) {
-        productDetailsDropDown.options = productOptions;
+        organizationLabel.label = `${organizationLabel.label} ${formData.organization}`;
       }
 
-      if (productOptions.length === 1) {
-        // Display the Text Box, Hide the Drop Down and set the text and values
-        setClearActiveLabel(supportRequestFields, "productDetailsText", true); 
-        setClearActiveLabel(supportRequestFields, "productDetailsValue", true); 
-        setClearActiveLabel(supportRequestFields, "productDetails", false);
-      }
-      else {
-        // Display the drop down and hide the text boxes
-        setClearActiveLabel(supportRequestFields, "productDetailsText", false);       
-        setClearActiveLabel(supportRequestFields, "productDetails", true); 
+      if (equipmentResults && supportRequestFields) {
+        if (equipmentResults.length === 1) {
+          initialIRequestFormValues.productDetailsValue = equipmentResults[0].equipmentNumber;
+          initialIRequestFormValues.productDetailsText = equipmentResults[0].productDescription;
+          // Display the Text Box, Hide the Drop Down and set the text and values
+          setClearActiveLabel(supportRequestFields, "productDetailsText", true);
+          setClearActiveLabel(supportRequestFields, "productDetailsValue", true);
+          setClearActiveLabel(supportRequestFields, "productDetails", false);
+        }
+        if (equipmentResults.length > 1) {
+          // Populate & display the drop down and hide the text boxes
+          let productOptions = [];
+          equipmentResults.map(item => {
+            const option = {
+              "value": item.equipmentNumber,
+              "label": item.productDescription
+            }
+            productOptions.push(option);
+          })
+
+          const productDetailsDropDown = supportRequestFields.find(obj => {
+            return obj.name === "productDetails"
+          });
+          if (productDetailsDropDown) {
+            productDetailsDropDown.options = productOptions;
+          }
+          setClearActiveLabel(supportRequestFields, "productDetailsText", false);
+          setClearActiveLabel(supportRequestFields, "productDetails", true);
+        }
       }
     }
+    initialIRequestFormValues.contactMethod = CONTACT_METHOD.EMAIL;
+    if (userDetails) {
+      initialIRequestFormValues.company = userDetails.userInfo.company;
+      initialIRequestFormValues.email = userDetails.userInfo.email;
+      initialIRequestFormValues.firstName = userDetails.userInfo.firstName;
+      initialIRequestFormValues.lastName = userDetails.userInfo.lastName;
+      initialIRequestFormValues.phone = userDetails.userInfo.phone;
+    }
+    setInitialIRequestFormValues(initialIRequestFormValues);
     setSupportRequestFormConfig(supportReqFormConfig);
     setShowForm(1);
   }
@@ -112,106 +150,94 @@ const CreateRequestForm = ({
       control.active = state;
     } 
   }
-  
-  function callSerialAPI(formData) {
-    let options = [];
-
-    // Truncate organization to 3 letters and add the wildcard (*)
-    let organizationSearchString = "";
-    if (formData.organization.length <= 3) {
-      organizationSearchString = formData.organization + "*";
-    }
-    else {
-      organizationSearchString = formData.organization.substr(0, 3) + "*";
-    }
-    console.log(`Serial API Parameters, Serial Number: ${formData.serialNumber}, Organization: ${organizationSearchString}`);
-
-    // Temporary Code to be replaced by API Call
-    if (formData.serialNumber === "1234") {
-      // Populate & display drop down
-      options.push({"value":"CO2_BULK","label": "CO2 Bulk Delivery 500G System"});
-      options.push({"value":"TA_AD","label": "S/W Suite TA Advantage v5.0 Kit"});
-
-    }
-    else {
-      // Populate single drop down option, select it and make drop down inactive
-      // Populate label & display
-      options.push({"value":"CO2_BULK","label": "CO2 Bulk Delivery 500G System"});
-      initialIRequestFormValues.productDetailsValue = "CO2_BULK";
-      initialIRequestFormValues.productDetailsText = "CO2 Bulk Delivery 500G System";
-    }
-    initialIRequestFormValues.contactMethod = "Email";
-    // End of Temporary Code to be replaced by API Call
-    
-    if (userDetails) {
-      initialIRequestFormValues.company = userDetails.userInfo.company;
-      initialIRequestFormValues.email = userDetails.userInfo.email;
-      initialIRequestFormValues.firstName = userDetails.userInfo.firstName;
-      initialIRequestFormValues.lastName = userDetails.userInfo.lastName;
-      initialIRequestFormValues.phone = userDetails.userInfo.phone;
-    }
-    setInitialIRequestFormValues (initialIRequestFormValues);
-
-    return options;
-  }
 
   function  checkIRequestSubmit(data) {
 
     // Need to create the Short Description  
-    const ShortDescription = createShortDestription(data.supportType, data.productType); 
-    // Add the "Support" from Config
-    const recordType = { "recordType": supportReqFormConfig.config.recordType };
+    const ShortDescription = createShortDestription(data.supportType, data.productType);
+    const supportTypeArray = data.supportType.split("|")
+    const recordType = { "recordType": supportTypeArray[1] };
 
     processPreferredContactMethod(data);
     // Format the form data & call the API 
     const formData = {...serialFormData, ...recordType, ...ShortDescription,  ...data};
 
-    // Output the processed data to the console until the API is ready
-    console.log("Submit API Data: ",  formData);
 
-    const {serialNumber, organization, productDetailsText, productDetails, supportType, productType, 
-      formDescription, firstName, lastName, email, phone, preferredContactMethod} = formData;
-    // Set up the default Values for the confirmation
-    initialConfirmationFormValues.caseNumberLabel = "01234567890";
-    const now = new Date();
-    const dateString = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;
-    initialConfirmationFormValues.dateSubmittedLabel = DateFormatter.dateFormatter(dateString, GetLocale.getLocale())
-    initialConfirmationFormValues.serialNumberLabel = serialNumber;
-    initialConfirmationFormValues.organizationLabel = organization;
-    initialConfirmationFormValues.productDetailsLabel = productDetailsText ? productDetailsText : getDescriptionFromFields(productDetails, "productDetails", supportReqFormConfig.config.fields);   
-    initialConfirmationFormValues.typeOfSupportRequestLabel = getDescriptionFromFields(supportType, "supportType", supportReqFormConfig.config.fields);
+    const iRequestData = {
+      "recordType": formData.recordType,
+      "type": supportTypeArray[0],
+      "productType": formData.productType,
+      "subject": formData.shortDescription,
+      "serialNumber": formData.serialNumber,
+      "description": formData.formDescription,
+      "assetId": formData.productDetails,
+      "contactInfo": {
+        "firstName": formData.firstName,
+        "lastName": formData.lastName,
+        "phone": formData.phone,
+        "secondaryPhone": formData.secondaryPhone,
+        "email": formData.email,
+        "contactMethod": formData.preferredContactMethod
+      }
+    };
+    
+    // Console.log for QA 
+    // Output the processed data to the console until the Real API is ready
+    console.log("Submit API Data: ",  iRequestData);
+    
+    iRequestSubmit.call(this, supportReqFormConfig.config.submitEndpoint, iRequestData, processIRequestData, formData);
+  }
 
-    if (formData.supportType === TECH_SUPPORT) {
-      initialConfirmationFormValues.productTypeLabel = getDescriptionFromFields(productType, "productType", supportReqFormConfig.config.fields);
-    }
-    else {
-      // Hide the Product Type Label
-      const productTypeObject = confFormConfig.config.fields.find(obj => {
-        return obj.name === PRODUCT_TYPE_LABEL
+  function processIRequestData(iRequestResults, formData) {
+    if (formData && iRequestResults.caseNumber) {
+      const {serialNumber, organization, productDetailsText, productDetails, supportType, productType,
+        formDescription, firstName, lastName, email, phone, preferredContactMethod} = formData;
+      // Set up the default Values for the confirmation
+      initialConfirmationFormValues.caseNumberLabel = iRequestResults.caseNumber;
+      initialConfirmationFormValues.serialNumberLabel = serialNumber;
+      initialConfirmationFormValues.organizationLabel = organization;
+      initialConfirmationFormValues.productDetailsLabel = productDetailsText ? productDetailsText : getDescriptionFromFields(productDetails, "productDetails", supportReqFormConfig.config.fields);
+      initialConfirmationFormValues.typeOfSupportRequestLabel = getDescriptionFromFields(supportType, "supportType", supportReqFormConfig.config.fields);
+  
+      if (formData.supportType === TECH_SUPPORT) {
+        initialConfirmationFormValues.productTypeLabel = getDescriptionFromFields(productType, "productType", supportReqFormConfig.config.fields);
+      }
+      else {
+        // Hide the Product Type Label
+        const productTypeObject = confFormConfig.config.fields.find(obj => {
+          return obj.name === PRODUCT_TYPE_LABEL
+        });
+        if (productTypeObject) {
+          productTypeObject.active = false;
+        }
+        SetConfFormConfig(confFormConfig);
+      }
+      // Add the email address to the text-with-links config
+      const confirmationLabelObject = confFormConfig.config.fields.find(obj => {
+        return obj.name === CONFIRMATION_LABEL
       });
-      if (productTypeObject) {
-        productTypeObject.active = false;
+      if (confirmationLabelObject) {
+        confirmationLabelObject.config[1].text = `${email}.`;
       }
       SetConfFormConfig(confFormConfig);
-    }  
-    // Add the email address to the text-with-links config
-    const confirmationLabelObject = confFormConfig.config.fields.find(obj => {
-      return obj.name === CONFIRMATION_LABEL
-    });
-    if (confirmationLabelObject) {
-      confirmationLabelObject.config[1].text = `${email}.`;
-    }   
-    SetConfFormConfig(confFormConfig);
+  
+      initialConfirmationFormValues.requestSummary = formDescription;
+      initialConfirmationFormValues.requestSummaryEllipsis = formDescription;
+      initialConfirmationFormValues.fullNameLabel = `${firstName} ${lastName}`;
+      initialConfirmationFormValues.emailLabel = email;
+      initialConfirmationFormValues.phoneNumberLabel = phone;
+      initialConfirmationFormValues.preferredMethodOfContactLabel = capitalizeFirstLetter(preferredContactMethod);
+      setInitialConfirmationFormValues(initialConfirmationFormValues);
+      // Show Confirmation Form
+      setShowForm(2);
+    }
+  }
 
-    initialConfirmationFormValues.requestSummary = formDescription;
-    initialConfirmationFormValues.requestSummaryEllipsis = formDescription;
-    initialConfirmationFormValues.fullNameLabel = `${firstName} ${lastName}`;
-    initialConfirmationFormValues.emailLabel = email;
-    initialConfirmationFormValues.phoneNumberLabel = phone;
-    initialConfirmationFormValues.preferredMethodOfContactLabel = preferredContactMethod;
-    setInitialConfirmationFormValues(initialConfirmationFormValues);
-    // Show Confirmation Form
-    setShowForm(2);
+  function capitalizeFirstLetter(string) {
+    if (string && string.length > 1){
+      return string[0].toUpperCase() + string.slice(1).toLowerCase();
+    }
+    return "";
   }
 
   function getDescriptionFromFields(value, controlName, fields) {
@@ -224,29 +250,34 @@ const CreateRequestForm = ({
         return obj.value === value
       });
     }
-    return option.label;
+    return option ? option.label : null;
   }
 
   // Determine if Email or Phone & Delete "Email" & "Phone"
   function processPreferredContactMethod(requestFormData) {
     requestFormData.preferredContactMethod = CONTACT_METHOD.EMAIL;
-    if (requestFormData.Phone === "on") {
+    if (requestFormData.PHONE === "on") {
       requestFormData.preferredContactMethod = CONTACT_METHOD.PHONE;
     }
     delete requestFormData.Email;
     delete requestFormData.Phone;
   }
 
-  // Use the values to pull the desriptions back from the config
   function createShortDestription(supportType, productType) {
-    
+
     if (supportReqFormConfig && supportReqFormConfig.config.fields) {
       const supportTypeDescription = getDescriptionFromFields(supportType, "supportType", supportReqFormConfig.config.fields);
       if (supportType === TECH_SUPPORT) {
-        // Append SupportType & ProductType Descriptions 
+        // Append SupportType & ProductType Descriptions
         const productTypeDescription = getDescriptionFromFields(productType, "productType", supportReqFormConfig.config.fields);
-        return { "shortDescription": `${supportTypeDescription} : ${productTypeDescription}` };
-      } 
+         // Short Description is Limited to 40 Characters
+         // Added Temporary Fix to prevent API Call Error. This will be resolved prior to Actual API integration
+         const shortDescription = `${supportTypeDescription} : ${productTypeDescription}`;
+        if (shortDescription.length > 40) {
+          return { "shortDescription": shortDescription.substring(0,40) };
+        }
+        return { "shortDescription": shortDescription };
+      }
       else {
         // Set SupportType Description
         return { "shortDescription": supportTypeDescription };
@@ -285,7 +316,7 @@ const CreateRequestForm = ({
       setSupportRequestFormConfig(supportReqFormConfig);  
     }
   }
-  
+
   function  confirmationSubmit() {
     location.reload();
   }
@@ -328,7 +359,6 @@ const CreateRequestForm = ({
           </Suspense>);
     default:
       return null;
-      break;
   }
 };
 
