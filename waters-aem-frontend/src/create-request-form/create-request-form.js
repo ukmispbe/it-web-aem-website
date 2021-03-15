@@ -98,7 +98,7 @@ const CreateRequestForm = ({
         return obj.name === "organizationLabel"
       });
       if (organizationLabel) {
-        organizationLabel.label = `${organizationLabel.label}   ${formData.organization}`;
+        organizationLabel.label = `${organizationLabel.label} ${formData.organization}`;
       }
 
       if (equipmentResults && supportRequestFields) {
