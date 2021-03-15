@@ -721,6 +721,7 @@
             input:disabled {
                 border: none !important;
                 padding: 0;
+                color: $color-font-dark;
             }
             .cmp-form-field--icons {
                 display: none;
@@ -763,9 +764,15 @@
                 margin-right: $space-xs;
             }
             display: flex;
+            @include mobile {
+                display: block;
+            }
             .cmp-label-bold {
                 @include font-h4;
                 margin-bottom: $space-xxs;
+                @include mobile {
+                    margin-bottom: 0;
+                }
             }
             .cmp-label-standard {
                 @include font-body;
@@ -792,11 +799,17 @@
         }
         .cmp-utility-label-large {
             @include font-utility-large;
+            @include mobile {
+                margin-bottom: 0;
+            }
         }
         .cmp-label-standard {
             @include font-body;
             font-size: $font-size-body;
             margin-bottom: 0;
+        }
+        .cmp-form-field-dropdown {
+            width: 100%;
         }
     }
 }

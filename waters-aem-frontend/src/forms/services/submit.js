@@ -5,7 +5,7 @@ import DigitalData from '../../scripts/DigitalData';
 import UserDetails from '../../my-account/services/UserDetails';
 import SoldToDetailsLazy from '../../my-account/services/SoldToDetailsLazy';
 import { signInRedirect, getNamedHeaderLink } from '../../utils/redirectFunctions';
-import { postData } from '../../utils/serviceFunctions';
+import { postData, getData } from '../../utils/serviceFunctions';
 import { matchUserToSoldToAddresses, createUserAddresses } from '../../utils/userFunctions';
 import { convertFileIntoBase64, getAttachmentFieldName } from '../fields/utils/fileAttachment';
 
@@ -60,6 +60,26 @@ export async function registrationSubmit(data) {
     }
 }
 
+export async function iRequestSubmit(url, data, callback, formData) {
+
+    const response = await postData(url, data);
+    const responseBody = await response.json();
+
+    // remove all previous server error notifications
+    this.setError();
+
+    if (response.status === 200) {
+        if (callback) {
+            callback(responseBody, formData);
+        }
+        this.setFormAnalytics('submit');
+
+    } else {
+        this.setFormAnalytics('error', responseBody);
+        this.setError({code: 500});
+    }
+}
+
 export async function checkEmailResetPasswordSubmit(data) {
 
     this.url = `${this.url.replace('{email}', data.email)}&isEproc=true`;
@@ -78,6 +98,30 @@ export async function checkEmailResetPasswordSubmit(data) {
         this.setFormAnalytics('error', responseBody);
         this.setError(response);
         scrollToY(0);
+    }
+}
+
+export async function serialNumberSubmit(apiUrl, companyName, formData, callback) {
+
+    const fullUrl = `${apiUrl}?accountName=${companyName}&serialNumber=${formData.serialNumber}`;
+    const response = await getData(fullUrl);
+    const responseBody = await response.json();
+
+    // remove all previous server error notifications
+    this.setError();
+
+    if (response.status === 200) {
+        this.setFormAnalytics('submit');
+        if (responseBody.errors) {
+            //this.setError(responseBody);
+            if (responseBody.errors[0].code === "WAT_CUSTOM_400") {
+                this.setError({code: 400});
+            }
+        }
+        callback(responseBody, formData);
+    } else {
+        this.setFormAnalytics('error', responseBody);
+        this.setError({code: 500});
     }
 }
 

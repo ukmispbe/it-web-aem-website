@@ -4,7 +4,6 @@
         {
             "formName": "checkSerial",
             "customFormClass": "cmp-form--check-serial",
-            "submitEndpoint": "${supportRequest.supportRequestUrl @ context='unsafe'}",
             "equipmentEndpoint": "${supportRequest.supportRequestEquipmentUrl @ context='unsafe'}",
             "buttonText": "${'Continue' @ i18n, context='text'}",
             "elementLocator": "check-serial-form",
@@ -56,9 +55,9 @@
     <script type="application/json" id="cmp-support-request-form">
         {
             "formName": "supportRequest",
-            "recordType": "SUPPORT",
             "buttonText": "${'Send Request' @ i18n, context='text'}",
             "consentUrl": "${supportRequest.consentLink.href @ context='unsafe'}",
+            "submitEndpoint": "${supportRequest.supportRequestUrl @ context='unsafe'}",
             "needsToBeSignedIn": true,
             "elementLocator": "support-request-form",
 			"buttonLocator": "send-request",
@@ -149,10 +148,10 @@
                     "placeholder": "${'Select...' @ i18n, context='text'}",
                     "dropdownIndicator": "/content/dam/waters/en/brand-assets/icons/down.svg",
                     "options": [
-                        {"value":"TS","label": "${'Technical Support' @ i18n, context='text'}"},
-                        {"value":"PM","label": "${'Preventative Maintenance' @ i18n, context='text'}"},
-                        {"value":"QUAL","label": "${'Qualification' @ i18n, context='text'}"},
-                        {"value":"INST","label": "${'Installation-Relocation' @ i18n, context='text'}"}
+                        {"value":"TS|SUPPORT","label": "${'Technical Support' @ i18n, context='text'}"},
+                        {"value":"PM|SUPPORT","label": "${'Preventative Maintenance' @ i18n, context='text'}"},
+                        {"value":"QUAL|SUPPORT","label": "${'Qualification' @ i18n, context='text'}"},
+                        {"value":"INST|SYSTEM_IMPLEMENTATION","label": "${'Installation-Relocation' @ i18n, context='text'}"}
                         
                     ],
                     "active": true,
@@ -274,8 +273,8 @@
                     "name": "contactMethod",
                     "label": "${'Preferred Method of Contact' @ i18n, context='unsafe'}",
                     "options": [
-                        {"name":"Email","label": "${'Email' @ i18n, context='text'}"},
-                        {"name":"Phone","label": "${'Phone' @ i18n, context='text'}"}
+                        {"name":"EMAIL","label": "${'Email' @ i18n, context='text'}"},
+                        {"name":"PHONE","label": "${'Phone' @ i18n, context='text'}"}
                     ],
                     "validation": {
                         "required": true,
@@ -313,8 +312,8 @@
                     "active": true,
                     "config": [
                         {
-                            "type": "text",
-                            "text": "${'Weve sent you an email confirmation of your request to' @ i18n, context='text'}",
+                            "type": "text", 
+                            "text": "${'We have sent you an email confirmation of your request to' @ i18n, context='text'}",
                             "rightSpace": "true"
                         },
                         {
@@ -339,13 +338,6 @@
                     ],
                     "label": "${'Case Number:' @ i18n, context='unsafe'}"
                 },
-                {
-                    "type": "label",
-                    "addClass": "cmp-label-standard",
-                    "name": "dateSubmittedLabel",
-                    "label": "${'' @ i18n, context='unsafe'}"
-                },
-
                 {
                     "type": "break",
                     "addClass": "cmp-section-hr"
