@@ -36,7 +36,7 @@ const FilterTagList = ({
     const isKeywordSpecified = filterTagsProps.keyword && filterTagsProps.keyword !== parameterDefaults.keyword;
     const isContentTypeSelected = Object.entries(filterTagsProps.contentTypeSelected).length !== 0 && filterTagsProps.contentTypeSelected.facetTranslation
 
-    if (!isKeywordSpecified && !isContentTypeSelected) {
+    if (!isKeywordSpecified && !isContentTypeSelected  && Object.entries(filterTagsProps.selectedFacets).length === 0) {
         return <div className="cmp-search-filters__emptytags" />;
     }
 
@@ -173,7 +173,7 @@ const Menu = ({
         filterTagsEvents,
         subFacetMap : subFacetFiltersProps.subFacetMap,
     });
-    const facetMenu = menuProps.showFacetMenu && <FacetMenu
+    const facetMenu = <FacetMenu
                 heading={menuProps.backLinkText}
                 selectedValue={facetMenuProps.selectedValue}
                 previousIcon={facetMenuProps.previousIcon}
