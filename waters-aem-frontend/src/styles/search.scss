@@ -3,7 +3,7 @@
 @import 'typography.scss';
 
 //hide no search results XF
-.aem-Grid > .layoutcontainer.responsivegrid.has-search-results {
+div.has-search-results {
     display: none !important;
 }
 
