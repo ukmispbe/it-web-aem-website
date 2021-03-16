@@ -336,15 +336,15 @@ class SearchContainer extends Component {
             return SEARCH_TYPES.CATEGORY_ONLY;
         }
 
-        if (this.isCategoryOnlySelected(query.category, query.content_type)) {
+        if (query.category && !query.content_type && !this.isFacetsSelected(query.facets)) {
             return SEARCH_TYPES.CATEGORY_ONLY;
         }
 
-        if (query.content_type && !this.isFacetsSelected(query.facets)) {
+        if (query.category && query.content_type && !this.isFacetsSelected(query.facets)) {
             return SEARCH_TYPES.CONTENT_TYPE;
         }
 
-        if (query.content_type && this.isFacetsSelected(query.facets)) {
+        if (query.category && this.isFacetsSelected(query.facets)) {
             return SEARCH_TYPES.SUB_FACETS;
         }
 
