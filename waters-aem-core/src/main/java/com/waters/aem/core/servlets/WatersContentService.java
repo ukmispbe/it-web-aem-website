@@ -28,7 +28,6 @@ import org.apache.sling.api.servlets.SlingAllMethodsServlet;
 import org.apache.sling.servlets.annotations.SlingServletPaths;
 import org.apache.sling.settings.SlingSettingsService;
 import org.json.JSONException;
-import org.json.JSONObject;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Modified;
@@ -49,7 +48,6 @@ import java.security.KeyManagementException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Map;
-import java.util.Iterator;
 import java.util.Objects;
 
 import java.util.concurrent.TimeUnit;
@@ -169,32 +167,27 @@ public class WatersContentService extends SlingAllMethodsServlet {
 
     private String updateLanguageListJson(String pageJsonResponse, ResourceResolver resourceResolver, String path) {
         if (path.contains("cart-checkout")) {
-            try {
-                final JSONObject cartPageJson = new JSONObject(pageJsonResponse);
-                final JSONObject cartFooterJson = cartPageJson.getJSONObject("footer");
-                final JSONObject languageListJsonValue = updateLanguageListJsonValue(resourceResolver, path);
-                cartFooterJson.put("languageListJson", languageListJsonValue.toString());
-                cartPageJson.put("footer", cartFooterJson);
-                return cartPageJson.toString();
-            } catch (JSONException e) {
-                LOG.error("Exception occurred in updateLanguageListJson()/updateLanguageListJsonValue() method of WatersContentService class: ", e);
-            }
+            final JsonObject cartPageJson = new Gson().fromJson(pageJsonResponse, JsonObject.class);
+            final JsonObject cartFooterJson = cartPageJson.getAsJsonObject("footer");
+            final JsonObject languageListJsonValue = updateLanguageListJsonValue(resourceResolver, path);
+            cartFooterJson.addProperty("languageListJson", languageListJsonValue.toString());
+            cartPageJson.add("footer", cartFooterJson);
+            return cartPageJson.toString();
         }
         return pageJsonResponse;
     }
 
-    private JSONObject updateLanguageListJsonValue(ResourceResolver resourceResolver, String path) throws JSONException {
-        final JSONObject languageListJsonValue = new JSONObject(Objects.requireNonNull(
+    private JsonObject updateLanguageListJsonValue(ResourceResolver resourceResolver, String path) {
+        final JsonObject languageListJsonValue = new Gson().fromJson(Objects.requireNonNull(
                 Objects.requireNonNull(resourceResolver.getResource(
                         path.substring(0, path.indexOf("/cart-checkout")) + "/jcr:content/footer"))
                         .getValueMap()
-                        .get("languageListJson", String.class)));
+                        .get("languageListJson", String.class)), JsonObject.class);
 
-        final Iterator<?> iterator = languageListJsonValue.keys();
-        while (iterator.hasNext()) {
-            final String key = String.valueOf(iterator.next());
-            final String value = languageListJsonValue.getString(key);
-            languageListJsonValue.put(key, value.substring(0, value.indexOf(HTML)) + "/cart-checkout.html");
+        for (String s : languageListJsonValue.keySet()) {
+            final String key = String.valueOf(s);
+            final String value = languageListJsonValue.get(key).getAsString();
+            languageListJsonValue.addProperty(key, value.substring(0, value.indexOf(HTML)) + "/cart-checkout.html");
         }
         return languageListJsonValue;
     }
