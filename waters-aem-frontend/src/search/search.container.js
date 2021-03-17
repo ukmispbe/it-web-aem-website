@@ -1200,12 +1200,10 @@ class SearchContainer extends Component {
         if (!isInEditMode) {
             const zeroResultsXF = document.querySelector('#zeroresults');
             const hideZeroResultsClass = 'has-search-results';
-            const parentLayoutContainer = zeroResultsXF && zeroResultsXF.closest('.layoutcontainer');
+            domElements.addClass(zeroResultsXF, hideZeroResultsClass);
 
-            if (parentLayoutContainer && this.state.noResults) {
-                domElements.removeClass(parentLayoutContainer, hideZeroResultsClass);
-            } else if (parentLayoutContainer && !this.state.noResults) {
-                domElements.addClass(parentLayoutContainer, hideZeroResultsClass)
+            if (zeroResultsXF && this.state.noResults) {
+                domElements.removeClass(zeroResultsXF, hideZeroResultsClass);
             }
         }
     }
