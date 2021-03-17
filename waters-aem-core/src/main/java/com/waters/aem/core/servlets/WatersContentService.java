@@ -27,7 +27,6 @@ import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.servlets.SlingAllMethodsServlet;
 import org.apache.sling.servlets.annotations.SlingServletPaths;
 import org.apache.sling.settings.SlingSettingsService;
-import org.json.JSONException;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Modified;
@@ -104,23 +103,23 @@ public class WatersContentService extends SlingAllMethodsServlet {
     private final String sanitizeJSON(String stringJson) {
         JsonObject jsonObject = new Gson().fromJson(stringJson, JsonObject.class);
         for (String key : keys) {
-            removeJSONKeys(jsonObject, key);
+            removeJSONKey(jsonObject, key);
         }
         return jsonObject.toString();
     }
 
-    private final void removeJSONKeys(JsonObject jsonObject, String keyValue) {
+    private final void removeJSONKey(JsonObject jsonObject, String keyValue) {
         if(jsonObject.toString().contains(keyValue)) {
             jsonObject.remove(keyValue);
             for(Map.Entry<String, JsonElement> entry : jsonObject.entrySet()){
                 if (entry.getValue().isJsonObject()) {
-                    removeJSONKeys(entry.getValue().getAsJsonObject(),keyValue);
+                    removeJSONKey(entry.getValue().getAsJsonObject(),keyValue);
                 }
             }
         }
     }
 
-    private final String buildJsonForPage(final String path, final String responseLevel, final SlingHttpServletRequest request) throws JSONException, NoSuchFieldException, IllegalAccessException {
+    private final String buildJsonForPage(final String path, final String responseLevel, final SlingHttpServletRequest request) {
         final Stopwatch stopwatch = Stopwatch.createStarted();
         final String pageContentJsonConstant = "{\"Page Content\":";
         final String navigationContentJsonConstant = ",\"Navigation Content\":";
@@ -252,7 +251,7 @@ public class WatersContentService extends SlingAllMethodsServlet {
         boolean enableSanitization() default true;
 
         @AttributeDefinition(name = "Keys", description = "Remove mentioned keys from content service response", type = AttributeType.STRING)
-        String[] getKeys() default {"jcr:baseVersion", "cq:template", "jcr:mixinTypes", "cq:lastRolledout", "cq:LiveSyncConfig", "cq:lastModifiedBy", "cq:lastModified", "cq:lastRolledoutBy", "jcr:primaryType", "jcr:lastModifiedBy", "jcr:created", "jcr:lastModified", "jcr:createdBy", "jcr:predecessors", "sling:resourceType", "jcr:uuid", "jcr:versionHistory", "jcr:isCheckedOut", "cq:responsive", "cq:lastReplicated", "cq:lastReplicatedBy", "cq:lastReplicationAction", "cq:styleIds", "cq:cloudserviceconfigs", "cq:isCancelledForChildren", ":type", };
+        String[] getKeys() default {"jcr:baseVersion", "cq:template", "jcr:mixinTypes", "cq:lastRolledout", "cq:LiveSyncConfig", "cq:lastModifiedBy", "cq:lastModified", "cq:lastRolledoutBy", "jcr:primaryType", "jcr:lastModifiedBy", "jcr:created", "jcr:lastModified", "jcr:createdBy", "jcr:predecessors", "sling:resourceType", "jcr:uuid", "jcr:versionHistory", "jcr:isCheckedOut", "cq:responsive", "cq:lastReplicated", "cq:lastReplicatedBy", "cq:lastReplicationAction", "cq:styleIds", "cq:cloudserviceconfigs", "cq:isCancelledForChildren", ":type", "cq:propertyInheritanceCancelled"};
     }
 
 }
