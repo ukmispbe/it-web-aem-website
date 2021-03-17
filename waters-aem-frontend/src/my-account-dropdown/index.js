@@ -146,7 +146,7 @@ class MyAccountDropDown extends React.Component {
         let firstName = userDetails.firstName;
         let lastName = userDetails.lastName;
 
-        return firstName && lastName ? formatUserName(userDetails) : null;
+        return firstName && lastName ? this.formatUserName(userDetails) : null;
     }
 
     willShow = (newState, caller = 'default') => {
