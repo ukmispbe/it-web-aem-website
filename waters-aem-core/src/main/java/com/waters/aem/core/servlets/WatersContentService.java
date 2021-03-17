@@ -2,6 +2,9 @@ package com.waters.aem.core.servlets;
 
 import com.day.cq.commons.Externalizer;
 import com.google.common.base.Stopwatch;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.waters.aem.core.constants.WatersConstants;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpHeaders;
@@ -24,7 +27,6 @@ import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.servlets.SlingAllMethodsServlet;
 import org.apache.sling.servlets.annotations.SlingServletPaths;
 import org.apache.sling.settings.SlingSettingsService;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.osgi.service.component.annotations.Activate;
@@ -46,8 +48,6 @@ import java.net.HttpURLConnection;
 import java.security.KeyManagementException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Iterator;
 import java.util.Objects;
@@ -73,8 +73,6 @@ public class WatersContentService extends SlingAllMethodsServlet {
     private String[] keys;
 
     private boolean sanitizeResponse;
-
-    private boolean labelsRefactoring;
 
     @Override
     public void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response) {
@@ -105,45 +103,26 @@ public class WatersContentService extends SlingAllMethodsServlet {
         }
     }
 
-    private final String sanitizeJSON(String stringJson) throws JSONException {
-        JSONObject obj = new JSONObject(stringJson);
+    private final String sanitizeJSON(String stringJson) {
+        JsonObject jsonObject = new Gson().fromJson(stringJson, JsonObject.class);
         for (String key : keys) {
-            removeJSONKeys(obj, key);
+            removeJSONKeys(jsonObject, key);
         }
-        return obj.toString();
+        return jsonObject.toString();
     }
 
-    private final void removeJSONKeys(JSONObject jsonObject, String keyValue) {
+    private final void removeJSONKeys(JsonObject jsonObject, String keyValue) {
         if(jsonObject.toString().contains(keyValue)) {
             jsonObject.remove(keyValue);
-            Iterator<String> it = jsonObject.keys();
-            while (it.hasNext()) {
-                String key = it.next();
-                Object childObj = null;
-                try {
-                    childObj = jsonObject.get(key);
-                } catch (JSONException e) {
-                    LOG.debug("Error while removing the keys: {}", e.getMessage());
-                }
-                if (childObj instanceof JSONObject) {
-                    removeJSONKeys(((JSONObject) childObj), keyValue);
-                }
-                if (childObj instanceof JSONArray) {
-                    JSONArray arrayChildObjs = ((JSONArray) childObj);
-                    int size = arrayChildObjs.length();
-                    for (int i = 0; i < size; i++) {
-                        try {
-                            removeJSONKeys(arrayChildObjs.getJSONObject(i), keyValue);
-                        } catch (JSONException e) {
-                            LOG.debug("Error while removing the keys: {}", e.getMessage());
-                        }
-                    }
+            for(Map.Entry<String, JsonElement> entry : jsonObject.entrySet()){
+                if (entry.getValue().isJsonObject()) {
+                    removeJSONKeys(entry.getValue().getAsJsonObject(),keyValue);
                 }
             }
         }
     }
 
-    private final String buildJsonForPage(final String path, final String responseLevel, final SlingHttpServletRequest request) throws JSONException {
+    private final String buildJsonForPage(final String path, final String responseLevel, final SlingHttpServletRequest request) throws JSONException, NoSuchFieldException, IllegalAccessException {
         final Stopwatch stopwatch = Stopwatch.createStarted();
         final String pageContentJsonConstant = "{\"Page Content\":";
         final String navigationContentJsonConstant = ",\"Navigation Content\":";
@@ -170,9 +149,6 @@ public class WatersContentService extends SlingAllMethodsServlet {
                                 pageJsonResponse = sanitizeJSON(pageJsonResponse);
                                 navigationCompJsonResponse = sanitizeJSON(navigationCompJsonResponse);
                             }
-                            if (labelsRefactoring) {
-                                pageJsonResponse = refactorLabelsConfig(pageJsonResponse, path);
-                            }
                             return pageContentJsonConstant + pageJsonResponse + navigationContentJsonConstant + navigationCompJsonResponse + "}";
                         }
                     }
@@ -187,9 +163,6 @@ public class WatersContentService extends SlingAllMethodsServlet {
         LOG.info("JSON fetched from AEM in {} ms", stopwatch.elapsed(TimeUnit.MILLISECONDS));
         if (sanitizeResponse && keys.length > 1) {
             pageJsonResponse = sanitizeJSON(pageJsonResponse);
-        }
-        if (labelsRefactoring) {
-            pageJsonResponse = refactorLabelsConfig(pageJsonResponse, path);
         }
         return pageContentJsonConstant + pageJsonResponse + "}";
     }
@@ -208,67 +181,6 @@ public class WatersContentService extends SlingAllMethodsServlet {
             }
         }
         return pageJsonResponse;
-    }
-
-    private String refactorLabelsConfig(String pageJsonResponse, String path){
-        if (path.contains("cart-checkout")) {
-            try{
-                final JSONObject cartPageJson = new JSONObject(pageJsonResponse);
-                final JSONObject rootJson = cartPageJson.getJSONObject("root");
-                Map<String, String> labelsMap = new HashMap<>();
-                Map<String, String> configsMap = new HashMap<>();
-                getMap(cartPageJson.toString(),"root", WatersConstants.LABELS, labelsMap);
-                getMap(cartPageJson.toString(),"root", WatersConstants.CONFIGS, configsMap);
-                Iterator<String> it = rootJson.keys();
-                ArrayList<Object> toRemove = new ArrayList<>();
-                while (it.hasNext()) {
-                    String key = it.next();
-                    if(key.startsWith("labels_")){
-                        toRemove.add(key);
-                    }
-                }
-                for (Object o : toRemove) {
-                    rootJson.remove((String)o);
-                }
-                rootJson.put(WatersConstants.CONFIGS,configsMap.size() > 0 ? new JSONObject(configsMap) : "");
-                rootJson.put(WatersConstants.LABELS,labelsMap.size() > 0 ? new JSONObject(labelsMap) : "");
-                cartPageJson.put("root",rootJson);
-                return cartPageJson.toString();
-            } catch (JSONException e) {
-                LOG.error("JSONException occurred in refactorLabelsConfig() method of WatersContentService class: ", e);
-            }
-        }
-        return pageJsonResponse;
-    }
-
-    private void getMap(String jsonString, String element, String type, Map map) {
-        String listType= null;
-        String jsonKey = null;
-        String jsonValue = null;
-        if(type.equalsIgnoreCase(WatersConstants.LABELS)){
-            listType="labelList"; jsonKey="labelKey"; jsonValue="labelValue";
-        }else if(type.equalsIgnoreCase(WatersConstants.CONFIGS)){
-            listType="configList"; jsonKey="text"; jsonValue="link";
-        }
-        try {
-            if(jsonString.contains(element)) {
-                JSONObject jsonObject = new JSONObject(jsonString).getJSONObject(element);
-                Iterator<String> iterator = jsonObject.keys();
-                while (iterator.hasNext()) {
-                    String key = iterator.next();
-                    if (jsonObject.get(key) instanceof JSONObject) {
-                        JSONObject innerJObject = jsonObject.getJSONObject(key);
-                        if (!innerJObject.has(jsonKey)) {
-                            getMap(innerJObject.toString(), listType, type, map);
-                        } else {
-                            map.put(innerJObject.getString(jsonKey), innerJObject.getString(jsonValue));
-                        }
-                    }
-                }
-            }
-        } catch (JSONException e) {
-            LOG.error("JSONException occurred in getMap() method of WatersContentService class:", e);
-        }
     }
 
     private JSONObject updateLanguageListJsonValue(ResourceResolver resourceResolver, String path) throws JSONException {
@@ -336,17 +248,12 @@ public class WatersContentService extends SlingAllMethodsServlet {
         hostName = configuration.getHostName();
         keys = configuration.getKeys();
         sanitizeResponse = configuration.enableSanitization();
-        labelsRefactoring = configuration.enableLabelsRefactoring();
     }
 
     @ObjectClassDefinition(name = "Waters Content Service Configuration")
     public @interface Config {
         @AttributeDefinition(name = "Host Name", description = "Set the publish host name e.g. http://www.hostname.com ")
         String getHostName();
-
-        @AttributeDefinition(name = "Refactor Labels component", description = "If true, labels component data will be simplified")
-        boolean enableLabelsRefactoring() default false;
-
 
         @AttributeDefinition(name = "Sanitize JSON response", description = "If true, elements in keys config will be removed from the repsonse.")
         boolean enableSanitization() default true;
