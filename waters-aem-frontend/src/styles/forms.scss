@@ -717,7 +717,7 @@
         .text-as-label {  
             @include font-body;
             font-size: $font-size-body;
-            margin-bottom: $space-xxs;
+            margin-bottom: $space-s;
             input:disabled {
                 border: none !important;
                 padding: 0;
@@ -745,7 +745,7 @@
         }
         .cmp-section-hr {
             margin-bottom: $space-s;
-            margin-top: $space-l;
+            margin-top: $space-s;
             hr {
                 border-bottom: $border-divider-large;
                 height: 0;
@@ -755,7 +755,7 @@
             }
         }
         .cmp-heading-label {
-            @include font-h2;
+            @include font-h3;
             margin-bottom: $space-xxs;
         }
         .cmp-form-field-doubleLabel {
@@ -777,18 +777,25 @@
             .cmp-label-standard {
                 @include font-body;
                 margin-bottom: $space-xxs;
+                @include mobile {
+                    margin-bottom: 0;
+                }
             }
-
         }
         .cmp-form-field-radio {
             label {
                 font-weight: $font-weight-bold;
             }
         }
+        .cmp-form-field-radio--wrapper {
+            label {
+                @include font-body;
+            }         
+        }
         .cmp-text-label {
             @include font-body;
             font-size: $font-size-body;
-            margin-bottom: $space-xxs;
+            margin-bottom: $space-xxxs;
         }
         .cmp-label-bold {
             @include font-body;
