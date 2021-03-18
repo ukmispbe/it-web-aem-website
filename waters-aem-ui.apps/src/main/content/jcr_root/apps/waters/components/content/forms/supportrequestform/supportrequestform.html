@@ -28,8 +28,8 @@
                     "validation": {
                         "required": true,
                         "maxLength": {
-                            "value": 40,
-                            "message": "${'Maximum 40 characters allowed' @i18n, context='unsafe'}"
+                            "value": 18,
+                            "message": "${'Maximum 18 characters allowed' @i18n, context='unsafe'}"
                         },
                         "validateFnName": "noWhitespaceOnly",
                         "requiredMsg": "${'Serial Number is required' @ i18n, context='unsafe'}"
@@ -239,6 +239,10 @@
                     "label": "${'Email Address' @ i18n, context='text'}",
                     "validation": {
                         "required": true,
+                        "maxLength": {
+                            "value": 241,
+                            "message": "${'Maximum 241 characters allowed' @i18n, context='unsafe'}"
+                        },
                         "requiredMsg": "${'Please enter an email address.' @ i18n, context='text'}",
                         "validateFnName": "email",
                         "validationMsg": "${'Please enter a valid email address.' @ i18n, context='text'}"
@@ -251,6 +255,10 @@
                     "validation": {
                         "validateFnName": "blankOrNumbersOnly",
                         "required": true,
+                        "maxLength": {
+                            "value": 30,
+                            "message": "${'Maximum 30 characters allowed' @i18n, context='unsafe'}"
+                        },
                         "requiredMsg": "${'Please enter a phone number (Numbers Only).' @ i18n, context='unsafe'}",
                         "validationMsg": "${'Please enter a valid phone number (Numbers Only).' @ i18n, context='text'}"
                     }
@@ -262,6 +270,10 @@
                     "optionalLabel": "${'(optional)' @ i18n, context='text'}",
                     "validation": {
                         "validateFnName": "blankOrNumbersOnly",
+                        "maxLength": {
+                            "value": 30,
+                            "message": "${'Maximum 30 characters allowed' @i18n, context='unsafe'}"
+                        },
                         "required": false,
                         "validationMsg": "${'Please enter a valid phone number (Numbers Only).' @ i18n, context='text'}"
                     }
