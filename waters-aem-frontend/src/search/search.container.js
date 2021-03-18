@@ -1210,7 +1210,7 @@ class SearchContainer extends Component {
 
     render() {
         if (this.state.loading) {
-            // hide the XF initially to prevent flicker
+            // hide the XF initially to prevent loading flicker
             this.noSearchResultsToggle();
         };
 
