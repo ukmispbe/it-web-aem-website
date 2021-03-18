@@ -183,8 +183,8 @@ public class WatersContentService extends SlingAllMethodsServlet {
                         .getValueMap()
                         .get("languageListJson", String.class)), JsonObject.class);
 
-        for (String s : languageListJsonValue.keySet()) {
-            final String key = String.valueOf(s);
+        for (String language : languageListJsonValue.keySet()) {
+            final String key = String.valueOf(language);
             final String value = languageListJsonValue.get(key).getAsString();
             languageListJsonValue.addProperty(key, value.substring(0, value.indexOf(HTML)) + "/cart-checkout.html");
         }
