@@ -6,7 +6,7 @@ import UserDetails from '../../my-account/services/UserDetails';
 import SoldToDetailsLazy from '../../my-account/services/SoldToDetailsLazy';
 import { signInRedirect, getNamedHeaderLink } from '../../utils/redirectFunctions';
 import { postData, getData } from '../../utils/serviceFunctions';
-import { matchUserToSoldToAddresses, createUserAddresses } from '../../utils/userFunctions';
+import { createUserAddresses, getFullName, matchUserToSoldToAddresses, setHeaderWelcome } from '../../utils/userFunctions';
 import { convertFileIntoBase64, getAttachmentFieldName } from '../fields/utils/fileAttachment';
 
 export async function registrationSubmit(data) {
@@ -260,6 +260,7 @@ export async function personalSubmit(data) {
         const store = new SessionStore();
         store.setUserDetails(responseBody);
         store.setPersonalDetailsUpdated();
+        setHeaderWelcome(getFullName(responseBody));
 
         if (responseBody && responseBody.soldToAccounts && responseBody.soldToAccounts.length &&
             responseBody.userId && responseBody.salesOrg) {
