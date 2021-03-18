@@ -618,6 +618,7 @@
         font-size: $font-size-body;
         .cmp-bold {
             font-weight: $font-weight-bold;
+            word-break: break-all;
         }
     }
 
@@ -807,9 +808,13 @@
             @include font-body;
             font-size: $font-size-body;
             margin-bottom: 0;
+            word-break: break-all;
         }
         .cmp-form-field-dropdown {
             width: 100%;
+        }
+        .LinesEllipsis {
+            word-break: break-all;
         }
     }
 }
