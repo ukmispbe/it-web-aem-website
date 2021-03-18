@@ -170,7 +170,7 @@ const CreateRequestForm = ({
       "subject": formData.shortDescription,
       "serialNumber": formData.serialNumber,
       "description": formData.formDescription,
-      "assetId": formData.productDetails,
+      "assetId": formData.productDetails ? formData.productDetails : formData.productDetailsValue,
       "contactInfo": {
         "firstName": formData.firstName,
         "lastName": formData.lastName,
