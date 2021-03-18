@@ -756,7 +756,9 @@
         }
         .cmp-heading-label {
             @include font-h3;
+            color: $color-font-dark;
             margin-bottom: $space-xxs;
+            margin-top: $space-xxs;
         }
         .cmp-form-field-doubleLabel {
             margin-bottom: 0;
