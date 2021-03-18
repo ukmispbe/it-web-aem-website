@@ -1209,6 +1209,11 @@ class SearchContainer extends Component {
     }
 
     render() {
+        if (this.state.loading) {
+            // hide the XF initially to prevent flicker
+            this.noSearchResultsToggle();
+        };
+
         if (this.state.loading && !screenSizes.isTabletAndUnder()) {
             return <Loading visible={true} />
         };
