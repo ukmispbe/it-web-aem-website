@@ -1,46 +1,44 @@
 package com.waters.aem.core.components.content;
 
-import com.day.cq.wcm.api.Page;
-import io.wcm.testing.mock.aem.junit5.AemContext;
-import io.wcm.testing.mock.aem.junit5.AemContextExtension;
-import org.apache.sling.api.resource.Resource;
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
+import org.mockito.InjectMocks;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.slf4j.LoggerFactory;
-import ch.qos.logback.classic.Level;
-import ch.qos.logback.classic.Logger;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static junitx.util.PrivateAccessor.setField;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
-@ExtendWith(AemContextExtension.class)
-public class TextTest {
+@ExtendWith(MockitoExtension.class)
+class TextTest {
 
-    @Mock
+    @InjectMocks
     private Text text;
-    private Page page;
-    private Resource resource;
 
     @BeforeEach
-    public void setUp() throws Exception {
+    public void setUp() throws NoSuchFieldException {
         Logger rootLogger = (Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
         rootLogger.setLevel(Level.ERROR);
-    }
-
-    @BeforeEach
-    public void setup(AemContext context) throws Exception {
-        page = context.create().page("/content/mypage");
-        resource = context.create().resource(page, "text",
-                "sling:resourceType", "waters/components/text","title","Test Title","text","Sample");
-        text = resource.adaptTo(Text.class);
+        setField(text, "title", "Title");
+        setField(text, "indexed", false);
     }
 
     @Test
-    void testGetTitle() throws Exception {
-        String expected ="Test Title";
-        String title = text.getTitle();
-        assertNotNull(title);
-        assertEquals(expected,title);
+    void testGetTitle() {
+        assertEquals("Title", text.getTitle());
+    }
+
+    @Test
+    void testIsIndexed() {
+        assertFalse(text.isIndexed());
+    }
+
+    @Test
+    void testGetExportedType() {
+        assertEquals(Text.RESOURCE_TYPE, text.getExportedType());
     }
 }
