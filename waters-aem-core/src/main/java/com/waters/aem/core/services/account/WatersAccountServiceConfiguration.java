@@ -67,7 +67,7 @@ public @interface WatersAccountServiceConfiguration {
     String countryStatesUrl() default "https://api-sbox.waters.com/dev-waters-country-exp-api-v1/api/countries/{country}?states=true";
 
     @AttributeDefinition(name = "Support Request API Url", description = "Url for Support Request API")
-    String supportRequestUrl() default "https://anypoint.mulesoft.com/mocking/api/v1/sources/exchange/assets/55bf2ad9-16b8-428f-9f36-fc687e5cc3d4/waters-supportcase-web-exp-api/1.0.11/m/support-case";
+    String supportRequestUrl() default "https://api-sbox.waters.com/dev-waters-supportcase-web-exp-api-v1/api/support-case";
 
     @AttributeDefinition(name = "Support Request API Equipment Url", description = "Url for Support Request Equipment API")
     String supportRequestEquipmentUrl() default "https://api-sbox.waters.com/dev-waters-asset-web-exp-api-v1/api/equipment";

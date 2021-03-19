@@ -23,5 +23,5 @@
           contactSupportUrl="https://test1-services.waters.com/api/waters/contact/v1/support"
           countryListUrl="https://api-sbox.waters.com/qa-waters-country-exp-api-v1/api/countries"
           countryStatesUrl="https://api-sbox.waters.com/qa-waters-country-exp-api-v1/api/countries/{country}?states=true"
-          supportRequestUrl="https://anypoint.mulesoft.com/mocking/api/v1/sources/exchange/assets/55bf2ad9-16b8-428f-9f36-fc687e5cc3d4/waters-supportcase-web-exp-api/1.0.11/m/support-case"
+          supportRequestUrl="https://api-sbox.waters.com/qa-waters-supportcase-web-exp-api-v1/api/support-case"
           supportRequestEquipmentUrl="https://api-sbox.waters.com/qa-waters-asset-web-exp-api-v1/api/equipment"  />
