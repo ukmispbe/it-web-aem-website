@@ -9,6 +9,7 @@ import {
     getEprocUserCountryCode,
     getEprocUserLanguage
 } from '../utils/userFunctions';
+import {EPROC_LOCALE_LANGUAGE} from '../constants'
 // This function determines the eCommerce Status of the User / Country combination
 // The eCommerce status is determined from the "data-ecommerce-state" which is returned in the header Navigation
 export const isCartHidden = () => {
@@ -97,7 +98,7 @@ export const getCompanyLogo = (dir, company) => {
 export const buildViewCartURL = (url) => {
     url = url
         .replace('{localeCountry}', isEprocurementUser() ? getEprocUserCountryCode().toLowerCase() : getCountryCode())
-        .replace('{localeLanguage}', isEprocurementUser() ? getEprocUserLanguage().toLowerCase() : getLanguage())
+        .replace('{localeLanguage}', isEprocurementUser() ? EPROC_LOCALE_LANGUAGE : getLanguage())
     return url;
 }
 
