@@ -5,8 +5,8 @@ import DigitalData from '../../scripts/DigitalData';
 import UserDetails from '../../my-account/services/UserDetails';
 import SoldToDetailsLazy from '../../my-account/services/SoldToDetailsLazy';
 import { signInRedirect, getNamedHeaderLink } from '../../utils/redirectFunctions';
-import { postData, getData } from '../../utils/serviceFunctions';
-import { createUserAddresses, getFullName, matchUserToSoldToAddresses, setHeaderWelcome } from '../../utils/userFunctions';
+import { postData, getData, postDataWithLanguage } from '../../utils/serviceFunctions';
+import { createUserAddresses, getFullName, matchUserToSoldToAddresses, setHeaderWelcome, getEprocUserLanguage } from '../../utils/userFunctions';
 import { convertFileIntoBase64, getAttachmentFieldName } from '../fields/utils/fileAttachment';
 
 export async function registrationSubmit(data) {
@@ -60,9 +60,15 @@ export async function registrationSubmit(data) {
     }
 }
 
+// Getting the Language from the User Details in Session Store
+function getUserDetailsLanguage() {
+    return getEprocUserLanguage();
+}
+
 export async function iRequestSubmit(url, data, callback, formData) {
 
-    const response = await postData(url, data);
+    const userLanguage = getUserDetailsLanguage();
+    const response = await postDataWithLanguage(url, data, userLanguage);
     const responseBody = await response.json();
 
     // remove all previous server error notifications
