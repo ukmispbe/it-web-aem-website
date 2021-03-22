@@ -9,7 +9,6 @@ import TimePeriodDropdown from '../components/time-period-dropdown';
 import FilterDropdown from '../components/filter-dropdown';
 import Tabs from '../../navigation/tabs';
 import Spinner from '../../utils/spinner';
-import DateFormatter from '../../utils/date-formatter';
 import GetLocale from "../../utils/get-locale";
 import {getSoldToId, getDummySoldToId, getUserId} from '../../utils/userFunctions'
 import Analytics, { analyticTypes, setClickAnalytics, setSelectDropdownAnalytics } from '../../analytics';
@@ -284,7 +283,7 @@ class QuoteHistory extends Component {
         const {userLocale} = this.state;
         const {configs} = this.props;
         const {quoteHistoryAvailableAfter,quoteHistoryAvailableAfterDate} = configs;
-        const quoteDate = DateFormatter.dateFormatter(quoteHistoryAvailableAfterDate, userLocale);
+        const quoteDate = quoteHistoryAvailableAfterDate;
         const quoteMessage = quoteHistoryAvailableAfter.replace(/[{]quoteDate[}]/, quoteDate);
         return (
             <div className="cmp-order-list__quote-history-message" data-locator="old-quote-history-message">{quoteMessage}</div>
