@@ -32,6 +32,5 @@ export const PRODUCT_TYPE_LABEL = 'productTypeLabel';
 export const CONFIRMATION_LABEL = 'confirmationLabel';
 export const SUPPORT_TYPE = 'supportType';
 export const CO2_BULK = 'CO2_BULK';
-export const EPROC_LOCALE_LANGUAGE = 'en';
 
 
