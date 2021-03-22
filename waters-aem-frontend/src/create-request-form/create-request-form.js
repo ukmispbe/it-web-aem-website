@@ -180,10 +180,6 @@ const CreateRequestForm = ({
       }
     };
     
-    // Console.log for QA 
-    // Output the processed data to the console until the Real API is ready
-    console.log("Submit API Data: ",  iRequestData);
-    
     iRequestSubmit.call(this, supportReqFormConfig.config.submitEndpoint, iRequestData, processIRequestData, formData);
   }
 
