@@ -6,7 +6,6 @@ import loginStatus from  '../scripts/loginStatus';
 import { signInRedirect, getNamedHeaderLink } from '../utils/redirectFunctions';
 import { CONTACT_METHOD, TECH_SUPPORT, PRODUCT_TYPE_LABEL, CONFIRMATION_LABEL } from '../constants/index';
 import cookieStore from '../stores/cookieStore';
-import DigitalData from "../scripts/DigitalData";
 
 const Form = React.lazy(() => import(/* webpackChunkName: "forms" */'../forms/form'));
 
