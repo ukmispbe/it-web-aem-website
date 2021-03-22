@@ -5,7 +5,6 @@ import SessionStore from '../stores/sessionStore';
 import loginStatus from  '../scripts/loginStatus';
 import { signInRedirect, getNamedHeaderLink } from '../utils/redirectFunctions';
 import { CONTACT_METHOD, TECH_SUPPORT, PRODUCT_TYPE_LABEL, CONFIRMATION_LABEL } from '../constants/index';
-import { getEprocUserLanguage } from '../utils/userFunctions';
 
 const Form = React.lazy(() => import(/* webpackChunkName: "forms" */'../forms/form'));
 
@@ -152,11 +151,6 @@ const CreateRequestForm = ({
     } 
   }
 
-  // Getting the Language from the USer Details in Session Store
-  function getUserDetailsLanguage() {
-    return getEprocUserLanguage();
-  }
-
   function  checkIRequestSubmit(data) {
 
     // Need to create the Short Description  
@@ -167,10 +161,8 @@ const CreateRequestForm = ({
     processPreferredContactMethod(data);
     // Format the form data & call the API 
     const formData = {...serialFormData, ...recordType, ...ShortDescription,  ...data};   
-    const userLanguage = getUserDetailsLanguage();
 
     const iRequestData = {
-      "language": userLanguage,
       "recordType": formData.recordType,
       "type": supportTypeArray[0],
       "productType": formData.productType,
