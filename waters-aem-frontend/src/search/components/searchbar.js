@@ -35,7 +35,7 @@ class SearchBar extends Component {
             suggestions: [],
             openOverlay: false,
             placeholder: screenSizes.isMobile() ? this.props.placeholderMobile : this.props.placeholderTablet,
-            recentSearches: cookieStore.getRecentSearches() || []
+            recentSearches: !loginStatus.state() && cookieStore.getRecentSearches() || []
         };
 
         this.state.recentSuggestions = this.formatSuggestions(this.state.value.trim(), this.state.recentSearches);
@@ -188,8 +188,8 @@ class SearchBar extends Component {
         const suggestions = !(this.state.value.length < this.props.minSearchCharacters) 
             ? this.formatSuggestions(this.state.value.trim(), (await this.search.getSuggestedKeywords(this.props.maxSuggestions, this.state.value)))
             : [];
-        const recentSearches = cookieStore.getRecentSearches() || [];
-        const recentSuggestions = this.formatSuggestions(this.state.value.trim(), recentSearches);
+
+        const recentSuggestions = this.formatSuggestions(this.state.value.trim(), this.state.recentSearches);
         
         const openOverlay = (suggestions.length !== 0) || (recentSuggestions.length !== 0);
 
