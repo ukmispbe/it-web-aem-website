@@ -63,18 +63,10 @@
         img {
             width: 100%;
             height: auto;
-            top: 50%;
-            left: 50%;
+            top: 0;
+            left: 0;
             position: absolute;
-            transform: translate(-50%, -43.1%);
-
-            @include mobile {
-                transform: translate(-50%, -48.5%);
-            }
-
-            @include tablet {
-                transform: translate(-50%, -45.3%);
-            }
+            transform: translateY(0);
         }
 
         .cmp-image__title {
@@ -300,67 +292,78 @@
 
 .cmp-container--position0 .cmp-container {
     .cmp-container__background-image img {
-        object-position: 0 0%;
+        top: 0;
+        transform: translateY(0);
     }
 }
 
 .cmp-container--position10 .cmp-container {
     .cmp-container__background-image img {
-        object-position: 0 10%;
+        top: 10%;
+        transform: translateY(-10%);
     }
 }
 
 .cmp-container--position20 .cmp-container {
     .cmp-container__background-image img {
-        object-position: 0 20%;
+        top: 20%;
+        transform: translateY(-20%);
     }
 }
 
 .cmp-container--position30 .cmp-container {
     .cmp-container__background-image img {
-        object-position: 0 30%;
+        top: 30%;
+        transform: translateY(-30%);
     }
 }
 
 .cmp-container--position40 .cmp-container {
     .cmp-container__background-image img {
-        object-position: 0 40%;
+        top: 40%;
+        transform: translateY(-40%);
     }
 }
 
 .cmp-container--position50 .cmp-container {
     .cmp-container__background-image img {
-        object-position: 0 50%;
+        top: 50%;
+        transform: translateY(-50%);
     }
 }
 
 .cmp-container--position60 .cmp-container {
     .cmp-container__background-image img {
-        object-position: 0 60%;
+        top: 60%;
+        transform: translateY(-60%);
     }
 }
 
 .cmp-container--position70 .cmp-container {
     .cmp-container__background-image img {
-        object-position: 0 70%;
+        top: 70%;
+        transform: translateY(-70%);
     }
 }
 
 .cmp-container--position80 .cmp-container {
     .cmp-container__background-image img {
-        object-position: 0 80%;
+        top: 80%;
+        transform: translateY(-80%);
     }
 }
 
 .cmp-container--position90 .cmp-container {
     .cmp-container__background-image img {
-        object-position: 0 90%;
+        top: 90%;
+        transform: translateY(-90%);
     }
 }
 
 .cmp-container--position100 .cmp-container {
     .cmp-container__background-image img {
-        object-position: 0 100%;
+        top: 100%;
+        transform: translateY(-100%);
     }
 }
 
