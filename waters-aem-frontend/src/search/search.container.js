@@ -550,7 +550,7 @@ class SearchContainer extends Component {
 
         newState.noResults = !newState.results[query.page].length;
 
-        if (!newState.noResults && query.keyword && query.keyword !== parameterDefaults.keyword) {
+        if (!loginStatus.state() && !newState.noResults && query.keyword && query.keyword !== parameterDefaults.keyword) {
             cookieStore.setRecentSearches(query.keyword);
         }
 
