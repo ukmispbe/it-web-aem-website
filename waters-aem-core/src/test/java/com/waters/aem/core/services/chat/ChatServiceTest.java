@@ -30,18 +30,16 @@ public class ChatServiceTest {
 
     @Test
     void testGetChatUrl() throws Exception {
-        String expected ="https://avaya-emc-dev.waters.com";
         String chatUrl = chatService.getChatUrl();
         assertNotNull(chatUrl);
-        assertEquals(expected,chatUrl);
+        assertEquals("https://avaya-emc-dev.waters.com",chatUrl);
     }
 
     @Test
     void testGetChatStatusApi() throws Exception {
-        String expected ="https://stage1-services.waters.com";
         String getChatStatusApi = chatService.getChatStatusApi();
         assertNotNull(getChatStatusApi);
-        assertEquals(expected,getChatStatusApi);
+        assertEquals("https://stage1-services.waters.com",getChatStatusApi);
     }
 
 
