@@ -30,7 +30,7 @@ const CreateRequestForm = ({
   // If so only allow Israel through. Otherwise redirect to Contact Us Page
   useEffect(()=> {
     // Read the Comma Seperated List from AEM
-    const countriesReadFromAEM = serialFormConfig.config.countryCodesFromAEM;
+    const countriesReadFromAEM = serialFormConfig.config.globalCountries;
     // Check if empty and return
     if (!countriesReadFromAEM || countriesReadFromAEM === "") {
       setDisplayInitialForm(true);
@@ -47,7 +47,7 @@ const CreateRequestForm = ({
       setDisplayInitialForm(true);  
       return;
     }
-    const contactUsUrl = serialFormConfig.config.contactUsRedirect;
+    const contactUsUrl = serialFormConfig.config.globalCountriesRedirectURL;
     if (contactUsUrl && contactUsUrl !== "") {
       window.location.replace(contactUsUrl);     
     }
