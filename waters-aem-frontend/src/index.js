@@ -58,7 +58,7 @@ function getAuthoredDataForSearchApp(c, s) {
         searchText: s,
         isocode: c.dataset.isocode,
         locale: c.dataset.locale,
-        rows: c.dataset.rows,
+        rows: c.dataset.rows
     };
 }
 
