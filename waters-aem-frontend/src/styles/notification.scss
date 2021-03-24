@@ -284,9 +284,24 @@ div[class*="cmp-notification--error"], div[class~="cmp-notification--error"]{
 }
 
 .cmp-notification--center {
-    .cmp-notification-wrapper {;
+    .cmp-notification-wrapper {
         border: unset;
         background-color: transparent;
         padding: 0;
     }
 }
+
+/* Fix to show icon on XF */
+.xf-web-container {
+    .inline-svg {
+        display: inline-block;
+        height: $icon-m;
+        width: $icon-l;
+        padding-right: $space-xxs;
+        margin-top: 0.1em;
+    }
+     .cmp-notification-icon img.inline-svg {
+        filter: invert(21%) sepia(72%) saturate(7378%) hue-rotate(343deg) brightness(90%) contrast(100%);
+    }
+}
+    
