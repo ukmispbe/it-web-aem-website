@@ -221,7 +221,9 @@ export const setHeaderWelcome = (userName) => {
     const userNameText = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__user .my-account-headline-text');
     const config = JSON.parse(document.querySelector("#account-modal-configs-json").innerHTML);
     const greeting = config && config.greeting && userName ? `${config.greeting} ${userName}` : config.title;
-    userNameText.innerHTML = greeting;
+    if (userNameText && greeting) {
+        userNameText.innerHTML = greeting;
+    };
 }
 
 //Type Options: soldToInfo billToInfo shipToInfo payerInfo carrierInfo
