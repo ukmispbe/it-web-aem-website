@@ -1,13 +1,11 @@
 import DigitalData from "../scripts/DigitalData";
 import { RECENT_SEARCHES_EXPIRY_TIME } from "../constants";
-import { isEprocurementUser } from '../utils/userFunctions';
 
 const keys = {
     loggedInStatus: 'WatersGreetingCookie',
     soldToStatus: 'ST_STATUS',
     locale: 'org.springframework.web.servlet.i18n.CookieLocaleResolver.LOCALE',
-    recentSearches: 'waters.recentsearches',
-    eprocRecentSearches: 'waters.eprocRecentsearches'
+    recentSearches: 'waters.recentsearches'
 }
 
 function getCookie(cname) {
@@ -26,10 +24,6 @@ function getCookie(cname) {
     return "";
 };
 
-const getRecentSearchesKey = () => {
-    return isEprocurementUser() ? keys.eprocRecentSearches : keys.recentSearches;
-};
-
 const cookieStore = {
     getLoggedInStatus: () => getCookie(keys.loggedInStatus),
     getSoldToStatus: () => getCookie(keys.soldToStatus),
@@ -46,20 +40,16 @@ const cookieStore = {
         }
     },
     getRecentSearches: () => {
-        const cookieName = getRecentSearchesKey();
-        const cookieValue = getCookie(cookieName);
+        const cookieValue = getCookie(keys.recentSearches)
         return cookieValue ? JSON.parse(cookieValue) : [];
     },
     setRecentSearches: (keyword, searchCount = 5) => {
-        const cookieName = getRecentSearchesKey();
+        const cookieName = keys.recentSearches;
         const existingCookie = getCookie(cookieName);
         const searchKeywords = existingCookie ? JSON.parse(existingCookie) : [];
         // 30 Days expiry time
         const expires = new Date(new Date().getTime() + parseInt(RECENT_SEARCHES_EXPIRY_TIME) * 1000 * 60 * 60 * 24);
         if (searchKeywords.indexOf(keyword) !== -1) {
-            searchKeywords.splice(searchKeywords.indexOf(keyword), 1);
-            searchKeywords.unshift(keyword);
-            document.cookie = `${cookieName}=${JSON.stringify(searchKeywords)}; path=/; expires=${expires.toUTCString()}`;
             return;
         }
         searchKeywords.unshift(keyword);

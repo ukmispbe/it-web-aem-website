@@ -15,7 +15,7 @@ import punchoutLogin from '../my-account/services/PunchoutLogin';
 import punchoutSetup from '../my-account/services/PunchoutSetup';
 import parseQueryParams from '../utils/parse-query-params';
 import removeQueryString from '../utils/remove-query-string';
-import { isEprocurementUser, setHeaderWelcome } from '../utils/userFunctions';
+import { isEprocurementUser } from '../utils/userFunctions';
 import buildUrl from '../utils/buildUrl';
 import EprocSetupFailure from '../eproc-setup-failure/EprocSetupFailure';
 
@@ -160,7 +160,6 @@ class MyAccountDropDown extends React.Component {
             let updatedUserName = '';
             if(Object.keys(savedUserDetails).length !== 0) {
                 updatedUserName = this.formatUserName(savedUserDetails);
-                setHeaderWelcome(this.formatUserNameForHeader(savedUserDetails));
             } else {
                 this.retrieveUserDetails();
             }
@@ -272,7 +271,6 @@ class MyAccountDropDown extends React.Component {
             if (Object.keys(userDetails).length && userDetails.userId && userDetails.salesOrg) {
                 const soldToDetails = await SoldToDetailsLazy(soldToDetailsUrl, userDetails.userId, userDetails.salesOrg);
                 const userName = this.formatUserName(userDetails);
-                setHeaderWelcome(this.formatUserNameForHeader(userDetails));
 
                 let priorityAccount = {};
                 let accountName = "";
@@ -316,7 +314,6 @@ class MyAccountDropDown extends React.Component {
         const soldToDetails = store.getSoldToDetails();
 
         const userName = this.formatUserName(userDetails);
-        setHeaderWelcome(this.formatUserNameForHeader(userDetails));
 
         const priorityAccount = soldToDetails && soldToDetails.length !== 0 ? soldToDetails[0] : {};
         const accountName = priorityAccount.company ? `${priorityAccount.company} ` : userDetails.company;

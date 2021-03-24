@@ -157,6 +157,18 @@ public final class SiteContext {
         return commerce.getCountryCommerceConfig();
     }
 
+    public String getSupportRequestGlobalCountries() {
+        final Commerce commerce = currentPage.getContentResource().adaptTo(Commerce.class);
+
+        return commerce.getSupportRequestGlobalCountries();
+    }
+
+    public String getGlobalCountriesRedirectUrl() {
+        final Commerce commerce = currentPage.getContentResource().adaptTo(Commerce.class);
+
+        return commerce.getGlobalCountriesRedirectUrl();
+    }
+
     public String getLanguageLocation() {
         final Locale locale = getLocale();
 
