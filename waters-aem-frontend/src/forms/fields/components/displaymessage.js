@@ -59,7 +59,7 @@ const DisplayMessage = ({ name, validation }) => {
         </>
     );
 
-    return <span className="cmp-form-field--errorText" data-locator="cmp-form-field-errorText">{getInfo()}</span>;
+    return <span className="cmp-form-field--errorText" data-locator="cmp-form-field-errorText" dangerouslySetInnerHTML={{__html: getInfo()}}/>;
 };
 
 export default React.memo(DisplayMessage);
