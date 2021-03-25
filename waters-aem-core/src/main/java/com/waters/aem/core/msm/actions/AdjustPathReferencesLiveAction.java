@@ -133,9 +133,14 @@ public class AdjustPathReferencesLiveAction implements LiveAction {
         if (isPossiblePath(value)) {
             final String languageCode = getPropertyLanguageCode(value);
 
-            if (shouldAdjustLanguage(languageCode, destinationLanguageCode)) {
-                prop.setValue(value.replace(languageCode, destinationLanguageCode));
-            }
+			if ((!"/zh_tw".equalsIgnoreCase(languageCode) && !"/pt_br".equalsIgnoreCase(languageCode))
+					&& value.contains("/content/experience-fragments")
+					&& shouldAdjustLanguage(languageCode, destinationLanguageCode)) {
+				prop.setValue(value.replace(languageCode, destinationLanguageCode));
+			} else if (value.startsWith(WatersConstants.ROOT_PATH)
+					&& shouldAdjustLanguage(languageCode, destinationLanguageCode)) {
+				prop.setValue(value.replace(languageCode, destinationLanguageCode));
+			}
             else if (shouldAdjustReferences(destinationUrl)){
                 prop.setValue(value.replace(WatersConstants.ROOT_PATH_LANGUAGE_MASTERS, WatersConstants.ORDER_ROOT_PATH));
             }
