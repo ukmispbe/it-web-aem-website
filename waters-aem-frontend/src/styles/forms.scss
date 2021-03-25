@@ -767,7 +767,11 @@
                 margin-right: $space-xs;
             }
             display: flex;
-            @include mobile {
+            &--vertical {
+                display: block;
+            }
+
+            @include tablet-and-under {
                 display: block;
             }
             .cmp-label-bold {
