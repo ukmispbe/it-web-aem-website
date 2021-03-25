@@ -109,7 +109,6 @@ const CreateRequestForm = ({
     });
 }, []);
 
-
   function checkSerialSubmit(data) {
     setSerialFormData(data);
     if  (serialFormConfig) {
