@@ -71,9 +71,23 @@ public class Commerce {
     @InheritInject
     private String currencyCountryCode;
 
+    @DialogField(fieldLabel = "Support Request Global Countries",
+            fieldDescription = "Two character country code used to define the support request behaviour.",
+            ranking = 6)
+    @TextField
+    @InheritInject
+    private String supportRequestGlobalCountries;
+
+    @DialogField(fieldLabel = "Support Request Global Countries Redirect URL",
+            fieldDescription = "Redirect URL for Global Countries",
+            ranking = 7)
+    @TextField
+    @InheritInject
+    private String globalCountriesRedirectUrl;
+
     @DialogField(fieldDescription = "Enable this to disable Mule Customer Price URL",
             value = "true",
-            ranking = 6)
+            ranking = 8)
     @CheckBox(title = "customerPriceApiDisabled",
             text = "Disable Mule CustomerPrice API")
     @Inject
@@ -81,7 +95,7 @@ public class Commerce {
 
     @DialogField(fieldDescription = "Enable this to make Checkout  Disable",
             value = "true",
-            ranking = 7)
+            ranking = 9)
     @CheckBox(title = "checkoutDisabled",
             text = "Disable Checkout")
     @Inject
@@ -89,7 +103,7 @@ public class Commerce {
 
     @DialogField(fieldDescription = "Enable this to make Quote Disable",
             value = "true",
-            ranking = 8)
+            ranking = 10)
     @CheckBox(title = "quoteDisabled",
             text = "Disable Quote")
     @Inject
@@ -98,7 +112,7 @@ public class Commerce {
 
     @DialogField(fieldDescription = "Enable this to always allow PO payment.",
             value = "true",
-            ranking = 9)
+            ranking = 11)
     @CheckBox(title = "explicitAllowPO",
             text = "Always allow PO payment")
     @Inject
@@ -107,6 +121,10 @@ public class Commerce {
     public SiteConfig getSiteConfig() {
         return siteConfig;
     }
+
+    public String getSupportRequestGlobalCountries() { return supportRequestGlobalCountries; }
+
+    public String getGlobalCountriesRedirectUrl() { return globalCountriesRedirectUrl; }
 
     public CountryCommerceConfig getCountryCommerceConfig() {
         return countryCommerceConfig;

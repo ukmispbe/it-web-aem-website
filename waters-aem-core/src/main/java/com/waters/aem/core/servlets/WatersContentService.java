@@ -5,6 +5,7 @@ import com.google.common.base.Stopwatch;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonArray;
 import com.waters.aem.core.constants.WatersConstants;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpHeaders;
@@ -115,6 +116,14 @@ public class WatersContentService extends SlingAllMethodsServlet {
                 if (entry.getValue().isJsonObject()) {
                     removeJSONKey(entry.getValue().getAsJsonObject(),keyValue);
                 }
+                if (entry.getValue().isJsonArray()) {
+                    JsonArray jsonArray = (JsonArray) entry.getValue();
+                    for(int i=0; i< jsonArray.size(); i++){
+                        if(jsonArray.get(i).isJsonObject()) {
+                            removeJSONKey(jsonArray.get(i).getAsJsonObject(), keyValue);
+                        }
+                    }
+                }
             }
         }
     }
@@ -183,8 +192,8 @@ public class WatersContentService extends SlingAllMethodsServlet {
                         .getValueMap()
                         .get("languageListJson", String.class)), JsonObject.class);
 
-        for (String s : languageListJsonValue.keySet()) {
-            final String key = String.valueOf(s);
+        for (String language : languageListJsonValue.keySet()) {
+            final String key = String.valueOf(language);
             final String value = languageListJsonValue.get(key).getAsString();
             languageListJsonValue.addProperty(key, value.substring(0, value.indexOf(HTML)) + "/cart-checkout.html");
         }

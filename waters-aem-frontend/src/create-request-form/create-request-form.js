@@ -211,8 +211,7 @@ const CreateRequestForm = ({
 
     processPreferredContactMethod(data);
     // Format the form data & call the API 
-    const formData = {...serialFormData, ...recordType, ...ShortDescription,  ...data};
-
+    const formData = {...serialFormData, ...recordType, ...ShortDescription,  ...data};   
 
     const iRequestData = {
       "recordType": formData.recordType,
@@ -231,10 +230,6 @@ const CreateRequestForm = ({
         "contactMethod": formData.preferredContactMethod
       }
     };
-    
-    // Console.log for QA 
-    // Output the processed data to the console until the Real API is ready
-    console.log("Submit API Data: ",  iRequestData);
     
     iRequestSubmit.call(this, supportReqFormConfig.config.submitEndpoint, iRequestData, processIRequestData, formData);
   }

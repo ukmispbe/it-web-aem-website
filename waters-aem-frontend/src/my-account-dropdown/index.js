@@ -142,6 +142,13 @@ class MyAccountDropDown extends React.Component {
         return userName;
     }
 
+    formatUserNameForHeader = (userDetails) => {
+        let firstName = userDetails.firstName;
+        let lastName = userDetails.lastName;
+
+        return firstName && lastName ? this.formatUserName(userDetails) : null;
+    }
+
     willShow = (newState, caller = 'default') => {
         // Check if Personal Details have been updated
         const store = new SessionStore();
@@ -181,7 +188,6 @@ class MyAccountDropDown extends React.Component {
         }
 
         const headerOverlay = document.querySelector('.cmp-header__overlay.overlay');
-
         const activeDDClass = 'is-active';
         const activeOverlay = 'active';
 
@@ -223,7 +229,6 @@ class MyAccountDropDown extends React.Component {
                             header.classList.remove('is-fixed');
                         }
                     }
-
                 }
             }
         });
