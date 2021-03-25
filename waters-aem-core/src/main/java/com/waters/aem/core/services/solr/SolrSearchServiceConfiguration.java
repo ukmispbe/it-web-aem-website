@@ -10,5 +10,5 @@ public @interface SolrSearchServiceConfiguration {
     String baseUrl() default "https://dev1-services.waters.com/api/waters/search";
 
     @AttributeDefinition(name = "Rows", description = "Rows for Waters Search Results.")
-    String rows() default "25";
+    String rows() default "12";
 }
