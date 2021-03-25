@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+    jcr:primaryType="sling:OsgiConfig"
+    ecommLaunchScript="//assets.adobedtm.com/launch-ENc971a8a6bcc74d579e855c1ab6190643.min.js"
+    eprocLaunchScript="//assets.adobedtm.com/adc8a44251cc/f0fbb2712ffd/launch-8e04eb97eef4.min.js"/>
