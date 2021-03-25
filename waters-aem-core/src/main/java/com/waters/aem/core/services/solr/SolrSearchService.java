@@ -11,4 +11,11 @@ public interface SolrSearchService {
      * @return Solr base URL
      */
     String getBaseUrl();
+
+    /**
+     * Get the configured search rows.
+     *
+     * @return Search rows
+     */
+    String getRows();
 }

@@ -57,7 +57,8 @@ function getAuthoredDataForSearchApp(c, s) {
         searchPath: c.dataset.baseUrl,
         searchText: s,
         isocode: c.dataset.isocode,
-        locale: c.dataset.locale
+        locale: c.dataset.locale,
+        rows: c.dataset.rows
     };
 }
 
@@ -133,7 +134,7 @@ if (searchAppContainer) {
         <Suspense fallback={<div>Loading...</div>}>
             <Search
                 defaultFacet="category_facet:waters%253Acategory%252Fapplicationslibrary"
-                searchDefaults={{ rows: 25 }}
+                searchDefaults={{ rows: data.rows }}
                 searchServicePath={data.searchPath}
                 searchLocale={data.locale}
                 searchText={text}
