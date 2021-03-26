@@ -15,13 +15,13 @@ result.nodes.each { node ->
     if (node.getDepth() > 6) {
         def parNode
         if(node.hasNode('par')) {
-           updateExperienceFragmant(node.getNode('par'), fragmentPath)         
+           updateExperienceFragment(node.getNode('par'), fragmentPath)         
         }
     }
    session.save()
 }
 
-def updateExperienceFragmant(parNode, fragmentPath) {
+def updateExperienceFragment(parNode, fragmentPath) {
     if (parNode.hasNode('experiencefragment')) {
         def xFragNode = parNode.getNode('experiencefragment')
         if(!xFragNode.getProperty('fragmentPath').string.equals(fragmentPath)){
