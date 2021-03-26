@@ -300,8 +300,34 @@ div[class*="cmp-notification--error"], div[class~="cmp-notification--error"]{
         padding-right: $space-xxs;
         margin-top: 0.1em;
     }
-     .cmp-notification-icon img.inline-svg {
-        filter: invert(21%) sepia(72%) saturate(7378%) hue-rotate(343deg) brightness(90%) contrast(100%);
+     .cmp-notification-wrapper img.inline-svg {
+        filter: invert(36%) sepia(27%) saturate(224%) hue-rotate(163deg) brightness(90%) contrast(95%);
+     }
+     .cmp-notification--success {
+        .cmp-notification-wrapper {
+            img.inline-svg {
+                filter: invert(65%) sepia(97%) saturate(3189%) hue-rotate(142deg) brightness(90%) contrast(84%);
+            }
+        }
     }
+    .cmp-notification--userError {
+        .cmp-notification-wrapper {
+            img.inline-svg {
+                filter: invert(21%) sepia(72%) saturate(7378%) hue-rotate(343deg) brightness(90%) contrast(100%);
+            }
+        }
+    }
+    .cmp-notification--dark {
+        .cmp-notification-wrapper {
+            img.inline-svg {
+                filter: invert(100%) sepia(0%) saturate(7487%) hue-rotate(23deg) brightness(120%) contrast(95%);
+            }
+        }
+    }
+     div[class*="cmp-notification--error"], div[class~="cmp-notification--error"]{
+        .cmp-notification-wrapper img.inline-svg {
+            filter: invert(21%) sepia(72%) saturate(7378%) hue-rotate(343deg) brightness(90%) contrast(100%);
+         }
+     }
 }
     

@@ -5,6 +5,7 @@ import SessionStore from '../stores/sessionStore';
 import loginStatus from  '../scripts/loginStatus';
 import { signInRedirect, getNamedHeaderLink } from '../utils/redirectFunctions';
 import { CONTACT_METHOD, TECH_SUPPORT, PRODUCT_TYPE_LABEL, CONFIRMATION_LABEL } from '../constants/index';
+import cookieStore from '../stores/cookieStore';
 
 const Form = React.lazy(() => import(/* webpackChunkName: "forms" */'../forms/form'));
 
@@ -15,6 +16,7 @@ const CreateRequestForm = ({
     isocode,
 }) => {
   const [ showForm, setShowForm ] = useState();
+  const [ displayInitialForm, setDisplayInitialForm ] = useState(false);
   const [ isInEditMode, setIsInEditMode ] = useState(document.getElementById("header").hasAttribute("data-is-edit-mode"));
   const [ serialFormConfig, setCheckSerialFormConfig ] = useState(checkSerialFormConfig);
   const [ supportReqFormConfig, setSupportRequestFormConfig ] = useState(supportRequestFormConfig);
@@ -23,6 +25,56 @@ const CreateRequestForm = ({
   const [ initialConfirmationFormValues, setInitialConfirmationFormValues ] = useState({});
   const [ serialFormData, setSerialFormData ] = useState();
   const [ userDetails, setUserDetails ] = useState();
+
+  // Check if countryCodesFromAEM contains any country codes. This is authored on XG Node.
+  // If so only allow Israel through. Otherwise redirect to Contact Us Page
+  useEffect(()=> {
+    // Read the Comma Seperated List from AEM
+    const countriesReadFromAEM = serialFormConfig.config.globalCountries;
+    // Check if empty and return
+    if (!countriesReadFromAEM || countriesReadFromAEM === "") {
+      setDisplayInitialForm(true);
+      return;
+    }
+
+    // Create an array of countries from the Authored AEM Property
+    const countryArray = createAEMCountryArray(countriesReadFromAEM);
+    
+    // Get the Current Local string from the cookie and redirect if not in the list
+    const localeString = cookieStore.getLocale();      
+    const userCountry = getCountryFromLocale(localeString)
+    if (countryArray.includes(userCountry)) { 
+      setDisplayInitialForm(true);  
+      return;
+    }
+    const contactUsUrl = serialFormConfig.config.globalCountriesRedirectURL;
+    if (contactUsUrl && contactUsUrl !== "") {
+      window.location.replace(contactUsUrl);     
+    }
+    return;
+  }, []);
+
+  // input formats can be de, en_US, ha_Latn_GH
+  function getCountryFromLocale(localeString) {
+    if (localeString.indexOf("_") !== -1) {
+      const localeArray = localeString.split("_");
+      return localeArray[localeArray.length - 1].toUpperCase();
+    }
+    else {
+      return localeString.toUpperCase();
+    }
+  }
+
+  function createAEMCountryArray(countryString) {
+    let countryArray;
+    if (countryString.indexOf(",") !== -1) {
+      countryArray = countryString.split(",");
+    }
+    else {
+      countryArray = [countryString];
+    }
+    return countryArray;
+  }
 
   useEffect(() => {
     const needsToBeSignedIn = serialFormConfig.config.needsToBeSignedIn;
@@ -54,10 +106,8 @@ const CreateRequestForm = ({
         setUserDetails(userInfo);
         setShowForm(0);
       }
-
     });
 }, []);
-
 
   function checkSerialSubmit(data) {
     setSerialFormData(data);
@@ -323,12 +373,14 @@ const CreateRequestForm = ({
       }
       return (
       <Suspense fallback={<div>Loading...</div>}>
-        <Form
-          {...serialFormConfig}
-          defaultValues={initialSerialFormValues}
-          submitFn={checkSerialSubmit}
-          isocode={isocode}
-        />
+        { displayInitialForm && (
+              <Form
+              {...serialFormConfig}
+              defaultValues={initialSerialFormValues}
+              submitFn={checkSerialSubmit}
+              isocode={isocode}
+            />
+        )}
       </Suspense>) ;
     case 1:
       return (
