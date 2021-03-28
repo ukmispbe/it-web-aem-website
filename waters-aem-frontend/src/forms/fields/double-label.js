@@ -22,12 +22,8 @@ const DoubleLabel = ({ name, addClass, label}) => {
     }
     return (
     <>
-        <label className={classLeft}>
-            {label} 
-        </label>   
-        <label className={classRight}>
-            {labelValue} 
-        </label>   
+        <label className={classLeft} dangerouslySetInnerHTML={{__html: label}}/>
+        <label className={classRight} dangerouslySetInnerHTML={{__html: labelValue}}/>   
     </>
     );
 };
