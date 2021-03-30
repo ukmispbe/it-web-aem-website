@@ -93,12 +93,22 @@ public class AdjustPathReferencesLiveAction implements LiveAction {
     }
 
     private String getPropertyLanguageCode(final String value) {
-        final String lang = LanguageUtil.getLanguageRoot(value);
-        return lang.substring(lang.lastIndexOf('/'));
+        try {
+            final String lang = LanguageUtil.getLanguageRoot(value);
+            return lang.substring(lang.lastIndexOf('/'));
+        } catch(Exception e) {
+            LOG.error("Property Language Code not found in getPropertyLanguageCode() method : ", e);
+        }
+        return null;
     }
 
     private boolean isPossiblePath(final String value) {
-        return (value.startsWith(WatersConstants.ROOT_PATH)||(value.contains("/content/experience-fragments")));
+        try {
+            return (value.startsWith(WatersConstants.ROOT_PATH)||(value.contains("/content/experience-fragments")));
+        } catch (Exception e) {
+            LOG.error("Value not found in isPossiblePath() method :", e);
+        }
+        return false;
     }
 
     private void adjustMultiValuedProperties(final Property prop, final String destinationLanguageCode, final String destinationUrl)
