@@ -37,8 +37,6 @@ import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 import org.apache.sling.models.factory.ModelFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
@@ -60,8 +58,6 @@ import java.util.Collections;
 public final class Header extends AbstractComponent implements ComponentExporter {
 
     public static final String RESOURCE_TYPE = "waters/components/structure/header";
-
-    private static final Logger LOG = LoggerFactory.getLogger(Header.class);
 
     @Self
     private SiteContext siteContext;
@@ -210,10 +206,8 @@ public final class Header extends AbstractComponent implements ComponentExporter
     private Link quotesLink;
 
     public String getQuotesLink() {
-        try {
+        if (quotesLink != null) {
             return getDisableQuoteHistory() ? StringUtils.EMPTY : quotesLink.getHref().replace(WatersConstants.ROOT_PATH, "/nextgen");
-        } catch (NullPointerException e) {
-            LOG.error("Unable to find quotesLink : {}", e.getMessage());
         }
         return StringUtils.EMPTY;
     }
