@@ -80,34 +80,38 @@ const CreateRequestForm = ({
     const needsToBeSignedIn = serialFormConfig.config.needsToBeSignedIn;
     if (!isInEditMode) {
       if (needsToBeSignedIn) {
-          if (!loginStatus.state()) {
-              const store = new SessionStore();
-              store.setSignInRedirect(window.location.href);
-              signInRedirect();
-              return null;
-          }
+        if (!loginStatus.state()) {
+          const store = new SessionStore();
+          store.setSignInRedirect(window.location.href);
+          signInRedirect();
+          return null;
+        }
       }
     }
 
-    const url = getNamedHeaderLink("data-user-details-url");
-    // Call API & Update User Details
-    retrieveData(url)
-    .then((results) => {
-      if (results) {
-        const userInfo = {
-          "userInfo": {
-              "company": results.company,
-              "email": results.email,
-              "firstName": results.firstName,
-              "lastName": results.lastName,
-              "phone": results.phone
+    if (!isInEditMode) {
+      const url = getNamedHeaderLink("data-user-details-url");
+      // Call API & Update User Details
+      retrieveData(url)
+        .then((results) => {
+          if (results) {
+            const userInfo = {
+              "userInfo": {
+                "company": results.company,
+                "email": results.email,
+                "firstName": results.firstName,
+                "lastName": results.lastName,
+                "phone": results.phone
+              }
             }
-        }
-        setUserDetails(userInfo);
-        setShowForm(0);
-      }
-    });
-}, []);
+            setUserDetails(userInfo);
+            setShowForm(0);
+          }
+        });
+    } else {
+      setShowForm(0);
+    }
+  }, []);
 
   function checkSerialSubmit(data) {
     setSerialFormData(data);
