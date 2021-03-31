@@ -1,5 +1,6 @@
 import React from 'react';
 import DigitalData from '../scripts/DigitalData';
+import { htmlParser } from './eCommerceFunctions';
 
 // Array to hold countries with the Required "*" Asterisk before the label
 const countryArray = ["JP"];
@@ -10,7 +11,6 @@ const isPrefix = () => {
 }
 
 export const renderFormattedLabel = (label, required, optionalLabel = '') => {
-    
     if (required) {
         const isPrefixValue = isPrefix();
         return (
@@ -20,7 +20,7 @@ export const renderFormattedLabel = (label, required, optionalLabel = '') => {
                         {'*'}
                     </span>
                 )} 
-                {label}
+                {htmlParser(label)}
                 {!isPrefixValue && (
                     <span className="cmp-form-field--required">
                         {'*'}
@@ -33,7 +33,7 @@ export const renderFormattedLabel = (label, required, optionalLabel = '') => {
     if (!required) {
         return (
             <>
-                {label}
+                {htmlParser(label)}
                 <span className="cmp-form-field--optional">
                     {' ' + optionalLabel}
                 </span>
