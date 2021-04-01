@@ -37,19 +37,21 @@ const CreateRequestForm = ({
       return;
     }
 
-    // Create an array of countries from the Authored AEM Property
-    const countryArray = createAEMCountryArray(countriesReadFromAEM);
-    
-    // Get the Current Local string from the cookie and redirect if not in the list
-    const localeString = cookieStore.getLocale();      
-    const userCountry = getCountryFromLocale(localeString)
-    if (countryArray.includes(userCountry)) { 
-      setDisplayInitialForm(true);  
-      return;
-    }
-    const contactUsUrl = serialFormConfig.config.globalCountriesRedirectURL;
-    if (contactUsUrl && contactUsUrl !== "") {
-      window.location.replace(contactUsUrl);     
+    if (!isInEditMode) {
+      // Create an array of countries from the Authored AEM Property
+      const countryArray = createAEMCountryArray(countriesReadFromAEM);
+      
+      // Get the Current Local string from the cookie and redirect if not in the list
+      const localeString = cookieStore.getLocale();      
+      const userCountry = getCountryFromLocale(localeString)
+      if (countryArray.includes(userCountry)) { 
+        setDisplayInitialForm(true);  
+        return;
+      }
+      const contactUsUrl = serialFormConfig.config.globalCountriesRedirectURL;
+      if (contactUsUrl && contactUsUrl !== "") {
+        window.location.replace(contactUsUrl);     
+      }
     }
     return;
   }, []);
@@ -114,6 +116,7 @@ const CreateRequestForm = ({
   }, []);
 
   function checkSerialSubmit(data) {
+    window.dispatchEvent(new CustomEvent("showLoaderEproc", { detail: { showLoader: true }}));
     setSerialFormData(data);
     if  (serialFormConfig) {
       let organizationSearchString = "";
@@ -192,6 +195,7 @@ const CreateRequestForm = ({
     }
     setInitialIRequestFormValues(initialIRequestFormValues);
     setSupportRequestFormConfig(supportReqFormConfig);
+    window.dispatchEvent(new CustomEvent("showLoaderEproc", { detail: { showLoader: false }}));
     setShowForm(1);
   }
 
@@ -206,7 +210,7 @@ const CreateRequestForm = ({
   }
 
   function  checkIRequestSubmit(data) {
-
+    window.dispatchEvent(new CustomEvent("showLoaderEproc", { detail: { showLoader: true }}));
     // Need to create the Short Description  
     const ShortDescription = createShortDestription(data.supportType, data.productType);
     const supportTypeArray = data.supportType.split("|")
@@ -278,6 +282,7 @@ const CreateRequestForm = ({
       initialConfirmationFormValues.preferredMethodOfContactLabel = capitalizeFirstLetter(preferredContactMethod);
       setInitialConfirmationFormValues(initialConfirmationFormValues);
       // Show Confirmation Form
+      window.dispatchEvent(new CustomEvent("showLoaderEproc", { detail: { showLoader: false }}));
       setShowForm(2);
     }
   }
