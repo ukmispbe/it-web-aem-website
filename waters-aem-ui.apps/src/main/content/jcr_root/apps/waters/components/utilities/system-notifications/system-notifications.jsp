@@ -15,12 +15,20 @@
     Date onTime = properties.get("onTime", Date.class);
     Date offTime = properties.get("offTime", Date.class);
     
-    if (onTime != null) {
+    if (onTime != null  ) {
         pageContext.setAttribute("onTime", sdf.format(onTime));
     }
     
     if (offTime != null) {
         pageContext.setAttribute("offTime", sdf.format(offTime));
+    }
+
+    if (eprocOnTime != null  ) {
+        pageContext.setAttribute("eprocOnTime", sdf.format(eprocOnTime));
+    }
+
+    if (eprocOffTime != null) {
+        pageContext.setAttribute("eprocOffTime", sdf.format(eprocOffTime));
     }
     
 %><!DOCTYPE html>
@@ -59,7 +67,7 @@
         <a class="js-coral-Wizard-step-control coral-Button" href="/" data-action="cancel">Back</a>
         <button class="fn-acsCommons-Notifications-save js-coral-Wizard-step-control coral-Button" type="button" data-action="next">Save</button>
         
-        <h2 class="coral-Heading coral-Heading--2" style="margin-top: 50px"><%= xssAPI.encodeForHTML(i18n.get("Waters System Notification")) %></h2>
+        <h2 class="coral-Heading coral-Heading--2" style="margin-top: 50px"><%= xssAPI.encodeForHTML(i18n.get("Waters System Notification Ecom")) %></h2>
 
         <section class="coral-Form-fieldset">
 
@@ -127,6 +135,75 @@
             </div>
 
         </section>
+
+        <h2 class="coral-Heading coral-Heading--2" style="margin-top: 50px"><%= xssAPI.encodeForHTML(i18n.get("Waters System Notification Eproc")) %></h2>
+
+                <section class="coral-Form-fieldset">
+
+                    <div class="acsCommons-System-Notifications-Form-row">
+                        <label class="coral-Form-fieldlabel">Title</label>
+                        <input type="text"
+                               class="coral-Textfield acsCommons-System-Notifications-Page-input--text"
+                               name="./eprocTitle"
+                               value="${xss:encodeForHTML(xssAPI, properties["eprocTitle"])}"/>
+                    </div>
+
+                    <div class="acsCommons-System-Notifications-Form-row">
+                        <label class="coral-Form-fieldlabel">Message</label>
+                        <textarea
+                                class="coral-Textfield coral-Textfield--multiline acsCommons-System-Notifications-Page-input--textarea"
+                                rows="6"
+                                name="./eprocMessage">${xss:encodeForHTML(xssAPI, properties["eprocMessage"])}</textarea>
+                        <a class="coral-Link" href="/libs/cq/i18n/translator.html?path=/apps/waters/i18n" target="_blank">Manage translations</a>
+                    </div>
+
+
+                    <div class="acsCommons-System-Notifications-Form-row">
+
+                        <div style="width:50%; float: left;">
+                            <label class="coral-Form-fieldlabel">On Time</label>
+
+                            <div>
+                                <div class="coral-Datepicker coral-InputGroup acsCommons-System-Notifications-Page-input--datepicker"
+                                     data-displayed-format="llll"
+                                     data-stored-format="YYYY-MM-DD[T]HH:mm:ss.SSSZ"
+                                     data-init="datepicker">
+                                    <input class="coral-InputGroup-input coral-Textfield" value="${xss:encodeForHTMLAttr(xssAPI, eprocOnTime)}" type="datetime"
+                                           name="./eprocOnTime"/>
+                                    <span class="coral-InputGroup-button">
+                                        <button class="coral-Button coral-Button--secondary coral-Button--square" type="button"
+                                            title="Datetime Picker">
+                                            <i class="coral-Icon coral-Icon--sizeS coral-Icon--calendar"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="width:50%; float: left;">
+                            <label class="coral-Form-fieldlabel">Off Time</label>
+
+                            <div>
+                                <div class="coral-Datepicker coral-InputGroup acsCommons-System-Notifications-Page-input--datepicker"
+                                     data-displayed-format="llll"
+                                     data-stored-format="YYYY-MM-DD[T]HH:mm:ss.SSSZ"
+                                     data-init="datepicker">
+                                    <input class="coral-InputGroup-input coral-Textfield" value="${xss:encodeForHTMLAttr(xssAPI, eprocOffTime)}" type="datetime"
+                                           name="./eprocOffTime"/>
+                                    <span class="coral-InputGroup-button">
+                                        <button class="coral-Button coral-Button--secondary coral-Button--square" type="button"
+                                                title="Datetime Picker">
+                                            <i class="coral-Icon coral-Icon--sizeS coral-Icon--calendar"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="clear:both;"></div>
+                    </div>
+
+            </section>
     </div>
     </div>
 </form>
