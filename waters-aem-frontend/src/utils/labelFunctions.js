@@ -1,5 +1,6 @@
 import React from 'react';
 import DigitalData from '../scripts/DigitalData';
+import { htmlParser } from './eCommerceFunctions';
 
 // Array to hold countries with the Required "*" Asterisk before the label
 const countryArray = ["JP"];
@@ -10,7 +11,8 @@ const isPrefix = () => {
 }
 
 export const renderFormattedLabel = (label, required, optionalLabel = '') => {
-    
+    label = htmlParser(label);
+    optionalLabel = htmlParser(optionalLabel);
     if (required) {
         const isPrefixValue = isPrefix();
         return (
@@ -43,6 +45,9 @@ export const renderFormattedLabel = (label, required, optionalLabel = '') => {
 }
 
 export const renderFormattedLabelText = (label, required, optionalLabel = '') => {
+    label = htmlParser(label);
+    optionalLabel = htmlParser(optionalLabel);
+
     if (required) {
         const isPrefixValue = isPrefix();
         if (isPrefixValue) {

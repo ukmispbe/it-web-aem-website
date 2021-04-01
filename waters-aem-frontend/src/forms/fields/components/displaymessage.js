@@ -4,15 +4,15 @@ import ReactSVG from 'react-svg';
 import { useFieldApi } from '../../form';
 import { useErrorsContext } from '../utils/stateWatcher';
 import { useFormApi } from '../../form';
-import { htmlParser } from '../../../utils/eCommerceFunctions'
+import { elementLocator, htmlParser } from '../../../utils/eCommerceFunctions'
 
 const DisplayMessage = ({ name, validation }) => {
     const { icons } = useContext(useFieldApi);
     const { isAlreadyRegistered } = useContext(useFormApi);
     const errors = useErrorsContext();
+    const fieldErr = errors[name];
 
     const getInfo = () => {
-        const fieldErr = errors[name];
         let message = '';
         let link = <></>;
 
@@ -59,8 +59,8 @@ const DisplayMessage = ({ name, validation }) => {
             </a>
         </>
     );
-
-    return <span className="cmp-form-field--errorText" data-locator="cmp-form-field-errorText">{getInfo()}</span>;
+    let dataLocator = elementLocator(`${name}${validation.validateFnName ? "-" + validation.validateFnName : ""}${fieldErr ? "-" + fieldErr.type : ""}-error-label`);
+    return <span className="cmp-form-field--errorText" data-locator={dataLocator}>{getInfo()}</span>;
 };
 
 export default React.memo(DisplayMessage);
