@@ -2,11 +2,6 @@
 @import 'mixins.scss';
 @import 'typography.scss';
 
-//hide no search results XF
-div.has-search-results {
-    display: none !important;
-}
-
 .cmp-search-results {
     margin-left: -14px;
 
