@@ -6,6 +6,7 @@ import com.day.cq.wcm.msm.api.ActionConfig;
 import com.day.cq.wcm.msm.api.LiveAction;
 import com.day.cq.wcm.msm.api.LiveRelationship;
 import com.waters.aem.core.constants.WatersConstants;
+import org.apache.commons.lang.StringUtils;
 import org.apache.sling.api.resource.PersistenceException;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
@@ -94,11 +95,11 @@ public class AdjustPathReferencesLiveAction implements LiveAction {
 
     private String getPropertyLanguageCode(final String value) {
         final String lang = LanguageUtil.getLanguageRoot(value);
-        return lang.substring(lang.lastIndexOf('/'));
+        return StringUtils.isNotBlank(lang) ? lang.substring(lang.lastIndexOf('/')) : StringUtils.EMPTY;
     }
 
     private boolean isPossiblePath(final String value) {
-        return (value.startsWith(WatersConstants.ROOT_PATH)||(value.contains("/content/experience-fragments")));
+        return StringUtils.isNotBlank(value) ? (value.startsWith(WatersConstants.ROOT_PATH)||(value.contains("/content/experience-fragments"))) : false;
     }
 
     private void adjustMultiValuedProperties(final Property prop, final String destinationLanguageCode, final String destinationUrl)
