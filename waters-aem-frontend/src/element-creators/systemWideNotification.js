@@ -6,8 +6,8 @@ const SystemWideNotification = function(service, onDismiss) {
     let data;
 
     this.create = async (time) => {
-        const channel = isEprocurementUser ? 'EPROC' : '';
-        data = await service.getSystemWideNotification(DigitalData.language,channel);
+        const siteContext = isEprocurementUser ? 'EPROC' : '';
+        data = await service.getSystemWideNotification(DigitalData.language,siteContext);
 
 
         if (!data.enabled || !data.dateRange.isValid(time)) {
