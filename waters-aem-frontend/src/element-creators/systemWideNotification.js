@@ -6,7 +6,7 @@ const SystemWideNotification = function(service, onDismiss) {
     let data;
 
     this.create = async (time) => {
-        const siteContext = isEprocurementUser ? 'EPROC' : '';
+        const siteContext = isEprocurementUser() ? 'EPROC' : '';
         data = await service.getSystemWideNotification(DigitalData.language,siteContext);
 
 
