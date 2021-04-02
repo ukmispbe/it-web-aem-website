@@ -14,6 +14,8 @@
 
     Date onTime = properties.get("onTime", Date.class);
     Date offTime = properties.get("offTime", Date.class);
+    Date eprocOnTime = properties.get("eprocOnTime", Date.class);
+    Date eprocOffTime = properties.get("eprocOffTime", Date.class);
     
     if (onTime != null  ) {
         pageContext.setAttribute("onTime", sdf.format(onTime));
