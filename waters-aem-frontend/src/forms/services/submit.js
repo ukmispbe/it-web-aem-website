@@ -108,9 +108,9 @@ export async function checkEmailResetPasswordSubmit(data) {
     }
 }
 
-export async function serialNumberSubmit(apiUrl, companyName, formData, callback) {
+export async function serialNumberSubmit(apiUrl, formData, callback) {
 
-    const fullUrl = `${apiUrl}?accountName=${companyName}&serialNumber=${formData.serialNumber}`;
+    const fullUrl = `${apiUrl}?accountName=${formData.organization}&serialNumber=${formData.serialNumber}`;
     const response = await getData(fullUrl);
     const responseBody = await response.json();
 
