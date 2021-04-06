@@ -142,22 +142,6 @@ Array [
             className="content-type-menu-container__body"
           />
         </div>
-        <div
-          className="facet-menu-container"
-          data-locator="facet-menu-container"
-        >
-          <div
-            className="facet-menu-container__body"
-            data-locator="facet-menu-container-body"
-          >
-            <div
-              className="cmp-search-filters"
-              id="js-search-filters"
-            >
-              <ul />
-            </div>
-          </div>
-        </div>
       </div>
     </div>
     <div

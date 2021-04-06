@@ -100,4 +100,8 @@ public final class SearchResults {
             .filter(category -> category.getCategoryFacetName() != null)
             .collect(Collectors.toList()));
     }
+
+    public String getRows() {
+        return searchService.getRows();
+    }
 }

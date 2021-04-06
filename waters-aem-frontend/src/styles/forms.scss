@@ -618,6 +618,7 @@
         font-size: $font-size-body;
         .cmp-bold {
             font-weight: $font-weight-bold;
+            word-break: break-all;
         }
     }
 
@@ -717,10 +718,11 @@
         .text-as-label {  
             @include font-body;
             font-size: $font-size-body;
-            margin-bottom: $space-xxs;
+            margin-bottom: $space-s;
             input:disabled {
                 border: none !important;
                 padding: 0;
+                color: $color-font-dark;
             }
             .cmp-form-field--icons {
                 display: none;
@@ -744,7 +746,7 @@
         }
         .cmp-section-hr {
             margin-bottom: $space-s;
-            margin-top: $space-l;
+            margin-top: $space-s;
             hr {
                 border-bottom: $border-divider-large;
                 height: 0;
@@ -754,34 +756,53 @@
             }
         }
         .cmp-heading-label {
-            @include font-h2;
+            @include font-h3;
+            color: $color-font-dark;
             margin-bottom: $space-xxs;
+            margin-top: $space-xxs;
         }
         .cmp-form-field-doubleLabel {
-            margin-bottom: 0;;
+            margin-bottom: 0;
             label:first-child {
                 margin-right: $space-xs;
             }
             display: flex;
+            &--vertical {
+                display: block;
+            }
+
+            @include tablet-and-under {
+                display: block;
+            }
             .cmp-label-bold {
                 @include font-h4;
                 margin-bottom: $space-xxs;
+                @include mobile {
+                    margin-bottom: 0;
+                }
             }
             .cmp-label-standard {
                 @include font-body;
                 margin-bottom: $space-xxs;
+                @include mobile {
+                    margin-bottom: 0;
+                }
             }
-
         }
         .cmp-form-field-radio {
             label {
                 font-weight: $font-weight-bold;
             }
         }
+        .cmp-form-field-radio--wrapper {
+            label {
+                @include font-body;
+            }         
+        }
         .cmp-text-label {
             @include font-body;
             font-size: $font-size-body;
-            margin-bottom: $space-xxs;
+            margin-bottom: $space-xxxs;
         }
         .cmp-label-bold {
             @include font-body;
@@ -792,11 +813,26 @@
         }
         .cmp-utility-label-large {
             @include font-utility-large;
+            @include mobile {
+                margin-bottom: 0;
+            }
         }
         .cmp-label-standard {
             @include font-body;
             font-size: $font-size-body;
             margin-bottom: 0;
+            word-break: break-all;
+        }
+        .cmp-form-field-dropdown {
+            width: 100%;
+        }
+        .LinesEllipsis {
+            word-break: break-all;
+        }
+        .cmp-back-link {
+            span, a {
+                vertical-align: middle;
+            }
         }
     }
 }

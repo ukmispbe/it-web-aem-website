@@ -9,6 +9,7 @@ import com.citytechinc.cq.component.annotations.widgets.PathField;
 import com.icfolson.aem.library.api.link.Link;
 import com.icfolson.aem.library.api.page.PageManagerDecorator;
 import com.icfolson.aem.library.models.annotations.LinkInject;
+import com.waters.aem.core.components.SiteContext;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.services.account.WatersAccountService;
 import com.waters.aem.core.utils.LinkUtils;
@@ -17,6 +18,7 @@ import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.OSGiService;
+import org.apache.sling.models.annotations.injectorspecific.Self;
 
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
@@ -44,6 +46,9 @@ public class SupportRequestForm implements ComponentExporter {
     @OSGiService
     private WatersAccountService accountService;
 
+    @Self
+    private SiteContext siteContext;
+
     @Inject
     private PageManagerDecorator pageManager;
 
@@ -62,6 +67,14 @@ public class SupportRequestForm implements ComponentExporter {
     public String getSupportRequestUrl() {
         return accountService.getSupportRequestUrl();
     }
+
+    public String getSupportRequestEquipmentUrl() {
+        return accountService.getSupportRequestEquipmentUrl();
+    }
+
+    public String getSupportRequestGlobalCountries() { return siteContext.getSupportRequestGlobalCountries(); }
+
+    public String getGlobalCountriesRedirectUrl() { return siteContext.getGlobalCountriesRedirectUrl(); }
 
     @Nonnull
     @Override

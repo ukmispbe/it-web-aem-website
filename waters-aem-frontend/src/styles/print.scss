@@ -204,17 +204,19 @@
         padding-right: 0;
     }
 
-    .cmp-tag-list, .cmp-title {
+    .sectioncontainer .image {
         width: 100%;
+        max-height: 800px;
+
+       img {
+            max-width: 100%;
+            max-height: 750px;
+         }
     }
 
     .cmp-title {
         padding-right: $space-s;
     }
-
-    img {
-        max-width: 100%;
-     }
 
 	.image .cmp-image__image {
 		margin-top: $space-s;

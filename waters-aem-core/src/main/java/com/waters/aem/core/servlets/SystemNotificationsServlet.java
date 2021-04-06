@@ -15,6 +15,7 @@ import javax.servlet.ServletException;
 import java.io.IOException;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Optional;
 
 @Component(service = Servlet.class)
 @SlingServletPaths("/bin/waters/notifications")
@@ -25,10 +26,14 @@ public final class SystemNotificationsServlet extends AbstractJsonResponseServle
     @Reference
     private NotificationService notificationService;
 
+    private static final String PARAMETER_CHANNEL = "channel";
+
+
     @Override
     protected void doGet(final SlingHttpServletRequest request, final SlingHttpServletResponse response)
             throws ServletException, IOException {
         String language = "en";
+        final String channel = Optional.ofNullable(request.getParameter(PARAMETER_CHANNEL)).orElse("");
         final String[] selectors = request.getRequestPathInfo().getSelectors();
 
         if (selectors.length == 1) {
@@ -37,7 +42,7 @@ public final class SystemNotificationsServlet extends AbstractJsonResponseServle
 
         final Locale locale = new Locale(language);
 
-        final Map<String, Object> systemNotification = notificationService.getSystemNotification(locale);
+        final Map<String, Object> systemNotification = notificationService.getSystemNotification(locale,channel);
 
         writeJsonResponse(response, systemNotification);
     }

@@ -5,8 +5,8 @@ import DigitalData from '../../scripts/DigitalData';
 import UserDetails from '../../my-account/services/UserDetails';
 import SoldToDetailsLazy from '../../my-account/services/SoldToDetailsLazy';
 import { signInRedirect, getNamedHeaderLink } from '../../utils/redirectFunctions';
-import { postData } from '../../utils/serviceFunctions';
-import { matchUserToSoldToAddresses } from '../../utils/userFunctions';
+import { postData, getData, postDataWithLanguage } from '../../utils/serviceFunctions';
+import { createUserAddresses, getFullName, matchUserToSoldToAddresses, setHeaderWelcome, getEprocUserLanguage } from '../../utils/userFunctions';
 import { convertFileIntoBase64, getAttachmentFieldName } from '../fields/utils/fileAttachment';
 
 export async function registrationSubmit(data) {
@@ -60,6 +60,33 @@ export async function registrationSubmit(data) {
     }
 }
 
+// Getting the Language from the User Details in Session Store
+function getUserDetailsLanguage() {
+    return getEprocUserLanguage();
+}
+
+export async function iRequestSubmit(url, data, callback, formData) {
+
+    const userLanguage = getUserDetailsLanguage();
+    const response = await postDataWithLanguage(url, data, userLanguage);
+    const responseBody = await response.json();
+
+    // remove all previous server error notifications
+    this.setError();
+
+    if (response.status === 200) {
+        if (callback) {
+            callback(responseBody, formData);
+        }
+        this.setFormAnalytics('submit');
+
+    } else {
+        this.setFormAnalytics('error', responseBody);
+        this.setError({code: 500});
+        window.dispatchEvent(new CustomEvent("showLoaderEproc", { detail: { showLoader: false }}));
+    }
+}
+
 export async function checkEmailResetPasswordSubmit(data) {
 
     this.url = `${this.url.replace('{email}', data.email)}&isEproc=true`;
@@ -78,6 +105,32 @@ export async function checkEmailResetPasswordSubmit(data) {
         this.setFormAnalytics('error', responseBody);
         this.setError(response);
         scrollToY(0);
+    }
+}
+
+export async function serialNumberSubmit(apiUrl, companyName, formData, callback) {
+
+    const fullUrl = `${apiUrl}?accountName=${companyName}&serialNumber=${formData.serialNumber}`;
+    const response = await getData(fullUrl);
+    const responseBody = await response.json();
+
+    // remove all previous server error notifications
+    this.setError();
+
+    if (response.status === 200) {
+        this.setFormAnalytics('submit');
+        if (responseBody.errors) {
+            //this.setError(responseBody);
+            if (responseBody.errors[0].code === "WAT_CUSTOM_400") {
+                this.setError({code: 400});
+                window.dispatchEvent(new CustomEvent("showLoaderEproc", { detail: { showLoader: false }}));
+            }
+        }
+        callback(responseBody, formData);
+    } else {
+        this.setFormAnalytics('error', responseBody);
+        this.setError({code: 500});
+        window.dispatchEvent(new CustomEvent("showLoaderEproc", { detail: { showLoader: false }}));
     }
 }
 
@@ -216,21 +269,30 @@ export async function personalSubmit(data) {
         const store = new SessionStore();
         store.setUserDetails(responseBody);
         store.setPersonalDetailsUpdated();
+        setHeaderWelcome(getFullName(responseBody));
 
-        if (responseBody && responseBody.userId && responseBody.salesOrg) {
-            SoldToDetailsLazy(this.soldToDetailsUrl, responseBody.userId, responseBody.salesOrg)
-            .then((soldToDetails) => {
-                let mergeAPIs = matchUserToSoldToAddresses(responseBody, soldToDetails);
-                this.setProfileData(mergeAPIs);
-            });
+        if (responseBody && responseBody.soldToAccounts && responseBody.soldToAccounts.length &&
+            responseBody.userId && responseBody.salesOrg) {
+            if (responseBody.shipOrBillChangeFlag && (responseBody.shipOrBillChangeFlag == 1)) {
+                this.setProfileData(createUserAddresses(responseBody));
+            } else {
+                SoldToDetailsLazy(this.soldToDetailsUrl, responseBody.userId, responseBody.salesOrg)
+                    .then((soldToDetails) => {
+                        let mergeAPIs = matchUserToSoldToAddresses(responseBody, soldToDetails);
+                        this.setProfileData(mergeAPIs);
+                    });
+            }
+        } else {
+            this.setProfileData(createUserAddresses(responseBody));
         }
 
         const model = {
-            "communications":data.communications 
+            "communications": data.communications
         }
         this.setFormAnalytics('submit', model);
 
         this.callback();
+        scrollToY(0);
     } else if (response.status === 401) {
         signInRedirect();
     } else {
@@ -402,7 +464,6 @@ export async function chooseAccountSubmit(data) {
         scrollToY(0);
     }
 }
-
 
 export async function submitAccount(selectedAccount, urlChooseAccount) {
 

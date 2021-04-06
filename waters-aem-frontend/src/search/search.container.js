@@ -550,7 +550,7 @@ class SearchContainer extends Component {
 
         newState.noResults = !newState.results[query.page].length;
 
-        if (!loginStatus.state() && !newState.noResults && query.keyword && query.keyword !== parameterDefaults.keyword) {
+        if (!newState.noResults && query.keyword && query.keyword !== parameterDefaults.keyword) {
             cookieStore.setRecentSearches(query.keyword);
         }
 
@@ -846,7 +846,7 @@ class SearchContainer extends Component {
     };
 
     handleRemoveContentType = () => {
-        const query = this.getQueryObject();
+        const query = parse(window.location.search);
 
         delete query.content_type;
 
@@ -1197,10 +1197,11 @@ class SearchContainer extends Component {
 
     noSearchResultsToggle = () => {
         const isInEditMode = document.getElementById("header").hasAttribute("data-is-edit-mode");
+
         if (!isInEditMode) {
             const zeroResultsXF = document.querySelector('#zeroresults');
-            const hideZeroResultsClass = 'has-search-results';
-            const parentLayoutContainer = zeroResultsXF && zeroResultsXF.closest('.layoutcontainer');
+            const hideZeroResultsClass = 'hidden';
+            const parentLayoutContainer = zeroResultsXF && zeroResultsXF.closest('.layoutcontainer.hidden');
 
             if (parentLayoutContainer && this.state.noResults) {
                 domElements.removeClass(parentLayoutContainer, hideZeroResultsClass);
@@ -1211,6 +1212,11 @@ class SearchContainer extends Component {
     }
 
     render() {
+        if (this.state.loading) {
+            // hide the XF initially to prevent loading flicker
+            this.noSearchResultsToggle();
+        };
+
         if (this.state.loading && !screenSizes.isTabletAndUnder()) {
             return <Loading visible={true} />
         };

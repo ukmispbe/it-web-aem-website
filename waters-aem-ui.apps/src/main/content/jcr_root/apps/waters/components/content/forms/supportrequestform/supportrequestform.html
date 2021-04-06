@@ -4,8 +4,10 @@
         {
             "formName": "checkSerial",
             "customFormClass": "cmp-form--check-serial",
-            "submitEndpoint": "${supportRequest.supportRequestUrl @ context='unsafe'}",
+            "equipmentEndpoint": "${supportRequest.supportRequestEquipmentUrl @ context='unsafe'}",
             "buttonText": "${'Continue' @ i18n, context='text'}",
+            "globalCountries": "${supportRequest.supportRequestGlobalCountries @ context='unsafe'}",
+            "globalCountriesRedirectURL" : "${supportRequest.globalCountriesRedirectUrl @ context='unsafe'}",
             "elementLocator": "check-serial-form",
 			"buttonLocator": "continue",
             "needsToBeSignedIn": true,
@@ -28,8 +30,8 @@
                     "validation": {
                         "required": true,
                         "maxLength": {
-                            "value": 40,
-                            "message": "${'Maximum 40 characters allowed' @i18n, context='unsafe'}"
+                            "value": 18,
+                            "message": "${'Maximum 18 characters allowed' @i18n, context='unsafe'}"
                         },
                         "validateFnName": "noWhitespaceOnly",
                         "requiredMsg": "${'Serial Number is required' @ i18n, context='unsafe'}"
@@ -55,9 +57,9 @@
     <script type="application/json" id="cmp-support-request-form">
         {
             "formName": "supportRequest",
-            "recordType": "SUPPORT",
             "buttonText": "${'Send Request' @ i18n, context='text'}",
             "consentUrl": "${supportRequest.consentLink.href @ context='unsafe'}",
+            "submitEndpoint": "${supportRequest.supportRequestUrl @ context='unsafe'}",
             "needsToBeSignedIn": true,
             "elementLocator": "support-request-form",
 			"buttonLocator": "send-request",
@@ -80,13 +82,13 @@
                 {
                     "type": "label",
                     "name": "serialNumberLabel",
-                    "addClass": "text-as-label",
+                    "addClass": "cmp-text-label",
                     "label": "${'Serial Number or Software Support Plan ID:' @ i18n, context='unsafe'}"
                 },
                 {
                     "type": "label",
                     "name": "organizationLabel",
-                    "addClass": "text-as-label",
+                    "addClass": "cmp-text-label",
                     "label": "${'Organization:' @ i18n, context='unsafe'}"
                 },
                 {
@@ -132,8 +134,6 @@
                     "placeholder": "${'Select...' @ i18n, context='text'}",
                     "dropdownIndicator": "/content/dam/waters/en/brand-assets/icons/down.svg",
                     "options": [
-                        {"value":"CO2_BULK","label": "${'CO2 Bulk Delivery 500G System' @ i18n, context='text'}"},
-                        {"value":"TA_AD","label": "${'S/W Suite TA Advantage v5.0 Kit' @ i18n, context='text'}"}
                     ],
                     "active": false,
                     "validation": {
@@ -148,10 +148,10 @@
                     "placeholder": "${'Select...' @ i18n, context='text'}",
                     "dropdownIndicator": "/content/dam/waters/en/brand-assets/icons/down.svg",
                     "options": [
-                        {"value":"TS","label": "${'Technical Support' @ i18n, context='text'}"},
-                        {"value":"PM","label": "${'Preventative Maintenance' @ i18n, context='text'}"},
-                        {"value":"QUAL","label": "${'Qualification' @ i18n, context='text'}"},
-                        {"value":"INST","label": "${'Installation-Relocation' @ i18n, context='text'}"}
+                        {"value":"TS|SUPPORT","label": "${'Technical Support' @ i18n, context='text'}"},
+                        {"value":"PM|SUPPORT","label": "${'Preventative Maintenance' @ i18n, context='text'}"},
+                        {"value":"QUAL|SUPPORT","label": "${'Qualification' @ i18n, context='text'}"},
+                        {"value":"INST|SYSTEM_IMPLEMENTATION","label": "${'Installation-Relocation' @ i18n, context='text'}"}
                         
                     ],
                     "active": true,
@@ -241,6 +241,10 @@
                     "label": "${'Email Address' @ i18n, context='text'}",
                     "validation": {
                         "required": true,
+                        "maxLength": {
+                            "value": 241,
+                            "message": "${'Maximum 241 characters allowed' @i18n, context='unsafe'}"
+                        },
                         "requiredMsg": "${'Please enter an email address.' @ i18n, context='text'}",
                         "validateFnName": "email",
                         "validationMsg": "${'Please enter a valid email address.' @ i18n, context='text'}"
@@ -253,6 +257,10 @@
                     "validation": {
                         "validateFnName": "blankOrNumbersOnly",
                         "required": true,
+                        "maxLength": {
+                            "value": 30,
+                            "message": "${'Maximum 30 characters allowed' @i18n, context='unsafe'}"
+                        },
                         "requiredMsg": "${'Please enter a phone number (Numbers Only).' @ i18n, context='unsafe'}",
                         "validationMsg": "${'Please enter a valid phone number (Numbers Only).' @ i18n, context='text'}"
                     }
@@ -264,6 +272,10 @@
                     "optionalLabel": "${'(optional)' @ i18n, context='text'}",
                     "validation": {
                         "validateFnName": "blankOrNumbersOnly",
+                        "maxLength": {
+                            "value": 30,
+                            "message": "${'Maximum 30 characters allowed' @i18n, context='unsafe'}"
+                        },
                         "required": false,
                         "validationMsg": "${'Please enter a valid phone number (Numbers Only).' @ i18n, context='text'}"
                     }
@@ -273,8 +285,8 @@
                     "name": "contactMethod",
                     "label": "${'Preferred Method of Contact' @ i18n, context='unsafe'}",
                     "options": [
-                        {"name":"Email","label": "${'Email' @ i18n, context='text'}"},
-                        {"name":"Phone","label": "${'Phone' @ i18n, context='text'}"}
+                        {"name":"EMAIL","label": "${'Email' @ i18n, context='text'}"},
+                        {"name":"PHONE","label": "${'Phone' @ i18n, context='text'}"}
                     ],
                     "validation": {
                         "required": true,
@@ -312,8 +324,8 @@
                     "active": true,
                     "config": [
                         {
-                            "type": "text",
-                            "text": "${'Weve sent you an email confirmation of your request to' @ i18n, context='text'}",
+                            "type": "text", 
+                            "text": "${'We have sent you an email confirmation of your request to' @ i18n, context='text'}",
                             "rightSpace": "true"
                         },
                         {
@@ -339,13 +351,6 @@
                     "label": "${'Case Number:' @ i18n, context='unsafe'}"
                 },
                 {
-                    "type": "label",
-                    "addClass": "cmp-label-standard",
-                    "name": "dateSubmittedLabel",
-                    "label": "${'' @ i18n, context='unsafe'}"
-                },
-
-                {
                     "type": "break",
                     "addClass": "cmp-section-hr"
                 },
@@ -359,8 +364,8 @@
                     "type": "doubleLabel",
                     "name": "serialNumberLabel",
                     "addClass": [
-                        "cmp-label-bold",
-                        "cmp-label-standard"
+                        "cmp-label-bold cmp-form-field-doubleLabel--vertical",
+                        "cmp-label-standard cmp-form-field-doubleLabel--vertical"
                     ],
                     "label": "${'Serial Number or Software Support Plan ID:' @ i18n, context='unsafe'}"
                 },

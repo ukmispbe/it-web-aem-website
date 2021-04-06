@@ -217,6 +217,15 @@ export const getFullName = data => {
     }
 };
 
+export const setHeaderWelcome = (userName) => {
+    const userNameText = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__user .my-account-headline-text');
+    const config = JSON.parse(document.querySelector("#account-modal-configs-json").innerHTML);
+    const greeting = config && config.greeting && userName ? `${config.greeting} ${userName}` : config.title;
+    if (userNameText && greeting) {
+        userNameText.innerHTML = greeting;
+    };
+}
+
 //Type Options: soldToInfo billToInfo shipToInfo payerInfo carrierInfo
 export const getAddressesByType = (addresses, type) => {
     let addressTypeData = [];
@@ -258,7 +267,7 @@ export const getDefaultSoldToAddresses = (soldToAccounts) => {
 export const userDetailsAddresses = (addresses, addressType) => {
     let userAddress = [];
 
-    if (addresses.length){
+    if (addresses && addresses.length){
         for (let i = 0; i < addresses.length; i++) {
             if(addresses[i].addressType === addressType) {
                 let address = {
@@ -504,7 +513,6 @@ export const getSearchString = (path, paramString, requestObject = {}, type = ''
     }
     return searchString;
 }
-
 
 export const convertToBoolean = (value = '') => {
     let status = false;
