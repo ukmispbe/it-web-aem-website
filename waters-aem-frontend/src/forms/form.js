@@ -16,7 +16,7 @@ import SessionStore from '../stores/sessionStore';
 import loginStatus from '../scripts/loginStatus';
 import { homePageRedirect, signInRedirect } from '../utils/redirectFunctions';
 import Spinner from "../utils/spinner";
-import { elementLocator } from '../utils/eCommerceFunctions';
+import { elementLocator, htmlParser } from '../utils/eCommerceFunctions';
 import { getAddressesByType, getFullCompanyAddress } from '../utils/userFunctions';
 import SoldToDetailsLazy from '../my-account/services/SoldToDetailsLazy';
 import countryList from './services/country-list';
@@ -438,7 +438,7 @@ const Form = ({
                     aria-label="form submit button"
                     data-locator={elementLocator(config.buttonLocator || 'form-submit')}
                 >
-                    {config.buttonText}
+                    {htmlParser(config.buttonText)}
                 </button>
                 {config.cancelText && !!cancelHandler && (
                     <a
