@@ -154,7 +154,8 @@
             }
 
             &-notification-wrapper {
-                display: block;
+                display: block;                
+                padding-bottom: $space-xs;
             }
 
             &-notification {
@@ -163,6 +164,7 @@
                 border: 1px solid $color-red-20;
                 padding: $space-xxs;
                 border-radius: 4px;
+                width: 100%;
 
                 &--icon {
                     display: inline-block;
