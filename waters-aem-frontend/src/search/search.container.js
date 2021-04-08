@@ -1201,7 +1201,7 @@ class SearchContainer extends Component {
         if (!isInEditMode) {
             const zeroResultsXF = document.querySelector('#zeroresults');
             const hideZeroResultsClass = 'hidden';
-            const parentLayoutContainer = zeroResultsXF && zeroResultsXF.closest('.layoutcontainer.hidden');
+            const parentLayoutContainer = zeroResultsXF && zeroResultsXF.closest('.container.hidden');
 
             if (parentLayoutContainer && this.state.noResults) {
                 domElements.removeClass(parentLayoutContainer, hideZeroResultsClass);
