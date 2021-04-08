@@ -189,15 +189,15 @@
                 }
 
                 &--title {
-                    @include font-small;
-                    font-weight: $font-weight-regular;
+                    @include font-h4;
                     display: inline-block;
-                    margin-right: $space-xxs;
+                    margin-bottom: 0;
+                    margin-right: $space-xxxs;
                 }
 
                 &--description {
                     @include font-small;
-                    font-weight: $font-weight-light;
+                    margin-bottom: 0;
                     display: inline-block;
                 }
             }

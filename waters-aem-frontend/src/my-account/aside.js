@@ -90,10 +90,8 @@ const renderNotification = (notification) => {
                     className="cmp-detail-tiles-list--tile-notification--icon"
                     data-locator="tile-notification--icon"
                 />
-                <div className="cmp-detail-tiles-list--tile-notification--title" data-locator="detail-tiles-list-notification--title">
-                    {notification.title}
-                </div>
-                <div className="cmp-detail-tiles-list--tile-notification--description" data-locator="detail-tiles-list-notification-description">
+                <div className="cmp-detail-tiles-list--tile-notification--description" data-locator="detail-tiles-list-notification--title">
+                    <span className="cmp-detail-tiles-list--tile-notification--title">{notification.title}</span>
                     {notification.description}
                 </div>
             </div>
