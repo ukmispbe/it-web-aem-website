@@ -57,7 +57,8 @@ function getAuthoredDataForSearchApp(c, s) {
         searchPath: c.dataset.baseUrl,
         searchText: s,
         isocode: c.dataset.isocode,
-        locale: c.dataset.locale
+        locale: c.dataset.locale,
+        rows: c.dataset.rows
     };
 }
 
@@ -133,7 +134,7 @@ if (searchAppContainer) {
         <Suspense fallback={<div>Loading...</div>}>
             <Search
                 defaultFacet="category_facet:waters%253Acategory%252Fapplicationslibrary"
-                searchDefaults={{ rows: 25 }}
+                searchDefaults={{ rows: data.rows }}
                 searchServicePath={data.searchPath}
                 searchLocale={data.locale}
                 searchText={text}
@@ -348,12 +349,13 @@ if (requestFormContainer) {
         document.getElementById('cmp-check-serial-form').innerHTML
     );
 
-    let configSupportRequestForm = JSON.parse(
+    const configSupportRequestForm = JSON.parse(
         document.getElementById('cmp-support-request-form').innerHTML
     );
 
-    // Set Country list url
-    configSupportRequestForm.countryListUrl = headerRef.dataset.countryListUrl ? headerRef.dataset.countryListUrl : '';
+    const configSupportRequestConfirmationForm = JSON.parse(
+        document.getElementById('cmp-support-request-confirmation').innerHTML
+    );
 
     const supportRequestForm = {
         config: configSupportRequestForm,
@@ -365,12 +367,20 @@ if (requestFormContainer) {
         config: configCheckSerialForm,
     }
 
+    const supportRequestConfirmationForm = {
+        config: configSupportRequestConfirmationForm,
+    }
+
     ReactDOM.render(
-        <CreateRequestForm
-            supportRequestFormConfig={supportRequestForm}
-            checkSerialFormConfig={checkSerialForm}
-            isocode={DigitalData.language}
-        />,
+        <>
+            <CreateRequestForm
+                confirmationFormConfig={supportRequestConfirmationForm}
+                supportRequestFormConfig={supportRequestForm}
+                checkSerialFormConfig={checkSerialForm}
+                isocode={DigitalData.language}
+            />
+            <LegalLinkModal docIcon={configSupportRequestForm.icons.docIcon || ''} />
+        </>,
         requestFormContainer
     );
 }

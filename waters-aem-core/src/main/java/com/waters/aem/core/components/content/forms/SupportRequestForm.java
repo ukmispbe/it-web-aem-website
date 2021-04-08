@@ -6,19 +6,19 @@ import com.citytechinc.cq.component.annotations.Component;
 import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.Listener;
 import com.citytechinc.cq.component.annotations.widgets.PathField;
-import com.citytechinc.cq.component.annotations.widgets.Switch;
 import com.icfolson.aem.library.api.link.Link;
 import com.icfolson.aem.library.api.page.PageManagerDecorator;
 import com.icfolson.aem.library.models.annotations.LinkInject;
+import com.waters.aem.core.components.SiteContext;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.services.account.WatersAccountService;
 import com.waters.aem.core.utils.LinkUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
-import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.OSGiService;
+import org.apache.sling.models.annotations.injectorspecific.Self;
 
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
@@ -46,48 +46,19 @@ public class SupportRequestForm implements ComponentExporter {
     @OSGiService
     private WatersAccountService accountService;
 
+    @Self
+    private SiteContext siteContext;
+
     @Inject
     private PageManagerDecorator pageManager;
-
-    @DialogField(fieldLabel = "Open in New Window",
-            fieldDescription = "Select this option to open 'Privacy Notice' & 'Terms of Use' in new window",
-            ranking = 4)
-    @Switch(offText = "No", onText = "Yes")
-    @Inject
-    @Default(booleanValues = false)
-    private Boolean newWindow;
-
-    @DialogField(fieldLabel = "Waters Privacy Link",
-            fieldDescription = "Select or enter the link URL",
-            required  = true,
-            ranking = 2)
-    @PathField(rootPath = WatersConstants.ROOT_PATH)
-    @LinkInject
-    private Link watersPrivacyLink;
 
     @DialogField(fieldLabel = "Consent Link",
         fieldDescription = "Select or enter the link URL",
         required  = true,
         ranking = 1)
-    @PathField(rootPath = WatersConstants.ROOT_PATH)
+    @PathField(rootPath = WatersConstants.DAM_PATH)
     @LinkInject
     private Link consentLink;
-
-    @DialogField(fieldLabel = "Terms of Use Link",
-            fieldDescription = "Select or enter the link URL for Terms of Use",
-            required  = true,
-            ranking = 3)
-    @PathField(rootPath = WatersConstants.ROOT_PATH)
-    @LinkInject
-    private Link termsOfUseLink;
-
-    @DialogField(fieldLabel = "Open in Modal",
-            fieldDescription = "Select this option to open 'Privacy Notice' & 'Terms of Use' in Modal",
-            ranking = 5)
-    @Switch(offText = "No", onText = "Yes")
-    @Inject
-    @Default(booleanValues = false)
-    private Boolean newModal;
 
     public Link getConsentLink() {
         return LinkUtils.getMappedLink(pageManager, consentLink);
@@ -97,19 +68,13 @@ public class SupportRequestForm implements ComponentExporter {
         return accountService.getSupportRequestUrl();
     }
 
-    public Link getPrivacyNoticeLink() {
-        return LinkUtils.getMappedLink(pageManager, watersPrivacyLink);
+    public String getSupportRequestEquipmentUrl() {
+        return accountService.getSupportRequestEquipmentUrl();
     }
 
-    public Link getTermsOfUseLink() {
-        return LinkUtils.getMappedLink(pageManager,termsOfUseLink);
-    }
+    public String getSupportRequestGlobalCountries() { return siteContext.getSupportRequestGlobalCountries(); }
 
-    public Boolean isNewWindow() {
-        return newWindow;
-    }
-
-    public Boolean isNewModal() { return newModal; }
+    public String getGlobalCountriesRedirectUrl() { return siteContext.getGlobalCountriesRedirectUrl(); }
 
     @Nonnull
     @Override

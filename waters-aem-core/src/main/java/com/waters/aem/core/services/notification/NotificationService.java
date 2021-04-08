@@ -10,6 +10,6 @@ public interface NotificationService {
      *
      * @return system notification content
      */
-    Map<String, Object> getSystemNotification(Locale locale);
+    Map<String, Object> getSystemNotification(Locale locale,String Channel);
 
 }

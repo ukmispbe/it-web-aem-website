@@ -2,6 +2,10 @@ package com.waters.aem.core.servlets;
 
 import com.day.cq.commons.Externalizer;
 import com.google.common.base.Stopwatch;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonArray;
 import com.waters.aem.core.constants.WatersConstants;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpHeaders;
@@ -24,10 +28,12 @@ import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.servlets.SlingAllMethodsServlet;
 import org.apache.sling.servlets.annotations.SlingServletPaths;
 import org.apache.sling.settings.SlingSettingsService;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.osgi.service.component.annotations.*;
+import org.osgi.service.component.annotations.Activate;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Modified;
+import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.metatype.annotations.AttributeDefinition;
+import org.osgi.service.metatype.annotations.AttributeType;
 import org.osgi.service.metatype.annotations.Designate;
 import org.osgi.service.metatype.annotations.ObjectClassDefinition;
 import org.slf4j.Logger;
@@ -41,8 +47,9 @@ import java.net.HttpURLConnection;
 import java.security.KeyManagementException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
-import java.util.Iterator;
+import java.util.Map;
 import java.util.Objects;
+
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -60,6 +67,10 @@ public class WatersContentService extends SlingAllMethodsServlet {
     private SlingSettingsService settingsService;
 
     private volatile String hostName;
+
+    private String[] keys;
+
+    private boolean sanitizeResponse;
 
     @Override
     public void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response) {
@@ -90,6 +101,33 @@ public class WatersContentService extends SlingAllMethodsServlet {
         }
     }
 
+    private final String sanitizeJSON(String stringJson) {
+        JsonObject jsonObject = new Gson().fromJson(stringJson, JsonObject.class);
+        for (String key : keys) {
+            removeJSONKey(jsonObject, key);
+        }
+        return jsonObject.toString();
+    }
+
+    private final void removeJSONKey(JsonObject jsonObject, String keyValue) {
+        if(jsonObject.toString().contains(keyValue)) {
+            jsonObject.remove(keyValue);
+            for(Map.Entry<String, JsonElement> entry : jsonObject.entrySet()){
+                if (entry.getValue().isJsonObject()) {
+                    removeJSONKey(entry.getValue().getAsJsonObject(),keyValue);
+                }
+                if (entry.getValue().isJsonArray()) {
+                    JsonArray jsonArray = (JsonArray) entry.getValue();
+                    for(int i=0; i< jsonArray.size(); i++){
+                        if(jsonArray.get(i).isJsonObject()) {
+                            removeJSONKey(jsonArray.get(i).getAsJsonObject(), keyValue);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     private final String buildJsonForPage(final String path, final String responseLevel, final SlingHttpServletRequest request) {
         final Stopwatch stopwatch = Stopwatch.createStarted();
         final String pageContentJsonConstant = "{\"Page Content\":";
@@ -106,13 +144,17 @@ public class WatersContentService extends SlingAllMethodsServlet {
                     final Resource resource = resourceResolver.getResource(path + "/jcr:content/header/par/navigation");
                     if (null != resource) {
                         navigationCompJsonResponse = getHttpResponseAsStringForURI(pagePublishCaaSUrl.replace("/_jcr_content.caas.infinity.json", "/_jcr_content/header/par/navigation.model.json"));
-                        navigationCompJsonResponse = navigationCompJsonResponse.replaceAll("/content/waters","/nextgen");
+                        navigationCompJsonResponse = navigationCompJsonResponse.replace("/content/waters", "/nextgen");
                         LOG.debug("JSON Content- {\"Page Content\": {} ,\"Navigation Content\": {} }", pageJsonResponse, navigationCompJsonResponse);
                         if (StringUtils.isNotBlank(navigationCompJsonResponse)) {
                             LOG.info("JSON returned with full page content for: {}", path);
                             LOG.info("JSON fetched from AEM in {} ms", stopwatch.elapsed(TimeUnit.MILLISECONDS));
                             pageJsonResponse = updateLanguageListJson(pageJsonResponse, resourceResolver, path);
-                            pageJsonResponse = pageJsonResponse.replace("/content/waters","/nextgen");
+                            pageJsonResponse = pageJsonResponse.replace("/content/waters", "/nextgen");
+                            if (sanitizeResponse && keys.length > 1) {
+                                pageJsonResponse = sanitizeJSON(pageJsonResponse);
+                                navigationCompJsonResponse = sanitizeJSON(navigationCompJsonResponse);
+                            }
                             return pageContentJsonConstant + pageJsonResponse + navigationContentJsonConstant + navigationCompJsonResponse + "}";
                         }
                     }
@@ -125,37 +167,35 @@ public class WatersContentService extends SlingAllMethodsServlet {
         }
         LOG.info("JSON returned for: {}", path);
         LOG.info("JSON fetched from AEM in {} ms", stopwatch.elapsed(TimeUnit.MILLISECONDS));
+        if (sanitizeResponse && keys.length > 1) {
+            pageJsonResponse = sanitizeJSON(pageJsonResponse);
+        }
         return pageContentJsonConstant + pageJsonResponse + "}";
     }
 
     private String updateLanguageListJson(String pageJsonResponse, ResourceResolver resourceResolver, String path) {
         if (path.contains("cart-checkout")) {
-            try {
-                final JSONObject cartPageJson = new JSONObject(pageJsonResponse);
-                final JSONObject cartFooterJson = cartPageJson.getJSONObject("footer");
-                final JSONObject languageListJsonValue = updateLanguageListJsonValue(resourceResolver, path);
-                cartFooterJson.put("languageListJson", languageListJsonValue.toString());
-                cartPageJson.put("footer", cartFooterJson);
-                return cartPageJson.toString();
-            } catch (JSONException e) {
-                LOG.error("Exception occurred in updateLanguageListJson()/updateLanguageListJsonValue() method of WatersContentService class: ", e);
-            }
+            final JsonObject cartPageJson = new Gson().fromJson(pageJsonResponse, JsonObject.class);
+            final JsonObject cartFooterJson = cartPageJson.getAsJsonObject("footer");
+            final JsonObject languageListJsonValue = updateLanguageListJsonValue(resourceResolver, path);
+            cartFooterJson.addProperty("languageListJson", languageListJsonValue.toString());
+            cartPageJson.add("footer", cartFooterJson);
+            return cartPageJson.toString();
         }
         return pageJsonResponse;
     }
 
-    private JSONObject updateLanguageListJsonValue(ResourceResolver resourceResolver, String path) throws JSONException {
-        final JSONObject languageListJsonValue = new JSONObject(Objects.requireNonNull(
+    private JsonObject updateLanguageListJsonValue(ResourceResolver resourceResolver, String path) {
+        final JsonObject languageListJsonValue = new Gson().fromJson(Objects.requireNonNull(
                 Objects.requireNonNull(resourceResolver.getResource(
                         path.substring(0, path.indexOf("/cart-checkout")) + "/jcr:content/footer"))
                         .getValueMap()
-                        .get("languageListJson", String.class)));
+                        .get("languageListJson", String.class)), JsonObject.class);
 
-        final Iterator<?> keys = languageListJsonValue.keys();
-        while(keys.hasNext()) {
-            final String key = String.valueOf(keys.next());
-            final String value = languageListJsonValue.getString(key);
-            languageListJsonValue.put(key, value.substring(0, value.indexOf(HTML)) + "/cart-checkout.html");
+        for (String language : languageListJsonValue.keySet()) {
+            final String key = String.valueOf(language);
+            final String value = languageListJsonValue.get(key).getAsString();
+            languageListJsonValue.addProperty(key, value.substring(0, value.indexOf(HTML)) + "/cart-checkout.html");
         }
         return languageListJsonValue;
     }
@@ -207,12 +247,20 @@ public class WatersContentService extends SlingAllMethodsServlet {
     @Modified
     protected void activate(final WatersContentService.Config configuration) {
         hostName = configuration.getHostName();
+        keys = configuration.getKeys();
+        sanitizeResponse = configuration.enableSanitization();
     }
 
     @ObjectClassDefinition(name = "Waters Content Service Configuration")
     public @interface Config {
         @AttributeDefinition(name = "Host Name", description = "Set the publish host name e.g. http://www.hostname.com ")
         String getHostName();
+
+        @AttributeDefinition(name = "Sanitize JSON response", description = "If true, elements in keys config will be removed from the repsonse.")
+        boolean enableSanitization() default true;
+
+        @AttributeDefinition(name = "Keys", description = "Remove mentioned keys from content service response", type = AttributeType.STRING)
+        String[] getKeys() default {"jcr:baseVersion", "cq:template", "jcr:mixinTypes", "cq:lastRolledout", "cq:LiveSyncConfig", "cq:lastModifiedBy", "cq:lastModified", "cq:lastRolledoutBy", "jcr:primaryType", "jcr:lastModifiedBy", "jcr:created", "jcr:lastModified", "jcr:createdBy", "jcr:predecessors", "sling:resourceType", "jcr:uuid", "jcr:versionHistory", "jcr:isCheckedOut", "cq:responsive", "cq:lastReplicated", "cq:lastReplicatedBy", "cq:lastReplicationAction", "cq:styleIds", "cq:cloudserviceconfigs", "cq:isCancelledForChildren", ":type", "cq:propertyInheritanceCancelled"};
     }
 
 }

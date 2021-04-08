@@ -20,7 +20,7 @@ import { elementLocator } from '../utils/eCommerceFunctions';
 import { getAddressesByType, getFullCompanyAddress } from '../utils/userFunctions';
 import SoldToDetailsLazy from '../my-account/services/SoldToDetailsLazy';
 import countryList from './services/country-list';
-import { retrieveData } from './services/retrieve';
+import { retrieveDataNoCredentials } from './services/retrieve';
 
 import '../../src/styles/forms.scss';
 
@@ -44,7 +44,8 @@ const Form = ({
     toggleAddressFn,
     navigateBackFn,
     addAddressesFn,
-    displayProductTypeDropDown
+    displayProductTypeDropDown,
+    fieldKey
 }) => {
     if (defaultValues) {
         defaultValues.communications =
@@ -154,9 +155,9 @@ const Form = ({
     }, [config.formName])
 
     useEffect(() => {
-        if (config.formName === "registrationAddress") {
+        if (config.formName === "registrationAddress" && config.statesUrl) {
             // Call API & Update Config
-            retrieveData(config.statesUrl.replace("{country}", defaultValues.country))
+            retrieveDataNoCredentials(config.statesUrl.replace("{country}", defaultValues.country))
             .then((results) => {
                 if (results[0]) {
                     const showStates = results[0].showStates;
@@ -192,6 +193,22 @@ const Form = ({
         }
 
     }, [config]);
+
+    // Hook to Hide the content fragment above the Confirmation and change the page title
+    useEffect(() => {
+        if (config.formName === "supportRequestConfirmation") {
+            const titleElements = document.getElementsByClassName("cmp-title__text");
+            if (titleElements && titleElements.length === 2) {              
+                titleElements[0].innerText = config.pageTitle;
+            }
+
+            const featuresDiv = document.getElementsByClassName("cmp-text"); 
+            if (featuresDiv && featuresDiv.length !== 0) {
+                featuresDiv[0].style.display = "none"; 
+            }
+        }
+
+    }, [config.formName]);
 
     // Hook to check the user's Authentication Status and redirect if needed
     useEffect(() => {
@@ -385,7 +402,7 @@ const Form = ({
         }
 
         return (
-            <FieldApi.Provider value={getFieldApi} key={`field-${i}`}>
+            <FieldApi.Provider value={getFieldApi} key={fieldKey ? `${fieldKey}-${i}` : `field-${i}`}>
                 <Field />
             </FieldApi.Provider>
         );

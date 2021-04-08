@@ -35,7 +35,7 @@ class SearchBar extends Component {
             suggestions: [],
             openOverlay: false,
             placeholder: screenSizes.isMobile() ? this.props.placeholderMobile : this.props.placeholderTablet,
-            recentSearches: !loginStatus.state() && cookieStore.getRecentSearches() || []
+            recentSearches: cookieStore.getRecentSearches() || []
         };
 
         this.state.recentSuggestions = this.formatSuggestions(this.state.value.trim(), this.state.recentSearches);
@@ -73,18 +73,15 @@ class SearchBar extends Component {
         );
     }
 
-    // To render recent searches suggestions
-    shouldRenderSuggestions = (value, reason) => true;
-
     transformSuggestionObject = (suggestions, recentSuggestions = []) => {
         const updatedSuggestions = [];
-        if (suggestions.length) {
+        if (suggestions && suggestions.length) {
             updatedSuggestions.push({
                 title: '',
                 suggestions: suggestions
             });
         }
-        if (recentSuggestions.length) {
+        if (recentSuggestions && recentSuggestions.length) {
             updatedSuggestions.push({
                 title: this.props.labels.recentlySearched,
                 suggestions: recentSuggestions
@@ -93,9 +90,9 @@ class SearchBar extends Component {
         return updatedSuggestions;
     }
 
-    renderSectionTitle = (section) => section.title && section.suggestions.length ? <strong>{section.title}</strong> : '';
+    renderSectionTitle = (section = {}) => section.title && section.suggestions && section.suggestions.length ? <strong>{section.title}</strong> : '';
     
-    getSectionSuggestions = (section) => section.suggestions;
+    getSectionSuggestions = (section = {}) => section.suggestions;
 
     renderAutoSuggest = () => {
         const inputProps = {
@@ -122,7 +119,7 @@ class SearchBar extends Component {
                     renderSuggestion={this.renderSuggestionCallback}
                     renderSectionTitle={this.renderSectionTitle}
                     getSectionSuggestions={this.getSectionSuggestions}
-                    shouldRenderSuggestions={this.shouldRenderSuggestions}
+                    shouldRenderSuggestions={() => true}
                     inputProps={inputProps}/>;
     };
 
@@ -164,7 +161,10 @@ class SearchBar extends Component {
     handleClearIconClick = e => {
         this.inputElement.focus();
         this.addSearchBarFocusCss();
-        this.setState({value: '', suggestions: [], openOverlay: false}, () => this.removeCssOverridesForSearchBody());
+        this.setState(
+            {value: '', suggestions: [], openOverlay: !!this.state.recentSuggestions.length}, 
+            () => !this.state.recentSuggestions.length && this.removeCssOverridesForSearchBody()
+        );
     }
 
     handleSearchValueChange = (event, { newValue }) => {
@@ -188,8 +188,8 @@ class SearchBar extends Component {
         const suggestions = !(this.state.value.length < this.props.minSearchCharacters) 
             ? this.formatSuggestions(this.state.value.trim(), (await this.search.getSuggestedKeywords(this.props.maxSuggestions, this.state.value)))
             : [];
-
-        const recentSuggestions = this.formatSuggestions(this.state.value.trim(), this.state.recentSearches);
+        const recentSearches = cookieStore.getRecentSearches() || [];
+        const recentSuggestions = this.formatSuggestions(this.state.value.trim(), recentSearches);
         
         const openOverlay = (suggestions.length !== 0) || (recentSuggestions.length !== 0);
 
@@ -245,8 +245,8 @@ class SearchBar extends Component {
     });
 
     formatSuggestion = (term, suggestion) =>{
-        // wrap the matching characters with a pipe |
-        const delimittedSuggestion = suggestion.replace(new RegExp(`\\b${term}`, 'ig'), `|${term}|`);
+        // wrap the matching characters with a pipe | and no action in case search term is '*'
+        const delimittedSuggestion = term !== '*' ? suggestion.replace(new RegExp(`\\b${term}`, 'ig'), `|${term}|`) : term;
 
         // convert string to array split with pipe |
         // this will isolate the matching characters into it's own location in the array
