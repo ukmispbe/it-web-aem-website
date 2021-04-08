@@ -131,25 +131,30 @@ export async function getPricing(url, sku, userInfo, fields) {
     if (Array.isArray(sku)) {
         sku = sku.map(skuItem => skuItem.code).join(',');
     }
+
+    // Authenticated Options
     let options = {
         method: 'GET',
         credentials: 'include',
-        mode: 'cors'
-    }
-
-    if (!userInfo.soldToId) {
-        options = {
-            countryCode: 'US',
-            //getCountryCode(),
-            language: getLanguage(),
-            channel: 'ECOMM',
-            method: 'GET',
-            mode: 'cors'
+        headers: {
+            'Content-Type': 'application/json',
+            'mode': 'cors'
         }
     }
 
-    console.log("userInfo", userInfo)
-    console.log("options", options);
+    if (!userInfo.soldToId) {
+        // Unauthenticated Options
+        options = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'language':  getLanguage(),
+                'countryCode': getCountryCode(),
+                'mode': 'cors',
+                'channel': 'ECOMM'
+            }
+        }
+    }
 
     const urlRequest = getCustPricingUrl(url, sku, userInfo, fields);
     const response = await fetchDataWithHeaders(urlRequest, options);

@@ -21,17 +21,7 @@ export async function fetchData (url, options, customError = () => {}) {
 
 export async function fetchDataWithHeaders (url, options, customError = () => {}) {
     return new Promise((resolve, reject) => {
-            fetch(url,  {
-                method: 'GET',
-                credentials: 'include',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'language': options.language,
-                    'countryCode': options.countryCode,
-                    'mode': options.mode,
-                    'channel': options.channel
-                }
-            })
+            fetch(url, options)
             .then(response => {
                 resolve(response);
             })
