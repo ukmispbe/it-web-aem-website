@@ -22,7 +22,9 @@ function QuickOrder(props) {
         titleText,
         price,
         skuConfig,
-        qtyLabel
+        qtyLabel,
+        isInHeader,
+        errorMsg
     } = props;
     const childRef = useRef();
     const [sku, setSku] = useState('');
@@ -36,21 +38,49 @@ function QuickOrder(props) {
         childRef.current.onChangeSku(value);
     }
 
+    function hideHeaderSKUMsg(){
+        const elem = document.querySelector('.header-quick-order-container .notification');
+        if (elem && elem.classList) {
+            elem.classList.add('notification--hide');
+            if(elem.querySelector('.notification-description')) {
+                elem.querySelector('.notification-description').innerText = "" ;
+            }
+        }
+    }
+
+    function showHeaderSKUMsg(skuNum){
+        const elem = document.querySelector('.header-quick-order-container .notification');
+        if (elem && elem.classList && elem.querySelector('.notification-description')) {
+            elem.querySelector('.notification-description').innerText = `${skuNum} ${errorMsg}`;
+            elem.classList.remove('notification--hide');
+        }
+    }
+
     // HideShow SKU Error
     function skuErrorMgs(showError, skuNumber = '') {
         try {
-            const element = document.querySelector('.cmp-notification--error');
-            if (element) {
-                if (showError) {
-                    document.querySelector('.cmp-notification--error .cmp-notification-description')
-                        .innerText = `${skuNumber} ${document.querySelector('.cmp-notification--error .cmp-notification-title').innerText}`;
-                    element.classList.remove('cmp-notification--dynamic');
+            if(isInHeader) {
+                if(showError) {
+                    showHeaderSKUMsg(skuNumber)
                 } else {
-                    document.querySelector('.cmp-notification--error .cmp-notification-description').innerText = '';
-                    element.classList.add('cmp-notification--dynamic');
+                    hideHeaderSKUMsg();
+                }
+            } else {
+                const element = document.querySelector('.cmp-notification--error');
+                if (element) {
+                    if (showError) {
+                        document.querySelector('.cmp-notification--error .cmp-notification-description')
+                            .innerText = `${skuNumber} ${document.querySelector('.cmp-notification--error .cmp-notification-title').innerText}`;
+                        element.classList.remove('cmp-notification--dynamic');
+                    } else {
+                        document.querySelector('.cmp-notification--error .cmp-notification-description').innerText = '';
+                        element.classList.add('cmp-notification--dynamic');
+                    }
                 }
             }
-        } catch (error) { }
+        } catch (error) { 
+            console.error(error);
+        }
     };
 
     // Hide SKU title msg on ComponentWillMount
@@ -58,6 +88,7 @@ function QuickOrder(props) {
         if (document.querySelector('.cmp-notification--error .cmp-notification-title')) {
             document.querySelector('.cmp-notification--error .cmp-notification-title').style.display = 'none';
         }
+        hideHeaderSKUMsg();
     }, []);
 
     // Call During Screen resize
@@ -122,7 +153,7 @@ function QuickOrder(props) {
 
     return (
         <>
-            <div className="quick-order-parent" data-locator="quick-order">
+            <div className={`quick-order-parent${isInHeader ? ' header-quick-order-parent' : ''}`} data-locator="quick-order">
                 <Input
                     id="code"
                     type="text"
@@ -135,25 +166,29 @@ function QuickOrder(props) {
                     elementLocator="input-quick-order-sku"
                     ariaLabel={addToCartPlaceHolder}
                 />
-                <AddToCart
-                    skuNumber={sku}
-                    addToCartQty={1}
-                    qtyLabel={qtyLabel}
-                    addToCartLabel={buttonLabel}
-                    addToCartUrl={addToCartUrl}
-                    toggleParentModal={toggleModal}
-                    toggleErrorModal={toggleErrorModal}
-                    analyticsConfig={{ sku, price, context: shopAllCartContext, name: titleText }}
-                    onRef={ref => { childRef.current = ref; }}
-                    skuResponse={skuResponse}
-                />
+                <div className="qty-with-btn">
+                    <AddToCart
+                        skuNumber={sku}
+                        addToCartQty={1}
+                        qtyLabel={qtyLabel}
+                        addToCartLabel={buttonLabel}
+                        addToCartUrl={addToCartUrl}
+                        toggleParentModal={toggleModal}
+                        toggleErrorModal={toggleErrorModal}
+                        analyticsConfig={{ sku, price, context: shopAllCartContext, name: titleText }}
+                        onRef={ref => { childRef.current = ref; }}
+                        skuResponse={skuResponse}
+                    />
+                </div>
             </div>
             <a
                 href={multipleItemsLink}
                 className="quick-order-multiple-item"
                 data-locator="link-quick-order-add-multiple-item"
             >
-                <ReactSVG aria-hidden="true" src={isMobile ? addItemsIcon : multipleItemsIcon} wrapper='span' data-locator="add-multiple-item-icon" />
+                {isInHeader ?
+                    <ReactSVG aria-hidden="true" src={multipleItemsIcon} wrapper='span' data-locator="add-multiple-item-icon" />
+                    : <ReactSVG aria-hidden="true" src={isMobile ? addItemsIcon : multipleItemsIcon} wrapper='span' data-locator="add-multiple-item-icon" />}
                 {multipleItemsLabel}
             </a>
             <Modal isOpen={modalShown} onClose={toggleModal} className='cmp-add-to-cart-modal'>
@@ -182,7 +217,7 @@ function QuickOrder(props) {
     )
 }
 
-QuickOrder.defaultProps = {
+QuickOrder.propTypes = {
     buttonLabel: PropTypes.string,
     addToCartPlaceHolder: PropTypes.string,
     addToCartUrl: PropTypes.string,
@@ -194,7 +229,9 @@ QuickOrder.defaultProps = {
     titleText: PropTypes.string,
     price: PropTypes.string,
     skuConfig: PropTypes.object,
-    qtyLabel: PropTypes.string
+    qtyLabel: PropTypes.string,
+    isInHeader: PropTypes.bool,
+    errorMsg:PropTypes.string
 }
 
 QuickOrder.defaultProps = {
@@ -209,7 +246,9 @@ QuickOrder.defaultProps = {
     titleText: '',
     price: '',
     skuConfig: {},
-    qtyLabel:''
+    qtyLabel: '',
+    isInHeader: false,
+    errorMsg:''
 }
 
 export default QuickOrder;

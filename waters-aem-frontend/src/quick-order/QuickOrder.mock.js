@@ -13,6 +13,8 @@ const props = {
         modalInfo: {},
         skuInfo: { partNumberLabel: 'SKU' }
     },
+    isInHeader: false,
+    errorMsg:''
 }
 
 export default props;
