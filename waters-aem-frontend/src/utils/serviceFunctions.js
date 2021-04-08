@@ -17,7 +17,31 @@ export async function fetchData (url, options, customError = () => {}) {
                 reject(err);
             });
     });
-};
+}
+
+export async function fetchDataWithHeaders (url, options, customError = () => {}) {
+    return new Promise((resolve, reject) => {
+            fetch(url,  {
+                method: 'GET',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'language': options.language,
+                    'countryCode': options.countryCode,
+                    'mode': options.mode,
+                    'channel': options.channel
+                }
+            })
+            .then(response => {
+                resolve(response);
+            })
+            .catch(err => {
+                customError(err);
+                throwError(err);
+                reject(err);
+            });
+    });
+}
 
 export async function getData (url) {
     const response = await fetch(url, {

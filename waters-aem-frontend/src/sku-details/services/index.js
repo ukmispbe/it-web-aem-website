@@ -1,7 +1,7 @@
 import 'whatwg-fetch';
 import LocalStore from '../../stores/localStore';
 import loginStatus from '../../scripts/loginStatus';
-import { fetchData } from '../../utils/serviceFunctions';
+import { fetchData, fetchDataWithHeaders } from '../../utils/serviceFunctions';
 import {
     getCountryCode,
     getLanguage,
@@ -152,7 +152,7 @@ export async function getPricing(url, sku, userInfo, fields) {
     console.log("options", options);
 
     const urlRequest = getCustPricingUrl(url, sku, userInfo, fields);
-    const response = await fetchData(urlRequest, options);
+    const response = await fetchDataWithHeaders(urlRequest, options);
     const json = await response.json();
 
     if (response.status === 200) {
@@ -171,11 +171,19 @@ export const matchListItems = (skuListData, pricesAPIResults) => {
 
     for (let i = 0; i < pricesAPIResults.length; i++) {
         if (skuListItem.code === pricesAPIResults[i].productNumber) {
-            skuListItem.custPrice = pricesAPIResults[i].netPrice.formattedValue;
-            skuListItem.custValue = pricesAPIResults[i].netPrice.value;
+            // Net Price doesn't exist for Unauthenticated Users
+            if (pricesAPIResults[i].netPrice) {
+                skuListItem.custPrice = pricesAPIResults[i].netPrice.formattedValue;
+                skuListItem.custValue = pricesAPIResults[i].netPrice.value;
+            }
+            else {
+                skuListItem.listPrice = "";
+                skuListItem.listValue = "";              
+            }
             skuListItem.listPrice = pricesAPIResults[i].basePrice.formattedValue;
             skuListItem.listValue = pricesAPIResults[i].basePrice.value;
-            skuListItem.currencyCode = pricesAPIResults[i].netPrice.currencyCode;
+            // Using Base Price Currency Code because Net Price doesn't exist for Unauthenticated Users
+            skuListItem.currencyCode = pricesAPIResults[i].basePrice.currencyCode;
         }
     }
 
