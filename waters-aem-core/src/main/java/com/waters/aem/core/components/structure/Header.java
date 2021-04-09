@@ -233,7 +233,7 @@ public final class Header extends AbstractComponent implements ComponentExporter
     @InheritInject
     private String quickOrderMultipleItemsLabel;
 
-    @DialogField(fieldLabel = "Multiple Items Link. e.g. https://dev1.waters.com/store/{localeCountry}/{localeLanguage}/quick-order",
+    @DialogField(fieldLabel = "Multiple Items Link",
     fieldDescription = "The path of the multiple items link. e.g. https://dev1.waters.com/store/{localeCountry}/{localeLanguage}/quick-order",
     tab = 3,
     ranking = 4)
