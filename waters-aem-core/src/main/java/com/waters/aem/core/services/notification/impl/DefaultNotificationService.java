@@ -32,7 +32,7 @@ public class DefaultNotificationService implements NotificationService {
     private ResourceBundleProvider resourceBundleProvider;
 
     @Override
-    public Map<String, Object> getSystemNotification(final Locale locale) {
+    public Map<String, Object> getSystemNotification(final Locale locale, final String channel) {
         Map<String, Object> notificationContent = new HashMap<>();
 
         try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(null)) {
@@ -42,7 +42,7 @@ public class DefaultNotificationService implements NotificationService {
             final SystemNotification systemNotification = resource.adaptTo(SystemNotification.class);
 
             if (systemNotification != null) {
-                notificationContent = systemNotification.toMap(getI18n(locale));
+                notificationContent = systemNotification.toMap(getI18n(locale), channel);
             }
         } catch (LoginException e) {
             LOG.error("error authenticating resource resolver", e);

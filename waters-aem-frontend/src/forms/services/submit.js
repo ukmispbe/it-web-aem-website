@@ -83,6 +83,7 @@ export async function iRequestSubmit(url, data, callback, formData) {
     } else {
         this.setFormAnalytics('error', responseBody);
         this.setError({code: 500});
+        window.dispatchEvent(new CustomEvent("showLoaderEproc", { detail: { showLoader: false }}));
     }
 }
 
@@ -107,9 +108,9 @@ export async function checkEmailResetPasswordSubmit(data) {
     }
 }
 
-export async function serialNumberSubmit(apiUrl, companyName, formData, callback) {
+export async function serialNumberSubmit(apiUrl, formData, callback) {
 
-    const fullUrl = `${apiUrl}?accountName=${companyName}&serialNumber=${formData.serialNumber}`;
+    const fullUrl = `${apiUrl}?accountName=${formData.organization}&serialNumber=${formData.serialNumber}`;
     const response = await getData(fullUrl);
     const responseBody = await response.json();
 
@@ -122,12 +123,14 @@ export async function serialNumberSubmit(apiUrl, companyName, formData, callback
             //this.setError(responseBody);
             if (responseBody.errors[0].code === "WAT_CUSTOM_400") {
                 this.setError({code: 400});
+                window.dispatchEvent(new CustomEvent("showLoaderEproc", { detail: { showLoader: false }}));
             }
         }
         callback(responseBody, formData);
     } else {
         this.setFormAnalytics('error', responseBody);
         this.setError({code: 500});
+        window.dispatchEvent(new CustomEvent("showLoaderEproc", { detail: { showLoader: false }}));
     }
 }
 

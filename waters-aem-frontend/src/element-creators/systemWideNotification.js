@@ -1,11 +1,14 @@
 import DigitalData from "../scripts/DigitalData";
 import GlobalTranslations from '../json-script-blocks/globalTranslations';
+import { isEprocurementUser } from '../utils/userFunctions';
 
 const SystemWideNotification = function(service, onDismiss) {
     let data;
 
     this.create = async (time) => {
-        data = await service.getSystemWideNotification(DigitalData.language);
+        const siteContext = isEprocurementUser() ? 'EPROC' : '';
+        data = await service.getSystemWideNotification(DigitalData.language,siteContext);
+
 
         if (!data.enabled || !data.dateRange.isValid(time)) {
             return {

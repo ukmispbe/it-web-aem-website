@@ -1197,13 +1197,16 @@ class SearchContainer extends Component {
 
     noSearchResultsToggle = () => {
         const isInEditMode = document.getElementById("header").hasAttribute("data-is-edit-mode");
+
         if (!isInEditMode) {
             const zeroResultsXF = document.querySelector('#zeroresults');
-            const hideZeroResultsClass = 'has-search-results';
-            domElements.addClass(zeroResultsXF, hideZeroResultsClass);
+            const hideZeroResultsClass = 'hidden';
+            const parentLayoutContainer = zeroResultsXF && zeroResultsXF.closest('.container.hidden');
 
-            if (zeroResultsXF && this.state.noResults) {
-                domElements.removeClass(zeroResultsXF, hideZeroResultsClass);
+            if (parentLayoutContainer && this.state.noResults) {
+                domElements.removeClass(parentLayoutContainer, hideZeroResultsClass);
+            } else if (parentLayoutContainer && !this.state.noResults) {
+                domElements.addClass(parentLayoutContainer, hideZeroResultsClass)
             }
         }
     }

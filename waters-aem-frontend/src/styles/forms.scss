@@ -829,5 +829,10 @@
         .LinesEllipsis {
             word-break: break-all;
         }
+        .cmp-back-link {
+            span, a {
+                vertical-align: middle;
+            }
+        }
     }
 }

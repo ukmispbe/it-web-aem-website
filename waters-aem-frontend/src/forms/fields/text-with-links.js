@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { useFieldApi } from '../form';
-import { elementLocator } from '../../utils/eCommerceFunctions';
+import { elementLocator, htmlParser } from '../../utils/eCommerceFunctions';
 import ReactHtmlParser from 'react-html-parser';
 
 const TextWithLinks = ({}) => {
@@ -45,16 +45,16 @@ const TextWithLinks = ({}) => {
                 id={id}
                 title={title}
                 data-locator={elementLocator(`${id}-link`)}>
-                {label}
+                {htmlParser(label)}
             </a>
             )
     }
 
     const renderText = ({ text, addClass }) => {
         if (addClass) {
-            return (<span className={addClass}>{text}</span>)
+            return (<span className={addClass}>{htmlParser(text)}</span>)
         }
-        return (text)
+        return (htmlParser(text))
     }
 
     return (
