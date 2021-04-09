@@ -196,7 +196,6 @@ const skuDetailsContainer = document.querySelector('.cmp-sku-details__ecom');
 const skuDetailsConfig = JSON.parse(
     document.getElementById('commerce-configs-json').innerHTML
 );
-console.log("skuDetailsConfig", skuDetailsConfig);
 
 let skuData;
 if (document.querySelector('.cmp-sku-details__ecom')) {
