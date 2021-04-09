@@ -5,7 +5,7 @@
             "formName": "checkSerial",
             "customFormClass": "cmp-form--check-serial",
             "equipmentEndpoint": "${supportRequest.supportRequestEquipmentUrl @ context='unsafe'}",
-            "buttonText": "${'Continue' @ i18n, context='text'}",
+            "buttonText": "${'Continue' @ i18n, context='unsafe'}",
             "globalCountries": "${supportRequest.supportRequestGlobalCountries @ context='unsafe'}",
             "globalCountriesRedirectURL" : "${supportRequest.globalCountriesRedirectUrl @ context='unsafe'}",
             "elementLocator": "check-serial-form",
@@ -26,7 +26,7 @@
                 {
                     "type": "text",
                     "name": "serialNumber",
-                    "label": "${'Enter Serial Number or Software Support Plan ID' @ i18n, context='text'}",
+                    "label": "${'Enter Serial Number or Software Support Plan ID' @ i18n, context='unsafe'}",
                     "validation": {
                         "required": true,
                         "maxLength": {
@@ -40,7 +40,7 @@
                 {
                     "type": "text",
                     "name": "organization",
-                    "label": "${'Organization' @ i18n, context='text'}",
+                    "label": "${'Organization' @ i18n, context='unsafe'}",
                     "validation": {
                         "required": true,
                         "maxLength": {
@@ -57,7 +57,7 @@
     <script type="application/json" id="cmp-support-request-form">
         {
             "formName": "supportRequest",
-            "buttonText": "${'Send Request' @ i18n, context='text'}",
+            "buttonText": "${'Send Request' @ i18n, context='unsafe'}",
             "consentUrl": "${supportRequest.consentLink.href @ context='unsafe'}",
             "submitEndpoint": "${supportRequest.supportRequestUrl @ context='unsafe'}",
             "needsToBeSignedIn": true,
@@ -130,64 +130,64 @@
                 {
                     "type": "dropdown",
                     "name": "productDetails",
-                    "label": "${'Product Requiring Support' @ i18n, context='text'}",
-                    "placeholder": "${'Select...' @ i18n, context='text'}",
+                    "label": "${'Product Requiring Support' @ i18n, context='unsafe'}",
+                    "placeholder": "${'Select...' @ i18n, context='unsafe'}",
                     "dropdownIndicator": "/content/dam/waters/en/brand-assets/icons/down.svg",
                     "options": [
                     ],
                     "active": false,
                     "validation": {
                         "required": true,
-                        "requiredMsg": "${'Please select your Product.' @ i18n, context='text'}"
+                        "requiredMsg": "${'Please select your Product.' @ i18n, context='unsafe'}"
                     }
                 },                
                 {
                     "type": "dropdown",
                     "name": "supportType",
-                    "label": "${'Type of Support Request' @ i18n, context='text'}",
-                    "placeholder": "${'Select...' @ i18n, context='text'}",
+                    "label": "${'Type of Support Request' @ i18n, context='unsafe'}",
+                    "placeholder": "${'Select...' @ i18n, context='unsafe'}",
                     "dropdownIndicator": "/content/dam/waters/en/brand-assets/icons/down.svg",
                     "options": [
-                        {"value":"TS|SUPPORT","label": "${'Technical Support' @ i18n, context='text'}"},
-                        {"value":"PM|SUPPORT","label": "${'Preventative Maintenance' @ i18n, context='text'}"},
-                        {"value":"QUAL|SUPPORT","label": "${'Qualification' @ i18n, context='text'}"},
-                        {"value":"INST|SYSTEM_IMPLEMENTATION","label": "${'Installation-Relocation' @ i18n, context='text'}"}
+                        {"value":"TS|SUPPORT","label": "${'Technical Support' @ i18n, context='unsafe'}"},
+                        {"value":"PM|SUPPORT","label": "${'Preventative Maintenance' @ i18n, context='unsafe'}"},
+                        {"value":"QUAL|SUPPORT","label": "${'Qualification' @ i18n, context='unsafe'}"},
+                        {"value":"INST|SYSTEM_IMPLEMENTATION","label": "${'Installation-Relocation' @ i18n, context='unsafe'}"}
                         
                     ],
                     "active": true,
                     "validation": {
                         "required": true,
-                        "requiredMsg": "${'Please select your type of Support Request.' @ i18n, context='text'}"
+                        "requiredMsg": "${'Please select your type of Support Request.' @ i18n, context='unsafe'}"
                     }
                 },
                 {
                     "type": "dropdown",
                     "name": "productType",
-                    "label": "${'Product Type' @ i18n, context='text'}",
-                    "placeholder": "${'Select...' @ i18n, context='text'}",
+                    "label": "${'Product Type' @ i18n, context='unsafe'}",
+                    "placeholder": "${'Select...' @ i18n, context='unsafe'}",
                     "dropdownIndicator": "/content/dam/waters/en/brand-assets/icons/down.svg",
                     "options": [
-                        {"value":"LCSW","label": "${'LC Software' @ i18n, context='text'}"},
-                        {"value":"MSSW","label": "${'MS Software' @ i18n, context='text'}"},
-                        {"value":"NGSW","label": "${'NuGenesis Software' @ i18n, context='text'}"},
-                        {"value":"LCHW","label": "${'UPLC/HPLC Hardware' @ i18n, context='text'}"},
-                        {"value":"QUAD","label": "${'Quadrupole Instruments' @ i18n, context='text'}"},
-                        {"value":"TOFI","label": "${'Time of Flight Instruments' @ i18n, context='text'}"},
-                        {"value":"MALDI","label": "${'Maldi Instruments' @ i18n, context='text'}"},
-                        {"value":"SFC","label": "${'SFC of SFC-MS Instruments' @ i18n, context='text'}"}
+                        {"value":"LCSW","label": "${'LC Software' @ i18n, context='unsafe'}"},
+                        {"value":"MSSW","label": "${'MS Software' @ i18n, context='unsafe'}"},
+                        {"value":"NGSW","label": "${'NuGenesis Software' @ i18n, context='unsafe'}"},
+                        {"value":"LCHW","label": "${'UPLC/HPLC Hardware' @ i18n, context='unsafe'}"},
+                        {"value":"QUAD","label": "${'Quadrupole Instruments' @ i18n, context='unsafe'}"},
+                        {"value":"TOFI","label": "${'Time of Flight Instruments' @ i18n, context='unsafe'}"},
+                        {"value":"MALDI","label": "${'Maldi Instruments' @ i18n, context='unsafe'}"},
+                        {"value":"SFC","label": "${'SFC of SFC-MS Instruments' @ i18n, context='unsafe'}"}
                     ],
                     "active": false,
                     "validation": {
                         "required": true,
-                        "requiredMsg": "${'Please select a product type.' @ i18n, context='text'}"
+                        "requiredMsg": "${'Please select a product type.' @ i18n, context='unsafe'}"
                     }
                 },
                 {
                     "type": "textarea",
                     "name": "formDescription",
-                    "label": "${'Support Request Summary' @ i18n, context='text'}",
-                    "optionalLabel": "${'(optional)' @ i18n, context='text'}",
-                    "placeHolder": "${'Please provide a brief summary of your issue. Be sure to include any pertinent information such as system configuration.' @ i18n, context='text'}",
+                    "label": "${'Support Request Summary' @ i18n, context='unsafe'}",
+                    "optionalLabel": "${'(optional)' @ i18n, context='unsafe'}",
+                    "placeHolder": "${'Please provide a brief summary of your issue. Be sure to include any pertinent information such as system configuration.' @ i18n, context='unsafe'}",
                     "resize": false,
                     "rows": 5,
                     "validation": {
@@ -208,7 +208,7 @@
                 {
                     "type": "text",
                     "name": "firstName",
-                    "label": "${'First Name' @ i18n, context='text'}",
+                    "label": "${'First Name' @ i18n, context='unsafe'}",
                     "validation": {
                         "required": true,
                         "maxLength": {
@@ -223,7 +223,7 @@
                 {
                     "type": "text",
                     "name": "lastName",
-                    "label": "${'Last Name' @ i18n, context='text'}",
+                    "label": "${'Last Name' @ i18n, context='unsafe'}",
                     "validation": {
                         "required": true,
                         "maxLength": {
@@ -238,16 +238,16 @@
                 {
                     "type": "email",
                     "name": "email",
-                    "label": "${'Email Address' @ i18n, context='text'}",
+                    "label": "${'Email Address' @ i18n, context='unsafe'}",
                     "validation": {
                         "required": true,
                         "maxLength": {
                             "value": 241,
                             "message": "${'Maximum 241 characters allowed' @i18n, context='unsafe'}"
                         },
-                        "requiredMsg": "${'Please enter an email address.' @ i18n, context='text'}",
+                        "requiredMsg": "${'Please enter an email address.' @ i18n, context='unsafe'}",
                         "validateFnName": "email",
-                        "validationMsg": "${'Please enter a valid email address.' @ i18n, context='text'}"
+                        "validationMsg": "${'Please enter a valid email address.' @ i18n, context='unsafe'}"
                     }
                 }, 
                 {
@@ -262,14 +262,14 @@
                             "message": "${'Maximum 30 characters allowed' @i18n, context='unsafe'}"
                         },
                         "requiredMsg": "${'Please enter a phone number (Numbers Only).' @ i18n, context='unsafe'}",
-                        "validationMsg": "${'Please enter a valid phone number (Numbers Only).' @ i18n, context='text'}"
+                        "validationMsg": "${'Please enter a valid phone number (Numbers Only).' @ i18n, context='unsafe'}"
                     }
                 },
                 {
                     "type": "text",
                     "name": "secondaryPhone",
                     "label": "${'Secondary Phone Number' @ i18n, context='unsafe'}",
-                    "optionalLabel": "${'(optional)' @ i18n, context='text'}",
+                    "optionalLabel": "${'(optional)' @ i18n, context='unsafe'}",
                     "validation": {
                         "validateFnName": "blankOrNumbersOnly",
                         "maxLength": {
@@ -277,7 +277,7 @@
                             "message": "${'Maximum 30 characters allowed' @i18n, context='unsafe'}"
                         },
                         "required": false,
-                        "validationMsg": "${'Please enter a valid phone number (Numbers Only).' @ i18n, context='text'}"
+                        "validationMsg": "${'Please enter a valid phone number (Numbers Only).' @ i18n, context='unsafe'}"
                     }
                 },  
                 {
@@ -285,8 +285,8 @@
                     "name": "contactMethod",
                     "label": "${'Preferred Method of Contact' @ i18n, context='unsafe'}",
                     "options": [
-                        {"name":"EMAIL","label": "${'Email' @ i18n, context='text'}"},
-                        {"name":"PHONE","label": "${'Phone' @ i18n, context='text'}"}
+                        {"name":"EMAIL","label": "${'Email' @ i18n, context='unsafe'}"},
+                        {"name":"PHONE","label": "${'Phone' @ i18n, context='unsafe'}"}
                     ],
                     "validation": {
                         "required": true,
@@ -306,8 +306,8 @@
     <script type="application/json" id="cmp-support-request-confirmation">
         {
             "formName": "supportRequestConfirmation",
-            "pageTitle": "${'Your Support Request Was Created' @ i18n, context='text'}",
-            "buttonText": "${'Create Another Request' @ i18n, context='text'}",
+            "pageTitle": "${'Your Support Request Was Created' @ i18n, context='unsafe'}",
+            "buttonText": "${'Create Another Request' @ i18n, context='unsafe'}",
             "needsToBeSignedIn": true,
             "elementLocator": "support-confirmation-form",
 			"buttonLocator": "create-another-request",
@@ -325,18 +325,18 @@
                     "config": [
                         {
                             "type": "text", 
-                            "text": "${'We have sent you an email confirmation of your request to' @ i18n, context='text'}",
+                            "text": "${'We have sent you an email confirmation of your request to' @ i18n, context='unsafe'}",
                             "rightSpace": "true"
                         },
                         {
                             "type": "text",
                             "addClass": "cmp-bold",
-                            "text": "${'' @ i18n, context='text'}",
+                            "text": "${'' @ i18n, context='unsafe'}",
                             "rightSpace": "true"
                         },
                         {
                             "type": "text",
-                            "text": "${'Someone will contact you shortly.' @ i18n, context='text'}",
+                            "text": "${'Someone will contact you shortly.' @ i18n, context='unsafe'}",
                             "rightSpace": "false"
                         }
                     ]

@@ -30,7 +30,7 @@ module.exports = {
             cacheGroups: {
                 reactVendor: {
                     name: 'react_vendors',
-                    test: /[\\/]node_modules[\\/](react|react-dom|prop-types|query-string|react-svg|react-router|react-router-dom|validator|react-paginate|whatwg-fetch|react-autosuggest|react-autowhatever|react-html-parser|react-spinners|es6-promise|react-hook-form)[\\/]/,
+                    test: /[\\/]node_modules[\\/](react|react-dom|prop-types|query-string|react-svg|react-router|react-router-dom|validator|react-paginate|whatwg-fetch|react-autosuggest|react-html-parser|react-spinners|es6-promise|react-hook-form)[\\/]/,
                     chunks: 'all',
                     priority: 3
                 },
