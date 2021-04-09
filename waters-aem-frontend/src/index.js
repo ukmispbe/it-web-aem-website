@@ -32,6 +32,7 @@ import SessionStore from './stores/sessionStore';
 import LoginStatus from "./scripts/loginStatus";
 import CreateAccountForm from './create-account-form';
 import CreateRequestForm from './create-request-form';
+import HeaderQuickOrder from './header-quick-order';
 
 import Spinner from './utils/spinner';
 
@@ -706,5 +707,16 @@ if (contactusContainer) {
     ReactDOM.render(
         <LinkButton label={label} url={url} />,
         contactusContainer
+    );
+}
+
+// Header Quick Order
+const headerQuickOrderContainer = document.getElementById("header-quick-order");
+if (headerQuickOrderContainer) {
+    const headerQuickOrderProps = JSON.parse(document.getElementById("header-quick-order-json").innerHTML);
+    const skuData = JSON.parse(document.getElementById('commerce-configs-json').innerHTML);
+    ReactDOM.render(
+        <Suspense fallback={<div>Loading...</div>}><HeaderQuickOrder {...headerQuickOrderProps} skuConfig={skuData} /></Suspense>,
+        headerQuickOrderContainer
     );
 }

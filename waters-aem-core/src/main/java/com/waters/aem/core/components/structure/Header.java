@@ -47,7 +47,8 @@ import java.util.Collections;
     path = WatersConstants.COMPONENT_PATH_STRUCTURE,
     tabs = {
         @Tab(title = "Properties"),
-        @Tab(title = "My Account")
+        @Tab(title = "My Account"),
+        @Tab(title = "Quick Order")
     })
 @Model(adaptables = SlingHttpServletRequest.class,
     adapters = { Header.class, ComponentExporter.class },
@@ -204,6 +205,58 @@ public final class Header extends AbstractComponent implements ComponentExporter
     @PathField(rootPath = WatersConstants.ROOT_PATH)
     @LinkInject(inherit = true)
     private Link quotesLink;
+
+    @DialogField(fieldLabel = "Button Label",
+        fieldDescription = "The text to display on the Button",
+        defaultValue = "ADD TO CART",
+        tab = 3,
+        ranking = 1
+    )
+    @TextField
+    @InheritInject
+    private String quickOrdernButtonLabel;
+
+    @DialogField(fieldLabel = "Add to Cart Placeholder",
+            fieldDescription = "The text to display as placeholder",
+            defaultValue = "SKU Number",
+            tab = 3,
+            ranking = 2)
+    @TextField
+    @InheritInject
+    private String quickOrderAddToCartPlaceHolder;
+
+    @DialogField(fieldLabel = "Multiple Items Label",
+            fieldDescription = "The text to display on the multiple items link",
+            tab = 3,
+            ranking = 3)
+    @TextField
+    @InheritInject
+    private String quickOrderMultipleItemsLabel;
+
+    @DialogField(fieldLabel = "Multiple Items Link",
+            fieldDescription = "The path of the multiple items link",
+            required = true,
+            tab = 3,
+            ranking = 4)
+    @PathField(rootPath = WatersConstants.ROOT_PATH)
+    @LinkInject(inherit = true)
+    private Link quickOrderMultipleItemsLink;
+
+    @DialogField(fieldLabel = "Multiple Items Icon",
+            fieldDescription = "Select or enter the icon URL",
+            tab = 3,
+            ranking = 5)
+    @PathField(rootPath = WatersConstants.DAM_PATH)
+    @LinkInject(inherit = true)
+    private Link quickOrderMultipleItemsIcon;
+
+    @DialogField(fieldLabel = "Add Items Icon",
+    fieldDescription = "Select or enter the icon URL",
+    tab = 3,
+    ranking = 6)
+    @PathField(rootPath = WatersConstants.DAM_PATH)
+    @LinkInject(inherit = true)
+    private Link quickOrderAddItemsIcon;
 
     public String getQuotesLink() {
         if (quotesLink != null) {
@@ -368,5 +421,33 @@ public final class Header extends AbstractComponent implements ComponentExporter
      */
     public String getIsocode() {
         return siteContext.getLocale().toString();
+    }
+
+    public String getQuickOrdernButtonLabel() {
+        return quickOrdernButtonLabel;
+    }
+
+    public String getQuickOrderAddToCartPlaceHolder() {
+        return quickOrderAddToCartPlaceHolder;
+    }
+
+    public String getQuickOrderAddToCartUrl() {
+        return watersCommerceService.getAddToCartUrl();
+    }
+
+    public String getQuickOrderMultipleItemsLabel() {
+        return quickOrderMultipleItemsLabel;
+    }
+
+    public String getQuickOrderMultipleItemsLink() {
+        return quickOrderMultipleItemsLink.getPath();
+    }
+
+    public String getQuickOrderMultipleItemsIcon() { 
+        return quickOrderMultipleItemsIcon.getPath(); 
+    }
+
+    public String getQuickOrderAddItemsIcon() { 
+        return quickOrderAddItemsIcon.getPath(); 
     }
 }
