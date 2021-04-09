@@ -19,8 +19,7 @@ const availabilityUrlRequest = (url, countryCode, partNo) => {
 }
 
 const priceUrlRequest = (endpoint, sku, soldToId, salesOrg) => {
-    let url;
-    return url = `${endpoint}?productNumber=${sku}&customerNumber=${soldToId}&salesOrg=${salesOrg}`;
+    return `${endpoint}?productNumber=${sku}&customerNumber=${soldToId}&salesOrg=${salesOrg}`;
 }
 
 
