@@ -7,6 +7,7 @@ import ScreenSizes from '../scripts/screenSizes';
 import MobileNav from '../scripts/mobileNav';
 import domElements from '../scripts/domElements';
 import { addQuickOrderLink, removeQuickOrderLink } from '../scripts/quickorderlink';
+import { buildViewCartURL } from '../utils/eCommerceFunctions';
 
 class HeaderQuickOrder extends React.Component {
     constructor(props) {
@@ -146,7 +147,7 @@ class HeaderQuickOrder extends React.Component {
     render() {
         if (this.state.isMobile) return null;
         return (
-            <QuickOrder {...this.props} isInHeader={true} />
+            <QuickOrder {...this.props} multipleItemsLink={buildViewCartURL(this.props.multipleItemsLink)} isInHeader={true} />
         )
     }
 }
