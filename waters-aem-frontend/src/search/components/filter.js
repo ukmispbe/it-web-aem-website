@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import FilterSection from './filter-section';
-import validator from 'validator';
+import validatorEquals from 'validator/lib/equals';
 import PropTypes from 'prop-types';
 import { searchMapper } from '../services/index';
 
@@ -87,7 +87,7 @@ class Filter extends Component {
             const prevFacets = JSON.stringify(prevProps.facets);
             const currFacets = JSON.stringify(this.props.facets);
 
-            if (!validator.equals(prevFacets, currFacets)) {
+            if (!validatorEquals(prevFacets, currFacets)) {
                 // When the facets have changed it indicates that the facet groups were reordered
                 // therefore, it will not have the same index in the array since the array has changed
                this.setState_ActiveFacet();
