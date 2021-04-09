@@ -154,7 +154,8 @@
             }
 
             &-notification-wrapper {
-                display: block;
+                display: block;                
+                padding-bottom: $space-xs;
             }
 
             &-notification {
@@ -163,6 +164,7 @@
                 border: 1px solid $color-red-20;
                 padding: $space-xxs;
                 border-radius: 4px;
+                width: 100%;
 
                 &--icon {
                     display: inline-block;
@@ -187,15 +189,15 @@
                 }
 
                 &--title {
-                    @include font-small;
-                    font-weight: $font-weight-regular;
+                    @include font-h4;
                     display: inline-block;
-                    margin-right: $space-xxs;
+                    margin-bottom: 0;
+                    margin-right: $space-xxxs;
                 }
 
                 &--description {
-                    @include font-small;
-                    font-weight: $font-weight-light;
+                    @include font-body;
+                    margin-bottom: 0;
                     display: inline-block;
                 }
             }

@@ -438,6 +438,12 @@ export const getEprocUserLanguage = () => {
     return userDetails.localeLanguage || '';
 }
 
+export const getShipOrBillChangeFlag = () => {
+    const store = new SessionStore();
+    const userDetails = store.getUserDetails();
+    return userDetails.shipOrBillChangeFlag;
+}
+
 export const getCategoryReferenceType = () => {
     return isEprocurementUser() ? `&reference=sku` : '';
 }
