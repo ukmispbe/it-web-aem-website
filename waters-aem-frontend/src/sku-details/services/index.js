@@ -26,17 +26,15 @@ const priceUrlRequest = (endpoint, sku, soldToId, salesOrg) => {
 
 
 export const getCustPricingUrl = (url, sku, userInfo, fields) => {
-//https://api-sbox.waters.com/dev-waters-product-exp-api-v1/api/products/prices?productNumber=176001125&customerNumber=anonymous&fields=DEFAULT
-//https://api-sbox.waters.com/dev-waters-product-exp-api-v1/api/products/prices?productNumber=176003102&customerNumber=UqgJ47QF9iB5GmN0Gprxxg==&salesOrg=US01
     let customerNumber = userInfo && userInfo.soldToId ? userInfo.soldToId : 'anonymous';
     let custUrl = `${url}?productNumber=${sku}&customerNumber=${customerNumber}`;
 
     if (userInfo && userInfo.salesOrg) { 
         let salesOrg = userInfo.salesOrg;
-        return url = custUrl + `&salesOrg=${salesOrg}`;
+        return custUrl + `&salesOrg=${salesOrg}`;
     } else {
         fields = fields.toUpperCase();
-        return url = custUrl + `&fields=${fields}`;
+        return custUrl + `&fields=${fields}`;
     }
 }
 
