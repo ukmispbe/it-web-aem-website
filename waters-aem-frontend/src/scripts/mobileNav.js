@@ -2,6 +2,7 @@ import ScreenSizes from '../scripts/screenSizes';
 import NavMenu from '../scripts/navigation-level2';
 import FeedbackSurvey from './feedbackSurvey';
 import domElements from './domElements';
+import { addQuickOrderLink, removeQuickOrderLink } from '../scripts/quickorderlink';
 
 const MobileNav = function () {
 
@@ -17,6 +18,7 @@ const MobileNav = function () {
         header.classList.add('is-fixed');
         domElements.noScroll(true);
         FeedbackSurvey.isDisplayed(false);
+        addQuickOrderLink();
     }
 
     const hideMobileNav = () => {
@@ -25,6 +27,7 @@ const MobileNav = function () {
         header.classList.remove('is-fixed');
         domElements.noScroll(false);
         FeedbackSurvey.isDisplayed(true);
+        removeQuickOrderLink();
 
         const navMenuFunc = NavMenu();
         if (navMenuFunc) { 

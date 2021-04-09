@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { parameterValues, parameterDefaults, searchMapper } from './services/index';
 import { parse, stringify } from 'query-string';
 import { withRouter } from 'react-router-dom';
-import validator from 'validator';
+import validatorEquals from 'validator/lib/equals';
 import domElements from '../scripts/domElements';
 import screenSizes from '../scripts/screenSizes';
 import Analytics, { analyticTypes } from '../analytics';
@@ -183,7 +183,7 @@ class SearchContainer extends Component {
     isSkuList = category =>  {
         const categoryKey = this.findFacetNameProperty(this.props.filterMap, category);
 
-        return validator.equals(categoryKey, 'shop');
+        return validatorEquals(categoryKey, 'shop');
     }
 
     handleHistoryPop = query => {
@@ -1201,7 +1201,7 @@ class SearchContainer extends Component {
         if (!isInEditMode) {
             const zeroResultsXF = document.querySelector('#zeroresults');
             const hideZeroResultsClass = 'hidden';
-            const parentLayoutContainer = zeroResultsXF && zeroResultsXF.closest('.layoutcontainer.hidden');
+            const parentLayoutContainer = zeroResultsXF && zeroResultsXF.closest('.container.hidden');
 
             if (parentLayoutContainer && this.state.noResults) {
                 domElements.removeClass(parentLayoutContainer, hideZeroResultsClass);

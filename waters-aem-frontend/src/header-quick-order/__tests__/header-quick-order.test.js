@@ -2,11 +2,11 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 //Mocked Props
-import QuickOrder from '../QuickOrder';
-import props from '../QuickOrder.mock';
+import HeaderQuickOrder from '../index';
 import AddToCart from '../../sku-details/views/addToCart';
+import props from '../../quick-order/QuickOrder.mock';
 
-describe('<QuickOrder />', () => {
+describe('<HeaderQuickOrder />', () => {
     let enzymeWrapper;
     let addToCart;
     beforeAll(() => {
@@ -20,13 +20,14 @@ describe('<QuickOrder />', () => {
             enumerable: true,
             configurable: true
         });
-        enzymeWrapper = shallow(<QuickOrder {...props} />);
+        enzymeWrapper = shallow(<HeaderQuickOrder {...props} isInHeader={true} errorMsg="is not a valid SKU number" />);
+        enzymeWrapper = enzymeWrapper.dive();
     });
     it('should render without throwing an error', () => {
         expect(enzymeWrapper).toMatchSnapshot();
     });
     it('should display default Add to cart section', () => {
-        expect(enzymeWrapper.find('.quick-order-parent')).toHaveLength(1);
+        expect(enzymeWrapper.find('.header-quick-order-parent')).toHaveLength(1);
         expect(enzymeWrapper.find('#code')).toHaveLength(1);
         expect(enzymeWrapper.find(AddToCart)).toHaveLength(1);
         addToCart = enzymeWrapper.find(AddToCart).dive();

@@ -119,15 +119,7 @@ const CreateRequestForm = ({
     window.dispatchEvent(new CustomEvent("showLoaderEproc", { detail: { showLoader: true }}));
     setSerialFormData(data);
     if  (serialFormConfig) {
-      let organizationSearchString = "";
-      if (data.organization.length <= 3) {
-        organizationSearchString = data.organization + "*";
-      }
-      else {
-        organizationSearchString = data.organization.substr(0, 3) + "*";
-      }
-
-      serialNumberSubmit.call(this, serialFormConfig.config.equipmentEndpoint, organizationSearchString, data, processEquipmentData);
+      serialNumberSubmit.call(this, serialFormConfig.config.equipmentEndpoint, data, processEquipmentData);
     }
   }
 
