@@ -322,6 +322,12 @@
     width: 130px;
 }
 
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    .top-bar__nav__quick-order__dropdown {
+        flex-direction: row-reverse;
+    }
+ }
+
 #nav-header-quick-order-link {
     a {
         display: flex;
