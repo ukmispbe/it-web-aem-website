@@ -185,6 +185,7 @@ function QuickOrder(props) {
                 href={multipleItemsLink}
                 className="quick-order-multiple-item"
                 data-locator="link-quick-order-add-multiple-item"
+                target="_self"
             >
                 {isInHeader ?
                     <ReactSVG aria-hidden="true" src={multipleItemsIcon} wrapper='span' data-locator="add-multiple-item-icon" />
