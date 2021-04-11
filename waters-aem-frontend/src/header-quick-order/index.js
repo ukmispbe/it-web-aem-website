@@ -26,6 +26,7 @@ class HeaderQuickOrder extends React.Component {
     async componentDidMount() {
         this.headerNav = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__quick-order');
         this.header = document.querySelector('header.cmp-header');
+        const multipleItemLink = document.querySelector('.quick-order-multiple-item');
 
         if (this.headerNav) {
             this.headerNav.addEventListener('mouseover', this.handleOutsideEvent);
@@ -34,6 +35,13 @@ class HeaderQuickOrder extends React.Component {
             this.hideOnMobile(ScreenSizes.isMobile());
         }
         window.addEventListener('resize', this.updateViewport, true);
+        if (multipleItemLink) {
+            multipleItemLink.addEventListener('click', function (event) {
+                if (event) {
+                    event.stopPropagation();
+                }
+            });
+        }
     }
 
     componentWillUnMount() {
