@@ -245,8 +245,9 @@ class SearchBar extends Component {
     });
 
     formatSuggestion = (term, suggestion) =>{
-        // wrap the matching characters with a pipe | and no action in case search term is '*'
-        const delimittedSuggestion = term !== '*' ? suggestion.replace(new RegExp(`\\b${term}`, 'ig'), `|${term}|`) : suggestion.replace(new RegExp("\\b".concat(""), 'ig'), "|".concat("", "|"));
+        // wrap the matching characters with a pipe | escape all possible regex special characters
+        const escapedTerm= term.replace(/([.?*+^$[\]\\(){}|-])/g, "\\$1");
+        const delimittedSuggestion = suggestion.replace(new RegExp(`\\b${escapedTerm}`, 'ig'), `|${term}|`);
 
         // convert string to array split with pipe |
         // this will isolate the matching characters into it's own location in the array
