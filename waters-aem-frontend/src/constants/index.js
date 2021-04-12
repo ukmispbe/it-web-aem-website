@@ -21,3 +21,17 @@ export const SEARCH_TYPES = {
     CONTENT_TYPE: 'content type',
     SUB_FACETS: 'sub facets'
 }
+export const RECENT_SEARCHES_EXPIRY_TIME = 30; // In days
+
+export const CONTACT_METHOD = {
+    EMAIL: 'EMAIL',
+    PHONE: 'PHONE'
+}
+export const TECH_SUPPORT = 'TS|SUPPORT';
+export const PRODUCT_TYPE_LABEL = 'productTypeLabel';
+export const CONFIRMATION_LABEL = 'confirmationLabel';
+export const SUPPORT_TYPE = 'supportType';
+export const CO2_BULK = 'CO2_BULK';
+export const EPROC_LOCALE_LANGUAGE = 'en';
+
+

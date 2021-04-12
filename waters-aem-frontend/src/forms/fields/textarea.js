@@ -1,4 +1,4 @@
-import React, { useRef, useState, useContext, useMemo } from 'react';
+import React, { useRef, useState, useContext, useEffect, useMemo } from 'react';
 import { useFormApi, useFieldApi } from '../form';
 import { useErrorsContext } from './utils/stateWatcher';
 import DisplayMessage from './components/displaymessage';
@@ -26,10 +26,18 @@ const TextArea = ({
         isCharOver: false,
     });
 
-    const { disabled, matchLabel, emailValidationEndpoint, optionalLabel } = useContext(useFieldApi);
+    const { disabled, matchLabel, emailValidationEndpoint, optionalLabel, placeHolder, initialState } = useContext(useFieldApi);
     const { register, setError, setValue, clearError } = useContext(useFormApi);
 
+    const [ textValue, setTextValue ] = useState();
+
     const errors = useErrorsContext();
+
+    useEffect(() => {
+        if (initialState) {
+            setTextValue(initialState);
+        }
+    }, [name]);
 
     const getRegisterAttributes = ref => {
         inputRef.current = ref;
@@ -113,11 +121,12 @@ const TextArea = ({
                         id={name}
                         ref={ref => register(ref, getRegisterAttributes(ref))}
                         onBlur={toggleReq}
+                        value={textValue}
                         onFocus={toggleReq}
                         onChange={updateReq}
                         onKeyUp={onKeyUp}
-                        placeholder=" "
-                        disabled={disabled}
+                        placeholder={ placeHolder || " "}
+                        disabled={disabled} 
                         aria-labelledby={name}
                         aria-required={validation.required}
                         resize={resize}

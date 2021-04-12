@@ -8,7 +8,7 @@ exports[`Feature: Sign In Form Scenario: Rendering When initial render Then the 
   onSubmit={[Function]}
 >
   <div
-    className="cmp-form-field cmp-form-field-email"
+    className="cmp-form-field cmp-form-field-email "
   >
     <label
       className=""
@@ -42,6 +42,7 @@ exports[`Feature: Sign In Form Scenario: Rendering When initial render Then the 
       />
       <div
         className="cmp-form-field--icons"
+        data-locator="cmp-form-field-icons"
       >
         <div
           className="valid-icon"
@@ -53,12 +54,13 @@ exports[`Feature: Sign In Form Scenario: Rendering When initial render Then the 
     </div>
     <span
       className="cmp-form-field--errorText"
+      data-locator="cmp-form-field-errorText"
     >
       
     </span>
   </div>
   <div
-    className="cmp-form-field cmp-form-field-password"
+    className="cmp-form-field cmp-form-field-password "
   >
     <label
       className=""
@@ -92,6 +94,7 @@ exports[`Feature: Sign In Form Scenario: Rendering When initial render Then the 
       />
       <div
         className="cmp-form-field--icons"
+        data-locator="cmp-form-field-icons"
       >
         <div
           className="showHide-icon toggled"
@@ -111,12 +114,13 @@ exports[`Feature: Sign In Form Scenario: Rendering When initial render Then the 
     </div>
     <span
       className="cmp-form-field--errorText"
+      data-locator="cmp-form-field-errorText"
     >
       
     </span>
   </div>
   <div
-    className="cmp-form-field cmp-form-field-link"
+    className="cmp-form-field cmp-form-field-link "
   >
     <div
       className="cmp-form-field-link--forgotPassword "
@@ -132,6 +136,7 @@ exports[`Feature: Sign In Form Scenario: Rendering When initial render Then the 
     </div>
   </div>
   <button
+    aria-label="form submit button"
     className="cmp-button cmp-button--no-border cmp-form--submit"
     data-locator="form-submit"
     type="submit"

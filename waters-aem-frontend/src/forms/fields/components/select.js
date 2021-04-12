@@ -4,6 +4,8 @@ import ReactSVG from "react-svg";
 
 import { useFieldApi, useFormApi } from '../../form';
 import customStyles from "../styles/dropdown.scss";
+import { TECH_SUPPORT, SUPPORT_TYPE, CO2_BULK } from '../../../constants/index';
+
 
 const DropdownIndicator = props => {
     return (
@@ -14,8 +16,8 @@ const DropdownIndicator = props => {
 };
 
 const Select = (props) => {
-    const { name, options, dropdownIndicator, placeholder, disabled } = useContext(useFieldApi);
-    const { triggerValidation, setValue, getValue, activateField, deactivateField, setCountrySaved, regionalConfig } = useContext(useFormApi);
+    const { name, options, dropdownIndicator, placeholder, disabled, defaultValue } = useContext(useFieldApi);
+    const { triggerValidation, setValue, getValue, activateField, deactivateField, setCountrySaved, regionalConfig, displayProductTypeDropDown } = useContext(useFormApi);
     const [selectedValue, setSelectedValue] = useState(getValue(name) ? getValue(name).toLowerCase() : (props.defaultValue || ""));
     const setupOptions = (label, value) => ({ label: label, value: value });
 
@@ -54,12 +56,26 @@ const Select = (props) => {
             // Update Country Code in State
             setCountrySaved(option.value);
         }
+
+        if (name === SUPPORT_TYPE) {
+            // Check if Option is "Technical Support"
+            // Display or Hide Product Type Drop Down
+            if (option.value === TECH_SUPPORT) {
+                displayProductTypeDropDown(true); 
+                triggerValidation([SUPPORT_TYPE]);            
+            }
+            else {
+                displayProductTypeDropDown(false);
+                triggerValidation([SUPPORT_TYPE]);
+            }
+        }
     };
 
     return (
         <ReactSelect
             {...props}
             options={getOptions()}
+            defaultValue={{ value: CO2_BULK}}
             isDisabled={disabled}
             isSearchable={true}
             styles={customStyles}

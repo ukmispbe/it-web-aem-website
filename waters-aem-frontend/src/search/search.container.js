@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { parameterValues, parameterDefaults, searchMapper } from './services/index';
 import { parse, stringify } from 'query-string';
 import { withRouter } from 'react-router-dom';
-import NoResults from './components/no-results';
 import validator from 'validator';
 import domElements from '../scripts/domElements';
 import screenSizes from '../scripts/screenSizes';
@@ -11,6 +10,10 @@ import Loading from './components/loading';
 import SearchComponent from './search.component';
 import { isEprocurementUser } from '../utils/userFunctions';
 import { SEARCH_TYPES } from '../constants';
+import SearchBreadcrumb from '../common/search-breadcrumb';
+import cookieStore from '../stores/cookieStore';
+import loginStatus from '../scripts/loginStatus';
+import NoResults from './components/no-results';
 
 class SearchContainer extends Component {
     constructor(props) {
@@ -546,6 +549,10 @@ class SearchContainer extends Component {
         };
 
         newState.noResults = !newState.results[query.page].length;
+
+        if (!loginStatus.state() && !newState.noResults && query.keyword && query.keyword !== parameterDefaults.keyword) {
+            cookieStore.setRecentSearches(query.keyword);
+        }
 
         newState.facets = res.facets;
         if ("activeIndex" in this.state) {
@@ -1188,15 +1195,49 @@ class SearchContainer extends Component {
         };
     }
 
+    noSearchResultsToggle = () => {
+        const isInEditMode = document.getElementById("header").hasAttribute("data-is-edit-mode");
+
+        if (!isInEditMode) {
+            const zeroResultsXF = document.querySelector('#zeroresults');
+            const hideZeroResultsClass = 'hidden';
+            const parentLayoutContainer = zeroResultsXF && zeroResultsXF.closest('.container.hidden');
+
+            if (parentLayoutContainer && this.state.noResults) {
+                domElements.removeClass(parentLayoutContainer, hideZeroResultsClass);
+            } else if (parentLayoutContainer && !this.state.noResults) {
+                domElements.addClass(parentLayoutContainer, hideZeroResultsClass)
+            }
+        }
+    }
+
     render() {
+        if (this.state.loading) {
+            // hide the XF initially to prevent loading flicker
+            this.noSearchResultsToggle();
+        };
+
         if (this.state.loading && !screenSizes.isTabletAndUnder()) {
             return <Loading visible={true} />
         };
 
+        if (!this.state.loading) {
+            this.noSearchResultsToggle();
+        }
+
         if (this.state.noResults) {
-            return <NoResults
+            return (
+                <>
+                    <SearchBreadcrumb
+                        text={this.props.searchText}
+                        searchParams={this.state.searchParams}
+                        clearSessionStore={this.props.search.clearSessionStore}
+                        noResults={this.state.noResults}/>
+                    <NoResults
                         searchText={this.props.searchText}
-                        query={this.state.keyword} />;
+                        query={this.state.keyword} />
+                </>
+            )
         }
 
         return <SearchComponent

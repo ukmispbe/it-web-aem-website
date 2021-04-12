@@ -40,6 +40,9 @@ public final class SiteContext {
     private I18n i18n;
 
     public Locale getLocale() {
+        if(currentPage.getPath().contains("pt/pt") && StringUtils.isNotEmpty(currentPage.getPath())) {
+            return LocaleUtils.getLocaleWithCountryForPage(currentPage);
+        }
         return currentPage.getLanguage(false);
     }
 
@@ -152,6 +155,18 @@ public final class SiteContext {
         final Commerce commerce = currentPage.getContentResource().adaptTo(Commerce.class);
 
         return commerce.getCountryCommerceConfig();
+    }
+
+    public String getSupportRequestGlobalCountries() {
+        final Commerce commerce = currentPage.getContentResource().adaptTo(Commerce.class);
+
+        return commerce.getSupportRequestGlobalCountries();
+    }
+
+    public String getGlobalCountriesRedirectUrl() {
+        final Commerce commerce = currentPage.getContentResource().adaptTo(Commerce.class);
+
+        return commerce.getGlobalCountriesRedirectUrl();
     }
 
     public String getLanguageLocation() {

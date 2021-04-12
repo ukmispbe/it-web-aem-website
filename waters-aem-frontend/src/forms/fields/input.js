@@ -166,7 +166,7 @@ const Input = ({
                             ? 'cmp-form-field--label-matching'
                             : ''
                     }
-                    data-locator={elementLocator(label) || 'form-field--label'}
+                    data-locator={elementLocator(label) || 'form-field-label'}
                 >
                     {renderFormattedLabel(label, validation.required, optionalLabel)}
                 </label>

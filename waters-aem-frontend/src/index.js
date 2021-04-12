@@ -31,6 +31,8 @@ import CountrySelector from './country-selector';
 import SessionStore from './stores/sessionStore';
 import LoginStatus from "./scripts/loginStatus";
 import CreateAccountForm from './create-account-form';
+import CreateRequestForm from './create-request-form';
+
 import Spinner from './utils/spinner';
 
 if (process.env.NODE_ENV !== 'production') {
@@ -336,6 +338,51 @@ if (videoContainers) {
             );
         }
     });
+}
+
+const requestFormContainer = document.getElementById(
+    'js-support-request-form'
+);
+
+if (requestFormContainer) {
+    const configCheckSerialForm = JSON.parse(
+        document.getElementById('cmp-check-serial-form').innerHTML
+    );
+
+    const configSupportRequestForm = JSON.parse(
+        document.getElementById('cmp-support-request-form').innerHTML
+    );
+
+    const configSupportRequestConfirmationForm = JSON.parse(
+        document.getElementById('cmp-support-request-confirmation').innerHTML
+    );
+
+    const supportRequestForm = {
+        config: configSupportRequestForm,
+        submitFn: registrationSubmit,
+        callback: headerData.userDetailsUrl,
+    }
+
+    const checkSerialForm = {
+        config: configCheckSerialForm,
+    }
+
+    const supportRequestConfirmationForm = {
+        config: configSupportRequestConfirmationForm,
+    }
+
+    ReactDOM.render(
+        <>
+            <CreateRequestForm
+                confirmationFormConfig={supportRequestConfirmationForm}
+                supportRequestFormConfig={supportRequestForm}
+                checkSerialFormConfig={checkSerialForm}
+                isocode={DigitalData.language}
+            />
+            <LegalLinkModal docIcon={configSupportRequestForm.icons.docIcon || ''} />
+        </>,
+        requestFormContainer
+    );
 }
 
 const registrationFormContainer = document.getElementById(

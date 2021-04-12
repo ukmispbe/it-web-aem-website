@@ -134,14 +134,6 @@
             }
         }
 
-        &.noresults {
-            width: 70%;
-            margin-left: 0;
-            margin-bottom: $space-s;
-            overflow: visible;
-            height: auto;
-        }
-
         @include mobile {
             margin: unset;
             overflow: visible;
@@ -149,11 +141,6 @@
             white-space: normal;
             overflow: visible;
             height: auto;
-
-            &.noresults {
-                width: 100%;
-                margin: 0;
-            }
         }
 
         @include mobile {
@@ -208,26 +195,11 @@
     @include list-item-thumbnail;
 }
 .cmp-search__no-results {
-    border: $border-medium;
     text-align: center;
-    padding: $space-xl 0 $space-xl;
-    .icon {
-        margin: 0 auto $space-s auto;
-        height: $icon-xl;
-        width: $icon-xl;
-        svg {
-            max-height: $icon-xl; 
-            .st0 {
-                stroke: $color-gray-30;
-            }
-        }
-    }
-}
-div.cmp-search__no-results {
-    padding: $space-xl $space-xl;
+    padding-bottom: $space-m;
 
     @include mobile {
-        padding: $space-l;
+        padding-bottom: $space-s;
     }
 }
 .paginate__container {

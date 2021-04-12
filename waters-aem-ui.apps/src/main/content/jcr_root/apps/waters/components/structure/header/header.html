@@ -2,7 +2,7 @@
     data-sly-use.header="com.waters.aem.core.components.structure.Header"
     id="header"
     class="cmp-header"
-    data-is-edit-mode="${isEditMode}"
+    data-is-edit-mode="${wcmmode.edit}"
     data-homepage-url="${header.homepageLink.href}"
     data-signout-endpoint="${header.signOutEndpoint}"
     data-search-path="${header.searchPath.href}"
@@ -48,7 +48,8 @@
                             data-custom-style="cmp-header-search-bar"
                             data-auto-suggest-label="${'Search Box' @ i18n}"
                             data-clear-label="${'Clear' @ i18n}"
-                            data-search-label="${'Search' @ i18n}">
+                            data-search-label="${'Search' @ i18n}"
+                            data-recently-searched-label="${'Recently Searched' @ i18n}">
                         </div>
                     </li>
                     <li class="top-bar__nav__user${header.eprocurement ? '--hide':''} top-bar__nav__item">
@@ -82,8 +83,8 @@
                                 "punchoutLogin": "${header.punchOutLoginEndpoint @ context='unsafe'}",
                                 "icon": "/content/dam/waters/en/brand-assets/icons/user.svg",
                                 "closeIcon": "/content/dam/waters/en/brand-assets/icons/close.svg",
-                                "title": "${'My Account' @ i18n , context='unsafe' }",
-                                "notRegistered": "${'Not registered yet?' @ i18n , context='unsafe' }",
+                                "title": "${'My Account' @ i18n, context='unsafe'}",
+                                "notRegistered": "${'Not registered yet?' @ i18n, context='unsafe'}",
                                 "myAccount": {
                                     "text": "${'My Account' @ i18n, context='unsafe'}",
                                     "url": "${!header.eprocurement ? header.myAccountLink.href : '' @ context='unsafe'}",
@@ -181,5 +182,5 @@
         ></div>
     </div>
     <div id="mobile-header-search-container"></div>
-    <div data-sly-test="${header.eprocurement}" id="cmp-header--loader"></div>
+    <div id="cmp-header--loader"></div>
 </header>

@@ -4,6 +4,7 @@ import ReactSVG from 'react-svg';
 import { useFieldApi } from '../../form';
 import { useErrorsContext } from '../utils/stateWatcher';
 import { useFormApi } from '../../form';
+import { htmlParser } from '../../../utils/eCommerceFunctions'
 
 const DisplayMessage = ({ name, validation }) => {
     const { icons } = useContext(useFieldApi);
@@ -43,7 +44,7 @@ const DisplayMessage = ({ name, validation }) => {
 
         return (
             <>
-                {message}
+                {htmlParser(message)}
                 {link}
             </>
         );
@@ -52,14 +53,14 @@ const DisplayMessage = ({ name, validation }) => {
     const showSignIn = () => (
         <>
             {validation.alreadyRegisteredMsg}
-            <a href={validation.signInURL} className="cmp-sign-in-link">
+            <a href={validation.signInURL} className="cmp-sign-in-link" data-locator="cmp-sign-in-link">
                 <ReactSVG src={icons.signInIcon} className="email-signin" />
                 {validation.signInMsg}
             </a>
         </>
     );
 
-    return <span className="cmp-form-field--errorText">{getInfo()}</span>;
+    return <span className="cmp-form-field--errorText" data-locator="cmp-form-field-errorText">{getInfo()}</span>;
 };
 
 export default React.memo(DisplayMessage);

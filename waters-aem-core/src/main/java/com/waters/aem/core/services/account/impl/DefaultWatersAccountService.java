@@ -51,6 +51,10 @@ public class DefaultWatersAccountService implements WatersAccountService {
 
     private volatile String countryStatesUrl;
 
+    private volatile String supportRequestUrl;
+
+    private volatile String supportRequestEquipmentUrl;
+
     @Override
     public String getSignOutUrl() {
         return signOutUrl;
@@ -107,7 +111,7 @@ public class DefaultWatersAccountService implements WatersAccountService {
     }
 
     @Override
-    public String getSignInEndpoint(){
+    public String getSignInEndpoint() {
         return signInEndpoint;
     }
 
@@ -132,24 +136,34 @@ public class DefaultWatersAccountService implements WatersAccountService {
     }
 
     @Override
-     public String getContactSupportUrl() {
-         return contactSupportUrl;
-     }
+    public String getContactSupportUrl() {
+        return contactSupportUrl;
+    }
 
     @Override
-     public String getQuoteHistoryUrl() {
-         return quoteHistoryUrl;
-     }
-     
-     @Override
-     public String getCountryListUrl() {
-         return countryListUrl;
-     }
+    public String getQuoteHistoryUrl() {
+        return quoteHistoryUrl;
+    }
 
-     @Override
-     public String getCountryStatesUrl() {
-         return countryStatesUrl;
-     } 
+    @Override
+    public String getCountryListUrl() {
+        return countryListUrl;
+    }
+
+    @Override
+    public String getCountryStatesUrl() {
+        return countryStatesUrl;
+    }
+
+    @Override
+    public String getSupportRequestUrl() {
+        return supportRequestUrl;
+    }
+
+    @Override
+    public String getSupportRequestEquipmentUrl() {
+        return supportRequestEquipmentUrl;
+    }
 
     @Activate
     @Modified
@@ -174,5 +188,7 @@ public class DefaultWatersAccountService implements WatersAccountService {
         quoteHistoryUrl = configuration.quoteHistoryUrl();
         countryListUrl = configuration.countryListUrl();
         countryStatesUrl = configuration.countryStatesUrl();
+        supportRequestUrl = configuration.supportRequestUrl();
+        supportRequestEquipmentUrl = configuration.supportRequestEquipmentUrl();
     }
 }

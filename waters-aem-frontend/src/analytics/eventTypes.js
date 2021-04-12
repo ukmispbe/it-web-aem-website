@@ -138,7 +138,31 @@ const eventTypes = {
             error: {
                 event: 'registrationAddressFormError'
             }
-        }       
+        },
+        checkSerial: {
+            name: 'checkSerial',
+            load: {
+                event: 'checkSerialFormLoad'
+            },
+            submit: {
+                event: 'checkSerialFormSubmit'
+            },
+            error: {
+                event: 'checkSerialFormError'
+            }
+        },
+        supportRequest: {
+            name: 'supportRequest',
+            load: {
+                event: 'supportRequestFormLoad'
+            },
+            submit: {
+                event: 'supportRequestFormSubmit'
+            },
+            error: {
+                event: 'supportRequestFormError'
+            }
+        }               
     },
     linkClick: {
         name: 'linkClick',

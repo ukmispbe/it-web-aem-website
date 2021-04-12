@@ -14,9 +14,9 @@ import Field from './fields';
 import Analytics, { analyticTypes } from "../analytics";
 import SessionStore from '../stores/sessionStore';
 import loginStatus from '../scripts/loginStatus';
-import { homePageRedirect } from '../utils/redirectFunctions';
+import { homePageRedirect, signInRedirect } from '../utils/redirectFunctions';
 import Spinner from "../utils/spinner";
-import { elementLocator } from '../utils/eCommerceFunctions';
+import { elementLocator, htmlParser } from '../utils/eCommerceFunctions';
 import { getAddressesByType, getFullCompanyAddress } from '../utils/userFunctions';
 import SoldToDetailsLazy from '../my-account/services/SoldToDetailsLazy';
 import countryList from './services/country-list';
@@ -43,7 +43,9 @@ const Form = ({
     addFieldFn,
     toggleAddressFn,
     navigateBackFn,
-    addAddressesFn
+    addAddressesFn,
+    displayProductTypeDropDown,
+    fieldKey
 }) => {
     if (defaultValues) {
         defaultValues.communications =
@@ -153,7 +155,7 @@ const Form = ({
     }, [config.formName])
 
     useEffect(() => {
-        if (config.formName === "registrationAddress") {
+        if (config.formName === "registrationAddress" && config.statesUrl) {
             // Call API & Update Config
             retrieveDataNoCredentials(config.statesUrl.replace("{country}", defaultValues.country))
             .then((results) => {
@@ -191,6 +193,22 @@ const Form = ({
         }
 
     }, [config]);
+
+    // Hook to Hide the content fragment above the Confirmation and change the page title
+    useEffect(() => {
+        if (config.formName === "supportRequestConfirmation") {
+            const titleElements = document.getElementsByClassName("cmp-title__text");
+            if (titleElements && titleElements.length === 2) {              
+                titleElements[0].innerText = config.pageTitle;
+            }
+
+            const featuresDiv = document.getElementsByClassName("cmp-text"); 
+            if (featuresDiv && featuresDiv.length !== 0) {
+                featuresDiv[0].style.display = "none"; 
+            }
+        }
+
+    }, [config.formName]);
 
     // Hook to check the user's Authentication Status and redirect if needed
     useEffect(() => {
@@ -353,6 +371,7 @@ const Form = ({
             toggleAddressFn,
             navigateBackFn,
             addAddressesFn,
+            displayProductTypeDropDown,
             setErrorBoundaryToTrue,
             resetErrorBoundaryToFalse,
             removeNotifications,
@@ -383,7 +402,7 @@ const Form = ({
         }
 
         return (
-            <FieldApi.Provider value={getFieldApi} key={`field-${i}`}>
+            <FieldApi.Provider value={getFieldApi} key={fieldKey ? `${fieldKey}-${i}` : `field-${i}`}>
                 <Field />
             </FieldApi.Provider>
         );
@@ -416,13 +435,15 @@ const Form = ({
                 <button
                     type="submit"
                     className={"cmp-button cmp-button--no-border cmp-form--submit"}
+                    aria-label="form submit button"
                     data-locator={elementLocator(config.buttonLocator || 'form-submit')}
                 >
-                    {config.buttonText}
+                    {htmlParser(config.buttonText)}
                 </button>
                 {config.cancelText && !!cancelHandler && (
                     <a
                         className="cmp-button cmp-button--cancel"
+                        aria-label="form cancel button"
                         onClick={cancelHandler}
                         data-locator={elementLocator(config.cancelText || 'form-cancel')}
                     >
