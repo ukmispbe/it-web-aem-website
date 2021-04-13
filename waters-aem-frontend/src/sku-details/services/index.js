@@ -103,10 +103,19 @@ export async function getAvailability(url, countryCode, partNo) {
         method: 'GET',
         credentials: 'include'
     }
-
-    const urlRequest = availabilityUrlRequest(url, countryCode, partNo);
+    // const urlRequest = availabilityUrlRequest(url, countryCode, partNo);
+    const urlRequest = "https://mock.codes/500";
+    //const urlRequest = "https://mock.codes/400";
+    //const urlRequest = "https://mock.codes/200";
     const response = await fetchData(urlRequest, options);
     const json = await response.json();
+    if (response.status !== 200) {
+        console.log(`error ${response.status} `, response);
+        throw ({
+            status: response.status,
+            ok: false
+        });
+    }
     return json;
 }
 
