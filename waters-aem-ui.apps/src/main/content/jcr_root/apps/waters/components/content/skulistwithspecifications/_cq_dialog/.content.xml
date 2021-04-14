@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="nt:unstructured"
+    jcr:title="SkuListWithSpecifications"
+    sling:resourceType="cq/gui/components/authoring/dialog"
+    fileName="_cq_dialog.xml"
+    mode="edit">
+    <content
+        cq:hideOnEdit="{Boolean}false"
+        cq:showOnCreate="{Boolean}false"
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/coral/foundation/container"
+        margin="{Boolean}false"
+        maximized="{Boolean}false">
+        <items jcr:primaryType="nt:unstructured">
+            <tabs
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="granite/ui/components/coral/foundation/tabs"
+                maximized="{Boolean}true">
+                <items jcr:primaryType="nt:unstructured">
+                    <properties
+                        cq:hideOnEdit="{Boolean}false"
+                        cq:showOnCreate="{Boolean}true"
+                        jcr:primaryType="nt:unstructured"
+                        jcr:title="Properties"
+                        sling:resourceType="granite/ui/components/coral/foundation/container"
+                        margin="{Boolean}true"
+                        maximized="{Boolean}false">
+                        <items jcr:primaryType="nt:unstructured">
+                            <columns
+                                cq:hideOnEdit="{Boolean}false"
+                                cq:showOnCreate="{Boolean}false"
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <column
+                                        cq:hideOnEdit="{Boolean}false"
+                                        cq:showOnCreate="{Boolean}false"
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/container"
+                                        margin="{Boolean}false"
+                                        maximized="{Boolean}false">
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <skuNumbers
+                                                cq:hideOnEdit="{Boolean}false"
+                                                cq:showOnCreate="{Boolean}true"
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                                                composite="{Boolean}false"
+                                                disabled="{Boolean}false"
+                                                fieldDescription="Enter the Sku Number"
+                                                fieldLabel="Skus"
+                                                name="./code"
+                                                renderReadOnly="{Boolean}false"
+                                                required="{Boolean}true">
+                                                <field
+                                                    cq:hideOnEdit="{Boolean}false"
+                                                    cq:showOnCreate="{Boolean}true"
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                    disabled="{Boolean}false"
+                                                    fieldDescription="Enter the Sku Number"
+                                                    fieldLabel="Sku Numbers"
+                                                    name="./code"
+                                                    renderReadOnly="{Boolean}false"
+                                                    required="{Boolean}true"/>
+                                            </skuNumbers>
+											<searchProductLink
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/form/pathbrowser"
+                                                fieldDescription="Enter the Search Link to view all the products"
+                                                fieldLabel="View All Products Link"
+                                                name="./searchProductsLink"
+                                                required="{Boolean}true"/>
+                                        </items>
+                                    </column>
+                                </items>
+                            </columns>
+                        </items>
+                    </properties>
+                </items>
+            </tabs>
+        </items>
+    </content>
+</jcr:root>
