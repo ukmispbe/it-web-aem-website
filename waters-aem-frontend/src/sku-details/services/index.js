@@ -154,6 +154,7 @@ export async function getPricing(url, sku, userInfo, fields) {
     }
 
     const urlRequest = getCustPricingUrl(url, sku, userInfo, fields);
+    // const urlRequest = "https://mock.codes/500";
     const response = await fetchDataWithHeaders(urlRequest, options);
     const json = await response.json();
 
