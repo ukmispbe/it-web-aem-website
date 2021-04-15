@@ -529,3 +529,8 @@ export const convertToBoolean = (value = '') => {
     }
     return status
 }
+
+export const replaceInSrc = (src = "", strWithReplace) => {
+  const variation =  src.replace(/{{width}}/gi, strWithReplace);
+  return variation;
+}
