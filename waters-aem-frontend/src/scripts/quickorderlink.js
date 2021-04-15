@@ -28,12 +28,13 @@ export const addQuickOrderLink = () => {
         const liDivAnchorSpan = document.createElement('span');
         liDivAnchorSpan.classList.add('header-quick-order-headline-text');
         liDivAnchorSpan.innerText = headerQuickOrderJson.headlineText;
-        liDivAnchorSpan.setAttribute('data-locator', 'header-label-Quick Order');
+        liDivAnchorSpan.setAttribute('data-locator', 'header-label-quick-order');
 
         const liDivAnchorImg = document.createElement('img');
         liDivAnchorImg.classList.add('header-quick-order-img');
         liDivAnchorImg.classList.add('inline-svg');
         liDivAnchorImg.setAttribute('src', headerQuickOrderJson.addItemsIcon);
+        liDivAnchorImg.setAttribute('data-src', headerQuickOrderJson.addItemsIcon);
         liDivAnchorSpan.setAttribute('data-locator', 'quick-order-link-icon');
 
         liDivAnchor.appendChild(liDivAnchorSpan);
