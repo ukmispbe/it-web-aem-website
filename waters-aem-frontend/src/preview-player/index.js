@@ -1,19 +1,29 @@
 import React from 'react';
 import Video from '../video';
-import { LazyLoadComponent } from 'react-lazy-load-image-component';
+import ReactSVG from 'react-svg';
 import { replaceInSrc } from '../utils/userFunctions';
-import "../styles/previewplayer.scss";
+
+import '../styles/preview-player.scss';
 
 export const PreviewPlayer = (props) => {
         
     const handleImageLoaded = e => {}
     const handleImageError = e => {}
-
+    const handlePlayerClick = e => {
+        if(props.openModal){
+            props.openModal(e);
+        }
+    }
         return (
-            <div className="preview-player-container">
+            <div className="preview-player-container" onClick={(e) => handlePlayerClick(e)}>
                 {
                     props.imgSrc ? (
-                        <LazyLoadComponent>
+                          <>
+                            <div className="overlay">
+                                <div className="tap-to-zoom">
+                                    <ReactSVG src={props.zoomIcon} />{props.zoomIconText}
+                                </div>
+                            </div>
                             <picture
                             onLoad={(e) => handleImageLoaded(e)}
                             onError={(e) => handleImageError(e)}                         
@@ -34,9 +44,9 @@ export const PreviewPlayer = (props) => {
                                 src={props.defaultImage} 
                             />
                             </picture>
-                        </LazyLoadComponent>
+                       </>
                       ) : (
-                        <LazyLoadComponent>
+                       
                             <Video 
                                 videoConfig={props.videoConfig}                        
                                 ref={ourComponent => {
@@ -47,7 +57,7 @@ export const PreviewPlayer = (props) => {
                                     }
                                 }} 
                             />
-                        </LazyLoadComponent>
+                      
                       )
 
                 }
