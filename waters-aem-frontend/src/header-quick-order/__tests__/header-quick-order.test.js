@@ -20,7 +20,16 @@ describe('<HeaderQuickOrder />', () => {
             enumerable: true,
             configurable: true
         });
-        enzymeWrapper = shallow(<HeaderQuickOrder {...props} isInHeader={true} errorMsg="is not a valid SKU number" />);
+        enzymeWrapper = shallow(<HeaderQuickOrder
+            {...props}
+            qtyPlaceholder=""
+            skuDatalocator="input-quick-order-sku"
+            quantityDatalocator="input-sku-qty"
+            addToCartBtnDatalocator="link-add-to-cart"
+            addMultipleItemsDatalocator="link-quick-order-add-multiple-item"
+            isInHeader={true}
+            errorMsg="is not a valid SKU number"
+        />);
         enzymeWrapper = enzymeWrapper.dive();
     });
     it('should render without throwing an error', () => {

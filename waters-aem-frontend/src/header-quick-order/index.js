@@ -6,8 +6,8 @@ import QuickOrder from '../quick-order/QuickOrder';
 import ScreenSizes from '../scripts/screenSizes';
 import MobileNav from '../scripts/mobileNav';
 import domElements from '../scripts/domElements';
-import { addQuickOrderLink, removeQuickOrderLink } from '../scripts/quickorderlink';
-import { buildViewCartURL } from '../utils/eCommerceFunctions';
+import { addQuickOrderLink, removeQuickOrderLink } from '../scripts/mobileQuickOrderLink';
+import { replaceCountryAndLanguage } from '../utils/eCommerceFunctions';
 
 class HeaderQuickOrder extends React.Component {
     constructor(props) {
@@ -21,6 +21,18 @@ class HeaderQuickOrder extends React.Component {
         this.headerNav = null;
         this.allNavItems = null;
         this.header = null;
+    }
+
+    buildQuickOrderUrl = () => {
+        const headerQuickOrderLink = document.querySelector('.top-bar__nav__quick-order__link');
+        if (headerQuickOrderLink) {
+            headerQuickOrderLink.setAttribute("href", replaceCountryAndLanguage(this.props.multipleItemsLink));
+            headerQuickOrderLink.addEventListener('click', function (event) {
+                if (event) {
+                    event.stopPropagation();
+                }
+            });
+        }
     }
 
     async componentDidMount() {
@@ -42,6 +54,7 @@ class HeaderQuickOrder extends React.Component {
                 }
             });
         }
+        this.buildQuickOrderUrl();
     }
 
     componentWillUnMount() {
@@ -155,7 +168,15 @@ class HeaderQuickOrder extends React.Component {
     render() {
         if (this.state.isMobile) return null;
         return (
-            <QuickOrder {...this.props} multipleItemsLink={buildViewCartURL(this.props.multipleItemsLink)} isInHeader={true} />
+            <QuickOrder
+                {...this.props}
+                skuDatalocator="code-header-quick-order"
+                quantityDatalocator="quantity-header-quick-order"
+                addToCartBtnDatalocator="add-to-cart-button-header-quick-order"
+                addMultipleItemsDatalocator="quick-order-multiple-item"
+                multipleItemsLink={replaceCountryAndLanguage(this.props.multipleItemsLink)}
+                isInHeader={true}
+            />
         )
     }
 }
@@ -167,6 +188,7 @@ HeaderQuickOrder.propTypes = {
     multipleItemsLabel: PropTypes.string,
     multipleItemsLink: PropTypes.string,
     multipleItemsIcon: PropTypes.string,
+    qtyPlaceholder: PropTypes.string,
     skuConfig: PropTypes.object,
     errorMsg: PropTypes.string
 }
@@ -178,6 +200,7 @@ HeaderQuickOrder.defaultProps = {
     multipleItemsLabel: '',
     multipleItemsLink: '',
     multipleItemsIcon: '',
+    qtyPlaceholder: '',
     skuConfig: {},
     errorMsg: ''
 }

@@ -14,7 +14,12 @@ const props = {
         skuInfo: { partNumberLabel: 'SKU' }
     },
     isInHeader: false,
-    errorMsg:''
+    errorMsg:'',
+    qtyPlaceholder:'',
+    skuDatalocator: 'input-quick-order-sku',
+    quantityDatalocator:'input-sku-qty',
+    addToCartBtnDatalocator: 'link-add-to-cart',
+    addMultipleItemsDatalocator:'link-quick-order-add-multiple-item'
 }
 
 export default props;
