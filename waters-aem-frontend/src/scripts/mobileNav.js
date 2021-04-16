@@ -2,7 +2,7 @@ import ScreenSizes from '../scripts/screenSizes';
 import NavMenu from '../scripts/navigation-level2';
 import FeedbackSurvey from './feedbackSurvey';
 import domElements from './domElements';
-import { addQuickOrderLink, removeQuickOrderLink } from '../scripts/quickorderlink';
+import { addQuickOrderLink, removeQuickOrderLink } from '../scripts/quickOrderLink';
 
 const MobileNav = function () {
 

@@ -6,7 +6,7 @@ import QuickOrder from '../quick-order/QuickOrder';
 import ScreenSizes from '../scripts/screenSizes';
 import MobileNav from '../scripts/mobileNav';
 import domElements from '../scripts/domElements';
-import { addQuickOrderLink, removeQuickOrderLink } from '../scripts/quickorderlink';
+import { addQuickOrderLink, removeQuickOrderLink } from '../scripts/quickOrderLink';
 import { replaceCountryAndLanguage } from '../utils/eCommerceFunctions';
 
 class HeaderQuickOrder extends React.Component {

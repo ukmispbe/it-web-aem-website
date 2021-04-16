@@ -142,21 +142,22 @@ class AddToCart extends React.Component {
     }
 
     render() {
+        const { placeholder, quantityDatalocator, qtyLabel, addToCartBtnDatalocator, addToCartLabel } = this.props;
         return (
             <>
                 <form>
                     <input
                         className="cmp-sku-details__quantity"
-                        placeholder={this.props.placeholder}
+                        placeholder={placeholder}
                         value={this.state.addToCartQty}
                         onChange={this.skuQuantityInput}
                         onKeyPress={this.skuRemoveNegative}
-                        data-locator={this.props.quantityDatalocator}
-                        aria-label={this.props.qtyLabel}
+                        data-locator={quantityDatalocator}
+                        aria-label={qtyLabel}
                     />
                 </form>
-                <a className={`cmp-button ${!this.state.skuNumber.trim() && 'disabled'}`} onClick={() => this.addToCart()} data-locator={this.props.addToCartBtnDatalocator}>
-                    {this.props.addToCartLabel}
+                <a className={`cmp-button ${!this.state.skuNumber.trim() && 'disabled'}`} onClick={() => this.addToCart()} data-locator={addToCartBtnDatalocator}>
+                    {addToCartLabel}
                 </a>
             </>
         )
@@ -168,6 +169,7 @@ AddToCart.defaultProps = {
     addToCartQty: null,
     onRef: () => { },
     skuResponse: () => { },
+    addToCartLabel: '',
     qtyLabel: '',
     placeholder: 'Qty',
     quantityDatalocator: 'input-sku-qty',
