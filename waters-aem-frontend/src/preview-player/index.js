@@ -1,27 +1,28 @@
 import React from 'react';
-import Video from '../video';
 import ReactSVG from 'react-svg';
+import PropTypes from "prop-types";
+import Video from '../video';
 import { replaceInSrc } from '../utils/userFunctions';
 
 import '../styles/preview-player.scss';
 
-export const PreviewPlayer = (props) => {
+const PreviewPlayer = ({openModal, imgSrc,zoomIcon,zoomIconText, widths, defaultImage, videoConfig }) => {
         
     const handleImageLoaded = e => {}
     const handleImageError = e => {}
     const handlePlayerClick = e => {
-        if(props.openModal){
-            props.openModal(e);
+        if(openModal){
+            openModal(e);
         }
     }
         return (
             <div className="preview-player-container" onClick={(e) => handlePlayerClick(e)}>
                 {
-                    props.imgSrc ? (
+                    imgSrc ? (
                           <>
                             <div className="overlay">
                                 <div className="tap-to-zoom">
-                                    <ReactSVG src={props.zoomIcon} />{props.zoomIconText}
+                                    <ReactSVG src={zoomIcon} />{zoomIconText}
                                 </div>
                             </div>
                             <picture
@@ -29,11 +30,11 @@ export const PreviewPlayer = (props) => {
                             onError={(e) => handleImageError(e)}                         
                             >
                             {
-                                props.widths.map((width, index) => (
+                                widths.map((width, index) => (
                                 <source
                                     key={`media-${width}-${index}`}
                                     media={`(min-width: ${width}px)`}
-                                    srcSet={replaceInSrc(props.imgSrc, width)}
+                                    srcSet={replaceInSrc(imgSrc, width)}
                                     type={'image/webp'}
                                 />
                                 ))
@@ -41,14 +42,14 @@ export const PreviewPlayer = (props) => {
                             <img
                                 className="image-gallery-image"
                                 alt={"gallery-image"}
-                                src={props.defaultImage} 
+                                src={defaultImage} 
                             />
                             </picture>
                        </>
                       ) : (
                        
                             <Video 
-                                videoConfig={props.videoConfig}                        
+                                videoConfig={videoConfig}                        
                                 ref={ourComponent => {
                                     if (window.cmpVideos) {
                                         window.cmpVideos.push(ourComponent);
@@ -64,3 +65,25 @@ export const PreviewPlayer = (props) => {
             </div>
         );   
 }
+
+PreviewPlayer.propTypes = {
+    openModal: PropTypes.func, 
+    imgSrc: PropTypes.string,
+    zoomIcon: PropTypes.string,
+    zoomIconText: PropTypes.string, 
+    widths: PropTypes.arrayOf(PropTypes.string).isRequired, 
+    defaultImage: PropTypes.string, 
+    videoConfig: PropTypes.object
+}
+
+PreviewPlayer.defaultProps = {
+    openModal: () => {}, 
+    imgSrc: '',
+    zoomIcon: '',
+    zoomIconText: '', 
+    widths: [], 
+    defaultImage: '', 
+    videoConfig: {}
+}
+
+export default PreviewPlayer;
