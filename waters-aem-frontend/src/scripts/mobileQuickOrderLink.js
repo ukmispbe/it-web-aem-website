@@ -1,5 +1,5 @@
 import inlineSVG from './inlineSVG';
-import { buildViewCartURL } from '../utils/eCommerceFunctions';
+import { replaceCountryAndLanguage } from '../utils/eCommerceFunctions';
 
 export const addQuickOrderLink = () => {
     let headerQuickOrderJson = "";
@@ -22,7 +22,7 @@ export const addQuickOrderLink = () => {
 
         const liDivAnchor = document.createElement('a');
         liDivAnchor.classList.add('cmp-navigation__item-link');
-        liDivAnchor.setAttribute('href', buildViewCartURL(headerQuickOrderJson.multipleItemsLink));
+        liDivAnchor.setAttribute('href', replaceCountryAndLanguage(headerQuickOrderJson.multipleItemsLink));
         liDivAnchor.setAttribute('data-locator', 'quick-order-link');
 
         const liDivAnchorSpan = document.createElement('span');
