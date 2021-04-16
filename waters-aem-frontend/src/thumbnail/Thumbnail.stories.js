@@ -21,7 +21,7 @@ DefaultView.args = {
 
 export const ViewWithImage = Template.bind({});
 ViewWithImage.args = {
-  thumbnailURL:
+  thumbnailSrcURL:
     "http://localhost:4502/content/dam/waters/emails/innovations-otto-spe-logo.jpeg",
   thumbnailAltText: "productImage",
   thumbnailTitleText: "Innovation Acquity",
@@ -29,7 +29,7 @@ ViewWithImage.args = {
 
 export const ViewWithImageInActiveState = Template.bind({});
 ViewWithImageInActiveState.args = {
-  thumbnailURL:
+  thumbnailSrcURL:
     "http://localhost:4502/content/dam/waters/emails/innovations-otto-spe-logo.jpeg",
   thumbnailAltText: "productImage",
   thumbnailTitleText: "Innovation Acquity",
@@ -38,7 +38,7 @@ ViewWithImageInActiveState.args = {
 
 export const ViewWithImageAndLabel = Template.bind({});
 ViewWithImageAndLabel.args = {
-  thumbnailURL:
+  thumbnailSrcURL:
     "http://localhost:4502/content/dam/waters/emails/innovations-otto-spe-logo.jpeg",
   thumbnailAltText: "productImage",
   thumbnailTitleText: "Innovation Acquity",
@@ -46,7 +46,7 @@ ViewWithImageAndLabel.args = {
 };
 export const ThumbnailWithVideo = Template.bind({});
 ThumbnailWithVideo.args = {
-  thumbnailURL:
+  thumbnailSrcURL:
     "http://localhost:4502/content/dam/waters/emails/innovations-acquity-premier-column-logo.jpeg",
   thumbnailAltText: "productImage",
   thumbnailTitleText: "Innovation Acquity",
@@ -57,7 +57,7 @@ ThumbnailWithVideo.args = {
 
 export const ThumbnailWithTimeStamp = Template.bind({});
 ThumbnailWithTimeStamp.args = {
-  thumbnailURL:
+  thumbnailSrcURL:
     "http://localhost:4502/content/dam/waters/emails/innovations-acquity-premier-column-logo.jpeg",
   thumbnailAltText: "productImage",
   thumbnailTitleText: "Innovation Acquity",

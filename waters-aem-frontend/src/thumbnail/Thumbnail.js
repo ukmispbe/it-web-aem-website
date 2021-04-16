@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import "./thumbnailStyle.css";
 
 const Thumbnail = ({
-  thumbnailURL,
+  thumbnailSrcURL,
   thumbnailAltText,
   thumbnailTitleText,
   thumbnailLabel,
@@ -35,7 +35,7 @@ const Thumbnail = ({
           <div className="thumbnail-video-overlay" />
         )}
         <img
-          src={thumbnailURL}
+          src={thumbnailSrcURL}
           alt={thumbnailAltText}
           title={thumbnailTitleText}
           onError={handleThumbnailError}
@@ -61,7 +61,7 @@ const Thumbnail = ({
 );
 
 Thumbnail.propTypes = {
-  thumbnailURL: PropTypes.string,
+  thumbnailSrcURL: PropTypes.string,
   thumbnailAltText: PropTypes.string,
   thumbnailTitleText: PropTypes.string,
   thumbnailLabel: PropTypes.string,
@@ -80,7 +80,7 @@ Thumbnail.propTypes = {
 };
 
 Thumbnail.defaultProps = {
-  thumbnailURL: "",
+  thumbnailSrcURL: "",
   thumbnailAltText: "",
   thumbnailTitleText: "",
   thumbnailLabel: "",

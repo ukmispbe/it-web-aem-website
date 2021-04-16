@@ -2,7 +2,7 @@ import React from "react";
 import { shallow } from "enzyme";
 import Thumbnail from "../Thumbnail";
 const defaultConfig = {
-  thumbnailURL: "",
+  thumbnailSrcURL: "",
   thumbnailAltText: "",
   thumbnailTitleText: "",
   thumbnailLabel: "",
@@ -32,7 +32,7 @@ describe("<Thumbnail />", () => {
 
   test("should render image without label", () => {
     const props = {
-      thumbnailURL:
+      thumbnailSrcURL:
         "http://localhost:4502/content/dam/waters/emails/innovations-otto-spe-logo.jpeg",
       thumbnailAltText: "productImage",
       thumbnailTitleText: "Innovation Acquity",
@@ -43,7 +43,7 @@ describe("<Thumbnail />", () => {
   });
   test("should render image with label", () => {
     const props = {
-      thumbnailURL:
+      thumbnailSrcURL:
         "http://localhost:4502/content/dam/waters/emails/innovations-otto-spe-logo.jpeg",
       thumbnailAltText: "productImage",
       thumbnailTitleText: "Innovation Acquity",
@@ -58,7 +58,7 @@ describe("<Thumbnail />", () => {
 
   test("should render image with video play icon", () => {
     const props = {
-      thumbnailURL:
+      thumbnailSrcURL:
         "http://localhost:4502/content/dam/waters/emails/innovations-otto-spe-logo.jpeg",
       thumbnailAltText: "productImage",
       isVideo: true,
@@ -69,10 +69,9 @@ describe("<Thumbnail />", () => {
 
     expect(wrapper.find("ReactSVG")).toHaveLength(1);
   });
-
   test("should render image with time stamp", () => {
     const props = {
-      thumbnailURL:
+      thumbnailSrcURL:
         "http://localhost:4502/content/dam/waters/emails/innovations-otto-spe-logo.jpeg",
       thumbnailAltText: "productImage",
       isVideo: true,

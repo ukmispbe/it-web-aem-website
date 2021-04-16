@@ -1,5 +1,5 @@
 const props = {
-  thumbnailURL:
+  thumbnailSrcURL:
     "http://localhost:4502/content/dam/waters/emails/download.png/_jcr_content/renditions/cq5dam.thumbnail.319.319.png",
   thumbnailAltText: "productImage",
   thumbnailTitleText: "Innovation Acquity",
