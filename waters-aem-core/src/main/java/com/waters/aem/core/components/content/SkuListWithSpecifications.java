@@ -64,7 +64,7 @@ public final class SkuListWithSpecifications implements ComponentExporter {
         @TextField
         @Inject
         
-    private String[] code = new String[0];
+    private String[] skuCodeList = new String[0];
 
     @DialogField(fieldLabel = "View All Products Link",
         fieldDescription = "Enter the Search Link to view all the products ",
