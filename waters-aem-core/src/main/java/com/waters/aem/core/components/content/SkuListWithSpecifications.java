@@ -27,11 +27,11 @@ import com.citytechinc.cq.component.annotations.widgets.TextField;
 import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 
 @Component(value = "SKU List With Specifications",
-			listeners = {
-			@Listener(name = EVENT_AFTER_EDIT, value = REFRESH_PAGE),
-			@Listener(name = EVENT_AFTER_MOVE, value = REFRESH_PAGE),
-			@Listener(name = EVENT_AFTER_COPY, value = REFRESH_PAGE) },
-			tabs = @Tab(title = "Properties"))
+		listeners = {
+				@Listener(name = EVENT_AFTER_EDIT, value = REFRESH_PAGE),
+				@Listener(name = EVENT_AFTER_MOVE, value = REFRESH_PAGE),
+				@Listener(name = EVENT_AFTER_COPY, value = REFRESH_PAGE) },
+		tabs = @Tab(title = "Properties"))
 @Model(adaptables = SlingHttpServletRequest.class, adapters = { SkuListWithSpecifications.class,
 		ComponentExporter.class }, resourceType = SkuListWithSpecifications.RESOURCE_TYPE, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME, extensions = ExporterConstants.SLING_MODEL_EXTENSION)
@@ -78,5 +78,5 @@ public final class SkuListWithSpecifications implements ComponentExporter {
 	public String getExportedType() {
 		return RESOURCE_TYPE;
 	}
-	
+
 }
