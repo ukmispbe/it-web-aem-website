@@ -1,7 +1,23 @@
-<div data-sly-use.skuListSpecs="com.waters.aem.core.components.content.SkuListWithSpecifications"
-	data-searchLink = '${skuListSpecs.searchProductsLink @ context="unsafe"}'
-     data-skuNumbers='${skuListSpecs.skuCodeList @ context="unsafe"}'
-     data-componentTitle='Sku List With Specifications'>
+<div data-sly-use.skuListSpecs="com.waters.aem.core.components.content.SkuListWithSpecifications">
+	<script type="application/json" id="cmp-skulistwithspecifications-json">
+        {
+            "skuNumberLabel": "${'SKU Number' @ i18n, context='unsafe'}",
+            "productLabel": "${'Product' @ i18n, context='unsafe'}",
+            "availabilityLabel": "${'Availability' @ i18n, context='unsafe'}",
+			"seeAvailabilityLabel": "${'See Availability' @ i18n, context='unsafe'}",
+            "seeAvailabilityIcon": "${'/content/dam/waters/en/brand-assets/icons/refresh.svg' @ i18n, context='unsafe'}",
+			"listPriceLabel": "${'List Price' @ i18n, context='unsafe'}",
+			"yourPriceLabel": "${'Your Price' @ i18n, context='unsafe'}",
+			"addToCartLabel": "${'Add To Cart' @ i18n, context='unsafe'}",
+            "addToCartUrl": "${skuListSpecs.addToCartUrl @ context="unsafe"}",
+			"viewFullProductListLabel": "${'View Full Product List' @ i18n, context='unsafe'}",
+            "viewFullProductListUrl": "${skuListSpecs.searchProductsLink @ context='unsafe'}",
+            "viewFullProductListIcon": "${'/content/dam/waters/en/brand-assets/icons/multiple.svg' @ context='unsafe'}",
+            "skuNumberList": "${skuListSpecs.skuCodeList @ i18n, context='unsafe'}"
+
+        }
+    </script>
+</div>
 
 <sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
-     data-sly-call="${patterns.placeholder @ show=!skuListSpecs.searchProductsLink, text= 'Sku List With Specifications'}"/>
+     data-sly-call="${patterns.placeholder @ show=!skuListSpecs.searchProductsLink, text=component.title}"/>

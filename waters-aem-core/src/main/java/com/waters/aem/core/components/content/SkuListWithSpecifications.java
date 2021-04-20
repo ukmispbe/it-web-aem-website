@@ -8,6 +8,8 @@ import static com.icfolson.aem.library.core.constants.ComponentConstants.REFRESH
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
+import com.waters.aem.core.constants.WatersConstants;
+import com.waters.aem.core.services.commerce.WatersCommerceService;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
@@ -22,6 +24,7 @@ import com.citytechinc.cq.component.annotations.Tab;
 import com.citytechinc.cq.component.annotations.widgets.MultiField;
 import com.citytechinc.cq.component.annotations.widgets.PathField;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
+import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 
 @Component(value = "SKU List With Specifications",
 			listeners = {
@@ -37,14 +40,23 @@ public final class SkuListWithSpecifications implements ComponentExporter {
 
 	public static final String RESOURCE_TYPE = "waters/components/content/skulistwithspecifications";
 
-	@DialogField(fieldLabel = "Sku Numbers", fieldDescription = "Enter the Sku Number", renderReadOnly = false, required = true, ranking = 1)
+	@OSGiService
+	private WatersCommerceService watersCommerceService;
+
+	@DialogField(fieldLabel = "Sku Number",
+			fieldDescription = "Enter the Sku Number",
+			required = true,
+			ranking = 1)
 	@MultiField
 	@TextField
 	@Inject
 	private String[] skuCodeList = new String[0];
 
-	@DialogField(fieldLabel = "View All Products Link", fieldDescription = "Enter the Search Link to view all the products ", ranking = 2)
-	@PathField
+	@DialogField(fieldLabel = "View All Products Link",
+			fieldDescription = "Enter the Search Link to view all the products ",
+			required = true,
+			ranking = 2)
+	@PathField(rootPath = WatersConstants.CONTENT_ROOT_PATH)
 	@Inject
 	private String searchProductsLink;
 
@@ -53,14 +65,18 @@ public final class SkuListWithSpecifications implements ComponentExporter {
 		return skuCodeList;
 	}
 
+	public String getSearchProductsLink() {
+		return searchProductsLink;
+	}
+
+	public String getAddToCartUrl() {
+		return watersCommerceService.getAddToCartUrl();
+	}
+
 	@Nonnull
 	@Override
 	public String getExportedType() {
 		return RESOURCE_TYPE;
-	}
-
-	public String getSearchProductsLink() {
-		return searchProductsLink;
 	}
 	
 }
