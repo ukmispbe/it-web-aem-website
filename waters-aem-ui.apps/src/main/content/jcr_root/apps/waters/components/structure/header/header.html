@@ -145,11 +145,11 @@
                     <li class="top-bar__nav__quick-order top-bar__nav__item" data-locator="header-section-quickOrder">
                         <a
                             class="top-bar__nav__quick-order__link cmp-header-links__link"
-                            href="javascript:;"
+                            href="${header.quickOrderMultipleItemsLink}"
                             target="_self"
                             data-locator="link-header-my-account-quickOrder"
                         >
-                            <span class="header-quick-order-headline-text" data-locator="header-label-Quick Order"
+                            <span class="header-quick-order-headline-text" data-locator="header-label-quick-order"
                                 >${'Quick Order' @ i18n}</span
                             >
                             <img
@@ -157,6 +157,7 @@
                                 src="${header.quickOrderAddItemsIcon}"
                                 class="inline-svg"
                                 data-locator="header-quickOrder-icon"
+                                data-src="${header.quickOrderAddItemsIcon}"
                             />
                         </a>
                         <div class="top-bar__nav__quick-order__dropdown" data-locator="header-quick-order-user-dropdown-container">
@@ -181,6 +182,7 @@
                                 "multipleItemsIcon": "${header.quickOrderMultipleItemsIcon @ context="unsafe"}",
                                 "addItemsIcon": "${header.quickOrderAddItemsIcon @ context="unsafe"}",
                                 "qtyLabel": "${'Quantity' @ i18n, context='unsafe'}",
+                                "qtyPlaceholder": "${'Qty' @ i18n, context='unsafe'}",
                                 "headlineText": "${'Quick Order' @ i18n, context='unsafe'}",
                                 "errorMsg": "${'is not a valid SKU number' @ i18n, context='unsafe'}"
                             }
