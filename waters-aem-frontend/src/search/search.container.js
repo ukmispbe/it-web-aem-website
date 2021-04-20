@@ -151,6 +151,7 @@ class SearchContainer extends Component {
             facetGroupsSelectedOrder: [],
             collapseAllFilters: false,
             activeFilterIndex: -1,
+            defaultFilterFacet: "brand_facet",
             count: 0,
             allResultsText: this.props.searchText.allResultsText,
             allResultsTextMobile: this.props.searchText.allResultsTextMobile
@@ -580,9 +581,12 @@ class SearchContainer extends Component {
         this.setState(Object.assign({}, this.state, newState), () => {
             // collapse all facet groups when flag is true and the device is tablet or mobile
             if (this.state.forceCollapseFilters) {
-                if (screenSizes.isTabletAndUnder()) {
+                // if (screenSizes.isTabletAndUnder()) {
                     this.collapseFilters();
-                }
+                // }
+                // else {
+                //     this.collapseFilters();
+                // }
 
                 // reset flag to false
                 this.setState({forceCollapseFilters: false});
@@ -963,6 +967,9 @@ class SearchContainer extends Component {
 
     setCategorySelected = (index, query, category) => {
         const tabHistoryEntrySelected = this.getTabHistoryEntry(category);
+        this.setState({
+            defaultFilterFacet: "brand2_facet",
+        });  
         
         if (Object.entries(tabHistoryEntrySelected.searchParams).length === 0) {
             query.category = category;
@@ -1171,7 +1178,8 @@ class SearchContainer extends Component {
             contentType: this.state.contentType,
             facetGroupsSelectedOrder: this.state.facetGroupsSelectedOrder,
             collapseAllFilters: this.state.collapseAllFilters,
-            activeIndex: this.state.activeFilterIndex
+            activeIndex: this.state.activeFilterIndex,
+            defaultFilterFacet: this.state.defaultFilterFacet
         };
     }
 

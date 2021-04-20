@@ -16,8 +16,33 @@ class Filter extends Component {
     }
 
     collapseAllFilters = () => {
-        const facetGroups = this.mapFacetGroupsState(-1, this.getMappings());
+        let  facetGroups = this.mapFacetGroupsState(-1, this.getMappings());
+        
+        // Set Default Facet    
+        facetGroups = this.setDefaultFilter(facetGroups, this.props.defaultFilterFacet);
+
         this.setState({facetGroups});
+    }
+
+    setDefaultFilter = (facets, defaultFacet) => {
+        if (!facets || !Array.isArray(facets)) {
+            return [];
+        }
+
+        if (defaultFacet === "") {
+            return facets;
+        }   
+ 
+        const updatedFacets = facets.map((facet) => {
+            if (facet.name === defaultFacet) {
+                facet.isExpanded = true;
+                return facet;
+            } else {
+                facet.isExpanded = false;
+                return facet;
+            }
+        });
+        return updatedFacets;
     }
 
     mapFacetGroupsState = (activeIndex, mappings) => {
@@ -169,6 +194,7 @@ Filter.propTypes = {
     facetGroupsSelectedOrder: PropTypes.array,
     collapseAllFilters: PropTypes.bool,
     onGroupClick: PropTypes.func,
+    defaultFilterFacet: PropTypes.string,
 }
 
 Filter.defaultProps = {
@@ -179,7 +205,8 @@ Filter.defaultProps = {
     showTagsOnly: false,
     facetGroupsSelectedOrder: [],
     collapseAllFilters: false,
-    onGroupClick: () => {}
+    onGroupClick: () => {},
+    defaultFilterFacet: ""
 }
 
 export default Filter;
