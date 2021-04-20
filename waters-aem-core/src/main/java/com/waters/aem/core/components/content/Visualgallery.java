@@ -51,11 +51,10 @@ import com.waters.aem.core.utils.BrightcoveUtils;
         @Listener(name = EVENT_AFTER_MOVE, value = REFRESH_PAGE),
         @Listener(name = EVENT_AFTER_COPY, value = REFRESH_PAGE)
     },
-        tabs = {
-                @Tab(title = "Images"),
-                @Tab(title = "Videos")
-        }
-    )
+	tabs = {
+		@Tab(title = "Images"),
+		@Tab(title = "Videos")
+	})
 @Model(adaptables = SlingHttpServletRequest.class,
     adapters = { Visualgallery.class, ComponentExporter.class },
     resourceType = Visualgallery.RESOURCE_TYPE,
@@ -67,8 +66,6 @@ public final class Visualgallery implements ComponentExporter {
 	public static final String RESOURCE_TYPE = "waters/components/content/visualgallery";
 
 	private static final ObjectMapper MAPPER = new ObjectMapper();
-
-//	private static final String SRC_URI_TEMPLATE_WIDTH = "{{width}}";
 
 	@OSGiService
 	private BrightcoveService brightcoveService;
@@ -83,35 +80,31 @@ public final class Visualgallery implements ComponentExporter {
 	private Style currentStyle;
 
 	@MultiField
-	@DialogField(fieldLabel = "Images", fieldDescription = "Images to be displayed", renderReadOnly = false, tab = 1, ranking = 1)
+	@DialogField(fieldLabel = "Images",
+			fieldDescription = "Select Images to be displayed",
+			renderReadOnly = false,
+			tab = 1,
+			ranking = 1)
 	@PathField(rootPath = WatersConstants.DAM_PATH)
 	@Inject
 	private String[] images = new String[0];
 
 	@MultiField
-	@DialogField(fieldLabel = "Video ID", fieldDescription = "Enter the Brightcover Video ID", tab = 2, ranking = 1)
+	@DialogField(fieldLabel = "Video ID",
+			fieldDescription = "Enter Brightcove Video ID",
+			tab = 2,
+			ranking = 1)
 	@TextField
 	@Inject
 	private String[] videoIds = new String[0];
 
-	@Nonnull
-	@Override
-	public String getExportedType() {
-		return RESOURCE_TYPE;
-	}
-
-	public String[] getVideoIds() {
-		return videoIds;
-	}
-
-	public String getJson() throws JsonProcessingException {
+	public String getVisualGalleryAsJson() throws JsonProcessingException {
 		final Map<String, Object> json = new HashMap<>();
-
 		json.put("images", getAssets());
 		json.put("widths", getWidths());
-		json.put("videoIds", getVideoIds());
-		json.put("brightcoveAccount", getBrightcoveAccount());
-		json.put("brightcovePlayerId", getBrightcovePlayerId());
+		json.put("videos", getVideoIds());
+		json.put("brightcoveAccount", BrightcoveUtils.getBrightcoveAccount(siteContext, brightcoveService));
+		json.put("brightcovePlayerId", BrightcoveUtils.getBrightcovePlayerId(siteContext, brightcoveService));
 
 		return MAPPER.writeValueAsString(json);
 	}
@@ -123,10 +116,8 @@ public final class Visualgallery implements ComponentExporter {
 		for (String image : images) {
 			Map<String, String> imageMap = new HashMap<>();
 			Asset asset = AssetUtils.getAsset(resource.getResourceResolver(), image);
-
 			String alt = AssetUtils.getAltText(asset);
 			imageMap.put("src", image);
-			//imageMap.put("asset", asset);
 			imageMap.put("alt", alt);
 			imageMap.put("description", asset.getMetadataValue(DamConstants.DC_DESCRIPTION));
 			assets.add(imageMap);
@@ -139,12 +130,13 @@ public final class Visualgallery implements ComponentExporter {
 		return Arrays.asList(currentStyle.get(Image.PN_DESIGN_ALLOWED_RENDITION_WIDTHS, new String[0]));
 	}
 
-	public String getBrightcoveAccount() {
-		return BrightcoveUtils.getBrightcoveAccount(siteContext, brightcoveService);
+	public String[] getVideoIds() {
+		return videoIds;
 	}
 
-	public String getBrightcovePlayerId() {
-		return BrightcoveUtils.getBrightcovePlayerId(siteContext, brightcoveService);
+	@Nonnull
+	@Override
+	public String getExportedType() {
+		return RESOURCE_TYPE;
 	}
-
 }
