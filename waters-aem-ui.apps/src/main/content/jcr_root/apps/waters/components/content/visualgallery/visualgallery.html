@@ -6,17 +6,19 @@
 </div>
     <script type="application/json" class="visual-gallery-configs-json">
         {
-            "visualGalleryProperties": {
-                "playIcon": "/content/dam/waters/en/brand-assets/icons/play.svg",
-                "closeIcon": "/content/dam/waters/en/brand-assets/icons/close.svg",
-                "videoLable": "${'Videos' @ i18n, context='unsafe'}",
-                "ImageLable": "${'Images' @ i18n, context='unsafe'}",
-                "data": "${visualGallery.visualGalleryAsJson  @ context='scriptString'}"
-            }
+           "playIcon": "/content/dam/waters/en/brand-assets/icons/play.svg",
+           "closeIcon": "/content/dam/waters/en/brand-assets/icons/close.svg",
+           "videoLable": "${'Videos' @ i18n, context='unsafe'}",
+           "ImageLable": "${'Images' @ i18n, context='unsafe'}"
+        }
+    </script>
+   <script type="application/json" class="visual-gallery-data-json">
+        {
+           ${visualGallery.visualGalleryAsJson  @ context='unsafe'}
         }
     </script>
 </div>
 
 <sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
-     data-sly-call="${patterns.placeholder @ show=!visualGallery, text=component.title}"/>
+     data-sly-call="${patterns.placeholder @ show=true, text=component.title}"/>
 <sly data-sly-use.clientlib="/libs/granite/sightly/templates/clientlib.html" data-sly-call="${clientlib.js @ categories='waters.visualgallery'}"/>

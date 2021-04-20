@@ -36,10 +36,13 @@ import java.util.stream.Collectors;
 import static com.icfolson.aem.library.core.constants.ComponentConstants.*;
 
 @Component(value = "Visual Gallery",
+	description = "This is the Visual Gallery component for Waters site",
     listeners = {
-        @Listener(name = EVENT_AFTER_EDIT, value = REFRESH_PAGE),
-        @Listener(name = EVENT_AFTER_MOVE, value = REFRESH_PAGE),
-        @Listener(name = EVENT_AFTER_COPY, value = REFRESH_PAGE)
+		@Listener(name = EVENT_AFTER_INSERT, value = REFRESH_PAGE),
+		@Listener(name = EVENT_AFTER_EDIT, value = REFRESH_PAGE),
+		@Listener(name = EVENT_AFTER_MOVE, value = REFRESH_PAGE),
+		@Listener(name = EVENT_AFTER_COPY, value = REFRESH_PAGE),
+		@Listener(name = EVENT_AFTER_DELETE, value = REFRESH_PAGE)
     },
 	tabs = {
 		@Tab(title = "Images"),
