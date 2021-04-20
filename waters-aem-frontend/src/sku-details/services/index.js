@@ -117,10 +117,15 @@ export async function getAvailability(url, countryCode, partNo) {
         method: 'GET',
         credentials: 'include'
     }
-
     const urlRequest = availabilityUrlRequest(url, countryCode, partNo);
     const response = await fetchData(urlRequest, options);
     const json = await response.json();
+    if (response.status !== 200) {
+        throw ({
+            status: response.status,
+            ok: false
+        });
+    }
     return json;
 }
 
@@ -156,7 +161,6 @@ export async function getPricing(url, sku, userInfo, fields) {
     }
 
     const urlRequest = getCustPricingUrl(url, sku, userInfo, fields);
-    // const urlRequest = "https://mock.codes/500";
     const response = await fetchDataWithHeaders(urlRequest, options);
     const json = await response.json();
 
