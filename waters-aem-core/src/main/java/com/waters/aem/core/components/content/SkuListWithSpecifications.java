@@ -5,9 +5,6 @@ import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_A
 import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_AFTER_MOVE;
 import static com.icfolson.aem.library.core.constants.ComponentConstants.REFRESH_PAGE;
 
-import java.util.Arrays;
-import java.util.List;
-
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
@@ -25,8 +22,6 @@ import com.citytechinc.cq.component.annotations.Tab;
 import com.citytechinc.cq.component.annotations.widgets.MultiField;
 import com.citytechinc.cq.component.annotations.widgets.PathField;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Component(value = "SKU List With Specifications",
 			listeners = {
@@ -42,8 +37,6 @@ public final class SkuListWithSpecifications implements ComponentExporter {
 
 	public static final String RESOURCE_TYPE = "waters/components/content/skulistwithspecifications";
 
-	private static final ObjectMapper MAPPER = new ObjectMapper();
-
 	@DialogField(fieldLabel = "Sku Numbers", fieldDescription = "Enter the Sku Number", renderReadOnly = false, required = true, ranking = 1)
 	@MultiField
 	@TextField
@@ -56,11 +49,8 @@ public final class SkuListWithSpecifications implements ComponentExporter {
 	private String searchProductsLink;
 
 
-	public String getSkusAsJson() throws JsonProcessingException {
-		
-		List<String> skuList =  Arrays.asList(skuCodeList);
-		
-		return MAPPER.writeValueAsString(skuList);
+	public String[] getSkuCodeList() {
+		return skuCodeList;
 	}
 
 	@Nonnull
@@ -68,4 +58,9 @@ public final class SkuListWithSpecifications implements ComponentExporter {
 	public String getExportedType() {
 		return RESOURCE_TYPE;
 	}
+
+	public String getSearchProductsLink() {
+		return searchProductsLink;
+	}
+	
 }
