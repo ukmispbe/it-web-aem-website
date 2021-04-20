@@ -72,33 +72,31 @@ public final class VisualGallery implements ComponentExporter {
 	@ScriptVariable
 	private Style currentStyle;
 
-	@MultiField
+
 	@DialogField(fieldLabel = "Images",
 			fieldDescription = "Select Images to be displayed",
 			renderReadOnly = false,
 			tab = 1,
 			ranking = 1)
+	@MultiField
 	@PathField(rootPath = WatersConstants.DAM_PATH)
 	@Inject
 	private String[] images = new String[0];
 
-	@MultiField
+
 	@DialogField(fieldLabel = "Video ID",
-			fieldDescription = "Enter Brightcove Video ID",
+			fieldDescription = "Enter Brightcove Video ID that needs to be displayed in the video gallery",
 			tab = 2,
 			ranking = 1)
+	@MultiField
 	@TextField
 	@Inject
 	private String[] videoIds = new String[0];
 
-	public String getVisualGalleryAsJson() throws JsonProcessingException {
+	public String getImageGalleryAsJson() throws JsonProcessingException {
 		final Map<String, Object> json = new HashMap<>();
 		json.put("images", getAssets());
 		json.put("widths", getWidths());
-		json.put("videos", getVideoIds());
-		json.put("brightcoveAccount", BrightcoveUtils.getBrightcoveAccount(siteContext, brightcoveService));
-		json.put("brightcovePlayerId", BrightcoveUtils.getBrightcovePlayerId(siteContext, brightcoveService));
-
 		return MAPPER.writeValueAsString(json);
 	}
 
@@ -125,6 +123,14 @@ public final class VisualGallery implements ComponentExporter {
 
 	public String[] getVideoIds() {
 		return videoIds;
+	}
+
+	public String getBrightcoveAccount() {
+		return BrightcoveUtils.getBrightcoveAccount(siteContext, brightcoveService);
+	}
+
+	public String getBrightcovePlayerId() {
+		return BrightcoveUtils.getBrightcovePlayerId(siteContext, brightcoveService);
 	}
 
 	@Nonnull

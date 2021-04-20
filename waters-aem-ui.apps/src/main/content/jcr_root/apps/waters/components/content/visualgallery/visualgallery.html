@@ -1,21 +1,17 @@
 <div class="cmp-visual-gallery"
-     data-sly-use.visualGallery="com.waters.aem.core.components.content.VisualGallery"
-     data-sly-test="${visualGallery.visualGalleryAsJson}">
-</div>
-
-</div>
-    <script type="application/json" class="visual-gallery-configs-json">
+     data-sly-use.visualGallery="com.waters.aem.core.components.content.VisualGallery">
+    <script type="application/json" class="visual-gallery-video-json">
         {
-           "playIcon": "/content/dam/waters/en/brand-assets/icons/play.svg",
-           "closeIcon": "/content/dam/waters/en/brand-assets/icons/close.svg",
-           "videoLable": "${'Videos' @ i18n, context='unsafe'}",
-           "ImageLable": "${'Images' @ i18n, context='unsafe'}"
+          "videoLable": "${'Videos' @ i18n, context='unsafe'}",
+          "playIcon": "/content/dam/waters/en/brand-assets/icons/play.svg",
+          "closeIcon": "/content/dam/waters/en/brand-assets/icons/close.svg",
+          "videoList": "${visualGallery.videoIds  @ context='unsafe'}",
+          "brightcoveAccount": "${visualGallery.brightcoveAccount  @ context='scriptString'}",
+          "brightcovePlayerId": "${visualGallery.brightcovePlayerId  @ context='scriptString'}"
         }
     </script>
-   <script type="application/json" class="visual-gallery-data-json">
-        {
-           ${visualGallery.visualGalleryAsJson  @ context='unsafe'}
-        }
+    <script type="application/json" class="visual-gallery-image-json">
+         ${visualGallery.imageGalleryAsJson @ context='unsafe'}
     </script>
 </div>
 
