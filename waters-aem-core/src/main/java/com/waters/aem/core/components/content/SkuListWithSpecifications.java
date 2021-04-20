@@ -28,10 +28,6 @@ import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 @Component(value = "SKU List With Specifications",
-			listeners = {
-			@Listener(name = EVENT_AFTER_EDIT, value = REFRESH_PAGE),
-			@Listener(name = EVENT_AFTER_MOVE, value = REFRESH_PAGE),
-			@Listener(name = EVENT_AFTER_COPY, value = REFRESH_PAGE) },
 			tabs = @Tab(title = "Properties"))
 @Model(adaptables = SlingHttpServletRequest.class, adapters = { SkuListWithSpecifications.class,
 		ComponentExporter.class }, resourceType = SkuListWithSpecifications.RESOURCE_TYPE, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
