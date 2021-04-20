@@ -133,21 +133,23 @@ export async function getPricing(url, sku, userInfo, fields) {
     let options = {
         method: 'GET',
         credentials: 'include',
+        mode: 'cors',
         headers: {
-            'Content-Type': 'application/json',
-            'mode': 'cors'
+            'Content-Type': 'application/json'
         }
     }
 
     if (!userInfo.soldToId) {
         // Unauthenticated Options
+
         options = {
             method: 'GET',
+            credentials: 'include',
+            mode: 'cors',
             headers: {
                 'Content-Type': 'application/json',
                 'language':  getLanguage(),
                 'countryCode': getCountryCode(),
-                'mode': 'cors',
                 'channel': 'ECOMM'
             }
         }
