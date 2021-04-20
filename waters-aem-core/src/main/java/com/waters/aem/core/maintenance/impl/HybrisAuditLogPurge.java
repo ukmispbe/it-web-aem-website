@@ -61,7 +61,7 @@ public class HybrisAuditLogPurge implements JobExecutor {
 		try {
 			resourceResolver = resolverService.getResourceResolver("watersService");
 		} catch (LoginException loginException) {
-			LOG.error("Error with login exception.", loginException);
+			LOG.error("Error: unable to get Resource Resolver in for Hybris Audit logpurge {}", loginException.getMessage());
 		}
 	}
 
@@ -109,7 +109,7 @@ public class HybrisAuditLogPurge implements JobExecutor {
 						}
 					}
 				} catch (RepositoryException e) {
-					LOG.error("Repository Exception {}", e.getMessage());
+					LOG.error("Error: Repository Exception in for Hybris Audit logpurge {}", e.getMessage());
 				}
 			}
 		}
@@ -129,7 +129,7 @@ public class HybrisAuditLogPurge implements JobExecutor {
 				node.remove();
 				resourceResolver.commit();
 			} catch (RepositoryException | PersistenceException e) {
-				LOG.error("Exception occurred {}", e.getMessage());
+				LOG.error("Error : Exception occurred in for Hybris Audit logpurge {}", e.getMessage());
 			}
 		}
 	}
