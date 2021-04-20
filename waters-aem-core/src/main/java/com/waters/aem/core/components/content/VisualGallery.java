@@ -1,30 +1,5 @@
 package com.waters.aem.core.components.content;
 
-import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_AFTER_COPY;
-import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_AFTER_EDIT;
-import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_AFTER_MOVE;
-import static com.icfolson.aem.library.core.constants.ComponentConstants.REFRESH_PAGE;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.stream.Collectors;
-
-import javax.annotation.Nonnull;
-import javax.inject.Inject;
-
-import org.apache.sling.api.SlingHttpServletRequest;
-import org.apache.sling.api.resource.Resource;
-import org.apache.sling.models.annotations.DefaultInjectionStrategy;
-import org.apache.sling.models.annotations.Exporter;
-import org.apache.sling.models.annotations.Model;
-import org.apache.sling.models.annotations.injectorspecific.OSGiService;
-import org.apache.sling.models.annotations.injectorspecific.ScriptVariable;
-import org.apache.sling.models.annotations.injectorspecific.Self;
-
 import com.adobe.cq.export.json.ComponentExporter;
 import com.adobe.cq.export.json.ExporterConstants;
 import com.citytechinc.cq.component.annotations.Component;
@@ -44,6 +19,21 @@ import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.services.brightcove.BrightcoveService;
 import com.waters.aem.core.utils.AssetUtils;
 import com.waters.aem.core.utils.BrightcoveUtils;
+import org.apache.sling.api.SlingHttpServletRequest;
+import org.apache.sling.api.resource.Resource;
+import org.apache.sling.models.annotations.DefaultInjectionStrategy;
+import org.apache.sling.models.annotations.Exporter;
+import org.apache.sling.models.annotations.Model;
+import org.apache.sling.models.annotations.injectorspecific.OSGiService;
+import org.apache.sling.models.annotations.injectorspecific.ScriptVariable;
+import org.apache.sling.models.annotations.injectorspecific.Self;
+
+import javax.annotation.Nonnull;
+import javax.inject.Inject;
+import java.util.*;
+import java.util.stream.Collectors;
+
+import static com.icfolson.aem.library.core.constants.ComponentConstants.*;
 
 @Component(value = "Visual Gallery",
     listeners = {
@@ -56,12 +46,12 @@ import com.waters.aem.core.utils.BrightcoveUtils;
 		@Tab(title = "Videos")
 	})
 @Model(adaptables = SlingHttpServletRequest.class,
-    adapters = { Visualgallery.class, ComponentExporter.class },
-    resourceType = Visualgallery.RESOURCE_TYPE,
+    adapters = { VisualGallery.class, ComponentExporter.class },
+    resourceType = VisualGallery.RESOURCE_TYPE,
     defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME,
     extensions = ExporterConstants.SLING_MODEL_EXTENSION)
-public final class Visualgallery implements ComponentExporter {
+public final class VisualGallery implements ComponentExporter {
 
 	public static final String RESOURCE_TYPE = "waters/components/content/visualgallery";
 
