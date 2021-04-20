@@ -43,14 +43,17 @@ public final class SkuListWithSpecifications implements ComponentExporter {
 	@OSGiService
 	private WatersCommerceService watersCommerceService;
 
-	@DialogField(fieldLabel = "Sku Number",
-			fieldDescription = "Enter the Sku Number",
+	@DialogField(fieldLabel = "Sku Numbers",
+			fieldDescription = "List of Skus to display when this component is authored on a non-SKU page. Any SKUs not " +
+					"sold in the current country will not be displayed. (Default country is US if no other country is " +
+					"found)",
+			renderReadOnly = false,
 			required = true,
-			ranking = 1)
+			ranking = 2)
 	@MultiField
 	@TextField
 	@Inject
-	private String[] skuCodeList = new String[0];
+	private String[] skuNumbers = new String[0];
 
 	@DialogField(fieldLabel = "View All Products Link",
 			fieldDescription = "Enter the Search Link to view all the products ",
@@ -61,8 +64,8 @@ public final class SkuListWithSpecifications implements ComponentExporter {
 	private String searchProductsLink;
 
 
-	public String[] getSkuCodeList() {
-		return skuCodeList;
+	public String[] getSkuNumbers() {
+		return skuNumbers;
 	}
 
 	public String getSearchProductsLink() {
