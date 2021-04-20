@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PreviewPlayer /> should render correctly 1`] = `ShallowWrapper {}`;
+
+exports[`<PreviewPlayer /> should render image with label 1`] = `ShallowWrapper {}`;

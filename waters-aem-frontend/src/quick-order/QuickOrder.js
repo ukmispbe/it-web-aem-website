@@ -24,7 +24,12 @@ function QuickOrder(props) {
         skuConfig,
         qtyLabel,
         isInHeader,
-        errorMsg
+        errorMsg,
+        qtyPlaceholder,
+        skuDatalocator,
+        quantityDatalocator,
+        addToCartBtnDatalocator,
+        addMultipleItemsDatalocator
     } = props;
     const childRef = useRef();
     const [sku, setSku] = useState('');
@@ -163,7 +168,7 @@ function QuickOrder(props) {
                     className="cmp-sku-details__quantity quick-order-sku"
                     showLabel={showLabel}
                     onChange={onChange}
-                    elementLocator="input-quick-order-sku"
+                    elementLocator={skuDatalocator}
                     ariaLabel={addToCartPlaceHolder}
                 />
                 <div className="qty-with-btn">
@@ -178,13 +183,16 @@ function QuickOrder(props) {
                         analyticsConfig={{ sku, price, context: shopAllCartContext, name: titleText }}
                         onRef={ref => { childRef.current = ref; }}
                         skuResponse={skuResponse}
+                        placeholder={qtyPlaceholder}
+                        quantityDatalocator={quantityDatalocator}
+                        addToCartBtnDatalocator={addToCartBtnDatalocator}
                     />
                 </div>
             </div>
             <a
                 href={multipleItemsLink}
                 className="quick-order-multiple-item"
-                data-locator="link-quick-order-add-multiple-item"
+                data-locator={addMultipleItemsDatalocator}
                 target="_self"
             >
                 {isInHeader ?
@@ -232,7 +240,12 @@ QuickOrder.propTypes = {
     skuConfig: PropTypes.object,
     qtyLabel: PropTypes.string,
     isInHeader: PropTypes.bool,
-    errorMsg:PropTypes.string
+    errorMsg:PropTypes.string,
+    qtyPlaceholder: PropTypes.string,
+    skuDatalocator: PropTypes.string,
+    quantityDatalocator:PropTypes.string,
+    addToCartBtnDatalocator: PropTypes.string,
+    addMultipleItemsDatalocator: PropTypes.string
 }
 
 QuickOrder.defaultProps = {
@@ -249,7 +262,12 @@ QuickOrder.defaultProps = {
     skuConfig: {},
     qtyLabel: '',
     isInHeader: false,
-    errorMsg:''
+    errorMsg:'',
+    qtyPlaceholder:'',
+    skuDatalocator: 'input-quick-order-sku',
+    quantityDatalocator:'input-sku-qty',
+    addToCartBtnDatalocator: 'link-add-to-cart',
+    addMultipleItemsDatalocator:'link-quick-order-add-multiple-item'
 }
 
 export default QuickOrder;
