@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
@@ -38,7 +39,6 @@ import com.day.cq.dam.api.Asset;
 import com.day.cq.dam.api.DamConstants;
 import com.day.cq.wcm.api.designer.Style;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.waters.aem.core.components.SiteContext;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.services.brightcove.BrightcoveService;
@@ -57,18 +57,14 @@ import com.waters.aem.core.utils.BrightcoveUtils;
         }
     )
 @Model(adaptables = SlingHttpServletRequest.class,
-    adapters = { Visualgallery.class, ComponentExporter.class },
-    resourceType = Visualgallery.RESOURCE_TYPE,
+    adapters = { VisualGallery.class, ComponentExporter.class },
+    resourceType = VisualGallery.RESOURCE_TYPE,
     defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME,
     extensions = ExporterConstants.SLING_MODEL_EXTENSION)
-public final class Visualgallery implements ComponentExporter {
+public final class VisualGallery implements ComponentExporter {
 
 	public static final String RESOURCE_TYPE = "waters/components/content/visualgallery";
-
-	private static final ObjectMapper MAPPER = new ObjectMapper();
-
-//	private static final String SRC_URI_TEMPLATE_WIDTH = "{{width}}";
 
 	@OSGiService
 	private BrightcoveService brightcoveService;
@@ -104,7 +100,7 @@ public final class Visualgallery implements ComponentExporter {
 		return videoIds;
 	}
 
-	public String getJson() throws JsonProcessingException {
+	public Map<String, Object> getJson() throws JsonProcessingException {
 		final Map<String, Object> json = new HashMap<>();
 
 		json.put("images", getAssets());
@@ -113,7 +109,7 @@ public final class Visualgallery implements ComponentExporter {
 		json.put("brightcoveAccount", getBrightcoveAccount());
 		json.put("brightcovePlayerId", getBrightcovePlayerId());
 
-		return MAPPER.writeValueAsString(json);
+		return json;
 	}
 
 	private List<Map<String, String>> getAssets() {
@@ -126,9 +122,11 @@ public final class Visualgallery implements ComponentExporter {
 
 			String alt = AssetUtils.getAltText(asset);
 			imageMap.put("src", image);
-			//imageMap.put("asset", asset);
-			imageMap.put("alt", alt);
-			imageMap.put("description", asset.getMetadataValue(DamConstants.DC_DESCRIPTION));
+			imageMap.put("title", asset.getMetadataValue(DamConstants.DC_TITLE) == null ? StringUtils.EMPTY
+					: asset.getMetadataValue(DamConstants.DC_TITLE));
+			imageMap.put("alt", alt == null ? StringUtils.EMPTY : alt);
+			imageMap.put("description", asset.getMetadataValue(DamConstants.DC_DESCRIPTION) == null ? StringUtils.EMPTY
+					: asset.getMetadataValue(DamConstants.DC_DESCRIPTION));
 			assets.add(imageMap);
 		}
 
