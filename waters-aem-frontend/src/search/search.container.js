@@ -91,6 +91,9 @@ class SearchContainer extends Component {
 
         const category = this.query.category ? this.query.category : (isEprocUser ? 'Shop' :'');
 
+        // Get the Default Filter Facet based on the Category
+        const defaultFilterFacet = this.getDefaultFilterFacet(this.props.filterMap, category);
+
         const contentType = this.query.content_type
             ? this.query.content_type
             : null;
@@ -151,11 +154,23 @@ class SearchContainer extends Component {
             facetGroupsSelectedOrder: [],
             collapseAllFilters: false,
             activeFilterIndex: -1,
-            defaultFilterFacet: "brand_facet",
+            defaultFilterFacet: defaultFilterFacet,
             count: 0,
             allResultsText: this.props.searchText.allResultsText,
             allResultsTextMobile: this.props.searchText.allResultsTextMobile
         };
+    }
+
+    getDefaultFilterFacet = (items, category) => {
+        const categoryObject = items.filter(item => {
+            return item.categoryFacetTranslation === category;
+        });
+        if (categoryObject && categoryObject.length === 1) {
+            if (categoryObject[0].defaultFacet !== null) {
+                return categoryObject[0].defaultFacet;
+            }
+        }     
+        return null;
     }
 
     handleHistoryPush = query => {
@@ -967,8 +982,10 @@ class SearchContainer extends Component {
 
     setCategorySelected = (index, query, category) => {
         const tabHistoryEntrySelected = this.getTabHistoryEntry(category);
+        // Get the Default Filter Facet based on the Category
+        const defaultFilterFacet = this.getDefaultFilterFacet(this.props.filterMap, category);
         this.setState({
-            defaultFilterFacet: "brand2_facet",
+            defaultFilterFacet: defaultFilterFacet,
         });  
         
         if (Object.entries(tabHistoryEntrySelected.searchParams).length === 0) {
@@ -1034,7 +1051,7 @@ class SearchContainer extends Component {
                 contentType,
                 contentTypeSelected,
                 selectedFacets: selectedFacets ? selectedFacets : {},
-                forceCollapseFilters: screenSizes.isTabletAndUnder(),
+                forceCollapseFilters: true,
             });
 
         setTimeout(() => {
