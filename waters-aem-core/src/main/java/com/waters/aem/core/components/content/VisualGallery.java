@@ -1,11 +1,6 @@
 package com.waters.aem.core.components.content;
 
-import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_AFTER_COPY;
-import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_AFTER_DELETE;
-import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_AFTER_EDIT;
-import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_AFTER_INSERT;
-import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_AFTER_MOVE;
-import static com.icfolson.aem.library.core.constants.ComponentConstants.REFRESH_PAGE;
+import static com.icfolson.aem.library.core.constants.ComponentConstants.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -70,7 +65,6 @@ public final class VisualGallery implements ComponentExporter {
 
 	public static final String RESOURCE_TYPE = "waters/components/content/visualgallery";
 	
-	private static final String SRC_URI_TEMPLATE_WIDTH = "{{width}}";
 
 	@OSGiService
 	private BrightcoveService brightcoveService;
