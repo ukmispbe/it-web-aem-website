@@ -1,7 +1,9 @@
 package com.waters.aem.core.components.content;
 
 import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_AFTER_COPY;
+import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_AFTER_DELETE;
 import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_AFTER_EDIT;
+import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_AFTER_INSERT;
 import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_AFTER_MOVE;
 import static com.icfolson.aem.library.core.constants.ComponentConstants.REFRESH_PAGE;
 
@@ -46,16 +48,18 @@ import com.waters.aem.core.utils.AssetUtils;
 import com.waters.aem.core.utils.BrightcoveUtils;
 
 @Component(value = "Visual Gallery",
+	description = "This is the Visual Gallery component for Waters site",
     listeners = {
-        @Listener(name = EVENT_AFTER_EDIT, value = REFRESH_PAGE),
-        @Listener(name = EVENT_AFTER_MOVE, value = REFRESH_PAGE),
-        @Listener(name = EVENT_AFTER_COPY, value = REFRESH_PAGE)
+		@Listener(name = EVENT_AFTER_INSERT, value = REFRESH_PAGE),
+		@Listener(name = EVENT_AFTER_EDIT, value = REFRESH_PAGE),
+		@Listener(name = EVENT_AFTER_MOVE, value = REFRESH_PAGE),
+		@Listener(name = EVENT_AFTER_COPY, value = REFRESH_PAGE),
+		@Listener(name = EVENT_AFTER_DELETE, value = REFRESH_PAGE)
     },
-        tabs = {
-                @Tab(title = "Images"),
-                @Tab(title = "Videos")
-        }
-    )
+	tabs = {
+		@Tab(title = "Images"),
+		@Tab(title = "Videos")
+	})
 @Model(adaptables = SlingHttpServletRequest.class,
     adapters = { VisualGallery.class, ComponentExporter.class },
     resourceType = VisualGallery.RESOURCE_TYPE,
@@ -78,31 +82,30 @@ public final class VisualGallery implements ComponentExporter {
 	@ScriptVariable
 	private Style currentStyle;
 
+
+	@DialogField(fieldLabel = "Images",
+			fieldDescription = "Select Images to be displayed",
+			renderReadOnly = false,
+			tab = 1,
+			ranking = 1)
 	@MultiField
-	@DialogField(fieldLabel = "Images", fieldDescription = "Images to be displayed", renderReadOnly = false, tab = 1, ranking = 1)
 	@PathField(rootPath = WatersConstants.DAM_PATH)
 	@Inject
 	private String[] images = new String[0];
 
+
+	@DialogField(fieldLabel = "Video ID",
+			fieldDescription = "Enter Brightcove Video ID that needs to be displayed in the video gallery",
+			tab = 2,
+			ranking = 1)
 	@MultiField
-	@DialogField(fieldLabel = "Video ID", fieldDescription = "Enter the Brightcover Video ID", tab = 2, ranking = 1)
 	@TextField
 	@Inject
 	private String[] videoIds = new String[0];
 
-	@Nonnull
-	@Override
-	public String getExportedType() {
-		return RESOURCE_TYPE;
-	}
 
-	public String[] getVideoIds() {
-		return videoIds;
-	}
-
-	public Map<String, Object> getJson() throws JsonProcessingException {
+	public Map<String, Object> getImageGalleryAsJson() throws JsonProcessingException {
 		final Map<String, Object> json = new HashMap<>();
-
 		json.put("images", getAssets());
 		json.put("widths", getWidths());
 		json.put("videoIds", getVideoIds());
@@ -119,7 +122,6 @@ public final class VisualGallery implements ComponentExporter {
 		for (String image : images) {
 			Map<String, String> imageMap = new HashMap<>();
 			Asset asset = AssetUtils.getAsset(resource.getResourceResolver(), image);
-
 			String alt = AssetUtils.getAltText(asset);
 			imageMap.put("src", image);
 			imageMap.put("title", asset.getMetadataValue(DamConstants.DC_TITLE) == null ? StringUtils.EMPTY
@@ -127,6 +129,7 @@ public final class VisualGallery implements ComponentExporter {
 			imageMap.put("alt", alt == null ? StringUtils.EMPTY : alt);
 			imageMap.put("description", asset.getMetadataValue(DamConstants.DC_DESCRIPTION) == null ? StringUtils.EMPTY
 					: asset.getMetadataValue(DamConstants.DC_DESCRIPTION));
+
 			assets.add(imageMap);
 		}
 
@@ -137,6 +140,10 @@ public final class VisualGallery implements ComponentExporter {
 		return Arrays.asList(currentStyle.get(Image.PN_DESIGN_ALLOWED_RENDITION_WIDTHS, new String[0]));
 	}
 
+	public String[] getVideoIds() {
+		return videoIds;
+	}
+
 	public String getBrightcoveAccount() {
 		return BrightcoveUtils.getBrightcoveAccount(siteContext, brightcoveService);
 	}
@@ -145,4 +152,9 @@ public final class VisualGallery implements ComponentExporter {
 		return BrightcoveUtils.getBrightcovePlayerId(siteContext, brightcoveService);
 	}
 
+	@Nonnull
+	@Override
+	public String getExportedType() {
+		return RESOURCE_TYPE;
+	}
 }
