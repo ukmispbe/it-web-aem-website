@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
@@ -44,6 +45,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.waters.aem.core.components.SiteContext;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.services.brightcove.BrightcoveService;
+import com.waters.aem.core.servlets.ResizeImageServlet;
 import com.waters.aem.core.utils.AssetUtils;
 import com.waters.aem.core.utils.BrightcoveUtils;
 
@@ -69,6 +71,8 @@ import com.waters.aem.core.utils.BrightcoveUtils;
 public final class VisualGallery implements ComponentExporter {
 
 	public static final String RESOURCE_TYPE = "waters/components/content/visualgallery";
+	
+	private static final String SRC_URI_TEMPLATE_WIDTH = "{{width}}";
 
 	@OSGiService
 	private BrightcoveService brightcoveService;
@@ -123,7 +127,7 @@ public final class VisualGallery implements ComponentExporter {
 			Map<String, String> imageMap = new HashMap<>();
 			Asset asset = AssetUtils.getAsset(resource.getResourceResolver(), image);
 			String alt = AssetUtils.getAltText(asset);
-			imageMap.put("src", image);
+			imageMap.put("src", buildUri(asset, false));
 			imageMap.put("title", asset.getMetadataValue(DamConstants.DC_TITLE) == null ? StringUtils.EMPTY
 					: asset.getMetadataValue(DamConstants.DC_TITLE));
 			imageMap.put("alt", alt == null ? StringUtils.EMPTY : alt);
@@ -150,6 +154,32 @@ public final class VisualGallery implements ComponentExporter {
 
 	public String getBrightcovePlayerId() {
 		return BrightcoveUtils.getBrightcovePlayerId(siteContext, brightcoveService);
+	}
+	
+	private String buildUri(final Asset asset, final boolean template) {
+		final StringBuilder builder = new StringBuilder();
+
+		// append the DAM asset path
+		builder.append(asset.getPath());
+
+		if (template) {
+			builder.append(".");
+
+			// width selector
+			builder.append(SRC_URI_TEMPLATE_WIDTH);
+			builder.append(".");
+
+			// 'resize' extension to resolve the resize image servlet
+			builder.append(ResizeImageServlet.RESIZE_EXTENSION);
+			builder.append("/");
+			builder.append(ResizeImageServlet.SUFFIX_NAME);
+			builder.append(".");
+
+			// add the extension derived from DAM asset name
+			builder.append(FilenameUtils.getExtension(asset.getName()));
+		}
+
+		return builder.toString();
 	}
 
 	@Nonnull
