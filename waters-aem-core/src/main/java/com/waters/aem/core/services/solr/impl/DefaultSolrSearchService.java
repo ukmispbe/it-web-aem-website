@@ -12,16 +12,23 @@ import org.osgi.service.metatype.annotations.Designate;
 public final class DefaultSolrSearchService implements SolrSearchService {
 
     private volatile String baseUrl;
+    private volatile String rows;
 
     @Override
     public String getBaseUrl() {
         return baseUrl;
     }
 
+    @Override
+    public String getRows() {
+        return rows;
+    }
+
     @Activate
     @Modified
     protected void activate(final SolrSearchServiceConfiguration configuration) {
         baseUrl = configuration.baseUrl();
+        rows = configuration.rows();
     }
 }
 

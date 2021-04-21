@@ -35,7 +35,7 @@ class SearchBar extends Component {
             suggestions: [],
             openOverlay: false,
             placeholder: screenSizes.isMobile() ? this.props.placeholderMobile : this.props.placeholderTablet,
-            recentSearches: !loginStatus.state() && cookieStore.getRecentSearches() || []
+            recentSearches: cookieStore.getRecentSearches() || []
         };
 
         this.state.recentSuggestions = this.formatSuggestions(this.state.value.trim(), this.state.recentSearches);
@@ -188,8 +188,8 @@ class SearchBar extends Component {
         const suggestions = !(this.state.value.length < this.props.minSearchCharacters) 
             ? this.formatSuggestions(this.state.value.trim(), (await this.search.getSuggestedKeywords(this.props.maxSuggestions, this.state.value)))
             : [];
-
-        const recentSuggestions = this.formatSuggestions(this.state.value.trim(), this.state.recentSearches);
+        const recentSearches = cookieStore.getRecentSearches() || [];
+        const recentSuggestions = this.formatSuggestions(this.state.value.trim(), recentSearches);
         
         const openOverlay = (suggestions.length !== 0) || (recentSuggestions.length !== 0);
 
@@ -245,8 +245,9 @@ class SearchBar extends Component {
     });
 
     formatSuggestion = (term, suggestion) =>{
-        // wrap the matching characters with a pipe |
-        const delimittedSuggestion = suggestion.replace(new RegExp(`\\b${term}`, 'ig'), `|${term}|`);
+        // wrap the matching characters with a pipe | escape all possible regex special characters
+        const escapedTerm= term.replace(/([.?*+^$[\]\\(){}|-])/g, "\\$1");
+        const delimittedSuggestion = suggestion.replace(new RegExp(`\\b${escapedTerm}`, 'ig'), `|${term}|`);
 
         // convert string to array split with pipe |
         // this will isolate the matching characters into it's own location in the array

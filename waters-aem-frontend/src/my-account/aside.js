@@ -9,7 +9,8 @@ import loginStatus from "../scripts/loginStatus";
 import { notLoggedInRedirect } from '../utils/redirectFunctions';
 import Spinner from "../utils/spinner";
 import { isCartHidden, elementLocator } from '../utils/eCommerceFunctions';
-import { isEprocurementUserRole } from '../utils/userFunctions';
+import { isEprocurementUserRole, getShipOrBillChangeFlag } from '../utils/userFunctions';
+import ReactSVG from 'react-svg';
 
 const Aside = props => {
 
@@ -43,6 +44,7 @@ const Aside = props => {
                     />)}
             </div>
             <div className="cmp-my-account__aside-content" data-locator="my-account-aside-content">
+                {props.tiles[0].notification && (props.location.pathname === "/profile") && !!getShipOrBillChangeFlag() && renderNotification(props.tiles[0].notification)}
                 {props.children}
             </div>
             {breadcrumbList && (<Breadcrumb path={props.location.pathname} config={props.breadcrumbs} />)}
@@ -79,6 +81,23 @@ const Tile = ({tile, pathname}) => {
     );
 }
 
+const renderNotification = (notification) => {
+    return (
+        <div className="cmp-detail-tiles-list--tile-notification-wrapper" data-locator="detail-tiles-list-notification-wrapper">
+            <div className="cmp-detail-tiles-list--tile-notification" data-locator="detail-tiles-list-notification">
+                <ReactSVG
+                    src={notification.icon}
+                    className="cmp-detail-tiles-list--tile-notification--icon"
+                    data-locator="tile-notification--icon"
+                />
+                <div className="cmp-detail-tiles-list--tile-notification--description" data-locator="detail-tiles-list-notification--title">
+                    <span className="cmp-detail-tiles-list--tile-notification--title">{notification.title}</span>
+                    {notification.description}
+                </div>
+            </div>
+        </div>
+    );
+};
 const getTitle = (tiles, pathname) => {
     const tile = tiles.filter(filterValue => filterValue.links.find(link => linkIsActive(pathname, link.url)));
     const links = tile.length !== 0 ? tile[0].links : [];

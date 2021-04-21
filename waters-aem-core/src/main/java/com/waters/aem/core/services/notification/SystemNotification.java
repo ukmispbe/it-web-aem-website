@@ -5,6 +5,7 @@ import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -25,6 +26,18 @@ public class SystemNotification {
     @ValueMapValue
     private Calendar offTime;
 
+    @ValueMapValue
+    private String eprocTitle;
+
+    @ValueMapValue
+    private String eprocMessage;
+
+    @ValueMapValue
+    private Calendar eprocOnTime;
+
+    @ValueMapValue
+    private Calendar eprocOffTime;
+
     public String getTitle() {
         return title;
     }
@@ -33,13 +46,21 @@ public class SystemNotification {
         return message;
     }
 
-    public Map<String, Object> toMap(final I18n i18n) {
+    public Map<String, Object> toMap(final I18n i18n,final String channel) {
         final HashMap<String, Object> map = new HashMap<>();
 
-        map.put("title", i18n.get(getTitle()));
-        map.put("message", i18n.get(getMessage()));
-        map.put("onTime", onTime == null ? null : onTime.getTimeInMillis());
-        map.put("offTime", offTime == null ? null : offTime.getTimeInMillis());
+        if(StringUtils.equalsIgnoreCase(channel,"EPROC")){
+            map.put("title", i18n.get(getEprocTitle()));
+            map.put("message", i18n.get(getEprocMessage()));
+            map.put("onTime", eprocOnTime == null ? null : eprocOnTime.getTimeInMillis());
+            map.put("offTime", eprocOffTime == null ? null : eprocOffTime.getTimeInMillis());
+
+        }else {
+            map.put("title", i18n.get(getTitle()));
+            map.put("message", i18n.get(getMessage()));
+            map.put("onTime", onTime == null ? null : onTime.getTimeInMillis());
+            map.put("offTime", offTime == null ? null : offTime.getTimeInMillis());
+        }
 
         return map;
     }
@@ -50,5 +71,21 @@ public class SystemNotification {
 
     public Long getOffTime() {
         return offTime == null ? null : offTime.getTimeInMillis();
+    }
+
+    public String getEprocTitle() {
+        return eprocTitle;
+    }
+
+    public String getEprocMessage() {
+        return eprocMessage;
+    }
+
+    public Long getEprocOnTime() {
+        return eprocOnTime == null ? null : eprocOnTime.getTimeInMillis();
+    }
+
+    public Long getEprocOffTime() {
+        return eprocOffTime == null ? null : eprocOffTime.getTimeInMillis();
     }
 }

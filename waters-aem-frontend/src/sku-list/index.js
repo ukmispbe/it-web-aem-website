@@ -15,16 +15,16 @@ class SkuList extends React.Component {
         super(props);
         
         // Update the Continue to cart Button on Modal with the correct Country & Locale
-        props.skuConfig.modalInfo.buttons[0].action = buildViewCartURL(props.skuConfig.modalInfo.buttons[0].action);
+        props.config.modalInfo.buttons[0].action = buildViewCartURL(props.config.modalInfo.buttons[0].action);
         
         this.state = {
-            skuConfig: this.props.skuConfig,
+            config: this.props.config,
             skuAvailability: {},
             addToCartQty: undefined,
-            skuInfo: this.props.skuConfig.skuInfo,
-            userCountry: this.props.skuConfig.countryCode,
+            skuInfo: this.props.config.skuInfo,
+            userCountry: this.props.config.countryCode,
             isEProcurementUserRestricted: (!isEprocurementApp() && isEprocurementUserRole()),
-            userInfo: callCustomerPriceApi(this.props.skuConfig.isCustomerPriceApiDisabled)
+            userInfo: callCustomerPriceApi(this.props.config.isCustomerPriceApiDisabled)
         };
     }
 
@@ -32,11 +32,11 @@ class SkuList extends React.Component {
         if (!LoginStatus.state()) {
             return (
                 <SignIn
-                    signInUrl={this.props.skuConfig.baseSignInUrl}
-                    signInIcon={this.props.skuConfig.skuInfo.signinIcon}
-                    signInText1={this.props.skuConfig.skuInfo.signInText1}
-                    signInText2={this.props.skuConfig.skuInfo.signInText2}
-                    signInText3={this.props.skuConfig.skuInfo.signInText3}
+                    signInUrl={this.props.config.baseSignInUrl}
+                    signInIcon={this.props.config.skuInfo.signinIcon}
+                    signInText1={this.props.config.skuInfo.signInText1}
+                    signInText2={this.props.config.skuInfo.signInText2}
+                    signInText3={this.props.config.skuInfo.signInText3}
                 />
             );
         }
@@ -49,13 +49,13 @@ class SkuList extends React.Component {
     }
 
     renderResultByType(record, index) {
-        let nextIcon = this.props.skuConfig.skuInfo.nextIcon;
+        let nextIcon = this.props.config.skuInfo.nextIcon;
         let onItemClick = this.props.onItemClick;
 
         if(record.code) {
             return <SkuItem
-                relatedSku={record}
-                skuConfig={this.props.skuConfig}
+                currentSku={record}
+                config={this.props.config}
                 baseSignInUrl={this.props.baseSignInUrl}
                 onItemClick={this.props.onItemClick}
                 userInfo={this.state.userInfo}
@@ -94,13 +94,13 @@ class SkuList extends React.Component {
 }
 
 SkuList.propTypes = {
-    skuConfig: PropTypes.object.isRequired,
+    config: PropTypes.object.isRequired,
     data: PropTypes.array.isRequired,
     title: PropTypes.string
 };
 
 SkuList.defaultProps = {
-    skuConfig: {},
+    config: {},
     data: [],
     title: ''
 };

@@ -2,7 +2,7 @@
     data-sly-use.header="com.waters.aem.core.components.structure.Header"
     id="header"
     class="cmp-header"
-    data-is-edit-mode="${isEditMode}"
+    data-is-edit-mode="${wcmmode.edit}"
     data-homepage-url="${header.homepageLink.href}"
     data-signout-endpoint="${header.signOutEndpoint}"
     data-search-path="${header.searchPath.href}"
@@ -83,8 +83,9 @@
                                 "punchoutLogin": "${header.punchOutLoginEndpoint @ context='unsafe'}",
                                 "icon": "/content/dam/waters/en/brand-assets/icons/user.svg",
                                 "closeIcon": "/content/dam/waters/en/brand-assets/icons/close.svg",
-                                "title": "${'My Account' @ i18n , context='unsafe' }",
-                                "notRegistered": "${'Not registered yet?' @ i18n , context='unsafe' }",
+                                "title": "${'My Account' @ i18n, context='unsafe'}",
+                                "notRegistered": "${'Not registered yet?' @ i18n, context='unsafe'}",
+                                "greeting": "${'Hello, ' @ i18n, context='unsafe'}",
                                 "myAccount": {
                                     "text": "${'My Account' @ i18n, context='unsafe'}",
                                     "url": "${!header.eprocurement ? header.myAccountLink.href : '' @ context='unsafe'}",
@@ -141,6 +142,52 @@
                             }
                         </script>
                     </li>
+                    <li class="top-bar__nav__quick-order top-bar__nav__item" data-locator="header-section-quickOrder">
+                        <a
+                            class="top-bar__nav__quick-order__link cmp-header-links__link"
+                            href="${header.quickOrderMultipleItemsLink}"
+                            target="_self"
+                            data-locator="link-header-my-account-quickOrder"
+                        >
+                            <span class="header-quick-order-headline-text" data-locator="header-label-quick-order"
+                                >${'Quick Order' @ i18n}</span
+                            >
+                            <img
+                                alt="${'Quick Order' @ i18n}"
+                                src="${header.quickOrderAddItemsIcon}"
+                                class="inline-svg"
+                                data-locator="header-quickOrder-icon"
+                                data-src="${header.quickOrderAddItemsIcon}"
+                            />
+                        </a>
+                        <div class="top-bar__nav__quick-order__dropdown" data-locator="header-quick-order-user-dropdown-container">
+                            <div class="header-quick-order-container" data-locator="header-quick-order-section">
+                                <div id="header-quick-order"></div>
+                                <div class="notification" data-locator="header-quick-order-error-notification">
+                                    <img data-locator="header-quick-order-error-notification-icon" class="inline-svg" src="/content/dam/waters/en/brand-assets/icons/x.svg"/>
+                                    <div class="notification-description" data-locator="header-quick-order-error-notification-description"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <script
+                            type="application/json"
+                            id="header-quick-order-json"
+                        >
+                            {
+                                "buttonLabel": "${header.quickOrdernButtonLabel @ i18n, context="unsafe"}",
+                                "addToCartPlaceHolder": "${header.quickOrderAddToCartPlaceHolder @ i18n, context="unsafe"}",
+                                "addToCartUrl": "${header.quickOrderAddToCartUrl @ context="unsafe"}",
+                                "multipleItemsLabel": "${header.quickOrderMultipleItemsLabel @ i18n, context="unsafe"}",
+                                "multipleItemsLink": "${header.quickOrderMultipleItemsLink @ context="unsafe"}",
+                                "multipleItemsIcon": "${header.quickOrderMultipleItemsIcon @ context="unsafe"}",
+                                "addItemsIcon": "${header.quickOrderAddItemsIcon @ context="unsafe"}",
+                                "qtyLabel": "${'Quantity' @ i18n, context='unsafe'}",
+                                "qtyPlaceholder": "${'Qty' @ i18n, context='unsafe'}",
+                                "headlineText": "${'Quick Order' @ i18n, context='unsafe'}",
+                                "errorMsg": "${'is not a valid SKU number' @ i18n, context='unsafe'}"
+                            }
+                        </script>
+                    </li>
                     <li class="top-bar__nav__cart top-bar__nav__item top-bar__nav__cart--hide" data-ecommerce-state="${header.commerceConfig}" data-locator="header-section-cart">
                         <a
                             class="cmp-header-links__link"
@@ -182,5 +229,5 @@
         ></div>
     </div>
     <div id="mobile-header-search-container"></div>
-    <div data-sly-test="${header.eprocurement}" id="cmp-header--loader"></div>
+    <div id="cmp-header--loader"></div>
 </header>

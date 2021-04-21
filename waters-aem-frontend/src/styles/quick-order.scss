@@ -1,4 +1,4 @@
-#quick-order{
+#quick-order, #header-quick-order{
     padding-left: 0;
     margin-right: $space-xxs;
     margin-bottom: $space-xxs;
@@ -6,6 +6,10 @@
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
+
+    .qty-with-btn {
+      display: flex;
+    }
 
     @include tablet {
         flex-direction: column;
@@ -83,6 +87,7 @@
 
       svg {
         width: $icon-s;
+        height: $icon-s;
         margin-bottom: -3px;
         margin-right: $space-xxxs;
   
@@ -113,5 +118,67 @@
           color: $color-link-hover;
         }
       }
+  }
+}
+
+.header-quick-order-container {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  background-color: $color-white;
+  margin-top: 1px;
+
+  @include tablet-and-over {
+    padding: ($space-m - $space-xxxs) $space-m $space-m $space-m;
+    box-shadow: $shadow;
+    flex-shrink: 0;
+  }
+
+  .notification {
+    display: flex;
+    background-color: $color-red-10;
+    border: 1px solid $color-red-20;
+    border-radius: $border-radius;
+    padding: .2em 0;
+
+    &--hide{
+      display: none;
+    }
+
+    &-description {
+      @include font-small;
+    }
+
+    svg {
+      padding-right: $space-xxxs;
+      .st0 {
+          stroke: $color-error;
+      }
+    }
+  }
+}
+
+#header-quick-order {
+  flex-direction: column;
+
+  .header-quick-order-parent {
+    display: flex;
+    flex-direction: column;
+
+    .quick-order-sku {
+      width: 100%;
+      margin-bottom: $space-xxs;
+    }
+  }
+
+  .qty-with-btn {
+    .cmp-button {
+      width: 300px;
+    }
+  }
+
+  .quick-order-multiple-item {
+    margin-top: $space-s;
+    margin-left: 0;
   }
 }

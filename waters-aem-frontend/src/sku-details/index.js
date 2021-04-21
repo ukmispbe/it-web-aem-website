@@ -22,7 +22,6 @@ import {
     BAD_REQUEST_CODE,
     SERVER_ERROR_CODE,
     UNAVAILABLE_PRICE_WITH_ADD_TO_CART,
-    LIST_PRICE_WITH_ADD_TO_CART,
     NO_PRICE_NO_ADD_TO_CART,
 } from '../constants';
 
@@ -53,8 +52,8 @@ class SkuDetails extends React.Component {
             skuAvailability: {},
             addToCartQty: undefined,
             custPrice: undefined,
+            listPrice: undefined,
             custPriceApiDisabled: this.props.config.isCustomerPriceApiDisabled,
-            listPrice: this.props.price,
             analyticsConfig: {
                 context: mainCartContext,
                 name: this.props.titleText,
@@ -79,17 +78,13 @@ class SkuDetails extends React.Component {
             pricingUrl, skuNumber, userCountry } = this.state;
 
         if (!isGlobal) {
-            if (LoginStatus.state()) {
-                let userInfo = callCustomerPriceApi(custPriceApiDisabled);
-                if (Object.keys(userInfo).length > 0 && userInfo.callCustApi) {
-                    this.setState({
-                        userInfo: userInfo
-                    }, () => {
-                        this.getCustPricing(pricingUrl, skuNumber, userInfo, this.props.price);
-                    });
-                } else {
-                    this.setState({ loading: false });
-                }
+            let userInfo = callCustomerPriceApi(custPriceApiDisabled);
+            if (Object.keys(userInfo).length > 0 && userInfo.callCustApi) {
+                this.setState({
+                    userInfo: userInfo
+                }, () => {
+                    this.getCustPricing(pricingUrl, skuNumber, userInfo);
+                });
             } else {
                 this.setState({ loading: false });
             }
@@ -144,16 +139,15 @@ class SkuDetails extends React.Component {
     };
 
     //Note: getCustPricing Method should be an exact match between SKU Details and SKU List
-    getCustPricing = (pricingUrl, skuNumber, userInfo, propListPrice) => {
-        getPricing(pricingUrl, skuNumber, userInfo.dynamicSoldTo, userInfo.salesOrg)
+    getCustPricing = (pricingUrl, skuNumber, userInfo) => {
+        getPricing(pricingUrl, skuNumber, userInfo, "DEFAULT")
             .then(response => {
                 if (response.status && response.status === 200) {
                     let match = matchListItems(skuNumber, response);
-                    let listPriceValue = (match.listPrice !== '' && match.listPrice != undefined) ? match.listPrice : propListPrice;
                     this.setState({
                         skuData: match,
                         custPrice: match.custPrice,
-                        listPrice: listPriceValue,
+                        listPrice: match.listPrice,
                         loading: false
                     }, () => {
                         //this.checkPricingAnalytics();
@@ -162,18 +156,19 @@ class SkuDetails extends React.Component {
                     // Add Error Object to State
                     this.setState({
                         errorPriceType: [BAD_REQUEST_CODE, SERVER_ERROR_CODE].includes(getHttpStatusFromErrors(response.errors, response.status)) ?
-                            (isEprocurementApp() ? UNAVAILABLE_PRICE_WITH_ADD_TO_CART : LIST_PRICE_WITH_ADD_TO_CART) : NO_PRICE_NO_ADD_TO_CART,
+                            UNAVAILABLE_PRICE_WITH_ADD_TO_CART : NO_PRICE_NO_ADD_TO_CART,
                         loading: false
                     });
                 }
             })
-            .catch(() => {
+            .catch(err => {
                 // Add Error Object to State
                 this.setState({
                     errorPriceType: NO_PRICE_NO_ADD_TO_CART,
                     loading: false
                 });
-            });
+            }
+        );
     }
 
     toggleModal = () => {
@@ -229,62 +224,43 @@ class SkuDetails extends React.Component {
         return (
             <SkuMessage
                 icon={this.props.config.commerceConfig.disabledIcon}
-                message={
-                    this.props.config.commerceConfig.partialDisabledText
-                }
-                link={
-                    this.props.config.commerceConfig.partialDisabledHref
-                }
-                linkMessage={
-                    this.props.config.commerceConfig
-                        .partialDisabledLinkText
-                }
+                message={this.props.config.commerceConfig.partialDisabledText}
+                link={this.props.config.commerceConfig.partialDisabledHref}
+                linkMessage={this.props.config.commerceConfig.partialDisabledLinkText}
             />
         );
     }
 
-    renderListOrUnavailablePrice = () => {
-        const { listPrice, skuInfo, errorPriceType, isStickyAvailable } = this.state;
-        const isHiddenListPrice = (errorPriceType === NO_PRICE_NO_ADD_TO_CART && isStickyAvailable && isEprocurementApp()) ? true : false;
-        if (errorPriceType === UNAVAILABLE_PRICE_WITH_ADD_TO_CART && !isStickyAvailable) {
-            return (
-                <UnavailablePrice
-                    label={skuInfo.custPriceLabel}
-                    icon={skuInfo.lowStockIcon}
-                    text={skuInfo.unavailablePriceLabel}
-                />);
-        } else {
-            if (typeof listPrice !== 'undefined' && !isHiddenListPrice) {
+    renderPricing = () => {
+        const { custPrice, listPrice, skuInfo, errorPriceType, isStickyAvailable } = this.state;
+        let price = listPrice;
+        let label = skuInfo.listPriceLabel;
+        let isListPrice = false;
+
+        if (LoginStatus.state()) {
+            price = typeof custPrice !== 'undefined' ? custPrice : listPrice;
+            label = skuInfo.custPriceLabel;
+            isListPrice = true;
+        } 
+
+        if (errorPriceType !== '' || typeof price === 'undefined') {
+            if(errorPriceType === UNAVAILABLE_PRICE_WITH_ADD_TO_CART && !isStickyAvailable){
                 return (
-                    <Price
-                        label={skuInfo.listPriceLabel}
-                        price={listPrice}
-                        isListPrice={true}
+                    <UnavailablePrice
+                        label={label}
+                        icon={skuInfo.lowStockIcon}
+                        text={skuInfo.unavailablePriceLabel}
                     />);
             } else {
                 return <></>;
             }
-        }
-    }
-
-    renderPricing = () => {
-        const { custPrice, listPrice, skuInfo, errorPriceType } = this.state;
-
-        if (LoginStatus.state()) {
-            let price = typeof custPrice !== 'undefined' ? custPrice : listPrice;
-            if (errorPriceType !== '') {
-                return this.renderListOrUnavailablePrice();
-            } else {
-                return (
-                    <Price
-                        label={skuInfo.custPriceLabel}
-                        price={price}
-                        isListPrice={false}
-                    />
-                );
-            }
         } else {
-            return this.renderListOrUnavailablePrice();
+            return (
+                <Price
+                    label={label}
+                    price={price}
+                    isListPrice={isListPrice}
+                />);
         }
     }
 
@@ -425,7 +401,6 @@ class SkuDetails extends React.Component {
 
 SkuDetails.propTypes = {
     config: PropTypes.object.isRequired,
-    price: PropTypes.string.isRequired,
     countryRestricted: PropTypes.string,
     skuNumber: PropTypes.string.isRequired,
     titleText: PropTypes.string.isRequired,
@@ -436,7 +411,6 @@ SkuDetails.propTypes = {
 
 SkuDetails.defaultProps = {
     config: {},
-    price: '',
     countryRestricted: '',
     skuNumber: '',
     titleText: '',

@@ -1,0 +1,115 @@
+@import 'variables.scss';
+@import 'mixins.scss';
+@import 'typography.scss';
+
+.image-viewer-container {
+    width: 100%;
+}
+
+.image-viewer-container__image-figure {
+    border: $border-medium;
+    line-height: 0;
+    margin: 0;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+    padding: 0;
+    background-position: 50% 50%;
+    background-size: 102%;
+    position: relative;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-clip: border-box;
+    
+    -webkit-transition: background-size 500ms ease-in-out;
+    -moz-transition: background-size 500ms ease-in-out;
+    -ms-transition: background-size 500ms ease-in-out;
+    -o-transition: background-size 500ms ease-in-out;
+    transition: background-size 500ms ease-in-out;
+
+    .image-viewer-container__image-element {
+        opacity: 0;
+    }
+}
+
+.image-viewer-container__image-figure--true {
+    background-size: 200%;
+    touch-action: none;
+}
+
+.image-viewer-container__image-display {
+    position: relative;
+    display: inline-block;
+}
+
+.image-viewer-container__image-zoom {
+    right: 1px;
+    bottom: 1px;
+    width: 4em;
+    height: 4em;
+    position: absolute;
+    z-index: $image-viewer-container__image-zoom-z-index;
+    background: $color-white;
+    opacity: .8;
+    float: right;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    svg {
+        width: $icon-l;
+        height: $icon-l;
+        cursor: pointer;
+
+        .st0 {
+            stroke: $color-icon;
+        }
+    }
+}
+
+
+
+// IE CSS Hacks
+// for browsers that do not support background-size transitions
+// zoom element position that varies between browsers
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    .image-viewer-container__image-display {
+        overflow: hidden;
+    }
+
+    .image-viewer-container__image-figure {
+        -ms-transition: transform 500ms ease-in-out;
+    }
+
+    .image-viewer-container__image-figure--zoomin-true {
+        background-size: 100%;
+        transform: scale(2);
+    }
+
+    .image-viewer-container__image-figure--zoomin-false {
+        transform: scale(1);
+    }
+
+    .image-viewer-container__image-figure--zoomin-background {
+        -ms-transition: none;
+        transform: scale(1);
+        background-size: 200%;
+    }
+
+    .image-viewer-container__image-figure--zoomout-background {
+        -ms-transition: none;
+        transform: scale(2);
+        background-size: 100%;
+    }
+
+    .image-viewer-container__image-display {
+        display: inherit;
+    }
+
+    .image-thumbnails-placeholder {
+        display: inherit;
+    }
+}
+
+

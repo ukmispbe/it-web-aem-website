@@ -17,7 +17,21 @@ export async function fetchData (url, options, customError = () => {}) {
                 reject(err);
             });
     });
-};
+}
+
+export async function fetchDataWithHeaders (url, options, customError = () => {}) {
+    return new Promise((resolve, reject) => {
+            fetch(url, options)
+            .then(response => {
+                resolve(response);
+            })
+            .catch(err => {
+                customError(err);
+                throwError(err);
+                reject(err);
+            });
+    });
+}
 
 export async function getData (url) {
     const response = await fetch(url, {
@@ -41,7 +55,21 @@ export async function postData (url, data) {
     });
 
     return response;
-};
+}
+
+export async function postDataWithLanguage (url, data, language = "en") {
+    const response = await fetch(url, {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json',
+            'language': language
+        },
+        body: JSON.stringify(data)
+    });
+
+    return response;
+}
 
 export async function postDataWithOptions (url, options, setError) {
     return fetch(url, {

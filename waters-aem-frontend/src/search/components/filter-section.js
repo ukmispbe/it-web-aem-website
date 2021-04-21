@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactSVG from 'react-svg';
-import validator from 'validator';
+import validatorEquals from 'validator/lib/equals';
+import validatorIsEmpty from 'validator/lib/isEmpty';
 import PropTypes from 'prop-types';
 
 class FilterSection extends Component {
@@ -25,7 +26,7 @@ class FilterSection extends Component {
         const prevFacets = JSON.stringify(prevProps.facet.facets);
         const currFacets = JSON.stringify(this.props.facet.facets);
 
-        if (!validator.equals(prevFacets, currFacets)) {
+        if (!validatorEquals(prevFacets, currFacets)) {
             this.setStateForItems(this.props.facet.facets);
 
             /*
@@ -50,7 +51,7 @@ class FilterSection extends Component {
     setStateForItems = items => this.setState({ items });
     setStateForSearchValue = searchValue => this.setState({ searchValue });
 
-    isEmpty = value => validator.isEmpty(value, { ignore_whitespace: false });
+    isEmpty = value => validatorIsEmpty(value, { ignore_whitespace: false });
 
     lengthLessThan = (value, lengthComparison) =>
         value.length < lengthComparison;

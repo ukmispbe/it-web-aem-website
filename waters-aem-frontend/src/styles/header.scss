@@ -140,7 +140,8 @@
 
             .top-bar__nav__user,
             .top-bar__nav__search,
-            .top-bar__nav__cart {
+            .top-bar__nav__cart,
+            .top-bar__nav__quick-order {
                 display: inline-flex;
                 &--hide {
                     display: none;
@@ -150,7 +151,7 @@
                 }               
             }
 
-            .top-bar__nav__user {
+            .top-bar__nav__user, .top-bar__nav__quick-order {
                 position: relative;
                 z-index: $header-top-bar-user-z-index;
 
@@ -183,15 +184,36 @@
     
 
                 &.is-active{
-                    .top-bar__nav__user__dropdown{
+                    .top-bar__nav__user__dropdown, .top-bar__nav__quick-order__dropdown{
                         visibility: visible;
                         opacity: 1;
                         display: flex;
                     }
                 }
+
+                &.top-bar__nav__quick-order__link {
+                        svg .st1,
+                        svg .st0{
+                            stroke: $color-teal-30;
+                            stroke-width: 0.75px;
+                        }
+
+                    &:hover {
+                        color: $color-gray-50;
+                    }
+                }
+
+                @include mobile {
+                    .top-bar__nav__quick-order__link {
+                        svg .st1,
+                        svg .st0{
+                            stroke: $color-teal-30;
+                            stroke-width: 1.5px;
+                        }
+                    }
+                }
                 
                 &.loggedIn {
-
                     .top-bar__nav__user__link {
                         svg .st1,
                         svg .st0{
@@ -202,6 +224,16 @@
 
                     &:hover .top-bar__nav__user__link {
                         color: $color-gray-50;
+                    }
+
+                    @include mobile {
+                        .top-bar__nav__user__link {
+                            svg .st1,
+                            svg .st0{
+                                stroke: $color-teal-30;
+                                stroke-width: 1.5px;
+                            }
+                        }
                     }
 
 
@@ -282,6 +314,26 @@
         & svg .st0,
         & svg .st1 {
             stroke: $color-icon;
+        }
+    }
+}
+
+.top-bar__nav__quick-order__dropdown {
+    width: 130px;
+}
+
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    .top-bar__nav__quick-order__dropdown {
+        flex-direction: row-reverse;
+    }
+ }
+
+#nav-header-quick-order-link {
+    a {
+        display: flex;
+
+        span {
+            padding-right: $space-xxxs;
         }
     }
 }

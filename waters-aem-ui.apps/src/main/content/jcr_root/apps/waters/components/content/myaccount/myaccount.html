@@ -11,6 +11,11 @@
                     "requiresEcommerce": "false",
                     "isHiddenForEprocUser": "false",
 					"tilesName": "Account Information",
+                    "notification":{
+                        "title": "${'Your address changes are not yet verified' @ i18n, context='unsafe'}",
+                        "description": "${'Orders will be processed, but may be delayed.' @ i18n, context='unsafe'}", 
+                        "icon": "/content/dam/waters/en/brand-assets/icons/attention.svg"
+                    },
                     "links": [
                         {
                             "text": "${'Profile' @ i18n, context='unsafe'}",
@@ -144,7 +149,7 @@
             "quoteHistory": {
                 "fetchEndPoint": "${myaccount.quoteHistoryUrl @ context='unsafe'}",
                 "quoteHistoryAvailableAfter": "${'Quote history is available as of {0}' @ format=['{quoteDate}'], i18n, context='unsafe'}",
-                "quoteHistoryAvailableAfterDate": "${myaccount.quoteHistoryAvailableAfter @ context='unsafe'}",
+                "quoteHistoryAvailableAfterDate": "${'January 1, 2019' @ i18n, context='unsafe'}",
                 "title": "${'Quote History' @ i18n, context='unsafe'}",
                 "resultsText": "${'Showing {0}-{1} of {2} Quotes' @ format=['{startResults}', '{endResults}', '{count}'], i18n, context='unsafe'}",
                 "noResultsFoundTitle": "${'Sorry, no quotes found.' @ i18n, context='unsafe'}",

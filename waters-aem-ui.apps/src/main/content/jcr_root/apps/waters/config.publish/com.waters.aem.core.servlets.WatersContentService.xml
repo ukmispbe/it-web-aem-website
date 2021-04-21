@@ -1,3 +1,6 @@
 <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
     jcr:primaryType="sling:OsgiConfig"
-    getHostName="http://127.0.0.1:4503"/>
+    getHostName="http://127.0.0.1:4503"
+    enableLabelsRefactoring="{Boolean}false"
+    enableSanitization="{Boolean}true"
+    getKeys="[jcr:baseVersion,cq:template,jcr:mixinTypes,cq:lastRolledout,cq:LiveSyncConfig,cq:lastModifiedBy,cq:lastModified,cq:lastRolledoutBy,jcr:primaryType,jcr:lastModifiedBy,jcr:created,jcr:lastModified,jcr:createdBy,jcr:predecessors,sling:resourceType,jcr:uuid,jcr:versionHistory,jcr:isCheckedOut,cq:responsive,cq:lastReplicated,cq:lastReplicatedBy,cq:lastReplicationAction,cq:styleIds,cq:cloudserviceconfigs,cq:isCancelledForChildren,:type,cq:propertyInheritanceCancelled]"/>

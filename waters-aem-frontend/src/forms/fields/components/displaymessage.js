@@ -4,6 +4,7 @@ import ReactSVG from 'react-svg';
 import { useFieldApi } from '../../form';
 import { useErrorsContext } from '../utils/stateWatcher';
 import { useFormApi } from '../../form';
+import { htmlParser } from '../../../utils/eCommerceFunctions'
 
 const DisplayMessage = ({ name, validation }) => {
     const { icons } = useContext(useFieldApi);
@@ -43,7 +44,7 @@ const DisplayMessage = ({ name, validation }) => {
 
         return (
             <>
-                {message}
+                {htmlParser(message)}
                 {link}
             </>
         );
