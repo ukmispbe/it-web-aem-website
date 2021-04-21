@@ -6,6 +6,7 @@ import { isEprocurementUser, getIsoCode } from '../utils/userFunctions';
 import ErrorBoundary from './ErrorBoundary';
 
 import '../styles/search.scss';
+import '../styles/filters.scss';
 
 const SearchApp = props => {
     const isoCode = (isEprocurementUser() && getIsoCode()) || props.isocode;

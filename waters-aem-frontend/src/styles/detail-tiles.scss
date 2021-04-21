@@ -1,3 +1,7 @@
+@import 'variables.scss';
+@import 'mixins.scss';
+@import 'typography.scss';
+
 .cmp-detail-tiles {
     margin-bottom: $space-s;
     float: left;
