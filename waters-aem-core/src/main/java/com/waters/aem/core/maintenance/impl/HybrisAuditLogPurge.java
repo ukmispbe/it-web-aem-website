@@ -65,7 +65,7 @@ public class HybrisAuditLogPurge implements JobExecutor {
 		try {
 			resourceResolver = resolverService.getResourceResolver("watersService");
 		} catch (LoginException loginException) {
-			LOG.error("Error: unable to get Resource Resolver in for Hybris Audit logpurge {}",
+			LOG.error("Error: Unable to get Resource Resolver in for Hybris Audit logpurge {}",
 					loginException.getMessage());
 		}
 	}
@@ -83,7 +83,7 @@ public class HybrisAuditLogPurge implements JobExecutor {
 				deleteHybrisAuditLogs(resource, count);
 				LOG.info("Deleted the Hybris Audit Logs before {}-{}-{}", reducedDay, reducedMonth, reducedYear);
 			} catch (NumberFormatException | RepositoryException e) {
-				LOG.error("Error: Repository Exception in for Hybris Audit logpurge {}", e.getMessage());
+				LOG.error("Error: Exception in for Hybris Audit logpurge {}", e.getMessage());
 			}
 		}
 		return context.result().message("Deleted the Hybris Audit Logs").succeeded();
@@ -133,7 +133,7 @@ public class HybrisAuditLogPurge implements JobExecutor {
 		}
 	}
 
-	private String getReducedDateValue(int count) {
+	private String getReducedDateValue(final int count) {
 		switch (count) {
 		case 2:
 			return reducedMonth;
