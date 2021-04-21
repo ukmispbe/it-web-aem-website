@@ -11,6 +11,7 @@ import QuoteHistory from "../history/quote-history";
 import QuoteDetails from "../details/quote-details";
 
 import '../styles/my-account.scss';
+import '../styles/detail-tiles.scss';
 
 const MyAccountRouter = (props) => {
     return (
