@@ -109,35 +109,41 @@ public final class VisualGallery implements ComponentExporter {
 
 
 	public Map<String, Object> getImageGalleryAsJson() throws JsonProcessingException {
-		final Map<String, Object> json = new HashMap<>();
-		json.put("images", getAssets());
-		json.put("widths", getWidths());
-		json.put("videoIds", getVideoIds());
-		json.put("brightcoveAccount", getBrightcoveAccount());
-		json.put("brightcovePlayerId", getBrightcovePlayerId());
+		final Map<String, Object> jsonMap = new HashMap<>();
+		jsonMap.put("images", getAssetsList());
+		jsonMap.put("widths", getWidths());
+		jsonMap.put("videoIds", getVideoIds());
+		jsonMap.put("brightcoveAccount", getBrightcoveAccount());
+		jsonMap.put("brightcovePlayerId", getBrightcovePlayerId());
 
-		return json;
+		return jsonMap;
 	}
 
-	private List<Map<String, String>> getAssets() {
+	private List<Map<String, String>> getAssetsList() {
 
-		List<Map<String, String>> assets = new ArrayList<>();
+		List<Map<String, String>> assetsList = null;
 
-		for (String image : images) {
-			Map<String, String> imageMap = new HashMap<>();
-			Asset asset = AssetUtils.getAsset(resource.getResourceResolver(), image);
-			String alt = AssetUtils.getAltText(asset);
-			imageMap.put("src", buildUri(asset, false));
-			imageMap.put("title", asset.getMetadataValue(DamConstants.DC_TITLE) == null ? StringUtils.EMPTY
-					: asset.getMetadataValue(DamConstants.DC_TITLE));
-			imageMap.put("alt", alt == null ? StringUtils.EMPTY : alt);
-			imageMap.put("description", asset.getMetadataValue(DamConstants.DC_DESCRIPTION) == null ? StringUtils.EMPTY
-					: asset.getMetadataValue(DamConstants.DC_DESCRIPTION));
+		if (images.length != 0) {
+			assetsList = new ArrayList<>();
+			for (String image : images) {
+				Map<String, String> imageMap = new HashMap<>();
+				Asset asset = AssetUtils.getAsset(resource.getResourceResolver(), image);
+				String alt = AssetUtils.getAltText(asset);
+				imageMap.put("src", buildUri(asset, false));
+				imageMap.put("title", asset.getMetadataValue(DamConstants.DC_TITLE) == null ? StringUtils.EMPTY
+						: asset.getMetadataValue(DamConstants.DC_TITLE));
+				imageMap.put("alt", alt == null ? StringUtils.EMPTY : alt);
+				imageMap.put("description",
+						asset.getMetadataValue(DamConstants.DC_DESCRIPTION) == null ? StringUtils.EMPTY
+								: asset.getMetadataValue(DamConstants.DC_DESCRIPTION));
 
-			assets.add(imageMap);
+				assetsList.add(imageMap);
+			}
+
+			return assetsList.stream().filter(Objects::nonNull).collect(Collectors.toList());
+		}else {
+			return assetsList;
 		}
-
-		return assets.stream().filter(Objects::nonNull).collect(Collectors.toList());
 	}
 
 	private List<String> getWidths() {
