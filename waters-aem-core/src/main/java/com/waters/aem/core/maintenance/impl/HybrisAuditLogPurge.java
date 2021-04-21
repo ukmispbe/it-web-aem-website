@@ -52,6 +52,10 @@ public class HybrisAuditLogPurge implements JobExecutor {
 	private static final String DATE_FORMAT_MONTH = "MM";
 	private static final String DATE_FORMAT_DAY = "dd";
 
+	private String reducedYear;
+	private String reducedMonth;
+	private String reducedDay;
+
 	@Activate
 	@Modified
 	private void activate(HybrisAuditLogPurgeConfiguration config) {
@@ -61,7 +65,8 @@ public class HybrisAuditLogPurge implements JobExecutor {
 		try {
 			resourceResolver = resolverService.getResourceResolver("watersService");
 		} catch (LoginException loginException) {
-			LOG.error("Error: unable to get Resource Resolver in for Hybris Audit logpurge {}", loginException.getMessage());
+			LOG.error("Error: unable to get Resource Resolver in for Hybris Audit logpurge {}",
+					loginException.getMessage());
 		}
 	}
 
@@ -69,48 +74,16 @@ public class HybrisAuditLogPurge implements JobExecutor {
 	public JobExecutionResult process(Job job, JobExecutionContext context) {
 		if (resourceResolver != null && path != null && minimumAge != null) {
 			LOG.info("Hybris Audit Log Purge Rule Name : {}", ruleName);
-			final String reducedYear = getReducedCalendar(DATE_FORMAT_YEAR);
-			final String reducedMonth = getReducedCalendar(DATE_FORMAT_MONTH);
-			final String reducedDay = getReducedCalendar(DATE_FORMAT_DAY);
-			final Resource auditResource = resourceResolver.resolve(path);
-			Iterator<Resource> auditChildren = Objects.requireNonNull(auditResource).listChildren();
-			while (auditChildren.hasNext()) {
-				Resource yearResource = auditChildren.next();
-				Node yearNode = yearResource.adaptTo(Node.class);
-				try {
-					if (yearNode != null && Integer.parseInt(yearNode.getName()) < Integer.parseInt(reducedYear)) {
-						deleteHybrisAuditLogsNodes(yearNode);
-					} else if (yearNode != null
-							&& Integer.parseInt(yearNode.getName()) > Integer.parseInt(reducedYear)) {
-						LOG.info("Year Node deletion skipped {}", yearNode.getName());
-					} else {
-						Iterator<Resource> yearChildren = Objects.requireNonNull(yearResource).listChildren();
-						while (yearChildren.hasNext()) {
-							Resource monthResource = yearChildren.next();
-							Node monthNode = monthResource.adaptTo(Node.class);
-							if (monthNode != null
-									&& Integer.parseInt(monthNode.getName()) < Integer.parseInt(reducedMonth)) {
-								deleteHybrisAuditLogsNodes(monthNode);
-							} else if (monthNode != null
-									&& Integer.parseInt(monthNode.getName()) > Integer.parseInt(reducedMonth)) {
-								LOG.info("Year Month Node deletion skipped {} {}", yearNode.getName(),
-										monthNode.getName());
-							} else {
-								Iterator<Resource> monthChildren = Objects.requireNonNull(monthResource).listChildren();
-								while (monthChildren.hasNext()) {
-									Resource dayResource = monthChildren.next();
-									Node dayNode = dayResource.adaptTo(Node.class);
-									if (dayNode != null
-											&& Integer.parseInt(dayNode.getName()) < Integer.parseInt(reducedDay)) {
-										deleteHybrisAuditLogsNodes(dayNode);
-									}
-								}
-							}
-						}
-					}
-				} catch (RepositoryException e) {
-					LOG.error("Error: Repository Exception in for Hybris Audit logpurge {}", e.getMessage());
-				}
+			reducedYear = getReducedCalendar(DATE_FORMAT_YEAR);
+			reducedMonth = getReducedCalendar(DATE_FORMAT_MONTH);
+			reducedDay = getReducedCalendar(DATE_FORMAT_DAY);
+			try {
+				final Resource resource = resourceResolver.resolve(path);
+				int count = 0;
+				deleteHybrisAuditLogs(resource, count);
+				LOG.info("Deleted the Hybris Audit Logs before {}-{}-{}", reducedDay, reducedMonth, reducedYear);
+			} catch (NumberFormatException | RepositoryException e) {
+				LOG.error("Error: Repository Exception in for Hybris Audit logpurge {}", e.getMessage());
 			}
 		}
 		return context.result().message("Deleted the Hybris Audit Logs").succeeded();
@@ -138,6 +111,37 @@ public class HybrisAuditLogPurge implements JobExecutor {
 		final Date date = new Date();
 		Date reducedDate = getDateVariation(minimumAge, date);
 		return new SimpleDateFormat(dateFormat).format(reducedDate.getTime());
+	}
+
+	private void deleteHybrisAuditLogs(final Resource resource, int count)
+			throws NumberFormatException, RepositoryException {
+		count++;
+		String reducedDateValue = getReducedDateValue(count);
+		Iterator<Resource> children = Objects.requireNonNull(resource).listChildren();
+		while (children.hasNext()) {
+			Resource childResource = children.next();
+			Node node = childResource.adaptTo(Node.class);
+			if (node != null && Integer.parseInt(node.getName()) < Integer.parseInt(reducedDateValue)) {
+				deleteHybrisAuditLogsNodes(node);
+			} else if (node != null && Integer.parseInt(node.getName()) > Integer.parseInt(reducedDateValue)) {
+				LOG.info("Node deletion skipped for {}", node.getPath());
+			} else {
+				if (count < 3) {
+					deleteHybrisAuditLogs(childResource, count);
+				}
+			}
+		}
+	}
+
+	private String getReducedDateValue(int count) {
+		switch (count) {
+		case 2:
+			return reducedMonth;
+		case 3:
+			return reducedDay;
+		default:
+			return reducedYear;
+		}
 	}
 
 	@ObjectClassDefinition(name = "Hybris Audit Log Purge Task")
