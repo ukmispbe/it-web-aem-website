@@ -14,6 +14,9 @@ const cssOverridesForSearchBar = "cmp-search-bar__auto-suggest--open";
 const cssOverridesForSearchBody = "cmp-search-body__auto-suggest--open";
 const searchBarFocusClassName = 'cmp-search-bar--focus';
 
+const SUGGESTION = 'suggestion';
+const FACET = 'facet';
+
 class SearchBar extends Component {
     constructor(props) {
         super(props);
@@ -35,7 +38,9 @@ class SearchBar extends Component {
             suggestions: [],
             openOverlay: false,
             placeholder: screenSizes.isMobile() ? this.props.placeholderMobile : this.props.placeholderTablet,
-            recentSearches: cookieStore.getRecentSearches() || []
+            recentSearches: cookieStore.getRecentSearches() || [],
+            searchCategory: '',
+            searchContentType: '',
         };
 
         this.state.recentSuggestions = this.formatSuggestions(this.state.value.trim(), this.state.recentSearches);
@@ -185,9 +190,15 @@ class SearchBar extends Component {
     handleSearchValueBlur = (event, { highlightedSuggestion }) => this.removeSearchBarFocusCss();
 
     handleSuggestionsFetchRequested = async ({ value }) => {
-        const suggestions = !(this.state.value.length < this.props.minSearchCharacters) 
-            ? this.formatSuggestions(this.state.value.trim(), (await this.search.getSuggestedKeywords(this.props.maxSuggestions, this.state.value)))
-            : [];
+        let suggestions = [];
+
+        if (!(this.state.value.length < this.props.minSearchCharacters)) {
+            const suggestionsNew = await this.search.getSuggestedKeywords(this.props.maxSuggestions, this.state.value);
+            const formatFacets = this.formatFacets(suggestionsNew.facets, suggestionsNew.suggestions[0]);
+            const suggestionsList = this.formatSuggestions(this.state.value.trim(), suggestionsNew.suggestions);
+            suggestions = [].concat(suggestionsList.splice(0, 1), formatFacets, suggestionsList);
+        }
+        
         const recentSearches = cookieStore.getRecentSearches() || [];
         const recentSuggestions = this.formatSuggestions(this.state.value.trim(), recentSearches);
         
@@ -218,14 +229,25 @@ class SearchBar extends Component {
 
     renderSuggestionCallback = suggestion => <div>{suggestion.value}</div>;
 
-    handleSuggestionSelected = (event, { suggestionValue}) => {
+    handleSuggestionSelected = (event, { suggestionValue, suggestion }) => {
+        let { searchCategory, searchContentType } = this.state;
+        if (suggestion && suggestion.type === FACET) {
+            searchCategory = suggestion.category;
+            searchContentType = suggestion.contentType;
+        } 
         this.removeCssOverridesForSearchBar();
-        this.setState({value: suggestionValue, suggestions: [], openOverlay: false, recentSuggestions: []}, () => {
+        this.setState({ value: suggestionValue, searchCategory, searchContentType, suggestions: [], openOverlay: false, recentSuggestions: [] }, () => {
+            let searchObject = {
+                keyword: this.state.value,
+            };
+            searchObject = !!this.state.searchCategory ? { ...searchObject, category: this.state.searchCategory } : searchObject;
+            searchObject = !!this.state.searchContentType ? {...searchObject, content_type: this.state.searchContentType} : searchObject;
+            
             // clearing search session variables ensures the page position is set to the top after keyword search
             this.search.clearSessionStore();
             
             this.removeCssOverridesForSearchBody();
-            this.search.setUrlParameter(this.state.value, this.props.searchPath)
+            this.search.setUrlParameter(searchObject, this.props.searchPath)
         });
     }
 
@@ -240,9 +262,20 @@ class SearchBar extends Component {
     formatSuggestions = (term, suggestions) => suggestions.map(suggestion => {
         return {
             key: suggestion,
+            type: SUGGESTION,
             value: <span className="formatted-suggestion">{this.formatSuggestion(term, suggestion).reduce((accumulator, currentValue) => <>{accumulator} {currentValue}</>)}</span>
         }
     });
+
+    formatFacets = (facets, suggestion = '') => facets.map(facet => {
+            return {
+                key: suggestion,
+                category: facet.category,
+                contentType: facet.contenttype,
+                type: FACET,
+                value: <span className="formatted-facet">in <strong>{facet.contenttype}</strong> in { facet.category }</span>
+            }
+        });
 
     formatSuggestion = (term, suggestion) =>{
         // wrap the matching characters with a pipe | escape all possible regex special characters

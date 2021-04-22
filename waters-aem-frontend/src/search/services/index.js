@@ -364,14 +364,14 @@ class SearchService {
         return [];
     }
 
-    buildParameters = searchValue => {
-        const keyword = searchValue ? searchValue : parameterDefaults.keyword;
+    buildParameters = (searchObject = {}) => {
+        const keyword = searchObject && searchObject.keyword ? searchObject.keyword : parameterDefaults.keyword;
         const sort =
             keyword === parameterDefaults.keyword
                 ? parameterDefaults.sort
                 : parameterValues.sort.mostRelevant;
 
-        return { keyword, sort };
+        return { ...searchObject, keyword, sort };
     };
 
     stringifyParameters = parameters =>
@@ -383,11 +383,12 @@ class SearchService {
             )
             : '';
 
-    setUrlParameter = (searchTerm, searchPath) => {
-        const parameters = this.buildParameters(searchTerm);
+    setUrlParameter = (searchObject, searchPath) => {
+        const parameters = this.buildParameters(searchObject || {});
         const querystring = this.stringifyParameters(parameters);
 
         window.location.href = `${searchPath}?${querystring}`;
+        console.log(`Sending call: ${searchPath}?${querystring}`)
     };
 
     isDefaultKeyword = value => value === parameterDefaults.keyword;
