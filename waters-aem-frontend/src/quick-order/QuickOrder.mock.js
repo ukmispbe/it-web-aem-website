@@ -13,6 +13,13 @@ const props = {
         modalInfo: {},
         skuInfo: { partNumberLabel: 'SKU' }
     },
+    isInHeader: false,
+    errorMsg:'',
+    qtyPlaceholder:'',
+    skuDatalocator: 'input-quick-order-sku',
+    quantityDatalocator:'input-sku-qty',
+    addToCartBtnDatalocator: 'link-add-to-cart',
+    addMultipleItemsDatalocator:'link-quick-order-add-multiple-item'
 }
 
 export default props;

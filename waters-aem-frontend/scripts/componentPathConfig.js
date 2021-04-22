@@ -36,6 +36,33 @@ const compConfig = [
     }
 ];
 
+const cssConfig = [
+    {
+        aemCompName: 'container'
+    },
+    {
+        aemCompName: 'banner'
+    },
+    {
+        aemCompName: 'teaser'
+    },
+    {
+        aemCompName: 'anchor'
+    },
+    {
+        aemCompName: 'features'
+    },
+    {
+        aemCompName: 'table'
+    },
+    {
+        aemCompName: 'taglist'
+    },
+    {
+        aemCompName: 'tiles'
+    }
+];
+
 const jsPathConfig = [];
 
 for (let fileConfig of compConfig) {
@@ -56,6 +83,16 @@ for (let fileConfig of compConfig) {
     }
 }
 
+for (let fileConfig of cssConfig) {
+    const { aemCompName } = fileConfig;
+    const aemCompPath = (aemCompName === 'table' || aemCompName === 'taglist') ? `applicationnotes/${aemCompName}` : aemCompName;
+    const filePath = `waters-aem-ui.apps/src/main/content/jcr_root/apps/waters/components/content/${aemCompPath}/clientlib-${aemCompName}`;
+
+    jsPathConfig.push({
+        aemPath: filePath,
+        fileName: `${aemCompName}.css`
+    });
+}
 module.exports = {
     componentPathConfig: [...jsPathConfig]
 }

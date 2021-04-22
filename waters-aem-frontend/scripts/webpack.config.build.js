@@ -1,15 +1,17 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const FixStyleOnlyEntriesPlugin = require("webpack-fix-style-only-entries");
 
-function recursiveIssuer(m) {
-    if (m.issuer) {
-        return recursiveIssuer(m.issuer);
-    } else if (m.rawRequest) {
-        return m.rawRequest;
-    } else {
-        return false;
-    }
+const entriesCSS = {
+    container: './src/styles/container.scss',
+    banner: './src/styles/banner.scss',
+    teaser: './src/styles/teaser-index.scss',
+    anchor: './src/styles/anchor.scss',
+    features: './src/styles/features.scss',
+    table: './src/styles/table.scss',
+    taglist: './src/styles/taglist.scss',
+    tiles: './src/styles/tiles.scss'
 }
 
 const entries = {
@@ -20,7 +22,7 @@ const entries = {
 }
 
 module.exports = {
-    entry: entries,
+    entry: {...entries, ...entriesCSS},
     output: {
         path: path.resolve(__dirname, '../', 'build')
     },
@@ -30,7 +32,7 @@ module.exports = {
             cacheGroups: {
                 reactVendor: {
                     name: 'react_vendors',
-                    test: /[\\/]node_modules[\\/](react|react-dom|prop-types|query-string|react-svg|react-router|react-router-dom|validator|react-paginate|whatwg-fetch|react-autosuggest|react-autowhatever|react-html-parser|react-spinners|es6-promise|react-hook-form)[\\/]/,
+                    test: /[\\/]node_modules[\\/](react|react-dom|prop-types|query-string|react-svg|react-router|react-router-dom|validator|react-paginate|whatwg-fetch|react-autosuggest|react-html-parser|react-spinners|es6-promise|react-hook-form)[\\/]/,
                     chunks: 'all',
                     priority: 3
                 },
@@ -53,6 +55,7 @@ module.exports = {
         ]
     },
     plugins: [
+        new FixStyleOnlyEntriesPlugin(),
         new MiniCssExtractPlugin({
             filename: '[name].css',
             chunkFilename: '/etc.clientlibs/waters/components/content/[name]/clientlib-[name].css',

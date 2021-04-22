@@ -1,3 +1,7 @@
+@import 'variables.scss';
+@import 'mixins.scss';
+@import 'typography.scss';
+
 .cmp-detail-tiles {
     margin-bottom: $space-s;
     float: left;
@@ -154,7 +158,8 @@
             }
 
             &-notification-wrapper {
-                display: block;
+                display: block;                
+                padding-bottom: $space-xs;
             }
 
             &-notification {
@@ -163,6 +168,7 @@
                 border: 1px solid $color-red-20;
                 padding: $space-xxs;
                 border-radius: 4px;
+                width: 100%;
 
                 &--icon {
                     display: inline-block;
@@ -187,15 +193,15 @@
                 }
 
                 &--title {
-                    @include font-small;
-                    font-weight: $font-weight-regular;
-                    display: inline-block;
-                    margin-right: $space-xxs;
+                    @include font-h4;
+                    display: inline;
+                    margin-bottom: 0;
+                    margin-right: $space-xxxs;
                 }
 
                 &--description {
-                    @include font-small;
-                    font-weight: $font-weight-light;
+                    @include font-body;
+                    margin-bottom: 0;
                     display: inline-block;
                 }
             }

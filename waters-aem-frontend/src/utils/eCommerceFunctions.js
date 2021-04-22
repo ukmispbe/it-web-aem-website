@@ -109,3 +109,10 @@ export const setViewCartURL = () => {
     const url = config.viewCartUrl ? buildViewCartURL(config.viewCartUrl) : "";
     document.querySelector(cartClass).setAttribute("href", url);
 }
+
+export const replaceCountryAndLanguage = url => {
+    url = url
+        .replace('{localeCountry}', isEprocurementUser() ? getEprocUserCountryCode().toLowerCase() : getCountryCode())
+        .replace('{localeLanguage}', isEprocurementUser() ? EPROC_LOCALE_LANGUAGE : getLanguage())
+    return url;
+}

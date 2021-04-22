@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { parameterValues, parameterDefaults, searchMapper } from './services/index';
 import { parse, stringify } from 'query-string';
 import { withRouter } from 'react-router-dom';
-import validator from 'validator';
+import validatorEquals from 'validator/lib/equals';
 import domElements from '../scripts/domElements';
 import screenSizes from '../scripts/screenSizes';
 import Analytics, { analyticTypes } from '../analytics';
@@ -183,7 +183,7 @@ class SearchContainer extends Component {
     isSkuList = category =>  {
         const categoryKey = this.findFacetNameProperty(this.props.filterMap, category);
 
-        return validator.equals(categoryKey, 'shop');
+        return validatorEquals(categoryKey, 'shop');
     }
 
     handleHistoryPop = query => {
@@ -336,15 +336,15 @@ class SearchContainer extends Component {
             return SEARCH_TYPES.CATEGORY_ONLY;
         }
 
-        if (this.isCategoryOnlySelected(query.category, query.content_type)) {
+        if (query.category && !query.content_type && !this.isFacetsSelected(query.facets)) {
             return SEARCH_TYPES.CATEGORY_ONLY;
         }
 
-        if (query.content_type && !this.isFacetsSelected(query.facets)) {
+        if (query.category && query.content_type && !this.isFacetsSelected(query.facets)) {
             return SEARCH_TYPES.CONTENT_TYPE;
         }
 
-        if (query.content_type && this.isFacetsSelected(query.facets)) {
+        if (query.category && this.isFacetsSelected(query.facets)) {
             return SEARCH_TYPES.SUB_FACETS;
         }
 
@@ -550,7 +550,7 @@ class SearchContainer extends Component {
 
         newState.noResults = !newState.results[query.page].length;
 
-        if (!loginStatus.state() && !newState.noResults && query.keyword && query.keyword !== parameterDefaults.keyword) {
+        if (!newState.noResults && query.keyword && query.keyword !== parameterDefaults.keyword) {
             cookieStore.setRecentSearches(query.keyword);
         }
 

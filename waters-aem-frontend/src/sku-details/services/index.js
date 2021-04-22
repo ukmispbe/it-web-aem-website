@@ -1,7 +1,7 @@
 import 'whatwg-fetch';
 import LocalStore from '../../stores/localStore';
 import loginStatus from '../../scripts/loginStatus';
-import { fetchData } from '../../utils/serviceFunctions';
+import { fetchData, fetchDataWithHeaders } from '../../utils/serviceFunctions';
 import {
     getCountryCode,
     getLanguage,
@@ -19,8 +19,22 @@ const availabilityUrlRequest = (url, countryCode, partNo) => {
 }
 
 const priceUrlRequest = (endpoint, sku, soldToId, salesOrg) => {
-    let url;
-    return url = `${endpoint}?productNumber=${sku}&customerNumber=${soldToId}&salesOrg=${salesOrg}`;
+    return `${endpoint}?productNumber=${sku}&customerNumber=${soldToId}&salesOrg=${salesOrg}`;
+}
+
+
+
+export const getCustPricingUrl = (url, sku, userInfo, fields) => {
+    let customerNumber = userInfo && userInfo.soldToId ? userInfo.soldToId : 'anonymous';
+    let custUrl = `${url}?productNumber=${sku}&customerNumber=${customerNumber}`;
+
+    if (userInfo && userInfo.salesOrg) { 
+        let salesOrg = userInfo.salesOrg;
+        return custUrl + `&salesOrg=${salesOrg}`;
+    } else {
+        fields = fields.toUpperCase();
+        return custUrl + `&fields=${fields}`;
+    }
 }
 
 const addToCartUrlRequest = (url, partNo, quantity, cartId) => {
@@ -103,26 +117,51 @@ export async function getAvailability(url, countryCode, partNo) {
         method: 'GET',
         credentials: 'include'
     }
-
     const urlRequest = availabilityUrlRequest(url, countryCode, partNo);
     const response = await fetchData(urlRequest, options);
     const json = await response.json();
+    if (response.status !== 200) {
+        throw ({
+            status: response.status,
+            ok: false
+        });
+    }
     return json;
 }
 
-export async function getPricing(url, sku, soldToId, salesOrg) {
+export async function getPricing(url, sku, userInfo, fields) {
     if (Array.isArray(sku)) {
         sku = sku.map(skuItem => skuItem.code).join(',');
     }
 
-    const options = {
+    // Authenticated Options
+    let options = {
         method: 'GET',
         credentials: 'include',
-        mode: 'cors'
+        mode: 'cors',
+        headers: {
+            'Content-Type': 'application/json'
+        }
     }
 
-    const urlRequest = priceUrlRequest(url, sku, soldToId, salesOrg);
-    const response = await fetchData(urlRequest, options);
+    if (!userInfo.soldToId) {
+        // Unauthenticated Options
+
+        options = {
+            method: 'GET',
+            credentials: 'include',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json',
+                'language':  getLanguage(),
+                'countryCode': getCountryCode(),
+                'channel': 'ECOMM'
+            }
+        }
+    }
+
+    const urlRequest = getCustPricingUrl(url, sku, userInfo, fields);
+    const response = await fetchDataWithHeaders(urlRequest, options);
     const json = await response.json();
 
     if (response.status === 200) {
@@ -133,6 +172,7 @@ export async function getPricing(url, sku, soldToId, salesOrg) {
     return json;
 }
 
+
 export const matchListItems = (skuListData, pricesAPIResults) => {
     let skuListItem = {
         code: skuListData
@@ -140,11 +180,19 @@ export const matchListItems = (skuListData, pricesAPIResults) => {
 
     for (let i = 0; i < pricesAPIResults.length; i++) {
         if (skuListItem.code === pricesAPIResults[i].productNumber) {
-            skuListItem.custPrice = pricesAPIResults[i].netPrice.formattedValue;
-            skuListItem.custValue = pricesAPIResults[i].netPrice.value;
+            // Net Price doesn't exist for Unauthenticated Users
+            if (pricesAPIResults[i].netPrice) {
+                skuListItem.custPrice = pricesAPIResults[i].netPrice.formattedValue;
+                skuListItem.custValue = pricesAPIResults[i].netPrice.value;
+            }
+            else {
+                skuListItem.listPrice = "";
+                skuListItem.listValue = "";              
+            }
             skuListItem.listPrice = pricesAPIResults[i].basePrice.formattedValue;
             skuListItem.listValue = pricesAPIResults[i].basePrice.value;
-            skuListItem.currencyCode = pricesAPIResults[i].netPrice.currencyCode;
+            // Using Base Price Currency Code because Net Price doesn't exist for Unauthenticated Users
+            skuListItem.currencyCode = pricesAPIResults[i].basePrice.currencyCode;
         }
     }
 

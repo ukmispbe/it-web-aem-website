@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { ClipLoader } from 'react-spinners';
+import ClipLoader from 'react-spinners/ClipLoader';
 
 class LoadingSpinner extends Component {
     constructor() {
