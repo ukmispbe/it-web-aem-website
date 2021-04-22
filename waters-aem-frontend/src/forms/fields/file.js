@@ -62,7 +62,7 @@ function File(props) {
         <>
             <label
                 htmlFor={name}
-                data-locator={elementLocator(label) || 'form-field--label'}
+                data-locator={elementLocator(`${name}-file-upload-label`) || 'form-field-file-label'}
             >
                 {renderFormattedLabel(label, validation.required, optionalLabel)}
             </label>

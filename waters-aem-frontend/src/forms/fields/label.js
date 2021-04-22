@@ -14,7 +14,7 @@ const Label = ({ name, addClass, label, htmlFor ="" }) => {
     let labelSource = labelValue || label;
 
     return (
-        <label className={addClass} htmlFor={htmlFor} data-locator={elementLocator(name)}>
+        <label className={addClass} htmlFor={htmlFor} data-locator={elementLocator(`${name}-label`)}>
             {htmlParser(labelSource)}
         </label>
     );

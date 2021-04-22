@@ -16,7 +16,7 @@ const FormNotification = ({}) => {
                 className={className}
                 id={id}
                 title={title}
-                data-locator={elementLocator(label)}>
+                data-locator={elementLocator(`${id}-link`)}>
                 {label}
             </a>
             )

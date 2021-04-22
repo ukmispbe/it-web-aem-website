@@ -1,5 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useFieldApi } from '../form';
+import { elementLocator } from '../../utils/eCommerceFunctions';
+
 const CLASS_LENGTH = 2;
 
 const DoubleLabel = ({ name, addClass, label}) => {
@@ -22,8 +24,10 @@ const DoubleLabel = ({ name, addClass, label}) => {
     }
     return (
     <>
-        <label className={classLeft} dangerouslySetInnerHTML={{__html: label}}/>
-        <label className={classRight} dangerouslySetInnerHTML={{__html: labelValue}}/>   
+        <label className={classLeft} dangerouslySetInnerHTML={{__html: label}}
+            data-locator={elementLocator(`${name}-label`) || 'form-field-doublelabel-label'}/>
+        <label className={classRight} dangerouslySetInnerHTML={{__html: labelValue}}
+            data-locator={elementLocator(`${name}-label-value`) || 'form-field-doublelabel-labelvalue'}/>
     </>
     );
 };

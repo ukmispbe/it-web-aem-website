@@ -23,10 +23,10 @@ const NavigateLink = ({}) => {
                             href={link}
                             target={blank ? "_blank" : ""}
                             rel="noopener noreferrer"
-                            data-locator={elementLocator(text)}
+                            data-locator={elementLocator(`${name}-${type}-link`)}
                             onClick={handleClick}
                             >
-                            {text}
+                                {text}
                         </a>
                     </div>
                 )

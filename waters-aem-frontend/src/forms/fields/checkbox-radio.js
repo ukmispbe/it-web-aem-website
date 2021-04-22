@@ -187,6 +187,7 @@ const CheckboxOrRadio = ({}) => {
                     <label
                         htmlFor={thisName}
                         onClick={e => checkHandler(e, thisName)}
+                        data-locator={elementLocator(`${thisName}-${type}-label`)}
                     >
                         {renderLabel(thisName, label)}
                     </label>
@@ -207,6 +208,7 @@ const CheckboxOrRadio = ({}) => {
                     {label && (<label
                         htmlFor={name}
                         onClick={e => checkHandler(e, name)}
+                        data-locator={elementLocator(`${name}-${type}-label`)}
                     >
                         {renderLabel(name, label)}
                     </label>)}

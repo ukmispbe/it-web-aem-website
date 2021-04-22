@@ -106,7 +106,7 @@ const TextArea = ({
                             ? 'cmp-form-field--label-matching'
                             : ''
                     }
-                    data-locator={elementLocator(label) || 'form-field--label'}
+                    data-locator={elementLocator(`${name}-label`) || 'form-field-textarea-label'}
                 >
                     {renderFormattedLabel(label, validation.required, optionalLabel)}
                 </label>
