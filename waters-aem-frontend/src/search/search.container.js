@@ -596,12 +596,8 @@ class SearchContainer extends Component {
         this.setState(Object.assign({}, this.state, newState), () => {
             // collapse all facet groups when flag is true and the device is tablet or mobile
             if (this.state.forceCollapseFilters) {
-                // if (screenSizes.isTabletAndUnder()) {
-                    this.collapseFilters();
-                // }
-                // else {
-                //     this.collapseFilters();
-                // }
+
+                this.collapseFilters();
 
                 // reset flag to false
                 this.setState({forceCollapseFilters: false});
