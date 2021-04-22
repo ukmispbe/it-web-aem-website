@@ -391,7 +391,6 @@ class SearchService {
         const querystring = this.stringifyParameters(parameters);
 
         window.location.href = `${searchPath}?${querystring}`;
-        console.log(`Sending call: ${searchPath}?${querystring}`)
     };
 
     isDefaultKeyword = value => value === parameterDefaults.keyword;
