@@ -184,7 +184,10 @@ class SearchService {
 
         const response = await callService;
 
-        return response.suggestions;
+        return {
+            suggestions: response.suggestions || [],
+            facets: response.facets || [],
+        };
     };
 
     getParamsFromString() {

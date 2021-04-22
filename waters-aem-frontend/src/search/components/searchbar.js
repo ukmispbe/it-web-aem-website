@@ -267,13 +267,23 @@ class SearchBar extends Component {
         }
     });
 
+    getFacetStructure = (contentType, category) => (
+        <span className="formatted-facet">
+            in <span className="white-text">_</span>
+            <strong>{facet.contenttype}</strong>
+            <span className="white-text">_</span>
+            in<span className="white-text">_</span>
+            {facet.category}
+        </span>
+    )
+
     formatFacets = (facets, suggestion = '') => facets.map(facet => {
             return {
                 key: suggestion,
                 category: facet.category,
                 contentType: facet.contenttype,
                 type: FACET,
-                value: <span className="formatted-facet">in <strong>{facet.contenttype}</strong> in { facet.category }</span>
+                value: <span className="formatted-facet">in <span className="white-text">_</span><strong>{facet.contenttype}</strong><span className="white-text">_</span>in<span className="white-text">_</span>{ facet.category }</span>
             }
         });
 
