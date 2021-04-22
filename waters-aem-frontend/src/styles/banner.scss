@@ -1,3 +1,7 @@
+@import 'variables.scss';
+@import 'mixins.scss';
+@import 'typography.scss';
+
 .cmp-banner {
     margin: $space-l -30% $space-xl;
     padding: 0 30%;
