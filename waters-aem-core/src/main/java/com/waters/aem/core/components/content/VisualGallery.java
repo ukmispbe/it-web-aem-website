@@ -36,6 +36,7 @@ import com.day.cq.dam.api.Asset;
 import com.day.cq.dam.api.DamConstants;
 import com.day.cq.wcm.api.designer.Style;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.waters.aem.core.components.SiteContext;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.services.brightcove.BrightcoveService;
@@ -61,10 +62,14 @@ import com.waters.aem.core.utils.BrightcoveUtils;
     defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME,
     extensions = ExporterConstants.SLING_MODEL_EXTENSION)
+
 public final class VisualGallery implements ComponentExporter {
 
 	public static final String RESOURCE_TYPE = "waters/components/content/visualgallery";
 	
+	 private static final ObjectMapper MAPPER = new ObjectMapper();
+	
+	 private static final String SRC_URI_TEMPLATE_WIDTH = "{{width}}";
 
 	@OSGiService
 	private BrightcoveService brightcoveService;
@@ -100,7 +105,7 @@ public final class VisualGallery implements ComponentExporter {
 	private String[] videoIds = new String[0];
 
 
-	public Map<String, Object> getImageGalleryAsJson() throws JsonProcessingException {
+	public String getImageGalleryAsJson() throws JsonProcessingException {
 		final Map<String, Object> jsonMap = new HashMap<>();
 		jsonMap.put("images", getAssetsList());
 		jsonMap.put("widths", getWidths());
@@ -108,7 +113,7 @@ public final class VisualGallery implements ComponentExporter {
 		jsonMap.put("brightcoveAccount", getBrightcoveAccount());
 		jsonMap.put("brightcovePlayerId", getBrightcovePlayerId());
 
-		return jsonMap;
+		return MAPPER.writeValueAsString(jsonMap);
 	}
 
 	private List<Map<String, String>> getAssetsList() {
@@ -125,7 +130,7 @@ public final class VisualGallery implements ComponentExporter {
 				imageMap.put("src", asset.getPath());
 				imageMap.put("title", asset.getMetadataValue(DamConstants.DC_TITLE) == null ? StringUtils.EMPTY
 						: asset.getMetadataValue(DamConstants.DC_TITLE));
-				imageMap.put("alt", alt == null ? StringUtils.EMPTY : alt);
+				imageMap.put("alt", alt == null ? StringUtils.EMPTY : alt);	
 				imageMap.put("description",
 						asset.getMetadataValue(DamConstants.DC_DESCRIPTION) == null ? StringUtils.EMPTY
 								: asset.getMetadataValue(DamConstants.DC_DESCRIPTION));
