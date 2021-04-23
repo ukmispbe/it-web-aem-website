@@ -269,7 +269,7 @@ class SearchBar extends Component {
 
     getFacetStructure = (contentType, category) => (
         <span className="formatted-facet">
-            in <span className="white-text">_</span>
+            in<span className="white-text">_</span>
             <strong>{facet.contenttype}</strong>
             <span className="white-text">_</span>
             in<span className="white-text">_</span>
@@ -278,14 +278,16 @@ class SearchBar extends Component {
     )
 
     formatFacets = (facets, suggestion = '') => facets.map(facet => {
-            return {
-                key: suggestion,
-                category: facet.category,
-                contentType: facet.contenttype,
-                type: FACET,
-                value: <span className="formatted-facet">in <span className="white-text">_</span><strong>{facet.contenttype}</strong><span className="white-text">_</span>in<span className="white-text">_</span>{ facet.category }</span>
-            }
-        });
+        const category = facet && facet.category || '';
+        const contentType = facet && facet.contenttype || '';
+        return {
+            key: suggestion,
+            category,
+            contentType,
+            type: FACET,
+            value: this.getFacetStructure(contentType, category)
+        }
+    });
 
     formatSuggestion = (term, suggestion) =>{
         // wrap the matching characters with a pipe | escape all possible regex special characters
