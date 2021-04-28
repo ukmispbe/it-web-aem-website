@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from "prop-types";
 import Modal, { Header, keys } from "../utils/modal";
 import Tabs from "../navigation/tabs";
-import './overlaywith.css';
+import '../styles/overlay-with-tabs.scss';
 
 const OverlayWithTabs = props => {
     const [state, setState] = useState({

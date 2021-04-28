@@ -1,5 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Thumbnail /> should render correctly 1`] = `ShallowWrapper {}`;
+exports[`<OverlayWithTabs /> should render component without tabs 1`] = `ShallowWrapper {}`;
 
-exports[`<Thumbnail /> should render image without label 1`] = `ShallowWrapper {}`;
+exports[`<OverlayWithTabs /> should render correctly 1`] = `ShallowWrapper {}`;
