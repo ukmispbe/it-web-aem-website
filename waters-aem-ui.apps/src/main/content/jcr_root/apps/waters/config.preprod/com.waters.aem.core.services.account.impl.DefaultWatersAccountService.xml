@@ -24,4 +24,5 @@
           countryListUrl="https://api-sbox.waters.com/preprod-waters-country-exp-api-v1/api/countries"
           countryStatesUrl="https://api-sbox.waters.com/preprod-waters-country-exp-api-v1/api/countries/{country}?states=true"
           supportRequestUrl="https://api-sbox.waters.com/pp-waters-supportcase-web-exp-api-v1/api/support-case"
-          supportRequestEquipmentUrl="https://api-sbox.waters.com/pp-waters-asset-web-exp-api-v1/api/equipment"  />
+          supportRequestEquipmentUrl="https://api-sbox.waters.com/pp-waters-asset-web-exp-api-v1/api/equipment"
+          softwareDownloadUrl="https://videos.waters.com" />

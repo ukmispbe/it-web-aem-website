@@ -9,7 +9,9 @@ import loginStatus from "../scripts/loginStatus";
 import { notLoggedInRedirect } from '../utils/redirectFunctions';
 import Spinner from "../utils/spinner";
 import { isCartHidden, elementLocator } from '../utils/eCommerceFunctions';
-import { isEprocurementUserRole, getShipOrBillChangeFlag } from '../utils/userFunctions';
+import { isEprocurementUserRole, getShipOrBillChangeFlag, isSoftwareManager } from '../utils/userFunctions';
+import ScreenSizes from '../scripts/screenSizes';
+
 import ReactSVG from 'react-svg';
 
 const Aside = props => {
@@ -61,7 +63,9 @@ const Tile = ({tile, pathname}) => {
     if ((tile.requiresEcommerce === "true" && isCartHidden()) || (tile.isHiddenForEprocUser === "true" && isEprocurementUserRole())) {
         return <></>;
     }
-
+    if (tile.requiresSoftwareManager && tile.requiresSoftwareManager === "true" && (isSoftwareManager() === 0 || ScreenSizes.isTabletAndUnder())) {
+        return <></>;
+    }
     return (
         <div className="tile" data-locator="my-account-tile">
             <div className="tile__title" data-locator="my-account-title-tile">{tile.title}</div>
@@ -111,7 +115,8 @@ const ActiveLink = ({text}) => <span className="link--active" data-locator={elem
 
 const HyperLink = ({link}) => link.url.startsWith("#") ?
                 <Link to={`/${link.url.substring(1, link.url.length)}`} onClick={()=>setClickAnalytics("Side Navigation", link.linkName ? link.linkName : link.text, link.url)} data-locator={elementLocator(link.text)}>{link.text}</Link> :
-                <a href={link.url}  onClick={()=>setClickAnalytics("Side Navigation", link.linkName ? link.linkName : link.text, link.url)} data-locator={elementLocator(link.text)}>{link.text}</a>
+                <a href={link.url} target={link.target ? link.target : undefined} onClick={()=>setClickAnalytics("Side Navigation", link.linkName ? link.linkName : link.text, link.url)} data-locator={elementLocator(link.text)}>{link.text}</a>
+
 
 Aside.propTypes = {
     tiles: PropTypes.arrayOf(PropTypes.shape({
