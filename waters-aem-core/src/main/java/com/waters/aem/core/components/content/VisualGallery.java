@@ -67,6 +67,8 @@ public final class VisualGallery implements ComponentExporter {
 
 	public static final String RESOURCE_TYPE = "waters/components/content/visualgallery";
 	
+	public String[] tabs = {"Images", "Videos"};
+	
 	 private static final ObjectMapper MAPPER = new ObjectMapper();
 	
 	 private static final String SRC_URI_TEMPLATE_WIDTH = "{{width}}";
@@ -112,6 +114,7 @@ public final class VisualGallery implements ComponentExporter {
 		jsonMap.put("videoIds", getVideoIds());
 		jsonMap.put("brightcoveAccount", getBrightcoveAccount());
 		jsonMap.put("brightcovePlayerId", getBrightcovePlayerId());
+		jsonMap.put("tabs", getTabs());
 
 		return MAPPER.writeValueAsString(jsonMap);
 	}
@@ -150,6 +153,10 @@ public final class VisualGallery implements ComponentExporter {
 
 	public String[] getVideoIds() {
 		return videoIds;
+	}
+	
+	public String[] getTabs() {
+		return tabs;
 	}
 
 	public String getBrightcoveAccount() {
