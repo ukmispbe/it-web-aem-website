@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
@@ -40,6 +41,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.waters.aem.core.components.SiteContext;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.services.brightcove.BrightcoveService;
+import com.waters.aem.core.servlets.ResizeImageServlet;
 import com.waters.aem.core.utils.AssetUtils;
 import com.waters.aem.core.utils.BrightcoveUtils;
 
@@ -66,6 +68,8 @@ import com.waters.aem.core.utils.BrightcoveUtils;
 public final class VisualGallery implements ComponentExporter {
 
 	public static final String RESOURCE_TYPE = "waters/components/content/visualgallery";
+	
+	public String[] tabs = {"Images", "Videos"};
 	
 	 private static final ObjectMapper MAPPER = new ObjectMapper();
 	
@@ -112,6 +116,7 @@ public final class VisualGallery implements ComponentExporter {
 		jsonMap.put("videoIds", getVideoIds());
 		jsonMap.put("brightcoveAccount", getBrightcoveAccount());
 		jsonMap.put("brightcovePlayerId", getBrightcovePlayerId());
+		jsonMap.put("tabs", getTabs());
 
 		return MAPPER.writeValueAsString(jsonMap);
 	}
@@ -127,7 +132,7 @@ public final class VisualGallery implements ComponentExporter {
 				Asset asset = AssetUtils.getAsset(resource.getResourceResolver(), image);
 				String alt = AssetUtils.getAltText(asset);
 				//In Build URI method also we are doing this in case of false
-				imageMap.put("src", asset.getPath());
+				imageMap.put("src", buildUri(asset, true));		
 				imageMap.put("title", asset.getMetadataValue(DamConstants.DC_TITLE) == null ? StringUtils.EMPTY
 						: asset.getMetadataValue(DamConstants.DC_TITLE));
 				imageMap.put("alt", alt == null ? StringUtils.EMPTY : alt);	
@@ -147,9 +152,39 @@ public final class VisualGallery implements ComponentExporter {
 	private List<String> getWidths() {
 		return Arrays.asList(currentStyle.get(Image.PN_DESIGN_ALLOWED_RENDITION_WIDTHS, new String[0]));
 	}
+	
+    private String buildUri(final Asset asset, final boolean template) {
+        final StringBuilder builder = new StringBuilder();
+
+        // append the DAM asset path
+        builder.append(asset.getPath());
+
+        if (template) {
+            builder.append(".");
+
+            // width selector
+            builder.append(SRC_URI_TEMPLATE_WIDTH);
+            builder.append(".");
+
+            // 'resize' extension to resolve the resize image servlet
+            builder.append(ResizeImageServlet.RESIZE_EXTENSION);
+            builder.append("/");
+            builder.append(ResizeImageServlet.SUFFIX_NAME);
+            builder.append(".");
+
+            // add the extension derived from DAM asset name
+            builder.append(FilenameUtils.getExtension(asset.getName()));
+        }
+
+        return builder.toString();
+    }
 
 	public String[] getVideoIds() {
 		return videoIds;
+	}
+	
+	public String[] getTabs() {
+		return tabs;
 	}
 
 	public String getBrightcoveAccount() {
