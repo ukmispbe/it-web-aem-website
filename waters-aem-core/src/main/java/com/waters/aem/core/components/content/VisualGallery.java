@@ -129,7 +129,7 @@ public final class VisualGallery implements ComponentExporter {
 				Asset asset = AssetUtils.getAsset(resource.getResourceResolver(), image);
 				String alt = AssetUtils.getAltText(asset);
 				//In Build URI method also we are doing this in case of false
-				imageMap.put("src", buildUri(asset, true));		
+				imageMap.put("src", buildassetUri(asset, true));
 				imageMap.put("title", asset.getMetadataValue(DamConstants.DC_TITLE) == null ? StringUtils.EMPTY
 						: asset.getMetadataValue(DamConstants.DC_TITLE));
 				imageMap.put("alt", alt == null ? StringUtils.EMPTY : alt);	
@@ -150,26 +150,18 @@ public final class VisualGallery implements ComponentExporter {
 		return Arrays.asList(currentStyle.get(Image.PN_DESIGN_ALLOWED_RENDITION_WIDTHS, new String[0]));
 	}
 	
-    private String buildUri(final Asset asset, final boolean template) {
+    private String buildassetUri(final Asset asset, final boolean template) {
         final StringBuilder builder = new StringBuilder();
-
-        // append the DAM asset path
         builder.append(asset.getPath());
 
         if (template) {
             builder.append(".");
-
-            // width selector
             builder.append(SRC_URI_TEMPLATE_WIDTH);
             builder.append(".");
-
-            // 'resize' extension to resolve the resize image servlet
             builder.append(ResizeImageServlet.RESIZE_EXTENSION);
             builder.append("/");
             builder.append(ResizeImageServlet.SUFFIX_NAME);
             builder.append(".");
-
-            // add the extension derived from DAM asset name
             builder.append(FilenameUtils.getExtension(asset.getName()));
         }
 
