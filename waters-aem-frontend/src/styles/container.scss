@@ -71,6 +71,11 @@
             left: 0;
             position: absolute;
             transform: translateY(0);
+
+            @include mobile {
+                object-fit: cover;
+                height: 100%;
+            }
         }
 
         .cmp-image__title {
