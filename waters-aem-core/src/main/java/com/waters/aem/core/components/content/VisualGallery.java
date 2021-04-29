@@ -151,21 +151,21 @@ public final class VisualGallery implements ComponentExporter {
 	}
 	
     private String buildassetUri(final Asset asset, final boolean template) {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(asset.getPath());
+        final StringBuilder build = new StringBuilder();
+        build.append(asset.getPath());
 
         if (template) {
-            builder.append(".");
-            builder.append(SRC_URI_TEMPLATE_WIDTH);
-            builder.append(".");
-            builder.append(ResizeImageServlet.RESIZE_EXTENSION);
-            builder.append("/");
-            builder.append(ResizeImageServlet.SUFFIX_NAME);
-            builder.append(".");
-            builder.append(FilenameUtils.getExtension(asset.getName()));
+        	build.append(".");
+        	build.append(SRC_URI_TEMPLATE_WIDTH);
+            build.append(".");
+            build.append(ResizeImageServlet.RESIZE_EXTENSION);
+            build.append("/");
+            build.append(ResizeImageServlet.SUFFIX_NAME);
+            build.append(".");
+            build.append(FilenameUtils.getExtension(asset.getName()));
         }
 
-        return builder.toString();
+        return build.toString();
     }
 
 	public String[] getVideoIds() {
