@@ -257,7 +257,7 @@ public final class Footer extends AbstractComponent implements ComponentExporter
     @PostConstruct
     void init() {
         try {
-            if(isAuthor() && isCartCheckoutPage()) {
+            if (isAuthor() && isCartCheckoutPage()) {
                 String countryPagesJson = getCountryPagesJson();
                 ResourceResolver resourceResolver = resourceResolverService.getResourceResolver("watersService");
                 Resource footerResource = resourceResolver.getResource(resource.getPath());
