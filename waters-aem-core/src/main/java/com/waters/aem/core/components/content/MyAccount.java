@@ -162,6 +162,10 @@ public class MyAccount implements ComponentExporter {
     public String getSearchUrl() {
         return searchService.getBaseUrl();
     }
+    
+    public String getSoftwareDownloadUrl() {
+        return accountService.getSoftwareDownloadUrl();
+    }
 
     @Nonnull
     @Override

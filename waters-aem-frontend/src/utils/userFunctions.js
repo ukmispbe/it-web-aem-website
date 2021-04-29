@@ -323,6 +323,7 @@ export const filterUserDetails = (inputUser) => {
         filteredUser.userRole = inputUser.userRole;
         filteredUser.isoCode = inputUser.isoCode;
         filteredUser.shipOrBillChangeFlag = inputUser.shipOrBillChangeFlag;
+        filteredUser.softwareManager = inputUser.softwareManager ?  inputUser.softwareManager : 0;
 
         if (inputUser.soldToAccounts && inputUser.soldToAccounts.length !== 0) {
             filteredUser.soldToAccounts = inputUser.soldToAccounts;
@@ -422,6 +423,11 @@ export const getEprocUserLanguage = () => {
     return userDetails.localeLanguage || '';
 }
 
+export const isSoftwareManager = () => {
+    const store = new SessionStore();
+    const userDetails = store.getUserDetails();
+    return userDetails.softwareManager || 0;
+}
 export const getShipOrBillChangeFlag = () => {
     const store = new SessionStore();
     const userDetails = store.getUserDetails();

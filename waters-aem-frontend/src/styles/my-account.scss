@@ -38,36 +38,35 @@
             }
     
             & > .cmp-linktile {
+                margin-right: $space-l;
+
                 @include tablet-and-under {
                     width: calc(50% - 0.75em);
+                    margin: 0 $space-m $space-s 0;
                 }
-    
+
                 @include mobile {
                     width: 100%;
+                    margin: 0 0 $space-s 0;
                 }
-    
-                &:first-child {
-                    margin-right: $space-l;
+
+                @include tablet-and-under {
+                    &:nth-child(2n) {
+                        margin-right: 0;
+                    }
+                }
+
+                &:last-child {
+                    margin-right: 0;
     
                     @include tablet-and-under {
-                        margin-right: $space-m;
+                        margin: 0 0 $space-s 0;
                     }
-    
                     @include mobile {
-                        margin: 0;
-                        margin-bottom: $space-s;
+                        margin-bottom: 0;
                     }
                 }
-    
-                &:last-child:not(:nth-child(2)){
-                    margin-left: $space-l;
-    
-                    @include tablet-and-under {
-                        margin: 0;
-                        margin-top: $space-s;
-                    }
-                }
-    
+
                 .cmp-linktile--title {
                     @include font-h3;
                     margin-bottom: $space-xxs;

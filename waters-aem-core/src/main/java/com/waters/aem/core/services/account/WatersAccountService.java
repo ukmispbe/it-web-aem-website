@@ -155,5 +155,11 @@ public interface WatersAccountService {
       * @return support request equipment API URL
       */
       String getSupportRequestEquipmentUrl();
-
+      
+      /**
+       * Get the configured URL for the Thales Software Download URL
+       *
+       * @return Thales Software Download URL
+       */
+      String getSoftwareDownloadUrl();
 }
