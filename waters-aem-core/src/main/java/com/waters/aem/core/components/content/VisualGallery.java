@@ -71,8 +71,6 @@ public final class VisualGallery implements ComponentExporter {
 	
 	 private static final ObjectMapper MAPPER = new ObjectMapper();
 	
-	 private static final String SRC_URI_TEMPLATE_WIDTH = "{{width}}";
-
 	@OSGiService
 	private BrightcoveService brightcoveService;
 
@@ -129,7 +127,7 @@ public final class VisualGallery implements ComponentExporter {
 				Asset asset = AssetUtils.getAsset(resource.getResourceResolver(), image);
 				String alt = AssetUtils.getAltText(asset);
 				//In Build URI method also we are doing this in case of false
-				imageMap.put("src", buildassetUri(asset, true));
+				imageMap.put("src", AssetUtils.buildUri(asset, true));
 				imageMap.put("title", asset.getMetadataValue(DamConstants.DC_TITLE) == null ? StringUtils.EMPTY
 						: asset.getMetadataValue(DamConstants.DC_TITLE));
 				imageMap.put("alt", alt == null ? StringUtils.EMPTY : alt);	
@@ -150,24 +148,6 @@ public final class VisualGallery implements ComponentExporter {
 		return Arrays.asList(currentStyle.get(Image.PN_DESIGN_ALLOWED_RENDITION_WIDTHS, new String[0]));
 	}
 	
-    private String buildassetUri(final Asset asset, final boolean template) {
-        final StringBuilder build = new StringBuilder();
-        build.append(asset.getPath());
-
-        if (template) {
-        	build.append(".");
-        	build.append(SRC_URI_TEMPLATE_WIDTH);
-            build.append(".");
-            build.append(ResizeImageServlet.RESIZE_EXTENSION);
-            build.append("/");
-            build.append(ResizeImageServlet.SUFFIX_NAME);
-            build.append(".");
-            build.append(FilenameUtils.getExtension(asset.getName()));
-        }
-
-        return build.toString();
-    }
-
 	public String[] getVideoIds() {
 		return videoIds;
 	}
