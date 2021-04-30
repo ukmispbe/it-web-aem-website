@@ -11,49 +11,56 @@ import org.osgi.service.metatype.annotations.Designate;
 @Designate(ocd = WatersCommerceServiceConfiguration.class)
 public final class DefaultWatersCommerceService implements WatersCommerceService {
 
-    private volatile String skuAvailabilityUrl;
+	private volatile String skuAvailabilityUrl;
 
-    private volatile String skuCustomerPriceUrl;
+	private volatile String skuCustomerPriceUrl;
 
-    private volatile String addToCartUrl;
+	private volatile String addToCartUrl;
 
-    private volatile String ecomViewCartUrl;
+	private volatile String ecomViewCartUrl;
 
-    private volatile String eprocViewCartUrl;
+	private volatile String eprocViewCartUrl;
 
-    @Override
-    public String getSkuAvailabilityUrl() {
-        return skuAvailabilityUrl;
-    }
+	private volatile String requestInformationUrl;
 
-    @Override
-    public String getSkuCustomerPriceUrl() {
-        return skuCustomerPriceUrl;
-    }
+	@Override
+	public String getSkuAvailabilityUrl() {
+		return skuAvailabilityUrl;
+	}
 
-    @Override
-    public String getAddToCartUrl() {
-        return addToCartUrl;
-    }
+	@Override
+	public String getSkuCustomerPriceUrl() {
+		return skuCustomerPriceUrl;
+	}
 
-    @Override
-    public String getEcomViewCartUrl() {
-        return ecomViewCartUrl;
-    }
+	@Override
+	public String getAddToCartUrl() {
+		return addToCartUrl;
+	}
 
-    @Override
-    public String getEprocViewCartUrl() {
-        return eprocViewCartUrl;
-    }
+	@Override
+	public String getEcomViewCartUrl() {
+		return ecomViewCartUrl;
+	}
 
-    @Activate
-    @Modified
-    protected void activate(final WatersCommerceServiceConfiguration configuration) {
-        skuAvailabilityUrl = configuration.skuAvailabilityUrl();
-        skuCustomerPriceUrl = configuration.skuCustomerPriceUrl();
-        addToCartUrl = configuration.addToCartUrl();
-        ecomViewCartUrl = configuration.ecomViewCartUrl();
-        eprocViewCartUrl = configuration.eprocViewCartUrl();
-    }
+	@Override
+	public String getEprocViewCartUrl() {
+		return eprocViewCartUrl;
+	}
+
+	@Override
+	public String getRequestInformationUrl() {
+		return requestInformationUrl;
+	}
+
+	@Activate
+	@Modified
+	protected void activate(final WatersCommerceServiceConfiguration configuration) {
+		skuAvailabilityUrl = configuration.skuAvailabilityUrl();
+		skuCustomerPriceUrl = configuration.skuCustomerPriceUrl();
+		addToCartUrl = configuration.addToCartUrl();
+		ecomViewCartUrl = configuration.ecomViewCartUrl();
+		eprocViewCartUrl = configuration.eprocViewCartUrl();
+		requestInformationUrl = configuration.requestInformationUrl();
+	}
 }
-

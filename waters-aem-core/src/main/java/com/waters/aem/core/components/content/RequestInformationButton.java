@@ -2,6 +2,8 @@ package com.waters.aem.core.components.content;
 
 import static com.icfolson.aem.library.core.constants.ComponentConstants.*;
 
+import java.text.MessageFormat;
+
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
@@ -12,6 +14,7 @@ import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
+import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 import org.apache.sling.models.annotations.injectorspecific.SlingObject;
 
 import com.adobe.cq.export.json.ComponentExporter;
@@ -22,6 +25,7 @@ import com.citytechinc.cq.component.annotations.Listener;
 import com.citytechinc.cq.component.annotations.Option;
 import com.citytechinc.cq.component.annotations.widgets.Selection;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
+import com.waters.aem.core.services.commerce.WatersCommerceService;
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.wcm.api.Page;
 
@@ -40,11 +44,14 @@ public final class RequestInformationButton implements ComponentExporter {
 
 	@SlingObject
 	ResourceResolver resolver;
-	
+
 	@Inject
-    Page currentPage;
-	
-	@DialogField(fieldLabel = "Button Text", fieldDescription = "Enter the text for the button" , required = true)
+	Page currentPage;
+
+	@OSGiService
+	private WatersCommerceService watersCommerceServices;
+
+	@DialogField(fieldLabel = "Button Text", fieldDescription = "Enter the text for the button", required = true)
 	@TextField
 	@Inject
 	private String buttonText;
@@ -67,18 +74,15 @@ public final class RequestInformationButton implements ComponentExporter {
 	@Inject
 	private String requestType;
 
-    public String getPageTitle(){
-        ValueMap pageProperties = currentPage.getProperties();
-        return pageProperties.get(JcrConstants.JCR_TITLE,String.class);
-    }
-   
+	private String getPageTitle() {
+		ValueMap pageProperties = currentPage.getProperties();
+		return pageProperties.get(JcrConstants.JCR_TITLE, String.class);
+	}
+
 	public String getHref() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("https://www.waters.com/waters/contactUs.htm?pageFromTitle=").append(getPageTitle());
-		if (StringUtils.isNotEmpty(requestType)) {
-			builder.append("&raqType=").append(requestType).append("&raqOnly=Y");
-		}
-		return builder.toString();
+		
+		return MessageFormat.format(watersCommerceServices.getRequestInformationUrl(), requestType,getPageTitle());
+		
 	}
 
 	public String getButtonText() {

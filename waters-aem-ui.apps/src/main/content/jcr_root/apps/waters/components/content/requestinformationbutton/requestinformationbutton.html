@@ -1,7 +1,7 @@
 <a data-sly-use.button="com.waters.aem.core.components.content.RequestInformationButton"
    data-sly-test="${button.buttonText}"
    class="cmp-RequestInformationButton"
-   href="${button.href}"
+   href="${button.href @context='unsafe'}"
    title="${button.buttonToolTip}">
     ${button.buttonText}
 </a>
