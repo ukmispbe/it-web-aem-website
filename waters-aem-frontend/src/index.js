@@ -399,7 +399,7 @@ if (registrationFormContainer) {
     );
 
     const country = DigitalData.page.country.toLowerCase();
-
+    // const country = "kr";
     const configRegistrationAddressForm = JSON.parse(
         document.getElementById('cmp-registration-address-form').innerHTML
     );
@@ -427,7 +427,7 @@ if (registrationFormContainer) {
         ).koreanDisclosures;
 
         const indexofPrivacy = config.fields.map(e => e.name).indexOf('privacy');
-        config.fields[indexofPrivacy].config = KRconfig;
+        config.fields[indexofPrivacy].consentUrl = KRconfig;
     }
 
     if (configRegistrationForm.formName === "registration" && (country === "jp" || country === "cn" || country === "tw" || country === "kr")) {

@@ -71,27 +71,19 @@ public class Registration implements ComponentExporter {
     @LinkInject
     private Link loginLink;
 
-    @DialogField(fieldLabel = "Privacy Notice Link",
-        fieldDescription = "Select or enter the link URL",
+    @DialogField(fieldLabel = "Registration Consent Link",
+            fieldDescription = "Select or enter the link URL for the Registration Consent Content Fragment",
         required  = true,
         ranking = 2)
-    @PathField(rootPath = WatersConstants.ROOT_PATH)
+    @PathField(rootPath = WatersConstants.DAM_PATH)
     @LinkInject
-    private Link privacyNoticeLink;
-
-    @DialogField(fieldLabel = "Terms of Use Link",
-        fieldDescription = "Select or enter the link URL for Terms of Use",
-        required  = true,
-        ranking = 3)
-    @PathField(rootPath = WatersConstants.ROOT_PATH)
-    @LinkInject
-    private Link termsOfUseLink;
+    private Link consentLink;
 
     @DialogField(fieldLabel = "Redirect Link",
         fieldDescription = "Select or enter the redirect link URL. The destination page the user will be redirected " +
         "to after successful submission",
         required  = true,
-        ranking = 4)
+        ranking = 3)
     @PathField(rootPath = WatersConstants.ROOT_PATH)
     @LinkInject
     private Link redirectLink;
@@ -100,7 +92,7 @@ public class Registration implements ComponentExporter {
             fieldDescription = "Select or enter the redirect link URL. The destination page the user will be redirected " +
                     "to after successful submission",
             required  = true,
-            ranking = 5)
+            ranking = 4)
     @PathField(rootPath = WatersConstants.ROOT_PATH)
     @LinkInject
     private Link redirectEcommLink;
@@ -121,48 +113,32 @@ public class Registration implements ComponentExporter {
     @Default(booleanValues = false)
     private Boolean twoStepRegistrationForm;
 
-    @DialogField(fieldLabel = "Privacy Disclosures Link",
-            fieldDescription = "Select or enter the link URL for Privacy Disclosures",
+    @DialogField(fieldLabel = "Korean Registration Consent Link",
+            fieldDescription = "Select or enter the link URL for the Korean Registration Consent Content Fragment",
             tab = 2,
             ranking = 1)
-    @PathField(rootPath = WatersConstants.ROOT_PATH)
+    @PathField(rootPath = WatersConstants.DAM_PATH)
     @LinkInject
-    private Link privacyDisclosuresLink;
-
-    @DialogField(fieldLabel = "Consent Disclosures Link",
-            fieldDescription = "Select or enter the link URL for Consent Disclosures",
-            tab = 2,
-            ranking = 2)
-    @PathField(rootPath = WatersConstants.ROOT_PATH)
-    @LinkInject
-    private Link consentDisclosuresLink;
+    private Link koreanConsentLink;
 
     public Link getLoginLink() {
         return LinkUtils.getExternalizedLink(pageManager, loginLink);
     }
 
-    public Link getPrivacyNoticeLink() {
-        return LinkUtils.getMappedLink(pageManager, privacyNoticeLink);
+    public Link getConsentLink() {
+        return LinkUtils.getMappedLink(pageManager, consentLink);
     }
 
     public Link getRedirectLink() {
         return LinkUtils.getExternalizedLink(pageManager, redirectLink);
     }
 
-    public Link getTermsOfUseLink() {
-        return termsOfUseLink;
-    }
-
     public Link getRedirectEcommLink() {
         return LinkUtils.getExternalizedLink(pageManager, redirectEcommLink);
     }
 
-    public Link getPrivacyDisclosuresLink() {
-        return privacyDisclosuresLink;
-    }
-
-    public Link getConsentDisclosuresLink() {
-        return consentDisclosuresLink;
+    public Link getKoreanConsentLink() {
+        return LinkUtils.getExternalizedLink(pageManager, koreanConsentLink);
     }
 
     public Boolean isNewWindow() {
