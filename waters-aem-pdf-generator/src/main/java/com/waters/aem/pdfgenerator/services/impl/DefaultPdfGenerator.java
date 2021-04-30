@@ -32,6 +32,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Date;
+import org.apache.sling.api.resource.ValueMap;
+import com.waters.aem.core.services.ResourceResolverService;
+import java.text.SimpleDateFormat;
 
 import static com.google.common.base.Preconditions.checkState;
 
@@ -49,6 +53,9 @@ public final class DefaultPdfGenerator implements PdfGenerator {
 
     @Reference
     private Externalizer externalizer;
+
+    @Reference
+    private ResourceResolverService resourceResolverService;
 
     private volatile boolean enabled;
 
@@ -72,6 +79,8 @@ public final class DefaultPdfGenerator implements PdfGenerator {
     @Override
     public Asset generatePdfDocumentAssetFromHtml(final PageDecorator page) throws IOException {
         final Asset asset;
+
+        if(!isPdfActivationDateLessThanPageModify(page)) return null;
 
         try (final ByteArrayOutputStream pdfOutputStream = createPdfOutputStream(page, true)) {
             // convert output stream to input stream to store asset
@@ -201,5 +210,38 @@ public final class DefaultPdfGenerator implements PdfGenerator {
 
         return externalizer.externalLink(page.getContentResource().getResourceResolver(),
             publish ? Externalizer.PUBLISH : Externalizer.AUTHOR, builder.build().getHref());
+    }
+
+    private boolean isPdfActivationDateLessThanPageModify(final PageDecorator page) {
+        boolean status = true;
+        try {
+            final String pdfAssetPath = page.getContentResource().adaptTo(ApplicationNotes.class).getPdfAssetPath();
+            ResourceResolver resourceResolver = resourceResolverService.getResourceResolver("watersService");
+            Resource resource = resourceResolver.getResource(pdfAssetPath);
+            if(resource != null) {
+                LOG.info("Resource exists, path: {}", resource.getPath());
+                Resource jcrResource = resourceResolver.getResource(pdfAssetPath+"/jcr:content");
+                ValueMap property = jcrResource.adaptTo(ValueMap.class);
+
+                Date pdfLastReplicated = property.get("cq:lastReplicated", Date.class);
+                Date pageLastModified =  page.getLastModified().getTime();
+
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                pdfLastReplicated = sdf.parse(sdf.format(pdfLastReplicated));
+                pageLastModified = sdf.parse(sdf.format(pageLastModified));
+
+                if(pdfLastReplicated.before(pageLastModified)) {
+                    LOG.info("PDF lastReplicated date is less than page lastModified : {}, {}", pdfLastReplicated, pageLastModified);
+                } else {
+                    LOG.info("PDF lastReplicated date is not less than page lastModified : {}, {}", pdfLastReplicated, pageLastModified);
+                    status = false;
+                }
+            } else {
+                LOG.info("Resource does not exist");
+            }
+        } catch (Exception e) {
+            LOG.error("Exception occurred while fetching Pdf Activation Date and Page Modify: {}", e);
+        }
+        return status;
     }
 }
