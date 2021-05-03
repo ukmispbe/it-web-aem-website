@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import OverlayWithTabs from "../overlay-with-tabs/OverlayWithTabs";
-import ImageGallery from "./overlay-image-gallery/OverlayImageGallery";
+import ImageGallery from "./overlay/OverlayImageGallery";
+import { WIDTHS } from "../constants";
 
-const VisualGallery = ({ tabs, templates, widths, zoomLabel, zoomInIcon }) => {
+const VisualGallery = ({ tabs, templates, videoIds, widths, zoomLabel, zoomInIcon }) => {
   const [activeTabIndex, setActiveTabIndex] = useState(0);
   const [isOpen, setIsOpen] = useState(true);
 
@@ -13,6 +14,7 @@ const VisualGallery = ({ tabs, templates, widths, zoomLabel, zoomInIcon }) => {
 
   return (
     <div>
+      
       <OverlayWithTabs
         isOpen={isOpen}
         tabs={tabs}
@@ -20,17 +22,21 @@ const VisualGallery = ({ tabs, templates, widths, zoomLabel, zoomInIcon }) => {
         activeTabHandler={activeTabHandler}
       >
         <div>
-          <div style={{ display: activeTabIndex === 0 ? "block" : "none" }}>
-            <ImageGallery
-              templates={templates}
-              widths={widths}
-              zoomInIcon={zoomInIcon}
-              zoomLabel={zoomLabel}
-            />
-          </div>
-          <div style={{ display: activeTabIndex === 1 ? "block" : "none" }}>
-            {tabs[1]}
-          </div>
+          {templates.length > 0 && (
+            <div style={{ display: activeTabIndex === 0 ? "block" : "none" }}>
+              <ImageGallery
+                templates={templates}
+                widths={widths}
+                zoomInIcon={zoomInIcon}
+                zoomLabel={zoomLabel}
+              />
+            </div>
+          )}
+          {videoIds.length > 0 && (
+            <div style={{ display: activeTabIndex === 1 ? "block" : "none" }}>
+              {tabs[1]}
+            </div>
+          )}
         </div>
       </OverlayWithTabs>
     </div>
@@ -38,7 +44,7 @@ const VisualGallery = ({ tabs, templates, widths, zoomLabel, zoomInIcon }) => {
 };
 
 VisualGallery.defaultProps = {
-  widths: ["128", "140", "256", "320", "375", "620", "770", "1280"],
+  widths: WIDTHS,
 };
 
 VisualGallery.propTypes = {

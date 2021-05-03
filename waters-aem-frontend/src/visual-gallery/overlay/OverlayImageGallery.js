@@ -1,8 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import ReactSVG from "react-svg";
-import ImageViewer from "./image-viewer";
 import Thumbnail from "../../thumbnail/Thumbnail";
+import PreviewPlayer from "../../preview-player";
+import { replaceInSrc } from "../../utils/userFunctions";
+import { WIDTHS } from "../../constants";
 
 import "../../styles/overlay-image-gallery.scss";
 
@@ -11,8 +13,7 @@ class ImageGallery extends React.Component {
     super();
 
     this.state = {
-      activeIndex: 0,
-      figureWidth: 0,
+      activeIndex: 0,    
       thumbnailClicked: false,
     };
   }
@@ -47,12 +48,11 @@ class ImageGallery extends React.Component {
           <ReactSVG src={this.props.zoomInIcon} />
           {this.props.zoomLabel}
         </div>
-        <ImageViewer
-          key={template}
-          template={template}
+        <PreviewPlayer          
+          imgSrc={template.src}
           widths={this.props.widths}
-          alt={this.props.alt}
-          isActive={index === this.state.activeIndex}
+          alt={template.alt}
+          defaultImage={replaceInSrc(template.src, WIDTHS[0])}          
         />
         <div className="image-description">{template.title}</div>
       </div>
@@ -63,7 +63,7 @@ class ImageGallery extends React.Component {
     this.props.templates.length > 0 ? (
       this.props.templates.map((item, index) => (
         <Thumbnail
-          thumbnailSrcURL={item.src.replace(/{{width}}/gi, this.props.width[0])}
+          thumbnailSrcURL={replaceInSrc(item.src, WIDTHS[0])}
           thumbnailAltText={item.alt}
           isVideo={item.src === undefined}
           onThumbnailClick={() => this.handleThumbnailClick(index)}
@@ -75,7 +75,7 @@ class ImageGallery extends React.Component {
 }
 
 ImageGallery.defaultProps = {
-  widths: ["128", "140", "256", "320", "375", "620", "770", "1280"],
+  widths: WIDTHS,
 };
 
 ImageGallery.propTypes = {

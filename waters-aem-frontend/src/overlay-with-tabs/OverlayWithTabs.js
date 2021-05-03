@@ -5,8 +5,7 @@ import Tabs from "../navigation/tabs";
 import "../styles/overlay-with-tabs.scss";
 
 const OverlayWithTabs = (props) => {
-  const [state, setState] = useState({
-    open: props.isOpen,
+  const [state, setState] = useState({    
     gallerySelected: "",
     activeTabFilter: "",
     activeTabIndex: 0,
@@ -37,7 +36,7 @@ const OverlayWithTabs = (props) => {
 
     return (
       <Tabs
-        className="cmp-search__categories-tabs"
+        className="cmp-visualgallery__tabs"
         items={tabs}
         activeIndex={state.activeTabIndex}
         onClick={(e) => handleGallerySelected(e)}

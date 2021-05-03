@@ -1,33 +1,35 @@
 @import "variables.scss";
+@import 'mixins.scss';
+@import 'typography.scss';
 
 .overlay-image-thumbnails-placeholder {
-  margin-top: $space-m;
+  margin-top: $space-l;
 }
 .overlay-image-view-placeholder {
-  max-width: 950px;
-  img {
-    width: 100%;
-  }
+  .image-area-wrapper {
+    margin: 0 $space-s;
+    max-width: 950px;
+    img {
+      width: 100%;
+    }
+  }  
 }
 
-.image-area-wrapper {
-  padding: 0 $space-s;
-}
-
-.image-area-wrapper figure {
-  margin: 0 0 $space-s 0;
-}
-
-.tap-to-zoom {
-  text-align: center;
-  margin-bottom: $space-xs;
+.tap-to-zoom {    
+  display: flex;
+  justify-content: center;
   svg {
     width: $icon-m;
     height: $icon-m;
+    padding-right: $space-xxxs;
+  }
+  .zoom-label {
+    @include font-utility;
   }
 }
 
 .image-description {
   border-top: $border-light;
   padding-top: $space-xxs;
+  @include font-caption;
 }
