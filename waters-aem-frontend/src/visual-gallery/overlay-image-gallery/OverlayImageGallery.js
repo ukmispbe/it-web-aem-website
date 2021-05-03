@@ -4,7 +4,7 @@ import ReactSVG from "react-svg";
 import ImageViewer from "./image-viewer";
 import Thumbnail from "../../thumbnail/Thumbnail";
 
-import "../../styles/OverlayImageGallery.scss";
+import "../../styles/overlay-image-gallery.scss";
 
 class ImageGallery extends React.Component {
   constructor() {
