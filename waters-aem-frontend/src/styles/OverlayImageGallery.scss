@@ -1,0 +1,33 @@
+@import "variables.scss";
+
+.overlay-image-thumbnails-placeholder {
+  margin-top: $space-m;
+}
+.overlay-image-view-placeholder {
+  max-width: 950px;
+  img {
+    width: 100%;
+  }
+}
+
+.image-area-wrapper {
+  padding: 0 $space-s;
+}
+
+.image-area-wrapper figure {
+  margin: 0 0 $space-s 0;
+}
+
+.tap-to-zoom {
+  text-align: center;
+  margin-bottom: $space-xs;
+  svg {
+    width: $icon-m;
+    height: $icon-m;
+  }
+}
+
+.image-description {
+  border-top: $border-light;
+  padding-top: $space-xxs;
+}
