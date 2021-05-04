@@ -399,7 +399,6 @@ if (registrationFormContainer) {
     );
 
     const country = DigitalData.page.country.toLowerCase();
-    // const country = "kr";
     const configRegistrationAddressForm = JSON.parse(
         document.getElementById('cmp-registration-address-form').innerHTML
     );
