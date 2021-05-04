@@ -7,7 +7,6 @@ import java.text.MessageFormat;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ValueMap;
@@ -25,9 +24,9 @@ import com.citytechinc.cq.component.annotations.Listener;
 import com.citytechinc.cq.component.annotations.Option;
 import com.citytechinc.cq.component.annotations.widgets.Selection;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
-import com.waters.aem.core.services.commerce.WatersCommerceService;
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.wcm.api.Page;
+import com.waters.aem.core.services.commerce.impl.DefaultWatersCommerceService;
 
 @Component(value = "Request Information Button", 
 			description = "This is the Request Information Button component for Waters site", 
@@ -49,7 +48,7 @@ public final class RequestInformationButton implements ComponentExporter {
 	Page currentPage;
 
 	@OSGiService
-	private WatersCommerceService watersCommerceServices;
+	private DefaultWatersCommerceService defaultWatersCommerceService;
 
 	@DialogField(fieldLabel = "Button Text", fieldDescription = "Enter the text for the button", required = true)
 	@TextField
@@ -61,7 +60,7 @@ public final class RequestInformationButton implements ComponentExporter {
 	@Inject
 	private String buttonToolTip;
 
-	@DialogField(fieldLabel = "Request Type", fieldDescription = "Select the Request Type" , required = true)
+	@DialogField(fieldLabel = "Request Type", fieldDescription = "Select the Request Type", required = true)
 	@Selection(
 	        type = Selection.SELECT,
 	        options = {
@@ -80,9 +79,8 @@ public final class RequestInformationButton implements ComponentExporter {
 	}
 
 	public String getHref() {
-		
-		return MessageFormat.format(watersCommerceServices.getRequestInformationUrl(), requestType,getPageTitle());
-		
+		return MessageFormat.format(defaultWatersCommerceService.getRequestInformationUrl(), requestType, getPageTitle());
+
 	}
 
 	public String getButtonText() {
