@@ -36,8 +36,7 @@ import static com.icfolson.aem.library.core.constants.ComponentConstants.REFRESH
     description = "This is the Registration Form component for Waters site",
     path = WatersConstants.COMPONENT_PATH_FORMS,
         tabs = {
-                @Tab(title = "Registration"),
-                @Tab(title = "Legal (Korea)")
+                @Tab(title = "Registration")
         },
     listeners = {
         @Listener(name = EVENT_AFTER_EDIT, value = REFRESH_PAGE),
@@ -113,14 +112,6 @@ public class Registration implements ComponentExporter {
     @Default(booleanValues = false)
     private Boolean twoStepRegistrationForm;
 
-    @DialogField(fieldLabel = "Korean Registration Consent Link",
-            fieldDescription = "Select or enter the link URL for the Korean Registration Consent Content Fragment",
-            tab = 2,
-            ranking = 1)
-    @PathField(rootPath = WatersConstants.DAM_PATH)
-    @LinkInject
-    private Link koreanConsentLink;
-
     public Link getLoginLink() {
         return LinkUtils.getExternalizedLink(pageManager, loginLink);
     }
@@ -135,10 +126,6 @@ public class Registration implements ComponentExporter {
 
     public Link getRedirectEcommLink() {
         return LinkUtils.getExternalizedLink(pageManager, redirectEcommLink);
-    }
-
-    public Link getKoreanConsentLink() {
-        return LinkUtils.getExternalizedLink(pageManager, koreanConsentLink);
     }
 
     public Boolean isNewWindow() {
