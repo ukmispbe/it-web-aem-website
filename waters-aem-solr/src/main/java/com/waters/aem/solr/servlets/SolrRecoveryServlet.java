@@ -27,6 +27,7 @@ import org.apache.sling.api.servlets.SlingSafeMethodsServlet;
 import org.apache.sling.servlets.annotations.SlingServletResourceTypes;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -101,6 +102,7 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 	private static final String ACTION = "action";
 	
 	private static final String DOCUMENTCOUNT = "documentsCount";
+	private static final String FULLTEXT = "FULLTEXT";
 
 	@Override
 	protected void doGet(@Nonnull final SlingHttpServletRequest request,
@@ -115,135 +117,28 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 		final boolean includeDescendants = Boolean.parseBoolean(request.getParameter("includeDescendants"));
 		final boolean fullIndex = Boolean.parseBoolean(request.getParameter("fullIndex"));
 		final String solrHostUrl = (String) props.get("solrHostName");
-		final Date date = new Date();
-		final SimpleDateFormat formatter = new SimpleDateFormat("ddMMMHHmmss");
-
 		ForkJoinPool forkJoinPool = getForkJoinPool(props);
-		HttpResponse httpResponse;
-		StatusLine statusLine = null;
-		String collectionAlias = null;
+		final boolean enableDeleteOldCollections = (boolean) props.get("enableDeleteOldCollections");
 
-		final PageDecorator page = request.getResourceResolver().adaptTo(PageManagerDecorator.class).getPage(pagePath);
+		final PageDecorator page = getPage(request, pagePath);
 
 		boolean success = false;
-		String collectionAction;
 
 		if (fullIndex) {
-			List<String> indexPaths = getIndexPathsList(request);
-			if (indexPaths.isEmpty()) {
-				LOG.error("No pages for Full indexing: {}", indexPaths.size());
-				success = false;
-			} else {
-				if (fullIndex && !fullIndexInProgress) {
-					collectionName = WATERS + "-" + formatter.format(date);
-					fullIndexInProgress = true;
-					collectionAction = CREATE;
-					httpResponse = getCollectionActionResponse(collectionName, enableAuthentication, solrHostUrl,
-							collectionAction);
-					if (httpResponse != null) {
-						statusLine = httpResponse.getStatusLine();
-					}
-					LOG.info("Collection Created with name : {}", collectionName);
-				}
-				LOG.info("The Solr Full Index create collection response status: {}", statusLine);
-				if (enableBatchIndexing) {
-					try {
-						if ((statusLine != null ? statusLine.getStatusCode() : 0) == 200) {
-							for (String localePath : indexPaths) {
-								PageDecorator locale = request.getResourceResolver().adaptTo(PageManagerDecorator.class)
-										.getPage(localePath);
-								if (locale == null) {
-									LOG.info("Locale page not found for path : {}", localePath);
-									success = false;
-								} else {
-									success = addToIndex(locale, true, forkJoinPool, (getDocumentCount(props)));
-								}
-							}
-							if (success) {
-								collectionAction = CREATEALIAS;
-								httpResponse = getCollectionActionResponse(collectionName, enableAuthentication,
-										solrHostUrl, collectionAction);
-								if (httpResponse != null) {
-									statusLine = httpResponse.getStatusLine();
-								}
-								LOG.info("The Solr Full Index create alias response status: {}", statusLine);
-
-								if ((statusLine != null ? statusLine.getStatusCode() : 0) == 200) {
-									collectionAction = LISTALIASES;
-									httpResponse = getCollectionActionResponse(collectionName, enableAuthentication,
-											solrHostUrl, collectionAction);
-									if (httpResponse != null) {
-										statusLine = httpResponse.getStatusLine();
-									}
-									LOG.info("The Solr Full Index list alias response status: {}", statusLine);
-
-									if ((statusLine != null ? statusLine.getStatusCode() : 0) == 200) {
-										String responseString = new BasicResponseHandler().handleResponse(httpResponse);
-										JSONObject jsonObject = new JSONObject(responseString);
-										JSONObject aliases = jsonObject.getJSONObject("aliases");
-										if (aliases.has(WATERS)) {
-											collectionAlias = aliases.get(WATERS).toString();
-										}
-
-										collectionAction = LIST;
-										httpResponse = getCollectionActionResponse(collectionName, enableAuthentication,
-												solrHostUrl, collectionAction);
-										if (httpResponse != null) {
-											statusLine = httpResponse.getStatusLine();
-										}
-										LOG.info("The Solr Full Index list alias response status: {}", statusLine);
-
-										if ((statusLine != null ? statusLine.getStatusCode() : 0) == 200) {
-											String collectionListResponseString = new BasicResponseHandler()
-													.handleResponse(httpResponse);
-											JSONObject collectionListJsonObject = new JSONObject(
-													collectionListResponseString);
-											JSONArray collectionsJSONArray = (JSONArray) collectionListJsonObject
-													.get("collections");
-											ArrayList<String> collectionsArrayList = new ArrayList<>();
-											if (collectionsJSONArray != null) {
-												for (int i = 0; i < collectionsJSONArray.length(); i++) {
-													collectionsArrayList.add(collectionsJSONArray.getString(i));
-												}
-											}
-											if (collectionsArrayList != null) {
-												Iterator<String> iterator = collectionsArrayList.iterator();
-												while (iterator.hasNext()) {
-													String oldCollectionName = iterator.next();
-													if (!StringUtils.equalsAnyIgnoreCase(oldCollectionName,
-															collectionAlias)) {
-														collectionAction = DELETE;
-														httpResponse = getCollectionActionResponse(oldCollectionName,
-																enableAuthentication, solrHostUrl, collectionAction);
-														if (httpResponse != null) {
-															statusLine = httpResponse.getStatusLine();
-														}
-														LOG.info(
-																"The Solr Full Index delete collection response status: {}",
-																statusLine);
-													}
-												}
-											}
-										} else
-											LOG.error(ERROR, statusLine);
-									} else
-										LOG.error(ERROR, statusLine);
-								} else
-									LOG.error(ERROR, statusLine);
-							} else
-								LOG.error("Solr Full Indexing was not successful");
-						} else
-							LOG.error("Solr Full Index collection creation failed and response code is {}", statusLine);
-					} catch (Exception e) {
-						LOG.error("Solr Full Index collection failed due to {}", e.getMessage());
-						fullIndexInProgress = false;
-					}
-				} else {
-					LOG.error("Enable BatchIndexing for Solr Full Index");
-				}
-
+			try {
+				success = getFullIndexingStatus(request, props, enableAuthentication, solrHostUrl, enableBatchIndexing);
+			} catch (MalformedURLException | ExecutionException | InterruptedException e) {
+				LOG.error("Exception occurred in creating Alias : {}", e.getMessage());
+				Thread.currentThread().interrupt();
 			}
-			fullIndexInProgress = false;
+			if (success) {
+				try {
+					createListAliases(collectionName, enableAuthentication, solrHostUrl, enableDeleteOldCollections);
+				} catch (IOException | JSONException e) {
+					LOG.error("Exception occurred in creating Alias : {}", e.getMessage());
+				}
+			} else
+				LOG.error("Solr Full Indexing was not successful");
 		} else {
 			collectionName = WATERS;
 			if (ADD.equals(action)) {
@@ -373,47 +268,16 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 			return clientBuilder.build();
 		} else
 			return HttpClientBuilder.create().setConnectionManager(new PoolingHttpClientConnectionManager()).build();
-	}
-
-	private URIBuilder getUriBuilder(String url, Map<String, String> parameters) throws MalformedURLException {
-		URL solrUrl = new URL(HTTPS + url);
-		URIBuilder builder = new URIBuilder().setScheme(solrUrl.getProtocol())
-				.setHost(solrUrl.getHost() + ":" + SOLR_PORT).setPath("/solr/admin/collections");
-		for (Map.Entry<String, String> entry : parameters.entrySet()) {
-			builder.addParameter(entry.getKey(), entry.getValue());
-		}
-		return builder;
-	}
+	}	
 	
 	private HttpResponse getCollectionActionResponse(String collectionName, boolean enableAuthentication,
-												   String solrHostUrl, String collectionAction) throws MalformedURLException {
+			String solrHostUrl, String collectionAction) throws MalformedURLException {
 		URIBuilder builder;
 		HttpResponse httpResponse = null;
-		Map<String, String> parameters = new HashMap<>();
-		if (StringUtils.equalsAnyIgnoreCase(collectionAction, CREATE)) {
-			parameters.put(ACTION, CREATE);
-			parameters.put("name", collectionName);
-			parameters.put("numShards", solrFullIndexConfigurationImpl.getNumShards());
-			parameters.put("replicationFactor", solrFullIndexConfigurationImpl.getReplicationFactor());
-			parameters.put("collection.configName", WATERS);
-			parameters.put("maxShardsPerNode", "2");
-		} else if (StringUtils.equalsAnyIgnoreCase(collectionAction, CREATEALIAS)) {
-			parameters.clear();
-			parameters.put(ACTION, CREATEALIAS);
-			parameters.put("name", WATERS);
-			parameters.put("collections", collectionName);
-		} else if (StringUtils.equalsAnyIgnoreCase(collectionAction, LIST)) {
-			parameters.clear();
-			parameters.put(ACTION, LIST);
-		} else if (StringUtils.equalsAnyIgnoreCase(collectionAction, LISTALIASES)) {
-			parameters.clear();
-			parameters.put(ACTION, LISTALIASES);
-		} else if (StringUtils.equalsAnyIgnoreCase(collectionAction, DELETE)) {
-			parameters.clear();
-			parameters.put(ACTION, DELETE);
-			parameters.put("name", collectionName);
-		}
-		builder = getUriBuilder(solrHostUrl, parameters);
+		Map<String, String> parameters = getParamaters(collectionAction);
+		builder = getUriBuilder(solrHostUrl, parameters,
+				StringUtils.equalsAnyIgnoreCase(collectionAction, FULLTEXT) ? "/solr/" + collectionName + "/dataimport"
+						: "/solr/admin/collections");
 		try {
 			URI uri = builder.build();
 			HttpUriRequest httpUriRequest = RequestBuilder.post(uri).build();
@@ -427,12 +291,59 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 		return httpResponse;
 	}
 	
+	private Map<String, String> getParamaters(final String collectionAction) {
+		Map<String, String> parameters = new HashMap<>();
+		switch (collectionAction) {
+		case FULLTEXT:
+			parameters.put("command", "full-import");
+			parameters.put("synchronous", "true");
+			parameters.put("clean", "false");
+			return parameters;
+		case CREATEALIAS:
+			parameters.clear();
+			parameters.put(ACTION, CREATEALIAS);
+			parameters.put("name", WATERS);
+			parameters.put("collections", collectionName);
+			return parameters;
+		case LIST:
+			parameters.clear();
+			parameters.put(ACTION, LIST);
+			return parameters;
+		case LISTALIASES:
+			parameters.clear();
+			parameters.put(ACTION, LISTALIASES);
+			return parameters;
+		case DELETE:
+			parameters.clear();
+			parameters.put(ACTION, DELETE);
+			parameters.put("name", collectionName);
+			return parameters;
+		default:
+			parameters.put(ACTION, CREATE);
+			parameters.put("name", collectionName);
+			parameters.put("numShards", solrFullIndexConfigurationImpl.getNumShards());
+			parameters.put("replicationFactor", solrFullIndexConfigurationImpl.getReplicationFactor());
+			parameters.put("collection.configName", WATERS);
+			parameters.put("maxShardsPerNode", "2");
+			return parameters;
+		}
+	}
+
+	private URIBuilder getUriBuilder(String url, Map<String, String> parameters, String uri) throws MalformedURLException {
+		URL solrUrl = new URL(HTTPS + url);
+		URIBuilder builder = new URIBuilder().setScheme(solrUrl.getProtocol())
+				.setHost(solrUrl.getHost() + ":" + SOLR_PORT).setPath(uri);
+		for (Map.Entry<String, String> entry : parameters.entrySet()) {
+			builder.addParameter(entry.getKey(), entry.getValue());
+		}
+		return builder;
+	}
+	
 	private List<String> getIndexPathsList(final SlingHttpServletRequest request) {
 		LOG.info("fullIndexInProgress  flag set to true and indexing is in progress");
 		List<String> indexPaths = new ArrayList<>();
-		final PageManagerDecorator pageManager = request.getResourceResolver().adaptTo(PageManagerDecorator.class);
-		if (pageManager != null) {
-			final PageDecorator watersPage = pageManager.getPage("/content/waters");
+		PageDecorator watersPage = getPage(request, "/content/waters");
+		if (watersPage != null) {
 			for (final Iterator<Page> iterator = watersPage.listChildren(); iterator.hasNext();) {
 				Page childPage = iterator.next();
 				String path = childPage.getPath();
@@ -505,6 +416,126 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 	
 	private int getDocumentCount(final Dictionary<String, Object> props) {
 		return ((Number) props.get(DOCUMENTCOUNT)).intValue();
+	}
+	
+	private StatusLine getStatusLine(final HttpResponse httpResponse) {
+		if (httpResponse != null) {
+			return httpResponse.getStatusLine();
+		}
+		return null;
+	}
+	
+	private void createListAliases(String collectionName, boolean enableAuthentication,
+			String solrHostUrl, final boolean enableDeleteOldCollections) throws IOException, JSONException{
+		HttpResponse httpResponse;
+		StatusLine statusLine = null;
+		String collectionAlias = null;
+		String collectionAction = "";
+		collectionAction = LISTALIASES;
+		httpResponse = getCollectionActionResponse(collectionName, enableAuthentication,
+				solrHostUrl, collectionAction);
+		statusLine = getStatusLine(httpResponse);
+		LOG.info("The Solr Full Index list alias response status: {}", statusLine);
+
+		if ((statusLine != null ? statusLine.getStatusCode() : 0) == 200) {
+			String responseString = new BasicResponseHandler().handleResponse(httpResponse);
+			JSONObject jsonObject = new JSONObject(responseString);
+			JSONObject aliases = jsonObject.getJSONObject("aliases");
+			if (aliases.has(WATERS)) {
+				collectionAlias = aliases.get(WATERS).toString();
+			}
+			getListAndDeleteCollection(collectionName, enableAuthentication, solrHostUrl, collectionAlias, enableDeleteOldCollections);
+		} else
+			LOG.error(ERROR, statusLine);	
+	}
+	
+	private PageDecorator getPage(final SlingHttpServletRequest request, final String path) {
+		final PageManagerDecorator pageManager = request.getResourceResolver().adaptTo(PageManagerDecorator.class);
+		if (pageManager != null) {
+			return pageManager.getPage(path);
+		}
+		return null;
+	}
+	
+	private void getListAndDeleteCollection(String collectionName, boolean enableAuthentication,
+			String solrHostUrl, String collectionAlias, final boolean enableDeleteOldCollections) throws IOException, JSONException {
+		HttpResponse httpResponse;
+		StatusLine statusLine = null;
+		String collectionAction = "";
+		collectionAction = LIST;
+		httpResponse = getCollectionActionResponse(collectionName, enableAuthentication,
+				solrHostUrl, collectionAction);
+		statusLine = getStatusLine(httpResponse);
+		LOG.info("The Solr Full Index list alias response status: {}", statusLine);
+
+		if ((statusLine != null ? statusLine.getStatusCode() : 0) == 200) {
+			String collectionListResponseString = new BasicResponseHandler().handleResponse(httpResponse);
+			JSONObject collectionListJsonObject = new JSONObject(collectionListResponseString);
+			JSONArray collectionsJSONArray = (JSONArray) collectionListJsonObject.get("collections");
+			ArrayList<String> collectionsArrayList = new ArrayList<>();
+			if (collectionsJSONArray != null) {
+				for (int i = 0; i < collectionsJSONArray.length(); i++) {
+					collectionsArrayList.add(collectionsJSONArray.getString(i));
+				}
+			}
+			Iterator<String> iterator = collectionsArrayList.iterator();
+			while (iterator.hasNext()) {
+				String oldCollectionName = iterator.next();
+				if (!StringUtils.equalsAnyIgnoreCase(oldCollectionName, collectionAlias) && enableDeleteOldCollections) {
+					collectionAction = DELETE;
+					statusLine = getStatusLine(getCollectionActionResponse(oldCollectionName, enableAuthentication, solrHostUrl,
+							collectionAction));
+					LOG.info("The Solr Full Index delete collection response status: {}", statusLine);
+				}
+			}
+		} else
+			LOG.error(ERROR, statusLine);
+	}	
+	
+	private boolean getFullIndexingStatus(final SlingHttpServletRequest request, final Dictionary<String, Object> props,
+			boolean enableAuthentication, String solrHostUrl, boolean enableBatchIndexing)
+			throws MalformedURLException, InterruptedException, ExecutionException {
+		boolean success = false;
+		final Date date = new Date();
+		final SimpleDateFormat formatter = new SimpleDateFormat("ddMMMHHmmss");
+		ForkJoinPool forkJoinPool = getForkJoinPool(props);
+		StatusLine statusLine = null;
+		List<String> indexPaths = getIndexPathsList(request);
+		if (!indexPaths.isEmpty()) {
+			if (!fullIndexInProgress) {
+				collectionName = WATERS + "-" + formatter.format(date);
+				fullIndexInProgress = true;
+				statusLine = getStatusLine(
+						getCollectionActionResponse(collectionName, enableAuthentication, solrHostUrl, CREATE));
+				LOG.info("Collection Created with name : {}", collectionName);
+			}
+			pullLegacyData(collectionName, enableAuthentication, solrHostUrl, FULLTEXT);
+			LOG.info("Legacy data completed Indexing : {}", collectionName);
+			LOG.info("The Solr Full Index create collection response status: {}", statusLine);
+			if (enableBatchIndexing && (statusLine != null ? statusLine.getStatusCode() : 0) == 200) {
+				for (String localePath : indexPaths) {
+					PageDecorator locale = getPage(request, localePath);
+					if(locale != null) {
+						success = addToIndex(locale, true, forkJoinPool, (getDocumentCount(props)));
+					}
+				}
+			}
+		}
+		fullIndexInProgress = false;
+		return success;
+	}
+
+	private StatusLine pullLegacyData(String collectionName, boolean enableAuthentication, String solrHostUrl,
+			String collectionAction) {
+		StatusLine statusLine = null;
+		try {
+			statusLine = getStatusLine(getCollectionActionResponse(collectionName, enableAuthentication,
+					solrHostUrl, collectionAction));
+			LOG.info("LegacyData Created with name : {}", collectionName);
+		} catch (MalformedURLException e) {
+			LOG.error("LegacyData Created with name : {}", e.getMessage());
+		}
+		return statusLine;
 	}
 
 }

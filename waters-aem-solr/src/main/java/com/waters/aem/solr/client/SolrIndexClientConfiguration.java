@@ -54,4 +54,8 @@ public @interface SolrIndexClientConfiguration {
     @AttributeDefinition(name = "Solr Server Host Name",
     	description = "This is the Solr Server Host Name")
 	String solrHostName() default "dev-solr1.waters.com";
+    
+    @AttributeDefinition(name = "Enable Delete Old Collections",
+            description = "If true, old collections will be deleted.")
+    public  boolean enableDeleteOldCollections() default false;
 }
