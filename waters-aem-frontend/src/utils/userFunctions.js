@@ -524,3 +524,22 @@ export const replaceInSrc = (src = "", strWithReplace) => {
   const variation =  src.replace(/{{width}}/gi, strWithReplace);
   return variation;
 }
+
+
+export const setUserDataForDataDog = () => {
+    const store = new SessionStore();
+    const userDetails = store.getUserDetails();
+    const isUserLoggedIn = loginStatus.state();
+    let config = {
+        id: 'Anonymous',
+        name: 'Guest',
+      };
+    if(isUserLoggedIn){
+    const {userId, firstName, lastName} = userDetails;
+    config = {
+        id: userId,
+        name: `${firstName} ${lastName}`,
+      };
+    }
+    return window.DD_RUM && window.DD_RUM.setUser(config);
+};
