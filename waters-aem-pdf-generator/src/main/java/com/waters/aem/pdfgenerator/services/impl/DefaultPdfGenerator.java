@@ -80,7 +80,9 @@ public final class DefaultPdfGenerator implements PdfGenerator {
     public Asset generatePdfDocumentAssetFromHtml(final PageDecorator page) throws IOException {
         final Asset asset;
 
-        if(!isPdfActivationDateLessThanPageModify(page)) return null;
+        if(!isPdfActivationDateLessThanPageModify(page)) {
+            return null;
+        }
 
         try (final ByteArrayOutputStream pdfOutputStream = createPdfOutputStream(page, true)) {
             // convert output stream to input stream to store asset
@@ -219,10 +221,8 @@ public final class DefaultPdfGenerator implements PdfGenerator {
             ResourceResolver resourceResolver = resourceResolverService.getResourceResolver("watersService");
             Resource resource = resourceResolver.getResource(pdfAssetPath);
             if(resource != null) {
-                LOG.info("Resource exists, path: {}", resource.getPath());
-                Resource jcrResource = resourceResolver.getResource(pdfAssetPath+"/jcr:content");
-                ValueMap property = jcrResource.adaptTo(ValueMap.class);
-
+                LOG.debug("Resource exists, path: {}", resource.getPath());
+                ValueMap property = resource.getChild("jcr:content").adaptTo(ValueMap.class);
                 Date pdfLastReplicated = property.get("cq:lastReplicated", Date.class);
                 Date pageLastModified =  page.getLastModified().getTime();
 
