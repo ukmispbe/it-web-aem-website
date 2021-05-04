@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<VisualGallery /> should render Image Gallery with no tabs 1`] = `ShallowWrapper {}`;
+
+exports[`<VisualGallery /> should render correctly 1`] = `ShallowWrapper {}`;

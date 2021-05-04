@@ -1,82 +1,79 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import Modal, { Header, keys } from "../utils/modal";
 import Tabs from "../navigation/tabs";
-import '../styles/overlay-with-tabs.scss';
+import "../styles/overlay-with-tabs.scss";
 
-const OverlayWithTabs = props => {
-    const [state, setState] = useState({
-        open: props.isOpen,
-        gallerySelected: "",
-        activeTabFilter: "",
-        activeTabIndex: 0,
+const OverlayWithTabs = (props) => {
+  const [state, setState] = useState({    
+    gallerySelected: "",
+    activeTabFilter: "",
+    activeTabIndex: 0,
+  });
+
+  const handleClose = (e) => props.handleClose();
+
+  const handleGallerySelected = (e) => {
+    let tabId;
+    e.value || e.value === 0 ? (tabId = e.value) : (tabId = e);
+
+    if (props.activeTabHandler) {
+      props.activeTabHandler(tabId);
+    }
+
+    setState({
+      activeTabIndex: tabId,
+      open: true,
     });
+  };
 
-    const handleClose = (e) => setState({ open: false });
-    
-    const handleGallerySelected = (e) => {
-       
-        let tabId;
-        let activeTabFilterStatus = props.tabs[0].name;
-        e.value || e.value === 0 ? (tabId = e.value) : (tabId = e);
-    
-        if (tabId === 1) {
-          activeTabFilterStatus = props.tabs[1].name;
-        }
+  const getTabObj = (obj) => obj.map((item) => ({ name: item }));
 
-        if(props.activeTabHandler) {
-            props.activeTabHandler(tabId);
-        }
-    
-        setState({
-          activeTabFilter: activeTabFilterStatus,
-          activeTabIndex: tabId,
-          open: true
-        });
-      };
-
-    const renderTabs = () => {
-        const { tabs = [] } = {
-          tabs: props.tabs,
-        };
-        return (
-          <Tabs
-            className="cmp-search__categories-tabs"
-            items={tabs}
-            activeIndex={state.activeTabIndex}
-            onClick={(e) => handleGallerySelected(e)}
-            enableFading={true}
-          />
-        );
-      };
+  const renderTabs = () => {
+    const { tabs = [] } = {
+      tabs: getTabObj(props.tabs),
+    };
 
     return (
-        <>
-          <Modal
-                isOpen={state.open}
-                onClose={handleClose}
-                className="cmp-asset-display-modal"
-              >
-              <div>
-                  <Header title="" />
-                  <div className="cmp-gallery-tab">{renderTabs()}</div>
-                  <div>{props.children}</div>
-              </div>                
-            </Modal>
-        </>
-    )
-}
+      <Tabs
+        className="cmp-visualgallery__tabs"
+        items={tabs}
+        activeIndex={state.activeTabIndex}
+        onClick={(e) => handleGallerySelected(e)}
+        enableFading={true}
+      />
+    );
+  };
+
+  return (
+    <>
+      <Modal
+        isOpen={props.isOpen}
+        onClose={handleClose}
+        className="cmp-asset-display-modal"
+      >
+        <div>
+          <Header title="" />
+          {props.tabs.length > 1 && (
+            <div className="cmp-gallery-tab">{renderTabs()}</div>
+          )}
+          <div>{props.children}</div>
+        </div>
+      </Modal>
+    </>
+  );
+};
 
 OverlayWithTabs.propTypes = {
   isOpen: PropTypes.bool,
   tabs: PropTypes.arrayOf(PropTypes.object),
-  activeTabHandler: PropTypes.func
-}
+  activeTabHandler: PropTypes.func,
+};
 
 OverlayWithTabs.defaultProps = {
   isOpen: false,
   tabs: [],
-  activeTabHandler: () => {}
-}
+  activeTabHandler: () => {},
+};
 
 export default OverlayWithTabs;

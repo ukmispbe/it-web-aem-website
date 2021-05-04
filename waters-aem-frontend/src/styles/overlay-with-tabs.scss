@@ -1,5 +1,29 @@
-@import 'variables.scss';
+@import "variables.scss";
+
+.cmp-modal-box {
+  &.cmp-asset-display-modal {
+    z-index: $cmp-search-bar-z-index;
+    .cmp-modal {
+      width: 80%;
+    }
+  }
+
+  .visual-overlay-image-carousel {
+    display: flex;
+    .overlay-image-thumbnails-placeholder {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+  }
+}
 
 .cmp-gallery-tab {
-    margin-top: $space-m;
+  margin-top: $space-m;
+}
+
+.visual-overlay-image-carousel {
+  .thumbnail-container {
+    margin-left: 0;
+  }
 }
