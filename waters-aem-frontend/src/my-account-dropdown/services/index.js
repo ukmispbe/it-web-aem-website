@@ -1,6 +1,7 @@
 import 'whatwg-fetch';
 import SessionStore from '../../stores/sessionStore';
 import LocalStore from '../../stores/localStore';
+import {setUserDataForDataDog} from '../../utils/userFunctions'
 
 const getData = async (url) => {
     const response = await fetch(url, {
@@ -27,5 +28,6 @@ export async function signOutRequest(url, signOutUrl, homepageLink) {
     if(signOutUrl.indexOf('/nextgen') === -1) {
         homepageLink = signOutUrl;
     }
+    setUserDataForDataDog();
     window.location.href = homepageLink;
 }

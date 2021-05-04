@@ -15,7 +15,7 @@ import punchoutLogin from '../my-account/services/PunchoutLogin';
 import punchoutSetup from '../my-account/services/PunchoutSetup';
 import parseQueryParams from '../utils/parse-query-params';
 import removeQueryString from '../utils/remove-query-string';
-import { isEprocurementUser, setHeaderWelcome } from '../utils/userFunctions';
+import { isEprocurementUser, setHeaderWelcome, setUserDataForDataDog } from '../utils/userFunctions';
 import buildUrl from '../utils/buildUrl';
 import EprocSetupFailure from '../eproc-setup-failure/EprocSetupFailure';
 
@@ -406,6 +406,7 @@ class MyAccountDropDown extends React.Component {
             this.showHideLoader()
         );
         removeQueryString(window.location.href, '1tu', true);
+        setUserDataForDataDog();
     }
 
     punchoutSetup = async () => {
