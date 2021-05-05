@@ -69,7 +69,12 @@ class Stock extends React.Component {
             this.props.errorObj &&
             this.props.errorObj.ok === false
         ) {
-            return this.renderStockError();
+            if (this.props.errorObj.status === 500) {
+                return this.renderContactWaters();
+            }
+            else {
+                return this.renderStockError();
+            }          
         } else {
             if (this.props.skuAvailability.availableQuantity > 0) {
                 return this.renderInStock();

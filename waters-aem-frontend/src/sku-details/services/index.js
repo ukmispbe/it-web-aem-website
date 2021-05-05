@@ -107,6 +107,12 @@ export async function getAvailability(url, countryCode, partNo) {
     const urlRequest = availabilityUrlRequest(url, countryCode, partNo);
     const response = await fetchData(urlRequest, options);
     const json = await response.json();
+    if (response.status !== 200) {
+        throw ({
+            status: response.status,
+            ok: false
+        });
+    }
     return json;
 }
 
