@@ -18,6 +18,7 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.sling.api.resource.PersistenceException;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
+import org.apache.sling.api.resource.LoginException;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Modified;
@@ -32,6 +33,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.ParseException;
+import java.util.Date;
+import org.apache.sling.api.resource.ValueMap;
+import com.waters.aem.core.services.ResourceResolverService;
+import java.text.SimpleDateFormat;
 
 import static com.google.common.base.Preconditions.checkState;
 
@@ -47,8 +53,13 @@ public final class DefaultPdfGenerator implements PdfGenerator {
 
     private static final Logger LOG = LoggerFactory.getLogger(DefaultPdfGenerator.class);
 
+    final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
     @Reference
     private Externalizer externalizer;
+
+    @Reference
+    private ResourceResolverService resourceResolverService;
 
     private volatile boolean enabled;
 
@@ -72,6 +83,10 @@ public final class DefaultPdfGenerator implements PdfGenerator {
     @Override
     public Asset generatePdfDocumentAssetFromHtml(final PageDecorator page) throws IOException {
         final Asset asset;
+
+        if(!isPdfActivationDateLessThanPageModify(page)) {
+            return null;
+        }
 
         try (final ByteArrayOutputStream pdfOutputStream = createPdfOutputStream(page, true)) {
             // convert output stream to input stream to store asset
@@ -201,5 +216,32 @@ public final class DefaultPdfGenerator implements PdfGenerator {
 
         return externalizer.externalLink(page.getContentResource().getResourceResolver(),
             publish ? Externalizer.PUBLISH : Externalizer.AUTHOR, builder.build().getHref());
+    }
+
+    private boolean isPdfActivationDateLessThanPageModify(final PageDecorator page) {
+        boolean status = false;
+        try (final ResourceResolver resourceResolver = resourceResolverService.getResourceResolver("watersService")) {
+            final String pdfAssetPath = page.getContentResource().adaptTo(ApplicationNotes.class).getPdfAssetPath();
+            final Resource resource = resourceResolver.getResource(pdfAssetPath);
+            if (resource != null) {
+                LOG.debug("Resource exists, path: {}", resource.getPath());
+                final ValueMap property = resource.getChild("jcr:content").adaptTo(ValueMap.class);
+                final Date pdfLastReplicatedDateWithTime = property.get("cq:lastReplicated", Date.class);
+                final Date pageLastModifiedDateWithTime = page.getLastModified().getTime();
+                final Date pdfLastReplicatedWithoutTime = sdf.parse(sdf.format(pdfLastReplicatedDateWithTime));
+                final Date pageLastModifiedWithoutTime = sdf.parse(sdf.format(pageLastModifiedDateWithTime));
+                
+                if (pageLastModifiedWithoutTime.after(pdfLastReplicatedWithoutTime)) {
+                    LOG.info("Page Modify Date is greater than PDF lastReplicated: {}, {}", pageLastModifiedWithoutTime, pdfLastReplicatedWithoutTime);
+                    status = true;
+                }
+            } else {
+                LOG.info("Resource does not exist");
+                status = true;
+            }
+        } catch (LoginException | ParseException e) {
+                LOG.error("Exception occurred while fetching Pdf Activation Date and Page Modify: {}", e);
+        }
+        return status;
     }
 }

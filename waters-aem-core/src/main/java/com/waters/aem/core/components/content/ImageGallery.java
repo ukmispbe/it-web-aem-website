@@ -116,7 +116,7 @@ public final class ImageGallery implements ComponentExporter {
 
     @SuppressWarnings("squid:S2259")
     public String getSrc() {
-        return getPrimaryImageAsset() == null ? null : buildUri(getPrimaryImageAsset(), false);
+        return getPrimaryImageAsset() == null ? null : AssetUtils.buildUri(getPrimaryImageAsset(), false);
     }
 
     public String getAlt() {
@@ -127,7 +127,7 @@ public final class ImageGallery implements ComponentExporter {
     private List<String> getUriTemplates() {
         return getAssets()
             .stream()
-            .map(asset -> buildUri(asset, true))
+            .map(asset -> AssetUtils.buildUri(asset, true))
             .collect(Collectors.toList());
     }
 
@@ -169,31 +169,5 @@ public final class ImageGallery implements ComponentExporter {
         final List<Asset> primaryImgAssets = getAssets();
 
         return primaryImgAssets.isEmpty() ? null : primaryImgAssets.get(0);
-    }
-
-    private String buildUri(final Asset asset, final boolean template) {
-        final StringBuilder builder = new StringBuilder();
-
-        // append the DAM asset path
-        builder.append(asset.getPath());
-
-        if (template) {
-            builder.append(".");
-
-            // width selector
-            builder.append(SRC_URI_TEMPLATE_WIDTH);
-            builder.append(".");
-
-            // 'resize' extension to resolve the resize image servlet
-            builder.append(ResizeImageServlet.RESIZE_EXTENSION);
-            builder.append("/");
-            builder.append(ResizeImageServlet.SUFFIX_NAME);
-            builder.append(".");
-
-            // add the extension derived from DAM asset name
-            builder.append(FilenameUtils.getExtension(asset.getName()));
-        }
-
-        return builder.toString();
     }
 }

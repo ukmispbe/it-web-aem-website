@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import {OverlayWithTabs} from './OverlayWithTabs';
+import OverlayWithTabs from './OverlayWithTabs';
 import {tabs, children} from './OverlayWithTabs.mock';
 
 // This default export determines where your story goes in the story list

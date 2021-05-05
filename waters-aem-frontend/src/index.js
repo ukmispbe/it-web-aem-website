@@ -399,7 +399,6 @@ if (registrationFormContainer) {
     );
 
     const country = DigitalData.page.country.toLowerCase();
-
     const configRegistrationAddressForm = JSON.parse(
         document.getElementById('cmp-registration-address-form').innerHTML
     );
@@ -421,21 +420,8 @@ if (registrationFormContainer) {
         config.fields[indexofPrivacy].config = privacyConfig.concat(addDisclosuresJSON);
     }
 
-    const changeDisclosures = (config) => {
-        const KRconfig = JSON.parse(
-            document.getElementById('cmp-registration-form-kr').innerHTML
-        ).koreanDisclosures;
-
-        const indexofPrivacy = config.fields.map(e => e.name).indexOf('privacy');
-        config.fields[indexofPrivacy].config = KRconfig;
-    }
-
     if (configRegistrationForm.formName === "registration" && (country === "jp" || country === "cn" || country === "tw" || country === "kr")) {
         swapFirstAndLastNames();
-    }
-
-    if (configRegistrationForm.formName === "registration" && country === "kr") {
-        changeDisclosures(configRegistrationForm);
     }
 
     const registrationForm = {
