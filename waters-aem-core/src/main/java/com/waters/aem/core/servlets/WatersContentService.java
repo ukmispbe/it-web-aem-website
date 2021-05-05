@@ -28,6 +28,7 @@ import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.servlets.SlingAllMethodsServlet;
 import org.apache.sling.servlets.annotations.SlingServletPaths;
 import org.apache.sling.settings.SlingSettingsService;
+import org.apache.sling.xss.XSSAPI;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Modified;
@@ -66,6 +67,9 @@ public class WatersContentService extends SlingAllMethodsServlet {
     @Reference
     private SlingSettingsService settingsService;
 
+    @Reference
+    private XSSAPI xssApi;
+
     private volatile String hostName;
 
     private String[] keys;
@@ -77,7 +81,7 @@ public class WatersContentService extends SlingAllMethodsServlet {
         try {
             LOG.info("New Content Service request");
             response.setContentType("application/json; charset=UTF-8");
-            String pagePath = request.getParameter("pagePath");
+            String pagePath = xssApi.getValidHref(request.getParameter("pagePath"));
             final String responseLevel = request.getParameter("depth");
             if (settingsService.getRunModes().contains(Externalizer.PUBLISH)) {
                 if (StringUtils.isNotBlank(hostName)) {
