@@ -7,4 +7,4 @@
         addToCartUrl="https://api-sbox.waters.com/uat-waters-cart-proxy-api-v1/{localeCountry}/{localeLanguage}/users/{userType}/carts/{guid}/entries"
         ecomViewCartUrl="https://legacy-stage.waters.com/store/{localeCountry}/{localeLanguage}/cart"
         eprocViewCartUrl="https://stage1-order.waters.com/store/{localeLanguage}/cart"
-        contactUsLink="https://stage1.waters.com/waters/contactUs.htm"/>
+        contactUsLink="https://legacy-stage.waters.com/waters/contactUs.htm"/>
