@@ -1,0 +1,18 @@
+<div data-sly-use.promotions="com.waters.aem.core.components.content.Promotions">
+	<script type="application/json" id="cmp-promotions-json">
+        {
+            "title": "${promotions.title @ i18n, context='html'}",
+            "Logo": "${promotions.logo @ i18n, context='html'}",
+            "maxItems": "${promotions.maxItems @ i18n, context='html'}",
+			"viewAllPromotionslink": "${promotions.viewAllPromotionsUrl @ i18n, context='unsafe'}",
+            "viewAllPromotionsLable": "${'View All Promotions' @ i18n, context='html'}",
+            "viewDetailsLable": "${'View Details' @ i18n, context='html'}",
+            "applyToCartLable": "${'Apply to Cart' @ i18n, context='html'}"
+			"applyToCartUrl": "${promotions.applyToCartUrl @ i18n, context='unsafe'}"
+
+        }
+    </script>
+</div>
+
+<sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
+     data-sly-call="${patterns.placeholder @ show=true, text=component.title}"/>
