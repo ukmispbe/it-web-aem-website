@@ -1,6 +1,6 @@
 <div data-sly-use.featurecard="com.waters.aem.core.components.content.FeatureCards" class="cmp-featurecards">
-     ${featurecard.title @ i18n, context='html'} <br/>
-     ${featurecard.description @ i18n, context='html'}
+     ${featurecard.title @ context='html'} <br/>
+     ${featurecard.description @ context='html'}
     <ul class="cmp-features__list" data-sly-test="${featurecard.features}">
         <li class="cmp-features__feature" data-sly-repeat="${featurecard.features}">
             <div class="cmp-features__feature-wrapper">
