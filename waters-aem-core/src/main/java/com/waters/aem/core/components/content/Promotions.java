@@ -5,8 +5,6 @@ import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_A
 import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_AFTER_INSERT;
 import static com.icfolson.aem.library.core.constants.ComponentConstants.REFRESH_PAGE;
 
-import java.text.MessageFormat;
-
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
@@ -56,7 +54,7 @@ public final class Promotions implements ComponentExporter {
 	private long maxItems;
 
 	@DialogField(fieldLabel = "View All Promotions Links", fieldDescription = "Enter the link to View all promotions page")
-	@PathField(rootPath = WatersConstants.DAM_PATH)
+	@PathField(rootPath = WatersConstants.ROOT_PATH)
 	@Inject
 	private String viewAllPromotionsUrl;
 	
