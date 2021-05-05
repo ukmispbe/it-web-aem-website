@@ -18,6 +18,7 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.sling.api.resource.PersistenceException;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
+import org.apache.sling.api.resource.LoginException;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Modified;
@@ -32,6 +33,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.ParseException;
 import java.util.Date;
 import org.apache.sling.api.resource.ValueMap;
 import com.waters.aem.core.services.ResourceResolverService;
@@ -50,6 +52,8 @@ import org.apache.commons.io.IOUtils;
 public final class DefaultPdfGenerator implements PdfGenerator {
 
     private static final Logger LOG = LoggerFactory.getLogger(DefaultPdfGenerator.class);
+
+    final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     @Reference
     private Externalizer externalizer;
@@ -215,32 +219,28 @@ public final class DefaultPdfGenerator implements PdfGenerator {
     }
 
     private boolean isPdfActivationDateLessThanPageModify(final PageDecorator page) {
-        boolean status = true;
-        try {
+        boolean status = false;
+        try (final ResourceResolver resourceResolver = resourceResolverService.getResourceResolver("watersService")) {
             final String pdfAssetPath = page.getContentResource().adaptTo(ApplicationNotes.class).getPdfAssetPath();
-            ResourceResolver resourceResolver = resourceResolverService.getResourceResolver("watersService");
-            Resource resource = resourceResolver.getResource(pdfAssetPath);
-            if(resource != null) {
+            final Resource resource = resourceResolver.getResource(pdfAssetPath);
+            if (resource != null) {
                 LOG.debug("Resource exists, path: {}", resource.getPath());
-                ValueMap property = resource.getChild("jcr:content").adaptTo(ValueMap.class);
-                Date pdfLastReplicated = property.get("cq:lastReplicated", Date.class);
-                Date pageLastModified =  page.getLastModified().getTime();
-
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                pdfLastReplicated = sdf.parse(sdf.format(pdfLastReplicated));
-                pageLastModified = sdf.parse(sdf.format(pageLastModified));
-
-                if(pdfLastReplicated.before(pageLastModified)) {
-                    LOG.info("PDF lastReplicated date is less than page lastModified : {}, {}", pdfLastReplicated, pageLastModified);
-                } else {
-                    LOG.info("PDF lastReplicated date is not less than page lastModified : {}, {}", pdfLastReplicated, pageLastModified);
-                    status = false;
+                final ValueMap property = resource.getChild("jcr:content").adaptTo(ValueMap.class);
+                final Date pdfLastReplicatedDateWithTime = property.get("cq:lastReplicated", Date.class);
+                final Date pageLastModifiedDateWithTime = page.getLastModified().getTime();
+                final Date pdfLastReplicatedWithoutTime = sdf.parse(sdf.format(pdfLastReplicatedDateWithTime));
+                final Date pageLastModifiedWithoutTime = sdf.parse(sdf.format(pageLastModifiedDateWithTime));
+                
+                if (pageLastModifiedWithoutTime.after(pdfLastReplicatedWithoutTime)) {
+                    LOG.info("Page Modify Date is greater than PDF lastReplicated: {}, {}", pageLastModifiedWithoutTime, pdfLastReplicatedWithoutTime);
+                    status = true;
                 }
             } else {
                 LOG.info("Resource does not exist");
+                status = true;
             }
-        } catch (Exception e) {
-            LOG.error("Exception occurred while fetching Pdf Activation Date and Page Modify: {}", e);
+        } catch (LoginException | ParseException e) {
+                LOG.error("Exception occurred while fetching Pdf Activation Date and Page Modify: {}", e);
         }
         return status;
     }
