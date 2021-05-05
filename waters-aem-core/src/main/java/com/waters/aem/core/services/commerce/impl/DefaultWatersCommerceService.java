@@ -21,7 +21,7 @@ public final class DefaultWatersCommerceService implements WatersCommerceService
 
 	private volatile String eprocViewCartUrl;
 
-	private volatile String requestInformationUrl;
+	private volatile String contactUsLink;
 
 	@Override
 	public String getSkuAvailabilityUrl() {
@@ -49,8 +49,8 @@ public final class DefaultWatersCommerceService implements WatersCommerceService
 	}
 
 	@Override
-	public String getRequestInformationUrl() {
-		return requestInformationUrl;
+	public String getContactUsLink() {
+		return contactUsLink;
 	}
 
 	@Activate
@@ -61,6 +61,6 @@ public final class DefaultWatersCommerceService implements WatersCommerceService
 		addToCartUrl = configuration.addToCartUrl();
 		ecomViewCartUrl = configuration.ecomViewCartUrl();
 		eprocViewCartUrl = configuration.eprocViewCartUrl();
-		requestInformationUrl = configuration.requestInformationUrl();
+		contactUsLink = configuration.contactUsLink();
 	}
 }

@@ -1,12 +1,14 @@
 package com.waters.aem.core.components.content;
 
-import static com.icfolson.aem.library.core.constants.ComponentConstants.*;
-
-import java.text.MessageFormat;
+import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_AFTER_DELETE;
+import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_AFTER_EDIT;
+import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_AFTER_INSERT;
+import static com.icfolson.aem.library.core.constants.ComponentConstants.REFRESH_PAGE;
 
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ValueMap;
@@ -26,7 +28,7 @@ import com.citytechinc.cq.component.annotations.widgets.Selection;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.wcm.api.Page;
-import com.waters.aem.core.services.commerce.impl.DefaultWatersCommerceService;
+import com.waters.aem.core.services.commerce.WatersCommerceService;
 
 @Component(value = "Request Information Button", 
 			description = "This is the Request Information Button component for Waters site", 
@@ -48,7 +50,7 @@ public final class RequestInformationButton implements ComponentExporter {
 	Page currentPage;
 
 	@OSGiService
-	private DefaultWatersCommerceService defaultWatersCommerceService;
+	private WatersCommerceService watersCommerceService;
 
 	@DialogField(fieldLabel = "Button Text", fieldDescription = "Enter the text for the button", required = true)
 	@TextField
@@ -79,8 +81,12 @@ public final class RequestInformationButton implements ComponentExporter {
 	}
 
 	public String getHref() {
-		return MessageFormat.format(defaultWatersCommerceService.getRequestInformationUrl(), requestType, getPageTitle());
-
+		StringBuilder builder = new StringBuilder();
+		builder.append(watersCommerceService.getContactUsLink()).append("?pageFromTitle=").append(getPageTitle());
+		if (StringUtils.isNotEmpty(requestType)) {
+			builder.append("&raqType=").append(requestType).append("&raqOnly=Y");
+		}
+		return builder.toString();
 	}
 
 	public String getButtonText() {

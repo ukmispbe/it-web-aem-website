@@ -38,11 +38,11 @@ public interface WatersCommerceService {
     String getEprocViewCartUrl();
     
     /**
-     * Get the configured Request information URL.
+     * Get the configured contact us url
      *
-     * @return contact us url with some parameters
+     * @return contact us url 
      */
-    String getRequestInformationUrl();
+    String getContactUsLink();
     
     
 
