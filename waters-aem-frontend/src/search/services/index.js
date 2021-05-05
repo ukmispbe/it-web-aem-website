@@ -170,9 +170,11 @@ class SearchService {
         });
     };
 
-    getSuggestedKeywords = async (rows, term) => {
-        const searchString = `${this.path}/v1/autocomplete?term=${term}&rows=${rows}&isocode=${this.options.isocode}${getCategoryReferenceType()}`;
-
+    getSuggestedKeywords = async (rows, term, category) => {
+        let searchString = `${this.path}/v1/autocomplete?term=${term}&rows=${rows}&isocode=${this.options.isocode}${getCategoryReferenceType()}`;
+        if (category) {
+            searchString += `&category=${category}`;
+        }
         const callService = window.fetch(searchString).then(response => {
             if (response.ok) {
                 return response.json();

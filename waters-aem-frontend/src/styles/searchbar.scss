@@ -142,8 +142,14 @@
             background: $color-white;
             padding: $space-xxxs $space-xxl $space-xxs $space-s;
             -webkit-appearance: none;
-            -webkit-border-radius: $border-radius;
-            border-radius: $border-radius;
+            border-radius: 0;
+            border-top-right-radius: $border-radius;
+            border-bottom-right-radius: $border-radius;
+            @include mobile { 
+               -webkit-border-radius: $border-radius;
+                border-radius: $border-radius;
+            }
+
             &:focus {
                 outline: none;
                 border: 1px solid $color-focus;
@@ -232,6 +238,48 @@
                 stroke: $color-link;
             }
         }
+    }
+}
+
+.cmp-search-bar-group {
+    display: flex;
+}
+
+.cmp-search-category-header-dropdown {
+    text-decoration: none;
+    &:hover {
+        text-decoration: none;
+    }
+
+    transition: none;
+
+    svg {
+        position: absolute;
+        width: $icon-m;
+        height: $icon-m;
+        .st0 {
+            stroke: $color-icon;
+        }
+    }
+
+    @include mobile {
+        svg {
+            margin: 0 2% 0 0;
+        }
+    }
+
+    .cmp-custom-dropdown__control {
+        height: $height-medium;
+        margin-right: -1px;
+        background-color: $color-background-light;
+        border-radius: 0;
+        border-bottom-left-radius: $border-radius;
+        border-top-left-radius: $border-radius;
+        @include mobile { 
+            border-radius: $border-radius;
+            background-color: $color-white;
+         }
+
     }
 }
 

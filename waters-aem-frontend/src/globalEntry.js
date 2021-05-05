@@ -43,7 +43,9 @@ function getAuthoredDataForSearchBar(c, h) {
         clearLabel: c.dataset.clearLabel || '',
         searchLabel: c.dataset.searchLabel || '',
         autoSuggestLabel: c.dataset.autoSuggestLabel || '',
-        recentlySearchedLabel: c.dataset.recentlySearchedLabel || ''
+        recentlySearchedLabel: c.dataset.recentlySearchedLabel || '',
+        iconDown: c.dataset.iconDown,
+        categoryLabel: c.dataset.categoryLabel || '',
     };
 }
 
@@ -73,7 +75,7 @@ if (header && MyAccountDropDownContainer) {
 
 const headerSearchBarContainer = document.getElementById('header-search-bar');
 const headerMobileSearchContainer = document.getElementById('mobile-header-search-container');
-
+const categoriesConfig = JSON.parse(document.getElementById('header-categories-json').innerHTML);
 if (headerMobileSearchContainer && headerSearchBarContainer && header) {
     const data = getAuthoredDataForSearchBar(headerSearchBarContainer, header);
     const searchLabels = {
@@ -81,6 +83,7 @@ if (headerMobileSearchContainer && headerSearchBarContainer && header) {
         search: data.searchLabel,
         autoSuggest: data.autoSuggestLabel,
         recentlySearched: data.recentlySearchedLabel,
+        categoryLabel: data.categoryLabel,
     }
     ReactDOM.render(
         <HeaderSearchBar
@@ -93,6 +96,8 @@ if (headerMobileSearchContainer && headerSearchBarContainer && header) {
             isocode={data.isocode}
             customStyle={data.customStyle}
             labels={searchLabels}
+            categories={categoriesConfig.options}
+            iconDown={data.iconDown}
         />,
         headerSearchBarContainer
     );
@@ -107,7 +112,9 @@ if (headerMobileSearchContainer && headerSearchBarContainer && header) {
             baseUrl={data.baseUrl}
             isocode={data.isocode}
             customStyle={data.customStyle}
+            iconDown={data.iconDown}
             labels={searchLabels}
+            categories={categoriesConfig.options}
         />,
         headerMobileSearchContainer
     );
