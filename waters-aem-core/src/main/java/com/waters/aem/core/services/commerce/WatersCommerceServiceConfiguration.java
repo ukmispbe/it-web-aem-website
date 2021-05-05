@@ -20,4 +20,8 @@ public @interface WatersCommerceServiceConfiguration {
 
     @AttributeDefinition(name = "View Cart URL (Eproc)", description = "URL for the View Cart button")
     String eprocViewCartUrl() default "https://dev1-order.waters.com/store/{localeLanguage}/cart";
+    
+    @AttributeDefinition(name = "Contact Us URL", description = "URL for Contact us page")
+    String contactUsLink() default "https://dev1.waters.com/waters/contactUs.htm";
+    
 }

@@ -36,5 +36,14 @@ public interface WatersCommerceService {
      * @return Eproc View Cart URL
      */
     String getEprocViewCartUrl();
+    
+    /**
+     * Get the configured contact us url
+     *
+     * @return contact us url 
+     */
+    String getContactUsLink();
+    
+    
 
 }
