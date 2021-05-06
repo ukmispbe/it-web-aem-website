@@ -1,0 +1,58 @@
+@import "variables.scss";
+@import "mixins.scss";
+@import "typography.scss";
+
+.mobile-back-btn {
+  @include font-utility;
+  display: flex;
+  justify-content: center;
+  color: $color-link;
+  border: none;
+  background: transparent;
+  padding: 0;
+  outline: none;
+  cursor: pointer;
+
+  svg,
+  div {
+    height: $icon-m;
+    width: $icon-m;
+    display: inline-block;
+  }
+
+  svg .st0,
+  svg .st1 {
+    stroke: $color-link;
+  }
+
+  &:hover {
+    color: $color-link-hover;
+    & svg .st0,
+    & svg .st1 {
+      stroke: $color-link-hover;
+    }
+  }
+  &:active {
+    @include font-utility;
+    & svg .st0,
+    & svg .st1 {
+      stroke: $color-link-hover;
+    }
+  }
+}
+.pinch-to-zoom {
+  display: flex;
+  justify-content: center;
+  svg {
+    width: $icon-m;
+    height: $icon-m;
+    padding-right: $space-xxxs;
+  }
+  .pinch-to-zoom-label {
+    @include font-small;
+  }
+}
+
+.moboverlay-preview-player-container {
+  padding: $space-m;
+}

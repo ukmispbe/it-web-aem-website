@@ -1,6 +1,6 @@
 @import "variables.scss";
-@import 'mixins.scss';
-@import 'typography.scss';
+@import "mixins.scss";
+@import "typography.scss";
 
 .overlay-image-thumbnails-placeholder {
   margin-top: $space-l;
@@ -12,10 +12,10 @@
     img {
       width: 100%;
     }
-  }  
+  }
 }
 
-.tap-to-zoom {    
+.tap-to-zoom {
   display: flex;
   justify-content: center;
   svg {
