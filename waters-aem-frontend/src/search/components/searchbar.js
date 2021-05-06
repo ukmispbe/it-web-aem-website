@@ -41,7 +41,7 @@ class SearchBar extends Component {
             recentSearches: cookieStore.getRecentSearches() || [],
             searchCategory: '',
             searchContentType: '',
-            selectedCategory: categoryValue ? categoryValue : 0,
+            selectedCategory: categoryValue ? categoryValue.toUpperCase() : 0,
 
         };
 
@@ -115,13 +115,8 @@ class SearchBar extends Component {
     getSectionSuggestions = (section = {}) => section.suggestions;
 
     handleCategoriesClick = (e) => { 
-        this.setState({ selectedCategory:e.value });
+        this.setState({ selectedCategory: e.target.value });
     };
-
-    getSelectedCategoryIndex = () => {
-       const index = this.props.categories.findIndex(x => x.value === this.state.selectedCategory.toUpperCase());
-       return index !== -1 ? index : 0;
-    }
 
     renderAutoSuggest = () => {
         const inputProps = {
@@ -154,12 +149,11 @@ class SearchBar extends Component {
 
     renderCategories = () => {
         return <CategoryDropdown
-            categoryDownIcon={this.props.iconDown}
-            categoryLabelPrefix={screenSizes.isMobile() ? this.props.labels.categoryLabel : ''}
-            categoryIsSearchable={false}
-            categoryOnChange={(e)=> this.handleCategoriesClick(e)}
-            categoryOptions={this.props.categories}
-            categoryValue={this.getSelectedCategoryIndex()} />
+            className="cmp-search-category-header-dropdown"
+            labelPrefix={screenSizes.isMobile() ? this.props.labels.categoryLabel : ''}
+            onChange={(e)=> this.handleCategoriesClick(e)}
+            options={this.props.categories}
+            value={this.state.selectedCategory} />
     }
 
     renderHideClearIcon = () => (this.state.value) ? this.renderClearIcon() : <></>;
@@ -331,7 +325,7 @@ class SearchBar extends Component {
     )
 
     formatFacets = (facets, suggestion = '') => facets.map(facet => {
-        const category = facet && facet.category || '';
+        const category = facet && facet.catergory || '';
         const contentType = facet && facet.contenttype || '';
         return {
             key: suggestion,

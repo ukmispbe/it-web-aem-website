@@ -1,51 +1,20 @@
 import React from 'react';
-import ReactSVG from 'react-svg';
-import Select, { components } from 'react-select';
 import PropTypes from 'prop-types';
+import screenSizes from "../scripts/screenSizes";
 
-import customDropdownStyles from './custom-styles';
+import './custom-styles.scss';
+const PADDING = 68;
+const CHARACTER_PIXEL = 8;
 
-const dropdownComponents = label => {
-    let prefix = label !='' ? label + ' ': '';
-
-    return {
-        SingleValue: ({ children, ...props }) => {
-            return (
-                <components.SingleValue {...props}>
-                    {prefix + children}
-                </components.SingleValue>
-            );
-        },
-        DropdownIndicator: ({ children, ...props }) => {
-            return (
-                <components.DropdownIndicator {...props}>
-                    <ReactSVG
-                        src={props.theme.dropdownIndicator}
-                        className = "dropDownIcon"
-                    />
-                </components.DropdownIndicator>
-            );
-        }
-    };
-};
-
-const CategoryDropdown = props => {
-    const options = props.categoryOptions;
-
+const SelectDropdown = props => {
+    const { options, className, value, onChange } = props;
+    const Items = () => options.map(option => <option key={option.value} value={option.value} >{option.label}</option>);
     const renderDropdownView = () => { 
         return (
-            <div className="cmp-search-category-header-dropdown">
-                <Select
-                    options={options}
-                    value={options[props.categoryValue]}
-                    onChange={props.categoryOnChange}
-                    isSearchable={props.categoryIsSearchable}
-                    styles={customDropdownStyles}
-                    placeholder={props.categoryPlaceholder}
-                    classNamePrefix={'cmp-custom-dropdown'}
-                    components={dropdownComponents(props.categoryLabelPrefix)}
-                    theme={{dropdownIndicator: props.categoryDownIcon}}
-                />
+            <div className={className}>
+                 <select className="select-dropdown" style={{width: screenSizes.isMobile() ? '100%' : `${PADDING + value.length*CHARACTER_PIXEL}px` }} value={value} onChange={onChange}>
+                    <Items />
+                </select>
             </div>
         );
     }
@@ -53,24 +22,22 @@ const CategoryDropdown = props => {
     return renderDropdownView()
 };
 
-CategoryDropdown.propTypes = {
-    categoryOptions: PropTypes.array.isRequired,
-    categoryOnChange: PropTypes.func.isRequired,
-    categoryLabelPrefix: PropTypes.string,
-    categoryIsSearchable: PropTypes.bool,
-    categoryPlaceholder: PropTypes.string,
-    categoryDownIcon: PropTypes.string.isRequired,
-    categoryValue: PropTypes.number
+SelectDropdown.propTypes = {
+    className: PropTypes.string,
+    options: PropTypes.array.isRequired,
+    onChange: PropTypes.func.isRequired,
+    labelPrefix: PropTypes.string,
+    placeholder: PropTypes.string,
+    value: PropTypes.string
 }
 
-CategoryDropdown.defaultProps = {
-    categoryOptions: [],
-    categoryOnChange: () => {},
-    categoryLabelPrefix: '',
-    categoryIsSearchable: false,
-    categoryPlaceholder: '',
-    categoryDownIcon: '',
-    categoryValue: 0
+SelectDropdown.defaultProps = {
+    className: '',
+    options: [],
+    onChange: () => {},
+    labelPrefix: '',
+    placeholder: '',
+    value: ''
 };
 
-export default CategoryDropdown;
+export default SelectDropdown;
