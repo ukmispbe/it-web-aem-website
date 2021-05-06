@@ -1,16 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+import { getBrightCoveVideoData } from "./services";
 import OverlayWithTabs from "../overlay-with-tabs/OverlayWithTabs";
 import ImageGallery from "./overlay/OverlayImageGallery";
+import VideoGallery from "./overlay/OverlayVideoGallery";
 import { WIDTHS } from "../constants";
 
-const VisualGallery = ({ tabs, templates, videoIds, widths, zoomLabel, zoomInIcon }) => {
+const VisualGallery = ({ tabs, templates, videoIds, brightcoveAccount, brightcovePlayerId, widths, zoomLabel, zoomInIcon }) => {
   const [activeTabIndex, setActiveTabIndex] = useState(0);
   const [isOpen, setIsOpen] = useState(true);
+  const [brightCoveData, setBrightCoveData] = useState([]);
 
   const handleClose = (e) => setIsOpen(false);
 
   const activeTabHandler = (id) => setActiveTabIndex(id);
+ 
+  const birghtCoveData = data => {   
+    const videoObj = data.map(obj  => ({      
+        title: obj.name,
+        description: obj.description,
+        thumbnail: obj.thumbnail,
+        duration: obj.duration,
+        brightcoveVideoId: obj.id, 
+        brightcoveAccount,
+        brightcovePlayerId,    
+    }));
+    setBrightCoveData(videoObj)
+  }
+ 
+  useEffect(() => {   
+   getBrightCoveVideoData(videoIds, brightcoveAccount, birghtCoveData);   
+  },[])
 
   return (
     <div>
@@ -32,9 +52,9 @@ const VisualGallery = ({ tabs, templates, videoIds, widths, zoomLabel, zoomInIco
               />
             </div>
           )}
-          {videoIds.length > 0 && (
+          {brightCoveData.length > 0 && (
             <div style={{ display: activeTabIndex === 1 ? "block" : "none" }}>
-              {tabs[1]}
+              <VideoGallery brightCoveData={brightCoveData} />              
             </div>
           )}
         </div>

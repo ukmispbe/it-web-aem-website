@@ -6,7 +6,7 @@ import PreviewPlayer from "../../preview-player";
 import { replaceInSrc } from "../../utils/userFunctions";
 import { WIDTHS } from "../../constants";
 
-import "../../styles/overlay-image-gallery.scss";
+import "../../styles/overlay-gallery.scss";
 
 class ImageGallery extends React.Component {
   constructor() {
@@ -23,11 +23,11 @@ class ImageGallery extends React.Component {
 
   render() {
     return (
-      <div className="visual-overlay-image-carousel">
-        <div className="overlay-image-thumbnails-placeholder">
+      <div className="visual-overlay-carousel">
+        <div className="overlay-thumbnails-placeholder">
           {this.getThumbnails()}
         </div>
-        <div className="overlay-image-view-placeholder">
+        <div className="overlay-view-placeholder">
           {this.getImageViewerComponents()}
         </div>
       </div>
@@ -39,11 +39,27 @@ class ImageGallery extends React.Component {
       this.mapTemplateToImageViewer(template, index)
     );
 
+  handleImageMouseMove = e => {
+    var zoomer = e.currentTarget;
+    let offsetX = '';
+    let offsetY = '';
+
+    e.nativeEvent.offsetX ? offsetX = e.nativeEvent.offsetX : offsetX = e.touches[0].pageX
+    e.nativeEvent.offsetY ? offsetY = e.nativeEvent.offsetY : offsetY = e.touches[0].pageY
+    let x = offsetX/zoomer.offsetWidth*100
+    let y = offsetY/zoomer.offsetHeight*100
+    zoomer.style.backgroundPosition = x + '% ' + y + '%';
+  }
+  
+  zoomImage = e => e.currentTarget.classList.toggle('zoom-it'); 
+
+  handleOnDragStart = e => e.preventDefault();
+
   mapTemplateToImageViewer = (template, index) => (
     <div
       style={{ display: this.state.activeIndex === index ? "block" : "none" }}
     >
-      <div className="image-area-wrapper">
+      <div className="preview-area-wrapper">
         <div className="tap-to-zoom">
           <ReactSVG src={this.props.zoomInIcon} />
           {this.props.zoomLabel}
@@ -52,9 +68,12 @@ class ImageGallery extends React.Component {
           imgSrc={template.src}
           widths={this.props.widths}
           alt={template.alt}
-          defaultImage={replaceInSrc(template.src, WIDTHS[0])}          
+          defaultImage={replaceInSrc(template.src, WIDTHS[0])}  
+          handleImageMouseMove={this.handleImageMouseMove}   
+          handleOnDragStart={this.handleOnDragStart}  
+          zoomImage={this.zoomImage}   
         />
-        <div className="image-description">{template.title}</div>
+        <div className="preview-description">{template.description}</div>
       </div>
     </div>
   );
@@ -65,6 +84,7 @@ class ImageGallery extends React.Component {
         <Thumbnail
           thumbnailSrcURL={replaceInSrc(item.src, WIDTHS[0])}
           thumbnailAltText={item.alt}
+          className={this.state.activeIndex === index && 'thumbnail-active'} 
           isVideo={item.src === undefined}
           onThumbnailClick={() => this.handleThumbnailClick(index)}
         />

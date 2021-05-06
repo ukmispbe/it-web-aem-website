@@ -4,11 +4,11 @@ export const props = {
     zoomInIcon: "http://localhost:4502/content/dam/waters/en/brand-assets/icons/zoom-in.svg",
       
     alt:"test",
-    videoIds:['1234566','34343434'],
+    videoIds:['6084160447001', '5116024345001'],
     tabs:["Images","Videos"],
     zoomLabel:"Tap or Click to Zoom",
-    brightcoveAccount:'4324324324324',
-    brightcovePlayerId:'3434234324324'
+    brightcoveAccount:'1786731335',
+    brightcovePlayerId:'ptF88s0lh8'
 }
 
 export const singleImageAndNoTabs = {
@@ -17,9 +17,9 @@ export const singleImageAndNoTabs = {
     zoomInIcon: "http://localhost:4502/content/dam/waters/en/brand-assets/icons/zoom-in.svg",
       
     alt:"test",
-    videoIds:['1234566','34343434'],
+    videoIds:['6084160447001', '5116024345001'],
     tabs:["Images"],
     zoomLabel:"Tap or Click to Zoom",
-    brightcoveAccount:'4324324324324',
-    brightcovePlayerId:'3434234324324'
+    brightcoveAccount:'1786731335',
+    brightcovePlayerId:'ptF88s0lh8'
 }

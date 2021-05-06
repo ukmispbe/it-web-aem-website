@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactSVG from 'react-svg';
 import PropTypes from "prop-types";
 import Video from '../video';
@@ -6,10 +6,12 @@ import { replaceInSrc } from '../utils/userFunctions';
 
 import '../styles/preview-player.scss';
 
-const PreviewPlayer = ({openModal, imgSrc,zoomIcon,zoomIconText, widths, defaultImage, videoConfig }) => {
+const PreviewPlayer = ({ openModal, imgSrc, alt, zoomIcon,zoomIconText, widths, defaultView, videoConfig, handleOnDragStart, handleImageMouseMove, handleImageTouchMove, zoomImage }) => {
+    const [currentSrc, setCurrentSrc] = useState()
         
-    const handleImageLoaded = e => {}
+    const handleImageLoaded = e => { setCurrentSrc(e.currentTarget.querySelector('img').currentSrc)};
     const handleImageError = e => {}
+    const handleMouseOut = e => e.currentTarget.classList.remove("zoom-it");
     const handlePlayerClick = e => {
         if(openModal){
             openModal(e);
@@ -20,31 +22,68 @@ const PreviewPlayer = ({openModal, imgSrc,zoomIcon,zoomIconText, widths, default
                 {
                     imgSrc ? (
                           <>
-                            <div className="overlay">
-                                <div className="tap-to-zoom">
-                                    <ReactSVG src={zoomIcon} />{zoomIconText}
-                                </div>
-                            </div>
-                            <picture
-                            onLoad={(e) => handleImageLoaded(e)}
-                            onError={(e) => handleImageError(e)}                         
-                            >
-                            {
-                                widths.map((width, index) => (
-                                <source
-                                    key={`media-${width}-${index}`}
-                                    media={`(min-width: ${width}px)`}
-                                    srcSet={replaceInSrc(imgSrc, width)}
-                                    type={'image/webp'}
-                                />
-                                ))
-                            }
-                            <img
-                                className="image-gallery-image"
-                                alt={"gallery-image"}
-                                src={defaultImage} 
-                            />
-                            </picture>
+                            { !defaultView ? 
+                                <>
+                                    <div className="overlay">
+                                        <div className="tap-to-zoom">
+                                            <ReactSVG src={zoomIcon} />{zoomIconText}
+                                        </div>
+                                    </div>
+                                    <div className="image-view-area">
+                                        <figure
+                                            className="image-zoom-area"
+                                            style={{ backgroundImage: `url(${currentSrc})` }} 
+                                            onDragStart={e => handleOnDragStart(e)}
+                                            onMouseMove={(e) => handleImageMouseMove(e)}
+                                            onTouchMove={handleImageTouchMove} 
+                                            onClick={e => zoomImage(e)} 
+                                            onMouseOut={e => handleMouseOut(e)}
+                                        >
+                                            <picture                            
+                                                onLoad={(e) => handleImageLoaded(e)}
+                                                onError={(e) => handleImageError(e)}                                                 
+                                                >
+                                                {
+                                                    widths.sort((a,b)=>b-a).map((width, index) => (
+                                                    <source
+                                                        key={`media-${width}-${index}`}
+                                                        media={`(min-width: ${width}px)`}
+                                                        srcSet={replaceInSrc(imgSrc, width)}
+                                                        type={'image/webp'}
+                                                    />
+                                                    ))
+                                                }
+                                                <img
+                                                    className="image-gallery-image"
+                                                    alt={alt}
+                                                    src={currentSrc} 
+                                                />
+                                            </picture>
+                                        </figure>
+                                    </div>
+                                </> : <div>
+                                        <picture                            
+                                            onLoad={(e) => handleImageLoaded(e)}
+                                            onError={(e) => handleImageError(e)}                                                 
+                                            >
+                                            {
+                                                widths.map((width, index) => (
+                                                <source
+                                                    key={`media-${width}-${index}`}
+                                                    media={`(min-width: ${width}px)`}
+                                                    srcSet={replaceInSrc(imgSrc, width)}
+                                                    type={'image/webp'}
+                                                />
+                                                ))
+                                            }
+                                            <img
+                                                className="image-gallery-image"
+                                                alt={alt}
+                                                src={currentSrc} 
+                                            />
+                                        </picture>
+                                    </div>
+                                }                            
                        </>
                       ) : (
                        
