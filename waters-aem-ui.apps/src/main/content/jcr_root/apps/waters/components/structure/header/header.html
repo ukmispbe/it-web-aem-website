@@ -49,8 +49,24 @@
                             data-auto-suggest-label="${'Search Box' @ i18n}"
                             data-clear-label="${'Clear' @ i18n}"
                             data-search-label="${'Search' @ i18n}"
-                            data-recently-searched-label="${'Recently Searched' @ i18n}">
+                            data-recently-searched-label="${'Recently Searched' @ i18n}"
+                            data-icon-down="/content/dam/waters/en/brand-assets/icons/down.svg"
+                            data-category-label="${'Category:' @ i18n, context='unsafe'}"
+                            >
                         </div>
+                        <script type="application/json" id="header-categories-json">
+                          {
+                            "options": [
+                              {"value": "ALL","label": "${'All' @ i18n, context='unsafe'}"},
+                              {"value": "EDUCATION","label": "${'Education' @ i18n, context='unsafe'}"},
+                              {"value": "EVENTS","label": "${'Events' @ i18n, context='unsafe'}"},
+                              {"value": "LIBRARY","label": "${'Library' @ i18n, context='unsafe'}"},
+                              {"value": "SUPPORT","label": "${'Support' @ i18n, context='unsafe'}"},
+                              {"value": "SHOP","label": "${'Shop' @ i18n, context='unsafe'}"},
+                              {"value": "ABOUTWATERS","label": "${'About Waters' @ i18n, context='unsafe'}"}
+                            ]
+                          }
+                        </script>
                     </li>
                     <li class="top-bar__nav__user${header.eprocurement ? '--hide':''} top-bar__nav__item">
                         <a

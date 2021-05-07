@@ -61,4 +61,9 @@
       padding-right: ($space-m + $space-s);
     }
   }
+
+  .cmp-search-category-header-dropdown {
+    width: auto;
+    margin: $space-xs $space-m;
+  }
 }
