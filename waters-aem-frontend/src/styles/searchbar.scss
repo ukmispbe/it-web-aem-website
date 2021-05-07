@@ -26,9 +26,18 @@
             .react-autosuggest__suggestion {
                 @include font-body;
 
-                .formatted-suggestion {
+                .formatted-suggestion, .formatted-facet {
                     display: flex;
                     flex-wrap: wrap;
+                }
+
+                .formatted-facet {
+                    padding-left: $space-s;
+                    font-style: italic;
+                }
+
+                &.react-autosuggest__suggestion--highlighted {
+                    color: $color-link;
                 }
             }
 
@@ -133,8 +142,14 @@
             background: $color-white;
             padding: $space-xxxs $space-xxl $space-xxs $space-s;
             -webkit-appearance: none;
-            -webkit-border-radius: $border-radius;
-            border-radius: $border-radius;
+            border-radius: 0;
+            border-top-right-radius: $border-radius;
+            border-bottom-right-radius: $border-radius;
+            @include mobile { 
+               -webkit-border-radius: $border-radius;
+                border-radius: $border-radius;
+            }
+
             &:focus {
                 outline: none;
                 border: 1px solid $color-focus;
@@ -224,6 +239,10 @@
             }
         }
     }
+}
+
+.cmp-search-bar-group {
+    display: flex;
 }
 
 /*

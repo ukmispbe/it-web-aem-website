@@ -6,4 +6,5 @@
         skuCustomerPriceUrl="https://api.waters.com/waters-product-exp-api-v1/api/products/prices"
         addToCartUrl="https://api.waters.com/waters-cart-proxy-api-v1/{localeCountry}/{localeLanguage}/users/{userType}/carts/{guid}/entries"
         ecomViewCartUrl="https://www.waters.com/store/{localeCountry}/{localeLanguage}/cart"
-        eprocViewCartUrl="https://order.waters.com/store/{localeLanguage}/cart"/>
+        eprocViewCartUrl="https://order.waters.com/store/{localeLanguage}/cart"
+        contactUsLink="https://www.waters.com/waters/contactUs.htm"/>

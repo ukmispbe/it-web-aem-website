@@ -5,13 +5,16 @@ import loginStatus from "../scripts/loginStatus";
 import { notLoggedInRedirect } from '../utils/redirectFunctions';
 import Spinner from "../utils/spinner";
 import { isCartHidden } from '../utils/eCommerceFunctions';
-import { isEprocurementUserRole } from '../utils/userFunctions';
+import { isEprocurementUserRole, isSoftwareManager } from '../utils/userFunctions';
+import ScreenSizes from '../scripts/screenSizes';
 
 const Tile = ({ tile }) => {
     if ((tile.requiresEcommerce === "true" && isCartHidden()) || (tile.isHiddenForEprocUser === "true" && isEprocurementUserRole())) {
         return <></>;
     }
-
+    if (tile.requiresSoftwareManager && tile.requiresSoftwareManager === "true" && (isSoftwareManager() === 0 || ScreenSizes.isTabletAndUnder())) {
+        return <></>;
+    }
     return <LinkTile {...tile} datalocator="my-account" />
 }
 

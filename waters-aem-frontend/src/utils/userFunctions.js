@@ -67,17 +67,6 @@ export const getDummySoldToId = () => {
     return dummySoldto;
 }
 
-export const getSoldToIdSource = (soldToId, dummySoldto) => {
-    let soldTo = '';
-    if (soldToId != '' && dummySoldto == '') {
-        soldTo = soldToId;
-    } else if (soldToId == '' && dummySoldto != '') {
-        soldTo = dummySoldto;
-    }
-
-    return soldTo;
-}
-
 export const getApprovalStatus = () => {
     const store = new SessionStore();
     const userDetails = store.getUserDetails();
@@ -88,21 +77,16 @@ export const getApprovalStatus = () => {
 //Note: Returning all possible soldTo values for debugging and in case of future needs
 export const callCustomerPriceApi = (custPriceApiDisabled) => {
     let salesOrg = getSalesOrg();
-    let soldToId = getSoldToId();
-    let dummySoldto = getDummySoldToId();
-    let dynamicSoldTo = getSoldToIdSource(soldToId, dummySoldto);
+    let soldToId = getSoldToId() || getDummySoldToId();
     let callCustApi = false;
 
-    if (dynamicSoldTo !== '' && salesOrg !== '' && custPriceApiDisabled !== true 
-        && custPriceApiDisabled !== "true"){
+    if (custPriceApiDisabled != true){
             callCustApi = true;
         }
 
     let userInfo = {
         salesOrg: salesOrg,
         soldToId: soldToId,
-        dummySoldto: dummySoldto,
-        dynamicSoldTo: dynamicSoldTo,
         callCustApi: callCustApi
     }
 
@@ -339,6 +323,7 @@ export const filterUserDetails = (inputUser) => {
         filteredUser.userRole = inputUser.userRole;
         filteredUser.isoCode = inputUser.isoCode;
         filteredUser.shipOrBillChangeFlag = inputUser.shipOrBillChangeFlag;
+        filteredUser.softwareManager = inputUser.softwareManager ?  inputUser.softwareManager : 0;
 
         if (inputUser.soldToAccounts && inputUser.soldToAccounts.length !== 0) {
             filteredUser.soldToAccounts = inputUser.soldToAccounts;
@@ -438,6 +423,11 @@ export const getEprocUserLanguage = () => {
     return userDetails.localeLanguage || '';
 }
 
+export const isSoftwareManager = () => {
+    const store = new SessionStore();
+    const userDetails = store.getUserDetails();
+    return userDetails.softwareManager || 0;
+}
 export const getShipOrBillChangeFlag = () => {
     const store = new SessionStore();
     const userDetails = store.getUserDetails();
@@ -445,7 +435,7 @@ export const getShipOrBillChangeFlag = () => {
 }
 
 export const getCategoryReferenceType = () => {
-    return isEprocurementUser() ? `&reference=sku` : '';
+    return isEprocurementUser() ? `&reference=sku` : '&reference=all';
 }
 
 export const getCartCheckoutUrl = (initial, page) => {
@@ -454,8 +444,8 @@ export const getCartCheckoutUrl = (initial, page) => {
     return `${window.location.origin}/${initial}/${countryCode}/${language}/${page}`;
 }
 
-export const getUrlPath = (url, id) => {
-    const  userId = getUserId();
+export const getQuoteDetailsUrl = (url, id) => {
+    const userId = getUserId();
     const soldToId = getSoldToId() || getDummySoldToId();
     const countryCode = getCountryCode();
     const language = getLanguage();
@@ -529,3 +519,27 @@ export const convertToBoolean = (value = '') => {
     }
     return status
 }
+
+export const replaceInSrc = (src = "", strWithReplace) => {
+  const variation =  src.replace(/{{width}}/gi, strWithReplace);
+  return variation;
+}
+
+
+export const setUserDataForDataDog = () => {
+    const store = new SessionStore();
+    const userDetails = store.getUserDetails();
+    const isUserLoggedIn = loginStatus.state();
+    let config = {
+        id: 'Anonymous',
+        name: 'Guest',
+      };
+    if(isUserLoggedIn){
+    const {userId, firstName, lastName} = userDetails;
+    config = {
+        id: userId,
+        name: `${firstName} ${lastName}`,
+      };
+    }
+    return window.DD_RUM && window.DD_RUM.setUser(config);
+};

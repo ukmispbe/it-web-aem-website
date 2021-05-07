@@ -44,7 +44,7 @@ const TextWithLinks = ({}) => {
                 className={className}
                 id={id}
                 title={title}
-                data-locator={elementLocator(htmlParser(label))}>
+                data-locator={elementLocator(`${id}-link`)}>
                 {htmlParser(label)}
             </a>
             )

@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<OverlayWithTabs /> should render component without tabs 1`] = `ShallowWrapper {}`;
+
+exports[`<OverlayWithTabs /> should render correctly 1`] = `ShallowWrapper {}`;

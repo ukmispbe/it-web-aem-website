@@ -34,6 +34,7 @@ const CreateRequestForm = ({
     // Check if empty and return
     if (!countriesReadFromAEM || countriesReadFromAEM === "") {
       setDisplayInitialForm(true);
+      loadUserDetailsDisplayInitialForm();
       return;
     }
 
@@ -45,7 +46,8 @@ const CreateRequestForm = ({
       const localeString = cookieStore.getLocale();      
       const userCountry = getCountryFromLocale(localeString)
       if (countryArray.includes(userCountry)) { 
-        setDisplayInitialForm(true);  
+        setDisplayInitialForm(true);
+        loadUserDetailsDisplayInitialForm();
         return;
       }
       const contactUsUrl = serialFormConfig.config.globalCountriesRedirectURL;
@@ -78,7 +80,7 @@ const CreateRequestForm = ({
     return countryArray;
   }
 
-  useEffect(() => {
+  function loadUserDetailsDisplayInitialForm () {
     const needsToBeSignedIn = serialFormConfig.config.needsToBeSignedIn;
     if (!isInEditMode) {
       if (needsToBeSignedIn) {
@@ -113,7 +115,7 @@ const CreateRequestForm = ({
     } else {
       setShowForm(0);
     }
-  }, []);
+  }
 
   function checkSerialSubmit(data) {
     window.dispatchEvent(new CustomEvent("showLoaderEproc", { detail: { showLoader: true }}));

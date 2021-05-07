@@ -234,13 +234,12 @@ public final class Header extends AbstractComponent implements ComponentExporter
     private String quickOrderMultipleItemsLabel;
 
     @DialogField(fieldLabel = "Multiple Items Link",
-            fieldDescription = "The path of the multiple items link",
-            required = true,
-            tab = 3,
-            ranking = 4)
-    @PathField(rootPath = WatersConstants.ROOT_PATH)
-    @LinkInject(inherit = true)
-    private Link quickOrderMultipleItemsLink;
+    fieldDescription = "The path of the multiple items link. e.g. https://dev1.waters.com/store/{localeCountry}/{localeLanguage}/quick-order",
+    tab = 3,
+    ranking = 4)
+    @TextField
+    @InheritInject
+    private String quickOrderMultipleItemsLink;
 
     @DialogField(fieldLabel = "Multiple Items Icon",
             fieldDescription = "Select or enter the icon URL",
@@ -440,7 +439,7 @@ public final class Header extends AbstractComponent implements ComponentExporter
     }
 
     public String getQuickOrderMultipleItemsLink() {
-        return quickOrderMultipleItemsLink.getPath();
+        return quickOrderMultipleItemsLink;
     }
 
     public String getQuickOrderMultipleItemsIcon() { 

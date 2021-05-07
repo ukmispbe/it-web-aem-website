@@ -10,7 +10,7 @@ import AddToCartBody from '../../sku-details/views/addToCartModal';
 import Analytics, { analyticTypes } from '../../analytics';
 import { DELIVERY_STATUS, STORE, CHECKOUT } from '../../constants';
 import DeliveryStatus from '../../common/delivery-status';
-import { getFullCompanyAddress, getCartCheckoutUrl, getUrlPath, getUrlParameter, convertToBoolean, getApprovalStatus } from '../../utils/userFunctions';
+import { getFullCompanyAddress, getCartCheckoutUrl, getQuoteDetailsUrl, getUrlParameter, convertToBoolean, getApprovalStatus } from '../../utils/userFunctions';
 import SessionStore from '../../stores/sessionStore';
 
 class QuoteDetails extends Component {
@@ -62,7 +62,7 @@ class QuoteDetails extends Component {
 
     getQuoteDetailsData = () => {
         const { detailsUrl, quoteId } = this.state;       
-        const url = getUrlPath(detailsUrl, quoteId);
+        const url = getQuoteDetailsUrl(detailsUrl, quoteId);
         getQuoteDetails(url, this.setError)
             .then((data) => {
                 const quotes = data && data.quotes || undefined;

@@ -36,9 +36,9 @@
         <hybris.artifactId>waters-aem-hybris-importer</hybris.artifactId>
 
         <!-- versions -->
-        <acs.aem.commons.version>4.7.2</acs.aem.commons.version>
+        <acs.aem.commons.version>5.0.4</acs.aem.commons.version>
         <aem.library.version>12.0.0</aem.library.version>
-        <core.components.version>2.9.0</core.components.version>
+        <core.components.version>2.15.0</core.components.version>
         <component.plugin.version>6.4.1</component.plugin.version>
         <itext.version>7.1.8</itext.version>
         <itext.html2pdf.version>2.1.5</itext.html2pdf.version>
@@ -261,11 +261,11 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-resources-plugin</artifactId>
-                    <version>2.7</version>
+                    <version>3.2.0</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-jar-plugin</artifactId>
-                    <version>2.6</version>
+                    <version>3.2.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.felix</groupId>
@@ -275,12 +275,13 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.22.0</version>
+                    <version>3.0.0-M5</version>
                     <configuration>
                         <trimStackTrace>false</trimStackTrace>
                         <includes>
-                            <include>**/*Spec*</include>
+                            <include>**/*Test*</include>
                         </includes>
+                        <useSystemClassLoader>false</useSystemClassLoader>
                     </configuration>
                 </plugin>
                 <plugin>
@@ -702,10 +703,41 @@
 
             <!-- test -->
             <dependency>
-                <groupId>com.icfolson.aem.prosper</groupId>
-                <artifactId>prosper</artifactId>
-                <version>14.0.0</version>
+                <groupId>org.junit</groupId>
+                <artifactId>junit-bom</artifactId>
+                <version>5.6.2</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>3.3.3</version>
                 <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-junit-jupiter</artifactId>
+                <version>3.3.3</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>junit-addons</groupId>
+                <artifactId>junit-addons</artifactId>
+                <version>1.4</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>io.wcm</groupId>
+                <artifactId>io.wcm.testing.aem-mock.junit5</artifactId>
+                <version>4.0.0</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>biz.aQute.bnd</groupId>
+                <artifactId>bndlib</artifactId>
+                <version>2.4.0</version>
+                <scope>provided</scope>
             </dependency>
 
             <!-- uber jar -->
@@ -715,7 +747,7 @@
                 <version>6.5.5</version>
                 <classifier>apis</classifier>
                 <scope>provided</scope>
-       </dependency>
+            </dependency>
             <dependency>
                 <groupId>com.google.zxing</groupId>
                 <artifactId>javase</artifactId>

@@ -192,7 +192,8 @@ const Menu = ({
                     facetGroupsSelectedOrder={subFacetFiltersProps.facetGroupsSelectedOrder}
                     collapseAllFilters={subFacetFiltersProps.collapseAllFilters}
                     activeIndex={subFacetFiltersProps.activeIndex}
-                    onGroupClick={subFacetFiltersEvents.onGroupClick} />
+                    onGroupClick={subFacetFiltersEvents.onGroupClick}
+                    defaultFilterFacet={subFacetFiltersProps.defaultFilterFacet} />
 
             </FacetMenu>;
     return <>
@@ -258,7 +259,7 @@ const SearchResults = ({
     return (
         <Suspense fallback={<div>Loading...</div>}>
             <SkuList
-                skuConfig={skuConfig}
+                config={skuConfig}
                 data={searchData}
                 onItemClick={onItemClick} />
         </Suspense>

@@ -170,9 +170,11 @@ class SearchService {
         });
     };
 
-    getSuggestedKeywords = async (rows, term) => {
-        const searchString = `${this.path}/v1/autocomplete?term=${term}&rows=${rows}&isocode=${this.options.isocode}${getCategoryReferenceType()}`;
-
+    getSuggestedKeywords = async (rows, term, category) => {
+        let searchString = `${this.path}/v1/autocomplete?term=${term}&rows=${rows}&isocode=${this.options.isocode}${getCategoryReferenceType()}`;
+        if (category) {
+            searchString += `&category=${category}`;
+        }
         const callService = window.fetch(searchString).then(response => {
             if (response.ok) {
                 return response.json();
@@ -184,7 +186,10 @@ class SearchService {
 
         const response = await callService;
 
-        return response.suggestions;
+        return {
+            suggestions: response.suggestions || [],
+            facets: response.facets || [],
+        };
     };
 
     getParamsFromString() {
@@ -364,14 +369,14 @@ class SearchService {
         return [];
     }
 
-    buildParameters = searchValue => {
-        const keyword = searchValue ? searchValue : parameterDefaults.keyword;
+    buildParameters = (searchObject = {}) => {
+        const keyword = searchObject && searchObject.keyword ? searchObject.keyword : parameterDefaults.keyword;
         const sort =
             keyword === parameterDefaults.keyword
                 ? parameterDefaults.sort
                 : parameterValues.sort.mostRelevant;
 
-        return { keyword, sort };
+        return { ...searchObject, keyword, sort };
     };
 
     stringifyParameters = parameters =>
@@ -383,8 +388,8 @@ class SearchService {
             )
             : '';
 
-    setUrlParameter = (searchTerm, searchPath) => {
-        const parameters = this.buildParameters(searchTerm);
+    setUrlParameter = (searchObject, searchPath) => {
+        const parameters = this.buildParameters(searchObject || {});
         const querystring = this.stringifyParameters(parameters);
 
         window.location.href = `${searchPath}?${querystring}`;

@@ -71,4 +71,8 @@ public @interface WatersAccountServiceConfiguration {
 
     @AttributeDefinition(name = "Support Request API Equipment Url", description = "Url for Support Request Equipment API")
     String supportRequestEquipmentUrl() default "https://api-sbox.waters.com/dev-waters-asset-web-exp-api-v1/api/equipment";
+
+    @AttributeDefinition(name = "Thales Software Download URL", description = "Url for Thales Software Download")
+    String softwareDownloadUrl() default "https://videos.waters.com";
+
 }

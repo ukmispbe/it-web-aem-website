@@ -55,6 +55,8 @@ public class DefaultWatersAccountService implements WatersAccountService {
 
     private volatile String supportRequestEquipmentUrl;
 
+    private volatile String softwareDownloadUrl;
+
     @Override
     public String getSignOutUrl() {
         return signOutUrl;
@@ -165,6 +167,11 @@ public class DefaultWatersAccountService implements WatersAccountService {
         return supportRequestEquipmentUrl;
     }
 
+    @Override
+    public String getSoftwareDownloadUrl() {
+        return softwareDownloadUrl;
+    }
+
     @Activate
     @Modified
     protected void activate(final WatersAccountServiceConfiguration configuration) {
@@ -190,5 +197,6 @@ public class DefaultWatersAccountService implements WatersAccountService {
         countryStatesUrl = configuration.countryStatesUrl();
         supportRequestUrl = configuration.supportRequestUrl();
         supportRequestEquipmentUrl = configuration.supportRequestEquipmentUrl();
+        softwareDownloadUrl = configuration.softwareDownloadUrl();
     }
 }

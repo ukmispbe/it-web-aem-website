@@ -6,7 +6,8 @@ import QuickOrder from '../quick-order/QuickOrder';
 import ScreenSizes from '../scripts/screenSizes';
 import MobileNav from '../scripts/mobileNav';
 import domElements from '../scripts/domElements';
-import { addQuickOrderLink, removeQuickOrderLink } from '../scripts/quickorderlink';
+import { addQuickOrderLink, removeQuickOrderLink } from '../scripts/mobileQuickOrderLink';
+import { replaceCountryAndLanguage } from '../utils/eCommerceFunctions';
 
 class HeaderQuickOrder extends React.Component {
     constructor(props) {
@@ -22,9 +23,22 @@ class HeaderQuickOrder extends React.Component {
         this.header = null;
     }
 
+    buildQuickOrderUrl = () => {
+        const headerQuickOrderLink = document.querySelector('.top-bar__nav__quick-order__link');
+        if (headerQuickOrderLink) {
+            headerQuickOrderLink.setAttribute("href", replaceCountryAndLanguage(this.props.multipleItemsLink));
+            headerQuickOrderLink.addEventListener('click', function (event) {
+                if (event) {
+                    event.stopPropagation();
+                }
+            });
+        }
+    }
+
     async componentDidMount() {
         this.headerNav = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__quick-order');
         this.header = document.querySelector('header.cmp-header');
+        const multipleItemLink = document.querySelector('.quick-order-multiple-item');
 
         if (this.headerNav) {
             this.headerNav.addEventListener('mouseover', this.handleOutsideEvent);
@@ -33,6 +47,14 @@ class HeaderQuickOrder extends React.Component {
             this.hideOnMobile(ScreenSizes.isMobile());
         }
         window.addEventListener('resize', this.updateViewport, true);
+        if (multipleItemLink) {
+            multipleItemLink.addEventListener('click', function (event) {
+                if (event) {
+                    event.stopPropagation();
+                }
+            });
+        }
+        this.buildQuickOrderUrl();
     }
 
     componentWillUnMount() {
@@ -146,7 +168,15 @@ class HeaderQuickOrder extends React.Component {
     render() {
         if (this.state.isMobile) return null;
         return (
-            <QuickOrder {...this.props} isInHeader={true} />
+            <QuickOrder
+                {...this.props}
+                skuDatalocator="code-header-quick-order"
+                quantityDatalocator="quantity-header-quick-order"
+                addToCartBtnDatalocator="add-to-cart-button-header-quick-order"
+                addMultipleItemsDatalocator="quick-order-multiple-item"
+                multipleItemsLink={replaceCountryAndLanguage(this.props.multipleItemsLink)}
+                isInHeader={true}
+            />
         )
     }
 }
@@ -158,6 +188,7 @@ HeaderQuickOrder.propTypes = {
     multipleItemsLabel: PropTypes.string,
     multipleItemsLink: PropTypes.string,
     multipleItemsIcon: PropTypes.string,
+    qtyPlaceholder: PropTypes.string,
     skuConfig: PropTypes.object,
     errorMsg: PropTypes.string
 }
@@ -169,6 +200,7 @@ HeaderQuickOrder.defaultProps = {
     multipleItemsLabel: '',
     multipleItemsLink: '',
     multipleItemsIcon: '',
+    qtyPlaceholder: '',
     skuConfig: {},
     errorMsg: ''
 }

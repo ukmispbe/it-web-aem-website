@@ -1,0 +1,27 @@
+<div class="cmp-visual-gallery"
+	data-sly-use.visualGallery="com.waters.aem.core.components.content.VisualGallery">
+	<div class="visualgallery-wrapper"></div>
+	<script type="application/json" class="visual-gallery-video-json">
+        {
+          "playIcon": "/content/dam/waters/en/brand-assets/icons/play.svg",
+          "closeIcon": "/content/dam/waters/en/brand-assets/icons/close.svg",
+          "videoList": "${visualGallery.videoIds  @ context='unsafe'}",
+          "brightcoveAccount": "${visualGallery.brightcoveAccount  @ context='scriptString'}",
+          "brightcovePlayerId": "${visualGallery.brightcovePlayerId  @ context='scriptString'}",
+		  "tabs": ["${'Images' @ i18n, context='unsafe'}","${'Videos' @ i18n, context='unsafe'}"]
+        }
+    </script>
+	<script type="application/json" class="visual-gallery-image-json">
+         ${visualGallery.imageGalleryAsJson @ context='unsafe'}
+    </script>
+</div>
+
+<sly
+	data-sly-use.patterns="/apps/waters/components/content/patterns.html"
+	data-sly-call="${patterns.placeholder @ show=true, text=component.title}" />
+<sly
+	data-sly-use.clientlib="/libs/granite/sightly/templates/clientlib.html"
+	data-sly-call="${clientlib.js @ categories='waters.visualgallery'}" />
+<link rel="preload"
+	href="/etc.clientlibs/waters/components/content/visualgallery/clientlib-visualgallery.css"
+	as="style" onload="this.onload=null;this.rel='stylesheet'">
