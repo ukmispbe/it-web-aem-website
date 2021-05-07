@@ -31,9 +31,7 @@ import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.wcm.api.Page;
 import com.waters.aem.core.services.commerce.WatersCommerceService;
 
-@Component(value = "Request Information Button", 
-			description = "This is the Request Information Button component for Waters site", 
-listeners = {
+@Component(value = "Request Information Button", description = "This is the Request Information Button component for Waters site", listeners = {
 		@Listener(name = EVENT_AFTER_INSERT, value = REFRESH_PAGE),
 		@Listener(name = EVENT_AFTER_EDIT, value = REFRESH_PAGE),
 		@Listener(name = EVENT_AFTER_DELETE, value = REFRESH_PAGE) }, tabs = { @Tab(title = "Properties") })
