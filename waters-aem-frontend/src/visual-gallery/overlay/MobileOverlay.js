@@ -24,11 +24,16 @@ class MobileOverlay extends Component {
     // Debouncing functions to reduce frequency of execution
     this.hideSearchModalDebounce = debounce(100, this.hideSearchModal);
     this.elementNoScrollDebounce = debounce(100, domElements.noScroll);
+    // image and video inputs merged together
     this.galleryContext = [...props.templates, ...props.videoConfig];
   }
 
-  handleThumbnailClick = (activeIndex) =>
+  handleThumbnailClick = (e, activeIndex) => {
+    if (this.state.magnified) {
+      this.zoomImage(e);
+    }
     this.setState({ activeIndex, thumbnailClicked: true });
+  };
 
   showSearchModal = () => {
     this.setState({ mobileSearchOpen: !this.state.mobileSearchOpen }, () =>
@@ -44,6 +49,7 @@ class MobileOverlay extends Component {
   };
 
   backButtonHandler = (e) => {
+    this.setState({ magnified: false });
     const rootNode = document.querySelector(
       ".moboverlay-preview-player-container"
     );
@@ -128,6 +134,7 @@ class MobileOverlay extends Component {
       ".moboverlay-preview-player-container"
     ).classList;
     const imageZoomArea = document.querySelector(".image-zoom-area").classList;
+
     if (rootNode.contains("fit-on-zoom")) {
       rootNode.remove("fit-on-zoom");
     } else {
@@ -212,7 +219,7 @@ class MobileOverlay extends Component {
           className={this.state.activeIndex === index && "thumbnail-active"}
           isVideo={item.src === undefined}
           videoIconURL={item.videoIconURL}
-          onThumbnailClick={() => this.handleThumbnailClick(index)}
+          onThumbnailClick={(e) => this.handleThumbnailClick(e, index)}
         />
       ))
     ) : (
@@ -264,11 +271,15 @@ class MobileOverlay extends Component {
 }
 MobileOverlay.defaultProps = {
   widths: WIDTHS,
+  alt: "",
+  templates: [],
+  videoConfig: [],
 };
 
 MobileOverlay.propTypes = {
   alt: PropTypes.string,
-  templates: PropTypes.arrayOf(PropTypes.string).isRequired,
+  templates: PropTypes.arrayOf(PropTypes.string),
+  videoConfig: PropTypes.arrayOf(PropTypes.object),
   widths: PropTypes.arrayOf(PropTypes.string).isRequired,
   zoomInIcon: PropTypes.string.isRequired,
 };
