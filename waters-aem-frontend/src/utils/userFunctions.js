@@ -435,7 +435,7 @@ export const getShipOrBillChangeFlag = () => {
 }
 
 export const getCategoryReferenceType = () => {
-    return isEprocurementUser() ? `&reference=sku` : '';
+    return isEprocurementUser() ? `&reference=sku` : '&reference=all';
 }
 
 export const getCartCheckoutUrl = (initial, page) => {
