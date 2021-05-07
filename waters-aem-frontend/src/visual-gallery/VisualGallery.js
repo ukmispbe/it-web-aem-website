@@ -30,36 +30,46 @@ const VisualGallery = ({
   const [activeTabIndex, setActiveTabIndex] = useState(0);
   const [isOpen, setIsOpen] = useState(true);
   const [isMobileOverlayOpen, mobileOverlayHandler] = useState(false);
-  const [videoConfig, setVideoConfig] = useState([{
-    brightcoveVideoId: videoIds[0],
-    brightcoveAccount,
-    brightcovePlayerId,
-    duration: msToMinAndSeconds(789654),
-    title: 'Video Title',
-    description: 'Video Description',
-    brightcovePlayerId,
-    thumbnail: 'http://localhost:4502/content/dam/waters/emails/download.png/_jcr_content/renditions/cq5dam.thumbnail.319.319.png'
-  },
-  {
-    brightcoveVideoId: videoIds[1],
-    brightcoveAccount,
-    brightcovePlayerId,
-    duration: msToMinAndSeconds(389654),
-    title: 'Video Title two',
-    description: 'Video Description two',
-    brightcovePlayerId,
-    thumbnail: 'http://localhost:4502/content/dam/waters/emails/download.png/_jcr_content/renditions/cq5dam.thumbnail.319.319.png'
-  }])
+  const [videoConfig, setVideoConfig] = useState([
+    {
+      brightcoveVideoId: videoIds[0],
+      brightcoveAccount,
+      brightcovePlayerId,
+      duration: msToMinAndSeconds(789654),
+      title: "Video Title",
+      description: "Video Description",
+      brightcovePlayerId,
+      isVideo: true,
+      showVideoPlayButton: true,
+      videoIconURL:
+        "https://dev1.waters.com/content/dam/waters/en/brand-assets/icons/play.svg",
+      thumbnail:
+        "http://localhost:4502/content/dam/waters/emails/innovations-acquity-premier-column-logo.jpeg",
+    },
+    {
+      brightcoveVideoId: videoIds[1],
+      brightcoveAccount,
+      brightcovePlayerId,
+      duration: msToMinAndSeconds(389654),
+      title: "Video Title two",
+      description: "Video Description two",
+      brightcovePlayerId,
+      videoIconURL:
+        "https://dev1.waters.com/content/dam/waters/en/brand-assets/icons/play.svg",
+      thumbnail:
+        "http://localhost:4502/content/dam/waters/emails/innovations-otto-spe-logo.jpeg",
+    },
+  ]);
   const handleClose = (e) => setIsOpen(false);
 
   const activeTabHandler = (id) => setActiveTabIndex(id);
   const launchMobileOverlay = () => {
     mobileOverlayHandler(!isMobileOverlayOpen);
   };
-  
+
   const closeMobileOverlay = () => {
     mobileOverlayHandler(false);
-  }
+  };
   return (
     <div>
       <button onClick={launchMobileOverlay}>{`Launch Mobile Overlay`}</button>
@@ -96,10 +106,10 @@ const VisualGallery = ({
           closeMobileOverlay={closeMobileOverlay}
           templates={templates}
           videoIds={videoIds}
-          widths={widths}  
+          widths={widths}
           zoomInIcon={zoomInIcon}
-          zoomLabel={zoomLabel}                  
-          videoConfig={videoConfig}          
+          zoomLabel={zoomLabel}
+          videoConfig={videoConfig}
         ></MobileOverlay>
       )}
     </div>
