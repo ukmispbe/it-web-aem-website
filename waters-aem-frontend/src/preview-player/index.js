@@ -6,11 +6,14 @@ import { replaceInSrc } from '../utils/userFunctions';
 
 import '../styles/preview-player.scss';
 
-const PreviewPlayer = ({ openModal, imgSrc, alt, zoomIcon,zoomIconText, widths, defaultView, videoConfig, handleOnDragStart, handleImageMouseMove, handleImageTouchMove, zoomImage }) => {
+const PreviewPlayer = ({ openModal, imgSrc, altText, zoomIcon, zoomLabel, widths, defaultView, videoConfig, handleOnDragStart, handleImageMouseMove, handleImageTouchMove, zoomImage }) => {
     const [currentSrc, setCurrentSrc] = useState()
         
-    const handleImageLoaded = e => { setCurrentSrc(e.currentTarget.querySelector('img').currentSrc)};
-    const handleImageError = e => {}
+    const handleImageLoaded = e => {e.currentTarget && setCurrentSrc(e.currentTarget.querySelector('img').currentSrc)};
+    const handleImageTouchEvent = e => { 
+        console.log(e);
+        handleImageTouchMove(e)
+    }
     const handleMouseOut = e => e.currentTarget.classList.remove("zoom-it");
     const handlePlayerClick = e => {
         if(openModal){
@@ -26,7 +29,7 @@ const PreviewPlayer = ({ openModal, imgSrc, alt, zoomIcon,zoomIconText, widths, 
                                 <>
                                     <div className="overlay">
                                         <div className="tap-to-zoom">
-                                            <ReactSVG src={zoomIcon} />{zoomIconText}
+                                            <ReactSVG src={zoomIcon} />{zoomLabel}
                                         </div>
                                     </div>
                                     <div className="image-view-area">
@@ -35,7 +38,8 @@ const PreviewPlayer = ({ openModal, imgSrc, alt, zoomIcon,zoomIconText, widths, 
                                             style={{ backgroundImage: `url(${currentSrc})` }} 
                                             onDragStart={e => handleOnDragStart(e)}
                                             onMouseMove={(e) => handleImageMouseMove(e)}
-                                            onTouchMove={handleImageTouchMove} 
+                                            onTouchMove={(e) => handleImageTouchEvent(e)}
+                                            
                                             onClick={e => zoomImage(e)} 
                                             onMouseOut={e => handleMouseOut(e)}
                                         >
@@ -55,7 +59,7 @@ const PreviewPlayer = ({ openModal, imgSrc, alt, zoomIcon,zoomIconText, widths, 
                                                 }
                                                 <img
                                                     className="image-gallery-image"
-                                                    alt={alt}
+                                                    alt={altText}
                                                     src={currentSrc} 
                                                 />
                                             </picture>
@@ -78,7 +82,7 @@ const PreviewPlayer = ({ openModal, imgSrc, alt, zoomIcon,zoomIconText, widths, 
                                             }
                                             <img
                                                 className="image-gallery-image"
-                                                alt={alt}
+                                                alt={altText}
                                                 src={currentSrc} 
                                             />
                                         </picture>
@@ -109,7 +113,7 @@ PreviewPlayer.propTypes = {
     openModal: PropTypes.func, 
     imgSrc: PropTypes.string,
     zoomIcon: PropTypes.string,
-    zoomIconText: PropTypes.string, 
+    zoomLabel: PropTypes.string, 
     widths: PropTypes.arrayOf(PropTypes.string).isRequired, 
     defaultImage: PropTypes.string, 
     videoConfig: PropTypes.object
@@ -119,7 +123,7 @@ PreviewPlayer.defaultProps = {
     openModal: () => {}, 
     imgSrc: '',
     zoomIcon: '',
-    zoomIconText: '', 
+    zoomLabel: '', 
     widths: [], 
     defaultImage: '', 
     videoConfig: {}

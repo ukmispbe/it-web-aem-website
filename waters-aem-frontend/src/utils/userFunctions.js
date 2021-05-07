@@ -543,3 +543,15 @@ export const setUserDataForDataDog = () => {
     }
     return window.DD_RUM && window.DD_RUM.setUser(config);
 };
+
+export const getElemXandYPosition = (e) => {
+    var zoomer = e.currentTarget;
+    let offsetX = '';
+    let offsetY = '';
+    e.nativeEvent.offsetX ? offsetX = e.nativeEvent.offsetX : offsetX = e.touches[0].pageX
+    e.nativeEvent.offsetY ? offsetY = e.nativeEvent.offsetY : offsetY = e.touches[0].pageY
+    let x = offsetX/zoomer.offsetWidth*100
+    let y = offsetY/zoomer.offsetHeight*100
+
+    return {x, y}
+}

@@ -15,7 +15,8 @@ export const singleImageAndNoTabs = {
     templates: [{src: "http://localhost:4502/content/dam/waters/en/brand-assets/product/covid19/banner-covid-innovation.jpg.{{width}}.resize/img.jpg", alt: "test", description: "test", title: "test"}],
     widths: ['128','450','650','789','1280'],
     zoomInIcon: "http://localhost:4502/content/dam/waters/en/brand-assets/icons/zoom-in.svg",
-      
+    policyKey:'BCpkADawqM1m4GlNVBRuTcFVuPHqTd9akMFA2rJYhSPtDkhMSoSDRWNhOo3q5Wfquy9vooPMzTtjpR7RIzTyVpHa_a0YcXeFJWDnmau52-25MOFcM6s_rRWB-kY',
+    brightCoveApi: 'https://edge.api.brightcove.com/playback/v1/accounts/{accountId}/videos/{videoId}',  
     alt:"test",
     videoIds:['6084160447001', '5116024345001'],
     tabs:["Images"],

@@ -1,17 +1,17 @@
 import "whatwg-fetch";
 
-const POLICY_KEY = 'BCpkADawqM1m4GlNVBRuTcFVuPHqTd9akMFA2rJYhSPtDkhMSoSDRWNhOo3q5Wfquy9vooPMzTtjpR7RIzTyVpHa_a0YcXeFJWDnmau52-25MOFcM6s_rRWB-kY';
+const getBrightCoveApi = (brightCoveApi, accountId, videoId) => {
+  return  brightCoveApi.replace(/{accountId}/gi, accountId).replace(/{videoId}/gi, videoId);    
+}
 
-const brightCoveApi = (accountId, videoId) => `https://edge.api.brightcove.com/playback/v1/accounts/${accountId}/videos/${videoId}`;
-
-export const getData = (url) => {
+export const getData = (url, policyKey) => {
     return new Promise((resolve, reject) => {
         window
             .fetch(url,  
                 {
                     method: "GET",
                     headers: {
-                      Accept: `application/json;pk=${POLICY_KEY}`,
+                      Accept: `application/json;pk=${policyKey}`,
                     },
                 }
             )
@@ -24,8 +24,8 @@ export const getData = (url) => {
     });
 }
 
-export const getBrightCoveVideoData = async (videoIds, accountId, cb) => {
+export const getBrightCoveVideoData = async (videoIds, accountId, brightCoveApi, policyKey, cb) => {
     const promises = [];
-    videoIds.map( videoId => promises.push(getData(brightCoveApi(accountId, videoId))))
+    videoIds.map( videoId => promises.push(getData(getBrightCoveApi(brightCoveApi, accountId, videoId),policyKey)))
     Promise.all(promises).then(response => cb(response));
 }

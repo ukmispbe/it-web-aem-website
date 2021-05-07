@@ -6,7 +6,7 @@ import ImageGallery from "./overlay/OverlayImageGallery";
 import VideoGallery from "./overlay/OverlayVideoGallery";
 import { WIDTHS } from "../constants";
 
-const VisualGallery = ({ tabs, templates, videoIds, brightcoveAccount, brightcovePlayerId, widths, zoomLabel, zoomInIcon }) => {
+const VisualGallery = ({ tabs, templates, videoIds, brightcoveAccount, brightcovePlayerId, widths, zoomLabel, zoomInIcon , brightCoveApi, policyKey }) => {
   const [activeTabIndex, setActiveTabIndex] = useState(0);
   const [isOpen, setIsOpen] = useState(true);
   const [brightCoveData, setBrightCoveData] = useState([]);
@@ -15,7 +15,7 @@ const VisualGallery = ({ tabs, templates, videoIds, brightcoveAccount, brightcov
 
   const activeTabHandler = (id) => setActiveTabIndex(id);
  
-  const birghtCoveData = data => {   
+  const brightCoveDataConstruct = data => {   
     const videoObj = data.map(obj  => ({      
         title: obj.name,
         description: obj.description,
@@ -29,12 +29,11 @@ const VisualGallery = ({ tabs, templates, videoIds, brightcoveAccount, brightcov
   }
  
   useEffect(() => {   
-   getBrightCoveVideoData(videoIds, brightcoveAccount, birghtCoveData);   
+   getBrightCoveVideoData(videoIds, brightcoveAccount, brightCoveApi, policyKey, brightCoveDataConstruct);   
   },[])
 
   return (
-    <div>
-      
+    <div>      
       <OverlayWithTabs
         isOpen={isOpen}
         tabs={tabs}
