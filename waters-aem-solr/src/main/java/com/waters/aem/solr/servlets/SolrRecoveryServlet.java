@@ -79,6 +79,13 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 	private static final String LIST = "LIST";
 	private static final String LISTALIASES = "LISTALIASES";
 	private static final String DELETE = "DELETE";
+	private static final String FULLTEXT = "FULLTEXT";
+	private static final String ACTION = "action";
+	private static final String DOCUMENTCOUNT = "documentsCount";
+	private static final String HTTPS = "http://";
+	private static final int SOLR_PORT = 8983;
+	private volatile boolean fullIndexInProgress = false;
+	private volatile String collectionName;
 
 	private static final Logger LOG = LoggerFactory.getLogger(SolrRecoveryServlet.class);
 
@@ -90,19 +97,6 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 
 	@Reference
 	private SolrFullIndexConfigurationImpl solrFullIndexConfigurationImpl;
-
-	private volatile String collectionName;
-
-	public static final String HTTPS = "https://";
-
-	public static final int SOLR_PORT = 8983;
-
-	private volatile boolean fullIndexInProgress = false;
-	
-	private static final String ACTION = "action";
-	
-	private static final String DOCUMENTCOUNT = "documentsCount";
-	private static final String FULLTEXT = "FULLTEXT";
 
 	@Override
 	protected void doGet(@Nonnull final SlingHttpServletRequest request,
@@ -127,13 +121,12 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 		if (fullIndex) {
 			try {
 				success = getFullIndexingStatus(request, props, enableAuthentication, solrHostUrl, enableBatchIndexing);
-			} catch (MalformedURLException | ExecutionException | InterruptedException e) {
+			} catch (Exception e) {
 				LOG.error("Exception occurred in creating Alias : {}", e.getMessage());
-				Thread.currentThread().interrupt();
 			}
 			if (success) {
 				try {
-					createListAliases(collectionName, enableAuthentication, solrHostUrl, enableDeleteOldCollections);
+					createAlias(collectionName, enableAuthentication, solrHostUrl, enableDeleteOldCollections);
 				} catch (IOException | JSONException e) {
 					LOG.error("Exception occurred in creating Alias : {}", e.getMessage());
 				}
@@ -254,21 +247,77 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 		return success;
 	}
 
-	private CloseableHttpClient getHttpClient(String url, Boolean enableAuthentication, String userName,
-			String password) throws URISyntaxException {
-		if (Boolean.TRUE.equals(enableAuthentication)) {
-			HttpClientBuilder clientBuilder = HttpClientBuilder.create();
-			CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
-			URI uri = new URI(HTTPS + url);
-			AuthScope scope = new AuthScope(uri.getHost(), SOLR_PORT);
-			if(userName != null && password != null) {
-				credentialsProvider.setCredentials(scope, new UsernamePasswordCredentials(userName, password));
+	private ForkJoinPool getForkJoinPool(final Dictionary<String, Object> props) {
+		if ((boolean) props.get("doubleParallelismLevel")) {
+			LOG.debug("Available Processors : {}", AVAILABLE_PROCESSOR);
+			return new ForkJoinPool(AVAILABLE_PROCESSOR * 2);
+		}
+		LOG.debug("Available Processors : {}", AVAILABLE_PROCESSOR);
+		return new ForkJoinPool(AVAILABLE_PROCESSOR);
+	}
+	
+	private PageDecorator getPage(final SlingHttpServletRequest request, final String pagePath) {
+		final PageManagerDecorator pageManager = request.getResourceResolver().adaptTo(PageManagerDecorator.class);
+		if (pageManager != null && pagePath != null) {
+			return pageManager.getPage(pagePath);
+		}
+		return null;
+	}
+	
+	private boolean getFullIndexingStatus(final SlingHttpServletRequest request, final Dictionary<String, Object> props,
+			boolean enableAuthentication, String solrHostUrl, boolean enableBatchIndexing)
+			throws MalformedURLException, InterruptedException, ExecutionException {
+		boolean success = false;
+		final Date date = new Date();
+		final SimpleDateFormat formatter = new SimpleDateFormat("ddMMMHHmmss");
+		ForkJoinPool forkJoinPool = getForkJoinPool(props);
+		StatusLine statusLine = null;
+		List<String> pageIndexPaths = getPageIndexPathsList(request);
+		if (!pageIndexPaths.isEmpty()) {
+			if (!fullIndexInProgress) {
+				collectionName = WATERS + "-" + formatter.format(date);
+				fullIndexInProgress = true;
+				statusLine = getStatusLine(
+						getCollectionActionResponse(collectionName, enableAuthentication, solrHostUrl, CREATE));
+				LOG.info("Collection Created with name : {}", collectionName);
+				LOG.info("The Solr Full Index create collection response status: {}", statusLine);
 			}
-			clientBuilder.setDefaultCredentialsProvider(credentialsProvider);
-			return clientBuilder.build();
-		} else
-			return HttpClientBuilder.create().setConnectionManager(new PoolingHttpClientConnectionManager()).build();
-	}	
+			pullLegacyData(collectionName, enableAuthentication, solrHostUrl, FULLTEXT);
+			LOG.info("Legacy data completed Indexing : {}", collectionName);
+			if (enableBatchIndexing && (statusLine != null ? statusLine.getStatusCode() : 0) == 200) {
+				for (String localePath : pageIndexPaths) {
+					PageDecorator locale = getPage(request, localePath);
+					if (locale != null) {
+						success = addToIndex(locale, true, forkJoinPool, (getDocumentCount(props)));
+					}
+				}
+				LOG.info("fullIndexInProgress  flag set to true and indexing is in progress");
+			}
+		}
+		fullIndexInProgress = false;
+		return success;
+	}
+	
+	private List<String> getPageIndexPathsList(final SlingHttpServletRequest request) {
+		LOG.info("fullIndexInProgress  flag set to true and indexing is in progress");
+		List<String> indexPaths = new ArrayList<>();
+		PageDecorator watersPage = getPage(request, "/content/waters");
+		if (watersPage != null) {
+			for (final Iterator<Page> iterator = watersPage.listChildren(); iterator.hasNext();) {
+				Page childPage = iterator.next();
+				String path = childPage.getPath();
+				indexPaths.add(path);
+			}
+		}
+		return indexPaths;
+	}
+	
+	private StatusLine getStatusLine(final HttpResponse httpResponse) {
+		if (httpResponse != null) {
+			return httpResponse.getStatusLine();
+		}
+		return null;
+	}
 	
 	private HttpResponse getCollectionActionResponse(String collectionName, boolean enableAuthentication,
 			String solrHostUrl, String collectionAction) throws MalformedURLException {
@@ -329,7 +378,8 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 		}
 	}
 
-	private URIBuilder getUriBuilder(String url, Map<String, String> parameters, String uri) throws MalformedURLException {
+	private URIBuilder getUriBuilder(String url, Map<String, String> parameters, String uri)
+			throws MalformedURLException {
 		URL solrUrl = new URL(HTTPS + url);
 		URIBuilder builder = new URIBuilder().setScheme(solrUrl.getProtocol())
 				.setHost(solrUrl.getHost() + ":" + SOLR_PORT).setPath(uri);
@@ -338,32 +388,43 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 		}
 		return builder;
 	}
-	
-	private List<String> getIndexPathsList(final SlingHttpServletRequest request) {
-		LOG.info("fullIndexInProgress  flag set to true and indexing is in progress");
-		List<String> indexPaths = new ArrayList<>();
-		PageDecorator watersPage = getPage(request, "/content/waters");
-		if (watersPage != null) {
-			for (final Iterator<Page> iterator = watersPage.listChildren(); iterator.hasNext();) {
-				Page childPage = iterator.next();
-				String path = childPage.getPath();
-				indexPaths.add(path);
+
+	private CloseableHttpClient getHttpClient(String url, Boolean enableAuthentication, String userName,
+			String password) throws URISyntaxException {
+		if (Boolean.TRUE.equals(enableAuthentication)) {
+			HttpClientBuilder clientBuilder = HttpClientBuilder.create();
+			CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
+			URI uri = new URI(HTTPS + url);
+			AuthScope scope = new AuthScope(uri.getHost(), SOLR_PORT);
+			if (userName != null && password != null) {
+				credentialsProvider.setCredentials(scope, new UsernamePasswordCredentials(userName, password));
 			}
+			clientBuilder.setDefaultCredentialsProvider(credentialsProvider);
+			return clientBuilder.build();
+		} else
+			return HttpClientBuilder.create().setConnectionManager(new PoolingHttpClientConnectionManager()).build();
+	}
+
+	private StatusLine pullLegacyData(String collectionName, boolean enableAuthentication, String solrHostUrl,
+			String collectionAction) {
+		StatusLine statusLine = null;
+		try {
+			statusLine = getStatusLine(
+					getCollectionActionResponse(collectionName, enableAuthentication, solrHostUrl, collectionAction));
+			LOG.info("LegacyData Created with name : {}", collectionName);
+		} catch (MalformedURLException e) {
+			LOG.error("LegacyData Created with name : {}", e.getMessage());
 		}
-		return indexPaths;
+		return statusLine;
 	}
 	
-	private ForkJoinPool getForkJoinPool(final Dictionary<String, Object> props) {
-		if ((boolean) props.get("doubleParallelismLevel")) {
-			LOG.debug("Available Processors : {}", AVAILABLE_PROCESSOR);
-			return new ForkJoinPool(AVAILABLE_PROCESSOR * 2);
-		}
-		LOG.debug("Available Processors : {}", AVAILABLE_PROCESSOR);
-		return new ForkJoinPool(AVAILABLE_PROCESSOR);
+	private int getDocumentCount(final Dictionary<String, Object> props) {
+		return ((Number) props.get(DOCUMENTCOUNT)).intValue();
 	}
 	
-	private boolean getSuccessForAddToIndex(final PageDecorator page, final String pagePath, final boolean enableBatchIndexing,
-			final boolean includeDescendants, final ForkJoinPool forkJoinPool, final Dictionary<String, Object> props) {
+	private boolean getSuccessForAddToIndex(final PageDecorator page, final String pagePath,
+			final boolean enableBatchIndexing, final boolean includeDescendants, final ForkJoinPool forkJoinPool,
+			final Dictionary<String, Object> props) {
 		boolean success = false;
 		LOG.debug("Add path from solr index : {}", pagePath);
 		if (page == null) {
@@ -373,9 +434,8 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 			if (enableBatchIndexing) {
 				try {
 					success = addToIndex(page, includeDescendants, forkJoinPool, (getDocumentCount(props)));
-				} catch (InterruptedException | ExecutionException e) {
+				} catch (Exception e) {
 					LOG.error("Deletion of Indexes failed due to {}", e.getMessage());
-					Thread.currentThread().interrupt();
 				}
 			} else {
 				success = addToIndex(page, includeDescendants);
@@ -397,9 +457,8 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 			if (enableBatchIndexing) {
 				try {
 					success = deleteFromIndex(page, includeDescendants, forkJoinPool, (getDocumentCount(props)));
-				} catch (InterruptedException | ExecutionException e) {
+				} catch (Exception e) {
 					LOG.error("Deletion of Indexes failed due to {}", e.getMessage());
-					Thread.currentThread().interrupt();
 				}
 			} else {
 				success = deleteFromIndex(page, includeDescendants);
@@ -414,57 +473,41 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 		}
 	}
 	
-	private int getDocumentCount(final Dictionary<String, Object> props) {
-		return ((Number) props.get(DOCUMENTCOUNT)).intValue();
-	}
-	
-	private StatusLine getStatusLine(final HttpResponse httpResponse) {
-		if (httpResponse != null) {
-			return httpResponse.getStatusLine();
-		}
-		return null;
-	}
-	
-	private void createListAliases(String collectionName, boolean enableAuthentication,
-			String solrHostUrl, final boolean enableDeleteOldCollections) throws IOException, JSONException{
+	private void createAlias(String collectionName, boolean enableAuthentication, String solrHostUrl,
+			final boolean enableDeleteOldCollections) throws IOException, JSONException {
 		HttpResponse httpResponse;
 		StatusLine statusLine = null;
 		String collectionAlias = null;
-		String collectionAction = "";
-		collectionAction = LISTALIASES;
-		httpResponse = getCollectionActionResponse(collectionName, enableAuthentication,
-				solrHostUrl, collectionAction);
+		httpResponse = getCollectionActionResponse(collectionName, enableAuthentication, solrHostUrl, CREATEALIAS);
 		statusLine = getStatusLine(httpResponse);
-		LOG.info("The Solr Full Index list alias response status: {}", statusLine);
-
+		LOG.info("The Solr Full Index create alias response status: {}", statusLine);
 		if ((statusLine != null ? statusLine.getStatusCode() : 0) == 200) {
-			String responseString = new BasicResponseHandler().handleResponse(httpResponse);
-			JSONObject jsonObject = new JSONObject(responseString);
-			JSONObject aliases = jsonObject.getJSONObject("aliases");
-			if (aliases.has(WATERS)) {
-				collectionAlias = aliases.get(WATERS).toString();
-			}
-			getListAndDeleteCollection(collectionName, enableAuthentication, solrHostUrl, collectionAlias, enableDeleteOldCollections);
+			httpResponse = getCollectionActionResponse(collectionName, enableAuthentication, solrHostUrl, LISTALIASES);
+			statusLine = getStatusLine(httpResponse);
+			LOG.info("The Solr Full Index List Aliases response status: {}", statusLine);
+			if ((statusLine != null ? statusLine.getStatusCode() : 0) == 200) {
+				String responseString = new BasicResponseHandler().handleResponse(httpResponse);
+				JSONObject jsonObject = new JSONObject(responseString);
+				JSONObject aliases = jsonObject.getJSONObject("aliases");
+				if (aliases.has(WATERS)) {
+					collectionAlias = aliases.get(WATERS).toString();
+				}
+				if (enableDeleteOldCollections) {
+					getCollectionListAndDeleteOldCollections(collectionName, enableAuthentication, solrHostUrl, collectionAlias);
+				}
+			} else
+				LOG.error(ERROR, statusLine);
 		} else
-			LOG.error(ERROR, statusLine);	
+			LOG.error(ERROR, statusLine);
 	}
 	
-	private PageDecorator getPage(final SlingHttpServletRequest request, final String path) {
-		final PageManagerDecorator pageManager = request.getResourceResolver().adaptTo(PageManagerDecorator.class);
-		if (pageManager != null) {
-			return pageManager.getPage(path);
-		}
-		return null;
-	}
-	
-	private void getListAndDeleteCollection(String collectionName, boolean enableAuthentication,
-			String solrHostUrl, String collectionAlias, final boolean enableDeleteOldCollections) throws IOException, JSONException {
+	private void getCollectionListAndDeleteOldCollections(String collectionName, boolean enableAuthentication, String solrHostUrl,
+			String collectionAlias) throws IOException, JSONException {
 		HttpResponse httpResponse;
 		StatusLine statusLine = null;
 		String collectionAction = "";
 		collectionAction = LIST;
-		httpResponse = getCollectionActionResponse(collectionName, enableAuthentication,
-				solrHostUrl, collectionAction);
+		httpResponse = getCollectionActionResponse(collectionName, enableAuthentication, solrHostUrl, collectionAction);
 		statusLine = getStatusLine(httpResponse);
 		LOG.info("The Solr Full Index list alias response status: {}", statusLine);
 
@@ -481,61 +524,15 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 			Iterator<String> iterator = collectionsArrayList.iterator();
 			while (iterator.hasNext()) {
 				String oldCollectionName = iterator.next();
-				if (!StringUtils.equalsAnyIgnoreCase(oldCollectionName, collectionAlias) && enableDeleteOldCollections) {
+				if (!StringUtils.equalsAnyIgnoreCase(oldCollectionName, collectionAlias)) {
 					collectionAction = DELETE;
-					statusLine = getStatusLine(getCollectionActionResponse(oldCollectionName, enableAuthentication, solrHostUrl,
-							collectionAction));
+					statusLine = getStatusLine(getCollectionActionResponse(oldCollectionName, enableAuthentication,
+							solrHostUrl, collectionAction));
 					LOG.info("The Solr Full Index delete collection response status: {}", statusLine);
 				}
 			}
 		} else
 			LOG.error(ERROR, statusLine);
-	}	
-	
-	private boolean getFullIndexingStatus(final SlingHttpServletRequest request, final Dictionary<String, Object> props,
-			boolean enableAuthentication, String solrHostUrl, boolean enableBatchIndexing)
-			throws MalformedURLException, InterruptedException, ExecutionException {
-		boolean success = false;
-		final Date date = new Date();
-		final SimpleDateFormat formatter = new SimpleDateFormat("ddMMMHHmmss");
-		ForkJoinPool forkJoinPool = getForkJoinPool(props);
-		StatusLine statusLine = null;
-		List<String> indexPaths = getIndexPathsList(request);
-		if (!indexPaths.isEmpty()) {
-			if (!fullIndexInProgress) {
-				collectionName = WATERS + "-" + formatter.format(date);
-				fullIndexInProgress = true;
-				statusLine = getStatusLine(
-						getCollectionActionResponse(collectionName, enableAuthentication, solrHostUrl, CREATE));
-				LOG.info("Collection Created with name : {}", collectionName);
-			}
-			pullLegacyData(collectionName, enableAuthentication, solrHostUrl, FULLTEXT);
-			LOG.info("Legacy data completed Indexing : {}", collectionName);
-			LOG.info("The Solr Full Index create collection response status: {}", statusLine);
-			if (enableBatchIndexing && (statusLine != null ? statusLine.getStatusCode() : 0) == 200) {
-				for (String localePath : indexPaths) {
-					PageDecorator locale = getPage(request, localePath);
-					if(locale != null) {
-						success = addToIndex(locale, true, forkJoinPool, (getDocumentCount(props)));
-					}
-				}
-			}
-		}
-		fullIndexInProgress = false;
-		return success;
-	}
-
-	private StatusLine pullLegacyData(String collectionName, boolean enableAuthentication, String solrHostUrl,
-			String collectionAction) {
-		StatusLine statusLine = null;
-		try {
-			statusLine = getStatusLine(getCollectionActionResponse(collectionName, enableAuthentication,
-					solrHostUrl, collectionAction));
-			LOG.info("LegacyData Created with name : {}", collectionName);
-		} catch (MalformedURLException e) {
-			LOG.error("LegacyData Created with name : {}", e.getMessage());
-		}
-		return statusLine;
 	}
 
 }
