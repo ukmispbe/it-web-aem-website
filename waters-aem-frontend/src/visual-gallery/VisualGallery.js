@@ -12,12 +12,11 @@ const VisualGallery = ({
   videoIds,
   widths,
   zoomLabel,
-  pinchLabel,
   zoomInIcon,
-  pinchIcon,
   brightcoveAccount,
   brightcovePlayerId,
 }) => {
+  // dummy data for mobile overlay.. will be deleted later on
   const overlayProps = {
     iconClear:
       "https://dev1.waters.com/content/dam/waters/en/brand-assets/icons/close.svg",
@@ -26,10 +25,7 @@ const VisualGallery = ({
     backBtnLabel: "Back",
     closeBtnLabel: "Close",
   };
-
-  const [activeTabIndex, setActiveTabIndex] = useState(0);
-  const [isOpen, setIsOpen] = useState(true);
-  const [isMobileOverlayOpen, mobileOverlayHandler] = useState(false);
+  // dummy video data for mobile overlay.. will be removed later once API integration done
   const [videoConfig, setVideoConfig] = useState([
     {
       brightcoveVideoId: videoIds[0],
@@ -60,6 +56,10 @@ const VisualGallery = ({
         "http://localhost:4502/content/dam/waters/emails/innovations-otto-spe-logo.jpeg",
     },
   ]);
+  const [activeTabIndex, setActiveTabIndex] = useState(0);
+  const [isOpen, setIsOpen] = useState(true);
+  const [isMobileOverlayOpen, mobileOverlayHandler] = useState(false);
+
   const handleClose = (e) => setIsOpen(false);
 
   const activeTabHandler = (id) => setActiveTabIndex(id);
@@ -72,6 +72,7 @@ const VisualGallery = ({
   };
   return (
     <div>
+      {/* This button will remove later it is just to launch mobile overlay */}
       <button onClick={launchMobileOverlay}>{`Launch Mobile Overlay`}</button>
       <OverlayWithTabs
         isOpen={isOpen}
@@ -105,7 +106,6 @@ const VisualGallery = ({
           closeBtnLabel={overlayProps.closeBtnLabel}
           closeMobileOverlay={closeMobileOverlay}
           templates={templates}
-          videoIds={videoIds}
           widths={widths}
           zoomInIcon={zoomInIcon}
           zoomLabel={zoomLabel}
@@ -118,11 +118,15 @@ const VisualGallery = ({
 
 VisualGallery.defaultProps = {
   widths: WIDTHS,
+  alt: "",
+  templates: [],
+  videoConfig: [],
 };
 
 VisualGallery.propTypes = {
   alt: PropTypes.string,
   templates: PropTypes.arrayOf(PropTypes.string).isRequired,
+  videoConfig: PropTypes.arrayOf(PropTypes.object),
   widths: PropTypes.arrayOf(PropTypes.string).isRequired,
   zoomInIcon: PropTypes.string.isRequired,
   tabs: PropTypes.arrayOf(PropTypes.string),

@@ -26,6 +26,8 @@ const PreviewPlayer = ({
   const handleImageLoaded = (e) => {
     setCurrentSrc(e.currentTarget.querySelector("img").currentSrc);
   };
+
+  const handleImageError = (e) => console.error(e);
   const handleImageTouchEvent = (e) => {
     console.log(e);
     handleImageTouchMove(e);

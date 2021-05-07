@@ -270,17 +270,30 @@ class MobileOverlay extends Component {
   }
 }
 MobileOverlay.defaultProps = {
+  iconClear: "",
+  iconLeft: "",
+  backBtnLabel: "",
+  closeBtnLabel: "",
+  closeMobileOverlay: () => {},
   widths: WIDTHS,
   alt: "",
   templates: [],
   videoConfig: [],
+  zoomInIcon: "",
+  zoomLabel: "",
 };
 
 MobileOverlay.propTypes = {
+  iconClear: PropTypes.string.isRequired,
+  iconLeft: PropTypes.string.isRequired,
+  backBtnLabel: PropTypes.string.isRequired,
+  closeBtnLabel: PropTypes.string,
+  closeMobileOverlay: PropTypes.func.isRequired,
   alt: PropTypes.string,
-  templates: PropTypes.arrayOf(PropTypes.string),
+  templates: PropTypes.arrayOf(PropTypes.string).isRequired,
   videoConfig: PropTypes.arrayOf(PropTypes.object),
   widths: PropTypes.arrayOf(PropTypes.string).isRequired,
   zoomInIcon: PropTypes.string.isRequired,
+  zoomLabel: PropTypes.string,
 };
 export default MobileOverlay;
