@@ -3,7 +3,7 @@
 @import "typography.scss";
 
 .mobile-back-btn {
-  @include font-utility;
+  @include font-body;
   display: flex;
   justify-content: center;
   color: $color-link;
@@ -12,12 +12,19 @@
   padding: 0;
   outline: none;
   cursor: pointer;
+  left: 0;
+  margin-bottom: 0;
 
   svg,
   div {
     height: $icon-m;
-    width: $icon-m;
+    width: $icon-s;
     display: inline-block;
+    margin-right: $space-xxxs;
+  }
+
+  span {
+    font-size: $font-size-small;
   }
 
   svg .st0,
@@ -54,5 +61,34 @@
 }
 
 .moboverlay-preview-player-container {
-  padding: $space-m;
+  padding: $space-m 0;
+}
+
+.preview-area-wrapper {  
+  img {
+    width:100%;
+  }
+}
+.preview-player {
+  min-height: 55vh;
+  margin:$space-xs $space-l;
+
+  .preview-player-container { 
+    width: 100%;
+  }
+}
+
+.image-description {
+  padding: $space-s $space-m 0 $space-m;
+  overflow: scroll;
+  height: $height-large;
+}
+.mobile-header-search-bar {
+  left: 0; 
+}
+
+@include mobile {
+  .cmp-asset-display-modal {
+    display: none;
+  }
 }

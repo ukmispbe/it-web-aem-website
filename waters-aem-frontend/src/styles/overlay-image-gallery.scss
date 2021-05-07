@@ -33,3 +33,25 @@
   padding-top: $space-xxs;
   @include font-caption;
 }
+
+.moboverlay-preview-player-container {
+  @include mobile {
+    &.fit-on-zoom {
+      .preview-player {
+        margin: 0;       
+      }
+      .preview-player-container {
+        overflow: visible;
+        .image-view-area {
+          position: absolute;
+          width: 100vw;
+          height: 62vh;          
+          top: -4rem;
+          figure {
+            height: 61vh;
+          }
+        }
+      }      
+    }
+  }
+}

@@ -18,11 +18,14 @@ class MobileOverlay extends Component {
       mobileSearchOpen: true,
       activeIndex: 0,
       thumbnailClicked: false,
+      magnified: false,
     };
+    this.figureRef = React.createRef();
     this.prevWindowWidth = window.innerWidth;
     // Debouncing functions to reduce frequency of execution
     this.hideSearchModalDebounce = debounce(100, this.hideSearchModal);
     this.elementNoScrollDebounce = debounce(100, domElements.noScroll);
+    this.galleryContext = [...props.templates,...props.videoConfig];
   }
 
   handleThumbnailClick = (activeIndex) =>
@@ -42,6 +45,13 @@ class MobileOverlay extends Component {
   };
 
   backButtonHandler = (e) => {
+    const rootNode = document.querySelector('.moboverlay-preview-player-container');
+    if(rootNode.classList.contains('fit-on-zoom')){
+      rootNode.classList.remove('fit-on-zoom');
+      document.querySelector('.image-zoom-area').currentTarget.classList.remove('zoom-it');
+    } else {
+      this.props.closeMobileOverlay();
+    } 
     console.log("back button is clicked");
   };
 
@@ -57,6 +67,74 @@ class MobileOverlay extends Component {
     this.prevWindowWidth = window.innerWidth;
     this.hideSearchModalDebounce();
   };
+
+  handleFigureMove = (magnified, offsetX, offsetY, figureElement) => {
+   // if (!magnified) return;
+
+    let x = (offsetX / figureElement.offsetWidth) * 100;
+    let y = (offsetY / figureElement.offsetHeight) * 100;
+
+    // prevent user from scrolling off the boundary of the figure element
+    // which will also prevent from the image going blank when touch is out of boundary
+    if (x > 100) {
+        x = 100;
+    }
+    if (x < 0) {
+        x = 0;
+    }
+    if (y > 100) {
+        y = 100;
+    }
+    if (y < 0) {
+        y = 0;
+    }
+
+    figureElement.style.backgroundPosition = `${x}% ${y}%`;
+  };
+
+  handleImageMouseMove = e => {
+    const offsetX = e.nativeEvent.offsetX;
+    const offsetY = e.nativeEvent.offsetY;
+
+    this.handleFigureMove(
+            this.state.magnified,
+            offsetX,
+            offsetY,
+            e.currentTarget
+        );
+  }
+
+  handleImageTouchMove = e => {
+      const rectObj = e.nativeEvent.touches[0].target.getBoundingClientRect();
+      const offsetX = e.nativeEvent.touches[0].pageX - rectObj.left - window.pageXOffset;
+      const offsetY = e.nativeEvent.touches[0].pageY - rectObj.top - window.pageYOffset;
+
+      this.handleFigureMove(
+          this.state.magnified,
+          offsetX,
+          offsetY,
+          e.currentTarget
+      );
+  };
+  
+  zoomImage = e => {
+    this.setState({magnified: !this.state.magnified});
+    const rootNode = document.querySelector('.moboverlay-preview-player-container').classList;
+    const imageZoomArea = document.querySelector('.image-zoom-area').classList;
+    if(rootNode.contains('fit-on-zoom')){
+      rootNode.remove('fit-on-zoom');
+    } else {
+      rootNode.add('fit-on-zoom');
+    } 
+    if(imageZoomArea.contains('zoom-it')){
+      imageZoomArea.remove('zoom-it')
+    } else {
+      imageZoomArea.add('zoom-it')
+    } 
+    e.currentTarget.style.backgroundPosition = '50% 50%';
+  } 
+
+  handleOnDragStart = e => e.preventDefault();
 
   componentDidMount() {
     window.addEventListener("showMobileSearch", this.showSearchModal, false);
@@ -77,8 +155,8 @@ class MobileOverlay extends Component {
     );
   }
   renderPreviewPlayer = () =>
-    this.props.templates.length > 0 &&
-    this.props.templates.map((template, index) =>
+  this.galleryContext.length > 0 &&
+  this.galleryContext.map((template, index) =>
       this.mapTemplateToPreviewplayer(template, index)
     );
 
@@ -87,26 +165,35 @@ class MobileOverlay extends Component {
       style={{ display: this.state.activeIndex === index ? "block" : "none" }}
     >
       <div className="preview-area-wrapper">
-        <div className="pinch-to-zoom">
-          <ReactSVG src={this.props.zoomInIcon} />
-          <span className="pinch-to-zoom-label">{this.props.pinchLabel}</span>
-        </div>
-        <PreviewPlayer
-          imgSrc={template.src}
-          widths={this.props.widths}
-          alt={template.alt}
-          defaultImage={replaceInSrc(template.src, WIDTHS[0])}
-        />
-        <div className="image-description">{template.title}</div>
+        {!template.src ? <div className="video-title">{template.title}</div> : <>
+          <div className="pinch-to-zoom">
+            <ReactSVG src={this.props.zoomInIcon} />
+            <span className="pinch-to-zoom-label">{this.props.zoomLabel}</span>
+          </div>
+        </>}        
+        <div className="preview-player">          
+          <PreviewPlayer
+            imgSrc={template.src}
+            widths={this.props.widths.sort((a,b) => b-a)}
+            alt={template.alt}
+            videoConfig={template}
+            handleImageMouseMove={this.handleImageMouseMove}   
+            handleOnDragStart={this.handleOnDragStart}  
+            zoomImage={this.zoomImage}
+            handleImageTouchMove={this.handleImageTouchMove}            
+          />
+        </div>        
+        <div className="image-description">{template.description}</div>
       </div>
     </div>
   );
   renderThumbnails = () =>
-    this.props.templates.length > 0 ? (
-      this.props.templates.map((item, index) => (
+  this.galleryContext.length > 0 ? (
+    this.galleryContext.map((item, index) => (
         <Thumbnail
-          thumbnailSrcURL={replaceInSrc(item.src, WIDTHS[0])}
+          thumbnailSrcURL={item.thumbnail || item.src}
           thumbnailAltText={item.alt}
+          className={this.state.activeIndex === index && 'thumbnail-active'} 
           isVideo={item.src === undefined}
           onThumbnailClick={() => this.handleThumbnailClick(index)}
         />
@@ -114,11 +201,12 @@ class MobileOverlay extends Component {
     ) : (
       <></>
     );
+  
   renderVisualGallery = () => (
     <div className="moboverlay-container">
       <section>
         <div className="moboverlay-preview-player-container">
-          {this.renderPreviewPlayer()}
+          {this.renderPreviewPlayer( )}
         </div>
       </section>
       <section>

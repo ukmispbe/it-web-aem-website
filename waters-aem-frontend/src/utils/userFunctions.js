@@ -524,3 +524,11 @@ export const replaceInSrc = (src = "", strWithReplace) => {
   const variation =  src.replace(/{{width}}/gi, strWithReplace);
   return variation;
 }
+
+export const msToMinAndSeconds = (ms) => {
+    const minutes = Math.floor(ms / 60000);
+    const seconds = ((ms % 60000) / 1000).toFixed(0);
+    const result = minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+    console.log(result);
+    return result;
+  }

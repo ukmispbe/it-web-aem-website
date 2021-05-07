@@ -3,7 +3,7 @@
 import React from "react";
 
 import OverWithImageTabs from "./VisualGallery";
-import { props, singleImageAndNoTabs } from "./OverlayImageTabs.mock";
+import { props, singleImageAndNoTabs, visualGalleryMobileOverlayData } from "./OverlayImageTabs.mock";
 
 // This default export determines where your story goes in the story list
 export default {
@@ -19,3 +19,6 @@ OverWithImageTabsWithDualImage.args = { ...props };
 
 export const OverWithImageSingleImageNoTabs = Template.bind({});
 OverWithImageSingleImageNoTabs.args = { ...singleImageAndNoTabs };
+
+export const GalleryViewOnMobile = Template.bind({});
+GalleryViewOnMobile.args = { ...visualGalleryMobileOverlayData };
