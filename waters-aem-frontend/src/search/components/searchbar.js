@@ -41,7 +41,7 @@ class SearchBar extends Component {
             recentSearches: cookieStore.getRecentSearches() || [],
             searchCategory: '',
             searchContentType: '',
-            selectedCategory: categoryValue ? categoryValue.toUpperCase() : 0,
+            selectedCategory: categoryValue ? categoryValue : 'All',
 
         };
 
@@ -225,9 +225,9 @@ class SearchBar extends Component {
         const facets = [];
         let lastCategory;
         facetsInfo.forEach(facet => {
-            if(facets.length < 3 && lastCategory !== facet.catergory){
+            if(facets.length < 3 && lastCategory !== facet.category){
                 facets.push(facet);
-                lastCategory = facet.catergory;
+                lastCategory = facet.category;
             }
         });
         return facets;
@@ -236,7 +236,7 @@ class SearchBar extends Component {
         let suggestions = [];
 
         if (!(this.state.value.length < this.props.minSearchCharacters)) {
-            const suggestionsNew = await this.search.getSuggestedKeywords(this.props.maxSuggestions, this.state.value, this.createStrippedFacetName(this.state.selectedCategory));
+            const suggestionsNew = await this.search.getSuggestedKeywords(this.props.maxSuggestions, this.state.value, this.state.selectedCategory);
             const formatFacets = this.formatFacets(this.handleFacets(suggestionsNew.facets), suggestionsNew.suggestions[0]);
             const suggestionsList = this.formatSuggestions(this.state.value.trim(), suggestionsNew.suggestions);
             suggestions = [].concat(suggestionsList.splice(0, 1), formatFacets, suggestionsList);
@@ -325,7 +325,7 @@ class SearchBar extends Component {
     )
 
     formatFacets = (facets, suggestion = '') => facets.map(facet => {
-        const category = facet && facet.catergory || '';
+        const category = facet && facet.category || '';
         const contentType = facet && facet.contenttype || '';
         return {
             key: suggestion,
