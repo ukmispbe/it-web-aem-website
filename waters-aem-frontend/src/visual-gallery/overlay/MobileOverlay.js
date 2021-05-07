@@ -49,13 +49,13 @@ class MobileOverlay extends Component {
     );
     if (rootNode.classList.contains("fit-on-zoom")) {
       rootNode.classList.remove("fit-on-zoom");
-      document
-        .querySelector(".image-zoom-area")
-        .currentTarget.classList.remove("zoom-it");
+      const zoomContainer = document.querySelector(".image-zoom-area");
+      if (zoomContainer.classList.contains("zoom-it")) {
+        zoomContainer.classList.remove("zoom-it");
+      }
     } else {
       this.props.closeMobileOverlay();
     }
-    console.log("back button is clicked");
   };
 
   windowResizeHandler = () => {
@@ -195,6 +195,7 @@ class MobileOverlay extends Component {
             handleOnDragStart={this.handleOnDragStart}
             zoomImage={this.zoomImage}
             handleImageTouchMove={this.handleImageTouchMove}
+            disableMouseOutHandler={true}
           />
         </div>
         <div className="image-description">{inputProps.description}</div>
