@@ -43,6 +43,7 @@ import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.ChildResource;
 import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 import org.apache.sling.models.annotations.injectorspecific.Self;
+import org.apache.sling.settings.SlingSettingsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -76,6 +77,9 @@ public final class Footer extends AbstractComponent implements ComponentExporter
     public static final String RESOURCE_TYPE = "waters/components/structure/footer";
 
     private static final Logger LOG = LoggerFactory.getLogger(Footer.class);
+
+    @Inject
+    private SlingSettingsService slingSettingsService;
 
     @Inject
     private ResourceResolverService resourceResolverService;
@@ -253,25 +257,27 @@ public final class Footer extends AbstractComponent implements ComponentExporter
     @PostConstruct
     void init() {
         try {
-            String countryPagesJson = getCountryPagesJson();
-            ResourceResolver resourceResolver = resourceResolverService.getResourceResolver("watersService");
-            Resource footerResource = resourceResolver.getResource(resource.getPath());
-            if(footerResource != null){
-                ModifiableValueMap modifiableValueMap = footerResource.adaptTo(ModifiableValueMap.class);
-                modifiableValueMap.put(PROPERTY_COUNTRY_NAME, getCountryName());
-                String countryPagesJsonVal = StringUtils.isNotBlank(countryPagesJson) ? countryPagesJson : "";
-                modifiableValueMap.put(PROPERTY_COUNTRY_LIST_JSON, isEprocurement() ? "" : countryPagesJsonVal);
-                List<CountryLanguageSelectorItem> languagePageList = getLanguagePages();
-                if (!languagePageList.isEmpty()) {
-                    Map jsonMap = new LinkedHashMap();
-                    Iterator<CountryLanguageSelectorItem> languageSelectorItemIterator = languagePageList.iterator();
-                    while (languageSelectorItemIterator.hasNext()) {
-                        CountryLanguageSelectorItem countryLanguageSelectorItem = languageSelectorItemIterator.next();
-                        jsonMap.put(countryLanguageSelectorItem.getLanguageTitle(), countryLanguageSelectorItem.getPage().getHref());
+            if (isAuthor() && isCartCheckoutPage()) {
+                String countryPagesJson = getCountryPagesJson();
+                ResourceResolver resourceResolver = resourceResolverService.getResourceResolver("watersService");
+                Resource footerResource = resourceResolver.getResource(resource.getPath());
+                if (footerResource != null) {
+                    ModifiableValueMap modifiableValueMap = footerResource.adaptTo(ModifiableValueMap.class);
+                    modifiableValueMap.put(PROPERTY_COUNTRY_NAME, getCountryName());
+                    String countryPagesJsonVal = StringUtils.isNotBlank(countryPagesJson) ? countryPagesJson : "";
+                    modifiableValueMap.put(PROPERTY_COUNTRY_LIST_JSON, isEprocurement() ? "" : countryPagesJsonVal);
+                    List<CountryLanguageSelectorItem> languagePageList = getLanguagePages();
+                    if (!languagePageList.isEmpty()) {
+                        Map jsonMap = new LinkedHashMap();
+                        Iterator<CountryLanguageSelectorItem> languageSelectorItemIterator = languagePageList.iterator();
+                        while (languageSelectorItemIterator.hasNext()) {
+                            CountryLanguageSelectorItem countryLanguageSelectorItem = languageSelectorItemIterator.next();
+                            jsonMap.put(countryLanguageSelectorItem.getLanguageTitle(), countryLanguageSelectorItem.getPage().getHref());
+                        }
+                        modifiableValueMap.put(PROPERTY_LANGUAGE_LIST_JSON, jsonMap.size() > 0 ? MAPPER.writeValueAsString(jsonMap) : "");
                     }
-                    modifiableValueMap.put(PROPERTY_LANGUAGE_LIST_JSON, jsonMap.size() > 0 ? MAPPER.writeValueAsString(jsonMap) : "");
+                    resourceResolver.commit();
                 }
-                resourceResolver.commit();
             }
 
         } catch (Exception e) {
@@ -362,6 +368,14 @@ public final class Footer extends AbstractComponent implements ComponentExporter
 
     public String getDataLayer() throws JsonProcessingException {
         return dataLayer.getJsonData();
+    }
+
+    private boolean isAuthor() {
+        return this.slingSettingsService.getRunModes().contains(WatersConstants.AUTHOR);
+    }
+
+    private boolean isCartCheckoutPage() {
+        return this.currentPage.getPath().contains(WatersConstants.CART_CHECKOUT);
     }
 
     public String getLanguageLocation() {
