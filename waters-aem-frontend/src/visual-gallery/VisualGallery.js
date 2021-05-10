@@ -4,6 +4,7 @@ import { getBrightCoveVideoData } from "./services";
 import OverlayWithTabs from "../overlay-with-tabs/OverlayWithTabs";
 import ImageGallery from "./overlay/OverlayImageGallery";
 import VideoGallery from "./overlay/OverlayVideoGallery";
+import MobileOverlay from "./overlay/MobileOverlay";
 import { WIDTHS } from "../constants";
 import { msToMinAndSeconds } from "../utils/userFunctions";
 
@@ -62,10 +63,12 @@ const VisualGallery = ({
   const [activeTabIndex, setActiveTabIndex] = useState(0);
   const [isOpen, setIsOpen] = useState(true);
   const [brightCoveData, setBrightCoveData] = useState([]);
+  const [isMobileOverlayOpen, mobileOverlayHandler] = useState(false);
 
   const handleClose = (e) => setIsOpen(false);
 
   const activeTabHandler = (id) => setActiveTabIndex(id);
+  /* will be deleted later on */
   const launchMobileOverlay = () => {
     mobileOverlayHandler(!isMobileOverlayOpen);
   };

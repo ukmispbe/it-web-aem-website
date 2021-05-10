@@ -64,31 +64,69 @@
   padding: $space-m 0;
 }
 
-.preview-area-wrapper {  
+.preview-area-wrapper {
   img {
-    width:100%;
+    width: 100%;
   }
 }
 .preview-player {
   min-height: 55vh;
-  margin:$space-xs $space-l;
+  margin: $space-xs $space-l;
 
-  .preview-player-container { 
+  .preview-player-container {
     width: 100%;
   }
 }
 
 .image-description {
-  padding: $space-s $space-m 0 $space-m;
+  @include font-body;
+  font-style: italic;
+  padding: $space-s $space-l 0 $space-l;
   overflow: scroll;
   height: $height-large;
+  border-top: $border-light;
 }
+
+.mobile-thumbnail-container {
+  padding: $space-m;
+  white-space: nowrap;
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+
+.video-title {
+  @include font-h4;
+  padding: 0 $space-l 0 $space-l;
+}
+
 .mobile-header-search-bar {
-  left: 0; 
+  left: 0;
 }
 
 @include mobile {
   .cmp-asset-display-modal {
     display: none;
+  }
+}
+
+.moboverlay-preview-player-container {
+  @include mobile {
+    &.fit-on-zoom {
+      .preview-player {
+        margin: 0;
+      }
+      .preview-player-container {
+        overflow: visible;
+        .image-view-area {
+          position: absolute;
+          width: 100vw;
+          height: 62vh;
+          top: -4rem;
+          figure {
+            height: 61vh;
+          }
+        }
+      }
+    }
   }
 }

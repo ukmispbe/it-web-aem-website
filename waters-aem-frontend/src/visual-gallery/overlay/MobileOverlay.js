@@ -216,7 +216,7 @@ class MobileOverlay extends Component {
           key={`item-${index}`}
           thumbnailSrcURL={item.thumbnail || item.src}
           thumbnailAltText={item.alt}
-          className={this.state.activeIndex === index && "thumbnail-active"}
+          className={this.state.activeIndex === index ? "thumbnail-active" : ""}
           isVideo={item.src === undefined}
           videoIconURL={item.videoIconURL}
           onThumbnailClick={(e) => this.handleThumbnailClick(e, index)}
@@ -234,7 +234,9 @@ class MobileOverlay extends Component {
         </div>
       </section>
       <section>
-        <div>{this.renderThumbnails()}</div>
+        <div className="mobile-thumbnail-container">
+          {this.renderThumbnails()}
+        </div>
       </section>
     </div>
   );
