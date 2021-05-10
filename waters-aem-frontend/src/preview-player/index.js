@@ -9,9 +9,9 @@ import "../styles/preview-player.scss";
 const PreviewPlayer = ({
   openModal,
   imgSrc,
-  alt,
+  altText,
   zoomIcon,
-  zoomIconText,
+  zoomLabel,
   widths,
   defaultView,
   videoConfig,
@@ -24,12 +24,11 @@ const PreviewPlayer = ({
   const [currentSrc, setCurrentSrc] = useState();
 
   const handleImageLoaded = (e) => {
-    setCurrentSrc(e.currentTarget.querySelector("img").currentSrc);
+    e.currentTarget &&
+      setCurrentSrc(e.currentTarget.querySelector("img").currentSrc);
   };
-
   const handleImageError = (e) => console.error(e);
   const handleImageTouchEvent = (e) => {
-    console.log(e);
     handleImageTouchMove(e);
   };
   const handleMouseOut = (e) => {
@@ -54,7 +53,7 @@ const PreviewPlayer = ({
               <div className="overlay">
                 <div className="tap-to-zoom">
                   <ReactSVG src={zoomIcon} />
-                  {zoomIconText}
+                  {zoomLabel}
                 </div>
               </div>
               <div className="image-view-area">
@@ -83,7 +82,7 @@ const PreviewPlayer = ({
                       ))}
                     <img
                       className="image-gallery-image"
-                      alt={alt}
+                      alt={altText}
                       src={currentSrc}
                     />
                   </picture>
@@ -106,7 +105,7 @@ const PreviewPlayer = ({
                 ))}
                 <img
                   className="image-gallery-image"
-                  alt={alt}
+                  alt={altText}
                   src={currentSrc}
                 />
               </picture>
@@ -133,7 +132,7 @@ PreviewPlayer.propTypes = {
   openModal: PropTypes.func,
   imgSrc: PropTypes.string,
   zoomIcon: PropTypes.string,
-  zoomIconText: PropTypes.string,
+  zoomLabel: PropTypes.string,
   widths: PropTypes.arrayOf(PropTypes.string).isRequired,
   defaultImage: PropTypes.string,
   videoConfig: PropTypes.object,
@@ -144,7 +143,7 @@ PreviewPlayer.defaultProps = {
   openModal: () => {},
   imgSrc: "",
   zoomIcon: "",
-  zoomIconText: "",
+  zoomLabel: "",
   widths: [],
   defaultImage: "",
   videoConfig: {},

@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+import { getBrightCoveVideoData } from "./services";
 import OverlayWithTabs from "../overlay-with-tabs/OverlayWithTabs";
 import ImageGallery from "./overlay/OverlayImageGallery";
-import MobileOverlay from "./overlay/MobileOverlay";
+import VideoGallery from "./overlay/OverlayVideoGallery";
 import { WIDTHS } from "../constants";
 import { msToMinAndSeconds } from "../utils/userFunctions";
 
@@ -10,11 +11,13 @@ const VisualGallery = ({
   tabs,
   templates,
   videoIds,
+  brightcoveAccount,
+  brightcovePlayerId,
   widths,
   zoomLabel,
   zoomInIcon,
-  brightcoveAccount,
-  brightcovePlayerId,
+  brightCoveApi,
+  policyKey,
 }) => {
   // dummy data for mobile overlay.. will be deleted later on
   const overlayProps = {
@@ -58,7 +61,7 @@ const VisualGallery = ({
   ]);
   const [activeTabIndex, setActiveTabIndex] = useState(0);
   const [isOpen, setIsOpen] = useState(true);
-  const [isMobileOverlayOpen, mobileOverlayHandler] = useState(false);
+  const [brightCoveData, setBrightCoveData] = useState([]);
 
   const handleClose = (e) => setIsOpen(false);
 
@@ -66,6 +69,29 @@ const VisualGallery = ({
   const launchMobileOverlay = () => {
     mobileOverlayHandler(!isMobileOverlayOpen);
   };
+
+  const brightCoveDataConstruct = (data) => {
+    const videoObj = data.map((obj) => ({
+      title: obj.name,
+      description: obj.description,
+      thumbnail: obj.thumbnail,
+      duration: obj.duration,
+      brightcoveVideoId: obj.id,
+      brightcoveAccount,
+      brightcovePlayerId,
+    }));
+    setBrightCoveData(videoObj);
+  };
+
+  useEffect(() => {
+    getBrightCoveVideoData(
+      videoIds,
+      brightcoveAccount,
+      brightCoveApi,
+      policyKey,
+      brightCoveDataConstruct
+    );
+  }, []);
 
   const closeMobileOverlay = () => {
     mobileOverlayHandler(false);
@@ -91,9 +117,9 @@ const VisualGallery = ({
               />
             </div>
           )}
-          {videoIds.length > 0 && (
+          {brightCoveData.length > 0 && (
             <div style={{ display: activeTabIndex === 1 ? "block" : "none" }}>
-              {tabs[1]}
+              <VideoGallery brightCoveData={brightCoveData} />
             </div>
           )}
         </div>

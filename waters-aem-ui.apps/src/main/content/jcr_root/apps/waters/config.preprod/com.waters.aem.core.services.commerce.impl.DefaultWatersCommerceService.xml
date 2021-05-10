@@ -6,4 +6,5 @@
         skuCustomerPriceUrl="https://api-sbox.waters.com/preprod-waters-product-exp-api-v1/api/products/prices"
         addToCartUrl="https://preprodservices.waters.com/api/waters/product/v1/addtocart/{partnumber}/{quantity}"
         ecomViewCartUrl="https://preprod1.waters.com/store/{localeCountry}/{localeLanguage}/cart"
-        eprocViewCartUrl="https://preprod1-order.waters.com/store/{localeLanguage}/cart"/>
+        eprocViewCartUrl="https://preprod1-order.waters.com/store/{localeLanguage}/cart"
+        contactUsLink="https://preprod1.waters.com/waters/contactUs.htm"/>

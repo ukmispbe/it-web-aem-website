@@ -8,12 +8,13 @@
     }
   }
 
-  .visual-overlay-image-carousel {
+  .visual-overlay-carousel {
     display: flex;
-    .overlay-image-thumbnails-placeholder {
+    .overlay-thumbnails-placeholder {
       display: flex;
       flex-direction: column;
-      flex: 1;
+      flex: 0 1;
+      min-width: 200px;
     }
   }
 }
@@ -22,7 +23,7 @@
   margin-top: $space-m;
 }
 
-.visual-overlay-image-carousel {
+.visual-overlay-carousel {
   .thumbnail-container {
     margin-left: 0;
   }

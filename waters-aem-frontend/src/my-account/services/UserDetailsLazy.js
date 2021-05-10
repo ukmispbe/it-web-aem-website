@@ -1,6 +1,7 @@
 import loginStatus from "../../scripts/loginStatus";
 import SessionStore from "../../stores/sessionStore";
 import UserDetails from "../services/UserDetails";
+import {setUserDataForDataDog} from '../../utils/userFunctions'
 
 export default async (userDetailsUrl, checkSessionStore, sessionStore = new SessionStore(), service = UserDetails) => {
 
@@ -10,6 +11,7 @@ export default async (userDetailsUrl, checkSessionStore, sessionStore = new Sess
         console.info(
             "UserDetails API cannot be initiated due to nav bar controls"
         );
+        setUserDataForDataDog();
         return {};
     }
 
@@ -18,12 +20,14 @@ export default async (userDetailsUrl, checkSessionStore, sessionStore = new Sess
         console.info(
             "UserDetails API cannot be initiated due to unavailability of login cookie"
         );
+        setUserDataForDataDog();
         return {};
     }
 
     if (checkSessionStore) {
         const userDetails = sessionStore.getUserDetails();
         if (userDetails && Object.keys(userDetails).length !== 0) {
+            setUserDataForDataDog();
             return userDetails;
         }
     }
@@ -32,7 +36,7 @@ export default async (userDetailsUrl, checkSessionStore, sessionStore = new Sess
 
     if (!response.failed) {
         sessionStore.setUserDetails(response);
-
+        setUserDataForDataDog();
         return response;
     }
 

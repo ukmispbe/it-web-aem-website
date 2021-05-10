@@ -7,7 +7,12 @@
   display: inline-block;
   overflow: hidden;
   position: relative;
-
+  width: 100%;
+  .cmp-video_video-container {
+    .video-info {
+      display: none;
+    }
+  }
   .overlay {
     position: absolute;
     width: 100%;
@@ -43,41 +48,10 @@
           stroke: $color-icon;
         }
       }
-    }
-  }
 
-  &:hover {
-    .overlay {
-      visibility: visible;
-      opacity: 1;
+      .st0 {
+        stroke: $color-icon;
+      }
     }
   }
 }
-
-figure.image-zoom-area {
-    margin: 0;
-    &.zoom-it {
-      img {
-        opacity: 0;
-      } 
-      height: 50vh;
-    }
-    img {
-      transition: opacity .5s;
-      display: block;
-      width: 100%;
-    }
-    background-position: 50% 50%;
-    position: relative;
-    width: 100%;
-    background-size: 200%;
-    overflow: hidden;
-    cursor: zoom-in;
-  }
-  .cmp-video_title, .cmp-video_description {
-      display: none;
-  }
-  .video-title {
-    @include font-h4;
-    padding-left: $space-l;
-  }
