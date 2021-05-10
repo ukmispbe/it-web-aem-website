@@ -543,3 +543,23 @@ export const setUserDataForDataDog = () => {
     }
     return window.DD_RUM && window.DD_RUM.setUser(config);
 };
+
+export const getElemXandYPosition = (e) => {
+    var zoomer = e.currentTarget;
+    let offsetX = '';
+    let offsetY = '';
+    e.nativeEvent.offsetX ? offsetX = e.nativeEvent.offsetX : offsetX = e.touches[0].pageX
+    e.nativeEvent.offsetY ? offsetY = e.nativeEvent.offsetY : offsetY = e.touches[0].pageY
+    let x = offsetX/zoomer.offsetWidth*100
+    let y = offsetY/zoomer.offsetHeight*100
+
+    return {x, y}
+}
+
+export const msToMinAndSeconds = ms => {
+    const minutes = Math.floor(ms / 60000);
+    const seconds = ((ms % 60000) / 1000).toFixed(0);
+    const result = minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+    console.log(result);
+    return result;
+}

@@ -7,7 +7,12 @@
     display: inline-block;
     overflow: hidden;
     position: relative;    
-
+    width: 100%;
+     .cmp-video_video-container {
+         .video-info {
+             display: none;
+         }
+     }
      .overlay {
         position: absolute;
         width: 100%;
@@ -51,4 +56,5 @@
             opacity: 1;   
         }
      }
+    }
 }
