@@ -10,8 +10,7 @@ const PreviewPlayer = ({ openModal, imgSrc, altText, zoomIcon, zoomLabel, widths
     const [currentSrc, setCurrentSrc] = useState()
         
     const handleImageLoaded = e => {e.currentTarget && setCurrentSrc(e.currentTarget.querySelector('img').currentSrc)};
-    const handleImageTouchEvent = e => { 
-        console.log(e);
+    const handleImageTouchEvent = e => {         
         handleImageTouchMove(e)
     }
     const handleMouseOut = e => e.currentTarget.classList.remove("zoom-it");

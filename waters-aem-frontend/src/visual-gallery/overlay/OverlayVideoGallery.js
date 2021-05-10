@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import Thumbnail from "../../thumbnail/Thumbnail";
 import PreviewPlayer from "../../preview-player";
+import { msToMinAndSeconds } from "../../utils/userFunctions";
 import "../../styles/overlay-gallery.scss";
 
 const VideoGallery = props => {
@@ -40,7 +41,7 @@ const VideoGallery = props => {
             isVideo   
             className={activeIndex === index && 'thumbnail-active'}       
             onThumbnailClick={() => handleThumbnailClick(index, item)}
-            timeStamp={(item.duration/60000)}
+            timeStamp={msToMinAndSeconds(item.duration)}
             thumbnailLabel={item.title}
           />
         ))
