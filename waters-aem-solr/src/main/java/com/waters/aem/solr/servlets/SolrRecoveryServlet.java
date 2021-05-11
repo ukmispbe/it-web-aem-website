@@ -82,7 +82,7 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 	private static final String FULLTEXT = "FULLTEXT";
 	private static final String ACTION = "action";
 	private static final String DOCUMENTCOUNT = "documentsCount";
-	private static final String HTTPS = "http://";
+	private static final String HTTPS = "https://";
 	private static final int SOLR_PORT = 8983;
 	private volatile boolean fullIndexInProgress = false;
 	private volatile String collectionName;
@@ -480,7 +480,7 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 		String collectionAlias = null;
 		httpResponse = getCollectionActionResponse(collectionName, enableAuthentication, solrHostUrl, CREATEALIAS);
 		statusLine = getStatusLine(httpResponse);
-		LOG.info("The Solr Full Index create alias response status: {}", statusLine);
+		LOG.info("The Solr Full Index Create Alias response status: {}", statusLine);
 		if ((statusLine != null ? statusLine.getStatusCode() : 0) == 200) {
 			httpResponse = getCollectionActionResponse(collectionName, enableAuthentication, solrHostUrl, LISTALIASES);
 			statusLine = getStatusLine(httpResponse);
@@ -509,7 +509,7 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 		collectionAction = LIST;
 		httpResponse = getCollectionActionResponse(collectionName, enableAuthentication, solrHostUrl, collectionAction);
 		statusLine = getStatusLine(httpResponse);
-		LOG.info("The Solr Full Index list alias response status: {}", statusLine);
+		LOG.info("The Solr Full Index List Collections response status: {}", statusLine);
 
 		if ((statusLine != null ? statusLine.getStatusCode() : 0) == 200) {
 			String collectionListResponseString = new BasicResponseHandler().handleResponse(httpResponse);
@@ -528,7 +528,7 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 					collectionAction = DELETE;
 					statusLine = getStatusLine(getCollectionActionResponse(oldCollectionName, enableAuthentication,
 							solrHostUrl, collectionAction));
-					LOG.info("The Solr Full Index delete collection response status: {}", statusLine);
+					LOG.info("The Solr Full Index Delete Collections response status: {}", statusLine);
 				}
 			}
 		} else
