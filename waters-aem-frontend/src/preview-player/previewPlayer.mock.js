@@ -13,5 +13,5 @@ export const imgConfig = {
     widths: ['1280','770','620','375','320','256','140','128'],
     defaultImage: 'http://localhost:4502/content/dam/waters/en/brand-assets/product/alliance-launch/alliance-online.jpg.770.resize/img.jpg',
 	zoomIcon: '/',
-	zoomIconText: 'Click or Tap to Zoom'
+	zoomLabel: 'Click or Tap to Zoom'
 }

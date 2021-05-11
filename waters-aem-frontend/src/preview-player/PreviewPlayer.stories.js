@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import {PreviewPlayer} from './index';
+import PreviewPlayer from './index';
 import {videoConfig, imgConfig} from './previewPlayer.mock';
 
 // This default export determines where your story goes in the story list

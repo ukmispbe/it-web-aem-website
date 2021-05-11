@@ -3,76 +3,83 @@ import PropTypes from "prop-types";
 import ReactSVG from "react-svg";
 import Thumbnail from "../../thumbnail/Thumbnail";
 import PreviewPlayer from "../../preview-player";
-import { replaceInSrc } from "../../utils/userFunctions";
+import { replaceInSrc, getElemXandYPosition } from "../../utils/userFunctions";
 import { WIDTHS } from "../../constants";
 
-import "../../styles/overlay-image-gallery.scss";
+import "../../styles/overlay-gallery.scss";
 
-class ImageGallery extends React.Component {
-  constructor() {
-    super();
+const ImageGallery = props => {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [thumbnailClicked, setThumbnailClicked] = useState();
+  const [currentImageConfig, setCurrentImageConfig] = useState('');
 
-    this.state = {
-      activeIndex: 0,    
-      thumbnailClicked: false,
-    };
+  useEffect(() => {
+    if(props.template.length > 0) {
+      setCurrentVideoConfig(props.template[0])
+    }
+  },[props.template])
+
+  const handleThumbnailClick = (activeIndex, template) => {
+    setActiveIndex(activeIndex);
+    setThumbnailClicked(true);
+    setCurrentImageConfig(template);
   }
 
-  handleThumbnailClick = (activeIndex) =>
-    this.setState({ activeIndex, thumbnailClicked: true });
-
-  render() {
-    return (
-      <div className="visual-overlay-image-carousel">
-        <div className="overlay-image-thumbnails-placeholder">
-          {this.getThumbnails()}
-        </div>
-        <div className="overlay-image-view-placeholder">
-          {this.getImageViewerComponents()}
-        </div>
-      </div>
-    );
+  const handleImageMouseMove = e => {
+    const { x , y } = getElemXandYPosition(e);
+    zoomer.style.backgroundPosition = x + '% ' + y + '%';
   }
+  
+  const zoomImage = e => e.currentTarget.classList.toggle('zoom-it'); 
 
-  getImageViewerComponents = () =>
-    this.props.templates.map((template, index) =>
-      this.mapTemplateToImageViewer(template, index)
-    );
+  const handleOnDragStart = e => e.preventDefault();
 
-  mapTemplateToImageViewer = (template, index) => (
-    <div
-      style={{ display: this.state.activeIndex === index ? "block" : "none" }}
-    >
-      <div className="image-area-wrapper">
+  const getImageViewerComponents = () => (
+    <div>
+      <div className="preview-area-wrapper">
         <div className="tap-to-zoom">
-          <ReactSVG src={this.props.zoomInIcon} />
-          {this.props.zoomLabel}
+          <ReactSVG src={props.zoomInIcon} />
+          {props.zoomLabel}
         </div>
         <PreviewPlayer          
-          imgSrc={template.src}
-          widths={this.props.widths}
-          alt={template.alt}
-          defaultImage={replaceInSrc(template.src, WIDTHS[0])}          
+          imgSrc={currentImageConfig.src}
+          widths={props.widths}
+          altText={currentImageConfig.alt}          
+          handleImageMouseMove={handleImageMouseMove}   
+          handleOnDragStart={handleOnDragStart}  
+          zoomImage={zoomImage}   
         />
-        <div className="image-description">{template.title}</div>
+        <div className="preview-description">{currentImageConfig.description}</div>
       </div>
     </div>
   );
 
-  getThumbnails = () =>
-    this.props.templates.length > 0 ? (
-      this.props.templates.map((item, index) => (
+  const getThumbnails = () =>
+    props.templates.length > 0 && (
+      props.templates.map((item, index) => (
         <Thumbnail
           thumbnailSrcURL={replaceInSrc(item.src, WIDTHS[0])}
           thumbnailAltText={item.alt}
+          className={activeIndex === index && 'thumbnail-active'} 
           isVideo={item.src === undefined}
-          onThumbnailClick={() => this.handleThumbnailClick(index)}
+          onThumbnailClick={() => handleThumbnailClick(index, item)}
         />
       ))
-    ) : (
-      <></>
     );
-}
+  
+    return (
+      <div className="visual-overlay-carousel">
+        <div className="overlay-thumbnails-placeholder">
+          {getThumbnails()}
+        </div>
+        <div className="overlay-view-placeholder">
+          {getImageViewerComponents()}
+        </div>
+      </div>
+    );
+  
+
+} 
 
 ImageGallery.defaultProps = {
   widths: WIDTHS,

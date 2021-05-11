@@ -1,7 +1,7 @@
 import React from "react";
 import ReactSVG from "react-svg";
 import PropTypes from "prop-types";
-import "./thumbnailStyle.css";
+import "../styles/thumbnail.scss";
 
 const Thumbnail = ({
   thumbnailSrcURL,

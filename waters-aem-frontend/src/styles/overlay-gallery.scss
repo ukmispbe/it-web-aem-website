@@ -1,0 +1,58 @@
+@import "variables.scss";
+@import "mixins.scss";
+@import "typography.scss";
+
+.overlay-thumbnails-placeholder {
+  margin-top: $space-l;
+}
+.overlay-view-placeholder {
+  .preview-area-wrapper {
+    &.video-view {
+      margin-top: $space-l;
+    }
+    margin: 0 $space-s;
+    max-width: 950px;
+    img {
+      width: 100%;
+    }
+  }
+}
+
+.tap-to-zoom {
+  display: flex;
+  justify-content: center;
+  svg {
+    width: $icon-m;
+    height: $icon-m;
+    padding-right: $space-xxxs;
+  }
+  .zoom-label {
+    @include font-utility;
+  }
+}
+
+.preview-description {
+  border-top: $border-light;
+  padding-top: $space-xxs;
+  @include font-caption;
+}
+
+figure.image-zoom-area {
+  margin: 0;
+  &.zoom-it {
+    img {
+      opacity: 0;
+    }
+  }
+  img {
+    transition: opacity 0.5s;
+    display: block;
+    width: 100%;
+  }
+  background-position: 50% 50%;
+  position: relative;
+  width: 100%;
+  background-size: 200%;
+  overflow: hidden;
+  cursor: zoom-in;
+}

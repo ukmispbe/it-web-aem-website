@@ -24,18 +24,17 @@ import com.citytechinc.cq.component.annotations.Component;
 import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.Listener;
 import com.citytechinc.cq.component.annotations.Option;
+import com.citytechinc.cq.component.annotations.Tab;
 import com.citytechinc.cq.component.annotations.widgets.Selection;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.wcm.api.Page;
 import com.waters.aem.core.services.commerce.WatersCommerceService;
 
-@Component(value = "Request Information Button", 
-			description = "This is the Request Information Button component for Waters site", 
-listeners = {
+@Component(value = "Request Information Button", description = "This is the Request Information Button component for Waters site", listeners = {
 		@Listener(name = EVENT_AFTER_INSERT, value = REFRESH_PAGE),
 		@Listener(name = EVENT_AFTER_EDIT, value = REFRESH_PAGE),
-		@Listener(name = EVENT_AFTER_DELETE, value = REFRESH_PAGE) })
+		@Listener(name = EVENT_AFTER_DELETE, value = REFRESH_PAGE) }, tabs = { @Tab(title = "Properties") })
 @Model(adaptables = SlingHttpServletRequest.class, adapters = { RequestInformationButton.class,
 		ComponentExporter.class }, resourceType = RequestInformationButton.RESOURCE_TYPE, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME, extensions = ExporterConstants.SLING_MODEL_EXTENSION)

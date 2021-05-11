@@ -14,6 +14,10 @@ public final class WatersConstants {
 
     public static final String CONTENT_ROOT_PATH = "/content";
 
+    public static final String AUTHOR = "author";
+
+    public static final String CART_CHECKOUT = "cart-checkout";
+
     public static final String CUSTOM_ROOT_PATH = "/nextgen";
 
     public static final String ORDER_ROOT_PATH = "/content/order";

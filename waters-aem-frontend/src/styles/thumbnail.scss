@@ -63,15 +63,13 @@
   .thumbnail-time-stamp-bg {
     background-color: $color-black;
     position: absolute;
-    height: 15px;
+    height: 20px;
     width: 45px;
     right: 0;
     bottom: 0;
 
     .thumbnail-time-stamp-text {
       @include font-small;
-    }
-    span {
       color: $color-white;
     }
   }

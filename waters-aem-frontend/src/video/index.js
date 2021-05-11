@@ -83,7 +83,9 @@ class VideoContainer extends React.Component {
                     onVideoSuccess={this.onSuccess}
                     onVideoFailure={this.onFailure}
                 />
-                {this.renderVideoInfo()}
+                <div className="video-info">
+                    {this.renderVideoInfo()}
+                </div>                
             </div>
         );
     }
