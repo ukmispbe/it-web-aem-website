@@ -216,6 +216,10 @@ const eventTypes = {
         quoteAgainClick:{
             event:'quoteAgainClick'
         }
+    },
+    quickOrder: {
+        name: 'quickOrder',
+        event: 'qoInvalidSku'
     }
 }
 
