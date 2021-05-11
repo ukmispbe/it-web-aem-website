@@ -1,0 +1,17 @@
+<div data-sly-use.resources="com.waters.aem.core.components.content.Resources">
+	
+	<h3>${resources.title  @ i18n, context='html'}</h3>
+	<script type="application/json" id=${resources.id}>
+        {
+            "BuildListUsing": "${resources.listType @ i18n, context='html'}",
+            "ContentType": "${resources.contentType @ i18n, context='html'}",
+            "Tags": "${resources.tags @ i18n, context='html'}",
+			"MaxItems": "${resources.maxItems  @ i18n, context='html'}",
+            "DocumentNumber": "${resources.docNumber @ context='html'}"
+
+        }
+    </script>
+</div>
+
+<sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
+     data-sly-call="${patterns.placeholder @ show=!resources.title, text=component.title}"/>

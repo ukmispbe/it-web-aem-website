@@ -118,6 +118,10 @@ public final class WatersConstants {
 
     public static final Map<String,String> CURRENCY_FORMATS = ImmutableMap.<String, String>builder() .put("JPY","#,##0") .put("WON","#,##0") .build();
 
+    public static final String TAG_CONTENT_TYPE_PATH = "/content/cq:tags/waters/contenttype";
+    
+    public static final String TAG_ROOT_PATH = "/content/cq:tags/waters";
+    
     private WatersConstants() {
 
     }
