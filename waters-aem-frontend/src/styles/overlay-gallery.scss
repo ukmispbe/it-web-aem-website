@@ -1,6 +1,6 @@
 @import "variables.scss";
-@import 'mixins.scss';
-@import 'typography.scss';
+@import "mixins.scss";
+@import "typography.scss";
 
 .overlay-thumbnails-placeholder {
   margin-top: $space-l;
@@ -15,10 +15,10 @@
     img {
       width: 100%;
     }
-  }  
+  }
 }
 
-.tap-to-zoom {    
+.tap-to-zoom {
   display: flex;
   justify-content: center;
   svg {
@@ -42,10 +42,10 @@ figure.image-zoom-area {
   &.zoom-it {
     img {
       opacity: 0;
-    } 
+    }
   }
   img {
-    transition: opacity .5s;
+    transition: opacity 0.5s;
     display: block;
     width: 100%;
   }
@@ -56,4 +56,3 @@ figure.image-zoom-area {
   overflow: hidden;
   cursor: zoom-in;
 }
-

@@ -3,58 +3,55 @@
 @import "typography.scss";
 
 .preview-player-container {
-    border: $color-border-medium;
-    display: inline-block;
-    overflow: hidden;
-    position: relative;    
-    width: 100%;
-     .cmp-video_video-container {
-         .video-info {
-             display: none;
-         }
-     }
-     .overlay {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        background-color: rgba($color-black, 0.1);
-        visibility: hidden;
-        opacity: 0;
-        transition: visibility 0s linear 2s, opacity 300ms;
-        .tap-to-zoom {   
-            @include font-small;
-            display: inline;
-            position: absolute;
-            margin: auto;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            width: 24%;
-            text-align: center;
-            background-color: $color-white;
-            padding: $space-xxs;
-            border-radius: $border-radius;
-            svg {
-                width: $icon-m;
-                height: $icon-m;
-            
-                @include mobile {
-                    width: $icon-m;
-                    height: $icon-m;
-                }
-            
-                .st0 {
-                    stroke: $color-icon;
-                }
-        }
-     }
-
-     &:hover {
-        .overlay { 
-            visibility: visible;
-            opacity: 1;   
-        }
-     }
+  border: $color-border-medium;
+  display: inline-block;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  .cmp-video_video-container {
+    .video-info {
+      display: none;
     }
+  }
+  .overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba($color-black, 0.1);
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s linear 2s, opacity 300ms;
+    .tap-to-zoom {
+      @include font-small;
+      display: inline;
+      position: absolute;
+      margin: auto;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 24%;
+      text-align: center;
+      background-color: $color-white;
+      padding: $space-xxs;
+      border-radius: $border-radius;
+      svg {
+        width: $icon-m;
+        height: $icon-m;
+
+        @include mobile {
+          width: $icon-m;
+          height: $icon-m;
+        }
+
+        .st0 {
+          stroke: $color-icon;
+        }
+      }
+
+      .st0 {
+        stroke: $color-icon;
+      }
+    }
+  }
 }
