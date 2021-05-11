@@ -27,93 +27,106 @@ import com.citytechinc.cq.component.annotations.widgets.TagInputField;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.waters.aem.core.constants.WatersConstants;
 
-@Component(value = "Resources", description = "This component Displays list of resources", listeners = {
-		@Listener(name = EVENT_AFTER_EDIT, value = REFRESH_PAGE),
-		@Listener(name = EVENT_AFTER_DELETE, value = REFRESH_PAGE) }, tabs = { @Tab(title = "Knowledge Resources") })
-@Model(adaptables = SlingHttpServletRequest.class, adapters = { Resources.class,
-		ComponentExporter.class }, resourceType = Resources.RESOURCE_TYPE, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
-@Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME, extensions = ExporterConstants.SLING_MODEL_EXTENSION)
+@Component(value = "Resources", description = "This component Displays list of resources",
+        listeners = {
+                @Listener(name = EVENT_AFTER_EDIT, value = REFRESH_PAGE),
+                @Listener(name = EVENT_AFTER_DELETE, value = REFRESH_PAGE)},
+        tabs = {@Tab(title = "Knowledge Resources")})
+@Model(adaptables = SlingHttpServletRequest.class,
+        adapters = {Resources.class,
+        ComponentExporter.class},
+        resourceType = Resources.RESOURCE_TYPE,
+        defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
+@Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME,
+        extensions = ExporterConstants.SLING_MODEL_EXTENSION)
 public final class Resources implements ComponentExporter {
 
-	public static final String RESOURCE_TYPE = "waters/components/content/resources";
+    public static final String RESOURCE_TYPE = "waters/components/content/resources";
 
-	@DialogField(fieldLabel = "Title", fieldDescription = "Enter the Title for the List", required = true)
-	@TextField
-	@Inject
-	private String title;
-	
-	@DialogField(fieldLabel = "Build List Using", fieldDescription = "Build Resources List using Tags or Fixed Id", required = true)
-	@Selection(
-	        type = Selection.SELECT,
-	        options = {
-	            @Option(text = "option", value = "Tags"),
-	            @Option(text = "Document Number", value = "docNumber"),
-	        }
-	    )
-	@Inject
-	private String listType;
-	
-	@DialogField(fieldLabel = "Content-Type", fieldDescription = "Select the Content-Type", required = true)
-	@TagInputField(rootPath = WatersConstants.TAG_CONTENT_TYPE_PATH)
-	@Inject
-	private String contentType;
-	
-	@DialogField(fieldLabel = "Tags", fieldDescription = "Selects the Tags")
-	@TagInputField(rootPath = WatersConstants.TAG_ROOT_PATH)
-	@Inject
-	private String tags;
-	
-	@DialogField(fieldLabel = "Max Items", fieldDescription = "Maximum Numbers of Items displayed in the list")
-	@NumberField
-	@Inject
-	private String maxItems;
-	
-	@DialogField(fieldLabel = "ID", fieldDescription = "HTML Id attribute to enter to this component")
-	@TextField
-	@Inject
-	private String id;
+    @DialogField(fieldLabel = "Title",
+            fieldDescription = "Enter the Title for the List",
+            required = true)
+    @TextField
+    @Inject
+    private String title;
 
-	
-	@DialogField(fieldLabel = "Document Number", fieldDescription = "Enter the Support Document partnumber")
-	@MultiField
-	@TextField
-	@Inject
-	private String[] docNumber;
-	
-	public String getTitle() {
-		return title;
-	}
+    @DialogField(fieldLabel = "Build List Using",
+            fieldDescription = "Build Resources List using Tags or Fixed Id",
+            required = true)
+    @Selection(type = Selection.SELECT,
+            options = {@Option(text = "Tags",
+                    value = "Tags"),
+            @Option(text = "Document Number",
+                    value = "docNumber"),})
+    @Inject
+    private String listType;
 
-	public String getListType() {
-		return listType;
-	}
+    @DialogField(fieldLabel = "Content Type",
+            fieldDescription = "Select the Content Type",
+            required = true)
+    @TagInputField(rootPath = WatersConstants.TAG_CONTENT_TYPE_PATH)
+    @Inject
+    private String contentType;
 
-	public String getContentType() {
-		return contentType;
-	}
+    @DialogField(fieldLabel = "Tags",
+            fieldDescription = "Selects the Tags")
+    @TagInputField(rootPath = WatersConstants.TAG_ROOT_PATH)
+    @Inject
+    private String tags;
 
-	public String getTags() {
-		return tags;
-	}
+    @DialogField(fieldLabel = "Max Items",
+            fieldDescription = "Maximum Numbers of Items displayed in the list")
+    @NumberField
+    @Inject
+    private String maxItems;
 
-	public String getMaxItems() {
-		if (StringUtils.isEmpty(maxItems)) {
-			maxItems = "5";
-		}
-		return maxItems;
-	}
+    @DialogField(fieldLabel = "ID",
+            fieldDescription = "HTML Id attribute to enter to this component")
+    @TextField
+    @Inject
+    private String id;
 
-	public String getId() {
-		return id;
-	}
-	
-	public String[] getDocNumber() {
-		return docNumber;
-	}
+    @DialogField(fieldLabel = "Document Number",
+            fieldDescription = "Enter the Support Document partnumber")
+    @MultiField
+    @TextField
+    @Inject
+    private String[] docNumber;
 
-	@Nonnull
-	@Override
-	public String getExportedType() {
-		return RESOURCE_TYPE;
-	}
+    public String getTitle() {
+        return title;
+    }
+
+    public String getListType() {
+        return listType;
+    }
+
+    public String getContentType() {
+        return contentType;
+    }
+
+    public String getTags() {
+        return tags;
+    }
+
+    public String getMaxItems() {
+        if (StringUtils.isEmpty(maxItems)) {
+            maxItems = "5";
+        }
+        return maxItems;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String[] getDocNumber() {
+        return docNumber;
+    }
+
+    @Nonnull
+    @Override
+    public String getExportedType() {
+        return RESOURCE_TYPE;
+    }
 }
