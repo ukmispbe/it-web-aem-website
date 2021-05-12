@@ -29,6 +29,8 @@ import com.citytechinc.cq.component.annotations.widgets.Selection;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.wcm.api.Page;
+import org.apache.jackrabbit.util.Text;
+//import org.apache.jackrabbit.webdav.util.EncodeUtil;
 import com.waters.aem.core.services.commerce.WatersCommerceService;
 
 @Component(value = "Request Information Button", description = "This is the Request Information Button component for Waters site", listeners = {
@@ -81,7 +83,7 @@ public final class RequestInformationButton implements ComponentExporter {
 
 	public String getHref() {
 		StringBuilder builder = new StringBuilder();
-		builder.append(watersCommerceService.getContactUsLink()).append("?pageFromTitle=").append(getPageTitle());
+		builder.append(watersCommerceService.getContactUsLink()).append("?pageFromTitle=").append(Text.escape(getPageTitle()));
 		if (StringUtils.isNotEmpty(requestType)) {
 			builder.append("&raqType=").append(requestType).append("&raqOnly=Y");
 		}
