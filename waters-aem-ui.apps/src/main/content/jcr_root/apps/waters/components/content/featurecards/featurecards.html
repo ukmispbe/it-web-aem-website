@@ -1,16 +1,16 @@
-<div data-sly-use.featurecard="com.waters.aem.core.components.content.FeatureCards" class="cmp-featurecards">
-     ${featurecard.title @ context='html'} <br/>
-     ${featurecard.description @ context='html'}
-    <ul class="cmp-features__list" data-sly-test="${featurecard.features}">
-        <li class="cmp-features__feature" data-sly-repeat="${featurecard.features}">
-            <div class="cmp-features__feature-wrapper">
-                <div class="cmp-features__feature-icon-wrapper">
-                    <img class="cmp-features__feature-icon" data-sly-test="${item.icon}" src="${item.icon}"/>
+<div data-sly-use.featurecard="com.waters.aem.core.components.content.FeatureCards" class="cmp-featurecards">    
+    <div class="cmp-feature-heading">${featurecard.title @ context='html'}</div>
+    <ul class="cmp-features" data-sly-test="${featurecard.features}">
+        <li class="cmp-features_list" data-sly-repeat="${featurecard.features}">
+            <div class="cmp-features_feature-wrapper">
+                <div class="cmp-feature-icon-wrapper">
+                    <img class="${item.icon ? 'inline-svg' : ''}" data-sly-test="${item.icon}" src="${item.icon}"/>
                 </div>
-                ${item.feature}
+                <div class="cmp-features_feature">${item.feature}</div>
             </div>
         </li>
     </ul>
+    <div class="cmp-features_description">${featurecard.description @ context='html'}</div>    
 </div>
 
 <sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
