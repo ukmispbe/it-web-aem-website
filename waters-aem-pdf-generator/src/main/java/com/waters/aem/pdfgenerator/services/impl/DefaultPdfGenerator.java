@@ -85,6 +85,7 @@ public final class DefaultPdfGenerator implements PdfGenerator {
         final Asset asset;
 
         if(!isPdfActivationDateLessThanPageModify(page)) {
+            LOG.info("PDF replicated date is greater than Page Modified Date");
             return null;
         }
 
