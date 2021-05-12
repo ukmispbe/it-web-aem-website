@@ -39,12 +39,12 @@ public interface SolrIndexClient {
      * Add/update a document in the Solr index.
      * 
      * @param document Solr document
-     * @param collection Name of collection
+     * @param collectionName Name of collection
      * @return true if indexing is successful, false otherwise
      * @throws IOException if error occurs communicating with Solr server
      * @throws SolrServerException if error occurs in Solr index request
      */
-    boolean addToIndex(List<SolrInputDocument> document) throws IOException, SolrServerException;
+    boolean addToIndex(List<SolrInputDocument> document, String collectionName) throws IOException, SolrServerException;
 
 
     /**
