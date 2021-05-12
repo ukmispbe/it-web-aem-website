@@ -30,7 +30,6 @@ import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.wcm.api.Page;
 import org.apache.jackrabbit.util.Text;
-//import org.apache.jackrabbit.webdav.util.EncodeUtil;
 import com.waters.aem.core.services.commerce.WatersCommerceService;
 
 @Component(value = "Request Information Button", description = "This is the Request Information Button component for Waters site", listeners = {
