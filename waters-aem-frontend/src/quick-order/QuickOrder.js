@@ -7,8 +7,8 @@ import AddToCartBody from '../sku-details/views/addToCartModal';
 import Modal, { Header, keys } from '../utils/modal';
 import Input from '../components/Input/Input';
 import ScreenSizes from '../scripts/screenSizes';
-import { shopAllCartContext } from "../analytics";
-
+import Analytics,  { shopAllCartContext, analyticTypes } from "../analytics";
+import LocalStore from '../stores/localStore';
 function QuickOrder(props) {
     const {
         buttonLabel,
@@ -66,6 +66,16 @@ function QuickOrder(props) {
         try {
             if(isInHeader) {
                 if(showError) {
+                    const localStore = new LocalStore();
+                    const cartID = localStore.getGUID();
+                    const cartData = {
+                        cart: {
+                            SKU: skuNumber,
+                            cartId: cartID
+                        },
+                        detail: {}
+                    };
+                    Analytics.setAnalytics(analyticTypes.quickOrder.name, cartData);
                     showHeaderSKUMsg(skuNumber)
                 } else {
                     hideHeaderSKUMsg();
