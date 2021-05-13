@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import LoginStatus from '../scripts/loginStatus';
 import SignIn from '../scripts/signIn';
 import SkuTable from './views/sku-table';
+import '../styles/sku-list-specifications.scss';
 
 class SkuListSpecifications extends React.Component {
     constructor(props) {
