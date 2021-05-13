@@ -10,6 +10,7 @@ import LegalLinkModal from './legal-link-modal/LegalLinkModal';
 
 const SkuDetails = React.lazy(() => import(/* webpackChunkName: "skudetails" */ './sku-details'));
 const SkuList = React.lazy(() => import(/* webpackChunkName: "skulist" */ './sku-list'));
+import SkuListSpecifications from './sku-list-specifications';
 import SkuMessage from './sku-message';
 
 import {
@@ -267,6 +268,28 @@ if (skuListContainer) {
             />
         </Suspense>,
         skuListContainer
+    );
+}
+
+// Start SKU List Specifications Component
+const skuListSpecificationsContainer = document.querySelector(
+    '#cmp-sku-list-specifications'
+);
+
+const skuListSpecificationsJson = JSON.parse(
+    document.getElementById('cmp-skulistwithspecifications-json').innerHTML
+);
+
+if (skuListSpecificationsContainer && skuListSpecificationsJson) {
+    const componentTitle = skuListSpecificationsJson && skuListSpecificationsJson.componentTitle || '';
+    ReactDOM.render(
+        <Suspense fallback={<div>Loading...</div>}>
+            <SkuListSpecifications
+                config={{ ...skuDetailsConfig, ...skuListSpecificationsJson }}
+                title={componentTitle}
+            />
+        </Suspense>,
+        skuListSpecificationsContainer
     );
 }
 

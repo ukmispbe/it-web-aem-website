@@ -1,0 +1,51 @@
+@import 'variables.scss';
+@import 'mixins.scss';
+@import 'typography.scss';
+
+.cmp-sku-list-specifications {
+    &_title {
+        @include font-h3;
+        margin-bottom: $space-xxs;
+
+        @include tablet-and-under {
+            margin-bottom: $space-s;
+        }
+    }
+}
+
+.sku-table {    
+    &__header {
+        @include font-body;
+        color: $color-font-light;
+        height: $height-medium;
+        background: $color-background-dark;
+        border-radius: $border-radius;
+        margin-bottom: 0;
+        & .item {
+            white-space: nowrap;
+            align-self: center;
+            &.regular {
+                font-weight: $font-weight-regular;
+            }
+        }
+    }
+
+    &__body {
+        padding-left: 0;
+    }
+
+    &-item {
+        margin-bottom: 0;
+        height: $height-large;
+        border-bottom: 1px solid $color-border-medium;
+        & .item {
+            @include font-body;
+            align-self: center;
+            margin-bottom: 0;
+            .small {
+                @include font-small;
+            }
+        }
+
+    }
+}
