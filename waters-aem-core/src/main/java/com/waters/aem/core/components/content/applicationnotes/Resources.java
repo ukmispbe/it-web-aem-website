@@ -121,7 +121,7 @@ public final class Resources implements ComponentExporter {
 		if (StringUtils.isNotBlank(contentType)) {
 			Tag tag = tagManager.resolve(contentType);
 			contentType = tag.getName();
-			
+
 		}
 
 		return contentType;
@@ -133,7 +133,7 @@ public final class Resources implements ComponentExporter {
 		for (String tagString : tags) {
 			Tag tag = tagManager.resolve(tagString);
 			tagList.add(tag.getName());
-			
+
 		}
 
 		return tagList;
@@ -143,37 +143,26 @@ public final class Resources implements ComponentExporter {
 	public String getResourcesQuery() {
 
 		StringBuilder builder = new StringBuilder();
-		
+
 		Locale isoCode = siteContext.getLocaleWithCountry();
 
 		List<String> keywords = new ArrayList<>();
 
 		if (StringUtils.equalsIgnoreCase(listType, "tags")) {
 			keywords = getTags();
-<<<<<<< HEAD
+
 			builder.append("category=").append("Knowledge Library");
 			builder.append("&isocode=").append(isoCode);
 			builder.append("&content_type=").append(getContentType());
 		} else {
 			builder.append("category=").append("Support Library");
 			builder.append("&isocode=").append(isoCode);
-=======
-			builder.append("category=").append("Knowledge%20Library");
-			builder.append("&isocode=").append(isoCode);
-			builder.append("&content_type=").append(getContentType());
-		} else {
-			builder.append("category=").append("Support%20Library");
-			builder.append("isocode=").append(isoCode);
->>>>>>> d8c3ffcefcd444b193ab508b197ac88d58b8b583
+
 			keywords = Arrays.asList(docNumber);
 		}
 
 		builder.append("&keyword=").append(Text.escape(StringUtils.join(keywords, " ")))
-<<<<<<< HEAD
 				.append("&multiselect=true&page=1&rows=").append(Long.parseLong(maxItems))
-=======
-				.append("&multiselect=true&page=1&&rows=").append(Long.parseLong(maxItems))
->>>>>>> d8c3ffcefcd444b193ab508b197ac88d58b8b583
 				.append("&sort=most-relevant");
 		return builder.toString();
 	}
