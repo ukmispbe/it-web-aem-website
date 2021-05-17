@@ -5,6 +5,8 @@ const requireContext = require('require-context');
 const { push } = require('aemsync');
 const fs = require('fs');
 const pathConfig = require('./pathConfig.js');
+const FixStyleOnlyEntriesPlugin = require("webpack-fix-style-only-entries");
+const vendorConfig = require('./vendorConfig.js');
 
 function recursiveIssuer(m) {
     if (m.issuer) {
@@ -25,9 +27,15 @@ const targets = [
 module.exports = {
     entry: {
         main: './src/entry.js',
-        global: './src/globalEntry.js'
-        // print: './src/printEntry.js',
-        // head: './src/headEntry.js'
+        global: './src/globalEntry.js',
+        container: './src/styles/container.scss',
+        banner: './src/styles/banner.scss',
+        teaser: './src/styles/teaser-index.scss',
+        anchor: './src/styles/anchor.scss',
+        features: './src/styles/features.scss',
+        table: './src/styles/table.scss',
+        taglist: './src/styles/taglist.scss',
+        tiles: './src/styles/tiles.scss'
     },
     output: {
         path: path.resolve(__dirname, '../', 'build')
@@ -59,6 +67,7 @@ module.exports = {
         ]
     },
     plugins: [
+        new FixStyleOnlyEntriesPlugin(),
         new MiniCssExtractPlugin({
             filename: '[name].css',
             chunkFilename: '/etc.clientlibs/waters/components/content/[name]/clientlib-[name].css',
@@ -179,26 +188,7 @@ module.exports = {
     ],
     optimization: {
         splitChunks: {
-            cacheGroups: {
-                reactVendor: {
-                    name: 'react_vendors',
-                    test: /[\\/]node_modules[\\/](react|react-dom|prop-types|query-string|react-svg|react-router|react-router-dom|validator|react-paginate|whatwg-fetch|react-autosuggest|react-html-parser|react-spinners|es6-promise|react-hook-form)[\\/]/,
-                    chunks: 'all',
-                    priority: 3
-                },
-                vendor: {
-                    name: 'node_vendors',
-                    test: /[\\/]node_modules[\\/]/,
-                    chunks: 'all',
-                    priority: 2
-                },
-                utility: {
-                    name: 'utility',
-                    test: /[\\/]utils|scripts|typography|stores[\\/]/,
-                    chunks: 'all',
-                    priority: 3
-                }
-            }
+            cacheGroups: vendorConfig
         },
         minimize: false
     }
