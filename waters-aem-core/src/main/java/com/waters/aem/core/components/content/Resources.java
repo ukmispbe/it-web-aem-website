@@ -49,7 +49,7 @@ public final class Resources implements ComponentExporter {
 	@Inject
 	private String title;
 
-	@DialogField(fieldLabel = "Build List Using", fieldDescription = "Build Resources List using Tags or Fixed Id", required = true)
+	@DialogField(fieldLabel = "Build List Using", fieldDescription = "Build Resources List using Tags or Fixed Id")
 	@Selection(type = Selection.SELECT, options = { @Option(text = "Tags", value = "Tags"),
 			@Option(text = "Document Number", value = "docNumber"), })
 	@Inject
