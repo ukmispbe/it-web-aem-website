@@ -36,7 +36,14 @@
                     aria-controls="${item.id}-panel"
                     data-cmp-hook-accordion="button">
                 <span class="cmp-accordion__title">${item.title}</span>
-                <span class="cmp-accordion__icon"></span>
+                <span class="cmp-accordion__icon">
+                  <div class="expandIcon">
+                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="Layer_1" x="0" y="0" viewBox="0 0 24 24" xml:space="preserve" class="injected-svg" data-src="/content/dam/waters/en/brand-assets/icons/expand.svg" xmlns:xlink="http://www.w3.org/1999/xlink"><style>.st0{fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round}</style><path class="st0" d="M12 5v14M5 12h14"></path></svg>
+                  </div>
+                  <div class="collapseIcon">
+                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="Layer_1" x="0" y="0" viewBox="0 0 24 24" xml:space="preserve" class="injected-svg" data-src="/content/dam/waters/en/brand-assets/icons/collapse.svg" xmlns:xlink="http://www.w3.org/1999/xlink"><style>.st0{fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round}</style><path class="st0" d="M5 12h14"></path></svg>
+                    </div>
+                </span>
             </button>
         </h3>
         <div data-sly-resource="${item.name @ decorationTagName='div'}"
