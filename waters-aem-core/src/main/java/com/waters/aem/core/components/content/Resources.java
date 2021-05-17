@@ -1,27 +1,21 @@
-package com.waters.aem.core.components.content.applicationnotes;
+package com.waters.aem.core.components.content;
 
 import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_AFTER_DELETE;
 import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_AFTER_EDIT;
 import static com.icfolson.aem.library.core.constants.ComponentConstants.REFRESH_PAGE;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.text.MessageFormat;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
-import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.jackrabbit.util.Text;
 import org.apache.sling.api.SlingHttpServletRequest;
-import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.Self;
-import org.apache.sling.models.annotations.injectorspecific.SlingObject;
 
 import com.adobe.cq.export.json.ComponentExporter;
 import com.adobe.cq.export.json.ExporterConstants;
@@ -35,8 +29,7 @@ import com.citytechinc.cq.component.annotations.widgets.NumberField;
 import com.citytechinc.cq.component.annotations.widgets.Selection;
 import com.citytechinc.cq.component.annotations.widgets.TagInputField;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
-import com.day.cq.tagging.Tag;
-import com.day.cq.tagging.TagManager;
+import com.day.text.Text;
 import com.waters.aem.core.components.SiteContext;
 import com.waters.aem.core.constants.WatersConstants;
 
@@ -45,7 +38,7 @@ import com.waters.aem.core.constants.WatersConstants;
 		@Listener(name = EVENT_AFTER_DELETE, value = REFRESH_PAGE) }, tabs = {
 				@Tab(title = "Knowledge Resources") }, extraClientlibs = { "cq.authoring.waters.dialog" })
 @Model(adaptables = SlingHttpServletRequest.class, adapters = { Resources.class,
-		ComponentExporter.class }, resourceType = Resources.RESOURCE_TYPE, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
+		ComponentExporter.class}, resourceType = Resources.RESOURCE_TYPE, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME, extensions = ExporterConstants.SLING_MODEL_EXTENSION)
 public final class Resources implements ComponentExporter {
 
@@ -88,18 +81,8 @@ public final class Resources implements ComponentExporter {
 	@Inject
 	private String maxItems;
 
-	@SlingObject
-	ResourceResolver resourceResolver;
-
 	@Self
 	private SiteContext siteContext;
-
-	private TagManager tagManager;
-
-	@PostConstruct
-	public void init() {
-		tagManager = resourceResolver.adaptTo(TagManager.class);
-	}
 
 	public String getTitle() {
 		return title;
@@ -116,57 +99,49 @@ public final class Resources implements ComponentExporter {
 		return id;
 	}
 
-	private String getContentType() {
-
-		if (StringUtils.isNotBlank(contentType)) {
-			Tag tag = tagManager.resolve(contentType);
-			contentType = tag.getName();
-
-		}
-
-		return contentType;
+	public String getContentType() {
+		return Text.escape(contentType);
 	}
 
-	private List<String> getTags() {
-		List<String> tagList = new ArrayList<>();
-
-		for (String tagString : tags) {
-			Tag tag = tagManager.resolve(tagString);
-			tagList.add(tag.getName());
-
+	private String getTags() {
+		String tag = StringUtils.EMPTY;
+		if (tags.length > 0) {
+			tag = Text.escape(StringUtils.join(tags, " "));
 		}
+		return tag;
+	}
 
-		return tagList;
-
+	private String getDocNumber() {
+		String number = StringUtils.EMPTY;
+		if (docNumber.length > 0) {
+			number = Text.escape(StringUtils.join(docNumber, " "));
+		}
+		return number;
 	}
 
 	public String getResourcesQuery() {
 
-		StringBuilder builder = new StringBuilder();
+        String tagQuery = "category_facet${0}&contenttype_facet${1}&technique_facet${2}?isocode={3}&keyword=%2A%3A%2A&multiselect=true&page=1&rows=25&sort=most-rec";
+        String contentTypeQuery = "category_facet${0}&contenttype_facet${1}?isocode={2}&keyword=%2A%3A%2A&multiselect=true&page=1&rows=25&sort=most-recent";
+        String keywordQuery = "category_facet${0}?isocode={1}&keyword={2}&multiselect=true&page=1&rows=25&sort=most-recent";
 
-		Locale isoCode = siteContext.getLocaleWithCountry();
+        String query = StringUtils.EMPTY;
+        Locale isoCode = siteContext.getLocaleWithCountry();
 
-		List<String> keywords = new ArrayList<>();
+        if (StringUtils.equalsIgnoreCase(listType, "tags")) {
+            if(StringUtils.isNotEmpty(getTags())){
+            	 query = MessageFormat.format(tagQuery,"library:Library",getContentType(),getTags(),getId(),getMaxItems(),isoCode);
+            } else {
+                query =  MessageFormat.format(contentTypeQuery,"library:Library",getContentType(),getId(),getMaxItems(),isoCode);
+            }
+        } else {
+           query = MessageFormat.format(keywordQuery,"support%20library:Support%2520Library",isoCode,getDocNumber(),getId(),getMaxItems());
+        }
+       
+        return query;
+    }
 
-		if (StringUtils.equalsIgnoreCase(listType, "tags")) {
-			keywords = getTags();
-
-			builder.append("category=").append("Knowledge Library");
-			builder.append("&isocode=").append(isoCode);
-			builder.append("&content_type=").append(getContentType());
-		} else {
-			builder.append("category=").append("Support Library");
-			builder.append("&isocode=").append(isoCode);
-
-			keywords = Arrays.asList(docNumber);
-		}
-
-		builder.append("&keyword=").append(Text.escape(StringUtils.join(keywords, " ")))
-				.append("&multiselect=true&page=1&rows=").append(Long.parseLong(maxItems))
-				.append("&sort=most-relevant");
-		return builder.toString();
-	}
-
+	
 	@Nonnull
 	@Override
 	public String getExportedType() {

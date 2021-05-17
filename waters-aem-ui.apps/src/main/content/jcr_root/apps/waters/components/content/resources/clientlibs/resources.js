@@ -24,13 +24,14 @@
 				contentType.parent().show();
 				tags.parent().show();
 				docNumber.parent().hide();
+				contentType.attr('required','');
 
 
 			} else if (listType == "docNumber") {
 				contentType.parent().hide();
 				tags.parent().hide();
 				docNumber.parent().show();
-
+				contentType.removeAttr('required','');
 			}
 
 		}
