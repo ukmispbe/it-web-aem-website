@@ -1,0 +1,3 @@
+#base=.
+
+react_select_vendors.js
