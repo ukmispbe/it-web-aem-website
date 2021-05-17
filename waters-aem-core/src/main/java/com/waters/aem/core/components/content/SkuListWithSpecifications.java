@@ -26,6 +26,8 @@ import com.citytechinc.cq.component.annotations.widgets.PathField;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
 import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 
+import com.waters.aem.core.services.solr.SolrSearchService;
+
 @Component(value = "SKU List With Specifications",
 		listeners = {
 				@Listener(name = EVENT_AFTER_EDIT, value = REFRESH_PAGE),
@@ -42,6 +44,9 @@ public final class SkuListWithSpecifications implements ComponentExporter {
 
 	@OSGiService
 	private WatersCommerceService watersCommerceService;
+
+	@OSGiService
+  private SolrSearchService searchService;
 
 	@DialogField(fieldLabel = "Sku Numbers",
 			fieldDescription = "List of Skus to display when this component is authored on a non-SKU page. Any SKUs not " +
@@ -75,6 +80,10 @@ public final class SkuListWithSpecifications implements ComponentExporter {
 	public String getAddToCartUrl() {
 		return watersCommerceService.getAddToCartUrl();
 	}
+
+	public String getBaseUrl() {
+    return searchService.getBaseUrl();
+  }
 
 	@Nonnull
 	@Override

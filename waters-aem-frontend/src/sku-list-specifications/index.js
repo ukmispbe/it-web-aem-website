@@ -3,13 +3,50 @@ import PropTypes from 'prop-types';
 import LoginStatus from '../scripts/loginStatus';
 import SignIn from '../scripts/signIn';
 import SkuTable from './views/sku-table';
+import { SearchService } from '../search/services';
+import cookieStore from '../stores/cookieStore';
+import ReactSVG from 'react-svg';
 import '../styles/sku-list-specifications.scss';
 
 class SkuListSpecifications extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {};
+        this.state = {
+            skuList: [],
+            showSkuTablePlaceHolder: true,
+            hasError: false,
+        };
+        this.searchService = null;
+    }
+
+    componentDidMount() {
+        const isoCode = cookieStore.getLocale() || 'en_IN';
+        const path = this.props.config.skuSearchBaseUrl;
+        this.searchService = new SearchService(isoCode, path);
+        this.getSkuListData();
+    }
+
+    getSkuListData() {
+        const { config } = this.props;
+        const skuList = config.skuNumberList && config.skuNumberList.split(',') || [];
+        const query = {
+            skuList: skuList || [],
+            fetchProductsUrl: config.fetchProductsUrl || '',
+        };
+        this.searchService.getSkuListData(query).then(res => {
+            if (res) {
+                let skuData = (res.documents || []).slice(0, config.skuCount);
+                if(skuList.length) {
+                    skuData = skuData.filter((item) => {
+                        return item && item.skucode && skuList.indexOf(item.skucode) !== -1;
+                    })
+                }
+                this.setState({ skuList: skuData });
+            }
+        }).catch((err) => {
+            console.log(err);
+        })
     }
 
     renderSignIn() {
@@ -30,6 +67,7 @@ class SkuListSpecifications extends React.Component {
 
     render() {
         const { config } = this.props;
+        const { skuList = [] } = this.state;
         const signIn = this.renderSignIn();
         return (
             <section className="cmp-sku-list-specifications">
@@ -38,10 +76,27 @@ class SkuListSpecifications extends React.Component {
                         {this.props.title}
                     </div>
                 )}
-                {signIn}
+                <div className="row">
+                    <div className="col-lg">
+                        {/* Static Value to be updated */}
+                        Showing 1-10 of 1000 Products | Filters
+                    </div>
+                    <div className="col-lg col-lg-6 end-lg">{signIn}</div>
+                </div>
 
                 <div className="cmp-sku-list-specifications_container">
-                    <SkuTable config={config}></SkuTable>
+                    <SkuTable config={config} skuList={skuList}></SkuTable>
+                </div>
+                <div className="cmp-sku-list-specifications_view-list">
+                    <a href={config.viewFullProductListUrl}>
+                            <ReactSVG
+                                aria-hidden="true"
+                                src={config.viewFullProductListIcon}
+                                wrapper="span"
+                                data-locator="add-multiple-item-icon"
+                            />
+                            {config.viewFullProductListLabel}
+                    </a>
                 </div>
             </section>
         );

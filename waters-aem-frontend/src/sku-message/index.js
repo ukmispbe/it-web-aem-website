@@ -52,7 +52,7 @@ class SkuMessage extends React.Component {
 
     render() {
         return (
-            <div className={`cmp-notification-wrapper ${Array.isArray(this.props.message) ? 'sku-error-code' : ''}`} data-locator="sku-msg-notification-wrapper">
+            <div className={`cmp-notification-wrapper ${this.props.className} ${Array.isArray(this.props.message) ? 'sku-error-code' : ''}`} data-locator="sku-msg-notification-wrapper">
                 <ReactSVG
                     src={this.props.icon}
                     className={`cmp-notification-icon`}
@@ -75,7 +75,12 @@ SkuMessage.propTypes = {
     message: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.array
-    ]).isRequired
+    ]).isRequired,
+    className: PropTypes.string,
 };
+
+SkuMessage.defaultProps = {
+    className: '',
+}
 
 export default SkuMessage;

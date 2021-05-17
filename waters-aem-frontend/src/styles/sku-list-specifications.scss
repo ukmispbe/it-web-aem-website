@@ -11,6 +11,19 @@
             margin-bottom: $space-s;
         }
     }
+    &_view-list {
+        @include font-h3;
+        text-align: center;
+        padding: $space-xs;
+        margin: 0 -8px;
+        background-color: $color-blue-10;
+        svg {
+            width: $icon-m;
+            height: $icon-m;
+            margin-bottom: -3px;
+            margin-right: .25em;
+        }
+    }
 }
 
 .sku-table {    
@@ -32,6 +45,7 @@
 
     &__body {
         padding-left: 0;
+        margin-bottom: 0;
     }
 
     &-item {
@@ -42,10 +56,31 @@
             @include font-body;
             align-self: center;
             margin-bottom: 0;
-            .small {
-                @include font-small;
+        }
+    }
+}
+
+.cmp-sku-list-specs-item {
+    &__list-price {
+        @include font-small;
+        &.strike {
+            text-decoration: line-through;
+        }
+    }
+
+    &__unavailable {
+        display: flex;
+        svg {
+            margin-right: $space-xxs;
+            max-width: $icon-m;
+            max-height: $icon-m;
+            height: 100%;
+            width: 100%;
+            fill: $color-error;
+            .st0,
+            .st1 {
+                stroke: $color-error;
             }
         }
-
     }
 }
