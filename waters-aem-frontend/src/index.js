@@ -276,7 +276,7 @@ const skuListSpecificationsContainer = document.querySelector(
     '#cmp-sku-list-specifications'
 );
 const skulistwithspecifications = document.getElementById('cmp-skulistwithspecifications-json');
-const skuListSpecificationsJson = {};
+let skuListSpecificationsJson = {};
 if (skulistwithspecifications) {
     skuListSpecificationsJson = JSON.parse(skulistwithspecifications.innerHTML);
 }
