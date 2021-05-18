@@ -96,11 +96,6 @@
 .cmp-container__wrapper {
     padding-top: 0;
     padding-bottom: 0;
-    
-    @include mobile {
-        padding-top: $space-l;
-        padding-bottom: $space-s;
-    }
 }
 
 // Style System
