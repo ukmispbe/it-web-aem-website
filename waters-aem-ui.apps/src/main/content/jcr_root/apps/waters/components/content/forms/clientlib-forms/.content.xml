@@ -3,4 +3,5 @@
           xmlns:jcr="http://www.jcp.org/jcr/1.0"
           jcr:primaryType="cq:ClientLibraryFolder"
           allowProxy="{Boolean}true"
-          categories="[waters.forms]"/>
+          categories="[waters.forms]"
+          dependencies="[waters.reacthookform_vendors,waters.reactselect_vendors]"/>

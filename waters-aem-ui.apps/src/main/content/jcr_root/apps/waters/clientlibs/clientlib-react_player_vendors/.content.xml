@@ -3,5 +3,4 @@
           xmlns:jcr="http://www.jcp.org/jcr/1.0"
           jcr:primaryType="cq:ClientLibraryFolder"
           allowProxy="{Boolean}true"
-          categories="[waters.imagegallery]"
-          dependencies="[waters.hammerjs_vendors]"/>
+          categories="[waters.reactplayer_vendors]"/>

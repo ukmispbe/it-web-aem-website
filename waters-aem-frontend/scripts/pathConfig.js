@@ -29,7 +29,39 @@ const jsConfig = [
   {
     aemPath: 'waters-aem-ui.apps/src/main/content/jcr_root/apps/waters/clientlibs/clientlib-utility',
     fileName: 'utility.js'
-  }
+  },
+  {
+    aemPath: 'waters-aem-ui.apps/src/main/content/jcr_root/apps/waters/clientlibs/clientlib-corejs_vendors',
+    fileName: 'core_js_vendors.js'
+  },
+  {
+    aemPath: 'waters-aem-ui.apps/src/main/content/jcr_root/apps/waters/clientlibs/clientlib-css_ponyfill_vendors',
+    fileName: 'css_ponyfill_vendors.js'
+  },
+  {
+    aemPath: 'waters-aem-ui.apps/src/main/content/jcr_root/apps/waters/clientlibs/clientlib-hammer_js_vendors',
+    fileName: 'hammer_js_vendors.js'
+  },
+  {
+    aemPath: 'waters-aem-ui.apps/src/main/content/jcr_root/apps/waters/clientlibs/clientlib-react_autosuggest_vendors',
+    fileName: 'react_autosuggest_vendors.js'
+  },
+  {
+    aemPath: 'waters-aem-ui.apps/src/main/content/jcr_root/apps/waters/clientlibs/clientlib-react_player_vendors',
+    fileName: 'react_player_vendors.js'
+  },
+  {
+    aemPath: 'waters-aem-ui.apps/src/main/content/jcr_root/apps/waters/clientlibs/clientlib-react_select_vendors',
+    fileName: 'react_select_vendors.js'
+  },
+  {
+    aemPath: 'waters-aem-ui.apps/src/main/content/jcr_root/apps/waters/clientlibs/clientlib-react_hook_form_vendors',
+    fileName: 'react-hook-form_vendors.js'
+  },
+  {
+    aemPath: 'waters-aem-ui.apps/src/main/content/jcr_root/apps/waters/clientlibs/clientlib-react_prop_vendors',
+    fileName: 'react_prop_vendors.js'
+  },
 ];
 
 const cssConfig = [
