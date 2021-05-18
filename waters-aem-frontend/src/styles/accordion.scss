@@ -3,24 +3,11 @@
   margin: 0;
   padding: 0;
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    margin: 0;
-  }
-
   .cmp-accordion__item {
     position: relative;
   }
 
   button.cmp-accordion__button {
-    font-family: $font-stack;
-    @include font-body;
-    font-size: 16px;
-    font-weight: $font-weight-light;
     display: block;
     position: relative;
     cursor: pointer;
@@ -37,14 +24,11 @@
         color: $color-link;
       }
       .cmp-accordion__icon {
-        & svg .st0 {
+        & svg .st0,
+        .st1 {
           stroke: $color-link;
         }
       }
-    }
-
-    .cmp-accordion__title {
-      @include font-utility;
     }
 
     .cmp-accordion__icon {
@@ -56,8 +40,10 @@
       margin-right: $space-xs;
 
       svg {
-        .st0 {
+        .st0,
+        .st1 {
           stroke: $color-icon;
+          stroke-width: 1.25px;
         }
       }
 
@@ -71,10 +57,6 @@
     }
 
     &--expanded {
-      .cmp-accordion__title {
-        @include font-h4;
-      }
-
       .cmp-accordion__icon {
         .expandIcon {
           display: none;
@@ -92,6 +74,7 @@
     }
     &--expanded {
       display: block;
+      padding-bottom: $space-s;
     }
   }
 }
