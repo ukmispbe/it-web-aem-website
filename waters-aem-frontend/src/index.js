@@ -275,10 +275,11 @@ if (skuListContainer) {
 const skuListSpecificationsContainer = document.querySelector(
     '#cmp-sku-list-specifications'
 );
-
-const skuListSpecificationsJson = JSON.parse(
-    document.getElementById('cmp-skulistwithspecifications-json').innerHTML
-);
+const skulistwithspecifications = document.getElementById('cmp-skulistwithspecifications-json');
+const skuListSpecificationsJson = {};
+if (skulistwithspecifications) {
+    skuListSpecificationsJson = JSON.parse(skulistwithspecifications.innerHTML);
+}
 
 if (skuListSpecificationsContainer && skuListSpecificationsJson) {
     const componentTitle = skuListSpecificationsJson && skuListSpecificationsJson.componentTitle || '';
