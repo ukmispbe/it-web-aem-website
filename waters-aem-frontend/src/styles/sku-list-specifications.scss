@@ -118,6 +118,10 @@
         }
     }
 
+    &__list-price, &__customer-price {
+        white-space: nowrap;
+    }
+
     &__unavailable {
         display: flex;
         svg {
