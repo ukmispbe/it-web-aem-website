@@ -110,6 +110,7 @@ class Analytics {
 
         const category = model.category ? model.category : '';
         const contentType = model.content_type ? model.content_type : '';
+        const keyword = model.keyword ? model.keyword : '';
         const facetsObj = model.facets ? model.facets : {};
         const facets = Object.entries(facetsObj).map(item => {
             return {
@@ -123,6 +124,7 @@ class Analytics {
                 search: {
                     category,
                     contentType,
+                    keyword,
                     facets,
                     totalResults: model.total,
                 }
