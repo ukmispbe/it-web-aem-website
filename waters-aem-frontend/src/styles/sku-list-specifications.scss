@@ -1,0 +1,86 @@
+@import 'variables.scss';
+@import 'mixins.scss';
+@import 'typography.scss';
+
+.cmp-sku-list-specifications {
+    &_title {
+        @include font-h3;
+        margin-bottom: $space-xxs;
+
+        @include tablet-and-under {
+            margin-bottom: $space-s;
+        }
+    }
+    &_view-list {
+        @include font-h3;
+        text-align: center;
+        padding: $space-xs;
+        margin: 0 -8px;
+        background-color: $color-blue-10;
+        svg {
+            width: $icon-m;
+            height: $icon-m;
+            margin-bottom: -3px;
+            margin-right: .25em;
+        }
+    }
+}
+
+.sku-table {    
+    &__header {
+        @include font-body;
+        color: $color-font-light;
+        height: $height-medium;
+        background: $color-background-dark;
+        border-radius: $border-radius;
+        margin-bottom: 0;
+        & .item {
+            white-space: nowrap;
+            align-self: center;
+            &.regular {
+                font-weight: $font-weight-regular;
+            }
+        }
+    }
+
+    &__body {
+        padding-left: 0;
+        margin-bottom: 0;
+    }
+
+    &-item {
+        margin-bottom: 0;
+        height: $height-large;
+        border-bottom: 1px solid $color-border-medium;
+        & .item {
+            @include font-body;
+            align-self: center;
+            margin-bottom: 0;
+        }
+    }
+}
+
+.cmp-sku-list-specs-item {
+    &__list-price {
+        @include font-small;
+        &.strike {
+            text-decoration: line-through;
+        }
+    }
+
+    &__unavailable {
+        display: flex;
+        svg {
+            margin-right: $space-xxs;
+            max-width: $icon-m;
+            max-height: $icon-m;
+            height: 100%;
+            width: 100%;
+            fill: $color-error;
+            .st0,
+            .st1 {
+                stroke: $color-error;
+            }
+        }
+    }
+}

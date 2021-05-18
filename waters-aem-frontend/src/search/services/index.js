@@ -57,6 +57,31 @@ class SearchService {
         this.sessionStore = new SessionStore();
     }
 
+    getSkuListData = ({
+        skuList = [],
+        fetchProductsUrl = '',
+        page = parameterDefaults.page,
+        sort = parameterDefaults.sort,
+    }) => {
+        const keyword = skuList.join(' ');
+        const searchString = `${this.path}${fetchProductsUrl}&isocode=${this.options.isocode}`;
+
+        if (skuList.length) {
+            return this.getResultsByCategory({ keyword, category: 'Shop' })
+                .then((response) => response)
+                .catch((err) => console.error(err));
+        } else {
+            return getSearchData(searchString)
+                .then((response) => {
+                    if (response.ok) {
+                        return response.json();
+                    }
+                })
+                .catch((err) => console.error(err));
+        }
+    };
+
+
     getCategories = ({
         keyword = parameterDefaults.keyword,
         page = parameterDefaults.page,
