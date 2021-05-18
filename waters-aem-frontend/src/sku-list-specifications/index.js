@@ -45,7 +45,7 @@ class SkuListSpecifications extends React.Component {
                 this.setState({ skuList: skuData });
             }
         }).catch((err) => {
-            console.log(err);
+            console.error(err);
         })
     }
 
@@ -66,14 +66,14 @@ class SkuListSpecifications extends React.Component {
     }
 
     render() {
-        const { config } = this.props;
+        const { config, title } = this.props;
         const { skuList = [] } = this.state;
         const signIn = this.renderSignIn();
         return (
             <section className="cmp-sku-list-specifications">
-                {this.props.title && (
+                {title && (
                     <div className="cmp-sku-list-specifications__title">
-                        {this.props.title}
+                        {title}
                     </div>
                 )}
                 <div className="row">

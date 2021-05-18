@@ -216,7 +216,7 @@ class SkuTableItem extends React.Component {
                     className="item col-lg col-lg-1 cmp-sku-list-specs-item__code"
                     data-locator="product-number"
                     aria-label={
-                        config.skuInfo.partNumberLabel + ' ' + skuData.skucode
+                        `${config.skuInfo.partNumberLabel} ${skuData.skucode}`
                     }
                 >
                     {skuData.skucode}

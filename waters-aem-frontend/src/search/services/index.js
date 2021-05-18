@@ -69,7 +69,7 @@ class SearchService {
         if (skuList.length) {
             return this.getResultsByCategory({ keyword, category: 'Shop' })
                 .then((response) => response)
-                .catch((err) => console.log(err));
+                .catch((err) => console.error(err));
         } else {
             return getSearchData(searchString)
                 .then((response) => {
@@ -77,7 +77,7 @@ class SearchService {
                         return response.json();
                     }
                 })
-                .catch((err) => console.log(err));
+                .catch((err) => console.error(err));
         }
     };
 
