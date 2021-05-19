@@ -15,7 +15,7 @@ import com.waters.aem.core.constants.WatersConstants;
 public class FeatureCard {
 	
 	@DialogField(fieldLabel = "Icon", fieldDescription = "Select the icon to be added for this feature", required = true)
-	@PathField(rootPath = WatersConstants.DAM_PATH)
+	@PathField(rootPath = WatersConstants.DAM_ICON_PATH)
 	@Inject
 	private String icon;
 	
