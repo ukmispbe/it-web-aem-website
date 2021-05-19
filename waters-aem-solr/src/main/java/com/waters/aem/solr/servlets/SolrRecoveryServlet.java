@@ -279,12 +279,12 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 				fullIndexInProgress = true;
 				statusLine = getStatusLine(
 						getCollectionActionResponse(collectionName, enableAuthentication, solrHostUrl, CREATE));
-				LOG.info("Collection Created with name : {}", collectionName);
-				LOG.info("The Solr Full Index create collection response status: {}", statusLine);
+				LOG.info("The Solr Full Index Create Collection Response Status: {}", statusLine);
 			}
-			pullLegacyData(collectionName, enableAuthentication, solrHostUrl, FULLTEXT);
-			LOG.info("Legacy data completed Indexing : {}", collectionName);
 			if (enableBatchIndexing && (statusLine != null ? statusLine.getStatusCode() : 0) == 200) {
+				LOG.info("Collection Created with name : {}", collectionName);
+				pullLegacyData(collectionName, enableAuthentication, solrHostUrl, FULLTEXT);
+				LOG.info("Legacy data completed Indexing : {}", collectionName);
 				for (String localePath : pageIndexPaths) {
 					PageDecorator locale = getPage(request, localePath);
 					if (locale != null) {
@@ -299,7 +299,6 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 	}
 	
 	private List<String> getPageIndexPathsList(final SlingHttpServletRequest request) {
-		LOG.info("fullIndexInProgress  flag set to true and indexing is in progress");
 		List<String> indexPaths = new ArrayList<>();
 		PageDecorator watersPage = getPage(request, "/content/waters");
 		if (watersPage != null) {
@@ -323,7 +322,7 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 			String solrHostUrl, String collectionAction) throws MalformedURLException {
 		URIBuilder builder;
 		HttpResponse httpResponse = null;
-		Map<String, String> parameters = getParamaters(collectionAction);
+		Map<String, String> parameters = getParamaters(collectionAction, collectionName);
 		builder = getUriBuilder(solrHostUrl, parameters,
 				StringUtils.equalsAnyIgnoreCase(collectionAction, FULLTEXT) ? "/solr/" + collectionName + "/dataimport"
 						: "/solr/admin/collections");
@@ -340,7 +339,7 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 		return httpResponse;
 	}
 	
-	private Map<String, String> getParamaters(final String collectionAction) {
+	private Map<String, String> getParamaters(final String collectionAction, final String collectionName) {
 		Map<String, String> parameters = new HashMap<>();
 		switch (collectionAction) {
 		case FULLTEXT:
@@ -526,6 +525,7 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 				String oldCollectionName = iterator.next();
 				if (!StringUtils.equalsAnyIgnoreCase(oldCollectionName, collectionAlias)) {
 					collectionAction = DELETE;
+					LOG.info("Old Collection Name to be deleted : {}", oldCollectionName);
 					statusLine = getStatusLine(getCollectionActionResponse(oldCollectionName, enableAuthentication,
 							solrHostUrl, collectionAction));
 					LOG.info("The Solr Full Index Delete Collections response status: {}", statusLine);
