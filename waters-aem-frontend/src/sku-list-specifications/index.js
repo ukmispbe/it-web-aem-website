@@ -6,6 +6,7 @@ import SkuTable from './views/sku-table';
 import { SearchService } from '../search/services';
 import cookieStore from '../stores/cookieStore';
 import ReactSVG from 'react-svg';
+import GetIsocode from '../utils/get-isocode';
 import '../styles/sku-list-specifications.scss';
 
 class SkuListSpecifications extends React.Component {
@@ -16,37 +17,82 @@ class SkuListSpecifications extends React.Component {
             skuList: [],
             showSkuTablePlaceHolder: true,
             hasError: false,
+            totalSkuCount: 0,
         };
         this.searchService = null;
     }
 
     componentDidMount() {
-        const isoCode = cookieStore.getLocale() || 'en_IN';
+        const isoCode = GetIsocode.getIsocode();
         const path = this.props.config.skuSearchBaseUrl;
         this.searchService = new SearchService(isoCode, path);
-        this.getSkuListData();
+        this.getSkuList();
     }
 
-    getSkuListData() {
+    getSearchUrl = (queryParamsString = '') => {
         const { config } = this.props;
-        const skuList = config.skuNumberList && config.skuNumberList.split(',') || [];
+        if (!queryParamsString) {
+            return config.searchPath;
+        }
+
+        if (queryParamsString.indexOf('?') !== -1) {
+            return queryParamsString;
+        } else {
+            return `${config.searchPath}?${queryParamsString}`;
+        }
+    };
+
+    getSkuList() {
+        const { config } = this.props;
+        const skuList =
+            (config.skuNumberList && config.skuNumberList.split(',')) || [];
         const query = {
             skuList: skuList || [],
             fetchProductsUrl: config.fetchProductsUrl || '',
         };
-        this.searchService.getSkuListData(query).then(res => {
+        const updateTotalCountHandler = (res) => {
+            if (res) {
+                this.setState({ totalSkuCount: res.num_found });
+            }
+        };
+
+        const requestHandler = (res) => {
             if (res) {
                 let skuData = (res.documents || []).slice(0, config.skuCount);
-                if(skuList.length) {
-                    skuData = skuData.filter((item) => {
-                        return item && item.skucode && skuList.indexOf(item.skucode) !== -1;
-                    })
+                if (!skuData.length) {
+                    this.setState({ skuList: skuData, hasError: true });
+                    return;
                 }
-                this.setState({ skuList: skuData });
+                if (skuList.length) {
+                    skuData = skuData.filter((item) => {
+                        return (
+                            item &&
+                            item.skucode &&
+                            skuList.indexOf(item.skucode) !== -1
+                        );
+                    });
+                    this.fetchSkuData(
+                        { fetchProductsUrl: config.fetchProductsUrl || '' },
+                        updateTotalCountHandler
+                    );
+                } else {
+                    this.setState({ totalSkuCount: res.num_found });
+                }
+                this.setState({ skuList: skuData, hasError: false });
             }
-        }).catch((err) => {
-            console.error(err);
-        })
+        };
+
+        this.fetchSkuData(query, requestHandler);
+    }
+
+    fetchSkuData(query, handler) {
+        this.searchService
+            .getSkuListData(query)
+            .then(handler)
+            .catch((err) => {
+                console.error(err);
+                this.state({ hasError: true });
+            });
     }
 
     renderSignIn() {
@@ -67,35 +113,56 @@ class SkuListSpecifications extends React.Component {
 
     render() {
         const { config, title } = this.props;
-        const { skuList = [] } = this.state;
+        const { skuList = [], hasError, totalSkuCount } = this.state;
         const signIn = this.renderSignIn();
         return (
             <section className="cmp-sku-list-specifications">
                 {title && (
-                    <div className="cmp-sku-list-specifications__title">
+                    <h2 className="cmp-sku-list-specifications__title">
                         {title}
-                    </div>
+                    </h2>
                 )}
                 <div className="row">
-                    <div className="col-lg">
-                        {/* Static Value to be updated */}
-                        Showing 1-10 of 1000 Products | Filters
-                    </div>
+                    {!hasError &&
+                    skuList.length &&
+                    skuList.length < totalSkuCount ? (
+                        <div className="col-lg cmp-sku-list-specifications__top-content">
+                            <span className="cmp-sku-list-specifications__total-products">
+                                {`${config.showingLabel} 1-${skuList.length} ${config.ofLabel} ${totalSkuCount} ${config.productsLabel}`}
+                            </span>
+                            <a
+                                href={this.getSearchUrl(
+                                    config.viewFullProductListUrl
+                                )}
+                                className="cmp-sku-list-specifications__filter"
+                            >
+                                <ReactSVG
+                                    aria-hidden="true"
+                                    src={config.filterIcon}
+                                    wrapper="span"
+                                    data-locator="filter-item-icon"
+                                />
+                                {config.filterAllLabel}
+                            </a>
+                        </div>
+                    ) : null}
                     <div className="col-lg col-lg-6 end-lg">{signIn}</div>
                 </div>
 
-                <div className="cmp-sku-list-specifications_container">
-                    <SkuTable config={config} skuList={skuList}></SkuTable>
-                </div>
+                {!hasError && (
+                    <div className="cmp-sku-list-specifications_container">
+                        <SkuTable config={config} skuList={skuList}></SkuTable>
+                    </div>
+                )}
                 <div className="cmp-sku-list-specifications_view-list">
-                    <a href={config.viewFullProductListUrl}>
-                            <ReactSVG
-                                aria-hidden="true"
-                                src={config.viewFullProductListIcon}
-                                wrapper="span"
-                                data-locator="add-multiple-item-icon"
-                            />
-                            {config.viewFullProductListLabel}
+                    <a href={this.getSearchUrl(config.viewFullProductListUrl)}>
+                        <ReactSVG
+                            aria-hidden="true"
+                            src={config.viewFullProductListIcon}
+                            wrapper="span"
+                            data-locator="add-multiple-item-icon"
+                        />
+                        {config.viewFullProductListLabel}
                     </a>
                 </div>
             </section>

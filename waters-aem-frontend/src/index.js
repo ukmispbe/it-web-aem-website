@@ -276,17 +276,23 @@ const skuListSpecificationsContainer = document.querySelector(
     '#cmp-sku-list-specifications'
 );
 const skulistwithspecifications = document.getElementById('cmp-skulistwithspecifications-json');
-const skuListSpecificationsJson = {};
+let skuListSpecificationsJson = {};
 if (skulistwithspecifications) {
     skuListSpecificationsJson = JSON.parse(skulistwithspecifications.innerHTML);
 }
 
 if (skuListSpecificationsContainer && skuListSpecificationsJson) {
+    const searchPath =
+        (header && header.dataset && header.dataset.searchPath) || '';
     const componentTitle = skuListSpecificationsJson && skuListSpecificationsJson.componentTitle || '';
     ReactDOM.render(
         <Suspense fallback={<div>Loading...</div>}>
             <SkuListSpecifications
-                config={{ ...skuDetailsConfig, ...skuListSpecificationsJson }}
+                config={{
+                    ...skuDetailsConfig,
+                    ...skuListSpecificationsJson,
+                    searchPath,
+                }}
                 title={componentTitle}
             />
         </Suspense>,
