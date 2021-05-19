@@ -154,10 +154,9 @@ public final class Resources implements ComponentExporter {
 	public String getSearchResultQuery() throws JsonProcessingException {
 		String contentTypeWithTagSearchQuery = "category={0}&isocode={1}&content_type={2}&multiselect=true&page=1&rows=25&sort=most-recent";
 		String contentTypeWithoutTagSearchQuery = "category={0}&isocode={1}&content_type={2}&facet={3}&multiselect=true&page=1&rows=25&sort=most-recent";
-        String documentSearchQuery = "category={0}&isocode={1}&keyword={2}&multiselect=true&page=1&rows=25&sort=most-recent";
+		String documentSearchQuery = "category={0}&isocode={1}&keyword={2}&multiselect=true&page=1&rows=25&sort=most-recent";
 
-
-		String result = StringUtils.EMPTY;
+		String result;
 		Locale isocode = siteContext.getLocaleWithCountry();
 
 		if (StringUtils.equalsIgnoreCase(listType, "tags")) {
@@ -183,7 +182,7 @@ public final class Resources implements ComponentExporter {
 		String contentTypeWithoutTagQuery = "category_facet${0}?isocode={1}&contenttype_facet{2}&multiselect=true&page=1&rows={3}&sort=most-recent";
 		String documentQuery = "category_facet${0}?isocode={1}&keyword={2}&multiselect=true&page=1&rows={3}&sort=most-recent";
 
-		String query = StringUtils.EMPTY;
+		String query;
 		Locale isocode = siteContext.getLocaleWithCountry();
 
 		if (StringUtils.equalsIgnoreCase(listType, "tags")) {
