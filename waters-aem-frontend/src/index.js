@@ -34,6 +34,7 @@ import LoginStatus from "./scripts/loginStatus";
 import CreateAccountForm from './create-account-form';
 import CreateRequestForm from './create-request-form';
 import HeaderQuickOrder from './header-quick-order';
+import Resource from './resource';
 
 import Spinner from './utils/spinner';
 
@@ -70,6 +71,18 @@ function getAuthoredDataForTagCloud(h, t) {
         tagTitle: t.dataset.title,
         category: t.dataset.category,
         contentType: t.dataset.contentType
+    };
+}
+
+function getAuthoredDataForResource(h, s, r) {
+    return {
+        searchPath: h ? h.dataset.searchPath : '',
+        searchBaseUrl: s ? s.dataset.baseUrl : '',
+        title: r.dataset.title,
+        resourceQuery: r.dataset.resourceQuery,
+        searchResultQuery: r.dataset.searchResultQuery,
+        viewAll: r.dataset.viewAll,
+        multipleIcon: r.dataset.multipleIcon
     };
 }
 
@@ -462,7 +475,7 @@ if (registrationFormContainer) {
 
     // Set Country list url
     configRegistrationForm.countryListUrl = headerRef.dataset.countryListUrl ? headerRef.dataset.countryListUrl : '';
-    
+
     const registrationAddressForm = {
         config: configRegistrationAddressForm,
         callback: headerData.userDetailsUrl,
@@ -727,4 +740,18 @@ if (headerQuickOrderContainer) {
         <Suspense fallback={<div>Loading...</div>}><HeaderQuickOrder {...headerQuickOrderProps} skuConfig={skuData} /></Suspense>,
         headerQuickOrderContainer
     );
+}
+
+// Resource
+const resourceContainers = document.querySelectorAll('.cmp-resources');
+
+if (resourceContainers) {
+    const searchBar = document.getElementById('header-search-bar');
+    for (let i = 0; i < resourceContainers.length; i++) {
+        const data = getAuthoredDataForResource(header, searchBar, resourceContainers[i]);
+        ReactDOM.render(
+            <Resource {...data} />,
+            resourceContainers[i]
+        );
+    }
 }
