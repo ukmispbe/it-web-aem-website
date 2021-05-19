@@ -56,11 +56,15 @@ class SkuTable extends React.Component {
                                 {config.availabilityLabel}
                             </span>
                             <span className="item col-lg col-lg-1">
-                                {config.skuInfo.listPriceLabel}
+                                {config && config.skuInfo
+                                    ? config.skuInfo.listPriceLabel
+                                    : ''}
                             </span>
                             {LoginStatus.state() && (
                                 <span className="item col-lg col-lg-1 regular">
-                                    {config.skuInfo.custPriceLabel}
+                                    {config && config.skuInfo
+                                        ? config.skuInfo.custPriceLabel
+                                        : ''}
                                 </span>
                             )}
                             <span className="item col-lg col-lg-2"></span>
@@ -69,7 +73,9 @@ class SkuTable extends React.Component {
                         <span className="item col-lg col-lg-6"></span>
                     )}
                 </section>
-                <ul class="sku-table__body">{ skuList && this.getSkuListItems(skuList)}</ul>
+                <ul class="sku-table__body">
+                    {skuList && this.getSkuListItems(skuList)}
+                </ul>
             </section>
         );
     }

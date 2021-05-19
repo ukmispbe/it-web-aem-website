@@ -3,6 +3,10 @@
 @import 'typography.scss';
 
 .cmp-sku-list-specifications {
+    @include tablet-and-under {
+        display: none;
+    }
+    
     &_title {
         @include font-h2;
         margin: $space-m 0;

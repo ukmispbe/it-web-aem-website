@@ -282,11 +282,17 @@ if (skulistwithspecifications) {
 }
 
 if (skuListSpecificationsContainer && skuListSpecificationsJson) {
+    const searchPath =
+        (header && header.dataset && header.dataset.searchPath) || '';
     const componentTitle = skuListSpecificationsJson && skuListSpecificationsJson.componentTitle || '';
     ReactDOM.render(
         <Suspense fallback={<div>Loading...</div>}>
             <SkuListSpecifications
-                config={{ ...skuDetailsConfig, ...skuListSpecificationsJson }}
+                config={{
+                    ...skuDetailsConfig,
+                    ...skuListSpecificationsJson,
+                    searchPath,
+                }}
                 title={componentTitle}
             />
         </Suspense>,

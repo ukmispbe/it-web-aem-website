@@ -76,6 +76,7 @@ class SearchService {
                     if (response.ok) {
                         return response.json();
                     }
+                    return response;
                 })
                 .catch((err) => console.error(err));
         }

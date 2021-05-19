@@ -234,7 +234,6 @@ class SkuTableItem extends React.Component {
             <>
                 {this.renderSkuAvailability()}
                 {this.renderPricing()}
-                {/* Placeholder for add to cart */}
                 <span className="item col-lg col-lg-2">
                     <div className="cmp-sku-add-to-cart">
                         {this.addToCartBody()}
@@ -326,11 +325,13 @@ class SkuTableItem extends React.Component {
         const { skuInfo, skuAvailability, errorObjAvailability } = this.state;
         return (
             <>
-                <div className="item col-lg col-lg-2 cmp-sku-list-specs-item__availability"
+                <div
+                    className="item col-lg col-lg-2 cmp-sku-list-specs-item__availability"
                     onClick={(e) => this.checkAvailability(skuData.skucode)}
                 >
                     {(skuAvailability.productStatus ||
-                    (errorObjAvailability && errorObjAvailability.ok === false)) && (
+                        (errorObjAvailability &&
+                            errorObjAvailability.ok === false)) && (
                         <Stock
                             skuInfo={skuInfo}
                             skuNumber={skuData.skucode}
@@ -341,25 +342,23 @@ class SkuTableItem extends React.Component {
                     )}
                     {!skuAvailability.productStatus &&
                         !(
-                        errorObjAvailability &&
-                        errorObjAvailability.ok === false &&
-                        config &&
-                        config.skuInfo
+                            errorObjAvailability &&
+                            errorObjAvailability.ok === false &&
+                            config &&
+                            config.skuInfo
                         ) && (
-                        <span className="cmp-sku-list__checkavailability">
-                            {config.skuInfo.seeAvailabilityLabel}
-                            <ReactSVG
-                            alt={config.skuInfo.seeAvailabilityLabel}
-                            src={config.skuInfo.refreshIcon}
-                            data-locator="check-availability"
-                            />
-                        </span>
-                        )
-                    }
-                    {/*See Availability*/}
+                            <span className="cmp-sku-list__checkavailability">
+                                {config.skuInfo.seeAvailabilityLabel}
+                                <ReactSVG
+                                    alt={config.skuInfo.seeAvailabilityLabel}
+                                    src={config.skuInfo.refreshIcon}
+                                    data-locator="check-availability"
+                                />
+                            </span>
+                        )}
                 </div>
             </>
-        )
+        );
     };
 
     renderBuyInfo = () => {
@@ -397,7 +396,11 @@ class SkuTableItem extends React.Component {
                 <span
                     className="item col-lg col-lg-1 cmp-sku-list-specs-item__code"
                     data-locator="product-number"
-                    aria-label={`${config.skuInfo.partNumberLabel} ${skuData.skucode}`}
+                    aria-label={`${
+                        config && config.skuInfo
+                            ? config.skuInfo.partNumberLabel
+                            : ''
+                    } ${skuData.skucode}`}
                 >
                     {skuData.skucode}
                 </span>

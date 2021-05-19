@@ -29,6 +29,19 @@ class SkuListSpecifications extends React.Component {
         this.getSkuList();
     }
 
+    getSearchUrl = (queryParamsString = '') => {
+        const { config } = this.props;
+        if (!queryParamsString) {
+            return config.searchPath;
+        }
+
+        if (queryParamsString.indexOf('?') !== -1) {
+            return queryParamsString;
+        } else {
+            return `${config.searchPath}?${queryParamsString}`;
+        }
+    };
+
     getSkuList() {
         const { config } = this.props;
         const skuList =
@@ -46,6 +59,10 @@ class SkuListSpecifications extends React.Component {
         const requestHandler = (res) => {
             if (res) {
                 let skuData = (res.documents || []).slice(0, config.skuCount);
+                if (!skuData.length) {
+                    this.setState({ skuList: skuData, hasError: true });
+                    return;
+                }
                 if (skuList.length) {
                     skuData = skuData.filter((item) => {
                         return (
@@ -110,12 +127,13 @@ class SkuListSpecifications extends React.Component {
                     skuList.length &&
                     skuList.length < totalSkuCount ? (
                         <div className="col-lg cmp-sku-list-specifications__top-content">
-                            {/* Static Value to be updated */}
                             <span className="cmp-sku-list-specifications__total-products">
                                 {`${config.showingLabel} 1-${skuList.length} ${config.ofLabel} ${totalSkuCount} ${config.productsLabel}`}
                             </span>
                             <a
-                                href={config.viewFullProductListUrl}
+                                href={this.getSearchUrl(
+                                    config.viewFullProductListUrl
+                                )}
                                 className="cmp-sku-list-specifications__filter"
                             >
                                 <ReactSVG
@@ -137,7 +155,7 @@ class SkuListSpecifications extends React.Component {
                     </div>
                 )}
                 <div className="cmp-sku-list-specifications_view-list">
-                    <a href={config.viewFullProductListUrl}>
+                    <a href={this.getSearchUrl(config.viewFullProductListUrl)}>
                         <ReactSVG
                             aria-hidden="true"
                             src={config.viewFullProductListIcon}
