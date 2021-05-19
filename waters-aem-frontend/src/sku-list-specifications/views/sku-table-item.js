@@ -162,8 +162,7 @@ class SkuTableItem extends React.Component {
         this.setState({ modalShown: !this.state.modalShown });
     };
 
-    toggleModal = (e) => {
-        e.preventDefault();
+    toggleModal = () => {
         this.setState({ modalShown: !this.state.modalShown }, () => {
             if (SkuDetails.exists()) {
                 if (!this.state.modalShown) {
