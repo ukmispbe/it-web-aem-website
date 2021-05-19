@@ -1,11 +1,11 @@
-<div class="cmp-resources" 
-	 data-sly-use.resources="com.waters.aem.core.components.content.Resources"
-     data-title="${resources.title}"
-     data-viewAll="${'View All' @ i18n, context='unsafe'}"
-     data-multipleIcon="/content/dam/waters/en/brand-assets/icons/multiple.svg"
-     data-resourcesQuery="${resources.resourcesQuery @ context='html'}">
-    
-</div>
+<div
+	data-sly-use.resources="com.waters.aem.core.components.content.Resources"
+	data-title="${resources.title}"
+	data-view-all="${'View All' @ i18n, context='unsafe'}"
+	data-multiple-icon="/content/dam/waters/en/brand-assets/icons/multiple.svg"
+	data-search-result-query="${resources.searchResultQuery @ context='html'}"
+	data-resource-query="${resources.resourcesQuery @ context='html'}"
+	class="cmp-resources" id="${resources.id}"></div>
 
 <sly
 	data-sly-use.patterns="/apps/waters/components/content/patterns.html"
