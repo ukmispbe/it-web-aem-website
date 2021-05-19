@@ -121,12 +121,12 @@ public final class Resources implements ComponentExporter {
 			category = "library:Library";
 		}
 		else {
-			category = "support%20library:Support%2520Library";
+			category = "support%20library:Support%20Library";
 		}
 		return category;
 	}
 
-	public String getContentType() throws JsonProcessingException {
+	public String getContentTypeDetails() throws JsonProcessingException {
 		return MAPPER.writeValueAsString(contentType.stream()
 				.map(tag -> ImmutableMap.<String, String>builder()
 						.put("facetName", SearchUtils.getSolrFacetName(tag.getName())).put("facetValue", tag.getTitle())
@@ -151,53 +151,90 @@ public final class Resources implements ComponentExporter {
 		return number;
 	}
 
-	public String getSearchResultQuery() throws JsonProcessingException {
-		String contentTypeWithTagSearchQuery = "category={0}&isocode={1}&content_type={2}&multiselect=true&page=1&rows=25&sort=most-recent";
-		String contentTypeWithoutTagSearchQuery = "category={0}&isocode={1}&content_type={2}&facet={3}&multiselect=true&page=1&rows=25&sort=most-recent";
-		String documentSearchQuery = "category={0}&isocode={1}&keyword={2}&multiselect=true&page=1&rows=25&sort=most-recent";
+	private String getContentTypesPrams(String type) throws JsonProcessingException {
+		String response;
+		String[] contentTypeData = getContentTypeDetails().split(",");
+		String facetName = contentTypeData[0].split(":")[1].split("_")[0];
+		String facetValue = contentTypeData[2].replace("}]", "").split(":")[1];
+		if(type == "resource") {
+			response = facetName
+					.concat(":")
+					.concat(facetValue)
+					.replace("\"", "");
+		} else {
+			response = facetName.replace("\"", "");
+		}
+		return response;
+	}
 
-		String result;
+	private String getTagsPrams(String type) throws JsonProcessingException {
+		String response = "";
+		if(type == "resource") {
+			String[] tagsData = getTags().split(",");
+			String facetName = tagsData[0].split(":")[1];
+			String name = facetName.split("_")[0];
+			String facetValue = tagsData[2].replace("}]", "").split(":")[1];
+			response = facetName
+					.concat("$")
+					.concat(name)
+					.concat(":")
+					.concat(facetValue)
+					.replace("\"", "");
+		} else {
+			String[] tagsData = getTags().split(",");
+			String facetName = tagsData[0].split(":")[1];
+			String facetValue = tagsData[2].replace("}]", "").split(":")[1];
+			response = facetName
+					.concat(":")
+					.concat(facetValue)
+					.replace("\"", "");
+		}
+		return response;
+	}
+
+	public String getSearchResultQuery() throws JsonProcessingException {
+		String filter = "&multiselect=true&page=1&rows=25&sort=most-recent";
+		String contentTypeWithoutTagQuery = "category={0}&content_type={1}&isocode={2}";
+		String contentTypeWithTagQuery = contentTypeWithoutTagQuery + "&facet={3}";
+		String documentQuery = "category={0}&isocode={1}&keyword={2}";
+
+		String query;
+		String categoryValue = getCategory().split(":")[1];
 		Locale isocode = siteContext.getLocaleWithCountry();
 
 		if (StringUtils.equalsIgnoreCase(listType, "tags")) {
-
-			if (StringUtils.isNotEmpty(getTags())) {
-				result = MessageFormat.format(contentTypeWithTagSearchQuery, getCategory(), isocode, getContentType(),
-						getTags());
+			if (!getTags().equals("[]")) {
+				query = MessageFormat.format(contentTypeWithTagQuery, categoryValue, getContentTypesPrams("search"), isocode, getTagsPrams("search"));
 			} else {
-
-				result = MessageFormat.format(contentTypeWithoutTagSearchQuery, getCategory(), isocode,
-						getContentType());
-
+				query = MessageFormat.format(contentTypeWithoutTagQuery, categoryValue, getContentTypesPrams("search"), isocode);
 			}
 		} else {
-			result = MessageFormat.format(documentSearchQuery, getCategory(), isocode, getDocNumber());
+			query = MessageFormat.format(documentQuery, categoryValue, isocode, getDocNumber());
 		}
 
-		return result;
+		return query.concat(filter);
 	}
 
 	public String getResourcesQuery() throws JsonProcessingException {
-		String contentTypeWithTagQuery = "category_facet${0}?isocode={1}&contenttype_facet${2}&technique_facet${3}&multiselect=true&page=1&rows={4}&sort=most-rec";
-		String contentTypeWithoutTagQuery = "category_facet${0}?isocode={1}&contenttype_facet{2}&multiselect=true&page=1&rows={3}&sort=most-recent";
-		String documentQuery = "category_facet${0}?isocode={1}&keyword={2}&multiselect=true&page=1&rows={3}&sort=most-recent";
+		String filter = "&multiselect=true&page=1&rows="+getMaxItems()+"&sort=most-recent";
+		String contentTypeWithoutTagQuery = "category_facet${0}&contenttype_facet${1}?isocode={2}";
+		String contentTypeWithTagQuery = contentTypeWithoutTagQuery + "&{3}";
+		String documentQuery = "category_facet${0}?isocode={1}&keyword={2}";
 
 		String query;
 		Locale isocode = siteContext.getLocaleWithCountry();
 
 		if (StringUtils.equalsIgnoreCase(listType, "tags")) {
-			if (StringUtils.isNotEmpty(getTags())) {
-				query = MessageFormat.format(contentTypeWithTagQuery, getCategory(), isocode, getContentType(),
-						getTags(), getMaxItems());
+			if (!getTags().equals("[]")) {
+				query = MessageFormat.format(contentTypeWithTagQuery, getCategory(), getContentTypesPrams("resource"), isocode, getTagsPrams("resource"));
 			} else {
-				query = MessageFormat.format(contentTypeWithoutTagQuery, getCategory(), isocode, getContentType(),
-						getMaxItems());
+				query = MessageFormat.format(contentTypeWithoutTagQuery, getCategory(), getContentTypesPrams("resource"), isocode);
 			}
 		} else {
-			query = MessageFormat.format(documentQuery, getCategory(), isocode, getDocNumber(), getMaxItems());
+			query = MessageFormat.format(documentQuery, getCategory(), isocode, getDocNumber());
 		}
 
-		return query;
+		return query.concat(filter);
 	}
 
 	@Nonnull
