@@ -118,10 +118,10 @@ public final class Resources implements ComponentExporter {
 
 	public String getCategory() {
 		if (StringUtils.equalsIgnoreCase(listType, "tags")) {
-			category = "library:Library";
+			category = WatersConstants.CATEGORY_TYPE_LIBRARY;
 		}
 		else {
-			category = "support%20library:Support%20Library";
+			category = WatersConstants.CATEGORY_TYPE_SUPPORT_LIBRARY;
 		}
 		return category;
 	}
@@ -156,7 +156,7 @@ public final class Resources implements ComponentExporter {
 		String[] contentTypeData = getContentTypeDetails().split(",");
 		String facetName = contentTypeData[0].split(":")[1].split("_")[0];
 		String facetValue = contentTypeData[2].replace("}]", "").split(":")[1];
-		if(type == "resource") {
+		if(type == WatersConstants.RESOURCE_TYPE_QUERY) {
 			response = facetName
 					.concat(":")
 					.concat(facetValue)
@@ -169,7 +169,7 @@ public final class Resources implements ComponentExporter {
 
 	private String getTagsPrams(String type) throws JsonProcessingException {
 		String response = "";
-		if(type == "resource") {
+		if(type == WatersConstants.RESOURCE_TYPE_QUERY) {
 			String[] tagsData = getTags().split(",");
 			String facetName = tagsData[0].split(":")[1];
 			String name = facetName.split("_")[0];
@@ -204,9 +204,9 @@ public final class Resources implements ComponentExporter {
 
 		if (StringUtils.equalsIgnoreCase(listType, "tags")) {
 			if (!getTags().equals("[]")) {
-				query = MessageFormat.format(contentTypeWithTagQuery, categoryValue, getContentTypesPrams("search"), isocode, getTagsPrams("search"));
+				query = MessageFormat.format(contentTypeWithTagQuery, categoryValue, getContentTypesPrams(WatersConstants.SEARCH_TYPE_QUERY), isocode, getTagsPrams(WatersConstants.SEARCH_TYPE_QUERY));
 			} else {
-				query = MessageFormat.format(contentTypeWithoutTagQuery, categoryValue, getContentTypesPrams("search"), isocode);
+				query = MessageFormat.format(contentTypeWithoutTagQuery, categoryValue, getContentTypesPrams(WatersConstants.SEARCH_TYPE_QUERY), isocode);
 			}
 		} else {
 			query = MessageFormat.format(documentQuery, categoryValue, isocode, getDocNumber());
@@ -226,9 +226,9 @@ public final class Resources implements ComponentExporter {
 
 		if (StringUtils.equalsIgnoreCase(listType, "tags")) {
 			if (!getTags().equals("[]")) {
-				query = MessageFormat.format(contentTypeWithTagQuery, getCategory(), getContentTypesPrams("resource"), isocode, getTagsPrams("resource"));
+				query = MessageFormat.format(contentTypeWithTagQuery, getCategory(), getContentTypesPrams(WatersConstants.RESOURCE_TYPE_QUERY), isocode, getTagsPrams(WatersConstants.RESOURCE_TYPE_QUERY));
 			} else {
-				query = MessageFormat.format(contentTypeWithoutTagQuery, getCategory(), getContentTypesPrams("resource"), isocode);
+				query = MessageFormat.format(contentTypeWithoutTagQuery, getCategory(), getContentTypesPrams(WatersConstants.RESOURCE_TYPE_QUERY), isocode);
 			}
 		} else {
 			query = MessageFormat.format(documentQuery, getCategory(), isocode, getDocNumber());
