@@ -125,6 +125,14 @@ public final class WatersConstants {
     public static final String TAG_CONTENT_TYPE_PATH = "/content/cq:tags/waters/contenttype";
     
     public static final String TAG_ROOT_PATH = "/content/cq:tags/waters";
+
+    public static final String RESOURCE_TYPE_QUERY = "resource";
+
+    public static final String SEARCH_TYPE_QUERY = "search";
+
+    public static final String CATEGORY_TYPE_LIBRARY = "library:Library";
+
+    public static final String CATEGORY_TYPE_SUPPORT_LIBRARY = "support%20library:Support%20Library";
     
     private WatersConstants() {
 
