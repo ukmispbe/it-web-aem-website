@@ -146,7 +146,7 @@ class SkuListSpecifications extends React.Component {
                             </a>
                         </div>
                     ) : null}
-                    <div className="col-lg col-lg-6 end-lg">{signIn}</div>
+                    <div className="col-lg end-lg">{signIn}</div>
                 </div>
 
                 {!hasError && (

@@ -24,8 +24,16 @@
         svg {
             width: $icon-m;
             height: $icon-m;
-            margin-bottom: -3px;
+            margin-bottom: -8px;
             margin-right: .25em;
+            .st0 {
+                stroke: $color-link;
+            }
+        }
+        a:hover {
+            svg .st0 {
+                stroke: $color-link-hover;
+            }
         }
     }
     &__top-content {
