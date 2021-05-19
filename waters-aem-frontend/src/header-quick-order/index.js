@@ -8,6 +8,8 @@ import MobileNav from '../scripts/mobileNav';
 import domElements from '../scripts/domElements';
 import { addQuickOrderLink, removeQuickOrderLink } from '../scripts/mobileQuickOrderLink';
 import { replaceCountryAndLanguage } from '../utils/eCommerceFunctions';
+import { isCommerceHidden } from '../utils/eCommerceFunctions';
+import { TOP_BAR_NAV_QUICK_ORDER_HIDE } from '../constants/index';
 
 class HeaderQuickOrder extends React.Component {
     constructor(props) {
@@ -67,13 +69,15 @@ class HeaderQuickOrder extends React.Component {
     }
 
     hideOnMobile = isMobile => {
-        const hideQuickOrderOnHeader = "top-bar__nav__quick-order--hide";
         if (this.headerNav && this.headerNav.classList) {
             if (isMobile) {
-                this.headerNav.classList.add(hideQuickOrderOnHeader);
+                this.headerNav.classList.add(TOP_BAR_NAV_QUICK_ORDER_HIDE);
                 addQuickOrderLink();
             } else {
-                this.headerNav.classList.remove(hideQuickOrderOnHeader);
+                // Display only if not Commerce Hidden           
+                if (!isCommerceHidden()) {
+                    this.headerNav.classList.remove(TOP_BAR_NAV_QUICK_ORDER_HIDE);
+                }             
                 removeQuickOrderLink();
             }
         }

@@ -34,5 +34,8 @@ export const SUPPORT_TYPE = 'supportType';
 export const CO2_BULK = 'CO2_BULK';
 export const EPROC_LOCALE_LANGUAGE = 'en';
 export const WIDTHS = ["128", "140", "256", "320", "375", "620", "770", "1280"];
+export const TOP_BAR_NAV_CART_HIDE = "top-bar__nav__cart--hide";
+export const TOP_BAR_NAV_QUICK_ORDER_HIDE = "top-bar__nav__quick-order--hide";
+
 
 

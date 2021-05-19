@@ -12,7 +12,7 @@ import {
 import {EPROC_LOCALE_LANGUAGE} from '../constants'
 // This function determines the eCommerce Status of the User / Country combination
 // The eCommerce status is determined from the "data-ecommerce-state" which is returned in the header Navigation
-export const isCartHidden = () => {
+export const isCommerceHidden = () => {
     let eCommStatus;
     const headerNavigation_cartLI = document.querySelector('.top-bar__nav__cart');    
     if (headerNavigation_cartLI) {
