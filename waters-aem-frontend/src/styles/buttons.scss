@@ -7,7 +7,7 @@ button.cmp-button {
     color: $color-font-light;
     text-transform: uppercase;
     background-color: $color-blue-50;
-    border: $border-link;
+    border: $border-transparent;
     transition: $hover-transition;
     text-decoration: none;
     display: inline-block;
@@ -19,12 +19,12 @@ button.cmp-button {
 
     &:hover {
         background-color: $color-blue-70;
-        border: $border-link-hover;
+        border: $border-transparent;
     }
 
     &:active {
         background-color: $color-blue-50;
-        border: $border-link;
+        border: $border-transparent;
         color: $color-font-light;
     }
 
