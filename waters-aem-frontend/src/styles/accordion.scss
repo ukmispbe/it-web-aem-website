@@ -45,6 +45,8 @@
             margin-right: $space-xs;
 
             svg {
+                height: $icon-m;
+                width: $icon-m;
                 .st0,
                 .st1 {
                     stroke: $color-icon;
