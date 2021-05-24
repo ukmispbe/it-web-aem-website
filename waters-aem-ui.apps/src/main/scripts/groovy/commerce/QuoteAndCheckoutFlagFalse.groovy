@@ -4,13 +4,9 @@ sites.each { site ->
     try {
         def page = getPage("/content/waters/${site}")
         def node = page.node
-        if(node && (node.hasProperty("quoteDisabled") || node.hasProperty("checkoutDisabled"))) {
-            if (node.hasProperty("quoteDisabled")) {
-                node.setProperty("quoteDisabled", false);
-            } 
-            if (node.hasProperty("checkoutDisabled")) {
-                node.setProperty("checkoutDisabled", false);
-            }
+        if(node != null) {
+            node.getProperty('quoteDisabled').remove()
+            node.getProperty('checkoutDisabled').remove()
             session.save()
             activate(node.path)
             println "Path: "+node.path
