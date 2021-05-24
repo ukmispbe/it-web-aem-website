@@ -1,5 +1,5 @@
 def sites = ["us"] // "at", "de","ch", "au","ca", "be","cz","dk","ee","fi","gb","hk","id","ie","in","is","lt","lv","my","nl","no","nz","ph","pl","sg","se","th","us","xg","hu","vn","pr","be","fr","ca","ch","xg", "br","pt", "cn", "tw", "jp","mx","es","xg","it","kr","us"
-count = 0
+
 sites.each { site ->
     try {
         def nodePath = "/content/waters/${site}"
