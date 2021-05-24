@@ -2,19 +2,18 @@ def sites = ["us"] // "at", "de","ch", "au","ca", "be","cz","dk","ee","fi","gb",
 
 sites.each { site ->
     try {
-        def nodePath = "/content/waters/${site}"
-        getPage("/content/waters/${site}").recurse {page ->
-            def content = page.node
-            if(content && (content.hasProperty("quoteDisabled") || content.hasProperty("checkoutDisabled"))) {
-                if (content.hasProperty("quoteDisabled")) {
-                    content.set("quoteDisabled", false);
-                } 
-                if (content.hasProperty("checkoutDisabled")) {
-                    content.set("checkoutDisabled", false);
-                }
-                session.save()
-                activate(content.path)
+        def page = getPage("/content/waters/${site}")
+        def node = page.node
+        if(node && (node.hasProperty("quoteDisabled") || node.hasProperty("checkoutDisabled"))) {
+            if (node.hasProperty("quoteDisabled")) {
+                node.setProperty("quoteDisabled", false);
+            } 
+            if (node.hasProperty("checkoutDisabled")) {
+                node.setProperty("checkoutDisabled", false);
             }
+            session.save()
+            activate(node.path)
+            println "Path: "+node.path
         }
     } catch (Exception e) {
         println "Exception Occurred while fetching path" + e
