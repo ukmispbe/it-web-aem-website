@@ -403,3 +403,13 @@
         min-height: auto;
     }
 }
+
+.cmp-container--hide-on-mobile {
+    .cmp-container {
+      .cmp-container__background-image img {
+        @include mobile {
+          display: none;
+        }
+      }
+    }
+  }

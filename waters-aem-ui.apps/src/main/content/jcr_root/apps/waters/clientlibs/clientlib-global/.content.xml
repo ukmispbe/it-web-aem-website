@@ -5,4 +5,4 @@
           allowProxy="{Boolean}true"
           categories="[waters.global]"
           cssProcessor="[min:none]"
-          dependencies="[waters.vendor,waters.react_vendor,waters.utility]"/>
+          dependencies="[waters.corejs_vendors,waters.vendor,waters.react_vendor,waters.utility,waters.corejs_vendors,waters.cssponyfill_vendors,waters.reactautosuggest_vendors,waters.reactprop_vendors]"/>

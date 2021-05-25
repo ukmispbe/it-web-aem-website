@@ -1,0 +1,87 @@
+.cmp-accordion {
+    display: block;
+    margin: 0;
+    padding: 0;
+
+    .cmp-accordion__item {
+        position: relative;
+    }
+
+    button.cmp-accordion__button {
+        font-family: $font-stack;
+        font-weight: inherit;
+        line-height: inherit;
+        color: inherit;
+        letter-spacing: inherit;
+        display: block;
+        position: relative;
+        cursor: pointer;
+        border: 0;
+        width: 100%;
+        text-align: left;
+        border-top: $border-medium;
+        background-color: $color-white;
+        padding: $space-xs $space-s $space-xs 0;
+        margin: 0;
+        text-decoration: none;
+        &:hover {
+            .cmp-accordion__title {
+                color: $color-link;
+            }
+            .cmp-accordion__icon {
+                & svg .st0,
+                .st1 {
+                    stroke: $color-link;
+                }
+            }
+        }
+
+        .cmp-accordion__icon {
+            position: absolute;
+            display: inline-block;
+            height: $icon-m;
+            width: $icon-m;
+            right: 0;
+            margin-right: $space-xs;
+
+            svg {
+                height: $icon-m;
+                width: $icon-m;
+                .st0,
+                .st1 {
+                    stroke: $color-icon;
+                    stroke-width: 1.25px;
+                }
+            }
+
+            .expandIcon {
+                display: block;
+            }
+
+            .collapseIcon {
+                display: none;
+            }
+        }
+
+        &--expanded {
+            .cmp-accordion__icon {
+                .expandIcon {
+                    display: none;
+                }
+                .collapseIcon {
+                    display: block;
+                }
+            }
+        }
+    }
+    &__panel {
+        padding: 0;
+        &--hidden {
+            display: none;
+        }
+        &--expanded {
+            display: block;
+            padding-bottom: $space-s;
+        }
+    }
+}

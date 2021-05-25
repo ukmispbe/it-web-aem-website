@@ -6,12 +6,13 @@ import ServletService from '../element-creators/services/servletService';
 import SystemWideNotification from '../element-creators/systemWideNotification';
 import SessionStore from '../stores/sessionStore';
 import inlineSVG from '../scripts/inlineSVG';
-import { isCartHidden } from '../utils/eCommerceFunctions';
+import { isCommerceHidden } from '../utils/eCommerceFunctions';
+import { TOP_BAR_NAV_CART_HIDE, TOP_BAR_NAV_QUICK_ORDER_HIDE } from '../constants/index';
 
 const sessionStore = new SessionStore();
 
 let headerTB, headerTB_user,  headerTB_mobile, headerTB_mobile_btn, headerNavigation_comp, 
-    headerNavigation_mainUL, headerNavigation_cartLI;
+    headerNavigation_mainUL, headerNavigation_cartLI, headerNavigation_quickOrderLI;
 
 const headerInit = function() {
     domReferences();
@@ -29,6 +30,7 @@ function domReferences() {
     headerNavigation_comp = document.querySelector('.cmp-header__navigation nav.cmp-navigation');
     headerNavigation_mainUL = document.querySelector('.cmp-header__navigation nav.cmp-navigation');
     headerNavigation_cartLI = document.querySelector('.top-bar__nav__cart');    
+    headerNavigation_quickOrderLI = document.querySelector('.top-bar__nav__quick-order');
 }
 
 function addEventListeners() { 
@@ -43,12 +45,18 @@ function addEventListeners() {
 
 function render() { 
     // Show or Hide Cart Icon dependent upon eCommerce Status
-    const hideCartClass = "top-bar__nav__cart--hide"
-    if (isCartHidden()) {
-        domElements.addClass(headerNavigation_cartLI, hideCartClass);
-    }
-    else {
-        domElements.removeClass(headerNavigation_cartLI, hideCartClass);
+    if (headerNavigation_cartLI && headerNavigation_quickOrderLI) {
+        if (isCommerceHidden()) {
+            domElements.addClass(headerNavigation_cartLI, TOP_BAR_NAV_CART_HIDE);
+            domElements.addClass(headerNavigation_quickOrderLI, TOP_BAR_NAV_QUICK_ORDER_HIDE);
+        }
+        else {
+            domElements.removeClass(headerNavigation_cartLI, TOP_BAR_NAV_CART_HIDE);
+            // Quick Order in Header is hidden on Mobile
+            if (!ScreenSizes.isMobile()) {
+                domElements.removeClass(headerNavigation_quickOrderLI, TOP_BAR_NAV_QUICK_ORDER_HIDE);
+            }           
+        }
     }
 
     const loggedInClass = 'loggedIn';

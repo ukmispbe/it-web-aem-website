@@ -75,7 +75,11 @@ if (header && MyAccountDropDownContainer) {
 
 const headerSearchBarContainer = document.getElementById('header-search-bar');
 const headerMobileSearchContainer = document.getElementById('mobile-header-search-container');
-const categoriesConfig = JSON.parse(document.getElementById('header-categories-json').innerHTML);
+const categoriesJson = document.getElementById('header-categories-json');
+let categoriesConfig = {};
+if (categoriesJson) {
+    categoriesConfig = JSON.parse(categoriesJson.innerHTML);
+}
 if (headerMobileSearchContainer && headerSearchBarContainer && header) {
     const data = getAuthoredDataForSearchBar(headerSearchBarContainer, header);
     const searchLabels = {

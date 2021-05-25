@@ -8,7 +8,7 @@ import { setClickAnalytics } from "../analytics";
 import loginStatus from "../scripts/loginStatus";
 import { notLoggedInRedirect } from '../utils/redirectFunctions';
 import Spinner from "../utils/spinner";
-import { isCartHidden, elementLocator } from '../utils/eCommerceFunctions';
+import { isCommerceHidden, elementLocator } from '../utils/eCommerceFunctions';
 import { isEprocurementUserRole, getShipOrBillChangeFlag, isSoftwareManager } from '../utils/userFunctions';
 import ScreenSizes from '../scripts/screenSizes';
 
@@ -60,7 +60,7 @@ const Aside = props => {
 
 const Tile = ({tile, pathname}) => {
 
-    if ((tile.requiresEcommerce === "true" && isCartHidden()) || (tile.isHiddenForEprocUser === "true" && isEprocurementUserRole())) {
+    if ((tile.requiresEcommerce === "true" && isCommerceHidden()) || (tile.isHiddenForEprocUser === "true" && isEprocurementUserRole())) {
         return <></>;
     }
     if (tile.requiresSoftwareManager && tile.requiresSoftwareManager === "true" && (isSoftwareManager() === 0 || ScreenSizes.isTabletAndUnder())) {

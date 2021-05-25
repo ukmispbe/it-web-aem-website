@@ -32,7 +32,7 @@ import com.citytechinc.cq.component.annotations.widgets.rte.SubSuperscript;
 import com.citytechinc.cq.component.annotations.widgets.rte.UISettings;
 import com.day.cq.wcm.api.designer.Style;
 
-@Component(value = "FeatureCards", description = "This is the Feature Cards component for Waters site.", listeners = {
+@Component(value = "Feature Card", description = "This is the Feature Cards component for Waters site.", listeners = {
 		@Listener(name = EVENT_AFTER_EDIT, value = REFRESH_PAGE),		
 		@Listener(name = EVENT_AFTER_COPY, value = REFRESH_PAGE),
 		@Listener(name = EVENT_AFTER_MOVE, value = REFRESH_PAGE),
