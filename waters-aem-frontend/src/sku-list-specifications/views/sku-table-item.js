@@ -163,18 +163,7 @@ class SkuTableItem extends React.Component {
     };
 
     toggleModal = () => {
-        this.setState({ modalShown: !this.state.modalShown }, () => {
-            if (SkuDetails.exists()) {
-                if (!this.state.modalShown) {
-                    const SKUDetailsSticky = Sticky.findStickyEl(
-                        SkuDetails.element
-                    );
-                    if (SKUDetailsSticky) {
-                        Sticky.conditionsToStick(SKUDetailsSticky);
-                    }
-                }
-            }
-        });
+        this.setState({ modalShown: !this.state.modalShown });
     };
 
     addToCartBody = () => {
