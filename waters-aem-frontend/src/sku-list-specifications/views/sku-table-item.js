@@ -282,11 +282,7 @@ class SkuTableItem extends React.Component {
                 <>
                     <span
                         className={`item col-lg col-lg-1 small cmp-sku-list-specs-item__list-price ${
-                            LoginStatus.state() &&
-                            custPrice &&
-                            custPrice !== listPrice
-                                ? 'strike'
-                                : ''
+                            LoginStatus.state() ? 'strike' : ''
                         }`}
                     >
                         {priceLoading ? (
