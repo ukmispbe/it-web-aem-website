@@ -42,6 +42,26 @@ class SkuListSpecifications extends React.Component {
         }
     };
 
+    // Filter sku's and sort them as per skuList authored
+    getSortedSkuData(skuList = [], skuData = []) {
+        return skuData
+            .map(function (item) {
+                let index =
+                    item && item.skucode ? skuList.indexOf(item.skucode) : -1;
+                if (index < 0) {
+                    return '';
+                } else {
+                    skuList[index] = '';
+                    return [index, item];
+                }
+            })
+            .filter((item) => !!item)
+            .sort()
+            .map(function (item) {
+                return item[1];
+            });
+    }
+
     getSkuList() {
         const { config } = this.props;
         const skuList =
@@ -58,19 +78,16 @@ class SkuListSpecifications extends React.Component {
 
         const requestHandler = (res) => {
             if (res) {
-                let skuData = (res.documents || []).slice(0, config.skuCount);
+                let skuData = skuList.length
+                    ? res.documents || []
+                    : (res.documents || []).slice(0, config.skuCount);
                 if (!skuData.length) {
                     this.setState({ skuList: skuData, hasError: true });
                     return;
                 }
                 if (skuList.length) {
-                    skuData = skuData.filter((item) => {
-                        return (
-                            item &&
-                            item.skucode &&
-                            skuList.indexOf(item.skucode) !== -1
-                        );
-                    });
+                    skuData = this.getSortedSkuData(skuList, skuData);
+                    skuData;
                     this.fetchSkuData(
                         { fetchProductsUrl: config.fetchProductsUrl || '' },
                         updateTotalCountHandler
