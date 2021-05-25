@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SkuTable /> should render with sku data  1`] = `ShallowWrapper {}`;
+
+exports[`<SkuTable /> should render without throwing an error 1`] = `ShallowWrapper {}`;
