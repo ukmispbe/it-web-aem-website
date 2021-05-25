@@ -1,0 +1,3 @@
+#base=.
+
+react_player_vendors.js

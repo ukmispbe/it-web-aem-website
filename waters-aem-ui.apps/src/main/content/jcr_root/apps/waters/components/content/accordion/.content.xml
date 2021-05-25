@@ -3,5 +3,7 @@
     jcr:description="This is the Accordion component for Waters site"
     jcr:primaryType="cq:Component"
     jcr:title="Accordion"
+    cq:isContainer="{Boolean}true"
+    cq:icon="panel"
     sling:resourceSuperType="core/wcm/components/accordion/v1/accordion"
     componentGroup="Waters" />

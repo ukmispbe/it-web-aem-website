@@ -5,6 +5,7 @@ import com.google.common.base.Predicates;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.api.page.PageManagerDecorator;
 import com.icfolson.aem.library.core.constants.PathConstants;
+import com.waters.aem.solr.client.SolrIndexClientConfiguration;
 import com.waters.aem.solr.index.SolrIndexService;
 
 import org.apache.commons.lang3.StringUtils;
@@ -29,7 +30,9 @@ import org.apache.solr.client.solrj.SolrServerException;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Modified;
 import org.osgi.service.component.annotations.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -86,6 +89,7 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 	private static final int SOLR_PORT = 8983;
 	private volatile boolean fullIndexInProgress = false;
 	private volatile String collectionName;
+	private boolean enableDeleteOldCollections = false;
 
 	private static final Logger LOG = LoggerFactory.getLogger(SolrRecoveryServlet.class);
 
@@ -112,7 +116,6 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 		final boolean fullIndex = Boolean.parseBoolean(request.getParameter("fullIndex"));
 		final String solrHostUrl = (String) props.get("solrHostName");
 		ForkJoinPool forkJoinPool = getForkJoinPool(props);
-		final boolean enableDeleteOldCollections = (boolean) props.get("enableDeleteOldCollections");
 
 		final PageDecorator page = getPage(request, pagePath);
 
@@ -122,13 +125,13 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 			try {
 				success = getFullIndexingStatus(request, props, enableAuthentication, solrHostUrl, enableBatchIndexing);
 			} catch (Exception e) {
-				LOG.error("Exception occurred in creating Alias : {}", e.getMessage());
+				LOG.error("Exception occurred in creating getFullIndexingStatus method : {}", e.getMessage());
 			}
 			if (success) {
 				try {
-					createAlias(collectionName, enableAuthentication, solrHostUrl, enableDeleteOldCollections);
+					createAlias(collectionName, enableAuthentication, solrHostUrl);
 				} catch (IOException | JSONException e) {
-					LOG.error("Exception occurred in creating Alias : {}", e.getMessage());
+					LOG.error("Exception occurred in createAlias method : {}", e.getMessage());
 				}
 			} else
 				LOG.error("Solr Full Indexing was not successful");
@@ -279,12 +282,12 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 				fullIndexInProgress = true;
 				statusLine = getStatusLine(
 						getCollectionActionResponse(collectionName, enableAuthentication, solrHostUrl, CREATE));
-				LOG.info("Collection Created with name : {}", collectionName);
-				LOG.info("The Solr Full Index create collection response status: {}", statusLine);
+				LOG.info("The Solr Full Index Create Collection Response Status: {}", statusLine);
 			}
-			pullLegacyData(collectionName, enableAuthentication, solrHostUrl, FULLTEXT);
-			LOG.info("Legacy data completed Indexing : {}", collectionName);
 			if (enableBatchIndexing && (statusLine != null ? statusLine.getStatusCode() : 0) == 200) {
+				LOG.info("Collection Created with name : {}", collectionName);
+				pullLegacyData(collectionName, enableAuthentication, solrHostUrl, FULLTEXT);
+				LOG.info("Legacy data completed Indexing : {}", collectionName);
 				for (String localePath : pageIndexPaths) {
 					PageDecorator locale = getPage(request, localePath);
 					if (locale != null) {
@@ -299,7 +302,6 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 	}
 	
 	private List<String> getPageIndexPathsList(final SlingHttpServletRequest request) {
-		LOG.info("fullIndexInProgress  flag set to true and indexing is in progress");
 		List<String> indexPaths = new ArrayList<>();
 		PageDecorator watersPage = getPage(request, "/content/waters");
 		if (watersPage != null) {
@@ -323,7 +325,7 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 			String solrHostUrl, String collectionAction) throws MalformedURLException {
 		URIBuilder builder;
 		HttpResponse httpResponse = null;
-		Map<String, String> parameters = getParamaters(collectionAction);
+		Map<String, String> parameters = getParamaters(collectionAction, collectionName);
 		builder = getUriBuilder(solrHostUrl, parameters,
 				StringUtils.equalsAnyIgnoreCase(collectionAction, FULLTEXT) ? "/solr/" + collectionName + "/dataimport"
 						: "/solr/admin/collections");
@@ -340,7 +342,7 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 		return httpResponse;
 	}
 	
-	private Map<String, String> getParamaters(final String collectionAction) {
+	private Map<String, String> getParamaters(final String collectionAction, final String collectionName) {
 		Map<String, String> parameters = new HashMap<>();
 		switch (collectionAction) {
 		case FULLTEXT:
@@ -473,8 +475,7 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 		}
 	}
 	
-	private void createAlias(String collectionName, boolean enableAuthentication, String solrHostUrl,
-			final boolean enableDeleteOldCollections) throws IOException, JSONException {
+	private void createAlias(String collectionName, boolean enableAuthentication, String solrHostUrl) throws IOException, JSONException {
 		HttpResponse httpResponse;
 		StatusLine statusLine = null;
 		String collectionAlias = null;
@@ -493,7 +494,8 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 					collectionAlias = aliases.get(WATERS).toString();
 				}
 				if (enableDeleteOldCollections) {
-					getCollectionListAndDeleteOldCollections(collectionName, enableAuthentication, solrHostUrl, collectionAlias);
+					getCollectionListAndDeleteOldCollections(collectionName, enableAuthentication, solrHostUrl,
+							collectionAlias);
 				}
 			} else
 				LOG.error(ERROR, statusLine);
@@ -526,6 +528,7 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 				String oldCollectionName = iterator.next();
 				if (!StringUtils.equalsAnyIgnoreCase(oldCollectionName, collectionAlias)) {
 					collectionAction = DELETE;
+					LOG.info("Old Collection Name to be deleted : {}", oldCollectionName);
 					statusLine = getStatusLine(getCollectionActionResponse(oldCollectionName, enableAuthentication,
 							solrHostUrl, collectionAction));
 					LOG.info("The Solr Full Index Delete Collections response status: {}", statusLine);
@@ -534,5 +537,12 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 		} else
 			LOG.error(ERROR, statusLine);
 	}
+
+	@Activate
+	@Modified
+    private void activate(final SolrIndexClientConfiguration config)
+	{  
+        enableDeleteOldCollections  = config.enableDeleteOldCollections();        
+    }
 
 }

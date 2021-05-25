@@ -1,16 +1,12 @@
-<div data-sly-use.resources="com.waters.aem.core.components.content.Resources">
-	
-	<h3>${resources.title  @ i18n, context='html'}</h3>
-	<script type="application/json" id=${resources.id}>
-        {
-            "ContentType": "${resources.contentType @ i18n, context='html'}",
-            "Tags": "${resources.tags @ i18n, context='html'}",
-			"MaxItems": "${resources.maxItems  @ i18n, context='html'}",
-            "DocumentNumber": "${resources.docNumber @ context='html'}"
+<div
+	data-sly-use.resources="com.waters.aem.core.components.content.Resources"
+	data-title="${resources.title}"
+	data-view-all="${'View All' @ i18n, context='unsafe'}"
+	data-multiple-icon="/content/dam/waters/en/brand-assets/icons/multiple.svg"
+	data-search-result-query="${resources.searchResultQuery @ context='html'}"
+	data-resource-query="${resources.resourcesQuery @ context='html'}"
+	class="cmp-resources" id="${resources.id}"></div>
 
-        }
-    </script>
-</div>
-
-<sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
-     data-sly-call="${patterns.placeholder @ show=!resources.title, text=component.title}"/>
+<sly
+	data-sly-use.patterns="/apps/waters/components/content/patterns.html"
+	data-sly-call="${patterns.placeholder @ show=true, text=component.title}" />

@@ -10,6 +10,7 @@ import LegalLinkModal from './legal-link-modal/LegalLinkModal';
 
 const SkuDetails = React.lazy(() => import(/* webpackChunkName: "skudetails" */ './sku-details'));
 const SkuList = React.lazy(() => import(/* webpackChunkName: "skulist" */ './sku-list'));
+import SkuListSpecifications from './sku-list-specifications';
 import SkuMessage from './sku-message';
 
 import {
@@ -33,6 +34,7 @@ import LoginStatus from "./scripts/loginStatus";
 import CreateAccountForm from './create-account-form';
 import CreateRequestForm from './create-request-form';
 import HeaderQuickOrder from './header-quick-order';
+import Resource from './resource';
 
 import Spinner from './utils/spinner';
 
@@ -69,6 +71,18 @@ function getAuthoredDataForTagCloud(h, t) {
         tagTitle: t.dataset.title,
         category: t.dataset.category,
         contentType: t.dataset.contentType
+    };
+}
+
+function getAuthoredDataForResource(h, s, r) {
+    return {
+        searchPath: h ? h.dataset.searchPath : '',
+        searchBaseUrl: s ? s.dataset.baseUrl : '',
+        title: r.dataset.title,
+        resourceQuery: r.dataset.resourceQuery,
+        searchResultQuery: r.dataset.searchResultQuery,
+        viewAll: r.dataset.viewAll,
+        multipleIcon: r.dataset.multipleIcon
     };
 }
 
@@ -270,6 +284,35 @@ if (skuListContainer) {
     );
 }
 
+// Start SKU List Specifications Component
+const skuListSpecificationsContainer = document.querySelector(
+    '#cmp-sku-list-specifications'
+);
+const skulistwithspecifications = document.getElementById('cmp-skulistwithspecifications-json');
+let skuListSpecificationsJson = {};
+if (skulistwithspecifications) {
+    skuListSpecificationsJson = JSON.parse(skulistwithspecifications.innerHTML);
+}
+
+if (skuListSpecificationsContainer && skuListSpecificationsJson) {
+    const searchPath =
+        (header && header.dataset && header.dataset.searchPath) || '';
+    const componentTitle = skuListSpecificationsJson && skuListSpecificationsJson.componentTitle || '';
+    ReactDOM.render(
+        <Suspense fallback={<div>Loading...</div>}>
+            <SkuListSpecifications
+                config={{
+                    ...skuDetailsConfig,
+                    ...skuListSpecificationsJson,
+                    searchPath,
+                }}
+                title={componentTitle}
+            />
+        </Suspense>,
+        skuListSpecificationsContainer
+    );
+}
+
 const skuUnavailableContainer = document.querySelector(
     '.cmp-notification-wrapper'
 );
@@ -438,7 +481,7 @@ if (registrationFormContainer) {
 
     // Set Country list url
     configRegistrationForm.countryListUrl = headerRef.dataset.countryListUrl ? headerRef.dataset.countryListUrl : '';
-    
+
     const registrationAddressForm = {
         config: configRegistrationAddressForm,
         callback: headerData.userDetailsUrl,
@@ -703,4 +746,18 @@ if (headerQuickOrderContainer) {
         <Suspense fallback={<div>Loading...</div>}><HeaderQuickOrder {...headerQuickOrderProps} skuConfig={skuData} /></Suspense>,
         headerQuickOrderContainer
     );
+}
+
+// Resource
+const resourceContainers = document.querySelectorAll('.cmp-resources');
+
+if (resourceContainers) {
+    const searchBar = document.getElementById('header-search-bar');
+    for (let i = 0; i < resourceContainers.length; i++) {
+        const data = getAuthoredDataForResource(header, searchBar, resourceContainers[i]);
+        ReactDOM.render(
+            <Resource {...data} />,
+            resourceContainers[i]
+        );
+    }
 }

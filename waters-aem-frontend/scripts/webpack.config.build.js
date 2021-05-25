@@ -2,6 +2,8 @@ const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const FixStyleOnlyEntriesPlugin = require("webpack-fix-style-only-entries");
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const vendorConfig = require('./vendorConfig.js');
 
 const entriesCSS = {
     container: './src/styles/container.scss',
@@ -29,32 +31,14 @@ module.exports = {
     optimization: {
         splitChunks: {
             maxInitialRequests: Infinity,
-            cacheGroups: {
-                reactVendor: {
-                    name: 'react_vendors',
-                    test: /[\\/]node_modules[\\/](react|react-dom|prop-types|query-string|react-svg|react-router|react-router-dom|validator|react-paginate|whatwg-fetch|react-autosuggest|react-html-parser|react-spinners|es6-promise|react-hook-form)[\\/]/,
-                    chunks: 'all',
-                    priority: 3
-                },
-                vendor: {
-                    name: 'node_vendors',
-                    test: /[\\/]node_modules[\\/]/,
-                    chunks: 'all',
-                    priority: 2
-                },
-                utility: {
-                    name: 'utility',
-                    test: /[\\/]utils|scripts|typography|stores[\\/]/,
-                    chunks: 'all',
-                    priority: 3
-                }
-            }
+            cacheGroups: vendorConfig
         },
         minimizer: [
             new OptimizeCSSAssetsPlugin({})
         ]
     },
     plugins: [
+        // new BundleAnalyzerPlugin(),
         new FixStyleOnlyEntriesPlugin(),
         new MiniCssExtractPlugin({
             filename: '[name].css',

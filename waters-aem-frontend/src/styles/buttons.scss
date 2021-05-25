@@ -7,6 +7,7 @@ button.cmp-button {
     color: $color-font-light;
     text-transform: uppercase;
     background-color: $color-blue-50;
+    border: $border-transparent;
     transition: $hover-transition;
     text-decoration: none;
     display: inline-block;
@@ -18,10 +19,12 @@ button.cmp-button {
 
     &:hover {
         background-color: $color-blue-70;
+        border: $border-transparent;
     }
 
     &:active {
         background-color: $color-blue-50;
+        border: $border-transparent;
         color: $color-font-light;
     }
 
@@ -49,6 +52,7 @@ button.cmp-button--disabled {
     color: $color-font-light;
     text-transform: uppercase;
     background-color: $color-disabled;
+    border: $border-disabled;
 }
 
 .cmp-button--secondary button.cmp-button,
@@ -128,6 +132,7 @@ button.cmp-button--cancel {
     text-transform: capitalize;
     color: $color-link;
     padding: 0;
+    border: 0;
     margin: $space-xs $space-l;
     margin-bottom: ($space-xs + $space-l);
 
