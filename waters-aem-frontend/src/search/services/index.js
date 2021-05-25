@@ -64,7 +64,11 @@ class SearchService {
         sort = parameterDefaults.sort,
     }) => {
         const keyword = skuList.join(' ');
-        const searchString = `${this.path}${fetchProductsUrl}&isocode=${this.options.isocode}`;
+        const searchString = `${this.path}${
+            fetchProductsUrl.startsWith('/')
+                ? fetchProductsUrl
+                : '/' + fetchProductsUrl
+        }&isocode=${this.options.isocode}`;
 
         if (skuList.length) {
             return this.getResultsByCategory({ keyword, category: 'Shop' })
