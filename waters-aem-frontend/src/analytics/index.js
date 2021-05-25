@@ -67,6 +67,9 @@ class Analytics {
             case "form":
                 returnModel = this.mapFormModel(model);
                 break;
+            case "quickOrder":
+                returnModel = this.mapQuickOrderModel(model);
+                break;
             default:
                 returnModel = model;
                 break;
@@ -103,6 +106,14 @@ class Analytics {
         }
     }
 
+    mapQuickOrderModel = model => {
+        return {
+            detail: {
+                cart: model.cart
+            }
+        }
+    }
+
     mapSearchModel = (model) => {
         if (!model) {
             return {};
@@ -135,7 +146,7 @@ class Analytics {
     dispatchEvent = (eventName, model) => {
         model = this.getUserData(model);
         // Uncomment next two lines to test analytics
-        // console.log(eventName, model);
+        //console.log(eventName, model);
         // alert(eventName);
         document.dispatchEvent(new CustomEvent(eventName, model));
     }
