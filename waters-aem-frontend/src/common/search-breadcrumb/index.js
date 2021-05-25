@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ScreenSizes from '../../scripts/screenSizes'
 import { getNamedHeaderLink } from '../../utils/redirectFunctions';
 import EllipsisText from "react-ellipsis-text";
+import { isEprocurementUser } from '../../utils/userFunctions';
 
 const SearchBreadcrumb = (props) => {
     
@@ -17,6 +18,11 @@ const SearchBreadcrumb = (props) => {
         let title = linkInfo.title;
         if (title === "All") {
             title = props.text.allCategoriesText;
+        }
+
+        // Don't display the Shop Link in the Breadcrumb for EProc, The Search link for EProc points to Shop ie Duplicate links
+        if (title === "Shop" && isEprocurementUser()) {
+            return null;
         }
 
         // Call the clearSession Function if it's a Search link or a Keyword Link. (Have to  take into account a spelling suggestion)
